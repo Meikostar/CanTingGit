@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#FF2A93FF"
+
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:padding="5dp"
+            android:id="@+id/zhuye_geren"
+            android:layout_width="22dp"
+            android:layout_height="29dp"
+            android:src="@drawable/back_white"
+            android:layout_marginRight="5dp"
+            />
+
+        <FrameLayout
+            android:layout_centerVertical="true"
+            android:layout_centerInParent="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:gravity="center"
+                android:id="@+id/serch_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/x80"
+                android:text="@string/wgzdzb"
+                android:textColor="#fff"
+                android:textSize="18sp" />
+
+        </FrameLayout>
+        <TextView
+             android:visibility="invisible"
+            android:paddingRight="14dp"
+            android:layout_weight="0.8"
+            android:id="@+id/tv_city"
+            android:textColor="@color/white"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:gravity="center|right"
+            android:text="@string/hmd"
+            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            />
+        <RelativeLayout
+
+            android:layout_width="0dp"
+            android:layout_height="100px">
+            <ImageView
+                android:visibility="gone"
+                android:scaleType="fitXY"
+                android:layout_centerInParent="true"
+                android:id="@+id/zhuye_saoyisao"
+                android:layout_width="30px"
+                android:layout_height="40px"
+                android:src="@drawable/i22" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <com.zhongchuang.canting.widget.loadingView.LoadingPager
+        android:layout_weight="1"
+        android:id="@+id/loadingView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/listview"
+            android:background="@color/white"
+            style="@style/lv_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </com.zhongchuang.canting.widget.loadingView.LoadingPager>
+
+
+
+
+
+</LinearLayout>

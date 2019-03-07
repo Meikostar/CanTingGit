@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/fl_rsbd_region"
+    android:background="#661a1a1a">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="bottom">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@color/white">
+
+            <Button
+                android:id="@+id/but_cancel"
+                android:layout_width="57.5dp"
+                android:layout_height="29dp"
+                android:layout_gravity="left|center_vertical"
+                android:layout_marginLeft="11.5dp"
+                android:background="@drawable/line_regle_blue"
+                android:text="@string/cancel"
+                android:textColor="@color/color6" />
+
+            <Button
+                android:id="@+id/but_confirm"
+                android:layout_width="57.5dp"
+                android:layout_height="29dp"
+                android:layout_gravity="right|center_vertical"
+                android:layout_marginRight="11.5dp"
+                android:background="@drawable/shape_bg_lin_cancel"
+                android:text="确定"
+                android:textColor="@color/white" />
+
+        </FrameLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/linecolor"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="#ffffff">
+
+            <com.zhongchuang.canting.widget.CycleWheelView
+                android:id="@+id/cwv_province"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="11.5dp"
+                android:layout_weight="1"/>
+
+            <com.zhongchuang.canting.widget.CycleWheelView
+                android:id="@+id/cwv_city"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

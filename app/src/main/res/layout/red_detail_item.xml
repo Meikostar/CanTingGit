@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/jrmf_b_white">
+         <ImageView
+             android:layout_centerVertical="true"
+             android:layout_marginLeft="13dp"
+             android:id="@+id/iv_img"
+             android:layout_width="40dp"
+             android:layout_height="40dp" />
+
+
+
+        <TextView
+             android:layout_marginTop="13dp"
+              android:layout_toRightOf="@+id/iv_img"
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:textColor="@color/color3"
+            android:textSize="14sp"
+            android:maxLines="1"
+            android:maxWidth="250dp"
+            tools:text="LX"/>
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_name"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="3dp"
+            android:layout_toRightOf="@id/iv_img"
+            android:textColor="@color/color6"
+            android:textSize="14sp"
+            tools:text="11:31"/>
+
+
+        <TextView
+            android:layout_marginTop="13dp"
+            android:id="@+id/tv_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/iv_header"
+            android:layout_marginRight="14dp"
+            android:textColor="@color/color3"
+            android:textSize="14sp"
+            tools:text="1.00元"/>
+
+
+        <TextView
+            android:id="@+id/tv_best"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/tv_name"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="3dp"
+            android:drawableLeft="@mipmap/jrmf_rp_crown"
+            android:drawablePadding="2dp"
+            android:text="@string/sjzj"
+            android:textSize="13sp"
+            android:textColor="#FFFFB961"/>
+
+
+
+
+    </RelativeLayout>
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0.3dp"
+        android:background="@color/linecolor"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"/>
+</LinearLayout>

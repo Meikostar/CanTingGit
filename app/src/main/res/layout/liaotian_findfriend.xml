@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#ededed"
+    >
+
+
+    <RelativeLayout
+        android:background="@color/coofeColor"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <TextView
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textColor="#FFFFFF"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/tjhy"
+            />
+
+
+
+        <ImageView
+            android:padding="3dp"
+            android:layout_centerVertical="true"
+            android:id="@+id/find_bacbut"
+            android:layout_marginLeft="13dp"
+            android:layout_width="15dp"
+            android:layout_height="25dp"
+
+            android:src="@mipmap/arrow_left"
+            />
+        <ImageView
+            android:padding="3dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:id="@+id/iv_scan"
+            android:layout_marginRight="14dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/saoyi"
+            />
+
+    </RelativeLayout>
+
+    <include layout="@layout/ease_search_bar" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/find_frdRecy"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
+
+</LinearLayout>

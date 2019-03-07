@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/selector_common_item"
+
+    android:orientation="vertical">
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:background="@color/content_bg" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="95dp"
+            android:background="@color/white">
+
+            <ImageView
+                android:id="@+id/p_logo"
+                android:layout_width="74dp"
+                android:layout_height="74dp"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="8dp"
+
+                android:scaleType="centerCrop" />
+
+
+            <LinearLayout
+                android:id="@+id/ll_name"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:layout_marginTop="9dp"
+                android:layout_toRightOf="@id/p_logo"
+                android:orientation="horizontal"
+                android:paddingRight="14dp">
+
+                <TextView
+
+                    android:id="@+id/p_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_toRightOf="@id/p_logo"
+                    android:layout_weight="1"
+                    android:maxLines="1"
+                    android:textColor="@color/slow_black"
+                    android:textSize="13sp"
+                    tools:text="" />
+
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/tv_state"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/green_rectangle_lines"
+                    android:padding="3dp"
+                    android:text="直播中"
+                    android:textColor="#00AE09"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <TextView
+
+                android:id="@+id/p_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ll_name"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="6dp"
+                android:layout_toRightOf="@id/p_logo"
+                android:singleLine="true"
+                android:text=""
+                android:textColor="@color/color6"
+                android:textSize="13sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/p_logo"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@id/p_logo"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingRight="14dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#333"
+                    android:textSize="13sp"
+                    android:text="@string/zs" />
+
+                <TextView
+                     android:id="@+id/tv_cout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:textColor="#FF8400"
+                    android:textSize="13sp"
+                    tools:text="  " />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#333"
+                    android:textSize="13sp"
+                    android:text="@string/c" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#333"
+                    android:textSize="13sp"
+                    android:text="    赞赏" />
+                <TextView
+                     android:id="@id/tv_jf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FF8400"
+                    android:textSize="13sp"
+                    android:text="   " />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#333"
+                    android:textSize="13sp"
+                    android:text="@string/jf" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.3dp"
+                android:layout_below="@id/p_logo"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@color/linecolor" />
+
+        </RelativeLayout>
+
+
+
+        <LinearLayout
+            android:id="@+id/ll_bg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="2dp"
+                android:layout_weight="1" />
+
+
+            <TextView
+                android:id="@+id/tv_state2"
+                android:layout_width="60dp"
+                android:layout_height="28dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginRight="16dp"
+                android:background="@drawable/selector_blue"
+                android:gravity="center"
+                android:text="@string/lt"
+                android:textColor="@color/white"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/tv_state3"
+                android:layout_width="85dp"
+                android:layout_height="28dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginRight="16dp"
+                android:background="@drawable/selector_hui"
+
+                android:gravity="center"
+                android:text="@string/jrhmd"
+                android:textColor="@color/white"
+                android:textSize="13sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>
+

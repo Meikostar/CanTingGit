@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="250dp"
+    android:background="@drawable/wite_rectangle3"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="5dp"
+            android:gravity="center"
+            android:text="选择年份"
+            android:textColor="@color/color3"
+            android:textSize="18sp" />
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_marginTop="8dp"
+            android:id="@+id/ll_lel"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_weight="1"
+                android:id="@+id/tv_lel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="5dp"
+                android:gravity="center_vertical"
+                android:text="2018"
+                android:textColor="@color/color3"
+                android:textSize="15sp" />
+
+            <com.zhongchuang.canting.widget.MCheckBox
+                android:layout_marginRight="10dp"
+                android:id="@+id/iv_type1"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:clickable="false"
+                android:padding="11dp"
+                app:canNoClick="false"
+                app:isCheckeds="true"
+                app:drawablechoose="@drawable/kehugou"
+                app:drawables="@drawable/black_line_roud_light"
+                />
+        </LinearLayout>
+        <View
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="0.2dp"
+            android:background="@color/linecolor"/>
+        <LinearLayout
+            android:id="@+id/ll_zb"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/tv_zb"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="5dp"
+                android:gravity="center_vertical"
+                android:text="2019"
+                android:textColor="@color/color3"
+                android:textSize="15sp" />
+
+            <com.zhongchuang.canting.widget.MCheckBox
+                android:layout_marginRight="10dp"
+                android:id="@+id/iv_type2"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:clickable="false"
+                android:padding="11dp"
+                app:canNoClick="false"
+                app:drawablechoose="@drawable/kehugou"
+                app:drawables="@drawable/black_line_roud_light"
+                />
+        </LinearLayout>
+        <View
+            android:layout_marginBottom="26dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="0.2dp"
+            android:background="@color/linecolor"/>
+
+    </LinearLayout>
+
+</LinearLayout>

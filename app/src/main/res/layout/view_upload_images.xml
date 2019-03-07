@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:id="@+id/iv_image_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"/>
+
+        <View
+            android:visibility="gone"
+            android:id="@+id/view_mask"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#66000000"/>
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/tv_ready_upload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="11.5sp"
+            android:text="等待上传"
+            android:textColor="@color/white"/>
+
+        <ProgressBar
+            android:visibility="gone"
+            android:id="@+id/pb_upload_progress"
+            android:layout_marginLeft="21.5dp"
+            android:layout_marginRight="21.5dp"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:layout_centerVertical="true"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+
+            android:progress="55"
+            android:max="100"/>
+
+        <ImageView
+            android:paddingBottom="15dp"
+            android:paddingLeft="15dp"
+            android:id="@+id/iv_delete"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@mipmap/lp_img_delete"
+            android:layout_alignParentRight="true"/>
+
+        <TextView
+            android:id="@+id/tv_main_image"
+            android:layout_width="match_parent"
+            android:layout_height="26dp"
+            android:background="#88333333"
+            android:textColor="@color/white"
+            android:textSize="11.5sp"
+            android:gravity="center"
+            android:text="主图"
+            android:layout_alignParentBottom="true"/>
+
+        <ImageView
+            android:id="@+id/iv_is_video"
+            android:src="@mipmap/lp_img_delete"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_centerInParent="true"
+            />
+
+    </RelativeLayout>
+
+</LinearLayout>

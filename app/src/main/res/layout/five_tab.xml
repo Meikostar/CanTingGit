@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="#fcfcfc"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="41dp"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/ll_nvg_1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_checkbox_text1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="@string/qb"
+                android:textColor="@color/blue"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/iv_checkbox_image1"
+                android:layout_width="55dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/origin_rectangle_line" />
+
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/ll_nvg_2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_checkbox_text2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/dfk"
+                android:textColor="@color/slow_black"
+                android:textSize="14sp"
+                android:layout_centerVertical="true"/>
+
+            <ImageView
+                android:id="@+id/iv_checkbox_image2"
+                android:layout_width="55dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:visibility="gone"
+                android:src="@drawable/origin_rectangle_line"
+                />
+
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/ll_nvg_3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_checkbox_text3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="@string/dfh"
+                android:textColor="@color/slow_black"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:visibility="gone"
+                android:src="@drawable/origin_rectangle_line"
+                android:id="@+id/iv_checkbox_image3"
+                android:layout_width="55dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal" />
+
+
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/ll_nvg_4"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_checkbox_text4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="@string/dsh"
+                android:textColor="@color/slow_black"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:visibility="gone"
+                android:src="@drawable/origin_rectangle_line"
+                android:id="@+id/iv_checkbox_image4"
+                android:layout_width="55dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal" />
+
+
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/ll_nvg_5"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_checkbox_text5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="@string/ysh"
+                android:textColor="@color/slow_black"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:visibility="gone"
+                android:src="@drawable/origin_rectangle_line"
+                android:id="@+id/iv_checkbox_image5"
+                android:layout_width="55dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal" />
+
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

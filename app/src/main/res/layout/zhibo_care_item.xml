@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/y340"
+    android:orientation="vertical"
+    android:layout_marginTop="@dimen/x10"
+    android:background="#FFFFFF"
+    android:layout_margin="@dimen/x10">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y300">
+
+        <ImageView
+            android:id="@+id/care_pic"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+
+            android:id="@+id/care_people_num"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/y40"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="@dimen/x20"
+            android:gravity="center_vertical"
+            android:text="0035人在观看"
+            android:textColor="#C1C0C0"
+            android:textSize="@dimen/x23"
+
+            />
+
+        <TextView
+            android:id="@+id/care_room_name"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y40"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/x20"
+            android:gravity="center_vertical"
+            android:text="厨神多金"
+            android:textColor="#C1C0C0"
+            android:textSize="@dimen/x23"
+
+            />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/care_liver_name"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x40"
+        android:layout_marginLeft="@dimen/x20"
+        android:gravity="center_vertical"
+        android:text="0035直播间"
+        android:textSize="@dimen/x23"
+
+        />
+
+
+</LinearLayout>

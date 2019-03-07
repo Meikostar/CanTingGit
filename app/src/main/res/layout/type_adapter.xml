@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="center">
+
+
+            <RelativeLayout
+                android:id="@+id/rl_bg"
+                android:background="@color/content_bg"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:orientation="horizontal">
+                <View
+                    android:visibility="invisible"
+                    android:id="@+id/line"
+                    android:layout_marginTop="12.5dp"
+                    android:background="@color/blue"
+                    android:layout_width="6dp"
+                    android:layout_height="40dp"
+                    />
+                <TextView
+                    android:layout_centerInParent="true"
+                    android:id="@+id/tv_name"
+
+                    android:textSize="18sp"
+                    android:textColor="@color/slow_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="秘制烤dfdfdsfdsfdsfd鸭"/>
+            </RelativeLayout>
+
+
+
+
+</LinearLayout>

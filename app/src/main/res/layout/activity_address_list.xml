@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/content_bg"
+    android:orientation="vertical">
+
+    <com.zhongchuang.canting.widget.NavigationBar
+        android:id="@+id/navigationBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:navigationLeft_img="@drawable/back_white"
+        app:navigationTitle="@string/dzgl" />
+    <com.zhongchuang.canting.widget.loadingView.LoadingPager
+        android:layout_marginBottom="65dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/navigationBar"
+        android:id="@+id/loadingView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ListView
+
+            android:divider="@color/content_bg"
+            android:id="@+id/listview"
+            style="@style/lv_content"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+    </com.zhongchuang.canting.widget.loadingView.LoadingPager>
+
+    <TextView
+        android:id="@+id/tv_add"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/selector_blue"
+        android:gravity="center"
+        android:text="@string/tjxdz"
+        android:textSize="15sp"
+        android:textColor="@color/white"/>
+
+</RelativeLayout>

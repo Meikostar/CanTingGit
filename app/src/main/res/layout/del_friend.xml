@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+
+    >
+
+    <LinearLayout
+        android:layout_width="260dp"
+        android:layout_height="160dp"
+        android:orientation="vertical"
+        android:background="@drawable/op_circular_bg"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="53dp"
+                android:gravity="center"
+                android:text="删除该友?"
+                android:id="@+id/tv_title"
+                android:textSize="16sp"
+                android:textColor="#333"/>
+
+
+             <EditText
+                 android:visibility="gone"
+                android:paddingLeft="12dp"
+                android:layout_marginTop="27dp"
+                android:id="@+id/edit_reson"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="35dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/blackt_title_rectangle_lights"
+                android:gravity="center_vertical"
+                android:hint="请输入群名"
+                android:text=""
+                android:textColor="#333"
+                android:textColorHint="#cdd1d4"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+
+        <View
+
+            android:layout_width="fill_parent"
+            android:layout_height="0.1dp"
+            android:background="@color/linecolor"/>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txt_cancel"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/cancel"
+                android:textSize="16sp"
+                android:textColor="@color/color9"/>
+
+            <View
+
+                android:id="@+id/line_center"
+                android:layout_width="0.1dp"
+                android:layout_height="fill_parent"
+                android:background="@color/linecolor"/>
+
+            <TextView
+                android:id="@+id/txt_sure"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/qd"
+                android:textSize="16sp"
+                android:textColor="@color/pickerview_timebtn_nor"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

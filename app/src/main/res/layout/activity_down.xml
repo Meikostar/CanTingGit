@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:ywl="http://schemas.android.com/tools"
+    android:background="#fff"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#FF2A93FF"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+
+
+        <ImageView
+            android:visibility="invisible"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="1dp"
+            android:padding="14dp"
+
+            android:src="@mipmap/arrow_left" />
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/x80"
+                android:background="@null"
+                android:gravity="center"
+                android:text="版本更新"
+                android:textColor="#fff"
+                android:textSize="17sp" />
+
+        </FrameLayout>
+
+        <RelativeLayout
+
+            android:layout_width="0dp"
+            android:layout_height="100px"
+            android:layout_weight="1">
+
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/zhuye_saoyisao"
+                android:layout_width="30px"
+                android:layout_height="40px"
+                android:layout_centerInParent="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/i22" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <com.zhongchuang.canting.widget.banner.BannerView
+                android:id="@+id/bannerView"
+                android:layout_width="match_parent"
+                android:layout_height="208dp"
+                app:bannerAnimDuration="1500"
+                app:bannerAnimScroll="true"
+                app:bannerAutoScroll="true"
+                app:bannerPageAlpha="1.0"
+                app:bannerPageMargin="8dp"
+                app:bannerPagePercent="1"
+                app:bannerPageScale="1"
+                app:bannerScrollDuration="4000" />
+
+
+            <LinearLayout
+                android:paddingTop="15dp"
+                android:background="@color/white"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/person_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/person_pic"
+                    android:gravity="center"
+                    android:text="关于我们"
+                    android:textColor="#333"
+                    android:textSize="18sp" />
+                <TextView
+                    android:layout_marginBottom="30dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="8dp"
+                    android:id="@+id/person_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="#FF666666"
+                    android:textSize="15sp" />
+            </LinearLayout>
+           <com.zhongchuang.canting.widget.DownLoadProgressbar
+               android:id="@+id/progress"
+               android:layout_marginLeft="28dp"
+               android:layout_marginRight="28dp"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               ywl:dptextsize="18sp"/>
+            <TextView
+                android:gravity="center"
+                android:layout_marginBottom="100dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="18dp"
+                android:id="@+id/tv_size"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="45.5M"
+                android:textColor="#333"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>

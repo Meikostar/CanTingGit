@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_common_item"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="@color/content_bg"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/ll_head_purchases"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:orientation="horizontal"
+                android:paddingLeft="11.5dp"
+                android:paddingRight="11.5dp">
+
+                <TextView
+                    android:layout_weight="1"
+                    android:id="@+id/tv_store_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingRight="15dp"
+                    android:singleLine="true"
+                    android:textColor="@color/slow_black"
+                    android:textSize="13.5sp"
+                    tools:text="" />
+
+                <TextView
+                    android:layout_marginRight="5dp"
+                    android:id="@+id/tv_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center_vertical"
+                    android:text=""
+                    android:textSize="13.5sp" />
+
+                <ImageView
+                    android:layout_marginRight="3dp"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/arrow_left" />
+
+
+            </LinearLayout>
+            <include layout="@layout/view_line_1" />
+            <com.zhongchuang.canting.widget.RegularListView
+                android:id="@+id/rl_menu"
+                style="@style/lv_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:background="@color/white"
+                android:visibility="visible" />
+
+
+
+            <include layout="@layout/view_line_1" />
+
+            <LinearLayout
+                android:layout_marginBottom="4dp"
+                android:id="@+id/ll_edit"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="9.5dp">
+
+                <TextView
+                    android:layout_marginLeft="5dp"
+                    android:id="@+id/tv_goods_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mjly"
+                    android:textColor="@color/slow_black"
+                    android:textSize="13.5sp" />
+                <LinearLayout
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <com.zhongchuang.canting.widget.ClearEditText
+                        android:textColorHint="@color/color8"
+                        android:id="@+id/et_content"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="30dp"
+                        android:maxLength="200"
+                        android:background="@null"
+                        android:text=""
+                        android:hint="@string/txnryhmjxc"
+                        android:textSize="13.5sp"
+                        android:textColor="@color/slow_black" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+            <include layout="@layout/view_line_1" />
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:gravity="right"
+                    android:layout_weight="1"
+                    android:id="@+id/tv_cont1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="共1件商品"
+                    android:textColor="@color/slow_black"
+                    android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/tv_cont2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginRight="16dp"
+                    android:text="合计 ：525.4"
+                    android:textColor="@color/slow_black"
+                    android:textSize="14sp" />
+                <TextView
+                    android:visibility="gone"
+                    android:layout_marginRight="14dp"
+                    android:id="@+id/tv_cont3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="@string/bhyf"
+                    android:textColor="@color/slow_black"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</LinearLayout>

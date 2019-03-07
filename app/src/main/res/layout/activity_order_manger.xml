@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.zhongchuang.canting.widget.NavigationBar
+        android:id="@+id/navigationBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:navigationLeft_img="@drawable/back_white"
+        app:navigationTitle="@string/ddgl" />
+    <com.zhongchuang.canting.widget.FiveNevgBar
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:id="@+id/tnb"/>
+    <com.zhongchuang.canting.widget.NoScrollViewPager
+        android:layout_weight="1"
+
+        android:id="@+id/viewpager_main"
+        android:background="@color/content_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

@@ -1,0 +1,828 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.zhongchuang.canting">
+    <!-- 游戏权限     START -->
+    <uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+
+    <!-- 游戏权限     END -->
+
+
+    <!-- TENCENT 云通信   START权限声明 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+
+
+
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission
+        android:name="android.permission.READ_LOGS"
+        tools:ignore="ProtectedPermissions" />
+
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <!-- TenCent LIVE SDK END -->
+    <!-- Mob SDK START -->
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- Mob SDK END -->
+
+
+    <!-- 阿里  START -->
+    <uses-permission android:name="android.permission.REORDER_TASKS" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
+    <uses-permission
+        android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
+        tools:ignore="ProtectedPermissions" />
+
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+
+    <!-- 环信3.0集成  END -->
+    <application
+        android:name=".app.CanTingAppLication"
+        android:allowBackup="true"
+        android:icon="@drawable/logo"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:persistent="true"
+        android:roundIcon="@drawable/logo"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".activity.SplashActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+
+
+
+
+
+        <activity
+            android:name=".easeui.ui.VoiceCallActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide" />
+        <activity
+            android:name=".activity.mall.ShopCompsiteMallActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.star.AboutlActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.star.CompanyDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.chat.ChatMenberActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.chat.SumbitJfActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".bigimage.BigImageActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+
+        <activity
+            android:name=".activity.chat.SendDynamicActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.chat.AddGroupActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.chat.SeachFriendActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.chat.EditorGroupActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.chat.ChatSplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.pay.ChangePayActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.pay.ChangPaySmsPActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.pay.PaySettingActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.chat.RecordDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.chat.AddFriendActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.chat.QfriendActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.chat.ChatMessageActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.chat.ChatSetActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.chat.ChatRecordActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.chat.GroupSetActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.chat.ChatBgrActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.chat.ChatHandActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".easeui.ui.VideoCallActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide" />
+        <activity
+            android:name="com.google.zxing.client.android.activity.CaptureActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.RechargeIntegerActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.ChangeRecordActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.MainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.HomeActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity
+            android:name=".activity.LoginActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.RegistActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.PersonMessageActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <!-- android:windowSoftInputMode="adjustResize" -->
+
+        <!--
+         android:label="@string/app_name"
+         android:screenOrientation="portrait"
+         android:configChanges="orientation|keyboardHidden|screenSize"
+        -->
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".activity.pay.ALiPayActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+
+
+
+
+        <activity android:name=".activity.FindFriendActivity" />
+        <activity
+            android:name=".activity.TongXunLuActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+
+        <!-- 商城 -->
+
+        <activity
+            android:name=".activity.mall.ShopMallActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.mine.WpChargeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.mine.ChargetHandActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.mine.CodeUploadActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+
+
+        <activity
+            android:name=".activity.mine.EditorInfoActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+
+        <activity
+            android:name=".activity.mine.PersonManActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+
+        <activity
+            android:name=".activity.mine.ImageListWitesActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+
+        <activity
+            android:name=".activity.mall.SettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.mall.ShopDetailActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity
+            android:name=".activity.mall.AddressListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.live.LeaveContentActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.live.MineVideoActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.live.GiftRecordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.live.MinetCareLiveActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.live.MinetCareLiveActivitys"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.live.BlackCareLiveActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.live.CareLiveActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.live.GiftHandActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.live.RoomInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.live.LiveHandActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.live.LiveActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity
+            android:name=".activity.mall.RechargeJfActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.mall.DbRecordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.mall.RechargeDbActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.mall.OrderDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.mall.SearchGoodActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.mall.SaleMangerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.mall.ShopMallDetailActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity
+            android:name=".activity.mall.CollectionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.mall.AfterSaleActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.mall.ShopSpecialActivity"
+            android:screenOrientation="portrait" />
+
+
+        <activity
+            android:name=".activity.mall.EditorOrderActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.mall.OrderMangerActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.mall.ShopTypeSearchActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity
+            android:name=".activity.mall.NewAddressActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.mall.ShopListSearchActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity
+            android:name=".activity.ShopListSearchActivitys"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity
+            android:name=".easeui.ui.AddFriendActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".easeui.ui.GroupSetActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.MineCodeActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".easeui.ui.red.GabRedDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".easeui.ui.red.RedOut_In_DetailActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".easeui.ui.red.RedDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".easeui.ui.red.SendRedActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".easeui.ui.red.SendRedsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".easeui.ui.red.WaitRedDetailActivity"
+            android:screenOrientation="portrait" />
+        <!-- 聊天页面 -->
+        <activity
+            android:name=".activity.ChatActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide" />
+
+        <!-- 地图 -->
+        <activity
+            android:name=".easeui.ui.EaseBaiduMapActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide" />
+
+        <!-- 显示下载大图页面 -->
+        <activity
+            android:name=".easeui.ui.EaseShowBigImageActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide" />
+
+        <!-- 设置环信应用的AppKey     1119171129178824#ifun    1138171129115463#ha  START -->
+
+        <meta-data
+            android:name="EASEMOB_APPKEY"
+            android:value="1119171129178824#ifun" />
+        <!-- 声明SDK所需的service SDK核心功能 -->
+        <!-- <service -->
+        <!-- android:name="com.zhongchuang.canting.chat.EMChatService" -->
+        <!-- android:exported="true" /> -->
+        <!-- &lt;!&ndash; 声明SDK所需的receiver &ndash;&gt; -->
+        <!-- <receiver android:name="com.zhongchuang.canting.chat.EMMonitorReceiver"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.intent.action.PACKAGE_REMOVED" /> -->
+
+
+        <!-- <data android:scheme="package" /> -->
+        <!-- </intent-filter> -->
+        <!-- &lt;!&ndash; 可选filter &ndash;&gt; -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.intent.action.BOOT_COMPLETED" /> -->
+        <!-- <action android:name="android.intent.action.USER_PRESENT" /> -->
+        <!-- </intent-filter> -->
+        <!-- </receiver> -->
+
+
+        <!-- 设置环信应用的AppKey END -->
+
+        <activity
+            android:name=".wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:scheme="wxed0453751545a174" />
+                <!--<data android:scheme="wxe37f75ca35e11194" />-->
+            </intent-filter>
+        </activity>
+
+        <receiver android:name=".wxapi.AppRegister">
+            <intent-filter>
+                <action android:name="com.tencent.mm.plugin.openapi.Intent.ACTION_REFRESH_WXAPP" />
+            </intent-filter>
+        </receiver>
+        <!-- Mob SDK  START -->
+        <activity
+            android:name="com.mob.tools.MobUIShell"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+
+        <meta-data
+            android:name="Mob-AppKey"
+            android:value="222331f8f5259" />
+        <meta-data
+            android:name="Mob-AppSecret"
+            android:value="4e36673bf5b4435934dd5a1508441380" />
+
+        <!-- Mob SDK END -->
+
+
+        <!-- 百度releayKey -->
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="tlnXleRo3rllty3KoFPXvSigQCyu6VIT" />
+
+        <!-- baiduserve -->
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" />
+        <!-- 消息收发service -->
+
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.zhongchuang.canting.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepaths" />
+        </provider>
+
+        <activity android:name=".activity.WebViewActivity" />
+        <activity android:name=".easeui.ui.GroupsActivity" />
+        <activity android:name=".easeui.ui.AddFriendorDelActivity" />
+        <activity android:name=".activity.BalanceActivity" />
+        <activity android:name=".activity.RechargeActivity" />
+        <activity android:name=".activity.RigsterActivity" />
+        <activity
+            android:name=".easeui.ui.MessageActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".activity.CityPickerActivity" />
+        <activity android:name=".activity.shop.AppStoreActivity" />
+        <activity android:name=".activity.AboubtProductActivity" />
+        <activity android:name=".activity.DownActivity"></activity>
+
+
+
+
+
+
+
+
+
+
+        <!--阿里云直播-->
+
+        <activity android:name=".allive.AliveSplashActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation"
+            android:windowSoftInputMode="stateHidden|adjustPan">
+        </activity>
+        <activity
+            android:name=".allive.vodupload_demo.activity.PlayVideoActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity android:name=".allive.vodupload_demo.activity.SVideoUploadActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/svideo_upload"/>
+        <activity android:name=".allive.vodupload_demo.activity.VodMultiUploadActivity"
+            android:label="@string/sts_multi_upload"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".allive.vodupload_demo.activity.MultiUploadActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/certificate_multi_upload"/>
+        <activity android:name=".allive.vodupload_demo.activity.OSSMultiUploadActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/oss_multi_upload"/>
+        <activity android:name=".allive.vodupload_demo.activity.GetSTStokenActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".allive.vodupload_demo.activity.GetVodAuthActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".allive.vodplayerview.activity.AliyunPlayerSettingActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity android:name=".allive.vodplayerview.activity.AliyunPlayerSkinActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+
+            <intent-filter>
+                <action android:name="com.aliyun.vodplayerview.activity.player"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".allive.pusher.ui.activity.MainActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustPan">
+        </activity>
+
+        <activity android:name=".allive.pusher.ui.activity.PushConfigActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+        </activity>
+
+        <activity android:name=".allive.pusher.ui.activity.SecondActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+        </activity>
+
+        <activity android:name=".allive.pusher.ui.activity.VideoRecordConfigActivity"
+            android:launchMode="singleTask"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+        </activity>
+
+        <activity android:name=".allive.pusher.ui.activity.LicenseActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+        </activity>
+
+        <activity android:name=".allive.pusher.ui.activity.LivePushActivity"
+            android:launchMode="singleTask"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+        </activity>
+        <activity android:name=".allive.crop.CropSettingTest"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="com.duanqu.qupai.action.crop.setting"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".allive.crop.MediaActivity"
+            android:theme="@style/AliyunVideoUIStytle"
+            tools:replace="android:theme"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="com.duanqu.qupai.action.crop"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".allive.crop.AliyunVideoCrop"
+            android:theme="@style/AliyunVideoUIStytle"
+            tools:replace="android:theme"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".allive.crop.AliyunImageCrop"
+            android:theme="@style/AliyunVideoUIStytle"
+            tools:replace="android:theme"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".allive.MainActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:screenOrientation="portrait" android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="com.aliyun.alivcsolution.main"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".allive.DemoActivity"
+            android:screenOrientation="portrait" android:launchMode="singleTop">
+        </activity>
+
+
+        <!--editor  demo>-->
+        <activity
+            android:name=".allive.editor.editor.EditorActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+            <!--<intent-aliyun_svideo_filter>-->
+            <!--<action android:name="com.duanqu.qupai.action.editor"/>-->
+            <!--<data android:scheme="file"/>-->
+            <!--<category android:name="android.intent.category.DEFAULT"/>-->
+            <!--</intent-aliyun_svideo_filter>-->
+            <intent-filter>
+                <action android:name="com.duanqu.qupai.action.editor"/>
+
+                <!--android:mimeType="text/plain"/>-->
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".allive.editor.effectmanager.EffectManagerActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <intent-filter>
+                <action android:name="com.duanqu.qupai.action.effectmanager"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".allive.editor.effectmanager.MorePasterActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <intent-filter>
+                <action android:name="com.duanqu.qupai.action.morepaster"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".allive.editor.effectmanager.MoreCaptionActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <intent-filter>
+                <action android:name="com.duanqu.qupai.action.morecaption"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".allive.editor.effectmanager.MoreMVActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <intent-filter>
+                <action android:name="com.duanqu.qupai.action.moremv"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".allive.editor.publish.PublishActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".allive.editor.publish.CoverEditActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".allive.editor.publish.UploadActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:hardwareAccelerated="true"/>
+
+
+
+
+
+        <activity
+            android:name=".allive.importer.ImportEditSettingTest"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="com.duanqu.qupai.action.import.setting"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".allive.importer.MediaActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="com.duanqu.qupai.action.import"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".allive.recorder.CameraDemo"
+            android:theme="@android:style/Theme.Black.NoTitleBar"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="com.duanqu.qupai.action.camera"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".allive.recorder.RecorderSettingTest"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="com.duanqu.qupai.action.recorder.setting"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".allive.recorder.VideoPlayActivity"
+            android:theme="@android:style/Theme.Black.NoTitleBar"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".allive.recorder.MusicActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".allive.recorder.AliyunVideoRecorder"
+            android:theme="@style/AliyunVideoUIStytle"
+            tools:replace="android:theme"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="com.duanqu.qupai.action.recorder"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+
+
+
+
+
+
+
+
+
+        <!--<service-->
+            <!--android:name="com.liulishuo.filedownloader.services.FileDownloadService"-->
+            <!--android:process=":filedownloader"/>-->
+    </application>
+
+</manifest>

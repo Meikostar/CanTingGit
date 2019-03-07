@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--android:orientation="vertical" android:layout_width="match_parent"-->
+<!--android:layout_height="wrap_content"-->
+<!--android:background="@color/bg_f5">-->
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/address_select_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:paddingBottom="10dp"
+    android:paddingLeft="12dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp">
+
+    <TextView
+        android:id="@+id/person_name1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="王某某"
+        android:textColor="@color/wordColor"
+        android:textSize="@dimen/sp_14" />
+
+    <TextView
+        android:id="@+id/person_hone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="31dp"
+        android:layout_marginStart="31dp"
+        android:layout_toEndOf="@+id/person_name1"
+        android:layout_toRightOf="@+id/person_name1"
+        android:text="17633256369"
+        android:textColor="@color/wordColor"
+        android:textSize="@dimen/sp_14" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/person_name1"
+        android:layout_marginTop="7dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/sign_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="【默认地址】"
+            android:textColor="@color/original"
+            android:textSize="@dimen/sp_14"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/person_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="广东省深圳市宝安区固戍地铁站航城工业园航城工业园航城工业园"
+            android:textColor="@color/text_color_159"
+            android:textSize="@dimen/sp_14" />
+    </LinearLayout>
+
+
+</RelativeLayout>
+
+
+    <!--<Space--><!--android:visibility="gone"--><!--android:layout_width="match_parent"--><!--android:layout_height="10dp" />-->
+
+    <!--</LinearLayout>-->

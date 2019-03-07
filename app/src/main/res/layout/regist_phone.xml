@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:id="@+id/regist_phone"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="45dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:gravity="center"
+                android:lines="2"
+                android:maxWidth="95dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="0dp"
+                android:text="@string/sjh"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+            <TextView
+
+                android:id="@+id/txt_choose"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="3dp"
+                android:gravity="center"
+                android:text="+86>"
+                android:textColor="@color/slow_black"
+                android:textSize="15sp" />
+            <com.zhongchuang.canting.widget.ClearEditText
+                android:id="@+id/login_yanzhen_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="12dp"
+                android:lines="1"
+                android:layout_weight="1"
+                android:background="@null"
+
+                android:gravity="center_vertical"
+                android:hint="@string/qsrsjh"
+                android:inputType="number"
+
+                android:text=""
+                android:textColor="@color/slow_black"
+                android:textColorHint="@color/bd"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/login_yanzhen_send"
+                android:layout_width="95dp"
+                android:layout_height="34dp"
+                android:layout_marginRight="6dp"
+                android:maxWidth="115dp"
+                android:background="@drawable/login_selector"
+                android:gravity="center"
+                android:lines="3"
+                android:textSize="12sp"
+                android:text="@string/hqyzm"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="9dp"
+            android:layout_marginRight="19dp"
+            android:layout_marginTop="1dp"
+            android:background="@color/linecolor" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="18dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="0dp"
+                android:text="@string/yzms"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <com.zhongchuang.canting.widget.ClearEditText
+                android:id="@+id/login_yanzhen_yanzhenma"
+                android:layout_width="fill_parent"
+                android:layout_height="35dp"
+                android:layout_marginLeft="22dp"
+                android:layout_marginRight="12dp"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:hint="请输入验证码"
+                android:inputType="number"
+                android:maxLength="8"
+                android:text=""
+                android:textColor="@color/slow_black"
+                android:textColorHint="@color/bd"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="9dp"
+            android:layout_marginRight="19dp"
+            android:layout_marginTop="3dp"
+            android:background="@color/linecolor" />
+
+        <TextView
+            android:id="@+id/login_yanzhen_login"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/login_selector"
+            android:gravity="center"
+            android:text="@string/yzbdl"
+            android:textColor="@color/white"
+            android:textSize="16.5sp" />
+
+
+    </LinearLayout>
+
+
+
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x40">
+
+
+        <ImageView
+            android:id="@+id/regist_ps_xieyi_yes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="@dimen/x40"
+            android:layout_alignParentLeft="true" />
+
+
+        <TextView
+            android:layout_toRightOf="@+id/regist_ps_xieyi_yes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x20"
+            android:text="登录即为同意《用户协议》"
+            android:textColor="#575458"
+            android:textSize="@dimen/x20"
+
+            />
+
+
+
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:layout_marginLeft="@dimen/x40"
+        android:layout_marginRight="@dimen/x40"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/x60"
+        android:layout_marginTop="@dimen/y170"
+
+        >
+        <View
+
+            android:layout_centerInParent="true"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y2"
+            android:background="#575458" />
+
+        <TextView
+            android:background="#FFFFFF"
+            android:gravity="center_vertical"
+            android:layout_centerInParent="true"
+            android:text="      第三方登录     "
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+
+
+
+    <LinearLayout
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+
+            android:id="@+id/regisit2_yanzhen_weixin"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:id="@+id/regisit2_yanzhen_qq"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            />
+        <ImageView
+            android:id="@+id/regisit2_yanzhen_weibo"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            />
+
+
+    </LinearLayout>
+</LinearLayout>

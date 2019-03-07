@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/y340"
+    android:orientation="vertical"
+    android:background="#FFFFFF"
+    android:layout_marginTop="@dimen/x10"
+    android:layout_margin="@dimen/x10"
+    >
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y300">
+    <ImageView
+        android:id="@+id/arround_pic"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y300"
+        android:scaleType="fitXY"
+      />
+
+
+
+        <TextView
+            android:id="@+id/arround_people_num"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/y40"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="@dimen/x20"
+            android:gravity="center_vertical"
+            android:text="0035人在观看"
+            android:textColor="#C1C0C0"
+            android:textSize="@dimen/x23"
+            />
+
+
+
+        <TextView
+            android:id="@+id/arround_liver_name"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y40"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/x20"
+            android:gravity="center_vertical"
+            android:text=""
+            android:textColor="#C1C0C0"
+            android:textSize="@dimen/x23"
+
+            />
+
+    </RelativeLayout>
+
+    <TextView
+        android:gravity="center_vertical"
+        android:id="@+id/arround_room_name"
+        android:textSize="@dimen/x23"
+        android:text="01附近直播室"
+        android:layout_marginLeft="@dimen/x20"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y40"
+
+        />
+</LinearLayout>

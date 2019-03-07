@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <com.zhongchuang.canting.widget.NavigationBar
+        android:id="@+id/navigationBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:navigationLeft_img="@drawable/back_white"
+        app:navigationTitle="@string/xxzl" />
+
+    <com.zhongchuang.canting.widget.StickyScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+
+
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+
+                    <LinearLayout
+                        android:background="@color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="90dp"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_weight="1"
+                            android:layout_marginTop="12dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:textSize="15sp"
+                            android:textColor="@color/color6"
+                            android:text="@string/bzm"/>
+                        <LinearLayout
+
+                            android:background="@color/white"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <com.zhongchuang.canting.widget.ClearEditText
+                                android:id="@+id/et_content"
+                                android:hint="@string/qsrbzm"
+                                android:layout_weight="1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:minHeight="35dp"
+                                android:layout_centerVertical="true"
+                                android:paddingRight="11dp"
+                                android:background="@null"
+                                android:paddingLeft="19dp"
+                                android:textColor="#333"
+                                android:textColorHint="#999"
+                                android:textSize="15sp" />
+                        </LinearLayout>
+                        <View
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginRight="15dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/linecolor"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@color/linecolor" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_weight="1"
+                        android:layout_marginTop="12dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:textSize="15sp"
+                        android:textColor="@color/color6"
+                        android:text="@string/dhhm"/>
+                    <LinearLayout
+
+                        android:background="@color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:layout_marginLeft="15dp"
+                            android:src="@drawable/addsss"/>
+                        <com.zhongchuang.canting.widget.ClearEditText
+                            android:id="@+id/et_content1"
+                            android:hint="@string/bzdydh"
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:minHeight="35dp"
+                            android:layout_centerVertical="true"
+                            android:paddingRight="11dp"
+                            android:inputType="phone"
+                            android:background="@null"
+                            android:paddingLeft="9dp"
+                            android:textColor="#333"
+                            android:textColorHint="#999"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+                    <View
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/linecolor"/>
+                </LinearLayout>
+                <LinearLayout
+
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:layout_marginLeft="15dp"
+                        android:src="@drawable/addsss"/>
+                    <com.zhongchuang.canting.widget.ClearEditText
+                        android:id="@+id/et_content2"
+                        android:hint="@string/bzdierdh"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="35dp"
+                        android:layout_centerVertical="true"
+                        android:paddingRight="11dp"
+                        android:background="@null"
+                        android:paddingLeft="9dp"
+                        android:inputType="phone"
+                        android:textColor="#333"
+                        android:textColorHint="#999"
+                        android:textSize="15sp" />
+                </LinearLayout>
+                <View
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/linecolor"/>
+
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_marginTop="12dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:textSize="15sp"
+                    android:textColor="@color/color6"
+                    android:text="@string/bz"/>
+                <LinearLayout
+
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <com.zhongchuang.canting.widget.ClearEditText
+                        android:id="@+id/et_content3"
+                        android:hint="@string/tjgdb"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="35dp"
+                        android:layout_centerVertical="true"
+                        android:paddingRight="11dp"
+                        android:background="@null"
+                        android:paddingLeft="19dp"
+                        android:textColor="#333"
+                        android:textColorHint="#999"
+                        android:textSize="15sp" />
+                </LinearLayout>
+                <View
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/linecolor"/>
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/tv_save"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="35dp"
+                android:background="@drawable/login_selector"
+                android:gravity="center"
+                android:text="@string/bc"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+    </com.zhongchuang.canting.widget.StickyScrollView>
+
+
+</LinearLayout>

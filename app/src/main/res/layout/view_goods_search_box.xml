@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/ll_title"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+
+        android:paddingRight="0dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_marginRight="6dp"
+            android:id="@+id/iv_back"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:padding="5dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="6dp"
+            android:src="@drawable/arrow_left_white"/>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:background="@drawable/shape_search_box_bg">
+            <ImageView
+                android:id="@+id/iv_search_box_search"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="12dp"
+                android:src="@drawable/top_icon_search"/>
+
+            <com.zhongchuang.canting.widget.YunShlEditText
+                android:layout_marginLeft="6dp"
+                android:id="@+id/edt_search_box"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:background="@color/transparent"
+                android:layout_height="match_parent"
+                android:textSize="13.5sp"
+                android:textColorHint="#a0ffffff"
+                android:hint="@string/sssp"/>
+
+            <ImageView
+                android:id="@+id/iv_clean"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:visibility="gone"
+                android:src="@drawable/selector_good_search_clean"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_cancel"
+
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:text="@string/ss"
+            android:gravity="center"
+            android:layout_width="44dp"
+            android:layout_height="44dp">
+
+        </TextView>
+
+    </LinearLayout>
+
+</LinearLayout>

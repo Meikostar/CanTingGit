@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/content_bg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="22dp"
+        android:background="#FF2A93FF"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#FF2A93FF">
+
+
+        <TextView
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:text="@string/gwc"
+            android:textColor="#fff"
+            android:textSize="17sp" />
+        <TextView
+            android:id="@+id/tv_editor"
+            android:padding="8dp"
+            android:layout_marginRight="6dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:text="@string/bj"
+            android:textColor="#fff"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+    <com.zhongchuang.canting.widget.TwoNevgBar
+        android:visibility="gone"
+        android:id="@+id/base_bar"
+        android:layout_width="match_parent"
+        android:layout_height="51dp" />
+
+    <com.zhongchuang.canting.widget.NoScrollViewPager
+        android:id="@+id/viewpager_main"
+        android:background="@color/content_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+</LinearLayout>

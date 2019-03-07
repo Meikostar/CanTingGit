@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+
+    <LinearLayout
+        android:id="@id/ll_bg"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+        <com.zhongchuang.canting.widget.MCheckBox
+            android:layout_marginLeft="4dp"
+            android:id="@+id/iv_choose"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:clickable="false"
+            android:padding="11dp"
+            app:canNoClick="true"
+            app:drawablechoose="@drawable/kehugou"
+            app:drawables="@drawable/black_line_roud_light" />
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="32dp"
+            android:layout_height="32dp" />
+
+        <TextView
+            android:layout_marginLeft="15dp"
+            android:text=""
+            android:id="@+id/tv_name"
+            android:singleLine="true"
+            android:textColor="@color/color6"
+            android:textSize="14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+    </LinearLayout>
+    <View
+        android:id="@+id/line"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:background="@color/linecolor"/>
+</LinearLayout>

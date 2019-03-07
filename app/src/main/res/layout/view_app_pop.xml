@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:background="#66666666"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="22dp"
+
+            android:id="@+id/share"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/bg_circle_black30"
+            android:padding="3dp"
+            android:layout_marginRight="18dp"
+            android:src="@drawable/zhubo3" />
+
+        <RelativeLayout
+            android:layout_centerInParent="true"
+            android:layout_width="match_parent"
+            android:layout_height="360dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/white_rectange">
+
+
+
+            <ImageView
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/downloads"
+                android:id="@+id/iv_code"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="60dp"
+                android:layout_marginBottom="40dp"
+                android:scaleType="fitXY" />
+
+            <TextView
+
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/iv_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_toRightOf="@+id/tv_order_counts"
+                android:text="扫一扫下载app"
+                android:textColor="#888888"
+                android:textSize="13sp" />
+            <ImageView
+                android:layout_marginRight="9dp"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/bg_circle_black30"
+                android:src="@drawable/exits"
+                android:padding="5dp"
+                android:id="@+id/iv_close"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="12dp"
+                android:scaleType="fitXY" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+</LinearLayout>

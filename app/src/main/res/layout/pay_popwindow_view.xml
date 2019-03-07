@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+    <View
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <RelativeLayout
+
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:layout_above="@id/scroll"
+        android:id="@+id/ll_bg"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:layout_centerInParent="true"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/qrfk"
+            android:textColor="@color/slow_black"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_alignParentRight="true"
+            android:id="@+id/close"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="8dp"
+            android:padding="3dp"
+            android:src="@mipmap/close" />
+        <View
+            android:layout_marginBottom="0.5dp"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="0.2dp"
+            android:background="@color/linecolor"/>
+    </RelativeLayout>
+
+    <TextView
+        android:gravity="center"
+        android:background="@color/white"
+        android:id="@+id/tv_pay"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:text="￥ 100.00"
+        android:textColor="@color/slow_black"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+    <LinearLayout
+
+        android:id="@+id/ll_china"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/wite_rectanglebig"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/ll_zfb"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_marginLeft="28dp"
+                android:src="@drawable/zhifubao"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="@string/zfb"
+                android:textColor="#333"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_zfb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:textColor="#666"
+                android:textSize="13sp" />
+
+            <CheckBox
+                android:id="@+id/cb_zfb"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginRight="17dp"
+                android:background="@drawable/selector_common_switch"
+                android:button="@null"
+                android:clickable="false"
+                android:checked="true"></CheckBox>
+        </LinearLayout>
+
+        <View
+            android:id="@+id/lines"
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="#d8d8d8" />
+
+        <LinearLayout
+            android:id="@+id/ll_wx"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_marginLeft="28dp"
+                android:src="@drawable/weiixin" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="@string/wx"
+                android:textColor="#333"
+                android:textSize="16sp" />
+            <TextView
+                android:id="@+id/tv_wx"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:textColor="#666"
+                android:textSize="13sp" />
+            <CheckBox
+                android:id="@+id/cb_wx"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginRight="17dp"
+                android:background="@drawable/selector_common_switch"
+                android:button="@null"
+                android:checked="false"
+                android:clickable="false"></CheckBox>
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="#d8d8d8" />
+        <LinearLayout
+            android:layout_marginBottom="40dp"
+            android:id="@+id/ll_paypal"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_marginLeft="28dp"
+                android:src="@drawable/paypal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="PayPal"
+                android:textColor="#333"
+                android:textSize="16sp" />
+            <TextView
+                android:id="@+id/tv_pp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:textColor="#666"
+                android:textSize="13sp" />
+            <CheckBox
+                android:id="@+id/cb_paypal"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginRight="17dp"
+                android:background="@drawable/selector_common_switch"
+                android:button="@null"
+                android:checked="false"
+                android:clickable="false"></CheckBox>
+        </LinearLayout>
+
+
+
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:background="@color/white"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <TextView
+            android:id="@+id/sure_button"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/login_selector"
+            android:gravity="center"
+            android:text="@string/qrzf"
+            android:textColor="@android:color/white" />
+
+    </LinearLayout>
+
+
+
+</LinearLayout>
+

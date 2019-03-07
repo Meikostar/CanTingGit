@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#FF2A93FF"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/tv_city"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:text="深圳"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            />
+        <ImageView
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:id="@+id/zhuye_geren"
+            android:layout_width="15dp"
+            android:layout_height="20dp"
+
+            android:src="@mipmap/arrow_left" />
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:gravity="center"
+                android:id="@+id/serch_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/x80"
+                android:background="@null"
+                android:text="@string/bzzqjfmx"
+                android:textColor="#fff"
+                android:textSize="17sp" />
+
+        </FrameLayout>
+        <RelativeLayout
+
+            android:layout_width="0dp"
+            android:layout_height="100px"
+            android:layout_weight="1">
+            <ImageView
+                android:visibility="gone"
+                android:scaleType="fitXY"
+                android:layout_centerInParent="true"
+                android:id="@+id/zhuye_saoyisao"
+                android:layout_width="30px"
+                android:layout_height="40px"
+                android:src="@drawable/i22" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <com.zhongchuang.canting.widget.loadingView.LoadingPager
+        android:layout_weight="1"
+        android:id="@+id/loadingView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/listview"
+            android:background="@color/white"
+            style="@style/lv_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </com.zhongchuang.canting.widget.loadingView.LoadingPager>
+
+
+
+
+
+</LinearLayout>

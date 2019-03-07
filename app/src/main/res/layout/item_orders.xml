@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:background="@color/content_bg"
+    >
+
+
+        <ImageView
+            android:id="@+id/p_logo"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginBottom="5dp"
+
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@id/iv_choose"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:id="@+id/p_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_toRightOf="@id/p_logo"
+            android:singleLine="true"
+            android:text=""
+            android:textColor="@color/color6"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/p_desc"
+            tools:text=""
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/p_name"
+            android:layout_marginTop="8dp"
+            android:layout_toRightOf="@id/p_logo"
+            android:singleLine="true"
+            android:textColor="@color/color8"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/p_logo"
+            android:layout_marginBottom="4dp"
+            android:layout_toRightOf="@id/p_logo"
+            android:textColor="#333"
+            android:textSize="15sp" />
+
+        <TextView
+            android:paddingBottom="9dp"
+            android:id="@+id/tv_cout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="20dp"
+            android:maxLines="1"
+            android:textColor="@color/slow_black"
+            android:textSize="16sp" />
+    </RelativeLayout>
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/ll_bg"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:orientation="horizontal">
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+        <TextView
+
+            android:id="@+id/tv_copy"
+            android:padding="7dp"
+            android:background="@drawable/shape_bg_lin_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="15dp"
+            android:text="  申请售后  "
+            android:textSize="14sp" />
+    </LinearLayout>
+
+</LinearLayout>

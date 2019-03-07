@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/y120"
+    android:orientation="vertical">
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x2"
+        android:background="#C1C0C0" />
+
+
+    <RelativeLayout
+        android:id="@+id/friend_line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y120"
+        android:padding="@dimen/x10">
+
+        <ImageView
+            android:id="@+id/friend_pic"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/x15"
+            android:layout_toRightOf="@+id/friend_pic"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/frid_nicNa"
+                android:textSize="@dimen/x30"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="厨神" />
+
+            <TextView
+                android:id="@+id/friend_message"
+                android:textColor="#C1C0C0"
+                android:textSize="@dimen/x28"
+                android:gravity="bottom"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="厨神多金" />
+
+        </LinearLayout>
+
+
+
+</RelativeLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x2"
+        android:background="#C1C0C0" />
+
+</LinearLayout>

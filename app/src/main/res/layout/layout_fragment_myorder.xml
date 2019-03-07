@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/content_bg"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.malinskiy.superrecyclerview.SuperRecyclerView
+            android:id="@+id/recv_my_order"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_moreProgress="@layout/view_more_progress"
+            app:mainLayoutId="@layout/layout_recyclerview_verticalscroll"
+            app:recyclerClipToPadding="true"
+            app:scrollbarStyle="outsideOverlay" />
+
+        <RelativeLayout
+            android:id="@+id/rell_no_order"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="98dp"
+                android:layout_height="98dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="13.5sp"
+                android:text="暂无相关订单数据"
+                android:layout_centerHorizontal="true"
+                android:layout_above="@+id/tv_to_findgoods"
+                android:layout_marginBottom="33dp"
+                android:textColor="@color/slow_black"/>
+
+            <TextView
+                android:id="@+id/tv_to_findgoods"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/line_regle_blue"
+                android:layout_centerInParent="true"
+                android:textColor="@color/slow_black"
+                android:text="去逛逛"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"/>
+        </RelativeLayout>
+
+    </FrameLayout>
+
+</LinearLayout>

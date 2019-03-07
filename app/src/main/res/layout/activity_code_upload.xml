@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/content_bg">
+    <com.zhongchuang.canting.widget.NavigationBar
+        android:id="@+id/navigationBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:navigationTitle="@string/skewm"
+        />
+    <com.zhongchuang.canting.widget.StickyScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+
+                android:gravity="center"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingRight="14dp">
+
+                <TextView
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#333"
+                    android:textSize="15sp"
+                    android:text="@string/wxewm" />
+
+                <ImageView
+
+                    android:id="@+id/iv_add_photo"
+                    android:layout_width="170dp"
+                    android:layout_height="170dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/codedown"
+                    />
+                <TextView
+                    android:layout_marginBottom="18dp"
+                    android:gravity="center"
+                    android:background="@drawable/login_selector"
+                    android:id="@+id/tv_wx"
+                    android:layout_marginTop="15dp"
+                    android:layout_width="wrap_content"
+                    android:minWidth="100dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:layout_height="30dp"
+                    android:textColor="#FFf"
+                    android:textSize="15sp"
+                    android:text="@string/scewm" />
+            </LinearLayout>
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+
+                android:gravity="center"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingRight="14dp">
+
+                <TextView
+                    android:layout_marginTop="16dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#333"
+                    android:textSize="15sp"
+                    android:text="@string/zfewm" />
+
+                <ImageView
+                    android:layout_marginTop="15dp"
+                    android:id="@+id/iv_add_photos"
+                    android:layout_width="170dp"
+                    android:layout_height="170dp"
+                    android:layout_marginBottom="5dp"
+                    android:src="@drawable/codedown"
+                    />
+                <TextView
+                    android:layout_marginBottom="18dp"
+                    android:gravity="center"
+                    android:background="@drawable/login_selector"
+                    android:id="@+id/tv_zfb"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="wrap_content"
+                    android:minWidth="100dp"
+                    android:layout_height="30dp"
+                    android:textColor="#FFf"
+                    android:textSize="15sp"
+                    android:text="@string/scewm" />
+            </LinearLayout>
+        </LinearLayout>
+    </com.zhongchuang.canting.widget.StickyScrollView>
+
+
+
+</LinearLayout>

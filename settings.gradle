@@ -1,0 +1,1 @@
+include ':app', ':easeui', ':gallery', ':sharesdk', ':zxingLibrary', ':AlivcCore', ':AliyunVideoSdk', ':Aliyunplayer:AlivcReporter', ':Aliyunplayer:AlivcPlayer', ':Aliyunplayer:AlivcReporter'

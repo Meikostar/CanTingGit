@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#FFFFFF"
+
+    >
+
+
+
+
+
+    <LinearLayout
+        android:id="@+id/friend_item_line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="15dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:paddingRight="15dp"
+         >
+
+        <ImageView
+
+            android:id="@+id/friend_item_pic"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:scaleType="centerCrop"/>
+
+
+        <LinearLayout
+            android:layout_marginLeft="@dimen/x20"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/friend_item_nicName"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="昵称"
+                    android:textColor="#FF575458"
+                    android:textSize="@dimen/x28"
+                    android:singleLine="true"/>
+
+            <TextView
+                android:id="@+id/friend_item_qianmin"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="个性签名"
+                android:textColor="#FFC1C0C0"
+                android:maxLines="2"
+                android:textSize="@dimen/x25" />
+
+        </LinearLayout>
+
+
+
+        <!--<RelativeLayout-->
+            <!--android:layout_weight="1"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="@dimen/y70"-->
+            <!--android:layout_gravity="center">-->
+
+
+            <!--<ImageView-->
+                <!--android:id="@+id/friend_item_addbtn"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="@dimen/y70"-->
+                <!--android:background="@drawable/shape_findfrid_butnnormal"-->
+                <!--/>-->
+
+
+            <TextView
+               android:id="@+id/friend_item_tex"
+                android:gravity="center"
+                android:textColor="@color/original"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="12sp"
+                android:text="@string/tjhy"
+                android:paddingTop="7dp"
+                android:paddingBottom="7dp"
+                android:paddingRight="12dp"
+                android:paddingLeft="12dp"
+                android:background="@drawable/shape_findfrid_butnnormal"
+
+                />
+
+
+        <!--</RelativeLayout>-->
+
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x1"
+        android:background="#C1C0C0" />
+</LinearLayout>

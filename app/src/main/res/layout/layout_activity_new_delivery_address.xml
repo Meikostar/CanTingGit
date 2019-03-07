@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fafafa"
+    android:orientation="vertical">
+
+    <com.zhongchuang.canting.widget.NavigationBar
+        android:id="@+id/tpl_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:navigationLeft_img="@drawable/back_white"
+        app:navigationRight_type="txt"
+        app:navigationRight_txt="@string/bc"
+        app:navigationTitle="@string/xzshdz"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <com.zhongchuang.canting.widget.NormalNameValueItem
+                android:layout_marginTop="10dp"
+                android:id="@+id/nnvi_name"
+                android:layout_width="match_parent"
+                android:layout_height="46.8dp"
+                app:content_name="@string/shr"
+                app:context_hint="@string/qsrzsxm"
+                app:edit_have_focus="true"
+
+                app:have_arrows="false"
+                app:have_bottom_border="false"
+                app:have_line="true"
+                app:have_top_border="false"
+                app:input_type="type_char"
+                app:max_lines="1" />
+
+            <com.zhongchuang.canting.widget.NormalNameValueItem
+                android:id="@+id/nnvi_phone"
+                android:layout_width="match_parent"
+                android:layout_height="46.8dp"
+                app:content_name="@string/sjh"
+                app:context_hint="@string/qsrsjh"
+                app:edit_have_focus="true"
+                app:have_arrows="false"
+                app:have_bottom_border="false"
+                app:have_line="true"
+                app:have_top_border="false"
+                app:input_type="type_phone"
+                app:max_length="11" />
+
+            <com.zhongchuang.canting.widget.NormalNameValueItem
+                android:id="@+id/nnvi_area"
+                android:layout_width="match_parent"
+                android:layout_height="46.8dp"
+                app:content_name="@string/dq"
+                app:context_hint="@string/qxzdq"
+                app:edit_have_focus="false"
+                app:have_arrows="false"
+                app:have_bottom_border="false"
+                app:have_line="true"
+                app:have_top_border="false" />
+
+            <com.zhongchuang.canting.widget.NormalNameValueItem
+                android:id="@+id/nnvi_detail"
+                android:layout_width="match_parent"
+                android:layout_height="46.8dp"
+                app:content_name="@string/xxdz"
+                app:context_hint="@string/qsrxxdz"
+                app:edit_have_focus="true"
+                app:have_arrows="false"
+                app:have_bottom_border="false"
+                app:have_line="false"
+                app:have_top_border="false"
+                app:max_lines="2" />
+
+
+
+            <LinearLayout
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:paddingRight="11.5dp">
+
+
+
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="14dp"
+                    android:singleLine="true"
+                    android:text="@string/szwmrdz"
+                    android:textColor="@color/slow_black"
+                    android:textSize="15.5sp" />
+                <com.zhongchuang.canting.widget.MCheckBox
+                    android:padding="10dp"
+                    android:id="@+id/check_set_default"
+                    android:layout_width="39.2dp"
+                    android:layout_height="39.2dp"
+                    app:drawablechoose="@drawable/kehugou"
+                    app:drawables="@drawable/black_line_roud_light"
+                    android:layout_gravity="center_vertical" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.48dp"
+                android:background="@color/color_primary_e3" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

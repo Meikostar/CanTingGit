@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="250dp"
+    android:background="@drawable/white_rectange"
+    android:layout_height="wrap_content">
+
+
+    <LinearLayout
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="15dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:id="@+id/ll_langue1"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:visibility="gone"
+                android:src="@drawable/chat_ptype1"
+                android:layout_marginLeft="13dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp" />
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="5dp"
+                android:gravity="center_vertical"
+                android:text="简体中文"
+                android:textColor="@color/color3"
+                android:textSize="15sp" />
+
+            <com.zhongchuang.canting.widget.MCheckBox
+                android:layout_marginRight="10dp"
+                android:id="@+id/iv_type1"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:clickable="false"
+                android:padding="11dp"
+                app:canNoClick="true"
+                app:isCheckeds="true"
+                app:drawablechoose="@drawable/kehugou"
+                app:drawables="@drawable/black_line_roud_light"
+                />
+        </LinearLayout>
+        <View
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="0.2dp"
+            android:background="@color/linecolor"/>
+        <LinearLayout
+            android:id="@+id/ll_langue2"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:visibility="gone"
+                android:src="@drawable/chat_ptype1"
+                android:layout_marginLeft="13dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp" />
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="5dp"
+                android:gravity="center_vertical"
+                android:text="English"
+                android:textColor="@color/color3"
+                android:textSize="15sp" />
+
+            <com.zhongchuang.canting.widget.MCheckBox
+                android:layout_marginRight="10dp"
+                android:id="@+id/iv_type2"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:clickable="false"
+                android:padding="11dp"
+                app:canNoClick="true"
+                app:drawablechoose="@drawable/kehugou"
+                app:drawables="@drawable/black_line_roud_light"
+                />
+        </LinearLayout>
+        <View
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="0.2dp"
+            android:background="@color/linecolor"/>
+        <LinearLayout
+            android:id="@+id/ll_langue3"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:visibility="gone"
+                android:src="@drawable/chat_ptype1"
+                android:layout_marginLeft="13dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp" />
+            <TextView
+                android:layout_weight="1"
+                android:id="@+id/tv_lel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="5dp"
+                android:gravity="center_vertical"
+                android:text="繁體中文"
+                android:textColor="@color/color3"
+                android:textSize="15sp" />
+
+            <com.zhongchuang.canting.widget.MCheckBox
+                android:layout_marginRight="10dp"
+                android:id="@+id/iv_type3"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:clickable="false"
+                android:padding="11dp"
+                app:canNoClick="true"
+                app:drawablechoose="@drawable/kehugou"
+                app:drawables="@drawable/black_line_roud_light"
+                />
+        </LinearLayout>
+        <View
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="0.2dp"
+            android:background="@color/linecolor"/>
+        <LinearLayout
+            android:id="@+id/ll_langue4"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:visibility="gone"
+                android:src="@drawable/chat_ptype2"
+                android:layout_marginLeft="13dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp" />
+            <TextView
+                android:id="@+id/tv_zb"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="5dp"
+                android:gravity="center_vertical"
+                android:text="日本語"
+                android:textColor="@color/color3"
+                android:textSize="15sp" />
+
+            <com.zhongchuang.canting.widget.MCheckBox
+                android:layout_marginRight="10dp"
+                android:id="@+id/iv_type4"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:clickable="false"
+                android:padding="11dp"
+                app:canNoClick="true"
+                app:drawablechoose="@drawable/kehugou"
+                app:drawables="@drawable/black_line_roud_light"
+                />
+        </LinearLayout>
+        <View
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="0.2dp"
+            android:background="@color/linecolor"/>
+        <LinearLayout
+            android:id="@+id/ll_langue5"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:visibility="gone"
+                android:src="@drawable/chat_ptype3"
+                android:layout_marginLeft="13dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp" />
+            <TextView
+                android:id="@+id/tv_qk"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="5dp"
+                android:gravity="center_vertical"
+                android:text="한국어"
+                android:textColor="@color/color3"
+                android:textSize="15sp" />
+
+            <com.zhongchuang.canting.widget.MCheckBox
+                android:layout_marginRight="10dp"
+                android:id="@+id/iv_type5"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:clickable="false"
+                android:padding="11dp"
+                app:canNoClick="true"
+                app:drawablechoose="@drawable/kehugou"
+                app:drawables="@drawable/black_line_roud_light"
+                />
+        </LinearLayout>
+        <View
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="0.2dp"
+            android:background="@color/linecolor"/>
+        <LinearLayout
+            android:id="@+id/ll_langue6"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:visibility="gone"
+                android:src="@drawable/chat_ptype4"
+                android:layout_marginLeft="13dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp" />
+            <TextView
+
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="5dp"
+                android:gravity="center_vertical"
+                android:text="Bahasa Melayu"
+                android:textColor="@color/color3"
+                android:textSize="15sp" />
+
+            <com.zhongchuang.canting.widget.MCheckBox
+                android:layout_marginRight="10dp"
+                android:id="@+id/iv_type6"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:clickable="false"
+                android:padding="11dp"
+                app:canNoClick="true"
+                app:drawablechoose="@drawable/kehugou"
+                app:drawables="@drawable/black_line_roud_light"
+                />
+        </LinearLayout>
+        <View
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="0.2dp"
+            android:background="@color/linecolor"/>
+        <LinearLayout
+            android:id="@+id/ll_langue7"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:visibility="gone"
+                android:src="@drawable/chat_ptype4"
+                android:layout_marginLeft="13dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp" />
+            <TextView
+                android:id="@+id/tv_cz"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="5dp"
+                android:gravity="center_vertical"
+                android:text="俄语"
+                android:textColor="@color/color3"
+                android:textSize="15sp" />
+
+            <com.zhongchuang.canting.widget.MCheckBox
+                android:layout_marginRight="10dp"
+                android:id="@+id/iv_type7"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:clickable="false"
+                android:padding="11dp"
+                app:canNoClick="true"
+                app:drawablechoose="@drawable/kehugou"
+                app:drawables="@drawable/black_line_roud_light"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

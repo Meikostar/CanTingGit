@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+
+        android:layout_centerInParent="true"
+        android:background="@drawable/white_rectange"
+        android:id="@+id/ll_bg"
+        android:layout_marginRight="28dp"
+        android:layout_marginLeft="28dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:layout_marginTop="53dp"
+            android:layout_marginLeft="26dp"
+            android:lineSpacingExtra="3dp"
+            android:id="@+id/tv_first"
+            android:layout_marginRight="26dp"
+            android:layout_width="match_parent"
+            android:gravity="center"
+
+            android:layout_height="wrap_content"
+            android:text="@string/zbyxb"
+            android:textColor="@color/slow_black"
+            android:textSize="16sp"
+           />
+        <TextView
+
+            android:layout_marginLeft="26dp"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/tv_first"
+            android:id="@+id/tv_content"
+            android:layout_marginBottom="63dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/zbly"
+            android:lineSpacingExtra="3dp"
+            android:textColor="@color/slow_black"
+            android:textSize="14sp"
+          />
+
+
+        <ImageView
+            android:layout_marginTop="15dp"
+            android:layout_alignParentRight="true"
+            android:id="@+id/close"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="15dp"
+            android:padding="3dp"
+            android:src="@mipmap/close" />
+
+    </RelativeLayout>
+
+
+
+
+
+
+</RelativeLayout>
+

@@ -1,0 +1,148 @@
+apply plugin: 'com.android.application'
+//apply plugin: 'com.jakewharton.butterknife'
+apply plugin: 'com.neenbedankt.android-apt'
+
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion BUILD_TOOLS_VERSION
+    packagingOptions {
+        exclude('META-INF/LICENSE')
+    }
+    aaptOptions {
+         cruncherEnabled = false
+         useNewCruncher = false
+
+
+    }
+    dexOptions {
+        javaMaxHeapSize "8g"
+    }
+    aaptOptions.cruncherEnabled = false
+    aaptOptions.useNewCruncher = false
+    defaultConfig {
+        applicationId "com.zhongchuang.canting"
+        minSdkVersion MIN_SDK_VERSION as int
+        targetSdkVersion TARGET_SDK_VERSION as int
+        versionCode 1
+        versionName "3.1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            abiFilters "armeabi-v7a"
+        }
+        //方法超出65536 解决方法
+        multiDexEnabled true
+
+    }
+    sourceSets{
+        main{
+            jniLibs.srcDirs=['lib']
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    signingConfigs {
+        config {
+            storeFile file('ifun.jks')
+            storePassword "qwedsa123"
+            keyAlias "ifun"
+            keyPassword "qwedsa123"
+        }
+    }
+
+    //TENCENT  依赖
+    useLibrary 'org.apache.http.legacy'
+    //环信集成报错 依赖
+    dexOptions {
+        jumboMode = true
+    }
+
+
+    lintOptions {
+        disable "ResourceType"
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+
+
+}
+
+//configurations {
+//    all*.exclude group: 'com.android.support', module: 'support-v4'
+//}
+
+
+repositories {
+    flatDir {
+        dirs 'src/main/libs' //就是你放aar的目录地址
+    }
+
+    maven {
+        url "https://raw.githubusercontent.com/HyphenateInc/Hyphenate-SDK-Android/master/repository"
+    }
+    /* //GLIDE 4.0.0配置
+    mavenCentral()
+    maven { url 'https://maven.google.com' }*/
+
+    //方法超出65536 解决方法
+
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'src/main/libs')
+    compile(name: 'AliyunVodPlayer-3.4.6', ext: 'aar')
+    compile(name: 'live-face-beauty-3.3.5', ext: 'aar')
+    compile(name: 'live-pusher-3.3.5', ext: 'aar')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.github.chrisbanes.photoview:library:1.2.4'
+    compile 'com.qiniu:qiniu-android-sdk:7.3.+'
+    compile(project(':AliyunVideoSdk')) {
+        transitive = false
+    }
+    compile project(':Aliyunplayer:AlivcPlayer')
+    compile project(':Aliyunplayer:AlivcReporter')
+    compile project(':Aliyunplayer:AlivcReporter')
+    compile project(':Aliyunplayer:AlivcPlayer')
+    compile project(':AlivcCore')
+    compile project(':easeui')
+    compile project(':gallery')
+    compile project(':sharesdk')
+    compile project(':zxingLibrary')
+    compile 'com.liulishuo.filedownloader:library:1.4.1'
+    compile 'com.aliyun.dpa:oss-android-sdk:2.4.5'
+    compile 'org.apache.ant:ant:1.7.1'
+    compile('com.paypal.sdk:paypal-android-sdk:2.15.3') { exclude group: 'io.card' }
+    //    compile files('libs/libammsdk.jar')
+    //    compile 'com.squareup.okhttp3:okhttp:3.2.0'
+    compile 'com.android.support:cardview-v7:26.0.0-alpha1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.jakewharton:butterknife:8.8.1'
+    compile 'com.android.support:design:26.0.0-alpha1'
+    compile 'com.android.support:recyclerview-v7:26.0.0-alpha1'
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.9.0'
+    compile 'com.squareup.okhttp3:okhttp:3.9.0'
+    compile 'com.github.bumptech.glide:glide:3.6.1'
+    compile 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
+    compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
+    compile 'me.jessyan:progressmanager:1.5.0'
+    compile 'com.bigkoo:convenientbanner:2.0.5'
+    compile 'com.zhy:percent-support-extends:1.1.1'
+    compile 'com.yanzhenjie:recyclerview-swipe:1.1.3'
+    compile 'org.greenrobot:eventbus:3.0.0'
+    compile 'com.malinskiy:superrecyclerview:1.1.4'
+    compile 'tyrant:heartlayout:1.0.1'
+    testCompile 'junit:junit:4.12'
+    apt 'com.jakewharton:butterknife-compiler:8.8.1'
+
+}

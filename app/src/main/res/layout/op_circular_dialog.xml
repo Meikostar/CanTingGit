@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    >
+
+    <LinearLayout
+        android:layout_width="280dp"
+        android:layout_height="140dp"
+        android:orientation="vertical"
+        android:background="@drawable/op_circular_bg"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:id="@+id/txt_title"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.65"
+            android:padding="10dp"
+            android:gravity="center"
+            android:text="@string/qrscgdz"
+            android:textSize="@dimen/textsize_big_low"/>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="0.1dp"
+            android:background="@color/linecolor"/>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.35"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txt_cancel"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/cancel"
+                android:textSize="@dimen/textsize_big_low"
+                />
+
+            <View
+                android:id="@+id/line"
+                android:layout_width="0.1dp"
+                android:layout_height="fill_parent"
+                android:background="@color/linecolor"/>
+
+            <TextView
+                android:id="@+id/txt_sure"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/qd"
+                android:textSize="@dimen/textsize_big_low"
+                android:textColor="@color/blue"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f1f1f3"
+    android:orientation="vertical">
+    <FrameLayout
+        android:id="@+id/layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background= "#FFD84E43">
+
+       <RelativeLayout
+           android:layout_marginTop="25dp"
+           android:layout_width="match_parent"
+           android:layout_height="48dp"
+           android:orientation="horizontal"
+           android:gravity="center_vertical">
+           <TextView
+               android:layout_marginLeft="15dp"
+               android:layout_centerVertical="true"
+               android:id="@+id/tv_cancel"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:padding="5dp"
+               android:layout_gravity="center"
+               android:gravity="center"
+               android:text="@string/cancel"
+               android:textColor="#FFF7CD99"
+               android:textSize="15sp"/>
+           <TextView
+               android:layout_centerInParent="true"
+               android:id="@+id/tv_content"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_gravity="center"
+               android:gravity="center"
+               android:text="@string/fhb"
+               android:textColor="#FFF7CD99"
+               android:textSize="18sp"/>
+           <TextView
+               android:layout_marginRight="15dp"
+               android:layout_alignParentRight="true"
+               android:layout_centerVertical="true"
+               android:id="@+id/tv_record"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:padding="5dp"
+               android:layout_gravity="center"
+               android:gravity="center"
+               android:text="@string/hbjl"
+               android:textColor="#FFF7CD99"
+               android:textSize="15sp"/>
+
+       </RelativeLayout>
+
+    </FrameLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+
+
+
+            <LinearLayout
+                android:layout_marginTop="25dp"
+                android:id="@+id/ll_peak_num_layout"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/jrmf_rp_bg_white_round"
+                android:orientation="horizontal">
+               <ImageView
+                   android:layout_gravity="center_vertical"
+                   android:layout_marginLeft="13dp"
+                   android:layout_width="26dp"
+                   android:src="@drawable/pin"
+                   android:layout_height="26dp"
+                   />
+                <TextView
+                    android:textSize="16sp"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:gravity="center_vertical"
+                    android:textColor="#3e3a39"
+                    android:text="@string/zjf"/>
+
+                <EditText
+                    android:id="@+id/et_peak_amount"
+                    style="@style/text_black_16"
+                    android:layout_width="0dip"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:digits="1234567890"
+                    android:paddingRight="15dp"
+                    android:gravity="right|center_vertical"
+                    android:inputType="phone|number"
+                    android:textCursorDrawable="@drawable/jrmf_rp_shape_cursor"/>
+
+                <TextView
+                    android:textSize="16sp"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="16dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/jf"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_group_member_num"
+                style="@style/text_gray_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="7dip"
+                android:text="本群共100人"/>
+
+
+            <LinearLayout
+                android:id="@+id/ll_peak_amount_layout"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/jrmf_rp_bg_white_round"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_peak_amount_icon"
+                    style="@style/text_black_16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/hbgs"/>
+                <EditText
+                    android:paddingRight="15dp"
+                    android:digits="123456789"
+                    android:id="@+id/et_peak_num"
+                    android:textSize="16sp"
+                    android:layout_width="0dip"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="right|center_vertical"
+                    android:inputType="numberDecimal"
+                    android:maxLength="5"
+                    android:textColorHint="#b7b7b7"
+                    android:textCursorDrawable="@drawable/jrmf_rp_shape_cursor"/>
+
+
+
+                <TextView
+                    style="@style/text_black_16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="16dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/g"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_peak_type"
+                style="@style/text_gray_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="7dip"
+                android:text="红包类型切换"/>
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/jrmf_rp_bg_white_round"
+                android:orientation="horizontal">
+
+                <TextView
+
+                    style="@style/text_black_16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/ly"/>
+                <EditText
+                    android:id="@+id/et_peak_message"
+                    style="@style/text_black_16"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+                    android:background="@drawable/jrmf_rp_bg_white_round"
+                    android:gravity="left|center"
+                    android:hint="@string/gxfadadl"
+                    android:maxLength="25"
+                    android:minHeight="40dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:textColorHint="@color/jrmf_b_color_b7b7b7"
+                    android:textCursorDrawable="@drawable/jrmf_rp_shape_cursor"/>
+
+
+
+                <TextView
+                    style="@style/text_black_16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:gravity="center_vertical"
+                    android:text="个"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center">
+
+
+
+                <TextView
+                    android:id="@+id/tv_amount_for_show"
+                    style="@style/text_black_28"
+                    android:layout_width="wrap_content"
+                    android:layout_height="56dp"
+                    android:gravity="center"
+                    android:text=""
+
+                    android:textStyle="normal"
+                    android:typeface="serif"/>
+
+            </LinearLayout>
+
+            <!--<TextView-->
+            <!--android:id="@+id/tv_amount_for_show"-->
+            <!--style="@style/text_black_28"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="@dimen/actionbar_height"-->
+            <!--android:layout_marginTop="@dimen/dimen_16"-->
+            <!--android:gravity="center"-->
+            <!--android:text="￥"/>-->
+
+            <Button
+                android:id="@+id/btn_putin"
+                style="@style/text_white_16"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/jrmf_rp_selector_common_btn"
+                android:text="@string/sjfjhb"
+                android:textColor="@color/jrmf_b_white"/>
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>
+

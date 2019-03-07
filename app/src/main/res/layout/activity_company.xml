@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#e6e6e6"
+    android:orientation="vertical"
+    >
+    <LinearLayout
+        android:background="#FF2A93FF"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <RelativeLayout
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+
+
+
+            <TextView
+                android:layout_weight="0.6"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:text="了解我们"
+                android:gravity="center"
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+
+            <ImageView
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:padding="5dp"
+                android:id="@+id/iv_back"
+                android:layout_width="22dp"
+                android:layout_height="29dp"
+                android:src="@drawable/back_white"
+                android:layout_marginRight="5dp"
+                />
+        </RelativeLayout>
+
+
+
+
+    </LinearLayout>
+
+    <ImageView
+        android:visibility="gone"
+        android:id="@+id/zhuye_saoyisao"
+        android:layout_width="30px"
+        android:layout_height="40px"
+        android:layout_centerInParent="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/i22" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <ImageView
+                android:scaleType="fitXY"
+                android:src="@drawable/aa2"
+                android:layout_width="match_parent"
+                android:layout_height="180dp" />
+
+
+
+            <LinearLayout
+                android:paddingTop="15dp"
+                android:background="@color/white"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/person_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/person_pic"
+                    android:gravity="center"
+                    android:text="Yun Zhi（云志）"
+                    android:textColor="#FF0066AD"
+                    android:textSize="18sp" />
+                <TextView
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="8dp"
+                    android:id="@+id/person_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:text="1、免费下载app精准了解全球优品
+2、通过行业信息直播平台，时时免费获取全球股市、汇市、网销、融资、区块链等精准的行业信息和全球政策风向，避免沦为行业韭菜
+3、随时免费学习行业专业知识，提升个人能力，避免盲目投资，害人害己
+4、免费P2P移动社交，彻底摆脱垃圾信息的困扰
+5、拥有100个以上免下载常用手机app应用，有效提升手机速度
+6、线上线下同步的交友通道，飞速放大自己的朋友圈               "
+                    android:textColor="#FF666666"
+                    android:textSize="15sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="15dp"
+                android:id="@+id/ll_about"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:text="加盟方案"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="13dp"
+                    android:textColor="@color/slow_black"
+                    android:textSize="15sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+
+                    android:src="@drawable/arrow_left"
+                    android:layout_width="10dp"
+                    android:layout_height="14dp"
+                    android:layout_marginRight="13dp"/>
+            </LinearLayout>
+            <View
+                android:layout_marginLeft="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/linecolor"/>
+            <LinearLayout
+                android:id="@+id/ll_devp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:text="平台综合定位"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="13dp"
+                    android:textColor="@color/slow_black"
+                    android:textSize="15sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+
+                    android:src="@drawable/arrow_left"
+                    android:layout_width="10dp"
+                    android:layout_height="14dp"
+                    android:layout_marginRight="13dp"/>
+            </LinearLayout>
+            <View
+                android:layout_marginLeft="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/linecolor"/>
+            <LinearLayout
+
+                android:id="@+id/ll_product"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:text="云志全球激励文案"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="13dp"
+                    android:textColor="@color/slow_black"
+                    android:textSize="15sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+
+                    android:src="@drawable/arrow_left"
+                    android:layout_width="10dp"
+                    android:layout_height="14dp"
+                    android:layout_marginRight="13dp"/>
+            </LinearLayout>
+            <View
+                android:layout_marginLeft="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/linecolor"/>
+            <LinearLayout
+
+                android:id="@+id/ll_products"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:text="云志全球价值共享平台优势"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="13dp"
+                    android:textColor="@color/slow_black"
+                    android:textSize="15sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+
+                    android:src="@drawable/arrow_left"
+                    android:layout_width="10dp"
+                    android:layout_height="14dp"
+                    android:layout_marginRight="13dp"/>
+            </LinearLayout>
+            <View
+                android:layout_marginLeft="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/linecolor"/>
+            <LinearLayout
+
+                android:id="@+id/ll_man"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:text="云志全球价值共享平台优势"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="13dp"
+                    android:textColor="@color/slow_black"
+                    android:textSize="15sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:src="@drawable/arrow_left"
+                    android:layout_width="10dp"
+                    android:layout_height="14dp"
+                    android:layout_marginRight="13dp"/>
+            </LinearLayout>
+            <View
+                android:layout_marginLeft="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/linecolor"/>
+            <LinearLayout
+
+                android:id="@+id/ll_chat"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:text="云志全球消费宏利分享计划"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="13dp"
+                    android:textColor="@color/slow_black"
+                    android:textSize="15sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+
+                    android:src="@drawable/arrow_left"
+                    android:layout_width="10dp"
+                    android:layout_height="14dp"
+                    android:layout_marginRight="13dp"/>
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>

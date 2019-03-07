@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:background="@drawable/black_line_rectangle_light"
+        android:layout_width="100dp"
+        android:layout_height="24dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/tv_add"
+            android:textSize="19sp"
+            android:gravity="center"
+            android:textColor="@color/slow_black"
+            android:text="+"
+            android:layout_width="26dp"
+            android:layout_height="24dp" />
+        <View
+            android:layout_width="0.38dp"
+            android:layout_height="30.5dp"
+            android:background="@color/linecolor"/>
+        <com.zhongchuang.canting.widget.ClearEditText
+            android:id="@+id/edit_cout"
+            android:layout_width="46dp"
+            android:layout_height="24dp"
+            android:minHeight="31dp"
+            android:background="@null"
+            android:gravity="center"
+            android:inputType="number"
+
+            android:text="1"
+            android:textColor="@color/slow_black"
+
+            android:textSize="14sp" />
+        <View
+            android:layout_width="0.38dp"
+            android:layout_height="30.5dp"
+            android:background="@color/linecolor"/>
+        <TextView
+            android:id="@+id/tv_clear"
+            android:textSize="25sp"
+            android:gravity="center"
+            android:textColor="@color/slow_black"
+            android:text="-"
+            android:layout_marginBottom="5dp"
+            android:layout_width="26dp"
+            android:layout_height="24dp" />
+    </LinearLayout>
+
+</LinearLayout>

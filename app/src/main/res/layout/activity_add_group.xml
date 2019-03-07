@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/content_bg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.zhongchuang.canting.widget.NavigationBar
+        android:id="@+id/navigationBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:navigationLeft_img="@drawable/back_white"
+        app:navigationTitle="@string/hyfz" />
+    <com.zhongchuang.canting.widget.banner.BannerView
+        android:id="@+id/bannerView"
+        android:layout_width="match_parent"
+        android:layout_height="82dp"
+        app:bannerAnimDuration="1500"
+        app:bannerAnimScroll="true"
+        app:bannerAutoScroll="true"
+        app:bannerPageAlpha="1.0"
+        app:bannerPageMargin="8dp"
+        app:bannerPagePercent="1"
+        app:bannerPageScale="1"
+        app:bannerScrollDuration="10000" />
+<LinearLayout
+    android:layout_marginTop="15dp"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:textSize="15sp"
+            android:textColor="@color/color3"
+            android:text="@string/fzmcs"/>
+        <com.zhongchuang.canting.widget.ClearEditText
+
+            android:id="@+id/et_comment"
+            android:layout_width="match_parent"
+
+            android:layout_height="40dp"
+            android:background="@color/white"
+            android:layout_weight="1"
+            android:paddingLeft="5dp"
+            android:textColorHint="#666666"
+            android:textSize="14sp"
+            android:hint="@string/srfzmc"
+            />
+    </LinearLayout>
+    <View
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/linecolor"/>
+
+
+
+    <TextView
+        android:layout_marginTop="45dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:background="@drawable/login_selector"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:text="@string/qd"
+        android:textSize="15sp"
+        android:gravity="center"
+        android:id="@+id/tv_sure"
+        android:textColor="@color/white"/>
+</LinearLayout>
+
+
+</LinearLayout>

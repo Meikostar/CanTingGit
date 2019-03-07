@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"
+        android:id="@+id/card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+
+        android:foreground="?android:attr/selectableItemBackground"
+        android:stateListAnimator="@drawable/lift_on_touch"
+        app:cardCornerRadius="@dimen/dp_4"
+        app:cardPreventCornerOverlap="false"
+        app:cardUseCompatPadding="true"
+        tools:targetApi="lollipop">
+
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:paddingBottom="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="10dp">
+
+            <com.zhongchuang.canting.widget.MCheckBox
+
+                android:id="@+id/iv_choose"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:clickable="false"
+                android:padding="11dp"
+                app:canNoClick="false"
+                app:drawablechoose="@drawable/kehugou"
+                app:drawables="@drawable/black_line_roud_light"
+               />
+
+            <ImageView
+                android:id="@+id/p_logo"
+                android:layout_width="85dp"
+                android:layout_height="85dp"
+                android:layout_marginRight="7dp"
+                android:layout_toRightOf="@id/iv_choose"
+                android:scaleType="centerCrop" />
+
+            <TextView
+                android:id="@+id/p_name"
+                android:layout_width="match_parent"
+                android:layout_height="33dp"
+                android:layout_toRightOf="@id/p_logo"
+                android:maxLines="2"
+                android:text="商品的名称不知f道有几行"
+
+                android:textColor="@color/slow_black"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/p_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/p_name"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@id/p_logo"
+                android:singleLine="true"
+                android:text="桑品描述只有一行"
+                android:textColor="@color/color6"
+                android:textSize="12sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_alignBottom="@id/p_logo"
+                android:layout_toRightOf="@id/p_logo"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/p_price"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:lines="1"
+                    android:layout_weight="1"
+                    android:text="￥2485"
+                    android:textColor="#FFFF8400"
+                    android:textSize="14sp" />
+                <TextView
+                    android:visibility="gone"
+                    android:layout_marginRight="12dp"
+                    android:id="@+id/tv_find"
+                    android:gravity="center"
+                    android:layout_width="50dp"
+                    android:layout_height="22dp"
+                    android:background="@drawable/red_rectangle"
+                    android:text="找相似"
+                    android:textColor="#fff"
+                    android:textSize="12sp" />
+                <com.zhongchuang.canting.widget.AddEditText
+
+                    android:id="@+id/add"
+                    android:layout_marginRight="8dp"
+                    android:layout_width="100dp"
+                    android:layout_height="24dp"/>
+            </LinearLayout>
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

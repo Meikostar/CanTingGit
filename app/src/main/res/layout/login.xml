@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y126"
+        android:background="#FF2A93FF"
+
+        >
+           <ImageView
+               android:id="@+id/iv_back"
+               android:padding="16dp"
+
+               android:layout_centerVertical="true"
+               android:src="@drawable/back_white"
+               android:layout_width="40dp"
+               android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="@string/dl"
+            android:textColor="#ffffff"
+            android:textSize="17sp"
+
+            />
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/shezhi_regest"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/x40"
+            android:gravity="center"
+            android:text="注册"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/x45" />
+    </RelativeLayout>
+
+
+    <android.support.design.widget.TabLayout
+
+        android:id="@+id/tab_FindFragment_title"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="#ffffff"
+        app:tabIndicatorColor="#FF2A93FF"
+        app:tabMaxWidth="120dp"
+        app:tabSelectedTextColor="#FF2A93FF"
+        app:tabTextColor="#333"
+    />
+
+
+
+
+    <android.support.v4.view.ViewPager
+
+        android:id="@+id/vp_FindFragment_pager"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+
+</LinearLayout>

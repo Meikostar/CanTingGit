@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@color/content_bg"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <View
+        android:background="@color/blue"
+        android:layout_width="match_parent"
+        android:layout_height="0.00001dp"
+        android:id="@+id/line"/>
+    <com.zhongchuang.canting.widget.NavigationBar
+        android:id="@+id/navigationBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        app:navigationTitle="@string/lwb" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:background="@color/linecolor"/>
+    <LinearLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="47dp"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:gravity="center_horizontal"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/rb"
+                android:id="@+id/tv_state1"
+                android:textSize="15sp"
+
+                android:textColor="@color/blue"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+            <ImageView
+                android:src="@drawable/blue_line"
+                android:id="@+id/line1"
+                android:layout_width="40dp"
+                android:layout_height="2dp" />
+        </LinearLayout>
+        <View
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_width="0.3dp"
+            android:layout_height="match_parent"
+            android:background="@color/linecolor"/>
+        <LinearLayout
+            android:gravity="center_horizontal"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:textSize="15sp"
+                android:gravity="center"
+                android:text="@string/zhoubang"
+                android:id="@+id/tv_state2"
+                android:textColor="@color/slow_black"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                tools:ignore="HardcodedText" />
+            <ImageView
+                android:visibility="invisible"
+                android:src="@drawable/blue_line"
+                android:id="@+id/line2"
+                android:layout_width="40dp"
+                android:layout_height="2dp" />
+        </LinearLayout>
+        <View
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_width="0.3dp"
+            android:layout_height="match_parent"
+            android:background="@color/linecolor"/>
+        <LinearLayout
+            android:gravity="center_horizontal"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:textSize="15sp"
+                android:gravity="center"
+                android:text="@string/yuebang"
+                android:id="@+id/tv_state3"
+                android:textColor="@color/slow_black"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+            <ImageView
+                android:visibility="invisible"
+                android:src="@drawable/blue_line"
+                android:id="@+id/line3"
+                android:layout_width="40dp"
+                android:layout_height="2dp" />
+        </LinearLayout>
+        <View
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_width="0.3dp"
+            android:layout_height="match_parent"
+            android:background="@color/linecolor"/>
+        <LinearLayout
+            android:id="@+id/ll_find"
+            android:gravity="center_horizontal"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:gravity="center"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:textSize="15sp"
+                    android:gravity="center"
+                    android:text="@string/cz"
+                    android:id="@+id/tv_state4"
+                    android:textColor="@color/slow_black"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/>
+                <ImageView
+                    android:layout_marginLeft="5dp"
+                    android:src="@drawable/seach"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp" />
+            </LinearLayout>
+            <ImageView
+                android:visibility="invisible"
+                android:src="@drawable/blue_line"
+                android:id="@+id/ivlines"
+                android:layout_width="40dp"
+                android:layout_height="2dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+    <com.zhongchuang.canting.widget.NoScrollViewPager
+        android:layout_weight="1"
+        android:layout_marginTop="10dp"
+        android:id="@+id/viewpager_main"
+        android:background="@color/content_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

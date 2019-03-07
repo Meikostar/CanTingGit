@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/navigationBar"
+        android:background="#FF2A93FF"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <RelativeLayout
+            android:layout_marginBottom="12dp"
+            android:layout_marginTop="6dp"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+
+
+
+            <TextView
+                android:layout_weight="0.6"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:text=""
+                android:gravity="center"
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+
+            <ImageView
+                android:padding="3dp"
+                android:id="@+id/iv_back"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:src="@mipmap/tab_back_btn" />
+        </RelativeLayout>
+
+
+
+
+    </LinearLayout>
+
+
+    <WebView
+        android:layout_above="@+id/rl_rigter"
+        android:layout_below="@+id/navigationBar"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:id="@+id/webview_webView"/>
+
+    <include layout="@layout/web_tools"/>
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/rl_rigter"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white">
+
+        <Button
+            android:id="@+id/btn_submit"
+            style="@style/btn_comment_style"
+            android:layout_centerInParent="true"
+            android:text="我已阅读，立即注册" />
+    </RelativeLayout>
+</RelativeLayout>

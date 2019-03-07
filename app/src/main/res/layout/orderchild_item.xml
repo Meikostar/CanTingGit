@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
+    android:id="@+id/rl_bg"
+ >
+
+    <ImageView
+        android:id="@+id/p_logo"
+        android:layout_width="74dp"
+        android:layout_height="74dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="8dp"
+
+        android:scaleType="centerCrop"
+        />
+
+    <TextView
+        android:layout_marginTop="12dp"
+        android:id="@+id/p_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/p_logo"
+        android:layout_marginRight="10dp"
+        android:singleLine="true"
+        tools:text="商品的名称不知道有几行"
+        android:textColor="@color/slow_black"
+        android:textSize="13sp" />
+
+    <TextView
+
+        android:id="@+id/p_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/p_name"
+        android:lines="1"
+        android:layout_marginTop="7dp"
+        android:layout_marginRight="10dp"
+        android:layout_toRightOf="@id/p_logo"
+        android:singleLine="true"
+        android:text="桑品描述只有一行"
+        android:textColor="@color/color9"
+        android:textSize="@dimen/sp_12" />
+
+    <LinearLayout
+        android:layout_marginBottom="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/p_logo"
+        android:layout_toRightOf="@id/p_logo"
+        android:orientation="horizontal"
+        android:paddingRight="14dp">
+
+        <TextView
+            android:id="@+id/tv_money"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            tools:text="￥2485"
+            android:textColor="#FF8400"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_cout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="x2"
+            android:textColor="@color/slow_black"
+            android:textSize="16sp" />
+    </LinearLayout>
+    <View
+       android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_below="@id/p_logo"
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:background="@color/linecolor"/>
+
+</RelativeLayout>

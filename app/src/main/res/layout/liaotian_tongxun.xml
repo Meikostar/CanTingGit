@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#F2F2F2"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:id="@+id/rl_bg"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y126"
+        android:background="@color/coofeColor">
+
+        <RelativeLayout
+            android:layout_marginLeft="@dimen/x100"
+            android:layout_marginRight="@dimen/x100"
+            android:layout_centerInParent="true"
+            android:background="@drawable/shape_tongxunlu_search"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y60">
+
+
+            <ImageView
+                android:id="@+id/tongxunlu_search"
+                android:layout_marginLeft="@dimen/x45"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/search"
+                android:layout_width="@dimen/x40"
+                android:layout_height="@dimen/y50" />
+
+
+            <EditText
+                android:layout_toRightOf="@+id/tongxunlu_search"
+                android:id="@+id/tongxunlu_ipt"
+                android:background="@null"
+                android:textSize="@dimen/x30"
+                android:textColor="#C1C0C0"
+                android:gravity="center_vertical"
+                android:hint="搜索"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:lines="1"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+        </RelativeLayout>
+
+
+
+            <ImageView
+                android:layout_centerVertical="true"
+                android:id="@+id/tongxunlu_bacbut"
+                android:layout_marginLeft="@dimen/x20"
+                android:layout_width="@dimen/x45"
+                android:layout_height="@dimen/y45"
+                android:src="@mipmap/arrow_left"
+                />
+        <ImageView
+            android:layout_marginRight="@dimen/x20"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:id="@+id/tongxunlu_find"
+            android:layout_width="@dimen/x45"
+            android:layout_height="@dimen/y45"
+            android:src="@mipmap/tongxunlu_find2"
+            />
+    </RelativeLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/tongxunlu_recy"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
+
+</LinearLayout>

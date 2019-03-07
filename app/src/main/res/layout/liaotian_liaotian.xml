@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F2F2F2"
+    >
+
+
+    <RelativeLayout
+        android:background="@color/coofeColor"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y126">
+
+        <TextView
+            android:gravity="center"
+            android:textSize="@dimen/x45"
+            android:textColor="#FFFFFF"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="聊天"
+            />
+
+
+        <ImageView
+            android:id="@+id/tongxunlu_pic"
+            android:layout_marginRight="@dimen/x20"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_width="@dimen/x45"
+            android:layout_height="@dimen/y45"
+            android:src="@mipmap/tongxun"
+            />
+    </RelativeLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y100">
+
+    <RelativeLayout
+        android:background="@drawable/shape_liaotian_search"
+       android:layout_marginTop="@dimen/y15"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y70">
+
+
+        <ImageView
+            android:layout_marginLeft="@dimen/x45"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/search"
+            android:layout_width="@dimen/x40"
+            android:layout_height="@dimen/y50" />
+
+
+        <EditText
+            android:id="@+id/liaotian_search"
+            android:background="@null"
+            android:textSize="@dimen/x30"
+            android:textColor="#C1C0C0"
+            android:layout_marginLeft="@dimen/x100"
+            android:gravity="center_vertical"
+            android:hint="搜索聊天内容"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:lines="1"
+            />
+
+    </RelativeLayout>
+
+    </LinearLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/liaotian_recy"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </android.support.v7.widget.RecyclerView>
+</LinearLayout>

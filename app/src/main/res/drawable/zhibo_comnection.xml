@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <solid android:color="#FFFFFF" />
+
+
+    <!-- stroke描边
+     width:描边的粗细
+     color：描出的颜色
+     dashGap：虚线的间距，如果不写或为0则为实线
+     dashWidth：虚线的长度
+ -->
+
+
+    <!-- corners弧度
+        radius：设置四个角的弧度半径
+        bottomLeftRadius：设置左下角弧度
+        bottomRightRadius：设置右下角弧度
+        topLeftRadius：设置左上角弧度
+        topRightRadius：设置右上角弧度
+        单独设置的角度会优先-->
+    <corners android:radius="@dimen/x10" />
+</shape>

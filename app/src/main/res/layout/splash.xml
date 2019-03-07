@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+
+    <ImageView
+        android:id="@+id/iv_img"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@mipmap/splash_05"
+        android:scaleType="fitXY" />
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/rl_bg"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.zhongchuang.canting.widget.CostumTextView
+        android:layout_marginTop="51dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="31dp"
+        android:layout_marginRight="31dp"
+        android:gravity="center"
+        android:text="@string/app_name"
+        app:fontType="HYQIHEI_90W"
+        android:textColor="#fff"
+        android:textSize="40sp" />
+        <TextView
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:lineSpacingExtra="4dp"
+            android:layout_marginBottom="80dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="31dp"
+            android:layout_marginRight="31dp"
+            android:gravity="center"
+            android:text="@string/kwlznydx"
+            android:textColor="#fff"
+            android:textSize="9sp" />
+        <TextView
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="46dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="31dp"
+            android:layout_marginRight="31dp"
+            android:gravity="center"
+            android:text="@string/kjhlgbsh"
+            android:textColor="#fff"
+            android:textSize="16sp" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/rl_bgs"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.zhongchuang.canting.widget.CostumTextView
+            android:layout_marginTop="111dp"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="31dp"
+            android:layout_marginRight="31dp"
+            android:gravity="center"
+            android:text="@string/sstx"
+            app:fontType="WeChatSansSS_Medium"
+            android:textColor="#fff"
+            android:textSize="40sp" />
+
+        <TextView
+            android:layout_marginTop="169dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="46dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="31dp"
+            android:layout_marginRight="31dp"
+            android:gravity="center"
+            android:text="@string/ykltjkwk"
+            android:textColor="#fff"
+            android:textSize="14sp" />
+    </RelativeLayout>
+</RelativeLayout>

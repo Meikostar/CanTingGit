@@ -1,0 +1,49 @@
+<resources>
+    <string name="app_name">ZxingLibrary</string>
+    <!--本地相册-->
+    <string name="local_album">本地相册</string>
+    <string name="picture_name_number">%1$s(%2$d张)</string>
+    <string name="scanning">正在准备相册…</string>
+    <string name="identifying">正在识别…</string>
+    <string name="no_local_album">没有本地图片</string>
+    <string name="capture">拍照</string>
+    <string name="recent">最近</string>
+    <string name="camera">相机</string>
+    <string name="screen_short">屏幕截图</string>
+    <string name="we_chat">微信</string>
+    <string name="download">下载</string>
+    <string name="picture">图片</string>
+    <string name="no_crop_action">您的设备没有提供裁剪图片功能</string>
+    <string name="no_browser">您的设备没有提供内置浏览器</string>
+
+    <!--扫描二维码-->
+    <string name="album">相册</string>
+    <string name="scan_result">扫描结果</string>
+    <string name="copy">复制</string>
+    <string name="search">搜索</string>
+    <string name="text_already_copied">已复制到剪贴板</string>
+    <string name="bar_code">条形码：%1$s</string>
+    <string name="decode_null">未发现二维码/条形码</string>
+
+    <string name="camera_error">相机错误</string>
+    <!--生成二维码-->
+    <string name="generate_qr_code">生成二维码</string>
+    <string name="select_logo">从相册选取Logo</string>
+    <string name="save_qr_code">保存二维码到手机</string>
+    <string name="input_qr_code_content">输入二维码中的信息</string>
+    <string name="logo">Logo</string>
+    <string name="generate_qrcode_please">还没有生成二维码图片呢</string>
+    <string name="picture_already_save_to">图片已保存至%1$s</string>
+    <string name="save_fail_retry">保存失败，请重试</string>
+    <string name="logo_open_status">打开状态下，二维码图片中央区域显示Logo</string>
+    <string name="qrcode_fore_color">二维码前景色</string>
+    <string name="qrcode_back_color">二维码背景色</string>
+    <string name="restore">恢复默认</string>
+    <string name="reset_logo_color">重置Logo、前景色、背景色？</string>
+    <string name="fore_color">前景色</string>
+    <string name="back_color">背景色</string>
+    <string name="colors">颜色</string>
+    <string name="scan_code">扫码</string>
+    <string name="Alignment_code">对准二维码/条形码</string>
+    <string name="prompt">提示</string>
+</resources>

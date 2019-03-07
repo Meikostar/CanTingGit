@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="270dp"
+        android:layout_height="350dp"
+        android:background="@drawable/jrmf_rp_open_rp_bg">
+
+        <ImageView
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="4dp"
+            android:layout_marginRight="4dp"
+            android:padding="7dp"
+            android:id="@+id/iv_close"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/jrmf_rp_open_rp_close"/>
+
+
+        <ImageView
+            android:id="@+id/iv_header"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_below="@id/iv_close"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="6dp"
+            />
+
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iv_header"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="12dp"
+            android:gravity="center_vertical"
+            android:textColor="#FFF3E7AD"
+            android:textSize="18sp"
+            tools:text="刘洪林"/>
+
+
+        <TextView
+            android:id="@+id/tv_send_rp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_name"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="7dp"
+            android:text="@string/flyghb"
+            android:textColor="#FFF3E7AD"
+            android:textSize="14sp"
+            />
+
+        <TextView
+            android:id="@+id/tv_no_rp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_send_rp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="17dp"
+            android:text="@string/gxfadadl"
+            android:textColor="#FFF3E7AD"
+            android:textSize="20sp"
+            />
+
+
+
+        <ImageView
+            android:id="@+id/iv_open_rp"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_below="@id/tv_no_rp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/jrmf_rp_open_rp"
+            android:layout_marginTop="19dp"
+            />
+
+        <!--android:src="@drawable/jrmf_rp_open_rp_anim"-->
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:layout_below="@id/iv_open_rp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_look_others"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="@string/kkdjdsq"
+                android:textSize="14sp"
+                android:textColor="#FFF3E7AD"/>
+            <ImageView
+                android:layout_marginLeft="6dp"
+                android:layout_width="10dp"
+                android:layout_height="12dp"
+                android:src="@drawable/right_arrow_white"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+</LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+

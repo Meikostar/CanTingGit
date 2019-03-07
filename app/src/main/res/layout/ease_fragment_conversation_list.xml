@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:hyphenate="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_bg"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:background="@color/coofeColor"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+
+
+        <FrameLayout
+            android:visibility="gone"
+            android:id="@+id/tongxunlu_pic"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:paddingRight="15dp"
+            android:paddingLeft="15dp">
+            <ImageView
+                android:layout_width="@dimen/x55"
+                android:layout_height="@dimen/x55"
+                android:src="@mipmap/tongxun"
+                android:layout_gravity="center"
+                />
+        </FrameLayout>
+    </RelativeLayout>
+
+    <include
+        android:visibility="gone"
+        layout="@layout/ease_search_bar" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/fl_error_item"
+        >
+    </FrameLayout>
+
+
+    <com.zhongchuang.canting.easeui.widget.EaseConversationList
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ededed"
+        android:cacheColorHint="#00000000"
+        android:divider="@null"
+        hyphenate:cvsListPrimaryTextSize="16sp"
+        />
+
+</LinearLayout>

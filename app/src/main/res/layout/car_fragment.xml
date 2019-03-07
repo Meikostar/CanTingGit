@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/content_bg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+   <com.zhongchuang.canting.widget.loadingView.LoadingPager
+       android:layout_weight="1"
+       android:id="@+id/loadingView"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+       <ListView
+           android:id="@+id/listview_all_city"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           style="@style/lv_content"
+           />
+   </com.zhongchuang.canting.widget.loadingView.LoadingPager>
+
+    <LinearLayout
+        android:id="@id/ll_bg"
+        android:background="@color/white"
+        android:layout_marginTop="5dp"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+        <com.zhongchuang.canting.widget.MCheckBox
+            android:layout_marginLeft="4dp"
+            android:id="@+id/iv_choose"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:clickable="false"
+            android:padding="11dp"
+            app:canNoClick="false"
+            app:drawablechoose="@drawable/kehugou"
+            app:drawables="@drawable/black_line_roud_light" />
+        <TextView
+
+            android:text="@string/qx"
+            android:textColor="@color/color6"
+            android:textSize="14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:id="@+id/ll_pay"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <View
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:text="@string/hjs"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginLeft="4dp"
+                android:id="@+id/tv_total"
+                android:text=""
+                android:textColor="#FFFF8400"
+                android:textSize="15sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginLeft="24dp"
+                android:minWidth="110dp"
+                android:padding="10dp"
+                android:id="@+id/tv_pay"
+                android:background="@color/blue"
+                android:text="@string/qjs"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/ll_delete"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <View
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_marginLeft="24dp"
+                android:minWidth="90dp"
+                android:padding="10dp"
+                android:id="@+id/tv_delete"
+                android:background="@color/blue"
+                android:text="删除"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

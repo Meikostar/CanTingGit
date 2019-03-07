@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bg_f5">
+
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/white">
+        <TextView
+            android:id="@+id/p_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_color_57"
+            android:textSize="@dimen/sp_14"
+            android:text="@string/splb"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:background="@color/white"/>
+        <TextView
+            android:id="@+id/more_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_color_159"
+            android:textSize="@dimen/sp_14"
+            android:text="@string/gengduo"
+            android:gravity="right|center_vertical"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:drawablePadding="7dp"
+            android:paddingRight="10dp"
+            android:drawableRight="@mipmap/jt_black_right"
+            android:background="@color/white"/>
+    </LinearLayout>
+
+    
+    <ImageView
+        android:id="@+id/big_image"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:scaleType="fitXY"
+        android:visibility="gone"/>
+
+    <com.zhongchuang.canting.widget.MyGridView
+        android:layout_marginTop="5dp"
+        android:id="@+id/gridview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:numColumns="3"
+        android:horizontalSpacing="1dp"
+        android:verticalSpacing="1dp"
+
+        />
+
+
+
+</LinearLayout>

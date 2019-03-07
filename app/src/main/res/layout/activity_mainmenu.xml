@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:lmvattr="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textSize="30dp"
+            android:layout_margin="10dp"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:textSize="20dp"
+            android:layout_margin="20dp"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.zhongchuang.canting.live.view.LineMenuView
+                android:id="@+id/lmv_host"
+
+                android:clickable="true"
+                android:onClick="onClick"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.zhongchuang.canting.live.view.LineMenuView
+                android:id="@+id/lmv_guest"
+
+                android:clickable="true"
+                android:onClick="onClick"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.zhongchuang.canting.live.view.LineMenuView
+                android:id="@+id/lmv_live_guest"
+
+                android:clickable="true"
+                android:onClick="onClick"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.zhongchuang.canting.live.view.LineMenuView
+                android:id="@+id/lmv_beauty"
+
+                android:clickable="true"
+                android:onClick="onClick"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.zhongchuang.canting.live.view.LineMenuView
+                android:id="@+id/lmv_replay"
+
+                android:clickable="true"
+                android:onClick="onClick"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.zhongchuang.canting.live.view.LineMenuView
+                android:id="@+id/lmv_log"
+
+                android:clickable="true"
+                android:onClick="onClick"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.zhongchuang.canting.live.view.LineMenuView
+                android:id="@+id/lmv_cross"
+
+                android:clickable="true"
+                android:onClick="onClick"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.zhongchuang.canting.live.view.LineMenuView
+                android:id="@+id/lmv_mix"
+
+                android:clickable="true"
+                android:onClick="onClick"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/content_bg"
+    android:orientation="vertical">
+
+    <com.zhongchuang.canting.widget.NavigationBar
+        android:id="@+id/navigationBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:navigationLeft_img="@drawable/back_white"
+        app:navigationTitle="@string/txdd" />
+    <LinearLayout
+        android:background="@color/white"
+        android:id="@+id/ll_bg"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_weight="1"
+            android:paddingLeft="15dp"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:orientation="vertical">
+            <TextView
+                android:textColor="@color/slow_black"
+                android:textSize="15sp"
+                tools:text="Meiko   18166036747"
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+            <TextView
+                android:layout_marginTop="10dp"
+                android:textColor="@color/slow_black"
+                android:textSize="15sp"
+                tools:text="广东省深圳市 宝安区 "
+                 android:id="@+id/tv_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+        </LinearLayout>
+        <ImageView
+            android:src="@drawable/arrow_left"
+            android:layout_marginRight="16dp"
+            android:layout_width="13dp"
+            android:layout_height="15dp" />
+    </LinearLayout>
+    <ListView
+        android:layout_marginBottom="6dp"
+        android:layout_weight="1"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/navigationBar"
+        android:divider="@color/content_bg"
+        android:id="@+id/listview"
+        style="@style/lv_content"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center|right"
+            android:text="@string/hj"
+            android:textColor="@color/slow_black"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_marginRight="22dp"
+
+            android:id="@+id/tv_add_car"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="0.00"
+            android:textColor="#FF8400"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_buy"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:background="@color/blue"
+            android:gravity="center"
+            android:text="@string/tjdd"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_14" />
+    </LinearLayout>
+
+</LinearLayout>

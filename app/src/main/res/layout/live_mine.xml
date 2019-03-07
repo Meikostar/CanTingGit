@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/content_bg"
+    android:orientation="vertical"
+
+    >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="210dp"
+        android:background="@drawable/bgs"
+        android:orientation="vertical"
+        >
+
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+        <RelativeLayout
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:orientation="horizontal"
+
+            >
+            <com.zhongchuang.canting.widget.CircleImageView
+                android:layout_centerVertical="true"
+                android:id="@+id/person_pic"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginLeft="@dimen/x50"
+            />
+
+           <LinearLayout
+               android:layout_marginLeft="12dp"
+               android:layout_toRightOf="@+id/person_pic"
+               android:orientation="vertical"
+               android:gravity="center_vertical"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent">
+               <TextView
+
+                   android:id="@+id/tv_name"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:gravity="center"
+                   android:text="昵称："
+                   android:textColor="#ffffff"
+                   android:textSize="14sp" />
+               <TextView
+                   android:layout_marginTop="9dp"
+                   android:layout_below="@+id/tv_name"
+                   android:id="@+id/tv_phone"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:gravity="center"
+                   android:text="电话："
+                   android:textColor="#ffffff"
+                   android:textSize="14sp" />
+           </LinearLayout>
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:background="@color/white">
+
+        <ImageView
+            android:layout_width="28dp"
+            android:layout_height="26dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="17dp"
+            android:src="@drawable/live_mine1" />
+        <TextView
+           android:layout_marginLeft="55dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="账户积分"
+            android:textColor="@color/slow_black"
+            android:textSize="15sp" />
+
+
+        <TextView
+            android:id="@+id/tv_money"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="55dp"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="100积分"
+            android:textColor="#FF8400"
+            android:textSize="14sp" />
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rl_care"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/white"
+        android:paddingLeft="14dp">
+
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="@string/wgzdzb"
+            android:textColor="@color/slow_black"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_number"
+            android:layout_marginRight="34dp"
+            android:layout_marginLeft="55dp"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text=""
+            android:textColor="#FF8400"
+            android:textSize="14sp" />
+        <ImageView
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="13dp"
+            android:src="@mipmap/arrow_right" />
+
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="0.3dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="15dp"
+            android:background="@color/linecolor" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_hand"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:paddingLeft="14dp">
+
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="@string/zbph"
+            android:textColor="@color/slow_black"
+            android:textSize="15sp" />
+
+
+        <ImageView
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="13dp"
+            android:src="@mipmap/arrow_right" />
+
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_gravity="center_horizontal"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="40dp"
+        android:layout_width="75dp"
+        android:layout_height="75dp">
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/live_mine2" />
+        <TextView
+            android:gravity="center"
+            android:id="@+id/tv_application"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text="@string/sqzb"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+    </RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="23dp"
+        android:background="@color/blue"/>
+    <LinearLayout
+        android:id="@+id/ll_title"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:gravity="center_vertical"
+        android:paddingRight="0dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:visibility="invisible"
+            android:layout_marginLeft="5sp"
+            android:padding="10dp"
+            android:id="@+id/back"
+            android:layout_width="32dp"
+            android:layout_height="36dp"
+            android:layout_gravity="center_vertical"
+
+            android:src="@drawable/arrow_left_white"/>
+        <LinearLayout
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="34dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:background="@drawable/shape_search_box_bgs">
+
+
+            <com.zhongchuang.canting.widget.ClearEditText
+
+                android:layout_marginLeft="12dp"
+                android:id="@+id/edt_search_box"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:focusable="true"
+                android:singleLine="true"
+                android:textColor="@color/color3"
+                android:background="@color/transparent"
+                android:layout_height="match_parent"
+                android:textSize="13.5sp"
+                android:textColorHint="#a0666666"
+                android:hint="@string/qsrzbfjmc"/>
+
+            <ImageView
+                android:padding="5dp"
+                android:layout_marginRight="11dp"
+                android:id="@+id/iv_search_box_search"
+                android:layout_width="29dp"
+                android:layout_height="29dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="12dp"
+                android:src="@drawable/top_icon_search"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+
+    <com.zhongchuang.canting.widget.BaseNevgTitle
+        android:id="@+id/base_bars"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+
+    <com.zhongchuang.canting.widget.NoScrollViewPager
+        android:id="@+id/viewpager_main"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+
+
+</LinearLayout>

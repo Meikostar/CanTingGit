@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+    <LinearLayout
+        android:id="@+id/ll_title"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#FF2A93FF"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/tv_city"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:text="深圳"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            />
+        <ImageView
+
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:padding="5dp"
+            android:id="@+id/iv_back"
+            android:layout_width="22dp"
+            android:layout_height="29dp"
+            android:src="@drawable/back_white"
+            android:layout_marginRight="5dp" />
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:gravity="center"
+                android:id="@+id/serch_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/x80"
+                android:background="@null"
+                android:text="@string/zbsz"
+                android:textColor="#fff"
+                android:textSize="17sp" />
+
+        </FrameLayout>
+        <LinearLayout
+
+            android:layout_width="0dp"
+            android:layout_height="100px"
+            android:layout_weight="1">
+
+            <TextView
+                android:visibility="gone"
+                android:gravity="center"
+                android:id="@+id/tv_send"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/scsp"
+                android:textColor="#fff"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/url_editor"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight="0.1"
+            style="@style/edit_line_style"
+            android:hint="@string/input_tips"
+            android:paddingLeft="10dp"
+            android:inputType="text"
+            android:text="rtmp://push-demo-rtmp.aliyunlive.com/test/stream6"/>
+        <ImageView
+            android:id="@+id/qr_code"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.3"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:src="@mipmap/ic_qrcode"/>
+        <ImageView
+            android:id="@+id/qr_create"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.3"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:src="@mipmap/icon_qr_create"/>
+    </LinearLayout>
+
+
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="15dp"
+        android:layout_weight="1"
+        layout="@layout/push_setting_param"/>
+
+    <RelativeLayout
+        android:id="@+id/beginPublish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+
+        android:layout_marginBottom="18dp"
+        android:layout_gravity="center"
+        android:gravity="center">
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/live_mine2" />
+        <TextView
+            android:gravity="center"
+            android:id="@+id/pushStatusTex"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:text="@string/kqzb"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+    </RelativeLayout>
+</LinearLayout>
+
+

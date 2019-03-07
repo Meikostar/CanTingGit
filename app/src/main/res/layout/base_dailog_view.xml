@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <LinearLayout
+        android:layout_width="260dp"
+        android:layout_height="180dp"
+        android:orientation="vertical"
+        android:layout_centerInParent="true"
+        android:background="@drawable/op_circular_bg">
+
+        <TextView
+            android:id="@+id/txt_title"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:padding="10dp"
+            android:gravity="center"
+            android:text=""
+            android:textSize="16sp"/>
+
+        <View
+
+            android:layout_width="fill_parent"
+            android:layout_height="0.1dp"
+            android:background="@color/linecolor"/>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txt_cancel"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/cancel"
+                android:textSize="16sp"
+                android:textColor="#2196f3"/>
+
+            <View
+                android:id="@+id/line_center"
+                android:layout_width="0.1dp"
+                android:layout_height="fill_parent"
+                android:background="@color/linecolor"/>
+            <TextView
+                android:id="@+id/txt_sure"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/qd"
+                android:textSize="16sp"
+                android:textColor="#2196f3"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

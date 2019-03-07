@@ -1,0 +1,44 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/page_iv"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerHorizontal="true"
+            android:src="@mipmap/network_error" />
+
+        <TextView
+            android:id="@+id/txt_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/page_iv"
+            android:layout_centerHorizontal="true"
+            android:text="@string/wlcw"
+            android:textColor="@color/gray"
+            android:textSize="14sp" />
+
+        <Button
+            android:visibility="gone"
+            android:id="@+id/btn_retry"
+            android:layout_width="wrap_content"
+            android:layout_height="34dp"
+            android:layout_below="@id/txt_desc"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:singleLine="true"
+
+            android:textColor="@color/white"
+            android:textSize="14dp" />
+    </RelativeLayout>
+
+</FrameLayout>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/content_bg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.zhongchuang.canting.widget.NavigationBar
+        android:id="@+id/navigationBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:navigationLeft_img="@drawable/back_white"
+        app:navigationTitle="@string/hyfz" />
+    <com.zhongchuang.canting.widget.banner.BannerView
+        android:id="@+id/bannerView"
+        android:layout_width="match_parent"
+        android:layout_height="82dp"
+        app:bannerAnimDuration="1500"
+        app:bannerAnimScroll="true"
+        app:bannerAutoScroll="true"
+        app:bannerPageAlpha="1.0"
+        app:bannerPageMargin="8dp"
+        app:bannerPagePercent="1"
+        app:bannerPageScale="1"
+        app:bannerScrollDuration="10000" />
+    <LinearLayout
+        android:layout_marginTop="15dp"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_marginBottom="45dp"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/tv_detail"
+                android:layout_width="120dp"
+                android:layout_height="34dp"
+                android:layout_marginRight="6dp"
+                android:background="@drawable/blue_rectangle"
+                android:gravity="center"
+
+                android:text="@string/czkyjf"
+                android:textColor="@color/white" />
+            <TextView
+                android:id="@+id/tv_charge"
+                android:layout_width="100dp"
+                android:layout_height="34dp"
+                android:layout_marginLeft="16dp"
+                android:textSize="15sp"
+                android:background="@drawable/line_regle_blue"
+                android:gravity="center"
+                android:text="@string/czjf"
+                android:textColor="#FF2A93FF" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

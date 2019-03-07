@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/content_bg"
+    android:orientation="vertical">
+
+
+        <LinearLayout
+            android:id="@+id/ll_title"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#FF2A93FF"
+            android:gravity="center"
+            android:orientation="horizontal">
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/tv_city"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    android:text="深圳"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    />
+                <ImageView
+
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:padding="5dp"
+                    android:id="@+id/zhuye_geren"
+                    android:layout_width="22dp"
+                    android:layout_height="29dp"
+                    android:src="@drawable/back_white"
+                    android:layout_marginRight="5dp" />
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+
+                        <TextView
+                            android:gravity="center"
+                            android:id="@+id/serch_edit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="@dimen/x80"
+                            android:background="@null"
+                            android:text="录播视频"
+                            android:textColor="#fff"
+                            android:textSize="17sp" />
+
+                </FrameLayout>
+                <LinearLayout
+
+                    android:layout_width="0dp"
+                    android:layout_height="100px"
+                    android:layout_weight="1">
+
+                        <TextView
+                            android:gravity="center"
+                            android:id="@+id/tv_send"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@string/scsp"
+                            android:textColor="#fff"
+                            android:textSize="14sp" />
+                </LinearLayout>
+
+        </LinearLayout>
+
+        <com.zhongchuang.canting.widget.loadingView.LoadingPager
+            android:layout_below="@+id/ll_title"
+            android:layout_weight="1"
+            android:id="@+id/loadingView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+                <com.malinskiy.superrecyclerview.SuperRecyclerView
+                    android:paddingLeft="11dp"
+                    android:paddingRight="11dp"
+                    android:paddingBottom="16dp"
+                    android:paddingTop="16dp"
+                    android:background="@color/white"
+                    android:id="@+id/super_recycle_view"
+                    android:overScrollMode="never"
+                    android:scrollbars="none"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    app:mainLayoutId="@layout/layout_recyclerview_verticalscroll"
+                    app:layout_moreProgress="@layout/view_more_progress"
+                    app:recyclerClipToPadding="true"
+                    app:scrollbarStyle="outsideOverlay" />
+        </com.zhongchuang.canting.widget.loadingView.LoadingPager>
+
+
+
+
+
+</RelativeLayout>

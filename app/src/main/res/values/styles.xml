@@ -1,0 +1,822 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+
+    <style name="bottom_dialog_animation">
+        <item name="android:windowEnterAnimation">@anim/aliyun_svideo_anim_trans_from_bottom</item>
+        <item name="android:windowExitAnimation">@anim/aliyun_svideo_anim_layout_bottom_out</item>
+    </style>
+    <style name="btn_style1" parent="@android:style/Widget.Button">
+        <item name="android:layout_margin">5dp</item>
+    </style>
+    <style name="QUDemoBottomStyle" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:cacheColorHint">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+    </style>
+    <declare-styleable name="IndicatorSeekBar">
+        //seekBar
+        <attr name="isb_max" format="float" /><!-- the max value of seekBar to seek, default 100-->
+        <attr name="isb_min" format="float" /><!-- the min value of seekBar to seek, default 0 -->
+        <attr name="isb_progress" format="float" /><!-- the current progress value of seekBar, default 0-->
+        <attr name="isb_clear_default_padding" format="boolean" /><!-- set seekBar's leftPadding&rightPadding to zero, default false, default padding is 16dp-->
+        <attr name="isb_forbid_user_seek" format="boolean" /><!--prevent user from touching to seek, default false-->
+        <attr name="isb_touch_to_seek" format="boolean" /><!--user change the thumb's location by touching thumb/touching track,true for touching track to seek. false for touching thumb; default true-->
+        <attr name="isb_progress_value_float" format="boolean" /><!--set the value of seekBar to float type, default false-->
+        <attr name="isb_seek_bar_type"><!-- the type for seekBar, default 0.-->
+            <enum name="continuous" value="0" />
+            <enum name="continuous_texts_ends" value="1" />
+            <enum name="discrete_ticks" value="2" />
+            <enum name="discrete_ticks_texts" value="3" /><!--has below text-->
+            <enum name="discrete_ticks_texts_ends" value="4" /><!--has below text of both ends of seekBar-->
+        </attr>
+        //indicator
+        <attr name="isb_indicator_type"><!-- the type for indicator, default rectangle_rounded_corner/0.-->
+            <enum name="rectangle_rounded_corner" value="0" />
+            <enum name="rectangle" value="1" />
+            <enum name="circular_bubble" value="2" />
+            <enum name="custom" value="3" /><!--choose custom type that you can set the custom indicator layout you want.-->
+        </attr>
+        <attr name="isb_show_indicator" format="boolean" /><!-- show indicator or not when seeking, default true-->
+        <attr name="isb_indicator_color" format="color|reference" /><!-- indicator's color, default #FF4081-->
+        <attr name="isb_indicator_custom_layout" format="reference" /><!-- when you set indicator type to custom , you can set this layout indicator layout you want-->
+        <attr name="isb_indicator_custom_top_content_layout" format="reference" /> <!--set this layout indicator top view you want, no effect arrow , effect on indicator type : rectangle or rectangle_rounded_corner-->
+        <attr name="isb_indicator_text_color" format="color|reference" /><!-- indicator's text color, default #FF4081 , work on indicator type : rectangle or rectangle_rounded_corner-->
+        <attr name="isb_indicator_text_size" format="dimension|reference" /><!-- indicator's text size, default 13sp,  work on indicator type : rectangle or rectangle_rounded_corner-->
+        <attr name="isb_indicator_stay" format="boolean" /><!-- indicator is visible when SeekBar visible, gone when SeekBar gone-->
+        //track
+        <attr name="isb_track_background_bar_size" format="dimension|reference" /><!-- set indicatorSeekBar's track background bar size, default 2dp-->
+        <attr name="isb_track_background_bar_color" format="color|reference" /><!-- set indicatorSeekBar's track background bar color, default #D7D7D7-->
+        <attr name="isb_track_progress_bar_size" format="dimension|reference" /><!-- set indicatorSeekBar's track progress bar size, default 2dp-->
+        <attr name="isb_track_progress_bar_color" format="color|reference" /><!-- set indicatorSeekBar's track progress bar color, default #FF4081-->
+        <attr name="isb_track_rounded_corners" format="boolean" /><!-- set indicatorSeekBar's track's both ends's corners to rounded/square, default false-->
+        //thumb
+        <attr name="isb_thumb_progress_stay" format="boolean" /><!-- set thumb below text to stay after seek, default false, work on seekBar type : continuous / discrete_ticks-->
+        <attr name="isb_thumb_color" format="color|reference" /><!--set thumb's color, default #FF4081-->
+        <attr name="isb_thumb_width" format="dimension|reference" /><!--set thumb's size, default 14dp, thumb size will be limited in 30dp-->
+        <attr name="isb_thumb_drawable" format="reference" /><!--set custom thumb's drawable you want,thumb size will be limited in 30dp, if drawable less than 30dp ,will show in raw size -->
+        //tick
+        <attr name="isb_tick_drawable" format="reference" /><!--set custom tick's drawable you want, custom drawable will be limited in 30dp, if less than 30dp ,will show in raw size-->
+        <attr name="isb_tick_color" format="color|reference" /><!--set tick's color, default #FF4081-->
+        <attr name="isb_tick_num" format="integer" /><!--seekBar's tick count, default 5-->
+        <attr name="isb_tick_size" format="dimension|reference" /><!--set the tick width, default 10dp,custom drawable will be limited in 30dp, if less than 30dp ,will show in raw size-->
+        <attr name="isb_tick_both_end_hide" format="boolean" /><!--hide 2 ticks on the seekBar's both ends, default false-->
+        <attr name="isb_tick_on_thumb_left_hide" format="boolean" /><!--hide the ticks on the seekBar's thumb left, default false-->
+        <attr name="isb_tick_type"><!--select the tick shape type, default rectangle/1-->
+            <enum name="none" value="0" />
+            <enum name="rec" value="1" />
+            <enum name="oval" value="2" />
+        </attr>
+        //text
+        <attr name="isb_text_color" format="color|reference" /><!--set the color of text below tick, default #FF4081-->
+        <attr name="isb_text_left_end" format="string|reference" /><!--set the text below seekBar left end, default min value string, work on seekBar type :CONTINUOUS_TEXTS_ENDS/DISCRETE_TICKS_TEXTS/DISCRETE_TICKS_TEXTS_ENDS-->
+        <attr name="isb_text_right_end" format="string|reference" /><!--set the text below seekBar right end, default max value string, work on seekBar type :CONTINUOUS_TEXTS_ENDS/DISCRETE_TICKS_TEXTS/DISCRETE_TICKS_TEXTS_ENDS-->
+        <attr name="isb_text_size" format="dimension|reference" /><!--set the text size of tick below text, default 13sp-->
+        <attr name="isb_text_array" format="reference" /><!--set the texts below tick to replace default progress text, default string of progress, work on seekBar type :DISCRETE_TICKS_TEXTS-->
+        <attr name="isb_text_typeface"><!--select the text typeface, default normal-->
+            <enum name="normal" value="0" />
+            <enum name="monospace" value="1" />
+            <enum name="sans" value="2" />
+            <enum name="serif" value="3" />
+        </attr>
+    </declare-styleable>
+
+    <style name="alivc_info_seekbar" parent="@android:style/Widget.SeekBar">
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:maxHeight">@dimen/alivc_info_seekbar_height</item>
+        <item name="android:minHeight">@dimen/alivc_info_seekbar_height</item>
+        <item name="android:paddingLeft">@dimen/alivc_info_seekbar_offset</item>
+        <item name="android:paddingRight">@dimen/alivc_info_seekbar_offset</item>
+        <item name="android:thumbOffset">@dimen/alivc_info_seekbar_offset</item>
+    </style>
+
+    <style name="alivc_info_seekbar_blue" parent="alivc_info_seekbar">
+        <item name="android:progressDrawable">@drawable/alivc_info_seekbar_bg_blue</item>
+        <item name="android:indeterminateDrawable">@drawable/alivc_info_seekbar_bg_blue</item>
+        <item name="android:thumb">@drawable/alivc_seekbar_thumb_blue</item>
+    </style>
+
+    <style name="alivc_info_seekbar_green" parent="alivc_info_seekbar">
+        <item name="android:progressDrawable">@drawable/alivc_info_seekbar_bg_green</item>
+        <item name="android:indeterminateDrawable">@drawable/alivc_info_seekbar_bg_green</item>
+        <item name="android:thumb">@drawable/alivc_info_seekbar_thumb_green</item>
+    </style>
+
+    <style name="alivc_info_seekbar_orange" parent="alivc_info_seekbar">
+        <item name="android:progressDrawable">@drawable/alivc_info_seekbar_bg_orange</item>
+        <item name="android:indeterminateDrawable">@drawable/alivc_info_seekbar_bg_orange</item>
+        <item name="android:thumb">@drawable/alivc_info_seekbar_thumb_orange</item>
+    </style>
+
+    <style name="alivc_info_seekbar_red" parent="alivc_info_seekbar">
+        <item name="android:progressDrawable">@drawable/alivc_info_seekbar_bg_red</item>
+        <item name="android:indeterminateDrawable">@drawable/alivc_info_seekbar_bg_red</item>
+        <item name="android:thumb">@drawable/alivc_info_seekbar_thumb_red</item>
+    </style>
+
+    <style name="alivc_info_seekbar_blue_voice" parent="alivc_info_seekbar">
+        <item name="android:progressDrawable">@drawable/alivc_info_seekbar_bg_blue</item>
+        <item name="android:indeterminateDrawable">@drawable/alivc_info_seekbar_bg_blue</item>
+        <item name="android:thumb">@drawable/alivc_dialog_seek_thumb</item>
+    </style>
+
+    <style name="alivc_info_seekbar_blue_light" parent="alivc_info_seekbar">
+        <item name="android:progressDrawable">@drawable/alivc_info_seekbar_bg_blue</item>
+        <item name="android:indeterminateDrawable">@drawable/alivc_info_seekbar_bg_blue</item>
+        <item name="android:thumb">@drawable/alivc_dialog_seek_thumb</item>
+    </style>
+
+    <style name="edit_line_style" parent="@android:style/Widget.EditText">
+        <item name="android:padding">5dp</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:background">@drawable/edit_round_bkg</item>
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="edit_5line_style" parent="edit_line_style">
+        <item name="android:maxLines">5</item>
+    </style>
+
+    <style name="btn_style" parent="@android:style/Widget.Button.Small">
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:background">@drawable/btn_round_bkg</item>
+        <item name="android:layout_margin">5dp</item>
+    </style>
+
+    <style name="progress_style" parent="@style/Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:progressDrawable">@drawable/progress_horizontal</item>
+        <item name="android:maxHeight">2dp</item>
+        <item name="android:minHeight">2dp</item>
+        <item name="android:indeterminateOnly">false</item>
+    </style>
+
+    <style name="NoActionTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowActionBarOverlay">true</item>
+    </style>
+
+    <style name="addDownloadDialog" parent="android:Theme.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowAnimationStyle">@null</item>
+        <!-- 为了避免在有 NavigationBar 的手机上 Dialog 从 NavigationBar 底部上来。去掉 Dialog 的动画，使用 View 的动画。-->
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:padding">0dp</item>
+    </style>
+
+    <style name="AlivcDialog.Dialog" parent="android:style/Theme.Dialog">
+        <!--背景颜色及和透明程度-->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!--是否去除标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <!--是否去除边框-->
+        <item name="android:windowFrame">@null</item>
+        <!--是否浮现在activity之上-->
+        <item name="android:windowIsFloating">true</item>
+        <!--是否模糊-->
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
+    <style name="BottomCheckDialog" parent="android:Theme.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowAnimationStyle">@null
+        </item><!-- 为了避免在有 NavigationBar 的手机上 Dialog 从 NavigationBar 底部上来。去掉 Dialog 的动画，使用 View 的动画。-->
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="barrage_switch_text_color" parent="@android:style/TextAppearance.Small">\
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+    <style name="seekbar_style">
+        android:thumbTint="
+        <item name="android:thumbTint">@color/alivc_color_pusher_colorAccent</item>
+        <item name="android:progressTint">@color/alivc_color_pusher_colorAccent</item>
+    </style>
+
+
+
+    <style name="TextDlgStyle" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:cacheColorHint">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+    <style name="AliyunVideoUIStytle" >
+        <item name="qusnap_background_color">@color/aliyun_color_bg</item>
+        <item name="qusnap_tint_color">@color/aliyun_tint_color</item>
+        <item name="qusnap_timeline_backgound_color">@color/aliyun_timeline_backgound_color</item>
+        <item name="qusnap_timeline_del_backgound_color">@color/aliyun_timeline_background_del_color</item>
+        <item name="qusnap_back_icon">@mipmap/aliyun_svideo_icon_back</item>
+        <item name="qusnap_switch_light_icon">@drawable/aliyun_svideo_snap_switch_light_selector</item>
+        <item name="qusnap_switch_light_icon_disable">@mipmap/aliyun_svideo_icon_light_dis</item>
+        <item name="qusnap_switch_light_icon_visibility">visible</item>
+        <item name="qusnap_switch_camera_icon">@drawable/aliyun_svideo_snap_switch_camera</item>
+        <item name="qusnap_switch_camera_icon_visibility">visible</item>
+        <item name="qusnap_beauty_icon">@drawable/aliyun_svideo_snap_switch_beauty</item>
+        <item name="qusnap_beauty_icon_visibility">visible</item>
+        <item name="qusnap_record_icon">@drawable/aliyun_svideo_snap_record_state_selector</item>
+        <item name="qusnap_delete_icon">@drawable/aliyun_svideo_snap_icon_delete</item>
+        <item name="qusnap_complete_icon">@drawable/aliyun_svideo_snap_icon_complete</item>
+        <item name="qusnap_gallery_icon">@mipmap/aliyun_svideo_icon_default</item>
+        <item name="qusnap_gallery_icon_visibility">visible</item>
+        <item name="qusnap_time_txt_color">@android:color/white</item>
+        <item name="qusnap_time_txt_size">15dp</item>
+        <item name="qusnap_time_txt_visibility">visible</item>
+        <item name="qusnap_time_line_pos_y">0dp</item>
+        <item name="qusnap_crop_sweep_left">@mipmap/aliyun_svideo_icon_sweep_left</item>
+        <item name="qusnap_crop_sweep_right">@mipmap/aliyun_svideo_icon_sweep_right</item>
+        <item name="qusnap_crop_seek_frame">@mipmap/aliyun_svideo_icon_frame</item>
+        <item name="qusnap_crop_seek_padding_color">@android:color/holo_red_dark</item>
+        <item name="qusnap_crop_icon_transform">@drawable/aliyun_svideo_snap_transform_selector</item>
+        <item name="qusnap_crop_icon_transform_visibility">visible</item>
+        <item name="qusnap_crop_time_txt_color">@android:color/white</item>
+        <item name="qusnap_crop_time_txt_size">15dp</item>
+        <item name="qusnap_crop_txt_visibility">visible</item>
+    </style>
+
+    <style name="ResourcePreviewStyle" parent="@android:style/Theme.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:cacheColorHint">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+    <style name="aliyun_video_bottom_dialog_animation">
+        <item name="android:windowEnterAnimation">@anim/aliyun_video_anim_trans_from_bottom</item>
+        <item name="android:windowExitAnimation">@anim/aliyun_video_anim_layout_bottom_out</item>
+    </style>
+
+    <style name="QUDemoDialogStyle" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:cacheColorHint">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+    </style>
+    <declare-styleable name="Custom_TagBtn">
+        <attr name="btn_tag_txt" format="string"></attr>
+    </declare-styleable>
+    <style name="pop_up_to_down_anim" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/pop_up_to_down_anim</item>
+        <item name="android:windowExitAnimation">@anim/pop_up_to_down_exit_anim</item>
+    </style>
+
+    <declare-styleable name="CostumTextView">
+        <attr name="fontType">
+            <enum name="WeChatSansSS_Medium" value="0" />
+            <enum name="HYQIHEI_60S" value="1" />
+            <enum name="HYQIHEI_65S" value="2" />
+            <enum name="HYQIHEI_70S" value="3" />
+            <enum name="HYQIHEI_90W" value="4" />
+            <enum name="TTTGB_Medium" value="5" />
+        </attr>
+
+    </declare-styleable>
+    <style name="RedPacketIconStyle">
+        <item name="android:layout_width">31dp</item>
+        <item name="android:layout_height">36dp</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginTop">13dp</item>
+    </style>
+
+    <style name="RedPacketGreetingStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_toRightOf">@id/iv_money_icon</item>
+        <item name="android:layout_marginTop">14dp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:maxLength">10</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="RedPacketCheckStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignBaseline">@id/iv_money_icon</item>
+        <item name="android:layout_below">@id/tv_money_greeting</item>
+        <item name="android:layout_marginLeft">14dp</item>
+        <item name="android:layout_toRightOf">@id/iv_money_icon</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="RedPacketSponsorStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:textColor">#FF4D4D4D</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:layout_alignParentLeft">true</item>
+
+    </style>
+
+    <style name="RedPacketSponsorIconStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_marginRight">8dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+    </style>
+    <declare-styleable name="downloadProgressBar">
+        <attr name="dptextsize" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="GoodCommentsListView">
+        <attr name="item_color" format="color"/>
+        <attr name="item_selector_color" format="color"/>
+    </declare-styleable>
+    <declare-styleable name="FlexboxLayout_Layout">
+        <attr name="layout_order" format="integer" />
+        <!-- Negative numbers are invalid. -->
+        <attr name="layout_flexGrow" format="float" />
+        <!-- Negative numbers are invalid. -->
+        <attr name="layout_flexShrink" format="float" />
+        <!--
+            The initial length in a percentage format relative to its parent. This is similar to the
+            flex-basis property in the original CSS specification.
+            (https://www.w3.org/TR/css-flexbox-1/#flex-basis-property)
+            But unlike the flex-basis property, this attribute only accepts a value in fraction
+            (percentage), whereas flex-basis property accepts width values such as 1em, 10px and
+            the 'content' string.
+            But specifying initial fixed width values can be done by specifying width values in
+            layout_width (or layout_height, varies depending on the flexDirection). Also the same
+            effect can be done by specifying "wrap_contnet" in layout_width (or layout_height) if
+            developers want to achieve the same effect as 'content'.
+            Thus, this attribute only accepts fraction values, which can't be done through
+            layout_width (or layout_height) for simplicity.
+        -->
+        <attr name="layout_flexBasisPercent" format="fraction" />
+        <!--
+            Omitting flex property since it's a shorthand for layout_flexGrow and layout_flexShrink
+            and layout_percentInParent (flex-basis in the original CSS spec).
+        -->
+
+        <attr name="layout_alignSelf">
+            <enum name="auto" value="-1" />
+            <!-- The values below need to match the values of alignItems -->
+            <enum name="flex_start" value="0" />
+            <enum name="flex_end" value="1" />
+            <enum name="center" value="2" />
+            <enum name="baseline" value="3" />
+            <enum name="stretch" value="4" />
+        </attr>
+    </declare-styleable>
+
+
+    <style name="LetterIndexTextViewStyles">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">@dimen/side_letter_bar_width</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#333333</item>
+    </style>
+    <declare-styleable name="FlexboxLayout">
+        <attr name="flexDirection">
+            <enum name="row" value="0" />
+            <enum name="row_reverse" value="1" />
+            <enum name="column" value="2" />
+            <enum name="column_reverse" value="3" />
+        </attr>
+
+        <attr name="flexWrap">
+            <enum name="nowrap" value="0" />
+            <enum name="wrap" value="1" />
+            <enum name="wrap_reverse" value="2" />
+        </attr>
+
+        <!--
+            Omitting flex-flow property since it's reflected in the parent flex container.
+            Set the flexDirection and/or flexWrap to the parent flex container explicitly if you
+            want to use the flex-flow similar way to the web.
+         -->
+
+        <attr name="justifyContent">
+            <enum name="flex_start" value="0" />
+            <enum name="flex_end" value="1" />
+            <enum name="center" value="2" />
+            <enum name="space_between" value="3" />
+            <enum name="space_around" value="4" />
+        </attr>
+
+        <attr name="alignItems">
+            <enum name="flex_start" value="0" />
+            <enum name="flex_end" value="1" />
+            <enum name="center" value="2" />
+            <enum name="baseline" value="3" />
+            <enum name="stretch" value="4" />
+        </attr>
+
+        <attr name="alignContent">
+            <enum name="flex_start" value="0" />
+            <enum name="flex_end" value="1" />
+            <enum name="center" value="2" />
+            <enum name="space_between" value="3" />
+            <enum name="space_around" value="4" />
+            <enum name="stretch" value="5" />
+        </attr>
+
+
+    </declare-styleable>
+
+
+    <style name="popwin_anim">
+        <item name="android:windowEnterAnimation">@anim/popw_show</item>
+        <item name="android:windowExitAnimation">@anim/popw_hide</item>
+    </style>
+    <declare-styleable name="NormalNameValueItem">
+        <attr name="context" format="string"/>
+        <attr name="context_hint" format="string"/>
+        <attr name="have_arrows" format="boolean"/>
+        <attr name="have_img" format="boolean"/>
+        <attr name="have_bottom_text" format="boolean"/>
+        <attr name="have_check" format="boolean"/>
+        <attr name="content_name" format="string"/>
+        <attr name="bottom_name" format="string"/>
+        <attr name="have_line" format="boolean"/>
+        <attr name="have_top_border" format="boolean"/>
+        <attr name="have_bottom_border" format="boolean"/>
+        <attr name="text_gravity" format="enum">
+            <enum name="left" value="0"></enum>
+            <enum name="right" value="1"></enum>
+        </attr>
+        <attr name="edit_have_focus" format="boolean"/>
+        <attr name="max_lines" format="integer"/>
+        <attr name="max_length" format="integer"/>
+        <attr name="heighs" format="float"/>
+        <attr name="src_" format="reference"/>
+        <attr name="line_spacing_extra" format="float"/>
+        <attr name="input_type">
+            <enum name="type_number" value="1" />
+            <enum name="type_number_alphabet" value="8" />
+            <enum name="type_char" value="2" />
+            <enum name="type_number_decimal" value="3" />
+            <enum name="type_email" value="4" />
+            <enum name="type_phone" value="5" />
+        </attr>
+    </declare-styleable>
+    <!--Banner无限轮播属性-->
+    <declare-styleable name="BannerView">
+        <attr name="bannerPageMargin" format="dimension"/>
+        <attr name="bannerPagePercent" format="float"/>
+        <attr name="bannerPageScale" format="float"/>
+        <attr name="bannerPageAlpha" format="float"/>
+        <attr name="bannerScrollDuration" format="integer"/>
+        <attr name="bannerAnimDuration" format="integer"/>
+        <attr name="bannerAnimScroll" format="boolean"/>
+        <attr name="bannerAutoScroll" format="boolean"/>
+    </declare-styleable>
+    <!--导航条-->
+    <declare-styleable name="NavigationBar">
+        <attr name="navigation_bg" format="color"></attr>
+
+        <attr name="navigationLeft_type" format="enum">
+            <enum name="gone" value="0"></enum>
+            <enum name="img" value="1"></enum>
+        </attr>
+        <attr name="navigationRight_type" format="enum">
+            <enum name="gone" value="0"></enum>
+            <enum name="img" value="1"></enum>
+            <enum name="txt" value="2"></enum>
+            <enum name="top" value="3"></enum>
+            <enum name="txts" value="4"></enum>
+        </attr>
+        <attr name="navigationTitle" format="string"></attr>
+        <attr name="navigationRight_txt" format="string"></attr>
+        <attr name="navigationRight_txt_color" format="color"></attr>
+        <attr name="navigationRight_img" format="reference"></attr>
+        <attr name="navigationLeft_img" format="reference"></attr>
+        <attr name="right_img" format="reference"></attr>
+    </declare-styleable>
+
+
+    <style name="group_button_item">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:button">@null</item>
+        <item name="android:gravity">center</item>
+        <item name="android:drawablePadding">@dimen/y10</item>
+        <item name="android:textColor">@drawable/menu_text_select</item>
+        <item name="android:textSize">@dimen/x26</item>
+</style>
+
+
+
+
+    <style name="DemoButton">
+
+    <item name="android:textSize">20dp</item>
+
+    <item name="android:padding">5dp</item>
+
+    <item name="android:clickable">true</item>
+
+
+
+</style>
+
+
+    <style name="DemoSeek">
+
+
+
+    <item name="android:maxHeight">3dp</item>
+
+    <item name="android:paddingLeft">10dp</item>
+
+    <item name="android:paddingRight">10dp</item>
+
+    <item name="android:thumbOffset">8dp</item>
+
+
+</style>
+
+    <style name="inputdialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">#00000000</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
+    <declare-styleable name="ContactItemView">
+        <attr name="contactItemImage" format="reference"/>
+        <attr name="contactItemName" format="string"/>
+    </declare-styleable>
+    <!-- 圆角imageView的之定义属性 -->
+    <declare-styleable name="RoundAngleImageView">
+        <attr name="roundWidth" format="dimension" />
+        <attr name="roundHeight" format="dimension" />
+    </declare-styleable>
+    <declare-styleable name="NineGridImageView">
+        <attr format="dimension" name="imgGap"/>
+    </declare-styleable>
+    <style name="MyTabLayoutTextAppearance" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textSize">@dimen/x33</item>
+    </style>
+
+    <style name="custom_dialog2" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <!-- Dialog的windowFrame框为无 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 是否漂现在activity上 -->
+        <item name="android:windowIsTranslucent">true</item>
+        <!-- 是否半透明 -->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">@null</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <!-- 去除黑色边框的关键设置项 -->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!-- 屏幕背景是否变暗 -->
+        <item name="android:backgroundDimAmount">0.3</item>
+    </style>
+
+    <style name="pickerview_dialogAnim" mce_bogus="1" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/pickerview_dialog_scale_in</item>
+        <item name="android:windowExitAnimation">@anim/pickerview_dialog_scale_out</item>
+    </style>
+
+    <style name="ShopTabDialog">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowAnimationStyle">@style/DialogAnimation</item>
+
+    </style>
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_up</item>
+        <item name="android:windowExitAnimation">@anim/slide_down</item>
+    </style>
+
+    <style name="payDialog">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowAnimationStyle">@style/payDialogAnimation</item>
+
+    </style>
+    <style name="payDialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/pickerview_slide_in_bottom</item>
+        <item name="android:windowExitAnimation">@anim/pickerview_slide_out_bottom</item>
+    </style>
+    <declare-styleable name="TwoNevgBar">
+        <attr name="types" format="boolean"/>
+    </declare-styleable>
+    <style name="lv_content">
+        <item name="android:listSelector">@color/transparent</item>
+        <item name="android:divider">@null</item>
+        <item name="android:dividerHeight">0dp</item>
+        <item name="android:scrollbars">none</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+    <!--自定义profile order 点击条按钮-->
+    <declare-styleable name="Custom_ProfileOrderClickBtn">
+        <attr name="btn_order_icon" format="reference"></attr>
+        <attr name="btn_order_txt" format="string"></attr>
+    </declare-styleable>
+
+
+
+
+    <declare-styleable name="RatingBar">
+        <!--星星间距-->
+        <attr name="starDistance" format="dimension" />
+        <!--星星大小-->
+        <attr name="starSize" format="dimension" />
+        <!--星星个数-->
+        <attr name="starCount" format="integer" />
+        <!--星星空图-->
+        <attr name="starEmpty" format="reference" />
+        <!--星星满图-->
+        <attr name="starFill" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="MCheckBox">
+        <attr name="isCheckeds" format="boolean"/>
+        <attr name="drawables" format="reference|color"/>
+        <attr name="drawablechoose" format="reference|color"/>
+        <attr name="canNoClick" format="boolean"/>
+    </declare-styleable>
+
+    <style name="Dialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowFrame">@android:color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+        <!--<item name="android:windowIsTranslucent">false</item>-->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 除去title -->
+        <!-- <item name="android:windowContentOverlay">@android:color/transparent</item>-->
+        <!--<item name="android:backgroundDimEnabled">false</item>-->
+        <item name="android:windowBackground">@android:color/transparent</item>
+
+        <!-- 除去背景色 -->
+    </style>
+    <style name="Dialogs" parent="android:style/Theme.Dialog">
+        <!-- <item name="android:background">#00000000</item> -->
+
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item><!-- 是否漂现在activity上 -->
+        <item name="android:windowCloseOnTouchOutside">false</item>
+    </style>
+
+    <!--dialog的样式-->
+    <style name="custom_dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.6</item>
+    </style>
+    <style name="btn_comment_style">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_marginLeft">15dp</item>
+        <item name="android:layout_marginRight">15dp</item>
+        <item name="android:layout_height">45dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">16dp</item>
+    </style>
+    <style name="CustomDialog" parent="android:style/Theme.Dialog">
+        <!--背景颜色及和透明程度-->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!--是否去除标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <!--是否去除边框-->
+        <item name="android:windowFrame">@null</item>
+        <!--是否浮现在activity之上-->
+        <item name="android:windowIsFloating">true</item>
+        <!--是否模糊-->
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <style name="CustomGiftDialog" parent="android:style/Theme.Dialog">
+        <!--背景颜色及和透明程度-->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!--是否去除标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <!--是否去除边框-->
+        <item name="android:windowFrame">@null</item>
+        <!--是否浮现在activity之上-->
+        <item name="android:windowIsFloating">true</item>
+        <!--是否模糊-->
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+    <style name="dialog_style">
+        <item name="android:windowEnterAnimation">@anim/dialog_enter</item>
+        <item name="android:windowExitAnimation">@anim/dialog_exit</item>
+    </style>
+
+
+    <style name="text_black_16">
+        <item name="android:textColor">@color/jrmf_b_black</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="text_black_12">
+        <item name="android:textColor">@color/jrmf_b_black</item>
+        <item name="android:textSize">12dp</item>
+    </style>
+
+    <style name="text_black_28">
+        <item name="android:textColor">@color/jrmf_b_black</item>
+        <item name="android:textSize">28sp</item>
+    </style>
+
+    <style name="text_gray_16">
+        <item name="android:textColor">@color/jrmf_b_gray</item>
+        <item name="android:textSize">16dp</item>
+    </style>
+
+    <style name="text_red_16">
+        <item name="android:textColor">@color/jrmf_b_red</item>
+        <item name="android:textSize">16dp</item>
+    </style>
+
+    <style name="text_red_12">
+        <item name="android:textColor">@color/jrmf_b_red</item>
+        <item name="android:textSize">12dp</item>
+    </style>
+
+    <style name="text_blue_16">
+        <item name="android:textColor">@color/jrmf_b_blue</item>
+        <item name="android:textSize">16dp</item>
+    </style>
+
+    <style name="text_white_16">
+        <item name="android:textColor">@color/jrmf_b_white</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="text_white_28">
+        <item name="android:textColor">@color/jrmf_b_white</item>
+        <item name="android:textSize">28dp</item>
+    </style>
+
+    <style name="text_red_28">
+        <item name="android:textColor">@color/jrmf_b_red</item>
+        <item name="android:textSize">28dp</item>
+    </style>
+
+    <style name="text_gray_12">
+        <item name="android:textColor">@color/jrmf_b_gray</item>
+        <item name="android:textSize">12dp</item>
+    </style>
+
+    <style name="text_blue_12">
+        <item name="android:textColor">@color/jrmf_b_blue</item>
+        <item name="android:textSize">12dp</item>
+    </style>
+
+
+    <style name="dialog_animation">
+        <item name="android:windowEnterAnimation">@anim/anim_trans_from_bottom</item>
+        <item name="android:windowExitAnimation">@anim/anim_layout_bottom_out</item>
+    </style>
+
+    <style name="DialogStyle">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:cacheColorHint">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
+    <style name="LogText">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">@dimen/font_size_28px</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">0dp</item>
+    </style>
+
+</resources>

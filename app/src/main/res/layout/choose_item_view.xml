@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <View
+        android:visibility="gone"
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/linecolor"/>
+  <LinearLayout
+      android:id="@+id/ll_bg"
+      android:background="@color/white"
+      android:layout_width="match_parent"
+      android:layout_height="42dp"
+      android:orientation="horizontal"
+      android:gravity="center_vertical">
+
+      <com.zhongchuang.canting.widget.MCheckBox
+          android:layout_marginLeft="5dp"
+          android:id="@+id/iv_chooses"
+          android:layout_width="40dp"
+          android:layout_height="40dp"
+          android:layout_gravity="center_vertical"
+          android:clickable="false"
+          android:padding="11dp"
+          app:isCheckeds="true"
+          app:canNoClick="true"
+          app:drawablechoose="@drawable/choose"
+          app:drawables="@drawable/unchoose"
+      />
+      <TextView
+          android:id="@+id/tv_content"
+          android:text="@string/qb"
+          android:textSize="15sp"
+          android:textColor="@color/colorPrimary"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          />
+  </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/linecolor"/>
+</LinearLayout>
