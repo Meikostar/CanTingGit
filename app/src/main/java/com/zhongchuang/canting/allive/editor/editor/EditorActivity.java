@@ -31,6 +31,7 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -94,6 +95,7 @@ import com.aliyun.struct.effect.EffectPaster;
 import com.aliyun.struct.effect.EffectPicture;
 import com.aliyun.struct.encoder.VideoCodecs;
 import com.duanqu.transcode.NativeParser;
+import com.zhongchuang.canting.widget.waitLoading.ShapeLoadingDialog;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -135,7 +137,7 @@ public class EditorActivity extends FragmentActivity implements
     private int mScreenWidth;
     private int mScreenHeight;
     private ImageView mIvLeft;
-    private ImageView mIvRight;
+    private Button mIvRight;
     private TextView mTvCenter;
     private LinearLayout mBarLinear;
     private ImageView mPlayImage;
@@ -191,6 +193,7 @@ public class EditorActivity extends FragmentActivity implements
         }
         mTempFilePaths = intent.getStringArrayListExtra(KEY_TEMP_FILE_LIST);
         initView();
+
         initListView();
         add2Control();
         initEditor();
@@ -259,10 +262,10 @@ public class EditorActivity extends FragmentActivity implements
         mActionBar = (RelativeLayout) findViewById(R.id.action_bar);
         mIvLeft = (ImageView) findViewById(R.id.iv_left);
         mTvCenter = (TextView) findViewById(R.id.tv_center);
-        mIvRight = (ImageView) findViewById(R.id.iv_right);
+        mIvRight = (Button) findViewById(R.id.iv_right);
         mIvLeft.setImageResource(R.mipmap.aliyun_svideo_icon_back);
         mTvCenter.setText(getString(R.string.edit_nav_edit));
-        mIvRight.setImageResource(R.mipmap.aliyun_svideo_icon_next);
+//        mIvRight.setImageResource(R.mipmap.aliyun_svideo_icon_next);
         mIvLeft.setVisibility(View.VISIBLE);
         mIvRight.setVisibility(View.VISIBLE);
         mTvCenter.setVisibility(View.VISIBLE);
@@ -589,32 +592,32 @@ public class EditorActivity extends FragmentActivity implements
             }
         });
 
-        if (mWatermarkFile.exists()) {
-            if (mWatermarkBitmap == null) {
-                mWatermarkBitmap = BitmapFactory.decodeFile(StorageUtils.getCacheDirectory(EditorActivity.this) + "/AliyunEditorDemo/tail/logo.png");
-            }
-            mSurfaceView.post(new Runnable() {
-                @Override
-                public void run() {
-                    /**
-                     * 水印例子 水印的大小为 ：水印图片的宽高和显示区域的宽高比，注意保持图片的比例，不然显示不完全  水印的位置为 ：以水印图片中心点为基准，显示区域宽高的比例为偏移量，0,0为左上角，1,1为右下角
-                     */
-                    mAliyunIEditor.applyWaterMark(StorageUtils.getCacheDirectory(EditorActivity.this) + "/AliyunEditorDemo/tail/logo.png",
-                            (float) mWatermarkBitmap.getWidth() / (mSurfaceView.getMeasuredWidth() * 2),/*用水印图片大小/SurfaceView的大小，得到的就是水印图片相对于surfaceView的归一化大小*/
-                            (float) mWatermarkBitmap.getHeight() / (mSurfaceView.getMeasuredHeight() * 2),
-//                            1f - (float) mWatermarkBitmap.getWidth() / (mSurfaceView.getMeasuredWidth() * 4),//水印位于右边
-                            100.f / mSurfaceView.getMeasuredWidth(),//水印位于左边
-                            100.f / mSurfaceView.getMeasuredHeight());//Demo中这套参数表示size是图片原始大小，位置是x轴靠右边，y轴从上往下偏移100像素
-
-
-                    mAliyunIEditor.addTailWaterMark(StorageUtils.getCacheDirectory(EditorActivity.this) + "/AliyunEditorDemo/tail/logo.png",
-                            (float) mWatermarkBitmap.getWidth() / mSurfaceView.getMeasuredWidth(),
-                            (float) mWatermarkBitmap.getHeight() / mSurfaceView.getMeasuredHeight(), 0.5f,
-                            0.5f, 2000 * 1000);
-
-                }
-            });
-        }
+//        if (mWatermarkFile.exists()) {
+//            if (mWatermarkBitmap == null) {
+//                mWatermarkBitmap = BitmapFactory.decodeFile(StorageUtils.getCacheDirectory(EditorActivity.this) + "/AliyunEditorDemo/tail/logo.png");
+//            }
+//            mSurfaceView.post(new Runnable() {
+//                @Override
+//                public void run() {
+//                    /**
+//                     * 水印例子 水印的大小为 ：水印图片的宽高和显示区域的宽高比，注意保持图片的比例，不然显示不完全  水印的位置为 ：以水印图片中心点为基准，显示区域宽高的比例为偏移量，0,0为左上角，1,1为右下角
+//                     */
+//                    mAliyunIEditor.applyWaterMark(StorageUtils.getCacheDirectory(EditorActivity.this) + "/AliyunEditorDemo/tail/logo.png",
+//                            (float) mWatermarkBitmap.getWidth() / (mSurfaceView.getMeasuredWidth() * 2),/*用水印图片大小/SurfaceView的大小，得到的就是水印图片相对于surfaceView的归一化大小*/
+//                            (float) mWatermarkBitmap.getHeight() / (mSurfaceView.getMeasuredHeight() * 2),
+////                            1f - (float) mWatermarkBitmap.getWidth() / (mSurfaceView.getMeasuredWidth() * 4),//水印位于右边
+//                            100.f / mSurfaceView.getMeasuredWidth(),//水印位于左边
+//                            100.f / mSurfaceView.getMeasuredHeight());//Demo中这套参数表示size是图片原始大小，位置是x轴靠右边，y轴从上往下偏移100像素
+//
+//
+//                    mAliyunIEditor.addTailWaterMark(StorageUtils.getCacheDirectory(EditorActivity.this) + "/AliyunEditorDemo/tail/logo.png",
+//                            (float) mWatermarkBitmap.getWidth() / mSurfaceView.getMeasuredWidth(),
+//                            (float) mWatermarkBitmap.getHeight() / mSurfaceView.getMeasuredHeight(), 0.5f,
+//                            0.5f, 2000 * 1000);
+//
+//                }
+//            });
+//        }
 
         Log.d(TAG, "start play");
         mAliyunIEditor.play();

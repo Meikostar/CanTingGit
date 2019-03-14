@@ -16,7 +16,9 @@ import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -36,7 +38,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alivc.player.VcPlayerLog;
+import com.hyphenate.chat.EMClient;
+import com.hyphenate.chat.EMGroup;
+import com.hyphenate.chat.EMGroupManager;
 import com.zhongchuang.canting.R;
+import com.zhongchuang.canting.adapter.FragmentViewPagerAdapter;
 import com.zhongchuang.canting.allive.vodplayerview.constants.PlayParameter;
 import com.zhongchuang.canting.allive.vodplayerview.playlist.AlivcPlayListAdapter;
 import com.zhongchuang.canting.allive.vodplayerview.playlist.AlivcPlayListManager;
@@ -72,16 +78,19 @@ import com.aliyun.vodplayer.downloader.AliyunRefreshStsCallback;
 import com.aliyun.vodplayer.media.AliyunLocalSource;
 import com.aliyun.vodplayer.media.AliyunVidSts;
 import com.aliyun.vodplayer.media.IAliyunVodPlayer;
+import com.zhongchuang.canting.base.StatusBarUtil;
+import com.zhongchuang.canting.fragment.ChatFragments;
+import com.zhongchuang.canting.fragment.GoodFragment;
+import com.zhongchuang.canting.widget.NoScrollViewPager;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
+
 import java.util.List;
-import java.util.Map;
+
 
 /**
  * 播放器和播放列表界面 Created by Mulberry on 2018/4/9.
@@ -106,32 +115,18 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity {
         return strangePhone;
     }
 
-    private SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss.SS");
-    private List<String> logStrs = new ArrayList<>();
+
+
 
     private AliyunScreenMode currentScreenMode = AliyunScreenMode.Small;
-    private TextView tvLogs;
-    private TextView tvTabLogs;
-    private TextView tvTabDownloadVideo;
-    private ImageView ivLogs;
-    private ImageView ivDownloadVideo;
-    private LinearLayout llClearLogs;
-    private RelativeLayout rlLogsContent;
-    private RelativeLayout rlDownloadManagerContent;
-    private TextView tvVideoList;
-    private ImageView ivVideoList;
-    private RecyclerView recyclerView;
-    private LinearLayout llVideoList;
-    private TextView tvStartSetting;
 
-    private DownloadView downloadView;
     private AliyunVodPlayerView mAliyunVodPlayerView = null;
 
     private DownloadDataProvider downloadDataProvider;
     private AliyunDownloadManager downloadManager;
     private AlivcPlayListAdapter alivcPlayListAdapter;
 
-    private ArrayList<AlivcVideoInfo.Video> alivcVideoInfos;
+
     private ErrorInfo currentError = ErrorInfo.Normal;
     /**
      * 开启设置界面的请求码
@@ -155,13 +150,7 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity {
 
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
 
-    /**
-     * 当前tab
-     */
-    private int currentTab = TAB_VIDEO_LIST;
-    private static final int TAB_VIDEO_LIST = 1;
-    private static final int TAB_LOG = 2;
-    private static final int TAB_DOWNLOAD_LIST = 3;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         if (isStrangePhone()) {
@@ -177,12 +166,145 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity {
         requestVidSts();
         dbHelper = DownloadDBHelper.getDownloadHelper(getApplicationContext(), 1);
         initAliyunPlayerView();
-        initLogView();
-        initDownloadView();
-        initVideoListView();
+        inittab();
+        initViewPager();
+        selectPosition(0);
 
     }
+    /**
+     * init视频列表tab
+     */
 
+    private TextView tvChat;
+    private TextView tvZb;
+    private TextView tvRank;
+    private ImageView ivChat;
+    private ImageView ivZb;
+    private ImageView ivRank;
+    private void inittab() {
+        tvChat = (TextView) findViewById(R.id.tv_tab_chat);
+        tvZb = (TextView) findViewById(R.id.tv_tab_zb);
+        tvRank = (TextView) findViewById(R.id.tv_tab_rank);
+        ivChat = (ImageView) findViewById(R.id.iv_chat);
+        ivZb = (ImageView) findViewById(R.id.iv_zb);
+        ivRank = (ImageView) findViewById(R.id.iv_rank);
+
+        tvChat.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectPosition(0);
+            }
+        });
+        tvZb.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectPosition(1);
+            }
+        });
+        tvRank.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectPosition(2);
+            }
+        });
+    }
+
+    public void selectPosition(int position){
+       switch (position){
+           case 0:
+               viewpagerMain.setCurrentItem(position);
+               tvChat.setActivated(true);
+               tvZb.setActivated(false);
+               tvRank.setActivated(false);
+               ivChat.setActivated(true);
+               ivZb.setActivated(false);
+               ivRank.setActivated(false);
+               break;
+           case 1:
+               viewpagerMain.setCurrentItem(position);
+               tvChat.setActivated(false);
+               tvZb.setActivated(true);
+               tvRank.setActivated(false);
+               ivChat.setActivated(false);
+               ivZb.setActivated(true);
+               ivRank.setActivated(false);
+               break;
+           case 2:
+               viewpagerMain.setCurrentItem(position);
+               tvChat.setActivated(false);
+               tvZb.setActivated(false);
+               tvRank.setActivated(true);
+               ivChat.setActivated(false);
+               ivZb.setActivated(false);
+               ivRank.setActivated(true);
+               break;
+       }
+    }
+    private FragmentViewPagerAdapter mainViewPagerAdapter;
+    private List<Fragment> mFragments;
+    private ChatFragments chatFragments;
+    private GoodFragment countFragment;
+    private GoodFragment priceFragment;
+
+    private void addFragment() {
+        mFragments = new ArrayList<>();
+        chatFragments = new ChatFragments();
+        countFragment = new GoodFragment();
+
+        priceFragment = new GoodFragment();
+
+        mFragments.add(chatFragments);
+        mFragments.add(countFragment);
+        mFragments.add(priceFragment);
+
+    }
+    public void initViewPager(){
+        viewpagerMain = (NoScrollViewPager)findViewById(R.id.viewpager_main);
+        addFragment();
+        mainViewPagerAdapter = new FragmentViewPagerAdapter(getSupportFragmentManager(), mFragments);
+        viewpagerMain.setAdapter(mainViewPagerAdapter);
+        viewpagerMain.setOffscreenPageLimit(2);//设置缓存view 的个数
+        viewpagerMain.setScanScroll(true);
+        viewpagerMain.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                switch (position){
+                    case 0:
+                        tvChat.setActivated(true);
+                        tvZb.setActivated(false);
+                        tvRank.setActivated(false);
+                        ivChat.setActivated(true);
+                        ivZb.setActivated(false);
+                        ivRank.setActivated(false);
+                        break;
+                    case 1:
+                        tvChat.setActivated(false);
+                        tvZb.setActivated(true);
+                        tvRank.setActivated(false);
+                        ivChat.setActivated(false);
+                        ivZb.setActivated(true);
+                        ivRank.setActivated(false);
+                        break;
+                    case 2:
+                        tvChat.setActivated(false);
+                        tvZb.setActivated(false);
+                        tvRank.setActivated(true);
+                        ivChat.setActivated(false);
+                        ivZb.setActivated(false);
+                        ivRank.setActivated(true);
+                        break;
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
+    }
     private void copyAssets() {
         Commen.getInstance(getApplicationContext()).copyAssetsToSD("encrypt", "aliyun").setFileOperateCallback(
 
@@ -207,10 +329,7 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity {
                     downloadDataProvider = DownloadDataProvider.getSingleton(getApplicationContext());
                     // 更新sts回调
                     downloadManager.setRefreshStsCallback(new MyRefreshStsCallback());
-                    // 视频下载的回调
-                    downloadManager.setDownloadInfoListener(new MyDownloadInfoListener(downloadView));
-                    //
-                    downloadViewSetting(downloadView);
+
                     Log.e("Test", "assets copyt success");
                 }
 
@@ -220,9 +339,10 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity {
                 }
             });
     }
-
+    private NoScrollViewPager viewpagerMain;
     private void initAliyunPlayerView() {
         mAliyunVodPlayerView = (AliyunVodPlayerView)findViewById(R.id.video_view);
+
         //保持屏幕敞亮
         mAliyunVodPlayerView.setKeepScreenOn(true);
         PlayParameter.PLAY_PARAM_URL = DEFAULT_URL;
@@ -271,7 +391,7 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            alivcVideoInfos.addAll(videos);
+
                             alivcPlayListAdapter.notifyDataSetChanged();
                         }
                     });
@@ -280,59 +400,7 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity {
             });
     }
 
-    /**
-     * init视频列表tab
-     */
-    private void initVideoListView() {
-        tvVideoList = (TextView) findViewById(R.id.tv_tab_video_list);
-        ivVideoList = (ImageView) findViewById(R.id.iv_video_list);
-        recyclerView = (RecyclerView) findViewById(R.id.video_list);
-        llVideoList = (LinearLayout) findViewById(R.id.ll_video_list);
-        tvStartSetting = (TextView) findViewById(R.id.tv_start_player);
-        alivcVideoInfos = new ArrayList<AlivcVideoInfo.Video>();
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        alivcPlayListAdapter = new AlivcPlayListAdapter(this, alivcVideoInfos);
 
-        ivVideoList.setActivated(true);
-        llVideoList.setVisibility(View.VISIBLE);
-        rlDownloadManagerContent.setVisibility(View.GONE);
-        rlLogsContent.setVisibility(View.GONE);
-
-        tvVideoList.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                currentTab = TAB_VIDEO_LIST;
-                ivVideoList.setActivated(true);
-                ivLogs.setActivated(false);
-                ivDownloadVideo.setActivated(false);
-                downloadView.changeDownloadEditState(false);
-                llVideoList.setVisibility(View.VISIBLE);
-                rlDownloadManagerContent.setVisibility(View.GONE);
-                rlLogsContent.setVisibility(View.GONE);
-            }
-        });
-
-        recyclerView.setAdapter(alivcPlayListAdapter);
-
-        alivcPlayListAdapter.setOnVideoListItemClick(new AlivcPlayListAdapter.OnVideoListItemClick() {
-            @Override
-            public void onItemClick(int position) {
-                PlayParameter.PLAY_PARAM_TYPE = "vidsts";
-                // 点击视频列表, 切换播放的视频
-                changePlaySource(position);
-            }
-        });
-
-        // 开启vid和url设置界面
-        tvStartSetting.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AliyunPlayerSkinActivity.this, AliyunPlayerSettingActivity.class);
-                // 开启时, 默认为vid
-                startActivityForResult(intent, CODE_REQUEST_SETTING);
-            }
-        });
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -357,19 +425,19 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity {
 
     private int currentVideoPosition;
 
-    /**
-     * 切换播放资源
-     *
-     * @param position 需要播放的数据在集合中的下标
-     */
-    private void changePlaySource(int position) {
-
-        currentVideoPosition = position;
-
-        AlivcVideoInfo.Video video = alivcVideoInfos.get(position);
-
-        changePlayVidSource(video.getVideoId(), video.getTitle());
-    }
+//    /**
+//     * 切换播放资源
+//     *
+//     * @param position 需要播放的数据在集合中的下标
+//     */
+//    private void changePlaySource(int position) {
+//
+//        currentVideoPosition = position;
+//
+//        AlivcVideoInfo.Video video = alivcVideoInfos.get(position);
+//
+//        changePlayVidSource(video.getVideoId(), video.getTitle());
+//    }
 
     /**
      * 播放本地资源
@@ -402,73 +470,8 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity {
         downloadManager.prepareDownloadMedia(vidSts);
     }
 
-    /**
-     * init 日志tab
-     */
-    private void initLogView() {
-        tvLogs = (TextView)findViewById(R.id.tv_logs);
-        tvTabLogs = (TextView)findViewById(R.id.tv_tab_logs);
-        ivLogs = (ImageView)findViewById(R.id.iv_logs);
-        llClearLogs = (LinearLayout)findViewById(R.id.ll_clear_logs);
-        rlLogsContent = (RelativeLayout)findViewById(R.id.rl_logs_content);
 
-        //日志Tab默认不选择
-        ivLogs.setActivated(false);
 
-        //日志清除
-        llClearLogs.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                logStrs.clear();
-                tvLogs.setText("");
-            }
-        });
-
-        tvTabLogs.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                currentTab = TAB_LOG;
-                // TODO: 2018/4/10 show logs contents view
-                ivLogs.setActivated(true);
-                ivDownloadVideo.setActivated(false);
-                ivVideoList.setActivated(false);
-                rlLogsContent.setVisibility(View.VISIBLE);
-                downloadView.changeDownloadEditState(false);
-                rlDownloadManagerContent.setVisibility(View.GONE);
-                llVideoList.setVisibility(View.GONE);
-            }
-        });
-    }
-
-    /**
-     * init下载(离线视频)tab
-     */
-    private void initDownloadView() {
-        tvTabDownloadVideo = (TextView)findViewById(R.id.tv_tab_download_video);
-        ivDownloadVideo = (ImageView)findViewById(R.id.iv_download_video);
-        rlDownloadManagerContent = (RelativeLayout)findViewById(R.id.rl_download_manager_content);
-        downloadView = (DownloadView)findViewById(R.id.download_view);
-        //离线下载Tab默认不选择
-        ivDownloadVideo.setActivated(false);
-        tvTabDownloadVideo.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                currentTab = TAB_DOWNLOAD_LIST;
-                // TODO: 2018/4/10 show download content
-                ivDownloadVideo.setActivated(true);
-                ivLogs.setActivated(false);
-                ivVideoList.setActivated(false);
-                rlLogsContent.setVisibility(View.GONE);
-                llVideoList.setVisibility(View.GONE);
-                rlDownloadManagerContent.setVisibility(View.VISIBLE);
-                //Drawable drawable = getResources().getDrawable(R.drawable.alivc_new_download);
-                //drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-
-                updateDownloadTaskTip();
-            }
-        });
-    }
 
     /**
      * downloadView的配置 里面配置了需要下载的视频的信息, 事件监听等 抽取该方法的主要目的是, 横屏下download dialog的离线视频列表中也用到了downloadView, 而两者显示内容和数据是同步的,
@@ -578,11 +581,7 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity {
     }
 
     private void onPrepared() {
-        logStrs.add(format.format(new Date()) + getString(R.string.log_prepare_success));
 
-        for (String log : logStrs) {
-            tvLogs.append(log + "\n");
-        }
         Toast.makeText(AliyunPlayerSkinActivity.this.getApplicationContext(), R.string.toast_prepare_success,
             Toast.LENGTH_SHORT).show();
     }
@@ -606,10 +605,7 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity {
     }
 
     private void onCompletion() {
-        logStrs.add(format.format(new Date()) + getString(R.string.log_play_completion));
-        for (String log : logStrs) {
-            tvLogs.append(log + "\n");
-        }
+
         Toast.makeText(AliyunPlayerSkinActivity.this.getApplicationContext(), R.string.toast_play_compleion,
             Toast.LENGTH_SHORT).show();
 
@@ -628,16 +624,6 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity {
             return;
         }
 
-        currentVideoPosition++;
-        if (currentVideoPosition >= alivcVideoInfos.size() - 1) {
-            //列表循环播放，如发现播放完成了从列表的第一个开始重新播放
-            currentVideoPosition = 0;
-        }
-
-        AlivcVideoInfo.Video video = alivcVideoInfos.get(currentVideoPosition);
-        if (video != null) {
-            changePlayVidSource(video.getVideoId(), video.getTitle());
-        }
 
     }
 
@@ -660,32 +646,8 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity {
     }
 
     private void onFirstFrameStart() {
-        Map<String, String> debugInfo = mAliyunVodPlayerView.getAllDebugInfo();
-        long createPts = 0;
-        if (debugInfo.get("create_player") != null) {
-            String time = debugInfo.get("create_player");
-            createPts = (long)Double.parseDouble(time);
-            logStrs.add(format.format(new Date(createPts)) + getString(R.string.log_player_create_success));
-        }
-        if (debugInfo.get("open-url") != null) {
-            String time = debugInfo.get("open-url");
-            long openPts = (long)Double.parseDouble(time) + createPts;
-            logStrs.add(format.format(new Date(openPts)) + getString(R.string.log_open_url_success));
-        }
-        if (debugInfo.get("find-stream") != null) {
-            String time = debugInfo.get("find-stream");
-            long findPts = (long)Double.parseDouble(time) + createPts;
-            logStrs.add(format.format(new Date(findPts)) + getString(R.string.log_request_stream_success));
-        }
-        if (debugInfo.get("open-stream") != null) {
-            String time = debugInfo.get("open-stream");
-            long openPts = (long)Double.parseDouble(time) + createPts;
-            logStrs.add(format.format(new Date(openPts)) + getString(R.string.log_start_open_stream));
-        }
-        logStrs.add(format.format(new Date()) + getString(R.string.log_first_frame_played));
-        for (String log : logStrs) {
-            tvLogs.append(log + "\n");
-        }
+
+
     }
 
     private class MyPlayViewClickListener implements OnPlayerViewClickListener {
@@ -772,10 +734,17 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity {
         }
     };
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        StatusBarUtil.setTranslucentStatus(this,false);
+        StatusBarUtil.setColor(this,getResources().getColor(R.color.color8),0);
+    }
+
     private void addNewInfo(AliyunDownloadMediaInfo info) {
         downloadManager.addDownloadMedia(info);
         downloadManager.startDownloadMedia(info);
-        downloadView.addDownloadMediaInfo(info);
+
 
 
     }
@@ -831,7 +800,6 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity {
             //downloadView.addDownloadMediaInfo(info);
             //dbHelper.insert(info, DownloadDBHelper.DownloadState.STATE_DOWNLOADING);
             if (!downloadDataProvider.hasAdded(info)) {
-                updateDownloadTaskTip();
                 downloadDataProvider.addDownloadMediaInfo(info);
             }
 
@@ -930,13 +898,12 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity {
     }
 
     private void onChangeQualitySuccess(String finalQuality) {
-        logStrs.add(format.format(new Date()) + getString(R.string.log_change_quality_success));
         Toast.makeText(AliyunPlayerSkinActivity.this.getApplicationContext(),
             getString(R.string.log_change_quality_success), Toast.LENGTH_SHORT).show();
     }
 
     void onChangeQualityFail(int code, String msg) {
-        logStrs.add(format.format(new Date()) + getString(R.string.log_change_quality_fail) + " : " + msg);
+
         Toast.makeText(AliyunPlayerSkinActivity.this.getApplicationContext(),
             getString(R.string.log_change_quality_fail), Toast.LENGTH_SHORT).show();
     }
@@ -1039,17 +1006,7 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity {
     }
 
 
-    private void updateDownloadTaskTip() {
-        if (currentTab != TAB_DOWNLOAD_LIST) {
 
-            Drawable drawable = getResources().getDrawable(R.drawable.alivc_download_new_task);
-            drawable.setBounds(0, 0, 20, 20);
-            tvTabDownloadVideo.setCompoundDrawablePadding(-20);
-            tvTabDownloadVideo.setCompoundDrawables(null, null,  drawable, null);
-        } else {
-            tvTabDownloadVideo.setCompoundDrawables(null, null, null, null);
-        }
-    }
 
     private void updatePlayerViewMode() {
         if (mAliyunVodPlayerView != null) {
@@ -1202,10 +1159,14 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity {
         inRequest = false;
         // 请求sts成功后, 加载播放资源,和视频列表
         setPlaySource();
-        if (alivcVideoInfos != null) {
-            alivcVideoInfos.clear();
-        }
+
         loadPlayList();
+//        EMGroupManager.EMGroupOptions option = new EMGroupManager.EMGroupOptions();
+//        option.maxUsers = 10000;
+//        option.style = EMGroupManager.EMGroupStyle.EMGroupStylePublicOpenJoin;
+//
+//        EMGroup group = EMClient.getInstance().groupManager().createGroup(groupName, desc, allMembers, reason, option);
+
     }
 
     private static class MyOrientationChangeListener implements AliyunVodPlayerView.OnOrientationChangeListener {

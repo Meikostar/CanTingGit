@@ -9,12 +9,13 @@
     <ImageView
         android:id="@+id/iv_left"
         style="?android:attr/actionButtonStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_width="21dp"
+        android:layout_height="28dp"
+        android:padding="7dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:paddingLeft="@dimen/right_margin_profile_toolbar"
+        android:layout_marginLeft="10dp"
         android:visibility="gone" />
     <TextView
         android:id="@+id/tv_left"
@@ -23,7 +24,7 @@
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:textSize="@dimen/font_size_28px"
+        android:textSize="17dp"
         android:paddingLeft="@dimen/right_margin_profile_toolbar"
         android:textColor="@color/white"
         android:visibility="gone" />
@@ -36,20 +37,37 @@
         android:drawablePadding="@dimen/action_bar_profile_title_drawablePadding"
         android:gravity="center"
         android:textColor="@color/white"
-        android:textSize="@dimen/font_size_28px"
+        android:textSize="17sp"
         android:visibility="gone" />
 
-    <ImageView
+    <!--<ImageView-->
+        <!--android:id="@+id/iv_right"-->
+        <!--style="?android:attr/actionButtonStyle"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:paddingEnd="@dimen/right_margin_profile_toolbar"-->
+        <!--android:paddingRight="@dimen/right_margin_profile_toolbar"-->
+        <!--android:visibility="gone" />-->
+    <Button
         android:id="@+id/iv_right"
-        style="?android:attr/actionButtonStyle"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:minWidth="57.5dp"
+        android:layout_height="29dp"
+        android:layout_gravity="left|center_vertical"
+        android:layout_marginLeft="11.5dp"
+        android:text="下一步"
+        android:textColor="#fff"
+        android:textSize="13sp"
+        android:gravity="center"
+        android:background="@drawable/aliyun_svideo_shape_next_button"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:paddingEnd="@dimen/right_margin_profile_toolbar"
-        android:paddingRight="@dimen/right_margin_profile_toolbar"
-        android:visibility="gone" />
+        android:layout_marginRight="15dp"
+        />
     <TextView
         android:id="@+id/tv_right"
         android:layout_height="match_parent"

@@ -12,20 +12,27 @@ import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMTextMessageBody;
 import com.hyphenate.exceptions.HyphenateException;
 import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.easeui.Constant;
 import com.zhongchuang.canting.easeui.utils.EaseSmileUtils;
 
 public class EaseChatRowText extends EaseChatRow {
 
     private TextView contentView;
 
-    public EaseChatRowText(Context context, EMMessage message, int position, BaseAdapter adapter) {
-        super(context, message, position, adapter);
+    public EaseChatRowText(Context context,int chatType, EMMessage message, int position, BaseAdapter adapter) {
+        super(context,chatType, message, position, adapter);
     }
 
     @Override
-    protected void onInflateView() {
-        inflater.inflate(message.direct() == EMMessage.Direct.RECEIVE ?
-                R.layout.ease_row_received_message : R.layout.ease_row_sent_message, this);
+    protected void onInflateView(int chatType) {
+          if(chatType== Constant.CHATTYPE_CHATROOM){
+              inflater.inflate(R.layout.chat_room_received , this);
+          }else {
+              inflater.inflate(message.direct() == EMMessage.Direct.RECEIVE ?
+                      R.layout.ease_row_received_message : R.layout.ease_row_sent_message, this);
+          }
+
+
     }
 
     @Override
@@ -48,20 +55,32 @@ public class EaseChatRowText extends EaseChatRow {
             setMessageSendCallback();
             switch (message.status()) {
                 case CREATE:
-                    progressBar.setVisibility(View.GONE);
-                    statusView.setVisibility(View.VISIBLE);
+                    if(chatType!=Constant.CHATTYPE_CHATROOM){
+                        progressBar.setVisibility(View.GONE);
+                        statusView.setVisibility(View.VISIBLE);
+                    }
+
                     break;
                 case SUCCESS:
-                    progressBar.setVisibility(View.GONE);
-                    statusView.setVisibility(View.GONE);
+                    if(chatType!=Constant.CHATTYPE_CHATROOM){
+                        progressBar.setVisibility(View.GONE);
+                        statusView.setVisibility(View.GONE);
+                    }
+
                     break;
                 case FAIL:
-                    progressBar.setVisibility(View.GONE);
-                    statusView.setVisibility(View.VISIBLE);
+                    if(chatType!=Constant.CHATTYPE_CHATROOM){
+                        progressBar.setVisibility(View.GONE);
+                        statusView.setVisibility(View.VISIBLE);
+                    }
+
                     break;
                 case INPROGRESS:
-                    progressBar.setVisibility(View.VISIBLE);
-                    statusView.setVisibility(View.GONE);
+                    if(chatType!=Constant.CHATTYPE_CHATROOM){
+                        progressBar.setVisibility(View.VISIBLE);
+                        statusView.setVisibility(View.GONE);
+                    }
+
                     break;
                 default:
                     break;

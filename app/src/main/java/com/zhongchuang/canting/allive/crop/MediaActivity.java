@@ -30,6 +30,7 @@ import com.aliyun.struct.common.VideoQuality;
 import com.aliyun.struct.recorder.CameraType;
 import com.aliyun.struct.recorder.FlashType;
 import com.aliyun.struct.snap.AliyunSnapVideoParam;
+import com.zhongchuang.canting.allive.recorder.AliyunVideoRecorder;
 
 public class MediaActivity extends Activity implements View.OnClickListener{
     private MediaStorage storage;
@@ -142,16 +143,8 @@ public class MediaActivity extends Activity implements View.OnClickListener{
             public void onCurrentMediaInfoChanged(MediaInfo info) {
                 if(info == null){
 
-                    Class recorder = null;
-                    try {
-                        recorder = Class.forName("com.zhongchuang.canting.allive.recorder.AliyunVideoRecorder");
-                    } catch (ClassNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                    if(recorder == null){
-                        return;
-                    }
-                    Intent intent = new Intent(MediaActivity.this,recorder);
+
+                    Intent intent = new Intent(MediaActivity.this,AliyunVideoRecorder.class);
                     intent.putExtra(AliyunSnapVideoParam.VIDEO_RESOLUTION,resolutionMode);
                     intent.putExtra(AliyunSnapVideoParam.VIDEO_RATIO,ratioMode);
                     intent.putExtra(AliyunSnapVideoParam.RECORD_MODE,recordMode);

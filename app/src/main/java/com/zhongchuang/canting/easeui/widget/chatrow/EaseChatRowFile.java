@@ -30,12 +30,12 @@ public class EaseChatRowFile extends EaseChatRow {
     protected boolean isNotifyProcessed;
     private EMNormalFileMessageBody fileMessageBody;
 
-    public EaseChatRowFile(Context context, EMMessage message, int position, BaseAdapter adapter) {
-        super(context, message, position, adapter);
+    public EaseChatRowFile(Context context, int chatType,EMMessage message, int position, BaseAdapter adapter) {
+        super(context, chatType,message, position, adapter);
     }
 
     @Override
-    protected void onInflateView() {
+    protected void onInflateView(int chatType) {
         inflater.inflate(message.direct() == EMMessage.Direct.RECEIVE ?
                 R.layout.ease_row_received_file : R.layout.ease_row_sent_file, this);
     }

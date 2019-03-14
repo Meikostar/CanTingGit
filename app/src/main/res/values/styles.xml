@@ -207,7 +207,17 @@
         <item name="android:thumbTint">@color/alivc_color_pusher_colorAccent</item>
         <item name="android:progressTint">@color/alivc_color_pusher_colorAccent</item>
     </style>
-
+    <style name="custom_dialosg" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.6</item>
+    </style>
 
 
     <style name="TextDlgStyle" parent="@android:style/Theme.Dialog">
@@ -222,7 +232,7 @@
         <item name="qusnap_timeline_del_backgound_color">@color/aliyun_timeline_background_del_color</item>
         <item name="qusnap_back_icon">@mipmap/aliyun_svideo_icon_back</item>
         <item name="qusnap_switch_light_icon">@drawable/aliyun_svideo_snap_switch_light_selector</item>
-        <item name="qusnap_switch_light_icon_disable">@mipmap/aliyun_svideo_icon_light_dis</item>
+        <item name="qusnap_switch_light_icon_disable">@mipmap/aliyun_svideo_icon_light_on</item>
         <item name="qusnap_switch_light_icon_visibility">visible</item>
         <item name="qusnap_switch_camera_icon">@drawable/aliyun_svideo_snap_switch_camera</item>
         <item name="qusnap_switch_camera_icon_visibility">visible</item>
@@ -231,7 +241,7 @@
         <item name="qusnap_record_icon">@drawable/aliyun_svideo_snap_record_state_selector</item>
         <item name="qusnap_delete_icon">@drawable/aliyun_svideo_snap_icon_delete</item>
         <item name="qusnap_complete_icon">@drawable/aliyun_svideo_snap_icon_complete</item>
-        <item name="qusnap_gallery_icon">@mipmap/aliyun_svideo_icon_default</item>
+
         <item name="qusnap_gallery_icon_visibility">visible</item>
         <item name="qusnap_time_txt_color">@android:color/white</item>
         <item name="qusnap_time_txt_size">15dp</item>

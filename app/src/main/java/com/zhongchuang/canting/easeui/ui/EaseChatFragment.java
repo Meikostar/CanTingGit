@@ -58,8 +58,10 @@ import com.zhongchuang.canting.easeui.widget.EaseChatInputMenu;
 import com.zhongchuang.canting.easeui.widget.EaseChatMessageList;
 import com.zhongchuang.canting.easeui.widget.EaseVoiceRecorderView;
 import com.zhongchuang.canting.easeui.widget.chatrow.EaseCustomChatRowProvider;
+import com.zhongchuang.canting.utils.DensityUtil;
 import com.zhongchuang.canting.utils.HxMessageUtils;
 import com.zhongchuang.canting.utils.SpUtil;
+import com.zhongchuang.canting.utils.StringUtil;
 import com.zhongchuang.canting.utils.TextUtil;
 import com.zhongchuang.canting.widget.RxBus;
 import com.zhongchuang.canting.widget.banner.BannerView;
@@ -265,6 +267,10 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
                 groupListener = new GroupListener();
                 EMClient.getInstance().groupManager().addGroupChangeListener(groupListener);
             } else {
+                RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) bannerView.getLayoutParams();
+                layoutParams.width= RelativeLayout.LayoutParams.MATCH_PARENT;
+                layoutParams.height= DensityUtil.dip2px(40);
+                bannerView.setLayoutParams(layoutParams);
                 chatRoomListener = new ChatRoomListener();
                 EMClient.getInstance().chatroomManager().addChatRoomChangeListener(chatRoomListener);
                 onChatRoomViewCreation();
@@ -663,7 +669,10 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
             // if the message is for current conversation
             if (username.equals(toChatUsername) || message.getTo().equals(toChatUsername)) {
                 messageList.refreshSelectLast();
-                EaseUI.getInstance().getNotifier().vibrateAndPlayTone(message);
+                if(chatType!=Constant.CHATTYPE_CHATROOM){
+                    EaseUI.getInstance().getNotifier().vibrateAndPlayTone(message);
+                }
+
                 conversation.markMessageAsRead(message.getMsgId());
             } else {
                 EaseUI.getInstance().getNotifier().onNewMsg(message);

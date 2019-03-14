@@ -47,12 +47,12 @@
 
         </LinearLayout>-->
 
-        <com.zhongchuang.canting.allive.vodplayerview.view.downloadDownloadView
+        <com.zhongchuang.canting.allive.vodplayerview.view.download.DownloadView
             android:id="@+id/download_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        </com.zhongchuang.canting.allive.vodplayerview.view.downloadDownloadView>
+        </com.zhongchuang.canting.allive.vodplayerview.view.download.DownloadView>
 
 
 

@@ -21,12 +21,12 @@ public class EaseChatRowBigExpression extends EaseChatRowText {
     private ImageView imageView;
 
 
-    public EaseChatRowBigExpression(Context context, EMMessage message, int position, BaseAdapter adapter) {
-        super(context, message, position, adapter);
+    public EaseChatRowBigExpression(Context context,int chatType, EMMessage message, int position, BaseAdapter adapter) {
+        super(context,chatType, message, position, adapter);
     }
     
     @Override
-    protected void onInflateView() {
+    protected void onInflateView(int chatType) {
         inflater.inflate(message.direct() == EMMessage.Direct.RECEIVE ? 
                 R.layout.ease_row_received_bigexpression : R.layout.ease_row_sent_bigexpression, this);
     }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@drawable/white_rectange_dailog"
+    android:paddingLeft="39dp"
+    android:paddingRight="39dp"
+    android:paddingTop="12dp"
+    android:paddingBottom="11dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipChildren="false"
+    android:clipToPadding="false">
+
+
+    <com.zhongchuang.canting.widget.waitLoading.LoadingView
+        android:id="@+id/loadView"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</FrameLayout>

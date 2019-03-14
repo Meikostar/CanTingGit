@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -31,7 +32,7 @@ public abstract class ActionBarActivity extends AppCompatActivity {
     private ViewDelegate mLeftView = new ViewDelegate();
 
     private ImageView mIvLeft;
-    private ImageView mIvRight;
+    private Button mIvRight;
     private TextView mTvRight;
     private TextView mTvCenter;
     private TextView mTvLeft;
@@ -87,12 +88,12 @@ public abstract class ActionBarActivity extends AppCompatActivity {
             View actionBarView = mActionBar.getCustomView();
             mIvLeft = (ImageView) actionBarView.findViewById(R.id.iv_left);
             mTvCenter = (TextView) actionBarView.findViewById(R.id.tv_center);
-            mIvRight = (ImageView) actionBarView.findViewById(R.id.iv_right);
+            mIvRight = (Button) actionBarView.findViewById(R.id.iv_right);
             mTvRight = (TextView) actionBarView.findViewById(R.id.tv_right);
             mTvLeft = (TextView) actionBarView.findViewById(R.id.tv_left);
             mIvLeft.setOnClickListener(mDefaultClicKListener);
             mIvLeft.setImageResource(R.mipmap.aliyun_svideo_icon_back);
-            mIvRight.setImageResource(R.mipmap.aliyun_svideo_icon_next);
+//            mIvRight.setImageResource(R.mipmap.aliyun_svideo_icon_next);
             mRightView.delegate(mIvRight);
             mLeftView.delegate(mIvLeft);
             mLeftView.setOnClickListener(mDefaultClicKListener);
@@ -145,14 +146,14 @@ public abstract class ActionBarActivity extends AppCompatActivity {
 
     protected void setActionBarRightView(int resId) {
         if(mIvRight != null) {
-            mIvRight.setImageResource(resId);
+//            mIvRight.setImageResource(resId);
             mRightView.delegate(mIvRight);
         }
     }
 
     protected void setActionBarRightView(Drawable drawable) {
         if(mIvRight != null) {
-            mIvRight.setImageDrawable(drawable);
+//            mIvRight.setImageDrawable(drawable);
             mRightView.delegate(mIvRight);
         }
     }

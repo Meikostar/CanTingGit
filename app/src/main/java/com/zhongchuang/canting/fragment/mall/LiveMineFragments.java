@@ -29,6 +29,7 @@ import com.zhongchuang.canting.activity.chat.RecordDetailActivity;
 import com.zhongchuang.canting.activity.chat.SumbitJfActivity;
 import com.zhongchuang.canting.activity.live.GiftRecordActivity;
 import com.zhongchuang.canting.activity.live.LeaveContentActivity;
+import com.zhongchuang.canting.activity.live.LiveActivity;
 import com.zhongchuang.canting.activity.live.LiveHandActivity;
 import com.zhongchuang.canting.activity.live.MineVideoActivity;
 import com.zhongchuang.canting.activity.live.MinetCareLiveActivity;
@@ -149,7 +150,7 @@ public class LiveMineFragments extends LazyFragment implements BaseContract.View
     }
     private String[] mEffDirs;
     private void initAssetPath(){
-        String path = StorageUtils.getCacheDirectory(getActivity()).getAbsolutePath() + File.separator+ Common.QU_NAME + File.separator;
+        String path = StorageUtils.getCacheDirectory(CanTingAppLication.getInstance()).getAbsolutePath() + File.separator+ Common.QU_NAME + File.separator;
         File filter = new File(new File(path), "filter");
 
         String[] list = filter.list();
@@ -170,7 +171,7 @@ public class LiveMineFragments extends LazyFragment implements BaseContract.View
 
             @Override
             protected Object doInBackground(Object[] params) {
-                Common.copyAll(getActivity());
+                Common.copyAll(CanTingAppLication.getInstance());
                 return null;
             }
 
@@ -445,6 +446,9 @@ public class LiveMineFragments extends LazyFragment implements BaseContract.View
     }
 
     public void initData() {
+        if(getActivity()==null){
+            return;
+        }
         Glide.with(getActivity()).load(StringUtil.changeUrl(data.room_image)).asBitmap().placeholder(R.drawable.editor_ava).into(personPic);
         if (TextUtil.isNotEmpty(data.direct_see_name)) {
             tvName.setText(getString(R.string.fjmc) + data.direct_see_name);

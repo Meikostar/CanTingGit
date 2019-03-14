@@ -61,6 +61,7 @@ public class EaseUserUtils {
         	}else{
         		textView.setText(username);
         	}
+
         }
     }
     

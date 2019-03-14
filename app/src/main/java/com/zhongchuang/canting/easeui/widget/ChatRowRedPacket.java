@@ -20,12 +20,12 @@ public class ChatRowRedPacket extends EaseChatRow {
     private TextView mTvPacketType;
     private RelativeLayout bubble;
 
-    public ChatRowRedPacket(Context context, EMMessage message, int position, BaseAdapter adapter) {
-        super(context, message, position, adapter);
+    public ChatRowRedPacket(Context context,int chatType, EMMessage message, int position, BaseAdapter adapter) {
+        super(context,chatType, message, position, adapter);
     }
 
     @Override
-    protected void onInflateView() {
+    protected void onInflateView(int chatType) {
         if (message.getBooleanAttribute(EaseConstant.EXTRA_RED, false)) {
             inflater.inflate(message.direct() == EMMessage.Direct.RECEIVE ?
                     R.layout.em_row_received_red_packet : R.layout.em_row_sent_red_packet, this);

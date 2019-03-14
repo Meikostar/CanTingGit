@@ -25,6 +25,7 @@ import android.widget.TextView;
 import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.allive.crop.AliyunImageCrop;
 import com.zhongchuang.canting.allive.crop.AliyunVideoCrop;
+import com.zhongchuang.canting.allive.editor.editor.EditorActivity;
 import com.zhongchuang.canting.allive.importer.media.GalleryDirChooser;
 import com.zhongchuang.canting.allive.importer.media.GalleryMediaChooser;
 import com.zhongchuang.canting.allive.importer.media.MediaDir;
@@ -312,15 +313,9 @@ public class MediaActivity extends Activity implements View.OnClickListener {
                     }
                 }
                 String projectJsonPath = mImport.generateProjectConfigure();
-                Class editor = null;
-                try {
-                    editor = Class.forName("com.zhongchuang.canting.allive.editor.editor.EditorActivity");
-                } catch (ClassNotFoundException e) {
-                    Log.e(AliyunTag.TAG,"can not find editor");
-                    e.printStackTrace();
-                }
-                if (projectJsonPath != null && editor != null) {
-                    Intent intent = new Intent(MediaActivity.this,editor);
+
+                if (projectJsonPath != null) {
+                    Intent intent = new Intent(MediaActivity.this,EditorActivity.class);
                     intent.putExtra("video_param", mVideoParam);
                     intent.putExtra("project_json_path", projectJsonPath);
                     startActivity(intent);
@@ -688,15 +683,9 @@ public class MediaActivity extends Activity implements View.OnClickListener {
                     nativeParser.dispose();
                 }
                 String projectJsonPath = mImport.generateProjectConfigure();
-                Class editor = null;
-                try {
-                    editor = Class.forName("com.zhongchuang.canting.allive.editor.editor.EditorActivity");
-                } catch (ClassNotFoundException e) {
-                    Log.e(AliyunTag.TAG,"can not find editor");
-                    e.printStackTrace();
-                }
-                if (projectJsonPath != null && editor != null) {
-                    Intent intent = new Intent(this,editor);
+
+                if (projectJsonPath != null ) {
+                    Intent intent = new Intent(this,EditorActivity.class);
                     intent.putExtra("video_param", mVideoParam);
                     intent.putExtra("project_json_path", projectJsonPath);
                     startActivity(intent);

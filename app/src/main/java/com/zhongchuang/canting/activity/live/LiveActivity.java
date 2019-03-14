@@ -13,9 +13,14 @@ import android.widget.RadioGroup;
 
 import com.google.gson.Gson;
 import com.hyphenate.EMCallBack;
+import com.hyphenate.EMValueCallBack;
+import com.hyphenate.chat.EMChatRoom;
 import com.hyphenate.chat.EMClient;
+import com.hyphenate.exceptions.HyphenateException;
 import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.activity.ChatActivity;
 import com.zhongchuang.canting.activity.LoginActivity;
+import com.zhongchuang.canting.activity.chat.ChatMenberActivity;
 import com.zhongchuang.canting.activity.mall.ShopMallActivity;
 import com.zhongchuang.canting.app.CanTingAppLication;
 import com.zhongchuang.canting.base.BaseAllActivity;
@@ -23,6 +28,8 @@ import com.zhongchuang.canting.base.LazyFragment;
 import com.zhongchuang.canting.been.GAME;
 import com.zhongchuang.canting.been.ProvinceModel;
 import com.zhongchuang.canting.been.SubscriptionBean;
+import com.zhongchuang.canting.easeui.Constant;
+import com.zhongchuang.canting.easeui.EaseConstant;
 import com.zhongchuang.canting.fragment.ZhiBoFragment;
 import com.zhongchuang.canting.fragment.mall.IntegralMallFragment;
 import com.zhongchuang.canting.fragment.mall.LiveMineFragment;
@@ -36,6 +43,7 @@ import com.zhongchuang.canting.widget.RxBus;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -97,6 +105,7 @@ public class LiveActivity extends BaseAllActivity implements View.OnClickListene
         fragment.setArguments(getIntent().getExtras());
         mTransaction.replace(R.id.fragment_container, fragment);
         mTransaction.commit();
+
 
 
 //        setEvents();

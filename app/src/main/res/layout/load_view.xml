@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/tools">
+
+    <com.zhongchuang.canting.widget.waitLoading.ShapeLoadingView
+        android:id="@+id/shapeLoadingView"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="2dp"/>
+
+    <ImageView
+        android:id="@+id/indication"
+        android:layout_width="26dp"
+        android:layout_height="5dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="56dp"
+        android:src="@drawable/shadow"/>
+
+    <TextView
+        android:id="@+id/promptTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="6dp"
+        android:textColor="#777"
+        android:textSize="14sp"
+        android:visibility="gone"
+        tool:visibility="visible"/>
+
+</merge>

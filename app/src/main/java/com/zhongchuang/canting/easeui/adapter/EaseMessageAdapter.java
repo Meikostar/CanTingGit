@@ -92,10 +92,11 @@ public class EaseMessageAdapter extends BaseAdapter{
 
 	private ListView listView;
 	private EaseMessageListItemStyle itemStyle;
-
+    private int chatType;
 	public EaseMessageAdapter(Context context, String username, int chatType, ListView listView) {
 		this.context = context;
 		this.listView = listView;
+		this.chatType = chatType;
 		toChatUsername = username;
 		this.conversation = EMClient.getInstance().chatManager().getConversation(username, EaseCommonUtils.getConversationType(chatType), true);
 	}
@@ -244,7 +245,7 @@ public class EaseMessageAdapter extends BaseAdapter{
 		return -1;// invalid
 	}
 
-	protected EaseChatRow createChatRow(Context context, EMMessage message, int position) {
+	protected EaseChatRow createChatRow(Context context, EMMessage message, int position,int chatType) {
 		EaseChatRow chatRow = null;
 		if(customRowProvider != null && customRowProvider.getCustomChatRow(message, position, this) != null){
 			return customRowProvider.getCustomChatRow(message, position, this);
@@ -257,34 +258,34 @@ public class EaseMessageAdapter extends BaseAdapter{
 				case TXT:
 					  if(red){
 						  if(type.equals("1")){
-							  chatRow = new ChatRowRedPacket(context, message, position, this);
+							  chatRow = new ChatRowRedPacket(context,chatType, message, position, this);
 
 						  }else if(type.equals("2")){
-							  chatRow = new ChatRowRedPacketAck(context, message, position, this);
+							  chatRow = new ChatRowRedPacketAck(context,chatType, message, position, this);
 						  }
 					  }else {
 						  if(message.getBooleanAttribute(EaseConstant.MESSAGE_ATTR_IS_BIG_EXPRESSION, false)){
-							  chatRow = new EaseChatRowBigExpression(context, message, position, this);
+							  chatRow = new EaseChatRowBigExpression(context,chatType, message, position, this);
 						  }else{
-							  chatRow = new EaseChatRowText(context, message, position, this);
+							  chatRow = new EaseChatRowText(context, chatType,message, position, this);
 						  }
 					  }
 
 					break;
 				case LOCATION:
-					chatRow = new EaseChatRowLocation(context, message, position, this);
+					chatRow = new EaseChatRowLocation(context, chatType,message, position, this);
 					break;
 				case FILE:
-					chatRow = new EaseChatRowFile(context, message, position, this);
+					chatRow = new EaseChatRowFile(context,  chatType,message, position, this);
 					break;
 				case IMAGE:
-					chatRow = new EaseChatRowImage(context, message, position, this);
+					chatRow = new EaseChatRowImage(context,  chatType,message, position, this);
 					break;
 				case VOICE:
-					chatRow = new EaseChatRowVoice(context, message, position, this);
+					chatRow = new EaseChatRowVoice(context, chatType, message, position, this);
 					break;
 				case VIDEO:
-					chatRow = new EaseChatRowVideo(context, message, position, this);
+					chatRow = new EaseChatRowVideo(context, chatType, message, position, this);
 					break;
 
 				default:
@@ -301,7 +302,7 @@ public class EaseMessageAdapter extends BaseAdapter{
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		EMMessage message = getItem(position);
 		if(convertView == null){
-			convertView = createChatRow(context, message, position);
+			convertView = createChatRow(context, message, position,chatType);
 		}
 
 		//refresh ui with messages

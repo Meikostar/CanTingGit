@@ -29,12 +29,12 @@ public class EaseChatRowVideo extends EaseChatRowFile {
     private TextView sizeView;
     private TextView timeLengthView;
 
-    public EaseChatRowVideo(Context context, EMMessage message, int position, BaseAdapter adapter) {
-        super(context, message, position, adapter);
+    public EaseChatRowVideo(Context context,int chatType, EMMessage message, int position, BaseAdapter adapter) {
+        super(context,chatType, message, position, adapter);
     }
 
 	@Override
-	protected void onInflateView() {
+	protected void onInflateView(int chatType) {
 		inflater.inflate(message.direct() == EMMessage.Direct.RECEIVE ?
 				R.layout.ease_row_received_video : R.layout.ease_row_sent_video, this);
 	}

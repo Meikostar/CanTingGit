@@ -165,7 +165,6 @@ public class HomeActivity extends BaseTitle_Activity implements BaseContract.Vie
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomeActivity.this, WebViewActivity.class);
-
                 intent.putExtra(WebViewActivity.WEBTITLE, "圣恩简介");
                 intent.putExtra(WebViewActivity.WEBURL, "http://119.23.235.1:8088/snpt/index.html");
                 startActivity(intent);
@@ -176,7 +175,6 @@ public class HomeActivity extends BaseTitle_Activity implements BaseContract.Vie
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomeActivity.this, WebViewActivity.class);
-
                 intent.putExtra(WebViewActivity.WEBTITLE, "圣恩分润计划");
                 intent.putExtra(WebViewActivity.WEBURL, "http://119.23.235.1:8088/snfy/index.html");
                 startActivity(intent);

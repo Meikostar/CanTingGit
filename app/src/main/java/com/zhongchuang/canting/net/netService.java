@@ -121,8 +121,8 @@ public interface netService {
 //    public static final String TOM_BASE_URL = "http://120.77.222.116:8080/ifun/";
 
 
-//    public static final String TOM_BASE_URL = "http://119.23.212.8:8080/ifun/";
-    public static final String TOM_BASE_URL = "http://47.107.249.69:8080/ifun/";
+    public static final String TOM_BASE_URL = "http://119.23.212.8:8080/ifun/";
+//    public static final String TOM_BASE_URL = "http://47.107.249.69:8080/ifun/";
 
 //    public static final String TOM_BASE_URL = "http://192.168.50.157:8080/ifun/";
 

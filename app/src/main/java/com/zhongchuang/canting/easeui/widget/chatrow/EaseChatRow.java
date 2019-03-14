@@ -19,6 +19,7 @@ import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMMessage.Direct;
 import com.hyphenate.exceptions.HyphenateException;
 import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.easeui.Constant;
 import com.zhongchuang.canting.easeui.widget.EaseChatMessageList.MessageListItemClickListener;
 import com.hyphenate.util.DateUtils;
 import com.zhongchuang.canting.easeui.EaseUI;
@@ -59,10 +60,11 @@ public abstract class EaseChatRow extends LinearLayout {
 
     protected MessageListItemClickListener itemClickListener;
     protected EaseMessageListItemStyle itemStyle;
-
-    public EaseChatRow(Context context, EMMessage message, int position, BaseAdapter adapter) {
+    protected int chatType;
+    public EaseChatRow(Context context,int chatType, EMMessage message, int position, BaseAdapter adapter) {
         super(context);
         this.context = context;
+        this.chatType = chatType;
         this.activity = (Activity) context;
         this.message = message;
         this.position = position;
@@ -73,7 +75,7 @@ public abstract class EaseChatRow extends LinearLayout {
     }
 
     private void initView() {
-        onInflateView();
+        onInflateView(chatType);
         timeStampView = (TextView) findViewById(R.id.timestamp);
         userAvatarView = (ImageView) findViewById(R.id.iv_userhead);
         bubbleLayout = findViewById(R.id.bubble);
@@ -133,6 +135,7 @@ public abstract class EaseChatRow extends LinearLayout {
             }else {
                 EaseUserUtils.setUserAvatar(context, HxMessageUtils.getMyAvater(message), userAvatarView);
             }
+            EaseUserUtils.setUserNick(SpUtil.getName(context), usernickView);
         }else{
             if(message.getUserName().equals("ifun")){
 
@@ -146,6 +149,7 @@ public abstract class EaseChatRow extends LinearLayout {
             }
             EaseUserUtils.setUserNick(HxMessageUtils.getFName(message), usernickView);
         }
+
         if(ackedView != null){
             if (message.isAcked()) {
                 if (deliveredView != null) {
@@ -193,6 +197,12 @@ public abstract class EaseChatRow extends LinearLayout {
                         bubbleLayout.setBackgroundDrawable(((EaseMessageAdapter) adapter).getOtherBubbleBg());
                     }
                 }
+            }
+            if(chatType== Constant.CHATTYPE_CHATROOM){
+                timeStampView.setVisibility(GONE);
+                userAvatarView.setVisibility(GONE);
+
+                usernickView.setVisibility(View.VISIBLE);
             }
         }
 
@@ -371,7 +381,7 @@ public abstract class EaseChatRow extends LinearLayout {
         });
     }
 
-    protected abstract void onInflateView();
+    protected abstract void onInflateView(int chatType);
 
     /**
      * find view by id

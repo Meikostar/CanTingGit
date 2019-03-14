@@ -12,9 +12,16 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.activity.HomeActivity;
 import com.zhongchuang.canting.activity.live.LiveActivity;
+import com.zhongchuang.canting.app.CanTingAppLication;
 import com.zhongchuang.canting.been.GAME;
+import com.zhongchuang.canting.been.Host;
 import com.zhongchuang.canting.easeui.ui.MessageActivity;
+import com.zhongchuang.canting.presenter.BaseContract;
+import com.zhongchuang.canting.presenter.BasesPresenter;
+import com.zhongchuang.canting.utils.SpUtil;
+import com.zhongchuang.canting.utils.TextUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,7 +30,7 @@ import butterknife.ButterKnife;
  * Created by Administrator on 2017/10/26.
  */
 
-public class ChatSplashActivity extends AppCompatActivity {
+public class ChatSplashActivity extends AppCompatActivity implements BaseContract.View {
     @BindView(R.id.iv_img)
     ImageView img;
     @BindView(R.id.rl_bg)
@@ -31,8 +38,9 @@ public class ChatSplashActivity extends AppCompatActivity {
     @BindView(R.id.rl_bgs)
     RelativeLayout rlBgs;
     private GAME messageGroup;
-
+    private BasesPresenter presenter;
     private int type;
+    private  Handler handler;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,7 +51,8 @@ public class ChatSplashActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.splash);
         ButterKnife.bind(this);
-
+        presenter = new BasesPresenter(this);
+        presenter.hostInfo();
         messageGroup = (GAME) getIntent().getSerializableExtra("data");
         type = getIntent().getIntExtra("type", 0);
         if (type == 1) {
@@ -52,12 +61,41 @@ public class ChatSplashActivity extends AppCompatActivity {
             rlBgs.setVisibility(View.VISIBLE);
             img.setImageResource(R.mipmap.splash_05);
         }
-        Handler handler = new Handler();
+        handler = new Handler();
+
+
+    }
+
+    @Override
+    public <T> void toEntity(T entity, int type) {
+        Host data = (Host) entity;
+        if (data != null && TextUtil.isNotEmpty(data.is_direct)) {
+
+            if (data.is_direct.equals("1")) {
+                if (TextUtil.isNotEmpty(data.user_integral)) {
+                    CanTingAppLication.totalintegral = Double.valueOf(data.user_integral);
+                } else {
+                    if (TextUtil.isNotEmpty(data.userIntegral)) {
+                        CanTingAppLication.totalintegral = Double.valueOf(data.userIntegral);
+                    }
+                }
+                SpUtil.putString(ChatSplashActivity.this, "isAnchor", 1 + "");
+            } else {
+                if (TextUtil.isNotEmpty(data.userIntegral)) {
+                    CanTingAppLication.totalintegral = Double.valueOf(data.userIntegral);
+                } else {
+                    if (TextUtil.isNotEmpty(data.user_integral)) {
+                        CanTingAppLication.totalintegral = Double.valueOf(data.user_integral);
+                    }
+                }
+                SpUtil.putString(ChatSplashActivity.this, "isAnchor", 0 + "");
+            }
+        }
         //当计时结束,跳转至主界面
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (type == 1) {
+                if (ChatSplashActivity.this.type == 1) {
                     Intent intent2 = new Intent(ChatSplashActivity.this, LiveActivity.class);
                     intent2.putExtra("data", messageGroup);
                     startActivity(intent2);
@@ -74,8 +112,17 @@ public class ChatSplashActivity extends AppCompatActivity {
 
 
             }
-        }, 1500);
+        }, 1200);
 
+    }
+
+    @Override
+    public void toNextStep(int type) {
+
+    }
+
+    @Override
+    public void showTomast(String msg) {
 
     }
 }

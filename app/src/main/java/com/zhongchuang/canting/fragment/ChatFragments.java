@@ -18,12 +18,14 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.zhongchuang.canting.R;;
 import com.zhongchuang.canting.activity.RechargeActivity;
+import com.zhongchuang.canting.activity.live.LiveChatRoomFragment;
 import com.zhongchuang.canting.adapter.MemberAdapters;
 import com.zhongchuang.canting.adapter.MessageAdapter;
 import com.zhongchuang.canting.app.CanTingAppLication;
 import com.zhongchuang.canting.been.BEAN;
 import com.zhongchuang.canting.been.BaseBean;
 import com.zhongchuang.canting.been.BaseResponse;
+import com.zhongchuang.canting.been.FriendInfo;
 import com.zhongchuang.canting.been.GIFTDATA;
 import com.zhongchuang.canting.been.Gift;
 import com.zhongchuang.canting.been.Member;
@@ -31,6 +33,10 @@ import com.zhongchuang.canting.been.Message;
 import com.zhongchuang.canting.been.ShareBean;
 import com.zhongchuang.canting.been.SubscriptionBean;
 import com.zhongchuang.canting.been.UserInfo;
+import com.zhongchuang.canting.easeui.Constant;
+import com.zhongchuang.canting.easeui.EaseConstant;
+import com.zhongchuang.canting.easeui.bean.CHATMESSAGE;
+import com.zhongchuang.canting.easeui.ui.ChatFragment;
 import com.zhongchuang.canting.hud.ToastUtils;
 import com.zhongchuang.canting.net.BaseCallBack;
 import com.zhongchuang.canting.net.HttpUtil;
@@ -69,7 +75,7 @@ import tyrantgit.widget.HeartLayout;
  */
 public class ChatFragments extends Fragment implements View.OnClickListener, View.OnLayoutChangeListener , BaseContract.View {
 
-    private HorizontialListView listview;
+
 
     private GiftItemView giftView;
     private MemberAdapters mAdapter;
@@ -78,7 +84,7 @@ public class ChatFragments extends Fragment implements View.OnClickListener, Vie
     private ArrayList<Message> messages;
     private ArrayList<Gift> gifts;
     private HeartLayout heartLayout;
-    private CircleImageView ivImg;
+
     private Random mRandom;
     private Timer mTimer = new Timer();
     private View sendView, menuView, topView;
@@ -103,31 +109,17 @@ public class ChatFragments extends Fragment implements View.OnClickListener, Vie
 
     private PopView_Comment popComment;
     private ImageView share;
-    private TextView tv_care;
-    private TextView tv_name;
-    private TextView tv_count;
-    private TextView textView;
+
     private FragmentGiftDialog dialog;
 
     private void initView(View view) {
         mRandom = new Random();
-        listview = (HorizontialListView) view.findViewById(R.id.list);
         presenter = new BasesPresenter(this);
         mAdapter = new MemberAdapters(getActivity());
-        listview.setAdapter(mAdapter);
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                showDialog(mAdapter.datas.get(i));
-            }
-        });
+
         messageAdapter = new MessageAdapter(getActivity());
         giftView = (GiftItemView) view.findViewById(R.id.gift_item_first);
-        tv_care = (TextView) view.findViewById(R.id.tv_care);
-        ivImg =  view.findViewById(R.id.iv_img);
-        tv_name =  view.findViewById(R.id.tv_name);
-        tv_count =  view.findViewById(R.id.tv_count);
-        textView =  view.findViewById(R.id.textView);
+
         heartLayout = (HeartLayout) view.findViewById(R.id.heart_layout);
 
         view.findViewById(R.id.send_message).setOnClickListener(this);
@@ -150,6 +142,14 @@ public class ChatFragments extends Fragment implements View.OnClickListener, Vie
         listGiftRoom();
         getBalance();
         initListener();
+        go2Chat("");
+        popComment = new PopView_Comment(getActivity());
+        popComment.setOnPop_CommentListenerr(new PopView_Comment.OnPop_CommentListener() {
+            @Override
+            public void chooseDeviceConfig(String commentStr) {
+                chatFragment.sendMessages(commentStr);
+            }
+        });
     }
 
     private void showDialog(BEAN m) {
@@ -187,17 +187,7 @@ public class ChatFragments extends Fragment implements View.OnClickListener, Vie
             }
         });
         RxBus.getInstance().addSubscription(mSubscription);
-        tv_care.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                if (attention == 0) {
-//                    presenter.focusTV(handlers.roomNumber,anchorid,1+"");
-//                } else {
-//                    presenter.focusTV(handlers.roomNumber,anchorid,2+"");
-//                }
 
-            }
-        });
 
     }
     private BasesPresenter presenter;
@@ -248,7 +238,7 @@ public class ChatFragments extends Fragment implements View.OnClickListener, Vie
         int id = v.getId();
         if (id == R.id.send_message) {
 
-
+            popComment.showPopView("");
         } else if (id == R.id.gift) {
 
             if (datas != null && datas.size() > 0) {
@@ -334,7 +324,19 @@ public class ChatFragments extends Fragment implements View.OnClickListener, Vie
             }
         });
     }
-
+    private LiveChatRoomFragment chatFragment;
+    private void go2Chat(String username) {
+        FriendInfo info= new FriendInfo();
+        info.friendsId="76431921053697";
+        CHATMESSAGE chatmessage= CHATMESSAGE.fromLogin(info);
+        chatFragment = new LiveChatRoomFragment();
+        getActivity().getIntent().putExtra(EaseConstant.EXTRA_CHAT_TYPE, Constant.CHATTYPE_CHATROOM);
+        getActivity().getIntent().putExtra(EaseConstant.EXTRA_CHATMSG, chatmessage);
+        getActivity().getIntent().putExtra("group_id", "76431921053697");
+        //pass parameters to chat fragment
+        chatFragment.setArguments( getActivity().getIntent().getExtras());
+        getActivity().getSupportFragmentManager().beginTransaction().add(R.id.container, chatFragment).commit();
+    }
     /**
      * 余额
      */
@@ -397,28 +399,15 @@ public class ChatFragments extends Fragment implements View.OnClickListener, Vie
                 shareBean.title_=data.direct_see_name;
                 shareBean.url_="http://119.23.212.8:8088/cloudOne/index.html";
                 CanTingAppLication.shareBean=shareBean;
-                Glide.with(getActivity()).load(StringUtil.changeUrl(data.room_image)).asBitmap().placeholder(R.drawable.default_head).into(ivImg);
+
                 anchorid=data.user_info_id;
-                if(!TextUtils.isEmpty(data.direct_see_name)){
-                    tv_name.setText(data.direct_see_name);
-                }
+
 //                if(!TextUtils.isEmpty(data.dirRoomInfo.totalPeople)){
 //                    tv_count.setText(data.dirRoomInfo.totalPeople);
 //                }
 //                count=data.giftcount;
-                if(!TextUtils.isEmpty(data.fans_num)){
-                    textView.setText(getString(R.string.fensis)+data.fans_num);
-                }
-                if(!TextUtils.isEmpty(data.type)){
-                    if(data.type.equals("1")){
-                        attention=1;
-                        tv_care.setText(getString(R.string.qxgz));
-                    }else if(data.type.equals("0")){
-                        attention=0;
-                        tv_care.setText(getString(R.string.gz));
-                    }
-                    textView.setText(getString(R.string.fensis)+data.fans_num);
-                }
+
+
 
                 if(data.threeuser!=null){
                     mAdapter.setDatas(data.threeuser);
@@ -434,12 +423,7 @@ public class ChatFragments extends Fragment implements View.OnClickListener, Vie
         });
     }
 
-    public void setNumber(String number){
-        tv_count.setText(getString(R.string.zxrs)+number);
-    }
-    public void setFaus(String number){
-        textView.setText(getString(R.string.fensis)+number);
-    }
+
     private String anchorid;
     private String avator;
     private String nickname;
@@ -529,10 +513,9 @@ public class ChatFragments extends Fragment implements View.OnClickListener, Vie
           if(type==1){
               ToastUtils.showNormalToast(getString(R.string.gzcg));
               attention=1;
-              tv_care.setText(getString(R.string.qxgz));
           }else {
               attention=0;
-              tv_care.setText(getString(R.string.gz));
+
           }
     }
 

@@ -26,12 +26,12 @@ public class EaseChatRowImage extends EaseChatRowFile {
     protected ImageView imageView;
     private EMImageMessageBody imgBody;
 
-    public EaseChatRowImage(Context context, EMMessage message, int position, BaseAdapter adapter) {
-        super(context, message, position, adapter);
+    public EaseChatRowImage(Context context, int chatType,EMMessage message, int position, BaseAdapter adapter) {
+        super(context,chatType, message, position, adapter);
     }
 
     @Override
-    protected void onInflateView() {
+    protected void onInflateView(int chatType) {
         inflater.inflate(message.direct() == EMMessage.Direct.RECEIVE ? R.layout.ease_row_received_picture : R.layout.ease_row_sent_picture, this);
     }
 

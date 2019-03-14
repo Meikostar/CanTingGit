@@ -4,6 +4,13 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <FrameLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/container"
+        android:layout_marginBottom="60dp"
+       />
     <include layout="@layout/layout_float"/>
     <include layout="@layout/layout_send_message"/>
 </RelativeLayout>

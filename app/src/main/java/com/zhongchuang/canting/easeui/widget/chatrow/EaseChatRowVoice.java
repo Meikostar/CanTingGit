@@ -19,12 +19,12 @@ public class EaseChatRowVoice extends EaseChatRowFile {
     private TextView voiceLengthView;
     private ImageView readStatusView;
 
-    public EaseChatRowVoice(Context context, EMMessage message, int position, BaseAdapter adapter) {
-        super(context, message, position, adapter);
+    public EaseChatRowVoice(Context context,int chatType, EMMessage message, int position, BaseAdapter adapter) {
+        super(context,chatType, message, position, adapter);
     }
 
     @Override
-    protected void onInflateView() {
+    protected void onInflateView(int chatType) {
         inflater.inflate(message.direct() == EMMessage.Direct.RECEIVE ?
                 R.layout.ease_row_received_voice : R.layout.ease_row_sent_voice, this);
     }

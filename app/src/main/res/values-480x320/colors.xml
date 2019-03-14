@@ -290,6 +290,11 @@
     <color name="aliyun_black">#000000</color>
     <color name="aliyun_download_progress">#80ff5454</color>
 
+    <color name="triangle">#aa72d572</color>
+    <color name="circle">#aa738ffe</color>
+    <color name="rect">#aae84e40</color>
+    <color name="view_bg">#00000000</color>
+    <color name="shadow">#25808080</color>
 
     <color name="aliyun_tint_color">#EF4B81</color>
     <color name="aliyun_timeline_background_del_color">#ffcc0000</color>
