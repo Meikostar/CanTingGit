@@ -15,6 +15,8 @@
     <color name="jrmf_b_trans_title_bar_color">#88157efb</color>
 
     <color name="gray_bg">#66CDC9C9</color>
+    <color name="theme_color_green">#2A93FF</color>
+    <color name="theme_color_gray">#CDCDCD</color>
 
     <color name="alivc_white">#e7e7e7</color>
     <color name="alivc_blue">#379DF2</color>
@@ -432,10 +434,13 @@
     <color name="trackOnColor">#4CD864</color>
 
     <color name="background_blue">#2d44f4</color>
+    <color name="dialog_bga">#f2373d41</color>
 
     <color name="red">#ffff0000</color>
     <color name="darker_gray">#aaa</color>
     <color name="text_blue">#2d44f4</color>
+    <color name="t_blue">#5EB9FF</color>
+
 
     <color name="yellow">#ffff00</color>
     <color name="light_gray">#30000000</color>

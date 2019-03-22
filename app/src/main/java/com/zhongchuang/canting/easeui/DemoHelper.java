@@ -28,6 +28,7 @@ import com.hyphenate.chat.EMMessage.Type;
 import com.hyphenate.chat.EMMessageBody;
 import com.hyphenate.chat.EMMucSharedFile;
 import com.hyphenate.chat.EMOptions;
+import com.hyphenate.chat.EMTextMessageBody;
 import com.hyphenate.exceptions.HyphenateException;
 import com.hyphenate.util.EMLog;
 import com.zhongchuang.canting.activity.ChatActivity;
@@ -956,7 +957,25 @@ public class DemoHelper {
                             conv.removeMessage(message.getMsgId());
                             return;
                         }
-                        getNotifier().onNewMsg(message);
+
+                            EMTextMessageBody body = (EMTextMessageBody) message.getBody();
+                            String contents  = body.getMessage();
+                        if(contents.equals("*&@@&*")){
+                            RxBus.getInstance().send(SubscriptionBean.createSendBean(SubscriptionBean.LIVE_SEND_FRESH,""));
+
+                            return;
+                        }else  if(contents.contains("&!&&!&")){
+                            String[] split = contents.split("&!&&!&");
+                            if(split!=null&&split.length==2){
+                                RxBus.getInstance().send(SubscriptionBean.createSendBean(SubscriptionBean.LIVE_SEND_FRESH,split[0]+","+split[1]));
+                            }
+
+                            return;
+                        }else {
+                                getNotifier().onNewMsg(message);
+                            }
+
+
                     }else {
 
                         if(name.contains("!@#$$#@!")){
@@ -964,6 +983,7 @@ public class DemoHelper {
                             String[] split = name.split(",");
                             if(split!=null&&split.length==2){
                                 RxBus.getInstance().send(SubscriptionBean.createSendBean(SubscriptionBean.QFRIED_SEND_FRESH,split[1]));
+
                                 String qfriend = SpUtil.getString(appContext, "qfriend", "");
                                 if(TextUtil.isNotEmpty(qfriend)){
                                     qfriend=qfriend+","+split[1]+"#"+avatar;
@@ -976,6 +996,19 @@ public class DemoHelper {
                             EMConversation conv = EMClient.getInstance().chatManager().getConversation(message.getFrom());
                             conv.removeMessage(message.getMsgId());
                             return;
+                        }
+                        EMTextMessageBody body = (EMTextMessageBody) message.getBody();
+                        String contents  = body.getMessage();
+                        if(contents.equals("*&@@&*")){
+                            RxBus.getInstance().send(SubscriptionBean.createSendBean(SubscriptionBean.LIVE_SEND_FRESH,""));
+
+                            return;
+                        }else  if(contents.contains("&!&&!&")){
+                            String[] split = contents.split("&!&&!&");
+                            if(split!=null&&split.length==2){
+                                RxBus.getInstance().send(SubscriptionBean.createSendBean(SubscriptionBean.LIVE_SEND_FRESH,split[0]+","+split[1]));
+                                return;
+                            }
                         }
 
                     }

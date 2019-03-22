@@ -8,6 +8,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.hardware.SensorManager;
 import android.media.projection.MediaProjectionManager;
 import android.os.AsyncTask;
@@ -19,6 +21,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.OrientationEventListener;
 import android.view.Surface;
@@ -47,6 +51,7 @@ import com.zhongchuang.canting.allive.pusher.floatwindowpermission.rom.RomUtils;
 import com.zhongchuang.canting.allive.pusher.utils.Common;
 import com.zhongchuang.canting.allive.pusher.utils.VideoRecordViewManager;
 import com.zhongchuang.canting.base.BaseActivity1;
+import com.zhongchuang.canting.widget.PhotoPopupWindow;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -92,9 +97,11 @@ public class VideoRecordConfigActivity extends BaseActivity1 {
     private ImageView mBack;
 
     private TextView mPushTex;
+    private TextView live_stye;
     private RadioGroup mOrientation;
     private TextView mNoteText;
     private LinearLayout mNoteLinear;
+    private LinearLayout llType;
 
     private AlivcLivePushConfig mAlivcLivePushConfig;
     private AlivcPreviewOrientationEnum mOrientationEnum = ORIENTATION_PORTRAIT;
@@ -116,14 +123,14 @@ public class VideoRecordConfigActivity extends BaseActivity1 {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.video_recording_setting);
         mAlivcLivePushConfig = new AlivcLivePushConfig();
-        if(mAlivcLivePushConfig.getPreviewOrientation() == AlivcPreviewOrientationEnum.ORIENTATION_LANDSCAPE_HOME_RIGHT.getOrientation() || mAlivcLivePushConfig.getPreviewOrientation() == AlivcPreviewOrientationEnum.ORIENTATION_LANDSCAPE_HOME_LEFT.getOrientation())
-        {
+//        if(mAlivcLivePushConfig.getPreviewOrientation() == AlivcPreviewOrientationEnum.ORIENTATION_LANDSCAPE_HOME_RIGHT.getOrientation() || mAlivcLivePushConfig.getPreviewOrientation() == AlivcPreviewOrientationEnum.ORIENTATION_LANDSCAPE_HOME_LEFT.getOrientation())
+//        {
             mAlivcLivePushConfig.setNetworkPoorPushImage(Environment.getExternalStorageDirectory().getPath() + File.separator + "alivc_resource/poor_network_land.png");
             mAlivcLivePushConfig.setPausePushImage(Environment.getExternalStorageDirectory().getPath() + File.separator + "alivc_resource/background_push_land.png");
-        } else {
-            mAlivcLivePushConfig.setNetworkPoorPushImage(Environment.getExternalStorageDirectory().getPath() + File.separator + "alivc_resource/poor_network.png");
-            mAlivcLivePushConfig.setPausePushImage(Environment.getExternalStorageDirectory().getPath() + File.separator + "alivc_resource/background_push.png");
-        }
+//        } else {
+//            mAlivcLivePushConfig.setNetworkPoorPushImage(Environment.getExternalStorageDirectory().getPath() + File.separator + "alivc_resource/poor_network.png");
+//            mAlivcLivePushConfig.setPausePushImage(Environment.getExternalStorageDirectory().getPath() + File.separator + "alivc_resource/background_push.png");
+//        }
         AlivcLivePushConfig.setMediaProjectionPermissionResultData(null);
         initView();
         setClick();
@@ -152,8 +159,69 @@ public class VideoRecordConfigActivity extends BaseActivity1 {
                 }
             }
         };
+        llType.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPopWindows();
+            }
+        });
     }
 
+    public void showPopWindows() {
+
+        View view = LayoutInflater.from(VideoRecordConfigActivity.this).inflate(R.layout.chat_phone_popwindow_view, null);
+        TextView tv_camera = (TextView) view.findViewById(R.id.tv_camera);
+        TextView tv_choose = (TextView) view.findViewById(R.id.tv_choose);
+        TextView tv_cancel = (TextView) view.findViewById(R.id.tv_cancel);
+        tv_choose.setText("Portrait");
+        tv_camera.setText("Homeleft");
+        tv_cancel.setText("HomeRig");
+        tv_camera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                live_stye.setText("Homeleft");
+                mAlivcLivePushConfig.setPreviewOrientation(ORIENTATION_LANDSCAPE_HOME_LEFT);
+                mOrientationEnum = ORIENTATION_LANDSCAPE_HOME_LEFT;
+                VideoRecordViewManager.cameraRotation = 90;
+                mAlivcLivePushConfig.setPausePushImage(Environment.getExternalStorageDirectory().getPath() + File.separator + "alivc_resource/background_push_land.png");
+                mAlivcLivePushConfig.setNetworkPoorPushImage(Environment.getExternalStorageDirectory().getPath() + File.separator + "alivc_resource/poor_network_land.png");
+
+
+                mWindowAddPhoto.dismiss();
+            }
+        });
+        tv_choose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                live_stye.setText("Portrait");
+                mAlivcLivePushConfig.setPreviewOrientation(ORIENTATION_PORTRAIT);
+                mOrientationEnum = ORIENTATION_PORTRAIT;
+                mAlivcLivePushConfig.setPausePushImage(Environment.getExternalStorageDirectory().getPath() + File.separator + "alivc_resource/background_push.png");
+                mAlivcLivePushConfig.setNetworkPoorPushImage(Environment.getExternalStorageDirectory().getPath() + File.separator + "alivc_resource/poor_network.png");
+
+
+                mWindowAddPhoto.dismiss();
+            }
+        });
+        tv_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                live_stye.setText("HomeRig");
+                mAlivcLivePushConfig.setPreviewOrientation(ORIENTATION_LANDSCAPE_HOME_RIGHT);
+                mOrientationEnum = ORIENTATION_LANDSCAPE_HOME_RIGHT;
+                VideoRecordViewManager.cameraRotation = 270;
+                mAlivcLivePushConfig.setPausePushImage(Environment.getExternalStorageDirectory().getPath() + File.separator + "alivc_resource/background_push_land.png");
+                mAlivcLivePushConfig.setNetworkPoorPushImage(Environment.getExternalStorageDirectory().getPath() + File.separator + "alivc_resource/poor_network_land.png");
+
+                mWindowAddPhoto.dismiss();
+            }
+        });
+        mWindowAddPhoto = new PhotoPopupWindow(VideoRecordConfigActivity.this).bindView(view);
+        mWindowAddPhoto.showAtLocation(llType, Gravity.BOTTOM, 0, 0);
+
+    }
+
+    private PhotoPopupWindow mWindowAddPhoto;
     @Override
     public void bindEvents() {
 
@@ -221,6 +289,7 @@ public class VideoRecordConfigActivity extends BaseActivity1 {
 
         mPublish = (RelativeLayout) findViewById(R.id.beginPublish);
         mPushTex = (TextView) findViewById(R.id.pushStatusTex);
+        live_stye = (TextView) findViewById(R.id.live_stye);
         mResolution = (SeekBar) findViewById(R.id.resolution_seekbar);
         mResolutionText = (TextView) findViewById(R.id.resolution_text);
         mMicVolume = (SeekBar) findViewById(R.id.mic_seekbar);
@@ -230,7 +299,13 @@ public class VideoRecordConfigActivity extends BaseActivity1 {
 
         mBack = (ImageView) findViewById(R.id.iv_back);
         mNoteLinear = (LinearLayout) findViewById(R.id.note_linear);
+        llType = (LinearLayout) findViewById(R.id.ll_type);
         mNoteText = (TextView) findViewById(R.id.note_text);
+        mResolution.getThumb().setColorFilter(Color.parseColor("#2A93FF"), PorterDuff.Mode.SRC_ATOP);
+        mResolution.getProgressDrawable().setColorFilter(Color.BLUE, PorterDuff.Mode.SRC_ATOP);
+        mMicVolume.getThumb().setColorFilter(Color.parseColor("#2A93FF"), PorterDuff.Mode.SRC_ATOP);
+        mMicVolume.getProgressDrawable().setColorFilter(Color.BLUE, PorterDuff.Mode.SRC_ATOP);
+
     }
 
     private void setClick() {
@@ -474,7 +549,7 @@ public class VideoRecordConfigActivity extends BaseActivity1 {
                     mAlivcLivePushConfig.setMediaProjectionPermissionResultData(data);
                     if (mAlivcLivePushConfig.getMediaProjectionPermissionResultData() != null) {
                         if (mAlivcLivePusher == null) {
-                            startPushWithoutSurface(mUrl.getText().toString());
+                            startPushWithoutSurface(getPullUrl());
                         } else {
                             stopPushWithoutSurface();
                         }

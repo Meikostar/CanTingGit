@@ -9,61 +9,10 @@
         android:id="@+id/video_view"
         android:layout_width="match_parent"
         android:layout_height="200dp" />
-    <LinearLayout
-        android:visibility="gone"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="90dp"
-        android:background="@color/white">
-        <ImageView
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="15dp"
-            android:src="@drawable/editor_ava"
-            android:layout_width="60dp"
-            android:layout_height="60dp" />
-        <LinearLayout
-            android:layout_weight="1"
-            android:layout_marginLeft="11dp"
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:gravity="center_vertical"
-            android:layout_height="90dp"
-            android:background="@color/white">
-            <TextView
-                android:id="@+id/tv_name"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-
-
-                android:gravity="center"
-                android:text="小芒果"
-                android:textColor="@color/color3"
-                android:textSize="15sp"/>
-            <TextView
-                android:layout_marginTop="10dp"
-                android:id="@+id/tv_fee"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:gravity="center"
-                android:text="1.2万粉丝"
-                android:textColor="@color/color9"
-                android:textSize="11sp"/>
-        </LinearLayout>
-        <TextView
-            android:id="@+id/tv_chat"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_marginRight="15dp"
-            android:layout_gravity="center_vertical"
-            android:gravity="center"
-            android:text="小芒果"
-            android:textColor="@color/color3"
-            android:textSize="15sp"/>
-    </LinearLayout>
     <FrameLayout
         android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="48dp">
+        android:layout_height="38dp">
         <ImageView
             android:id="@+id/iv_tab_line"
             android:layout_width="match_parent"
@@ -74,7 +23,7 @@
         <LinearLayout
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="38dp"
             android:layout_below="@id/layout_top"
             android:layout_centerHorizontal="true"
             android:orientation="horizontal"
@@ -97,7 +46,7 @@
 
                     android:text="@string/lt"
                     android:textColor="@drawable/video_tab_txt"
-                    android:textSize="16sp" />
+                    android:textSize="15sp" />
 
                 <ImageView
                     android:id="@+id/iv_chat"
@@ -123,7 +72,7 @@
                     android:gravity="center"
                     android:text="主播"
                     android:textColor="@drawable/video_tab_txt"
-                    android:textSize="16sp"/>
+                    android:textSize="15sp"/>
 
                 <ImageView
                     android:id="@+id/iv_zb"
@@ -146,7 +95,7 @@
                     android:gravity="center"
                     android:text="排行"
                     android:textColor="@drawable/video_tab_txt"
-                    android:textSize="16sp"/>
+                    android:textSize="15sp"/>
 
                 <ImageView
                     android:id="@+id/iv_rank"
@@ -157,12 +106,13 @@
                     />
             </FrameLayout>
             <FrameLayout
-                android:background="@color/original"
+                android:id="@+id/fl_bg"
+                android:background="#2A93FF"
                 android:layout_width="100dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center">
                 <LinearLayout
-                    android:layout_marginTop="5dp"
+
                     android:layout_gravity="center_horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -172,6 +122,7 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp" />
                     <TextView
+                        android:id="@+id/tv_care"
                         android:layout_marginLeft="5dp"
                         android:layout_height="match_parent"
                         android:layout_width="match_parent"
@@ -179,7 +130,7 @@
                         android:gravity="center"
                         android:text="订阅"
                         android:textColor="@color/white"
-                        android:textSize="16sp"/>
+                        android:textSize="12sp"/>
                 </LinearLayout>
                 <TextView
                     android:layout_marginTop="18dp"
@@ -189,7 +140,7 @@
                     android:gravity="center"
                     android:text="214445"
                     android:textColor="@color/white"
-                    android:textSize="16sp"/>
+                    android:textSize="11sp"/>
 
 
             </FrameLayout>

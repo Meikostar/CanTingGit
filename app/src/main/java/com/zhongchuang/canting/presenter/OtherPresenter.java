@@ -37,6 +37,7 @@ package com.zhongchuang.canting.presenter;
         import com.zhongchuang.canting.been.ShopBean;
         import com.zhongchuang.canting.been.Version;
         import com.zhongchuang.canting.been.WEIXINREQ;
+        import com.zhongchuang.canting.been.aliLive;
         import com.zhongchuang.canting.been.apply;
         import com.zhongchuang.canting.been.pay.alipay;
         import com.zhongchuang.canting.net.BaseCallBack;
@@ -116,6 +117,118 @@ public class OtherPresenter implements OtherContract.Presenter {
             }
         });
     }
+
+    @Override
+    public void getPushUrl() {
+
+
+        Map<String, String> map = new HashMap<>();
+        map.put("userInfoId", SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
+
+        api.getPushUrl(map).enqueue(new BaseCallBack<aliLive>() {
+
+            @Override
+            public void onSuccess(aliLive userLoginBean) {
+                mView.toEntity(userLoginBean.data, 19);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                mView.showTomast(t);
+            }
+        });
+    }
+
+    @Override
+    public void getLiveUrl() {
+
+
+        Map<String, String> map = new HashMap<>();
+        map.put("userInfoId", SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
+
+        api.getLiveUrl(map).enqueue(new BaseCallBack<aliLive>() {
+
+            @Override
+            public void onSuccess(aliLive userLoginBean) {
+                mView.toEntity(userLoginBean.data, 19);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                mView.showTomast(t);
+            }
+        });
+    }
+    @Override
+    public void getLiveToken() {
+
+
+        Map<String, String> map = new HashMap<>();
+        map.put("userInfoId", SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
+
+        api.getLiveToken(map).enqueue(new BaseCallBack<aliLive>() {
+
+            @Override
+            public void onSuccess(aliLive userLoginBean) {
+                mView.toEntity(userLoginBean.data, 19);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                mView.showTomast(t);
+            }
+        });
+    }
+    @Override
+    public void uploadVideo(String coverImage,String videoName,String videoUrl) {
+
+
+        Map<String, String> map = new HashMap<>();
+        map.put("userInfoId", SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
+        map.put("coverImage", coverImage);
+        map.put("videoName", videoName);
+        map.put("videoUrl", videoUrl);
+
+        api.uploadVideo(map).enqueue(new BaseCallBack<BaseResponse>() {
+
+            @Override
+            public void onSuccess(BaseResponse BaseResponse) {
+                mView.toEntity(BaseResponse, 12);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                mView.showTomast(t);
+            }
+        });
+    }
+
+    @Override
+    public void addLiveRecordVod() {
+
+
+        Map<String, String> map = new HashMap<>();
+        map.put("userInfoId", SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
+
+        api.addLiveRecordVod(map).enqueue(new BaseCallBack<aliLive>() {
+
+            @Override
+            public void onSuccess(aliLive userLoginBean) {
+                mView.toEntity(userLoginBean.data, 19);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                mView.showTomast(t);
+            }
+        });
+    }
+
     @Override
     public void verifyPassword(String paymentPassword) {
 

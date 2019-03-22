@@ -17,7 +17,7 @@ import com.zhongchuang.canting.been.SIGN;
 import com.zhongchuang.canting.been.SubscriptionBean;
 import com.zhongchuang.canting.fragment.LiaoTianFragment;
 import com.zhongchuang.canting.fragment.MineFragment;
-import com.zhongchuang.canting.fragment.ZhiBoFragment;
+import com.zhongchuang.canting.fragment.live.ZhiBoFragment;
 import com.zhongchuang.canting.hud.ToastUtils;
 
 

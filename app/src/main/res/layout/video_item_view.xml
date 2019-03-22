@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="110dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:gravity="center_vertical"
+    android:id="@+id/rl_bg"
+
+    android:background="#FFFFFF"
+    android:orientation="horizontal">
+        <android.support.v7.widget.CardView
+            android:id="@+id/card"
+            tools:targetApi="lollipop"
+            android:layout_width="160dp"
+            android:layout_height="95dp"
+            android:stateListAnimator="@drawable/lift_on_touch"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:cardCornerRadius="@dimen/dp_4"
+            app:cardUseCompatPadding="true"
+            app:cardPreventCornerOverlap="false">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/hot_pic"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/alivc_itme_bg"
+                            />
+
+
+
+                </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:orientation="vertical">
+
+                <TextView
+                    android:layout_marginTop="18dp"
+                    android:id="@+id/tv_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:gravity="center_vertical"
+                    android:text="带你去马尔代夫"
+                    android:textColor="#333"
+                    android:textSize="15sp"
+
+                    />
+
+                <TextView
+                    android:layout_marginBottom="20dp"
+                    android:id="@+id/tv_time"
+                    android:layout_width="wrap_content"
+                    android:layout_marginRight="12dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="center_vertical"
+                    android:text="2-18 12.33"
+                    android:textColor="#666"
+                    android:textSize="11sp"
+
+                    />
+                />
+        </RelativeLayout>
+
+</LinearLayout>
+
+
+

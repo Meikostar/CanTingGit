@@ -1,7 +1,6 @@
 package com.zhongchuang.canting.activity.live;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.util.Log;
@@ -11,54 +10,32 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import com.google.gson.Gson;
 import com.hyphenate.EMCallBack;
-import com.hyphenate.EMValueCallBack;
-import com.hyphenate.chat.EMChatRoom;
 import com.hyphenate.chat.EMClient;
-import com.hyphenate.exceptions.HyphenateException;
 import com.zhongchuang.canting.R;;
-import com.zhongchuang.canting.activity.ChatActivity;
 import com.zhongchuang.canting.activity.LoginActivity;
-import com.zhongchuang.canting.activity.chat.ChatMenberActivity;
-import com.zhongchuang.canting.activity.mall.ShopMallActivity;
-import com.zhongchuang.canting.app.CanTingAppLication;
 import com.zhongchuang.canting.base.BaseAllActivity;
 import com.zhongchuang.canting.base.LazyFragment;
 import com.zhongchuang.canting.been.GAME;
-import com.zhongchuang.canting.been.ProvinceModel;
 import com.zhongchuang.canting.been.SubscriptionBean;
-import com.zhongchuang.canting.easeui.Constant;
-import com.zhongchuang.canting.easeui.EaseConstant;
-import com.zhongchuang.canting.fragment.ZhiBoFragment;
-import com.zhongchuang.canting.fragment.mall.IntegralMallFragment;
-import com.zhongchuang.canting.fragment.mall.LiveMineFragment;
+import com.zhongchuang.canting.been.aliLive;
+import com.zhongchuang.canting.fragment.live.ZhiBoFragment;
 import com.zhongchuang.canting.fragment.mall.LiveMineFragments;
-import com.zhongchuang.canting.fragment.mall.MallFragment;
-import com.zhongchuang.canting.fragment.mall.Minefagment;
-import com.zhongchuang.canting.fragment.mall.ShopCarFragment;
+import com.zhongchuang.canting.presenter.OtherContract;
+import com.zhongchuang.canting.presenter.OtherPresenter;
 import com.zhongchuang.canting.utils.SpUtil;
 import com.zhongchuang.canting.utils.TextUtil;
 import com.zhongchuang.canting.widget.RxBus;
 
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import rx.Observable;
-import rx.Subscriber;
 import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
-import rx.schedulers.Schedulers;
 
 import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
 
-public class LiveActivity extends BaseAllActivity implements View.OnClickListener {
+public class LiveActivity extends BaseAllActivity implements View.OnClickListener , OtherContract.View{
 
 
     @BindView(R.id.fragment_container)
@@ -80,7 +57,7 @@ public class LiveActivity extends BaseAllActivity implements View.OnClickListene
     private LazyFragment fragment3;
 
     protected FragmentTransaction mTransaction;
-
+    private OtherPresenter presenter;
     private int pos = 1;
     private Subscription mSubscription;
     private int type = 1;
@@ -92,7 +69,7 @@ public class LiveActivity extends BaseAllActivity implements View.OnClickListene
         setContentView(R.layout.activity_live);
         ButterKnife.bind(this);
         data = (GAME) getIntent().getSerializableExtra("data");
-
+        presenter=new OtherPresenter(this);
         mTransaction = getSupportFragmentManager().beginTransaction();
         rdGroup.check(R.id.rd_menu_zhuye);
         fragment = new ZhiBoFragment();
@@ -316,11 +293,12 @@ public class LiveActivity extends BaseAllActivity implements View.OnClickListene
                 pos = 3;
                 String anchor = SpUtil.isAnchor(LiveActivity.this);
 
-                if (TextUtil.isNotEmpty(anchor) && anchor.equals("0")) {
-                    fragment3 = new LiveMineFragment();
-                } else {
+//                if (TextUtil.isNotEmpty(anchor) && anchor.equals("0")) {
+//                    fragment3 = new LiveMineFragment();
+//                } else {
+                    presenter.getPushUrl();
                     fragment3 = new LiveMineFragments();
-                }
+//                }
 
                 mTransaction.replace(R.id.fragment_container, fragment3);
                 mTransaction.commit();
@@ -335,6 +313,25 @@ public class LiveActivity extends BaseAllActivity implements View.OnClickListene
     }
 
 
+    @Override
+    public <T> void toEntity(T entity, int type) {
+        aliLive aliLive= (aliLive) entity;
+        if(aliLive!=null&&TextUtil.isNotEmpty(aliLive.pushurl)){
+            SpUtil.putString(this,"live_url",aliLive.pushurl);
+        }
+
+    }
+
+    @Override
+    public void toNextStep(int type) {
+
+    }
+
+    @Override
+    public void showTomast(String msg) {
+
+         showToasts(msg);
+    }
 }
 
 

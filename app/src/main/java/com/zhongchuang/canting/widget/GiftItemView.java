@@ -54,7 +54,7 @@ public class GiftItemView extends LinearLayout {
     private void init() {
         setOrientation(VERTICAL);
         setVisibility(INVISIBLE);
-        LayoutParams lp = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        LayoutParams lp = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         setLayoutParams(lp);
         View convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_gift_message,null,false);
         avatar = (ImageView) convertView.findViewById(R.id.avatar);

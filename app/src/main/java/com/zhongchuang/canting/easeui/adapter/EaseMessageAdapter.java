@@ -25,6 +25,9 @@ import android.widget.ListView;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;
+import com.hyphenate.chat.EMTextMessageBody;
+import com.hyphenate.util.EMLog;
+import com.zhongchuang.canting.been.SubscriptionBean;
 import com.zhongchuang.canting.easeui.EaseConstant;
 import com.zhongchuang.canting.easeui.model.styles.EaseMessageListItemStyle;
 import com.zhongchuang.canting.easeui.utils.EaseCommonUtils;
@@ -40,7 +43,13 @@ import com.zhongchuang.canting.easeui.widget.chatrow.EaseChatRowText;
 import com.zhongchuang.canting.easeui.widget.chatrow.EaseChatRowVideo;
 import com.zhongchuang.canting.easeui.widget.chatrow.EaseChatRowVoice;
 import com.zhongchuang.canting.easeui.widget.chatrow.EaseCustomChatRowProvider;
+import com.zhongchuang.canting.utils.HxMessageUtils;
+import com.zhongchuang.canting.utils.SpUtil;
 import com.zhongchuang.canting.utils.TextUtil;
+import com.zhongchuang.canting.widget.RxBus;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class EaseMessageAdapter extends BaseAdapter{
 
@@ -93,6 +102,7 @@ public class EaseMessageAdapter extends BaseAdapter{
 	private ListView listView;
 	private EaseMessageListItemStyle itemStyle;
     private int chatType;
+    private List<EMMessage> mess=new ArrayList<>();
 	public EaseMessageAdapter(Context context, String username, int chatType, ListView listView) {
 		this.context = context;
 		this.listView = listView;
@@ -106,7 +116,19 @@ public class EaseMessageAdapter extends BaseAdapter{
 		private void refreshList() {
 
 			java.util.List<EMMessage> var = conversation.getAllMessages();
-			messages = var.toArray(new EMMessage[var.size()]);
+			mess.clear();
+			for (EMMessage message : var) {
+					EMTextMessageBody body = (EMTextMessageBody) message.getBody();
+					String contents  = body.getMessage();
+					if(contents.equals("*&@@&*")||contents.contains("&!&&!&")){
+						RxBus.getInstance().send(SubscriptionBean.createSendBean(SubscriptionBean.LIVE_SEND_FRESH,""));
+						return;
+					}else {
+						mess.add(message);
+					}
+
+			}
+			messages = mess.toArray(new EMMessage[var.size()]);
 			conversation.markAllMessagesAsRead();
 			notifyDataSetChanged();
 		}

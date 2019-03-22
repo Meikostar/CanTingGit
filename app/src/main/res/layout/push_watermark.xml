@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/darker_gray"
+    android:background="@color/dialog_bga"
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
     android:paddingBottom="20dp">
@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/watermark_setting"
-            android:textColor="@color/text_blue"
+            android:textColor="@color/color3"
             android:textSize="@dimen/font_size_28px" />
     </LinearLayout>
 
@@ -88,6 +88,7 @@
                     android:textSize="@dimen/font_size_28px" />
 
                 <EditText
+                    android:background="@drawable/edit_round_bkg"
                     android:id="@+id/y"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

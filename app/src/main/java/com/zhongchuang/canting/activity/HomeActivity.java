@@ -26,7 +26,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.aliyun.vod.common.utils.StorageUtils;
 import com.google.gson.Gson;
+import com.google.zxing.client.android.activity.CaptureActivity;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.EMMessageListener;
 import com.hyphenate.chat.EMClient;
@@ -42,6 +44,9 @@ import com.zhongchuang.canting.activity.shop.AppStoreActivity;
 import com.zhongchuang.canting.adapter.BannerAdapters;
 import com.zhongchuang.canting.adapter.Basedapter1;
 import com.zhongchuang.canting.allive.AliveSplashActivity;
+import com.zhongchuang.canting.allive.editor.editor.EditorActivity;
+import com.zhongchuang.canting.allive.recorder.CameraDemo;
+import com.zhongchuang.canting.allive.recorder.util.Common;
 import com.zhongchuang.canting.app.CanTingAppLication;
 import com.zhongchuang.canting.base.BaseTitle_Activity;
 import com.zhongchuang.canting.been.Banner;
@@ -61,6 +66,7 @@ import com.zhongchuang.canting.net.HttpUtil;
 import com.zhongchuang.canting.net.netService;
 import com.zhongchuang.canting.permission.PermissionConst;
 import com.zhongchuang.canting.permission.PermissionGen;
+import com.zhongchuang.canting.permission.PermissionSuccess;
 import com.zhongchuang.canting.presenter.BaseContract;
 import com.zhongchuang.canting.presenter.BasesPresenter;
 import com.zhongchuang.canting.utils.BadgeUtil;
@@ -80,15 +86,22 @@ import com.zhongchuang.canting.widget.banner.BannerView;
 
 import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -145,11 +158,12 @@ public class HomeActivity extends BaseTitle_Activity implements BaseContract.Vie
         presenter = new BasesPresenter(this);
         PermissionGen.with(HomeActivity.this)
                 .addRequestCode(PermissionConst.REQUECT_CODE_CAMERA)
-                .permissions(Manifest.permission.REQUEST_INSTALL_PACKAGES,
+                .permissions(Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.REQUEST_INSTALL_PACKAGES,
                         Manifest.permission.CAMERA,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.READ_EXTERNAL_STORAGE)
+                        Manifest.permission.ACCESS_FINE_LOCATION
+                )
                 .request();
         showPress();
         presenter.getDirRoomClassify();
@@ -161,32 +175,25 @@ public class HomeActivity extends BaseTitle_Activity implements BaseContract.Vie
             presenter.getChatGroupList();
         }
         initView();
-        tv_go.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, WebViewActivity.class);
-                intent.putExtra(WebViewActivity.WEBTITLE, "圣恩简介");
-                intent.putExtra(WebViewActivity.WEBURL, "http://119.23.235.1:8088/snpt/index.html");
-                startActivity(intent);
-
-            }
-        });
-        tv_gos.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, WebViewActivity.class);
-                intent.putExtra(WebViewActivity.WEBTITLE, "圣恩分润计划");
-                intent.putExtra(WebViewActivity.WEBURL, "http://119.23.235.1:8088/snfy/index.html");
-                startActivity(intent);
-
-            }
-        });
-
 
     }
+    @PermissionSuccess(requestCode = PermissionConst.REQUECT_CODE_CAMERA)
+    public void requestSdcardSuccess() {
+        File file = new File(StorageUtils.getCacheDirectory(CanTingAppLication.getInstance()).getAbsolutePath() + File.separator + "live.zip");
+        if (file != null && file.length() < 31755920) {
+            CanTingAppLication.isComplete=false;
+            new Thread(new HomeActivity.DownloadApk("http://119.23.212.8:8080/live.zip", 2)).start();
+        } else if (file == null || !file.exists()) {
+            CanTingAppLication.isComplete=false;
+            new Thread(new HomeActivity.DownloadApk("http://119.23.212.8:8080/live.zip", 2)).start();
+        }else {
+            Common.unZip();
+            CanTingAppLication.isComplete=true;
+        }
 
+    }
     private View views = null;
-    private String langueType="zh";
+    private String langueType = "zh";
     private MCheckBox ivType1;
     private MCheckBox ivType2;
     private MCheckBox ivType3;
@@ -201,27 +208,27 @@ public class HomeActivity extends BaseTitle_Activity implements BaseContract.Vie
     private LinearLayout ll_langue5;
     private LinearLayout ll_langue6;
     private LinearLayout ll_langue7;
+
     public void showPopwindow() {
 
         views = View.inflate(this, R.layout.langue_item_choose, null);
 
 
-        ivType1=(MCheckBox) views.findViewById(R.id.iv_type1);
-        ivType2=(MCheckBox) views.findViewById(R.id.iv_type2);
-        ivType3=(MCheckBox) views.findViewById(R.id.iv_type3);
-        ivType4=(MCheckBox) views.findViewById(R.id.iv_type4);
-        ivType5=(MCheckBox) views.findViewById(R.id.iv_type5);
-        ivType6=(MCheckBox) views.findViewById(R.id.iv_type6);
-        ivType7=(MCheckBox) views.findViewById(R.id.iv_type7);
+        ivType1 = (MCheckBox) views.findViewById(R.id.iv_type1);
+        ivType2 = (MCheckBox) views.findViewById(R.id.iv_type2);
+        ivType3 = (MCheckBox) views.findViewById(R.id.iv_type3);
+        ivType4 = (MCheckBox) views.findViewById(R.id.iv_type4);
+        ivType5 = (MCheckBox) views.findViewById(R.id.iv_type5);
+        ivType6 = (MCheckBox) views.findViewById(R.id.iv_type6);
+        ivType7 = (MCheckBox) views.findViewById(R.id.iv_type7);
 
-        ll_langue1=(LinearLayout)views.findViewById(R.id.ll_langue1);
-        ll_langue2=(LinearLayout)views.findViewById(R.id.ll_langue2);
-        ll_langue3=(LinearLayout)views.findViewById(R.id.ll_langue3);
-        ll_langue4=(LinearLayout)views.findViewById(R.id.ll_langue4);
-        ll_langue5=(LinearLayout)views.findViewById(R.id.ll_langue5);
-        ll_langue6=(LinearLayout)views.findViewById(R.id.ll_langue6);
-        ll_langue7=(LinearLayout)views.findViewById(R.id.ll_langue7);
-
+        ll_langue1 = (LinearLayout) views.findViewById(R.id.ll_langue1);
+        ll_langue2 = (LinearLayout) views.findViewById(R.id.ll_langue2);
+        ll_langue3 = (LinearLayout) views.findViewById(R.id.ll_langue3);
+        ll_langue4 = (LinearLayout) views.findViewById(R.id.ll_langue4);
+        ll_langue5 = (LinearLayout) views.findViewById(R.id.ll_langue5);
+        ll_langue6 = (LinearLayout) views.findViewById(R.id.ll_langue6);
+        ll_langue7 = (LinearLayout) views.findViewById(R.id.ll_langue7);
 
 
         dialogs = BaseDailogManager.getInstance().getBuilder(this).setMessageView(views).create();
@@ -279,14 +286,14 @@ public class HomeActivity extends BaseTitle_Activity implements BaseContract.Vie
         });
 
 
-
     }
+
     /**
      * 刷新语言
      */
     public void updateActivity(String sta) {
-        SpUtil.putString(this,"LangueType",sta);
-        if(isLogin){
+        SpUtil.putString(this, "LangueType", sta);
+        if (isLogin) {
             presenter.setLanguge(getLangue(sta));
         }
         // 本地语言设置
@@ -299,23 +306,25 @@ public class HomeActivity extends BaseTitle_Activity implements BaseContract.Vie
         startActivity((new Intent(this, HomeActivity.class)));
 
     }
-    public String getLangue(String lan){
-        String langue="";
-        if(lan.equals("zh-rCN")){
-            langue="zh";
-        }else if(lan.equals("fan")){
-            langue="tw";
-        }else {
-            langue=lan;
+
+    public String getLangue(String lan) {
+        String langue = "";
+        if (lan.equals("zh-rCN")) {
+            langue = "zh";
+        } else if (lan.equals("fan")) {
+            langue = "tw";
+        } else {
+            langue = lan;
         }
         return langue;
     }
-    private  MarkaBaseDialog dialogs;
+
+    private MarkaBaseDialog dialogs;
 
     public void selectType(String type) {
 
         if (type.equals("zh-rCN")) {
-            langueType="zh-rCN";
+            langueType = "zh-rCN";
             ivType1.setChecked(true);
             ivType2.setChecked(false);
             ivType3.setChecked(false);
@@ -324,7 +333,7 @@ public class HomeActivity extends BaseTitle_Activity implements BaseContract.Vie
             ivType6.setChecked(false);
             ivType7.setChecked(false);
         } else if (type.equals("en")) {
-            langueType="en";
+            langueType = "en";
             ivType1.setChecked(false);
             ivType2.setChecked(true);
             ivType3.setChecked(false);
@@ -333,7 +342,7 @@ public class HomeActivity extends BaseTitle_Activity implements BaseContract.Vie
             ivType6.setChecked(false);
             ivType7.setChecked(false);
         } else if (type.equals("fan")) {
-            langueType="fan";
+            langueType = "fan";
             ivType1.setChecked(false);
             ivType2.setChecked(false);
             ivType3.setChecked(true);
@@ -342,7 +351,7 @@ public class HomeActivity extends BaseTitle_Activity implements BaseContract.Vie
             ivType6.setChecked(false);
             ivType7.setChecked(false);
         } else if (type.equals("ja")) {
-            langueType="ja";
+            langueType = "ja";
             ivType1.setChecked(false);
             ivType2.setChecked(false);
             ivType3.setChecked(false);
@@ -350,8 +359,8 @@ public class HomeActivity extends BaseTitle_Activity implements BaseContract.Vie
             ivType5.setChecked(false);
             ivType6.setChecked(false);
             ivType7.setChecked(false);
-        }else if (type.equals("ko")) {
-            langueType="ko";
+        } else if (type.equals("ko")) {
+            langueType = "ko";
             ivType1.setChecked(false);
             ivType2.setChecked(false);
             ivType3.setChecked(false);
@@ -359,8 +368,8 @@ public class HomeActivity extends BaseTitle_Activity implements BaseContract.Vie
             ivType5.setChecked(true);
             ivType6.setChecked(false);
             ivType7.setChecked(false);
-        }else if (type.equals("ms")) {
-            langueType="ms";
+        } else if (type.equals("ms")) {
+            langueType = "ms";
             ivType1.setChecked(false);
             ivType2.setChecked(false);
             ivType3.setChecked(false);
@@ -368,8 +377,8 @@ public class HomeActivity extends BaseTitle_Activity implements BaseContract.Vie
             ivType5.setChecked(false);
             ivType6.setChecked(true);
             ivType7.setChecked(false);
-        }else if (type.equals("ru")) {
-            langueType="ru";
+        } else if (type.equals("ru")) {
+            langueType = "ru";
             ivType1.setChecked(false);
             ivType2.setChecked(false);
             ivType3.setChecked(false);
@@ -379,10 +388,9 @@ public class HomeActivity extends BaseTitle_Activity implements BaseContract.Vie
             ivType7.setChecked(true);
         }
         dialogs.dismiss();
-        CanTingAppLication.LangueType=langueType;
+        CanTingAppLication.LangueType = langueType;
 
     }
-
 
 
     private int[] homeimg1 = {R.drawable.shangcheng, R.drawable.homes_jf, R.drawable.tongcheng, R.drawable.zhibo,
@@ -421,9 +429,9 @@ public class HomeActivity extends BaseTitle_Activity implements BaseContract.Vie
         String token = SpUtil.getString(this, "token", "");
         String avar = SpUtil.getString(this, "avar", "");
         if (TextUtils.isEmpty(token) || token.equals("") || TextUtils.isEmpty(token) || token.equals("")) {
-            if(isStar){
+            if (isStar) {
                 llBg.setVisibility(View.GONE);
-            }else {
+            } else {
                 llBg.setVisibility(View.VISIBLE);
             }
 
@@ -654,10 +662,10 @@ public class HomeActivity extends BaseTitle_Activity implements BaseContract.Vie
         sure = (TextView) views.findViewById(R.id.txt_sure);
         cancel = (TextView) views.findViewById(R.id.txt_cancel);
         title = (TextView) views.findViewById(R.id.txt_title);
-        if(TextUtil.isNotEmpty(description)){
+        if (TextUtil.isNotEmpty(description)) {
             title.setText(description);
 
-        }else {
+        } else {
             title.setText(R.string.yxdbbo);
 
         }
@@ -675,17 +683,16 @@ public class HomeActivity extends BaseTitle_Activity implements BaseContract.Vie
             public void onClick(View v) {
 //                initNotification();
                 llBgs.setVisibility(View.VISIBLE);
-                if(!isLogin){
+                if (!isLogin) {
                     llBg.setVisibility(View.GONE);
                 }
-                isStar=true;
-                new Thread(new DownloadApk(url)).start();
+                isStar = true;
+                new Thread(new DownloadApk(url, 1)).start();
                 dialog.dismiss();
 
             }
         });
     }
-
 
 
     // 登录
@@ -722,7 +729,6 @@ public class HomeActivity extends BaseTitle_Activity implements BaseContract.Vie
             }
         });
     }
-
 
 
     private String userInfoId;
@@ -914,7 +920,7 @@ public class HomeActivity extends BaseTitle_Activity implements BaseContract.Vie
         } else if (type == 14) {
             Version data = (Version) entity;
             String oldVersion = StringUtil.getVersion(CanTingAppLication.getInstance());//"0.17"
-            description=data.description;
+            description = data.description;
             if (TextUtil.isNotEmpty(data.name)) {
                 CanTingAppLication.url = data.name;
             } else {
@@ -936,7 +942,7 @@ public class HomeActivity extends BaseTitle_Activity implements BaseContract.Vie
 
         } else if (type == 111) {
 
-        }  else {
+        } else {
             Host data = (Host) entity;
             if (data != null && TextUtil.isNotEmpty(data.is_direct)) {
 
@@ -963,6 +969,7 @@ public class HomeActivity extends BaseTitle_Activity implements BaseContract.Vie
         }
 
     }
+
     private String description;
     List<Banner> banners;
 
@@ -1036,7 +1043,7 @@ public class HomeActivity extends BaseTitle_Activity implements BaseContract.Vie
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        mProgress.setMaxValue(max);
+
                         mProgress.setCurrentValue(current);
                     }
                 });
@@ -1056,34 +1063,29 @@ public class HomeActivity extends BaseTitle_Activity implements BaseContract.Vie
         FileOutputStream fos;
         private Context context;
 
-        public DownloadApk(String url) {
+        public DownloadApk(String url, int type) {
             this.url = url;
+            this.type = type;
         }
 
         private String url;
+        private int type = 2;//1 下载apk  2 下载 live文件
 
         /**
          * 下载完成,提示用户安装
          */
         private void installApk(File file) {
-            isStar=false;
+            isStar = false;
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    if(!isLogin){
+                    if (!isLogin) {
                         llBg.setVisibility(View.VISIBLE);
                     }
                     llBgs.setVisibility(View.GONE);
                 }
             });
-            //调用系统安装程序
-//            Intent intent = new Intent();
-//            intent.setAction("android.intent.action.VIEW");
-//            intent.addCategory("android.intent.category.DEFAULT");
-//            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//            Uri photoURI = FileProvider.getUriForFile(LiveHomeActivity.this, LiveHomeActivity.this.getApplicationContext().getPackageName() + ".provider", file);
-//            intent.setDataAndType(photoURI, "application/vnd.android.package-archive");
-//            LiveHomeActivity.this.startActivityForResult(intent, 0);
+
 
             Intent intent = new Intent(Intent.ACTION_VIEW);
             //判断是否是AndroidN以及更高的版本
@@ -1095,14 +1097,7 @@ public class HomeActivity extends BaseTitle_Activity implements BaseContract.Vie
                 intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             }
-//            builder.setContentTitle("下载完成")
-//                    .setContentText("点击安装")
-//                    .setAutoCancel(true);//设置通知被点击一次是否自动取消
-//
-//
-//            PendingIntent pi = PendingIntent.getActivity(context, 0, intent, 0);
-//            notification = builder.setContentIntent(pi).build();
-//            notificationManager.notify(1, notification);
+
 
             HomeActivity.this.startActivityForResult(intent, 0);
         }
@@ -1119,10 +1114,24 @@ public class HomeActivity extends BaseTitle_Activity implements BaseContract.Vie
                     //获取内容总长度
                     long contentLength = response.body().contentLength();
                     max = contentLength;
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mProgress.setMaxValue(max);
+                        }
+                    });
+
+                    String apkName = null;
+                    File apkFile = null;
                     //设置最大值
                     //保存到sd卡
-                    String apkName = url.substring(url.lastIndexOf("/") + 1, url.length());
-                    File apkFile = new File(Environment.getExternalStorageDirectory(), apkName);
+                    if (type == 1) {
+                        apkName = url.substring(url.lastIndexOf("/") + 1, url.length());
+                        apkFile = new File(Environment.getExternalStorageDirectory(), apkName);
+                    } else {
+                        apkFile = new File(StorageUtils.getCacheDirectory(HomeActivity.this).getAbsolutePath() + File.separator, "live.zip");
+
+                    }
                     fos = new FileOutputStream(apkFile);
                     //获得输入流
                     is = response.body().byteStream();
@@ -1137,16 +1146,11 @@ public class HomeActivity extends BaseTitle_Activity implements BaseContract.Vie
                             fos.flush();
                             progress += len;
                             notify += len;
-                            if ( notify/1024==512) {
+                            if (notify / 1024 == 512) {
                                 notify = 0;
                                 current = progress;
                                 start();
                             }
-                            //设置进度
-//                            builder.setProgress(100, (int) ((progress / (contentLength * 1.0)) * 100), false);
-//                            builder.setContentText("下载进度:" + (int) ((progress / (contentLength * 1.0)) * 100) + "%");
-//                            notification = builder.build();
-//                            notificationManager.notify(1, notification);
 
 
                         } catch (InterruptedException e) {
@@ -1156,10 +1160,21 @@ public class HomeActivity extends BaseTitle_Activity implements BaseContract.Vie
 
 
                     //下载完成,提示用户安装
-                    installApk(apkFile);
+                    if (type == 1) {
+                        installApk(apkFile);
+                    } else {
+                        String SD_DIR = StorageUtils.getCacheDirectory(HomeActivity.this).getAbsolutePath() + File.separator;
+                        upZipFile(new File(apkFile.getAbsolutePath()), SD_DIR);
+                        Common.unZip();
+                        CanTingAppLication.isComplete=true;
+                        RxBus.getInstance().send(SubscriptionBean.createSendBean(SubscriptionBean.DOWN_COMPELTE,""));
+                    }
+
                 }
             } catch (IOException e) {
                 return;
+            } catch (Exception e) {
+                e.printStackTrace();
             } finally {
                 //关闭io流
                 if (is != null) {
@@ -1183,25 +1198,100 @@ public class HomeActivity extends BaseTitle_Activity implements BaseContract.Vie
         }
     }
 
-    private long notify=0;
-    private NotificationManager notificationManager;
-    private NotificationCompat.Builder builder;
-    private Notification notification;
-
-    //初始化通知
-    private void initNotification() {
-        notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        builder = new NotificationCompat.Builder(this);
-        builder.setContentTitle("正在更新...") //设置通知标题
-                .setSmallIcon(R.mipmap.ic_launcher_round)
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_round)) //设置通知的大图标
-                .setDefaults(Notification.DEFAULT_LIGHTS) //设置通知的提醒方式： 呼吸灯
-                .setPriority(NotificationCompat.PRIORITY_MAX) //设置通知的优先级：最大
-                .setAutoCancel(false)//设置通知被点击一次是否自动取消
-                .setContentText("下载进度:" + "0%")
-                .setProgress(100, 0, false);
-        notification = builder.build();//构建通知对象
-
+    /**
+     * 解压缩
+     * 将zipFile文件解压到folderPath目录下.
+     *
+     * @param zipFile    zip文件
+     * @param folderPath 解压到的地址
+     * @throws IOException
+     */
+    private void upZipFile(File zipFile, String folderPath) throws IOException {
+        ZipFile zfile = new ZipFile(zipFile);
+        Enumeration zList = zfile.entries();
+        ZipEntry ze = null;
+        byte[] buf = new byte[1024];
+        while (zList.hasMoreElements()) {
+            ze = (ZipEntry) zList.nextElement();
+            if (ze.isDirectory()) {
+                Log.d(TAG, "ze.getName() = " + ze.getName());
+                String dirstr = folderPath + ze.getName();
+                dirstr = new String(dirstr.getBytes("8859_1"), "GB2312");
+                Log.d(TAG, "str = " + dirstr);
+                File f = new File(dirstr);
+                f.mkdir();
+                continue;
+            }
+            Log.d(TAG, "ze.getName() = " + ze.getName());
+            OutputStream os = new BufferedOutputStream(new FileOutputStream(getRealFileName(folderPath, ze.getName())));
+            InputStream is = new BufferedInputStream(zfile.getInputStream(ze));
+            int readLen = 0;
+            while ((readLen = is.read(buf, 0, 1024)) != -1) {
+                os.write(buf, 0, readLen);
+            }
+            is.close();
+            os.close();
+        }
+        zfile.close();
     }
+
+    private long notify = 0;
+//   downurl1.add("http://119.23.212.8:8080/live/aliyun_svideo_animation_filter.zip");
+//        downurl1.add("http://119.23.212.8:8080/live/aliyun_svideo_caption.zip");
+//        downurl1.add("http://119.23.212.8:8080/live/aliyun_svideo_filter.zip");
+//        downurl1.add("http://119.23.212.8:8080/live/aliyun_svideo_mv.zip");
+//        downurl1.add("http://119.23.212.8:8080/live/aliyun_svideo_overlay.zip");
+//        downurl1.add("http://119.23.212.8:8080/live/tail.zip");
+//        downurl2.add("http://119.23.212.8:8080/live/filter.zip");
+//        downurl2.add("http://119.23.212.8:8080/live/maohuzi.zip");
+//        downurl2.add("http://119.23.212.8:8080/livemodel.zip");
+//        downurl2.add("http://119.23.212.8:8080/live/mp3.zip");
+//        downurl3.add("http://119.23.212.8:8080/live/encrypt.zip");
+//
+//        new Thread(new HomeActivity.DownloadApk("http://119.23.212.8:8080/live.zip",2)).start();
+//}
+//    private List<String> downurl1=new ArrayList<>();
+//    private List<String> downurl2=new ArrayList<>();
+//    private List<String> downurl3=new ArrayList<>();
+
+    /**
+     * 给定根目录，返回一个相对路径所对应的实际文件名.
+     *
+     * @param baseDir     指定根目录
+     * @param absFileName 相对路径名，来自于ZipEntry中的name
+     * @return java.io.File 实际的文件
+     */
+    public File getRealFileName(String baseDir, String absFileName) {
+        String[] dirs = absFileName.split("/");
+        File ret = new File(baseDir);
+        String substr = null;
+        if (dirs.length > 1) {
+            for (int i = 0; i < dirs.length - 1; i++) {
+                substr = dirs[i];
+                try {
+                    substr = new String(substr.getBytes("8859_1"), "GB2312");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                ret = new File(ret, substr);
+
+            }
+            Log.d(TAG, "1ret = " + ret);
+            if (!ret.exists())
+                ret.mkdirs();
+            substr = dirs[dirs.length - 1];
+            try {
+                substr = new String(substr.getBytes("8859_1"), "GB2312");
+                Log.d(TAG, "substr = " + substr);
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            ret = new File(ret, substr);
+            Log.d(TAG, "2ret = " + ret);
+            return ret;
+        }
+        return ret;
+    }
+
 }
 

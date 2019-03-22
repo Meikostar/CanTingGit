@@ -8,6 +8,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.view.View;
 
+import com.zhongchuang.canting.activity.HomeActivity;
 import com.zhongchuang.canting.allive.downloader.DownloaderManager;
 import com.zhongchuang.canting.allive.downloader.FileDownloaderModel;
 import com.zhongchuang.canting.allive.editor.http.EffectService;
@@ -19,6 +20,7 @@ import com.aliyun.struct.form.AspectForm;
 import com.aliyun.struct.form.PasterForm;
 import com.aliyun.struct.form.ResourceForm;
 import com.liulishuo.filedownloader.util.FileDownloadUtils;
+import com.zhongchuang.canting.app.CanTingAppLication;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -42,11 +44,12 @@ public class Common {
 //    public final static String SD_DIR = Environment.getExternalStorageDirectory().getPath()
 //            + "/";
 
-    public static String SD_DIR ;
+    public static String SD_DIR= StorageUtils.getCacheDirectory(CanTingAppLication.getInstance()).getAbsolutePath() + File.separator;
     //    public static final String BASE_URL = "http://m.api.inner.alibaba.net"; //内网地址（开发环境）
     public static final String BASE_URL = "https://m-api.qupaicloud.com";   //外网地址（正式环境）TODO:上线前要干掉
 
-    public final static String QU_NAME = "AliyunEditorDemo";
+
+    public final static String QU_NAME = "live";
     public static String QU_DIR;
     private static Object object = new Object();
     private static View mView;
@@ -166,11 +169,24 @@ public class Common {
         }
         return total;
     }
+    public static List<String> getFilesAllName(String path) {
+        File file = new File(path);
+        File[] files = file.listFiles();
+        if (files == null) {
 
+            return null;
+        }
+        List<String> s = new ArrayList<>();
+        for (int i = 0; i < files.length; i++) {
+            s.add(files[i].getAbsolutePath());
+        }
+        return s;
+
+    }
     public static void copySelf(Context cxt, String root) {
         try {
-            String[] files = cxt.getAssets().list(root);
-            if(files.length > 0) {
+            List<String> files = getFilesAllName((SD_DIR + "live" + File.separator + QU_NAME + File.separator));
+            if(files !=null&&files.size()>0) {
                 File subdir = new File(Common.SD_DIR + root);
                 if (!subdir.exists()) {
                     subdir.mkdirs();
@@ -205,12 +221,12 @@ public class Common {
     }
 
     public static void copyAll(Context cxt, View view) {
-        SD_DIR = StorageUtils.getCacheDirectory(cxt).getAbsolutePath() + File.separator;
+
         QU_DIR = SD_DIR + QU_NAME + File.separator;
-        mView = view;
-        File dir = new File(Common.QU_DIR);
-        copySelf(cxt,QU_NAME);
-        dir.mkdirs();
+//        mView = view;
+//        File dir = new File(Common.QU_DIR);
+//        copySelf(cxt,QU_NAME);
+//        dir.mkdirs();
         unZip();
     }
 
@@ -383,7 +399,8 @@ public class Common {
 
     private static int length;
     public static void unZip() {
-        File[] files = new File(Common.SD_DIR + QU_NAME).listFiles(new FilenameFilter() {
+        String SD_DIR = StorageUtils.getCacheDirectory(CanTingAppLication.getInstance()).getAbsolutePath() + File.separator;
+        File[] files = new File(SD_DIR + QU_NAME).listFiles(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {
                 if(name != null && name.endsWith(".zip")) {
@@ -394,7 +411,7 @@ public class Common {
         });
         length = files.length;
         if(length == 0) {
-            mView.setVisibility(View.GONE);
+//            mView.setVisibility(View.GONE);
             return;
         }
         for(final File file : files) {
@@ -422,7 +439,7 @@ public class Common {
                 protected void onPostExecute(Object o) {
                     synchronized (object) {
                         if (length == 0) {
-                            mView.setVisibility(View.GONE);
+//                            mView.setVisibility(View.GONE);
                         }
                     }
                 }

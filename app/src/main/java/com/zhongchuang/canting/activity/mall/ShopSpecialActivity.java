@@ -1,20 +1,16 @@
 package com.zhongchuang.canting.activity.mall;
 
 
-import android.content.Intent;
 import android.support.v4.app.Fragment;
 
 import com.zhongchuang.canting.R;;
 import com.zhongchuang.canting.adapter.FragmentViewPagerAdapter;
 import com.zhongchuang.canting.base.BaseActivity1;
 import com.zhongchuang.canting.been.SubscriptionBean;
-import com.zhongchuang.canting.fragment.GoodFragment;
 import com.zhongchuang.canting.fragment.mall.GoodSpecialFragment;
-import com.zhongchuang.canting.presenter.OnChangeListener;
 import com.zhongchuang.canting.widget.GoodsSearchViews;
 import com.zhongchuang.canting.widget.NoScrollViewPager;
 import com.zhongchuang.canting.widget.RxBus;
-import com.zhongchuang.canting.widget.ThreeNevgBar;
 
 import java.util.ArrayList;
 import java.util.List;

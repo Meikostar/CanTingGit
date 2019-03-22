@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -31,8 +32,9 @@ public class CoverEditActivity extends Activity implements View.OnClickListener{
 
     public static final String KEY_PARAM_VIDEO = "vidseo_path";
     public static final String KEY_PARAM_RESULT = "thumbnail";
-    private ImageView mIvLeft, mIvRight;
+    private ImageView mIvLeft;
     private ImageView mCoverImage;
+    private Button mIvRight;
     private TextView mTitle;
     private View mSlider;
     private LinearLayout mThumbnailList;
@@ -70,7 +72,7 @@ public class CoverEditActivity extends Activity implements View.OnClickListener{
 
     private void initView(){
         mIvLeft = (ImageView) findViewById(R.id.iv_left);
-        mIvRight = (ImageView) findViewById(R.id.iv_right);
+        mIvRight = (Button) findViewById(R.id.iv_right);
         mTitle = (TextView) findViewById(R.id.tv_center);
 
         mIvLeft.setVisibility(View.VISIBLE);
@@ -79,7 +81,7 @@ public class CoverEditActivity extends Activity implements View.OnClickListener{
 
         mTitle.setText(R.string.edit_cover);
         mIvLeft.setImageResource(R.drawable.aliyun_svideo_icon_cancel);
-        mIvRight.setImageResource(R.mipmap.aliyun_svideo_icon_confirm);
+
         mIvLeft.setOnClickListener(this);
         mIvRight.setOnClickListener(this);
 

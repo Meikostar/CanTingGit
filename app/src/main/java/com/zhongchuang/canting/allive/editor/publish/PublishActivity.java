@@ -25,20 +25,50 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.alibaba.sdk.android.oss.common.OSSLog;
+import com.alibaba.sdk.android.vod.upload.VODUploadCallback;
+import com.alibaba.sdk.android.vod.upload.VODUploadClient;
+import com.alibaba.sdk.android.vod.upload.VODUploadClientImpl;
+import com.alibaba.sdk.android.vod.upload.common.UploadStateType;
+import com.alibaba.sdk.android.vod.upload.model.UploadFileInfo;
+import com.alibaba.sdk.android.vod.upload.model.VodInfo;
 import com.zhongchuang.canting.R;
 import com.aliyun.common.global.AliyunTag;
 import com.aliyun.querrorcode.AliyunErrorCode;
 import com.aliyun.qupai.editor.AliyunICompose;
 import com.aliyun.qupai.editor.AliyunIComposeCallBack;
+import com.zhongchuang.canting.allive.vodupload_demo.data.ItemInfo;
+import com.zhongchuang.canting.app.CanTingAppLication;
+import com.zhongchuang.canting.been.SubscriptionBean;
+import com.zhongchuang.canting.been.TOKEN;
+import com.zhongchuang.canting.been.aliLive;
+import com.zhongchuang.canting.net.HXRequestService;
+import com.zhongchuang.canting.net.netService;
+import com.zhongchuang.canting.presenter.OtherContract;
+import com.zhongchuang.canting.presenter.OtherPresenter;
+import com.zhongchuang.canting.utils.QiniuUtils;
+import com.zhongchuang.canting.utils.SpUtil;
+import com.zhongchuang.canting.utils.TextUtil;
+import com.zhongchuang.canting.utils.TimeUtil;
+import com.zhongchuang.canting.widget.RxBus;
+import com.zhongchuang.canting.widget.waitLoading.ShapeLoadingDialog;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by macpro on 2017/11/6.
  */
 
-public class PublishActivity extends Activity implements View.OnClickListener {
+public class PublishActivity extends Activity implements View.OnClickListener ,   OtherContract.View {
     private static final String TAG = PublishActivity.class.getName();
     public long startTime ;
     public long endTime ;
@@ -64,7 +94,7 @@ public class PublishActivity extends Activity implements View.OnClickListener {
     private String mThumbnailPath;
     private AliyunICompose mCompose;
     private boolean mComposeCompleted;
-
+   private ShapeLoadingDialog shapeLoadingDialog;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,14 +104,24 @@ public class PublishActivity extends Activity implements View.OnClickListener {
         mThumbnailPath = getIntent().getStringExtra(KEY_PARAM_THUMBNAIL);
         mCompose = ComposeFactory.INSTANCE.getInstance();
         mCompose.init(this);
+        presenter=new OtherPresenter(this);
+        presenter.getLiveToken();
+        uploader = new VODUploadClientImpl(getApplicationContext());
+        shapeLoadingDialog = new ShapeLoadingDialog.Builder(this)
+                .loadText("上传中...")
+                .build();
+
 
         //这里合成开始
         startTime = System.currentTimeMillis();
 
+
         int ret = mCompose.compose(mConfig, mOutputPath, mCallback);
         if(ret != AliyunErrorCode.OK)
         {
-            return;
+            initUpload();
+            mComposeIndiate.setActivated(true);
+            mCoverSelect.setEnabled(mComposeCompleted);
         }
         View root = (View) mActionBar.getParent();
         root.setOnClickListener(new View.OnClickListener() {
@@ -96,25 +136,142 @@ public class PublishActivity extends Activity implements View.OnClickListener {
             }
         });
         new MyAsyncTask(this).execute(mThumbnailPath);
+        if(TextUtil.isNotEmpty(mThumbnailPath)){
+            getUpToken(mThumbnailPath);
+        }
+
     }
+    public void initUpload(){
+        String fineName = mOutputPath;
+        String ossName  = "video/" + SpUtil.getUserInfoId(this)+"/"+TimeUtil.formatTtimeNames(System.currentTimeMillis())+"."+TimeUtil.formatRedTime(System.currentTimeMillis()); //vodPath + index + ".mp4";
 
+        uploader.addFile(fineName, "oss-cn-shenzhen.aliyuncs.com", "video-zx", ossName, getVodInfo());
+        url="https://video-zx.oss-cn-shenzhen.aliyuncs.com"+ossName;
+    }
+    private String url;
+    private VodInfo getVodInfo() {
+        VodInfo vodInfo = new VodInfo();
+        vodInfo.setTitle("标题" );
+        vodInfo.setDesc("描述." );
+        vodInfo.setCateId(1);
+        vodInfo.setIsProcess(true);
+        vodInfo.setCoverUrl(mThumbnailPath);
+        vodInfo.setIsShowWaterMark(false);
+        vodInfo.setPriority(7);
+        return vodInfo;
+    }
+    private VODUploadCallback callback = new VODUploadCallback() {
+        @Override
+        public void onUploadSucceed(UploadFileInfo info) {
+            OSSLog.logDebug("onsucceed ------------------" + info.getFilePath());
+
+           presenter.uploadVideo(imgUrl,mVideoDesc.getText().toString(),url);
+        }
+
+        @Override
+        public void onUploadFailed(UploadFileInfo info, String code, String message) {
+            OSSLog.logError("onfailed ------------------ " + info.getFilePath() + " " + code + " " + message);
+
+
+        }
+
+        @Override
+        public void onUploadProgress(UploadFileInfo info, long uploadedSize, long totalSize) {
+            OSSLog.logDebug("onProgress ------------------ " + info.getFilePath() + " " + uploadedSize + " " + totalSize);
+
+
+        }
+
+        @Override
+        public void onUploadTokenExpired() {
+            OSSLog.logError("onExpired ------------- ");
+            // 实现时，重新获取STS临时账号用于恢复上传
+//            uploader.resumeWithToken(accessKeyId, accessKeySecret, secretToken, expireTime);
+        }
+
+        @Override
+        public void onUploadRetry(String code, String message) {
+            OSSLog.logError("onUploadRetry ------------- ");
+        }
+
+        @Override
+        public void onUploadRetryResume() {
+            OSSLog.logError("onUploadRetryResume ------------- ");
+        }
+
+        @Override
+        public void onUploadStarted(UploadFileInfo uploadFileInfo) {
+            OSSLog.logError("onUploadStarted ------------- ");
+
+        }
+    };
+    private VODUploadClient uploader;
     private void initThumbnail(Bitmap thumbnail) {
-//        int maxWidth = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-//                120, getResources().getDisplayMetrics());
-//        int sw = getResources().getDisplayMetrics().widthPixels;
-//        int bw = thumbnail.getWidth();
-//        int bh = thumbnail.getHeight();
 
-//        float si = (float)maxWidth / bw;
-//        float sb = (float)sw / bw;
-
-//        Matrix mi = new Matrix();
-//        mi.setScale(si, si);
-//        Matrix mb = new Matrix();
-//        mb.setScale(sb, sb);
-//        mCoverBlur.setImageMatrix(mb);
         mCoverBlur.setImageBitmap(thumbnail);
         mCoverImage.setImageBitmap(thumbnail);
+
+    }
+    private OtherPresenter presenter;
+    @Override
+    public <T> void toEntity(T entity, int type) {
+        if(type==12){
+            shapeLoadingDialog.dismiss();
+            RxBus.getInstance().send(SubscriptionBean.createSendBean(SubscriptionBean.LIVE_FINISH,""));
+            finish();
+        }else {
+            aliLive aliLive= (aliLive) entity;
+            if(aliLive!=null&& TextUtil.isNotEmpty(aliLive.token)){
+                type=1;
+                uploader.init(aliLive.accessKeyId, aliLive.accesskeysecret, aliLive.token, aliLive.expiration, callback);
+            }
+        }
+
+    }
+    private int type;
+    @Override
+    public void toNextStep(int type) {
+
+    }
+
+    @Override
+    public void showTomast(String msg) {
+
+    }
+    private void getUpToken(final String path) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(netService.TOM_BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+
+        HXRequestService api = retrofit.create(HXRequestService.class);
+
+
+        Call<TOKEN> call = api.getUpToken();
+        call.enqueue(new Callback<TOKEN>() {
+            @Override
+            public void onResponse(Call<TOKEN> call, Response<TOKEN> response) {
+                upFlile(path, response.body().data.upToken);
+            }
+
+            @Override
+            public void onFailure(Call<TOKEN> call, Throwable t) {
+
+            }
+        });
+    }
+    private String imgUrl;
+    public void upFlile(String path, String token) {
+
+
+        QiniuUtils.getInstance().upFile(path, token, new QiniuUtils.CompleteListener() {
+            @Override
+            public void completeListener(String urls) {
+                imgUrl=QiniuUtils.baseurl+urls;
+
+            }
+        });
 
     }
 
@@ -182,11 +339,12 @@ public class PublishActivity extends Activity implements View.OnClickListener {
     private void initView() {
         mActionBar = findViewById(R.id.action_bar);
         mActionBar.setBackgroundColor(
-                getResources().getColor(R.color.action_bar_bg_50pct));
-        mPublish = (TextView) findViewById(R.id.tv_right);
+                getResources().getColor(R.color.white));
+//        mPublish = (TextView) findViewById(R.id.tv_right);
+        mPublish = (TextView) findViewById(R.id.tv_rights);
         mIvLeft = (ImageView) findViewById(R.id.iv_left);
         mIvLeft.setOnClickListener(this);
-        mIvLeft.setImageResource(R.mipmap.aliyun_svideo_icon_back);
+//        mIvLeft.setImageResource(R.mipmap.aliyun_svideo_icon_back);
         mPublish.setText(R.string.publish);
         mIvLeft.setVisibility(View.VISIBLE);
         mPublish.setVisibility(View.VISIBLE);
@@ -293,14 +451,17 @@ public class PublishActivity extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (v == mPublish) {
-            mPublish.setEnabled(false);
-            Intent intent = new Intent(this, UploadActivity.class);
-            intent.putExtra(UploadActivity.KEY_UPLOAD_VIDEO, mOutputPath);
-            intent.putExtra(UploadActivity.KEY_UPLOAD_THUMBNAIL, mThumbnailPath);
-            if (!TextUtils.isEmpty(mVideoDesc.getText())) {
-                intent.putExtra(UploadActivity.KEY_UPLOAD_DESC, mVideoDesc.getText().toString());
-            }
-            startActivity(intent);
+            shapeLoadingDialog.show();
+            getUpToken(mThumbnailPath);
+            uploader.start();
+//            mPublish.setEnabled(false);
+//            Intent intent = new Intent(this, UploadActivity.class);
+//            intent.putExtra(UploadActivity.KEY_UPLOAD_VIDEO, mOutputPath);
+//            intent.putExtra(UploadActivity.KEY_UPLOAD_THUMBNAIL, mThumbnailPath);
+//            if (!TextUtils.isEmpty(mVideoDesc.getText())) {
+//                intent.putExtra(UploadActivity.KEY_UPLOAD_DESC, mVideoDesc.getText().toString());
+//            }
+//            startActivity(intent);
         } else if (v == mCoverSelect) {
             Intent intent = new Intent(this, CoverEditActivity.class);
             intent.putExtra(CoverEditActivity.KEY_PARAM_VIDEO, mOutputPath);
@@ -380,6 +541,7 @@ public class PublishActivity extends Activity implements View.OnClickListener {
             mComposeCompleted = true;
             MediaMetadataRetriever mmr = new MediaMetadataRetriever();
             mmr.setDataSource(mOutputPath);
+            initUpload();
             Bitmap bmp = mmr.getFrameAtTime(0);
             if(bmp == null) {
                 Log.e(TAG, "Compose error");

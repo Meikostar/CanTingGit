@@ -79,11 +79,14 @@ public class CanTingAppLication extends Application {
     public static  String userId="";
     public static  int choosType=0;
     public static  String state="";
+    public static  String sk="LTAICEWfthnWiWww";
+    public static  String stcry="xivcP4sGTIH7qz5TZjFMFe9Dyo3sz0";
     public static  String url="http://ychc.9913seo.com";
     public static  String code="86";
     public static  String GroupName="";
     public static  boolean isSetting=false;
     public static  boolean isLogin;
+    public static  boolean isComplete;
     public static  String signStr="";
     // 记录是否已经初始化
     private boolean isInit = false;

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="@color/white"
+    android:minHeight="?attr/actionBarSize" >
+
+        <ImageView
+            android:id="@+id/iv_left"
+            android:src="@drawable/fb_back"
+            android:layout_width="26dp"
+            android:layout_height="34dp"
+            android:padding="7dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="7dp"
+            />
+        <TextView
+            android:id="@+id/tv_left"
+            style="?android:attr/actionButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:textSize="17dp"
+            android:paddingLeft="@dimen/right_margin_profile_toolbar"
+            android:textColor="@color/white"
+            android:visibility="gone" />
+
+        <TextView
+            android:text="@string/fb"
+            android:id="@+id/tv_center"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:drawablePadding="@dimen/action_bar_profile_title_drawablePadding"
+            android:gravity="center"
+            android:textColor="@color/color3"
+            android:textSize="17sp"/>
+
+        <!--<ImageView-->
+        <!--android:id="@+id/iv_right"-->
+        <!--style="?android:attr/actionButtonStyle"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:paddingEnd="@dimen/right_margin_profile_toolbar"-->
+        <!--android:paddingRight="@dimen/right_margin_profile_toolbar"-->
+        <!--android:visibility="gone" />-->
+        <Button
+            android:visibility="gone"
+            android:id="@+id/iv_right"
+            android:layout_width="wrap_content"
+            android:minWidth="57.5dp"
+            android:layout_height="29dp"
+            android:layout_gravity="left|center_vertical"
+            android:layout_marginLeft="11.5dp"
+            android:text="下一步"
+            android:textColor="#fff"
+            android:textSize="13sp"
+            android:gravity="center"
+            android:background="@drawable/aliyun_svideo_shape_next_button"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            />
+        <TextView
+            android:id="@+id/tv_right"
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:paddingEnd="@dimen/right_margin_profile_toolbar"
+            android:paddingRight="@dimen/right_margin_profile_toolbar"
+            android:visibility="gone"
+            android:textSize="@dimen/font_size_28px"
+            android:textColor="@color/white"
+            android:gravity="center"/>
+
+</RelativeLayout>

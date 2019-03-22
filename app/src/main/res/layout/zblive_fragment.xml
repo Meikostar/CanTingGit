@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/content_bg"
+    android:orientation="vertical">
+    <com.zhongchuang.canting.widget.StickyScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="15dp"
+                    android:src="@drawable/editor_ava" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="80dp"
+                    android:layout_marginLeft="11dp"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="小芒果"
+                        android:textColor="@color/color3"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/tv_fee"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:text="1.2万粉丝"
+                        android:textColor="@color/color9"
+                        android:textSize="11sp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_chat"
+                    android:layout_width="57dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/shape_bg_lin_cancel"
+                    android:gravity="center"
+                    android:text="私信"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:paddingLeft="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:gravity="center"
+                    android:text="主播留言"
+                    android:textColor="@color/color3"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_live_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:gravity="center"
+                    android:text="wecoloe"
+                    android:textColor="@color/color6"
+                    android:textSize="12sp" />
+            </LinearLayout>
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/white"
+                android:gravity="center"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:background="@drawable/alivc_bgs"
+                    android:orientation="horizontal"
+                    android:layout_width="180dp"
+                    android:layout_height="26dp">
+                    <TextView
+                        android:background="@drawable/alivc_choose"
+                        android:id="@+id/tv_video"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="26dp"
+                        android:gravity="center"
+                        android:text="视频"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tv_detail"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="26dp"
+                        android:gravity="center"
+                        android:text="主播动态"
+                        android:textColor="@color/color9"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+            </LinearLayout>
+            <com.zhongchuang.canting.widget.NoScrollViewPager
+
+                android:id="@+id/viewpager_main"
+                android:layout_width="match_parent"
+                android:layout_height="800dp"
+                android:background="@color/white" />
+        </LinearLayout>
+    </com.zhongchuang.canting.widget.StickyScrollView>
+
+
+
+
+</LinearLayout>

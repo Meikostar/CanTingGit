@@ -4,10 +4,12 @@ import android.content.Context;
 import android.text.Spannable;
 import android.view.View;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TextView.BufferType;
 
 import com.hyphenate.chat.EMClient;
+import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMTextMessageBody;
 import com.hyphenate.exceptions.HyphenateException;
@@ -18,6 +20,7 @@ import com.zhongchuang.canting.easeui.utils.EaseSmileUtils;
 public class EaseChatRowText extends EaseChatRow {
 
     private TextView contentView;
+    private LinearLayout ll_bg;
 
     public EaseChatRowText(Context context,int chatType, EMMessage message, int position, BaseAdapter adapter) {
         super(context,chatType, message, position, adapter);
@@ -38,16 +41,24 @@ public class EaseChatRowText extends EaseChatRow {
     @Override
     protected void onFindViewById() {
         contentView = (TextView) findViewById(R.id.tv_chatcontent);
+        ll_bg = (LinearLayout) findViewById(R.id.ll_bg);
     }
 
     @Override
     public void onSetUpView() {
         EMTextMessageBody txtBody = (EMTextMessageBody) message.getBody();
-        Spannable span = EaseSmileUtils.getSmiledText(context, txtBody.getMessage());
-        // 设置内容
-        contentView.setText(span, BufferType.SPANNABLE);
+        String contents  = txtBody.getMessage();
+//        if(contents.equals("*&@@&*")||contents.contains("&!&&!&")){
+//            ll_bg.setVisibility(GONE);
+//        }else {
+//            ll_bg.setVisibility(VISIBLE);
+            Spannable span = EaseSmileUtils.getSmiledText(context, txtBody.getMessage());
+            // 设置内容
+            contentView.setText(span, BufferType.SPANNABLE);
 
-        handleTextMessage();
+            handleTextMessage();
+//        }
+
     }
 
     protected void handleTextMessage() {

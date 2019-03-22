@@ -41,8 +41,10 @@ import com.zhongchuang.canting.been.ShopBean;
 import com.zhongchuang.canting.been.TabEntity;
 import com.zhongchuang.canting.been.Version;
 import com.zhongchuang.canting.been.WEIXINREQ;
+import com.zhongchuang.canting.been.aliLive;
 import com.zhongchuang.canting.been.apply;
 import com.zhongchuang.canting.been.pay.alipay;
+import com.zhongchuang.canting.been.videobean;
 import com.zhongchuang.canting.hud.ToastUtils;
 import com.zhongchuang.canting.net.BaseCallBack;
 import com.zhongchuang.canting.net.HttpUtil;
@@ -135,6 +137,31 @@ public class BasesPresenter implements BaseContract.Presenter {
             }
         });
     }
+    @Override
+    public void getVideoList(final int type, String pageNum) {
+        Map<String, String> params = new TreeMap<>();
+        params.put("pageNum", pageNum);
+        params.put("pageSize", "20");
+
+        params.put("userInfoId", SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
+
+        params.put("userInfoId", TextUtil.isEmpty(SpUtil.getUserInfoId(CanTingAppLication.getInstance())) ? "" : SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
+        api.getVideoList(params).enqueue(new BaseCallBack<videobean>() {
+
+            @Override
+            public void onSuccess(videobean userLoginBean) {
+                mView.toEntity(userLoginBean.data, type);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                mView.showTomast(t);
+            }
+        });
+    }
+
+
 
     @Override
     public void getDetails(String startTime	,String pageNum	,String type,final  int state) {
@@ -373,6 +400,46 @@ public class BasesPresenter implements BaseContract.Presenter {
             @Override
             public void onSuccess(INTEGRALIST userLoginBean) {
                 mView.toEntity(userLoginBean.data, type);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                mView.showTomast(t);
+            }
+        });
+    }
+    public void addConfig() {
+
+
+        Map<String, String> map = new HashMap<>();
+        map.put("userInfoId", SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
+
+        api.addConfig(map).enqueue(new BaseCallBack<aliLive>() {
+
+            @Override
+            public void onSuccess(aliLive userLoginBean) {
+                mView.toEntity(userLoginBean.data, 29);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                mView.showTomast(t);
+            }
+        });
+    }
+    public void addLiveRecordVod() {
+
+
+        Map<String, String> map = new HashMap<>();
+        map.put("userInfoId", SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
+
+        api.addLiveRecordVod(map).enqueue(new BaseCallBack<aliLive>() {
+
+            @Override
+            public void onSuccess(aliLive userLoginBean) {
+                mView.toEntity(userLoginBean.data, 29);
             }
 
             @Override

@@ -5,6 +5,8 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.hardware.Camera;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -53,6 +55,7 @@ import com.zhongchuang.canting.allive.pusher.utils.Common;
 import com.zhongchuang.canting.allive.pusher.utils.LogcatHelper;
 import com.zhongchuang.canting.allive.pusher.utils.SharedPreferenceUtils;
 import com.zhongchuang.canting.base.BaseActivity1;
+import com.zhongchuang.canting.utils.SpUtil;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -161,7 +164,7 @@ public class PushConfigActivity extends BaseActivity1 {
     private boolean mAsyncValue = true;
     private boolean mAudioOnlyPush = false;
     private boolean mVideoOnlyPush = false;
-    private AlivcPreviewOrientationEnum mOrientationEnum = ORIENTATION_PORTRAIT;
+    private AlivcPreviewOrientationEnum mOrientationEnum = ORIENTATION_LANDSCAPE_HOME_RIGHT;
     private AlivcQualityModeEnum mQualityModeEnum = AlivcQualityModeEnum.QM_RESOLUTION_FIRST;
 
     private ArrayList<WaterMarkInfo> waterMarkInfos = new ArrayList<>();
@@ -193,6 +196,16 @@ public class PushConfigActivity extends BaseActivity1 {
         } else {
             mAlivcLivePushConfig.setNetworkPoorPushImage(Environment.getExternalStorageDirectory().getPath() + File.separator + "alivc_resource/poor_network.png");
             mAlivcLivePushConfig.setPausePushImage(Environment.getExternalStorageDirectory().getPath() + File.separator + "alivc_resource/background_push.png");
+        }
+        if (mAlivcLivePushConfig != null) {
+            mAlivcLivePushConfig.setPreviewOrientation(ORIENTATION_LANDSCAPE_HOME_RIGHT);
+            mOrientationEnum = ORIENTATION_LANDSCAPE_HOME_RIGHT;
+            if (mAlivcLivePushConfig.getPausePushImage() != null && !mAlivcLivePushConfig.getPausePushImage().equals("")) {
+                mAlivcLivePushConfig.setPausePushImage(Environment.getExternalStorageDirectory().getPath() + File.separator + "alivc_resource/background_push_land.png");
+            }
+            if (mAlivcLivePushConfig.getNetworkPoorPushImage() != null && !mAlivcLivePushConfig.getNetworkPoorPushImage().equals("")) {
+                mAlivcLivePushConfig.setNetworkPoorPushImage(Environment.getExternalStorageDirectory().getPath() + File.separator + "alivc_resource/poor_network_land.png");
+            }
         }
         AlivcLivePushConfig.setMediaProjectionPermissionResultData(null);
         initView();
@@ -244,6 +257,14 @@ public class PushConfigActivity extends BaseActivity1 {
         mOrientation.setOnCheckedChangeListener(mOrientationListener);
         mDisplayMode.setOnCheckedChangeListener(mDisplayModeListener);
         mAudioProfiles.setOnCheckedChangeListener(mAudioProfileListener);
+        mResolution.getThumb().setColorFilter(Color.parseColor("#2A93FF"), PorterDuff.Mode.SRC_ATOP);
+        mResolution.getProgressDrawable().setColorFilter(getResources().getColor(R.color.blue1), PorterDuff.Mode.SRC_ATOP);
+        mAudioRate.getThumb().setColorFilter(Color.parseColor("#2A93FF"), PorterDuff.Mode.SRC_ATOP);
+        mAudioRate.getProgressDrawable().setColorFilter(getResources().getColor(R.color.blue1), PorterDuff.Mode.SRC_ATOP);
+        mMinFps.getThumb().setColorFilter(Color.parseColor("#2A93FF"), PorterDuff.Mode.SRC_ATOP);
+        mAudioRate.getProgressDrawable().setColorFilter(getResources().getColor(R.color.blue1), PorterDuff.Mode.SRC_ATOP);
+        mFps.getThumb().setColorFilter(Color.parseColor("#2A93FF"), PorterDuff.Mode.SRC_ATOP);
+        mAudioRate.getProgressDrawable().setColorFilter(getResources().getColor(R.color.blue1), PorterDuff.Mode.SRC_ATOP);
     }
 
     @Override
@@ -348,7 +369,8 @@ public class PushConfigActivity extends BaseActivity1 {
             int id = view.getId();
             if (id == R.id.beginPublish) {//
                 if (getPushConfig() != null) {
-                    LivePushActivity.startActivity(PushConfigActivity.this, mAlivcLivePushConfig, mUrl.getText().toString(), mAsyncValue, mAudioOnlyPush, mVideoOnlyPush, mOrientationEnum, mCameraId, isFlash, mAuthTimeStr, mPrivacyKeyStr, mMixStream, mAlivcLivePushConfig.isExternMainStream());
+                    LivePushActivity.startActivity(PushConfigActivity.this, mAlivcLivePushConfig, SpUtil.getLiveUrl(PushConfigActivity.this), mAsyncValue, mAudioOnlyPush, mVideoOnlyPush, mOrientationEnum, mCameraId, isFlash, mAuthTimeStr, mPrivacyKeyStr, mMixStream, mAlivcLivePushConfig.isExternMainStream());
+//                    LivePushActivity.startActivity(PushConfigActivity.this, mAlivcLivePushConfig, SpUtil.getUrl(PushConfigActivity.this), mAsyncValue, mAudioOnlyPush, mVideoOnlyPush, mOrientationEnum, mCameraId, isFlash, mAuthTimeStr, mPrivacyKeyStr, mMixStream, mAlivcLivePushConfig.isExternMainStream());
                 }
 
             } else if (id == R.id.qr_code) {
@@ -400,7 +422,7 @@ public class PushConfigActivity extends BaseActivity1 {
             if(id == R.id.watermark_switch) {
                 if(mWaterPosition != null) {
                     mWaterPosition.setClickable(isChecked);
-                    mWaterPosition.setTextColor(isChecked ? getResources().getColor(R.color.text_blue) : getResources().getColor(R.color.darker_gray));
+                    mWaterPosition.setTextColor(isChecked ? getResources().getColor(R.color.white) : getResources().getColor(R.color.darker_gray));
                 }
             } else if(id == R.id.push_mirror_switch) {
                 mAlivcLivePushConfig.setPushMirror(isChecked);

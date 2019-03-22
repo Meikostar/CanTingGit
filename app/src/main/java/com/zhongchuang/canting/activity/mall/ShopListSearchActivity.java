@@ -8,7 +8,7 @@ import com.zhongchuang.canting.R;;
 import com.zhongchuang.canting.adapter.FragmentViewPagerAdapter;
 import com.zhongchuang.canting.base.BaseActivity1;
 import com.zhongchuang.canting.been.SubscriptionBean;
-import com.zhongchuang.canting.fragment.GoodFragment;
+import com.zhongchuang.canting.fragment.mall.GoodFragment;
 import com.zhongchuang.canting.presenter.OnChangeListener;
 import com.zhongchuang.canting.widget.GoodsSearchViews;
 import com.zhongchuang.canting.widget.NoScrollViewPager;

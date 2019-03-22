@@ -8,15 +8,15 @@
 
     <ImageView
         android:id="@+id/iv_left"
-        style="?android:attr/actionButtonStyle"
-        android:layout_width="21dp"
-        android:layout_height="28dp"
+        android:src="@drawable/fb_back"
+        android:layout_width="26dp"
+        android:layout_height="34dp"
         android:padding="7dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="10dp"
-        android:visibility="gone" />
+        android:layout_marginLeft="7dp"
+         />
     <TextView
         android:id="@+id/tv_left"
         style="?android:attr/actionButtonStyle"
@@ -52,6 +52,7 @@
         <!--android:paddingRight="@dimen/right_margin_profile_toolbar"-->
         <!--android:visibility="gone" />-->
     <Button
+        android:visibility="gone"
         android:id="@+id/iv_right"
         android:layout_width="wrap_content"
         android:minWidth="57.5dp"

@@ -1,8 +1,10 @@
 package com.zhongchuang.canting.fragment.mall;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
 import android.view.Gravity;
@@ -63,6 +65,7 @@ import com.zhongchuang.canting.widget.Custom_ProfileOrderClickBtn;
 import com.zhongchuang.canting.widget.MarkaBaseDialog;
 import com.zhongchuang.canting.widget.PhotoPopupWindow;
 import com.zhongchuang.canting.widget.RxBus;
+import com.zhongchuang.canting.widget.waitLoading.ShapeLoadingDialog;
 
 import java.io.File;
 import java.util.HashMap;
@@ -125,6 +128,8 @@ public class LiveMineFragments extends LazyFragment implements BaseContract.View
     RelativeLayout rlLive;
     @BindView(R.id.tv_video)
     TextView tvVideo;
+    @BindView(R.id.tv_videos)
+    TextView tvVideos;
     private BasesPresenter presenter;
 
     @Override
@@ -145,7 +150,8 @@ public class LiveMineFragments extends LazyFragment implements BaseContract.View
         tvVideo.setEnabled(false);
         setListener();
         initAssetPath();
-        copyAssets();
+
+//        copyAssets();
         return viewRoot;
     }
     private String[] mEffDirs;
@@ -297,11 +303,20 @@ public class LiveMineFragments extends LazyFragment implements BaseContract.View
             }
         });
 
+        tvVideos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), VideoRecordConfigActivity.class);
+                startActivity(intent);
+                mWindowAddPhoto.dismiss();
+            }
+        });
 
         tvApplication.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isAnchor();
+                showPopWindows();
+//                isAnchor();
             }
         });
     }
@@ -396,7 +411,10 @@ public class LiveMineFragments extends LazyFragment implements BaseContract.View
             @Override
             public void call(SubscriptionBean.RxBusSendBean bean) {
                 if (bean == null) return;
-                if (bean.type == SubscriptionBean.SIGN) {
+                if (bean.type == SubscriptionBean.DOWN_COMPELTE) {
+                    if(shapeLoadingDialog!=null&&shapeLoadingDialog.isShowing()){
+                        shapeLoadingDialog.dismiss();
+                    }
 
                 }
 
@@ -411,8 +429,26 @@ public class LiveMineFragments extends LazyFragment implements BaseContract.View
         mResolutionMode = AliyunSnapVideoParam.RESOLUTION_540P;
         mVideoQuality = VideoQuality.HD;
         mRatioMode = AliyunSnapVideoParam.RATIO_MODE_3_4;
-    }
+        shapeLoadingDialog = new ShapeLoadingDialog.Builder(getActivity())
+                .loadText("直播文件下载中...")
+                .build();
+        if( !CanTingAppLication.isComplete){
+            shapeLoadingDialog.show();
 
+        }
+
+        shapeLoadingDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                if( !CanTingAppLication.isComplete){
+                    shapeLoadingDialog.show();
+                }
+            }
+        });
+
+
+    }
+    private ShapeLoadingDialog shapeLoadingDialog;
     @Override
     public void onResume() {
         super.onResume();
@@ -523,6 +559,9 @@ public class LiveMineFragments extends LazyFragment implements BaseContract.View
         if (type == 19) {
             Ingegebean bean = (Ingegebean) entity;
             tvJf.setText(bean.direct_gift_integral);
+        } else if (type == 29) {
+            Intent intent = new Intent(getActivity(), PushConfigActivity.class);
+            startActivity(intent);
         } else {
             data = (Host) entity;
             SpUtil.putString(getActivity(), "room_id", data.room_info_id);
@@ -541,13 +580,14 @@ public class LiveMineFragments extends LazyFragment implements BaseContract.View
         TextView tv_choose = (TextView) view.findViewById(R.id.tv_choose);
         TextView tv_cancel = (TextView) view.findViewById(R.id.tv_cancel);
         tv_choose.setText(R.string.zb);
-        tv_camera.setText(R.string.lpzb);
+        tv_camera.setText(R.string.zbzdb);
         tv_camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                presenter.addLiveRecordVod();
+                presenter.addConfig();
 
-                Intent intent = new Intent(getActivity(), VideoRecordConfigActivity.class);
-                startActivity(intent);
+
                 mWindowAddPhoto.dismiss();
             }
         });

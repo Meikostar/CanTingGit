@@ -9,7 +9,7 @@
         android:layout_height="?android:attr/actionBarSize"
         android:background="@color/color_bg">
 
-        <ImageButton
+        <ImageView
             android:id="@+id/gallery_closeBtn"
             style="?android:attr/actionButtonStyle"
             android:layout_width="28dp"
@@ -18,7 +18,7 @@
             android:layout_gravity="left|center_vertical"
             android:layout_marginLeft="8dp"
             android:contentDescription="@null"
-            android:padding="9dp"
+            android:padding="11dp"
             android:src="@drawable/aliyun_svideo_icon_back" />
 
         <LinearLayout
@@ -35,7 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/white"
-                android:textSize="16sp" />
+                android:textSize="17sp" />
 
             <ImageView
                 android:id="@+id/gallery_drawer"
@@ -50,9 +50,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_gravity="center_vertical"
+            android:layout_centerVertical="true"
             android:layout_marginRight="8dp"
-            android:layout_marginTop="8dp"
+
             android:gravity="center_vertical"
             android:background="@drawable/aliyun_svideo_shape_next_button"
             android:minHeight="0dp"

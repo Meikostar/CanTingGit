@@ -5,7 +5,18 @@
         <item name="android:windowNoTitle">true</item>
     </style>
 
+    <style name="MySwitch" parent="Theme.AppCompat.Light">
+        <!-- Active thumb color & Active track color(30% transparency) switch 打开时的拇指按钮的颜色 轨迹颜色默认为30%这个颜色 -->
+        <item name="colorControlActivated">@color/theme_color_green</item>
 
+        <!-- Inactive thumb color switch关闭时的拇指按钮的颜色 -->
+        <item name="colorSwitchThumbNormal">@color/theme_color_gray</item>
+
+        <!-- Inactive track color(30% transparency) switch关闭时的轨迹的颜色 30%这个颜色 -->
+        <item name="android:colorForeground">@color/theme_color_gray</item>
+
+        <!--使用方法： 在布局文件中给需要自定义控件中增加app:theme="@style/MySwitch"-->
+    </style>
     <style name="bottom_dialog_animation">
         <item name="android:windowEnterAnimation">@anim/aliyun_svideo_anim_trans_from_bottom</item>
         <item name="android:windowExitAnimation">@anim/aliyun_svideo_anim_layout_bottom_out</item>

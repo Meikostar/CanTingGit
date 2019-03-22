@@ -8,7 +8,9 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.aliyun.common.utils.StorageUtils;
+import com.zhongchuang.canting.R;
+import com.zhongchuang.canting.app.CanTingAppLication;;import java.io.File;
 
 
 /**
@@ -40,8 +42,8 @@ public class CostumTextView extends TextView {
             Typeface mtf = null;
             if (fontType == -1) {
             } else if (fontType == 0) {
-                mtf = Typeface.createFromAsset(context.getAssets(),
-                        "fonts/ifun_ban.TTF");
+                mtf = Typeface.createFromFile(StorageUtils.getCacheDirectory(CanTingAppLication.getInstance()).getAbsolutePath() + File.separator+
+                        "live/fonts/ifun_ban.TTF");
 //            }
 //            else if (fontType == 1) {
 //                mtf = Typeface.createFromAsset(context.getAssets(),
@@ -53,8 +55,8 @@ public class CostumTextView extends TextView {
 //                mtf = Typeface.createFromAsset(context.getAssets(),
 //                        "fonts/HYQIHEI-70S.OTF");
             } else if (fontType == 4) {
-                mtf = Typeface.createFromAsset(context.getAssets(),
-                        "fonts/ifun_jianti.TTF");
+                mtf = Typeface.createFromFile(StorageUtils.getCacheDirectory(CanTingAppLication.getInstance()).getAbsolutePath() + File.separator+
+                        "live/fonts/ifun_jianti.TTF");
             }
             if (mtf != null) {
                 super.setTypeface(mtf);

@@ -322,6 +322,29 @@
                  android:gravity="center"
                  android:layout_height="wrap_content">
                  <RelativeLayout
+
+                     android:layout_gravity="center_horizontal"
+                     android:layout_centerVertical="true"
+
+                     android:layout_width="75dp"
+                     android:layout_height="75dp">
+                     <ImageView
+                         android:layout_width="70dp"
+                         android:layout_height="70dp"
+                         android:src="@drawable/lives_bg" />
+
+                     <TextView
+                         android:id="@+id/tv_videos"
+                         android:layout_width="69dp"
+                         android:layout_height="70dp"
+                         android:gravity="center"
+                         android:text="屏内\n直播"
+                         android:textColor="@color/white"
+                         android:textSize="15sp" />
+
+                 </RelativeLayout>
+                 <RelativeLayout
+                     android:layout_marginLeft="30dp"
                      android:id="@+id/rl_live"
                      android:layout_gravity="center_horizontal"
                      android:layout_centerVertical="true"
@@ -343,7 +366,7 @@
 
                  </RelativeLayout>
                  <RelativeLayout
-                     android:layout_marginLeft="70dp"
+                     android:layout_marginLeft="30dp"
                      android:layout_gravity="center_horizontal"
                      android:layout_centerVertical="true"
 

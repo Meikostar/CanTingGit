@@ -35,6 +35,9 @@ public class SubscriptionBean {
     public static int FRIEND_RESH=1294;
     public static int SEND_DEL=1295;
     public static int PAYSET_FIN=1296;
+    public static int DOWN_COMPELTE=1297;
+    public static int LIVE_SEND_FRESH=1298;
+    public static int LIVE_FINISH=1299;
     /**
      * 重新登入
      */

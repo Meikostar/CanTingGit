@@ -32,6 +32,7 @@ import com.zhongchuang.canting.app.CanTingAppLication;
 import com.zhongchuang.canting.been.Banner;
 import com.zhongchuang.canting.been.GrapRed;
 import com.zhongchuang.canting.been.RedInfo;
+import com.zhongchuang.canting.been.SubscriptionBean;
 import com.zhongchuang.canting.easeui.Constant;
 import com.zhongchuang.canting.easeui.DemoHelper;
 import com.zhongchuang.canting.easeui.EaseConstant;
@@ -56,6 +57,7 @@ import com.zhongchuang.canting.utils.SpUtil;
 import com.zhongchuang.canting.utils.TextUtil;
 import com.zhongchuang.canting.widget.BaseDailogManager;
 import com.zhongchuang.canting.widget.MarkaBaseDialog;
+import com.zhongchuang.canting.widget.RxBus;
 import com.zhongchuang.canting.widget.banner.BannerBaseAdapter;
 import com.zhongchuang.canting.widget.red.CustomDialog;
 import com.zhongchuang.canting.widget.red.OnRedPacketDialogClickListener;
@@ -64,6 +66,8 @@ import com.zhongchuang.canting.widget.red.RedPacketViewHolder;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 ;
 
@@ -194,9 +198,11 @@ public class LiveChatRoomFragment extends EaseChatFragment implements EaseChatFr
         //keep exist extend menu
         return false;
     }
-
+   private ExecutorService fixedThreadPool = Executors.newFixedThreadPool(5);
     public void sendMessages(String content) {
-        EMMessage message = EMMessage.createTxtSendMessage(content, toChatUsername);
+
+
+      final   EMMessage message = EMMessage.createTxtSendMessage(content, toChatUsername);
         if (message == null) {
             return;
         }
@@ -208,10 +214,29 @@ public class LiveChatRoomFragment extends EaseChatFragment implements EaseChatFr
         EMMessage msg = HxMessageUtils.exMsg(message, mChatmsg);
         //send message
         EMClient.getInstance().chatManager().sendMessage(message);
-        //refresh ui
-        if (isMessageListInited) {
-            messageList.refreshSelectLast();
+        if(content.equals("*&@@&*")||content.contains("&!&&!&")){
+            fixedThreadPool.execute(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Thread.sleep(50);
+                    } catch (InterruptedException e) {
+                        EMConversation conv = EMClient.getInstance().chatManager().getConversation(message.getTo());
+                        conv.removeMessage(message.getMsgId());
+                    }
+                }
+            });
+
+            return;
+        }else {
+            if (isMessageListInited) {
+                messageList.refreshSelectLast();
+            }
         }
+
+
+        //refresh ui
+
     }
 
     @Override

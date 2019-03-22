@@ -20,7 +20,7 @@ import java.io.OutputStream;
 public class Common {
     public final static String SD_DIR = Environment.getExternalStorageDirectory().getPath()
             + "/";
-    public final static String QU_NAME = "AliyunDemo";
+    public final static String QU_NAME = "live";
     public final static String QU_DIR = SD_DIR + QU_NAME + "/";
     static private void copyFileToSD(Context cxt, String src, String dst) throws IOException
     {
@@ -74,7 +74,7 @@ public class Common {
         File dir = new File(Common.QU_DIR);
         if (!dir.exists())
         {
-            copySelf(cxt,QU_NAME);
+//            copySelf(cxt,QU_NAME);
             dir.mkdirs();
         }
 

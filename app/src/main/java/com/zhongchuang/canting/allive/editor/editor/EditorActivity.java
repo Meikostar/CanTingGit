@@ -95,6 +95,8 @@ import com.aliyun.struct.effect.EffectPaster;
 import com.aliyun.struct.effect.EffectPicture;
 import com.aliyun.struct.encoder.VideoCodecs;
 import com.duanqu.transcode.NativeParser;
+import com.zhongchuang.canting.been.SubscriptionBean;
+import com.zhongchuang.canting.widget.RxBus;
 import com.zhongchuang.canting.widget.waitLoading.ShapeLoadingDialog;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -107,6 +109,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import rx.Subscription;
+import rx.functions.Action1;
 
 public class EditorActivity extends FragmentActivity implements
         OnTabChangeListener, OnEffectChangeListener, BottomAnimation, View.OnClickListener, OnAnimationFilterRestored {
@@ -174,7 +179,7 @@ public class EditorActivity extends FragmentActivity implements
 //        String[] models = {Build.MODEL};
 //        NativeAdaptiveUtil.decoderAdaptiveList(models, new int[]{0});//强制使用硬解码
         Dispatcher.getInstance().register(this);
-        mWatermarkFile = new File(StorageUtils.getCacheDirectory(EditorActivity.this) + "/AliyunEditorDemo/tail/logo.png");
+        mWatermarkFile = new File(StorageUtils.getCacheDirectory(EditorActivity.this) + "/live/tail/logo.png");
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -193,64 +198,31 @@ public class EditorActivity extends FragmentActivity implements
         }
         mTempFilePaths = intent.getStringArrayListExtra(KEY_TEMP_FILE_LIST);
         initView();
+        mSubscription = RxBus.getInstance().toObserverable(SubscriptionBean.RxBusSendBean.class).subscribe(new Action1<SubscriptionBean.RxBusSendBean>() {
+            @Override
+            public void call(SubscriptionBean.RxBusSendBean bean) {
+                if (bean == null) return;
+                if (bean.type == SubscriptionBean.LIVE_FINISH) {
+                    finish();
+                }
 
+            }
+        }, new Action1<Throwable>() {
+            @Override
+            public void call(Throwable throwable) {
+                throwable.printStackTrace();
+            }
+        });
+        RxBus.getInstance().addSubscription(mSubscription);
         initListView();
         add2Control();
         initEditor();
         mMediaScanner = new MediaScannerConnection(this, null);
         mMediaScanner.connect();
         copyAssets();
-//        final Runnable r3 = new Runnable() {
-//            @Override
-//            public void run() {
-//                mAliyunIEditor.setDisplayView(mTextureView);
-//            }
-//        };
-//
-//        final Runnable r2 = new Runnable() {
-//            @Override
-//            public void run() {
-//                mAliyunIEditor.setDisplayView(mSurfaceView2);
-//                mSurfaceView.postDelayed(r3, 5000);
-//            }
-//        };
-//        Runnable r1 = new Runnable() {
-//            @Override
-//            public void run() {
-//                LayoutParams params = mSurfaceView.getLayoutParams();
-//                params.width = 960;
-//                params.height = 540;
-//                mSurfaceView.postDelayed(r2, 5000);
-//                mSurfaceView.requestLayout();
-//            }
-//        };
-//
-//
-//        mSurfaceView2 = findViewById(R.id.play_view_2);
-//        mSurfaceView2.setZOrderMediaOverlay(true);
-//        mTextureView = findViewById(R.id.play_view_3);
-//        mSurfaceView.postDelayed(r1, 5000);
 
-
-//        EffectBean music1 = new EffectBean();
-//        music1.setDuration(3000 * 1000);
-//        music1.setPath("/sdcard/1.mp3");
-//        music1.setStartTime(1000 * 1000);
-//        music1.setStreamStartTime(3000 * 1000);
-//        music1.setStreamDuration(6000 * 1000);
-//        music1.setWeight(100);
-//        mAliyunIEditor.applyMusic(music1);
-
-
-//        EffectBean music2 = new EffectBean();
-//        music2.setDuration(3000 * 1000);
-//        music2.setPath("/sdcard/2.mp3");
-//        music2.setStartTime(7000 * 1000);
-//        music2.setStreamStartTime(13000 * 1000);
-//        music2.setStreamDuration(16000 * 1000);
-//        music2.setWeight(100);
-//        mAliyunIEditor.applyMusic(music2);
     }
+    private Subscription mSubscription;
 
     private void initView() {
         mEditor = (RelativeLayout) findViewById(R.id.activity_editor);
@@ -368,29 +340,7 @@ public class EditorActivity extends FragmentActivity implements
         mSurfaceView.setLayoutParams(surfaceLayout);
     }
 
-//
-//    @Override
-//    public boolean onKeyDown(int keyCode, KeyEvent event) {
-//        switch (keyCode) {
-//            case KEYCODE_VOLUME_DOWN:
-//                mVolume -= 5;
-//                if (mVolume < 0) {
-//                    mVolume = 0;
-//                }
-//                Log.d("xxffdd", "volume down, current volume = " + mVolume);
-//                mAliyunIEditor.setVolume(mVolume);
-//                return true;
-//            case KEYCODE_VOLUME_UP:
-//                mVolume += 5;
-//                if (mVolume > 100) {
-//                    mVolume = 100;
-//                }
-//                Log.d("xxffdd", "volume up, current volume = " + mVolume);
-//                mAliyunIEditor.setVolume(mVolume);
-//            default:
-//                return super.onKeyDown(keyCode, event);
-//        }
-//    }
+
 
     private void initListView() {
         mEditorService = new EditorService();
@@ -594,7 +544,7 @@ public class EditorActivity extends FragmentActivity implements
 
 //        if (mWatermarkFile.exists()) {
 //            if (mWatermarkBitmap == null) {
-//                mWatermarkBitmap = BitmapFactory.decodeFile(StorageUtils.getCacheDirectory(EditorActivity.this) + "/AliyunEditorDemo/tail/logo.png");
+//                mWatermarkBitmap = BitmapFactory.decodeFile(StorageUtils.getCacheDirectory(EditorActivity.this) + "/live/tail/logo.png");
 //            }
 //            mSurfaceView.post(new Runnable() {
 //                @Override
@@ -602,7 +552,7 @@ public class EditorActivity extends FragmentActivity implements
 //                    /**
 //                     * 水印例子 水印的大小为 ：水印图片的宽高和显示区域的宽高比，注意保持图片的比例，不然显示不完全  水印的位置为 ：以水印图片中心点为基准，显示区域宽高的比例为偏移量，0,0为左上角，1,1为右下角
 //                     */
-//                    mAliyunIEditor.applyWaterMark(StorageUtils.getCacheDirectory(EditorActivity.this) + "/AliyunEditorDemo/tail/logo.png",
+//                    mAliyunIEditor.applyWaterMark(StorageUtils.getCacheDirectory(EditorActivity.this) + "/live/tail/logo.png",
 //                            (float) mWatermarkBitmap.getWidth() / (mSurfaceView.getMeasuredWidth() * 2),/*用水印图片大小/SurfaceView的大小，得到的就是水印图片相对于surfaceView的归一化大小*/
 //                            (float) mWatermarkBitmap.getHeight() / (mSurfaceView.getMeasuredHeight() * 2),
 ////                            1f - (float) mWatermarkBitmap.getWidth() / (mSurfaceView.getMeasuredWidth() * 4),//水印位于右边
@@ -610,7 +560,7 @@ public class EditorActivity extends FragmentActivity implements
 //                            100.f / mSurfaceView.getMeasuredHeight());//Demo中这套参数表示size是图片原始大小，位置是x轴靠右边，y轴从上往下偏移100像素
 //
 //
-//                    mAliyunIEditor.addTailWaterMark(StorageUtils.getCacheDirectory(EditorActivity.this) + "/AliyunEditorDemo/tail/logo.png",
+//                    mAliyunIEditor.addTailWaterMark(StorageUtils.getCacheDirectory(EditorActivity.this) + "/live/tail/logo.png",
 //                            (float) mWatermarkBitmap.getWidth() / mSurfaceView.getMeasuredWidth(),
 //                            (float) mWatermarkBitmap.getHeight() / mSurfaceView.getMeasuredHeight(), 0.5f,
 //                            0.5f, 2000 * 1000);
@@ -707,7 +657,9 @@ public class EditorActivity extends FragmentActivity implements
         if (mAliyunIEditor != null) {
             mAliyunIEditor.onDestroy();
         }
-
+        if (mSubscription != null) {
+            mSubscription.unsubscribe();
+        }
         if (mAnimationFilterController != null) {
             mAnimationFilterController.destroyController();
         }

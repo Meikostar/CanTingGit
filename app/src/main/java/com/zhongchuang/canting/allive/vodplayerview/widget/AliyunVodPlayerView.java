@@ -32,8 +32,8 @@ import com.zhongchuang.canting.allive.vodplayerview.utils.NetWatchdog;
 import com.zhongchuang.canting.allive.vodplayerview.utils.OrientationWatchDog;
 import com.zhongchuang.canting.allive.vodplayerview.utils.ScreenUtils;
 import com.zhongchuang.canting.allive.vodplayerview.view.GestureDialogManager;
-import com.zhongchuang.canting.allive.vodplayerview.view.control.ControlView;
-import com.zhongchuang.canting.allive.vodplayerview.view.control.ControlView.OnDownloadClickListener;
+import com.zhongchuang.canting.allive.vodplayerview.view.control.ControlLiveView;
+import com.zhongchuang.canting.allive.vodplayerview.view.control.ControlLiveView.OnDownloadClickListener;
 import com.zhongchuang.canting.allive.vodplayerview.view.gesture.GestureView;
 import com.zhongchuang.canting.allive.vodplayerview.view.guide.GuideView;
 import com.zhongchuang.canting.allive.vodplayerview.view.interfaces.ViewAction;
@@ -64,7 +64,7 @@ import java.util.concurrent.ExecutorService;
  * 通过ITheme控制各个界面的主题色。
  * 通过各种view的组合实现UI的界面。这些view包括：
  * 用户手势操作的{@link GestureView}
- * 控制播放，显示信息的{@link ControlView}
+ * 控制播放，显示信息的{@link ControlLiveView}
  * 显示清晰度列表的{@link QualityView}
  * 倍速选择界面{@link SpeedView}
  * 用户使用引导页面{@link GuideView}
@@ -82,7 +82,7 @@ public class AliyunVodPlayerView extends RelativeLayout implements ITheme {
     //手势操作view
     private GestureView mGestureView;
     //皮肤view
-    private ControlView mControlView;
+    private ControlLiveView mControlView;
     //清晰度view
     private QualityView mQualityView;
     //倍速选择view
@@ -143,7 +143,7 @@ public class AliyunVodPlayerView extends RelativeLayout implements ITheme {
     // 连网断网监听
     private NetConnectedListener mNetConnectedListener = null;
     // 横屏状态点击更多
-    private ControlView.OnShowMoreClickListener mOutOnShowMoreClickListener;
+    private ControlLiveView.OnShowMoreClickListener mOutOnShowMoreClickListener;
     private float currentSpeed;
     private int currentVolume;
     private int currentScreenBrigtness;
@@ -259,7 +259,7 @@ public class AliyunVodPlayerView extends RelativeLayout implements ITheme {
     }
 
     public void updateScreenShow() {
-        mControlView.updateDownloadBtn();
+//        mControlView.updateDownloadBtn();
     }
 
 
@@ -322,8 +322,8 @@ public class AliyunVodPlayerView extends RelativeLayout implements ITheme {
         pause();
 
         //隐藏其他的动作,防止点击界面去进行其他操作
-        mGestureView.hide(ControlView.HideType.Normal);
-        mControlView.hide(ControlView.HideType.Normal);
+        mGestureView.hide(ControlLiveView.HideType.Normal);
+        mControlView.hide(ControlLiveView.HideType.Normal);
 
         //显示网络变化的提示
         if (mTipsView != null) {
@@ -638,18 +638,18 @@ public class AliyunVodPlayerView extends RelativeLayout implements ITheme {
      * 初始化控制栏view
      */
     private void initControlView() {
-        mControlView = new ControlView(getContext());
+        mControlView = new ControlLiveView(getContext());
         addSubView(mControlView);
 
         //设置播放按钮点击
-        mControlView.setOnPlayStateClickListener(new ControlView.OnPlayStateClickListener() {
+        mControlView.setOnPlayStateClickListener(new ControlLiveView.OnPlayStateClickListener() {
             @Override
             public void onPlayStateClick() {
                 switchPlayerState();
             }
         });
         //设置进度条的seek监听
-        mControlView.setOnSeekListener(new ControlView.OnSeekListener() {
+        mControlView.setOnSeekListener(new ControlLiveView.OnSeekListener() {
             @Override
             public void onSeekEnd(int position) {
                 mControlView.setVideoPosition(position);
@@ -674,7 +674,7 @@ public class AliyunVodPlayerView extends RelativeLayout implements ITheme {
             }
         });
         //菜单按钮点击
-        mControlView.setOnMenuClickListener(new ControlView.OnMenuClickListener() {
+        mControlView.setOnMenuClickListener(new ControlLiveView.OnMenuClickListener() {
             @Override
             public void onMenuClick() {
                 //点击之后显示倍速界面
@@ -711,7 +711,7 @@ public class AliyunVodPlayerView extends RelativeLayout implements ITheme {
             }
         });
         //清晰度按钮点击
-        mControlView.setOnQualityBtnClickListener(new ControlView.OnQualityBtnClickListener() {
+        mControlView.setOnQualityBtnClickListener(new ControlLiveView.OnQualityBtnClickListener() {
 
             @Override
             public void onQualityBtnClick(View v, List<String> qualities, String currentQuality) {
@@ -726,14 +726,14 @@ public class AliyunVodPlayerView extends RelativeLayout implements ITheme {
             }
         });
         //点击锁屏的按钮
-        mControlView.setOnScreenLockClickListener(new ControlView.OnScreenLockClickListener() {
+        mControlView.setOnScreenLockClickListener(new ControlLiveView.OnScreenLockClickListener() {
             @Override
             public void onClick() {
                 lockScreen(!mIsFullScreenLocked);
             }
         });
         //点击全屏/小屏按钮
-        mControlView.setOnScreenModeClickListener(new ControlView.OnScreenModeClickListener() {
+        mControlView.setOnScreenModeClickListener(new ControlLiveView.OnScreenModeClickListener() {
             @Override
             public void onClick() {
                 AliyunScreenMode targetMode;
@@ -752,7 +752,7 @@ public class AliyunVodPlayerView extends RelativeLayout implements ITheme {
             }
         });
         //点击了标题栏的返回按钮
-        mControlView.setOnBackClickListener(new ControlView.OnBackClickListener() {
+        mControlView.setOnBackClickListener(new ControlLiveView.OnBackClickListener() {
             @Override
             public void onClick() {
 
@@ -774,7 +774,7 @@ public class AliyunVodPlayerView extends RelativeLayout implements ITheme {
         });
 
         // 横屏下显示更多
-        mControlView.setOnShowMoreClickListener(new ControlView.OnShowMoreClickListener() {
+        mControlView.setOnShowMoreClickListener(new ControlLiveView.OnShowMoreClickListener() {
             @Override
             public void showMore() {
                 if (mOutOnShowMoreClickListener != null) {
@@ -962,7 +962,7 @@ public class AliyunVodPlayerView extends RelativeLayout implements ITheme {
                 if (mControlView.getVisibility() != VISIBLE) {
                     mControlView.show();
                 } else {
-                    mControlView.hide(ControlView.HideType.Normal);
+                    mControlView.hide(ControlLiveView.HideType.Normal);
                 }
             }
 
@@ -1079,7 +1079,7 @@ public class AliyunVodPlayerView extends RelativeLayout implements ITheme {
         mAliyunVodPlayer.setOnTimeExpiredErrorListener(new IAliyunVodPlayer.OnTimeExpiredErrorListener() {
             @Override
             public void onTimeExpiredError() {
-                VcPlayerLog.d(TAG, "过期了！！");
+
                 if (mOutTimeExpiredErrorListener != null) {
                     mOutTimeExpiredErrorListener.onTimeExpiredError();
                 }
@@ -1196,7 +1196,7 @@ public class AliyunVodPlayerView extends RelativeLayout implements ITheme {
                 mControlView.show();
                 mControlView.setMediaInfo(mAliyunMediaInfo, mAliyunVodPlayer.getCurrentQuality());
                 //重播自动开始播放,需要设置播放状态
-                mControlView.setPlayState(ControlView.PlayState.Playing);
+                mControlView.setPlayState(ControlLiveView.PlayState.Playing);
                 //开始启动更新进度的定时器
                 startProgressUpdateTimer();
                 if (mOutRePlayListener != null) {
@@ -1209,7 +1209,7 @@ public class AliyunVodPlayerView extends RelativeLayout implements ITheme {
             @Override
             public void onAutoPlayStarted() {
                 //自动播放开始,需要设置播放状态
-                mControlView.setPlayState(ControlView.PlayState.Playing);
+                mControlView.setPlayState(ControlLiveView.PlayState.Playing);
                 if (mOutAutoPlayListener != null) {
                     mOutAutoPlayListener.onAutoPlayStarted();
                 }
@@ -1359,7 +1359,7 @@ public class AliyunVodPlayerView extends RelativeLayout implements ITheme {
         pause();
         stop();
 
-        mControlView.setPlayState(ControlView.PlayState.NotPlaying);
+        mControlView.setPlayState(ControlLiveView.PlayState.NotPlaying);
 
 
         if (mTipsView != null) {
@@ -2025,7 +2025,7 @@ public class AliyunVodPlayerView extends RelativeLayout implements ITheme {
      */
     public void start() {
 
-        mControlView.setPlayState(ControlView.PlayState.Playing);
+        mControlView.setPlayState(ControlLiveView.PlayState.Playing);
         //显示其他的动作
         mGestureView.show();
         mControlView.show();
@@ -2046,7 +2046,7 @@ public class AliyunVodPlayerView extends RelativeLayout implements ITheme {
      * 暂停播放
      */
     public void pause() {
-        mControlView.setPlayState(ControlView.PlayState.NotPlaying);
+        mControlView.setPlayState(ControlLiveView.PlayState.NotPlaying);
 
         if (mAliyunVodPlayer == null) {
             return;
@@ -2065,7 +2065,7 @@ public class AliyunVodPlayerView extends RelativeLayout implements ITheme {
         if (mAliyunVodPlayer != null) {
             mAliyunVodPlayer.stop();
 
-            mControlView.setPlayState(ControlView.PlayState.NotPlaying);
+            mControlView.setPlayState(ControlLiveView.PlayState.NotPlaying);
         }
     }
 
@@ -2354,7 +2354,7 @@ public class AliyunVodPlayerView extends RelativeLayout implements ITheme {
     }
 
     public void setOnShowMoreClickListener(
-        ControlView.OnShowMoreClickListener listener) {
+            ControlLiveView.OnShowMoreClickListener listener) {
         this.mOutOnShowMoreClickListener = listener;
     }
 }

@@ -66,8 +66,10 @@ import com.zhongchuang.canting.been.ZhiBo_GuanZhongBean;
 import com.zhongchuang.canting.been.ZhiBo_ZhuboBean;
 import com.zhongchuang.canting.been.ZhuBo_Live_Start;
 import com.zhongchuang.canting.been.ZhuBo_Live_Stop;
+import com.zhongchuang.canting.been.aliLive;
 import com.zhongchuang.canting.been.apply;
 import com.zhongchuang.canting.been.pay.alipay;
+import com.zhongchuang.canting.been.videobean;
 import com.zhongchuang.canting.easeui.bean.GROUP;
 
 
@@ -121,7 +123,7 @@ public interface netService {
 //    public static final String TOM_BASE_URL = "http://120.77.222.116:8080/ifun/";
 
 
-    public static final String TOM_BASE_URL = "http://119.23.212.8:8080/ifun/";
+//    public static final String TOM_BASE_URL = "http://119.23.212.8:8080/ifun/";
 //    public static final String TOM_BASE_URL = "http://47.107.249.69:8080/ifun/";
 
 //    public static final String TOM_BASE_URL = "http://192.168.50.157:8080/ifun/";
@@ -133,7 +135,7 @@ public interface netService {
 
 //    public static final String TOM_BASE_URL = "http://119.23.235.1:8089/ifun/";
 
-//        public static final String TOM_BASE_URL = "http://192.168.50.145:8080/ifun/";
+        public static final String TOM_BASE_URL = "http://192.168.50.145:8080/ifun/";
 
 //    public static final String TOM_BASE_URL = "http://192.168.50.193:8780/ifun/";
 //    public static final String TOM_BASE_URL = "http://192.168.50.79:8780/ifun/";
@@ -1008,5 +1010,38 @@ public interface netService {
     @FormUrlEncoded
     @POST("wap/redEnvelope/grab")
     Call<GrapRed> redGrab(@FieldMap Map<String, String> opt);
+
+    /**
+     * 阿里直播相关接口
+     */
+
+    @FormUrlEncoded
+    @POST("wap/course/pushUrl")
+    Call<aliLive> getPushUrl(@FieldMap Map<String, String> opt);
+
+    @FormUrlEncoded
+    @POST("wap/liveRecord/addConfig")
+    Call<aliLive> addConfig(@FieldMap Map<String, String> opt);
+    @FormUrlEncoded
+
+    @POST("wap/liveRecordVod/addLiveRecordVod")
+    Call<aliLive> addLiveRecordVod(@FieldMap Map<String, String> opt);
+
+    @FormUrlEncoded
+    @POST("wap/course/liveUrl")
+    Call<aliLive> getLiveUrl(@FieldMap Map<String, String> opt);
+
+    @FormUrlEncoded
+    @POST("wap/course/getLiveToken")
+    Call<aliLive> getLiveToken(@FieldMap Map<String, String> opt);
+
+    @FormUrlEncoded
+    @POST("wap/video/uploadVideo")
+    Call<BaseResponse> uploadVideo(@FieldMap Map<String, String> opt);
+
+    @FormUrlEncoded
+    @POST("wap/video/getVideoList")
+    Call<videobean> getVideoList(@FieldMap Map<String, String> opt);
+
 
 }

@@ -14,25 +14,24 @@
 
         <ImageView
             android:id="@+id/alivc_title_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_back" />
+            android:layout_width="28dp"
+            android:padding="8dp"
+            android:layout_height="37dp"
+            android:src="@drawable/back_white" />
 
         <TextView
             android:id="@+id/alivc_title_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/alivc_titlebar_title_left_margin"
-            android:layout_marginLeft="@dimen/alivc_titlebar_title_left_margin"
-            android:layout_marginRight="@dimen/alivc_titlebar_title_left_margin"
-            android:layout_marginStart="@dimen/alivc_titlebar_title_left_margin"
+
             android:layout_weight="1"
             android:ellipsize="end"
             android:maxLines="1"
-            android:textColor="@color/alivc_white"
-            android:textSize="@dimen/alivc_titlebar_font_size" />
+            android:textColor="@color/white"
+            android:textSize="15sp" />
 
         <ImageView
+            android:visibility="gone"
             android:id="@+id/alivc_title_download"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -41,17 +40,17 @@
 
         <ImageView
             android:id="@+id/alivc_title_more"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/alivc_titlebar_title_right_margin"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:padding="3dp"
             android:src="@drawable/alivc_more"
-            android:visibility="gone" />
+             />
     </LinearLayout>
 
     <ImageView
         android:id="@+id/alivc_screen_lock"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
@@ -180,6 +179,7 @@
         android:layout_marginRight="@dimen/alivc_screen_lock_left_margin">
 
         <ImageView
+            android:visibility="gone"
             android:id="@+id/alivc_screen_shot"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -188,6 +188,7 @@
             />
 
         <ImageView
+            android:visibility="gone"
             android:layout_marginTop="4dp"
             android:id="@+id/alivc_screen_recoder"
             android:layout_width="wrap_content"

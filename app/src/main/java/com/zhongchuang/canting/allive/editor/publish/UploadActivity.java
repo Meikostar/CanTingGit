@@ -28,6 +28,12 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.zhongchuang.canting.app.CanTingAppLication;
+import com.zhongchuang.canting.been.aliLive;
+import com.zhongchuang.canting.presenter.OtherContract;
+import com.zhongchuang.canting.presenter.OtherPresenter;
+import com.zhongchuang.canting.utils.TextUtil;
+import com.zhongchuang.canting.utils.TimeUtil;
 
 import java.io.IOException;
 import java.util.UUID;
@@ -36,7 +42,7 @@ import java.util.UUID;
  * Created by macpro on 2017/11/8.
  */
 
-public class UploadActivity extends Activity {
+public class UploadActivity extends Activity implements  OtherContract.View {
 
     public static final String KEY_UPLOAD_VIDEO = "video_path";
     public static final String KEY_UPLOAD_THUMBNAIL = "video_thumbnail";
@@ -54,12 +60,13 @@ public class UploadActivity extends Activity {
     private String mDesc;
     private boolean mIsUpload;
     private AliyunICompose mComposeClient;
-
+   private OtherPresenter presenter;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.aliyun_svideo_activity_upload);
-
+        presenter=new OtherPresenter(this);
+        presenter.getLiveToken();
         initView();
         mVideoPath = getIntent().getStringExtra(KEY_UPLOAD_VIDEO);
         mThumbnailPath = getIntent().getStringExtra(KEY_UPLOAD_THUMBNAIL);
@@ -68,9 +75,9 @@ public class UploadActivity extends Activity {
 
         mTextureView.setSurfaceTextureListener(mlistener);
         mComposeClient = ComposeFactory.INSTANCE.getInstance();
-        startUpload();
-    }
 
+    }
+   private String token;
     private void initView(){
         mTitle = (TextView) findViewById(R.id.tv_center);
         mTitle.setVisibility(View.VISIBLE);
@@ -90,16 +97,7 @@ public class UploadActivity extends Activity {
         mProgressText = (TextView) findViewById(R.id.progress_text);
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        Intent intent = new Intent();
-        //intent.setAction("com.duanqu.qupai.action.main");
-        // 跳转到home页面, 此处需求可能存在问题
-        intent.setAction("com.aliyun.alivcsolution.main");
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-    }
+
 
     @Override
     protected void onStart() {
@@ -140,93 +138,19 @@ public class UploadActivity extends Activity {
         mComposeClient.release();
     }
 
-    private SecurityTokenInfo getTokenInfo(String json){
-        Gson gson = new Gson();
-        JsonParser parser = new JsonParser();
-        try{
-            JsonElement jsonElement = parser.parse(json);
-            JsonObject obj = jsonElement.getAsJsonObject();
-            SecurityTokenInfo tokenInfo = gson.fromJson(obj.get("SecurityTokenInfo"), SecurityTokenInfo.class);
-            Log.d(AliyunTag.TAG, tokenInfo.toString());
-            return tokenInfo;
-        }catch (Exception e) {
-            Log.e(AliyunTag.TAG, "Get token info failed, json :"+json, e);
-            return null;
-        }
-    }
 
-    private void startUpload(){
-        RequestParams params = new RequestParams();
-        params.addFormDataPart("BusinessType", "vodai");
-        params.addFormDataPart("TerminalType", "andorid");
-        params.addFormDataPart("DeviceModel", Build.MODEL);
-        params.addFormDataPart("UUID", Build.ID);
-        params.addFormDataPart("AppVersion", "1.0.0");
-        HttpRequest.get("http://106.15.81.230/voddemo/CreateSecurityToken",
-                params, new StringHttpRequestCallback(){
-                    @Override
-                    protected void onSuccess(String s) {
-                        super.onSuccess(s);
-                        Log.d(AliyunTag.TAG, s);
-                        SecurityTokenInfo tokenInfo = getTokenInfo(s);
-                        if(tokenInfo != null) {
-                            String requestID = UUID.randomUUID().toString();
-                            SvideoInfo info = new SvideoInfo();
-                            info.setTitle("video");
-                            info.setDesc(mDesc);
-                            info.setCateId(1);
-                            int rv = mComposeClient.uploadWithVideoAndImg(
-                                    mThumbnailPath,
-                                    tokenInfo.getAccessKeyId(),
-                                    tokenInfo.getAccessKeySecret(),
-                                    tokenInfo.getSecurityToken(),
-                                    tokenInfo.getExpiration(),
-                                    info, false,
-                                    mUploadCallback);
-                            if(rv < 0){
-                                Log.d(AliyunTag.TAG, "上传参数错误 video path : " + mVideoPath + " thumbnailk : " + mThumbnailPath);
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        ToastUtil.showToast(UploadActivity.this, "上传参数错误");
-                                    }
-                                });
-                            }else{
-                                mIsUpload = true;
-                            }
 
-                        }else {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    ToastUtil.showToast(UploadActivity.this, "Get STS token failed");
-                                }
-                            });
-                            Log.e(AliyunTag.TAG, "Get token info failed");
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(int errorCode, String msg) {
-                        super.onFailure(errorCode, msg);
-                        Log.e(AliyunTag.TAG, "Get token info failed, errorCode:"+errorCode+", msg:"+msg);
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                ToastUtil.showToast(UploadActivity.this, "Get STS token failed");
-                            }
-                        });
-                    }
-                });
-    }
 
     private final AliyunICompose.AliyunIUploadCallBack mUploadCallback = new AliyunICompose.AliyunIUploadCallBack() {
         @Override
         public void onUploadSucceed(String videoId, String imageUrl) {
+            String imageUrls=imageUrl;
+            String videoIds=videoId;
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     mProgress.setVisibility(View.GONE);
+
                     mProgressText.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.aliyun_svideo_icon_composite_success, 0, 0, 0);
                     mProgressText.setText(R.string.upload_success);
                     mProgressText.postDelayed(new Runnable() {
@@ -284,28 +208,7 @@ public class UploadActivity extends Activity {
 
         @Override
         public void onSTSTokenExpired() {
-            HttpRequest.get("http://106.15.81.230/voddemo/CreateSecurityToken?BusinessType=vodai&TerminalType=pc&DeviceModel=iPhone9,2&UUID=67999yyuuuy&AppVersion=1.0.0",
-                    new StringHttpRequestCallback(){
-                        @Override
-                        protected void onSuccess(String s) {
-                            super.onSuccess(s);
-                            SecurityTokenInfo info = getTokenInfo(s);
-                            if(info != null) {
-                                mComposeClient.refreshSTSToken(info.getAccessKeyId(),
-                                        info.getAccessKeySecret(),
-                                        info.getSecurityToken(),
-                                        info.getExpiration());
-                            }else {
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        ToastUtil.showToast(UploadActivity.this, "Refresh STS token failed");
-                                    }
-                                });
-                                Log.e(AliyunTag.TAG, "Get token info failed");
-                            }
-                        }
-                    });
+
         }
     };
 
@@ -367,4 +270,33 @@ public class UploadActivity extends Activity {
         }
     };
 
+    @Override
+    public <T> void toEntity(T entity, int type) {
+        SvideoInfo info = new SvideoInfo();
+        info.setTitle("video");
+        info.setDesc(mDesc);
+        info.setCateId(1);
+        aliLive aliLive= (aliLive) entity;
+        if(aliLive!=null&& TextUtil.isNotEmpty(aliLive.token)){
+            token=aliLive.token;
+            int rv = mComposeClient.uploadWithVideoAndImg(
+                    mThumbnailPath,
+                    CanTingAppLication.sk,
+                    CanTingAppLication.stcry,
+                    token,
+                    TimeUtil.formatTime(System.currentTimeMillis()),
+                    info, false,
+                    mUploadCallback);
+        }
+    }
+
+    @Override
+    public void toNextStep(int type) {
+
+    }
+
+    @Override
+    public void showTomast(String msg) {
+
+    }
 }

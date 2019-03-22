@@ -2,11 +2,13 @@ package com.zhongchuang.canting.allive.pusher.ui.fragment;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -28,6 +30,7 @@ import com.alivc.live.pusher.AlivcLivePushInfoListener;
 import com.alivc.live.pusher.AlivcLivePushNetworkListener;
 import com.alivc.live.pusher.AlivcLivePusher;
 import com.zhongchuang.canting.R;
+import com.zhongchuang.canting.activity.live.LiveChatRoomFragment;
 import com.zhongchuang.canting.allive.core.module.BeautyParams;
 import com.zhongchuang.canting.allive.core.utils.AnimUitls;
 import com.zhongchuang.canting.allive.pusher.listener.DialogVisibleListener;
@@ -37,6 +40,16 @@ import com.zhongchuang.canting.allive.pusher.ui.myview.PushAnswerGameDialog;
 import com.zhongchuang.canting.allive.pusher.ui.myview.PushBeautyDialog;
 import com.zhongchuang.canting.allive.pusher.ui.myview.PushMoreDialog;
 import com.zhongchuang.canting.allive.pusher.utils.SharedPreferenceUtils;
+import com.zhongchuang.canting.been.FriendInfo;
+import com.zhongchuang.canting.been.Gift;
+import com.zhongchuang.canting.been.SubscriptionBean;
+import com.zhongchuang.canting.easeui.Constant;
+import com.zhongchuang.canting.easeui.EaseConstant;
+import com.zhongchuang.canting.easeui.bean.CHATMESSAGE;
+import com.zhongchuang.canting.easeui.ui.EaseChatFragment;
+import com.zhongchuang.canting.utils.TextUtil;
+import com.zhongchuang.canting.widget.GiftItemView;
+import com.zhongchuang.canting.widget.RxBus;
 
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 
@@ -48,11 +61,17 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.Random;
 import java.util.Vector;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import rx.Subscription;
+import rx.functions.Action1;
+import tyrantgit.widget.HeartLayout;
 
 import static com.alivc.live.pusher.AlivcLivePushCameraTypeEnum.CAMERA_TYPE_BACK;
 import static com.alivc.live.pusher.AlivcLivePushCameraTypeEnum.CAMERA_TYPE_FRONT;
@@ -77,6 +96,8 @@ public class LivePushFragment extends Fragment implements Runnable {
     private ImageView mMusic;
     private ImageView mFlash;
     private ImageView mCamera;
+    private HeartLayout heartLayout;
+    private GiftItemView giftView;
     private ImageView mBeautyButton;
     private TextView mAnswer;
     private LinearLayout mTopBar;
@@ -146,6 +167,7 @@ public class LivePushFragment extends Fragment implements Runnable {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        gifts = new ArrayList<>();
         if(getArguments() != null) {
             mPushUrl = getArguments().getString(URL_KEY);
             mTempUrl = mPushUrl;
@@ -168,25 +190,83 @@ public class LivePushFragment extends Fragment implements Runnable {
             mAlivcLivePusher.setLivePushBGMListener(mPushBGMListener);
             isPushing = mAlivcLivePusher.isPushing();
         }
+        startYUV(getActivity());
+        go2Chat("");
+        mSubscription = RxBus.getInstance().toObserverable(SubscriptionBean.RxBusSendBean.class).subscribe(new Action1<SubscriptionBean.RxBusSendBean>() {
+            @Override
+            public void call(SubscriptionBean.RxBusSendBean bean) {
+                if (bean == null) return;
+                if (bean.type == SubscriptionBean.LIVE_SEND_FRESH) {
+                 String content= (String) bean.content;
+                    if(TextUtil.isNotEmpty(content)){
+                        String[] split = content.split(",");
+                        Gift gift = new Gift();
+                        if (split != null) {
+                            if (split.length == 2) {
+                                gift.giftname = split[1];
+                                gift.gift_image = split[0];
 
-        if(mMixExtern) {
-            //startYUV(getActivity());
-            //startYUV2(getActivity());
-        }
+                            } else {
+                                gift.gift_image = split[1];
+                            }
+                        }
+                        if (!gifts.contains(gift)) {
+                            gifts.add(gift);
+                            giftView.setGift(gift);
+                            giftView.addNum(1);
+                        }
+
+                    }else {
+                        heartLayout.addHeart(randomColor());
+                    }
+
+                }
+
+            }
+        }, new Action1<Throwable>() {
+            @Override
+            public void call(Throwable throwable) {
+                throwable.printStackTrace();
+            }
+        });
+        RxBus.getInstance().addSubscription(mSubscription);
+//        if(mMixExtern) {
+//
+//            //startYUV2(getActivity());
+//        }
+
     }
+    private Subscription mSubscription;
+    private ArrayList<Gift> gifts;
+    private LiveChatRoomFragment chatFragment;
+    private void go2Chat(String username) {
+        FriendInfo info= new FriendInfo();
+        info.friendsId="76431921053697";
+        CHATMESSAGE chatmessage= CHATMESSAGE.fromLogin(info);
+        chatFragment = new LiveChatRoomFragment();
+        getActivity().getIntent().putExtra(EaseConstant.EXTRA_CHAT_TYPE, Constant.CHATTYPE_CHATROOM);
+        getActivity().getIntent().putExtra(EaseConstant.EXTRA_CHATMSG, chatmessage);
+        getActivity().getIntent().putExtra("group_id", "76431921053697");
+        //pass parameters to chat fragment
+        chatFragment.setArguments( getActivity().getIntent().getExtras());
 
+        getActivity().getSupportFragmentManager().beginTransaction().add(R.id.container, chatFragment).commit();
+    }
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.push_fragment,container, false);
     }
-
+    private Random mRandom;
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mExit = (ImageView) view.findViewById(R.id.exit);
         mMusic = (ImageView) view.findViewById(R.id.music);
         mFlash = (ImageView) view.findViewById(R.id.flash);
+        heartLayout = (HeartLayout) view.findViewById(R.id.heart_layout);
+        giftView = (GiftItemView) view.findViewById(R.id.gift_item_first);
+        mRandom=new Random();
         mFlash.setSelected(isFlash);
         mCamera = (ImageView) view.findViewById(R.id.camera);
         mCamera.setSelected(true);
@@ -232,7 +312,7 @@ public class LivePushFragment extends Fragment implements Runnable {
 //                }
 //            });
 //        }
-
+//
         if(mVideoOnly)
         {
             mMusic.setVisibility(View.GONE);
@@ -333,7 +413,7 @@ public class LivePushFragment extends Fragment implements Runnable {
                                     mAlivcLivePusher.startPreview(mSurfaceView);
                                 }
                                 if (mMixExtern) {
-                                    //startYUV(getActivity());
+//                                    startYUV(getActivity());
                                 }
                             }
 
@@ -555,6 +635,14 @@ public class LivePushFragment extends Fragment implements Runnable {
         }
     };
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (mSubscription != null) {
+            RxBus.getInstance().unSub(mSubscription);
+        }
+    }
+
     AlivcLivePushErrorListener mPushErrorListener = new AlivcLivePushErrorListener() {
 
         @Override
@@ -678,22 +766,24 @@ public class LivePushFragment extends Fragment implements Runnable {
             mExecutorService.shutdown();
         }
     }
-
+    private int randomColor() {
+        return Color.rgb(mRandom.nextInt(255), mRandom.nextInt(255), mRandom.nextInt(255));
+    }
     private void showToast(final String text) {
-        if(getActivity() == null || text == null) {
-            return;
-        }
-        Handler handler = new Handler(Looper.getMainLooper());
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                if(getActivity() != null) {
-                    Toast toast = Toast.makeText(getActivity(), text, Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.CENTER, 0, 0);
-                    toast.show();
-                }
-            }
-        });
+//        if(getActivity() == null || text == null) {
+//            return;
+//        }
+//        Handler handler = new Handler(Looper.getMainLooper());
+//        handler.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                if(getActivity() != null) {
+//                    Toast toast = Toast.makeText(getActivity(), text, Toast.LENGTH_SHORT);
+//                    toast.setGravity(Gravity.CENTER, 0, 0);
+//                    toast.show();
+//                }
+//            }
+//        });
     }
 
     private void showToastShort(final String text) {
@@ -889,102 +979,30 @@ public class LivePushFragment extends Fragment implements Runnable {
         }
         return mTempUrl;
     }
+    private Handler handler=new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(Message msg) {
+            mPushButton.performClick();
+            return false;
+        }
+    });
 
-    /*public void startYUV(final Context context) {
+    public void startYUV(final Context context) {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     Thread.sleep(1000);
+                    handler.sendEmptyMessage(1);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                videoThreadOn = true;
-                byte[] yuv;
-                int mixvideId = 0;
-                InputStream myInput = null;
-                try {
-                    File f = new File("/sdcard/alivc_resource/capture0.yuv");
-                    myInput = new FileInputStream(f);
-                    mixvideId = mAlivcLivePusher.addMixVideo(AlivcImageFormat.IMAGE_FORMAT_YUVNV12,720,1280,0,0.5f,0.5f,0.3f,0.3f);
-                    byte[] buffer = new byte[1280*720*3/2];
-                    int length = myInput.read(buffer);
-                    //发数据
-                    while(length > 0 && videoThreadOn)
-                    {
-                        mAlivcLivePusher.inputMixVideoData(mixvideId,buffer,720,1280, 1280*720*3/2,System.nanoTime()/1000,0);
-                        try {
-                            Thread.sleep(40);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        //发数据
-                        length = myInput.read(buffer);
-                        if(length < 1280*720*3/2)
-                        {
-                            mAlivcLivePusher.removeMixVideo(mixvideId);
-                            return;
-                        }
-                    }
-                    myInput.close();
-                    videoThreadOn = false;
-                    mAlivcLivePusher.removeMixVideo(mixvideId);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+
             }
         }).start();
 
     }
 
-    public void startYUV2(final Context context) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                videoThreadOn2 = true;
-                byte[] yuv;
-                int mixvideId = 0;
-                InputStream myInput = null;
-                try {
-                    File f = new File("/sdcard/alivc_resource/capture0.yuv");
-                    myInput = new FileInputStream(f);
-                    mixvideId = mAlivcLivePusher.addMixVideo(AlivcImageFormat.IMAGE_FORMAT_YUVNV12,720,1280,0,0.2f,0.2f,0.3f,0.3f);
-                    byte[] buffer = new byte[1280*720*3/2];
-                    int length = myInput.read(buffer);
-                    //发数据
-                    while(length > 0 && videoThreadOn2)
-                    {
-                        mAlivcLivePusher.inputMixVideoData(mixvideId,buffer,720, 1280, 1280*720*3/2,System.nanoTime()/1000,0);
-                        try {
-                            Thread.sleep(40);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        //发数据
-                        length = myInput.read(buffer);
-                        if(length < 1280*720*3/2)
-                        {
-                            myInput.close();
-                            myInput = new FileInputStream(f);
-                            length = myInput.read(buffer);
-                        }
-                    }
-                    mAlivcLivePusher.removeMixVideo(mixvideId);
-                    myInput.close();
-                    videoThreadOn2 = false;
-                    mAlivcLivePusher.removeMixVideo(mixvideId);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-
-    }*/
 
     private void stopYUV() {
         videoThreadOn = false;
@@ -1132,7 +1150,7 @@ public class LivePushFragment extends Fragment implements Runnable {
             if (mBottomMenu!=null&&mBottomMenu.getVisibility()!=View.VISIBLE){
 
                 AnimUitls.startAppearAnimY(mBottomMenu);
-                mBottomMenu.setVisibility(View.VISIBLE);
+                mBottomMenu.setVisibility(View.GONE);
             }
         } else {
 

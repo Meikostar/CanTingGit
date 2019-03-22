@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:gravity="center_horizontal"
     android:orientation="vertical"
+    android:id="@+id/ll_bg"
     android:paddingTop="13dp" >
 
     <TextView
@@ -52,7 +53,7 @@
                 android:textSize="15sp" />
         </RelativeLayout>
 
-       <!--  <TextView
+         <TextView
             android:id="@+id/tv_userid"
             android:visibility="gone"
             style="@style/chat_text_name_style"
@@ -60,7 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="15dp"
             android:layout_toLeftOf="@id/iv_userhead"
-            android:text="xxx" /> -->
+            android:text="xxx" />
 
         <ImageView
             android:id="@+id/msg_status"

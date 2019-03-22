@@ -25,12 +25,15 @@ import com.malinskiy.superrecyclerview.OnMoreListener;
 import com.malinskiy.superrecyclerview.SuperRecyclerView;
 import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.adapter.recycle.GiftReCycleAdapter;
+import com.zhongchuang.canting.adapter.recycle.VideoCycleAdapter;
 import com.zhongchuang.canting.allive.importer.MediaActivity;
 import com.zhongchuang.canting.allive.recorder.AliyunVideoRecorder;
 import com.zhongchuang.canting.allive.recorder.util.Common;
+import com.zhongchuang.canting.allive.vodplayerview.activity.AliyunPlayerSkinActivity;
 import com.zhongchuang.canting.base.BaseActivity1;
 import com.zhongchuang.canting.been.Hand;
 import com.zhongchuang.canting.been.Hands;
+import com.zhongchuang.canting.been.videobean;
 import com.zhongchuang.canting.presenter.BaseContract;
 import com.zhongchuang.canting.presenter.BasesPresenter;
 import com.zhongchuang.canting.widget.DivItemDecoration;
@@ -87,12 +90,20 @@ public class MineVideoActivity extends BaseActivity1 implements BaseContract.Vie
         tvSend.setEnabled(false);
         layoutManager = new LinearLayoutManager(this);
         mSuperRecyclerView.setLayoutManager(layoutManager);
-        mSuperRecyclerView.addItemDecoration(new DivItemDecoration(2, true));
+//        mSuperRecyclerView.addItemDecoration(new DivItemDecoration(2, true));
 
         mSuperRecyclerView.getMoreProgressView().getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
         presenter = new BasesPresenter(this);
 
-        adapter = new GiftReCycleAdapter(this);
+        adapter = new VideoCycleAdapter(this);
+        adapter.setTakeListener(new VideoCycleAdapter.TakeawayListener() {
+            @Override
+            public void listener(int poistion) {
+                Intent intent = new Intent(MineVideoActivity.this, AliyunPlayerSkinActivity.class);
+                intent.putExtra("url",datas.get(poistion).video_url);
+                startActivity(intent);
+            }
+        });
         mSuperRecyclerView.setAdapter(adapter);
         refreshListener = new SwipeRefreshLayout.OnRefreshListener() {
 
@@ -100,7 +111,7 @@ public class MineVideoActivity extends BaseActivity1 implements BaseContract.Vie
             public void onRefresh() {
                 //  mSuperRecyclerView.showMoreProgress();
                 currpage = 1;
-                presenter.getGiftDetailedList(currpage + "", TYPE_PULL_REFRESH);
+                presenter.getVideoList(TYPE_PULL_REFRESH,currpage + "");
 
 
             }
@@ -269,21 +280,21 @@ public class MineVideoActivity extends BaseActivity1 implements BaseContract.Vie
 
     }
 
-    private GiftReCycleAdapter adapter;
+    private VideoCycleAdapter adapter;
 
-    private List<Hand> datas = new ArrayList<>();
+    private List<videobean> datas = new ArrayList<>();
     private int cout = 12;
 
-    public void onDataLoaded(int loadType, final boolean haveNext, List<Hand> list) {
+    public void onDataLoaded(int loadType, final boolean haveNext, List<videobean> list) {
 
         if (loadType == TYPE_PULL_REFRESH) {
             currpage = 1;
             datas.clear();
-            for (Hand info : list) {
+            for (videobean info : list) {
                 datas.add(info);
             }
         } else {
-            for (Hand info : list) {
+            for (videobean info : list) {
                 datas.add(info);
             }
         }
@@ -307,7 +318,8 @@ public class MineVideoActivity extends BaseActivity1 implements BaseContract.Vie
                 public void onMoreAsked(int overallItemsCount, int itemsBeforeMore, int maxLastVisiblePosition) {
                     currpage++;
                     mSuperRecyclerView.showMoreProgress();
-                    presenter.getGiftDetailedList(currpage + "", TYPE_PULL_MORE);
+                    presenter.getVideoList(TYPE_PULL_MORE,currpage + "");
+
 
                 }
             }, 1);
@@ -344,13 +356,13 @@ public class MineVideoActivity extends BaseActivity1 implements BaseContract.Vie
 
     @Override
     public <T> void toEntity(T entity, int type) {
-        Hands data = (Hands) entity;
-        if (data != null && data.giftList != null) {
-            onDataLoaded(type, cout == data.giftList.size(), data.giftList);
+        List<videobean> data = (List<videobean>) entity;
+        if (data != null && data.size()>0) {
+            onDataLoaded(type, cout == data.size(),data);
 
         } else {
             adapter.notifyDataSetChanged();
-            loadingView.setContent(getString(R.string.zwsj));
+            loadingView.setContent("您还没有录播视频");
             loadingView.showPager(LoadingPager.STATE_EMPTY);
         }
     }

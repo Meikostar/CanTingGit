@@ -59,5 +59,29 @@ public class OtherContract {
          * @param redEnvelopeId
          */
         void getLuckInfo(String redEnvelopeId);
+
+        /**
+         * 阿里获取直播推流接口
+         */
+        void getPushUrl();
+
+        /**
+         * 阿里获取拉流接口
+         */
+        void getLiveUrl();
+        /**
+         * 增加直播录制转点播配置接口
+         */
+        void addLiveRecordVod();
+
+        /**
+         * 获取token接口
+         */
+        void getLiveToken();
+
+        /**
+         * 获取token接口
+         */
+        void uploadVideo(String coverImage,String videoName,String videoUrl);
     }
 }

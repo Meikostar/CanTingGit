@@ -2,9 +2,11 @@ package com.zhongchuang.canting.fragment.message;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -73,6 +75,9 @@ public class QFriendCircleFragment extends BaseFragment implements BaseContract.
     ImageView ivImg;
     @BindView(R.id.ll_bg)
     LinearLayout llBg;
+    @BindView(R.id.rl_bg)
+    RelativeLayout rl_bg;
+
     @BindView(R.id.tv_cout)
     TextView tvCout;
 
@@ -110,6 +115,7 @@ public class QFriendCircleFragment extends BaseFragment implements BaseContract.
         super.onCreate(savedInstanceState);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_qfridnd, null);
@@ -119,6 +125,9 @@ public class QFriendCircleFragment extends BaseFragment implements BaseContract.
         if (type != 0) {
             ivBack.setVisibility(View.VISIBLE);
             tvTitle.setText(R.string.wdllq);
+        }
+        if(type==6){
+            rl_bg.setVisibility(View.GONE);
         }
         if (TextUtil.isNotEmpty(conts)) {
             ivBack.setVisibility(View.VISIBLE);
@@ -130,6 +139,7 @@ public class QFriendCircleFragment extends BaseFragment implements BaseContract.
             tvTitle.setText(R.string.tdllq);
             tvSend.setVisibility(View.GONE);
         }
+//        mSuperRecyclerView.setNestedScrollingEnabled(false);
         bindEvents();
         return view;
     }

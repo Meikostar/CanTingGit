@@ -51,6 +51,9 @@ public class Transcoder {
     public void addMedia(MediaInfo mediaInfo) {
         mOriginalVideos.add(mediaInfo);
     }
+    public List<MediaInfo> getData(){
+        return mOriginalVideos;
+    }
 
     public boolean isTranscode() {
         return isTranscode;

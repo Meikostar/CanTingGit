@@ -319,5 +319,19 @@ public class BaseContract {
         void verifyPassword(String paymentPassword);
 
         void setLanguge(String languge);
+
+        /**
+         * 增加直播录制转点播配置接口
+         */
+        void addLiveRecordVod();
+        /**
+         * 增加直播录制配置接口
+         */
+        void addConfig();
+
+        /**
+         * 获取视频列表接口
+         */
+        void getVideoList(final int type, String pageNum);
     }
 }

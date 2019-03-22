@@ -135,6 +135,7 @@ public abstract class EaseChatRow extends LinearLayout {
             }else {
                 EaseUserUtils.setUserAvatar(context, HxMessageUtils.getMyAvater(message), userAvatarView);
             }
+            usernickView.setTextColor(getResources().getColor(R.color.colorSendName7));
             EaseUserUtils.setUserNick(SpUtil.getName(context), usernickView);
         }else{
             if(message.getUserName().equals("ifun")){
@@ -147,6 +148,7 @@ public abstract class EaseChatRow extends LinearLayout {
             }else {
                 EaseUserUtils.setUserAvatar(context, HxMessageUtils.getFAvater(message), userAvatarView);
             }
+            usernickView.setTextColor(getResources().getColor(R.color.t_blue));
             EaseUserUtils.setUserNick(HxMessageUtils.getFName(message), usernickView);
         }
 

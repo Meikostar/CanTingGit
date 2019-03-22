@@ -38,6 +38,9 @@ public class SpUtil {
     public static String getAvar(Context context){
         return getString(context,"ava","");
     }
+    public static String getLiveUrl(Context context){
+        return getString(context,"live_url","");
+    }
     public static String getName(Context context){
         return getString(context,"name","");
     }

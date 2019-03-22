@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -27,6 +28,8 @@ import com.zhongchuang.canting.allive.vodplayerview.view.quality.QualityItem;
 import com.zhongchuang.canting.allive.vodplayerview.widget.AliyunScreenMode;
 import com.zhongchuang.canting.allive.vodplayerview.widget.AliyunVodPlayerView;
 import com.aliyun.vodplayer.media.AliyunMediaInfo;
+import com.zhongchuang.canting.utils.DensityUtil;
+import com.zhongchuang.canting.utils.StringUtil;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -685,8 +688,17 @@ public class ControlView extends RelativeLayout implements ViewAction, ITheme {
      */
     private void updateScreenModeBtn() {
         if (mAliyunScreenMode == AliyunScreenMode.Full) {
+            LinearLayout.LayoutParams params= (LinearLayout.LayoutParams) mScreenModeBtn.getLayoutParams();
+            params.weight= DensityUtil.dip2px(25);//设置当前控件布局的高度
+            params.height= DensityUtil.dip2px(25);//设置当前控件布局的高度
+            mScreenModeBtn.setLayoutParams(params);//将设置好的布局参数应用到控件中
+
             mScreenModeBtn.setImageResource(R.drawable.alivc_screen_mode_small);
         } else {
+            LinearLayout.LayoutParams params= (LinearLayout.LayoutParams) mScreenModeBtn.getLayoutParams();
+            params.weight= DensityUtil.dip2px(18);//设置当前控件布局的高度
+            params.height= DensityUtil.dip2px(18);//设置当前控件布局的高度
+            mScreenModeBtn.setLayoutParams(params);//将设置好的布局参数应用到控件中
             mScreenModeBtn.setImageResource(R.drawable.alivc_screen_mode_large);
         }
     }

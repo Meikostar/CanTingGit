@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,8 +19,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -29,18 +27,16 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alivc.player.VcPlayerLog;
-import com.hyphenate.chat.EMClient;
-import com.hyphenate.chat.EMGroup;
-import com.hyphenate.chat.EMGroupManager;
+import com.bumptech.glide.Glide;
 import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.adapter.FragmentViewPagerAdapter;
 import com.zhongchuang.canting.allive.vodplayerview.constants.PlayParameter;
@@ -52,7 +48,7 @@ import com.zhongchuang.canting.allive.vodplayerview.utils.ScreenUtils;
 import com.zhongchuang.canting.allive.vodplayerview.utils.VidStsUtil;
 import com.zhongchuang.canting.allive.vodplayerview.utils.download.DownloadDBHelper;
 import com.zhongchuang.canting.allive.vodplayerview.view.choice.AlivcShowMoreDialog;
-import com.zhongchuang.canting.allive.vodplayerview.view.control.ControlView;
+import com.zhongchuang.canting.allive.vodplayerview.view.control.ControlLiveView;
 import com.zhongchuang.canting.allive.vodplayerview.view.download.AddDownloadView;
 import com.zhongchuang.canting.allive.vodplayerview.view.download.AlivcDialog;
 import com.zhongchuang.canting.allive.vodplayerview.view.download.AlivcDialog.onCancelOnclickListener;
@@ -78,9 +74,23 @@ import com.aliyun.vodplayer.downloader.AliyunRefreshStsCallback;
 import com.aliyun.vodplayer.media.AliyunLocalSource;
 import com.aliyun.vodplayer.media.AliyunVidSts;
 import com.aliyun.vodplayer.media.IAliyunVodPlayer;
+import com.zhongchuang.canting.app.CanTingAppLication;
 import com.zhongchuang.canting.base.StatusBarUtil;
-import com.zhongchuang.canting.fragment.ChatFragments;
-import com.zhongchuang.canting.fragment.GoodFragment;
+import com.zhongchuang.canting.been.BEAN;
+import com.zhongchuang.canting.been.ShareBean;
+import com.zhongchuang.canting.been.aliLive;
+import com.zhongchuang.canting.fragment.live.ChatFragments;
+import com.zhongchuang.canting.fragment.live.ZBLiveFragment;
+import com.zhongchuang.canting.fragment.mall.GoodFragment;
+import com.zhongchuang.canting.fragment.mall.HandFragment;
+import com.zhongchuang.canting.net.BaseCallBack;
+import com.zhongchuang.canting.net.HttpUtil;
+import com.zhongchuang.canting.net.netService;
+import com.zhongchuang.canting.presenter.OtherContract;
+import com.zhongchuang.canting.presenter.OtherPresenter;
+import com.zhongchuang.canting.utils.StringUtil;
+import com.zhongchuang.canting.utils.TextUtil;
+import com.zhongchuang.canting.viewcallback.CareListener;
 import com.zhongchuang.canting.widget.NoScrollViewPager;
 
 import java.io.File;
@@ -89,19 +99,31 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
  * 播放器和播放列表界面 Created by Mulberry on 2018/4/9.
  */
-public class AliyunPlayerSkinActivity extends AppCompatActivity {
+public class AliyunPlayerSkinActivity extends AppCompatActivity implements  OtherContract.View {
 
     private DownloadDBHelper dbHelper;
     private AliyunDownloadConfig config;
     private PlayerHandler playerHandler;
     private DownloadView dialogDownloadView;
     private AlivcShowMoreDialog showMoreDialog;
+    private String url;
+    private String id;
+
+
+    public void setCareListener(CareListener listener){
+        this.listener=listener;
+    }
+
+
+    private CareListener listener;
     private boolean isStrangePhone() {
         boolean strangePhone = "mx5".equalsIgnoreCase(Build.DEVICE)
             || "Redmi Note2".equalsIgnoreCase(Build.DEVICE)
@@ -121,6 +143,8 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity {
     private AliyunScreenMode currentScreenMode = AliyunScreenMode.Small;
 
     private AliyunVodPlayerView mAliyunVodPlayerView = null;
+    private TextView tvCare ;
+    private FrameLayout flbg ;
 
     private DownloadDataProvider downloadDataProvider;
     private AliyunDownloadManager downloadManager;
@@ -137,7 +161,7 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity {
      */
     private static final int CODE_RESULT_TYPE_VID = 100;
     private static final int CODE_RESULT_TYPE_URL = 200;
-    private static final String DEFAULT_URL = "http://player.alicdn.com/video/aliyunmedia.mp4";
+    private static  String DEFAULT_URL = "rtmp://alive.chushenduojin.cn/zx/live_1234567?auth_key=1552975791-0-0-034983b047ea69b08db7f2cb52c08751";
     private static final String DEFAULT_VID = "6e783360c811449d8692b2117acc9212";
     /**
      * get StsToken stats
@@ -158,17 +182,23 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity {
         } else {
             setTheme(R.style.NoActionTheme);
         }
-        copyAssets();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.alivc_player_layout_skin);
 
-        requestVidSts();
+        url=getIntent().getStringExtra("url");
+        presenter=   new OtherPresenter(this);
+        presenter.getLiveUrl();
         dbHelper = DownloadDBHelper.getDownloadHelper(getApplicationContext(), 1);
         initAliyunPlayerView();
         inittab();
-        initViewPager();
-        selectPosition(0);
+
+
+        if(TextUtil.isNotEmpty(url)){
+            DEFAULT_URL=url;
+            setPlaySource();
+            loadPlayList();
+        }
 
     }
     /**
@@ -243,19 +273,19 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity {
     private FragmentViewPagerAdapter mainViewPagerAdapter;
     private List<Fragment> mFragments;
     private ChatFragments chatFragments;
-    private GoodFragment countFragment;
-    private GoodFragment priceFragment;
+    private ZBLiveFragment countFragment;
+    private HandFragment handFragment1;
 
     private void addFragment() {
         mFragments = new ArrayList<>();
         chatFragments = new ChatFragments();
-        countFragment = new GoodFragment();
-
-        priceFragment = new GoodFragment();
-
+        chatFragments.setRoomId(room_id);
+        countFragment = new ZBLiveFragment();
+        handFragment1 = new HandFragment(this);
+        handFragment1.setType(2);
         mFragments.add(chatFragments);
         mFragments.add(countFragment);
-        mFragments.add(priceFragment);
+        mFragments.add(handFragment1);
 
     }
     public void initViewPager(){
@@ -305,49 +335,17 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity {
             }
         });
     }
-    private void copyAssets() {
-        Commen.getInstance(getApplicationContext()).copyAssetsToSD("encrypt", "aliyun").setFileOperateCallback(
-
-            new Commen.FileOperateCallback() {
-                @Override
-                public void onSuccess() {
-                    config = new AliyunDownloadConfig();
-                    config.setSecretImagePath(
-                        Environment.getExternalStorageDirectory().getAbsolutePath() + "/aliyun/encryptedApp.dat");
-                    //        config.setDownloadPassword("123456789");
-                    File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/test_save/");
-                    if (!file.exists()) {
-                        file.mkdir();
-                    }
-                    config.setDownloadDir(file.getAbsolutePath());
-                    //设置同时下载个数
-                    config.setMaxNums(2);
-                    // 获取AliyunDownloadManager对象
-                    downloadManager = AliyunDownloadManager.getInstance(getApplicationContext());
-                    downloadManager.setDownloadConfig(config);
-
-                    downloadDataProvider = DownloadDataProvider.getSingleton(getApplicationContext());
-                    // 更新sts回调
-                    downloadManager.setRefreshStsCallback(new MyRefreshStsCallback());
-
-                    Log.e("Test", "assets copyt success");
-                }
-
-                @Override
-                public void onFailed(String error) {
-                    Log.e("Test", "assets copyt error, msg:::::" + error);
-                }
-            });
-    }
     private NoScrollViewPager viewpagerMain;
     private void initAliyunPlayerView() {
         mAliyunVodPlayerView = (AliyunVodPlayerView)findViewById(R.id.video_view);
+        tvCare = (TextView)findViewById(R.id.tv_care);
+        flbg = (FrameLayout) findViewById(R.id.fl_bg);
 
         //保持屏幕敞亮
         mAliyunVodPlayerView.setKeepScreenOn(true);
         PlayParameter.PLAY_PARAM_URL = DEFAULT_URL;
         String sdDir = Environment.getExternalStorageDirectory().getAbsolutePath() + "/test_save_cache";
-        mAliyunVodPlayerView.setPlayingCache(false, sdDir, 60 * 60 /*时长, s */, 300 /*大小，MB*/);
+        mAliyunVodPlayerView.setPlayingCache(false, sdDir, 60 * 60 /*时长, s */, 900 /*大小，MB*/);
         mAliyunVodPlayerView.setTheme(AliyunVodPlayerView.Theme.Blue);
         //mAliyunVodPlayerView.setCirclePlay(true);
         mAliyunVodPlayerView.setAutoPlay(true);
@@ -363,9 +361,42 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity {
         mAliyunVodPlayerView.setOnUrlTimeExpiredListener(new MyOnUrlTimeExpiredListener(this));
         mAliyunVodPlayerView.setOnShowMoreClickListener(new MyShowMoreClickLisener(this));
         mAliyunVodPlayerView.enableNativeLog();
+        flbg.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+            }
+        });
     }
+    public void getDirIndexInfo() {
 
+        Map<String, String> map = new HashMap<>();
+        map.put("userInfoId", CanTingAppLication.userId);
+        map.put("roomInfoId", id);
+
+        netService api = HttpUtil.getInstance().create(netService.class);
+        api.getDirIndexInfo(map).enqueue(new BaseCallBack<BEAN>() {
+            @Override
+            public void onSuccess(BEAN bean) {
+                    BEAN data = bean.data;
+                    ShareBean shareBean = new ShareBean();
+                    shareBean.img_=data.room_image;
+                    shareBean.content_=data.direct_see_name+"正在智信直播，快来观看吧！";
+                    shareBean.title_=data.direct_see_name;
+                    shareBean.url_="http://119.23.212.8:8088/cloudOne/index.html";
+                    CanTingAppLication.shareBean=shareBean;
+
+
+
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+//                ToastUtils.showNormalToast(t);
+            }
+        });
+    }
     /**
      * 请求sts
      */
@@ -562,6 +593,34 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity {
 
         });
     }
+    private OtherPresenter presenter;
+    private String room_id;
+    @Override
+    public <T> void toEntity(T entity, int type) {
+        aliLive aliLive= (aliLive) entity;
+        if(aliLive!=null&& aliLive.liveUrl!=null){
+            DEFAULT_URL=aliLive.liveUrl.rtmp_url;
+            room_id=aliLive.liveUrl.chatrooms_id;
+            if(TextUtil.isEmpty(url)){
+                setPlaySource();
+                loadPlayList();
+            }
+            initViewPager();
+            selectPosition(0);
+        }
+    }
+
+    @Override
+    public void toNextStep(int type) {
+
+    }
+
+    @Override
+    public void showTomast(String msg) {
+
+    }
+
+
 
     private static class MyPrepareListener implements IAliyunVodPlayer.OnPreparedListener {
 
@@ -926,23 +985,6 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity {
         }
     }
 
-    private static class MyRefreshStsCallback implements AliyunRefreshStsCallback {
-
-        @Override
-        public AliyunVidSts refreshSts(String vid, String quality, String format, String title, boolean encript) {
-            VcPlayerLog.d("refreshSts ", "refreshSts , vid = " + vid);
-            //NOTE: 注意：这个不能启动线程去请求。因为这个方法已经在线程中调用了。
-            AliyunVidSts vidSts = VidStsUtil.getVidSts(vid);
-            if (vidSts == null) {
-                return null;
-            } else {
-                vidSts.setVid(vid);
-                vidSts.setQuality(quality);
-                vidSts.setTitle(title);
-                return vidSts;
-            }
-        }
-    }
 
     private void onStopped() {
         Toast.makeText(AliyunPlayerSkinActivity.this.getApplicationContext(), R.string.log_play_stopped,
@@ -952,8 +994,9 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity {
     private void setPlaySource() {
         if ("localSource".equals(PlayParameter.PLAY_PARAM_TYPE)) {
             AliyunLocalSource.AliyunLocalSourceBuilder alsb = new AliyunLocalSource.AliyunLocalSourceBuilder();
-            alsb.setSource(PlayParameter.PLAY_PARAM_URL);
-            Uri uri = Uri.parse(PlayParameter.PLAY_PARAM_URL);
+            alsb.setSource(DEFAULT_URL);
+            
+            Uri uri = Uri.parse(DEFAULT_URL);
             if ("rtmp".equals(uri.getScheme())) {
                 alsb.setTitle("");
             }
@@ -1278,7 +1321,7 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity {
 
     }
 
-    private static class MyShowMoreClickLisener implements ControlView.OnShowMoreClickListener {
+    private static class MyShowMoreClickLisener implements ControlLiveView.OnShowMoreClickListener {
         WeakReference<AliyunPlayerSkinActivity> weakReference;
 
         MyShowMoreClickLisener(AliyunPlayerSkinActivity activity) {

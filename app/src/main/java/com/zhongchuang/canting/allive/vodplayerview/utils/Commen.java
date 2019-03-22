@@ -9,6 +9,10 @@ import android.os.Message;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.zhongchuang.canting.allive.recorder.util.Common.SD_DIR;
 
 /**
  * assets目录文件拷贝工具类
@@ -62,15 +66,29 @@ public class Commen {
         }).start();
         return this;
     }
+    public static List<String> getFilesAllName(String path) {
+        File file = new File(path);
+        File[] files = file.listFiles();
+        if (files == null) {
 
+            return null;
+        }
+        List<String> s = new ArrayList<>();
+        for (int i = 0; i < files.length; i++) {
+            s.add(files[i].getAbsolutePath());
+        }
+        return s;
+
+    }
     public void setFileOperateCallback(FileOperateCallback callback) {
         this.callback = callback;
     }
 
     private void copyAssetsToDst(Context context, String srcPath, String dstPath) {
         try {
-            String[] fileNames = context.getAssets().list(srcPath);
-            if (fileNames.length > 0) {
+            List<String> fileNames = getFilesAllName((SD_DIR + "live" + File.separator + srcPath + File.separator));
+//            String[] fileNames = context.getAssets().list(srcPath);
+            if(fileNames !=null&&fileNames.size()>0) {
                 File file = new File(Environment.getExternalStorageDirectory(), dstPath);
                 if (!file.exists()) {
                     file.mkdirs();
