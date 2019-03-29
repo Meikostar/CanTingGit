@@ -27,7 +27,9 @@ public class aliLive extends BaseResponse{
     public String accessKeyId;
     public String accesskeysecret;
     public String expiration;
+    public String chatroomsId;
     public String token;
+    public String id;
 
     public aliLive  data;
     public aliLive  liveUrl;

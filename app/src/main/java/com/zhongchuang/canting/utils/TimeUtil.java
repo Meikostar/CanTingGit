@@ -244,6 +244,10 @@ public class TimeUtil {
         SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
         return format.format(new Date(time));
     }
+    public static String formatChatTimes(long time){
+        SimpleDateFormat format = new SimpleDateFormat("mm.ss");
+        return format.format(new Date(time));
+    }
     public static String formatRedTime(long time){
         SimpleDateFormat format = new SimpleDateFormat("HH:mm");
         return format.format(new Date(time));

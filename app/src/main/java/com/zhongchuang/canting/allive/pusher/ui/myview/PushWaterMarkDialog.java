@@ -24,18 +24,12 @@ import java.util.ArrayList;
 
 public class PushWaterMarkDialog extends DialogFragment {
 
-    private Switch mSwitch;
-    private EditText mX;
-    private EditText mY;
-    private EditText mW;
+
     private Switch mSwitch1;
     private EditText mX1;
     private EditText mY1;
     private EditText mW1;
-    private Switch mSwitch2;
-    private EditText mX2;
-    private EditText mY2;
-    private EditText mW2;
+
     private ArrayList<WaterMarkInfo> mWaterMarkInfos;
     private WaterMarkInfo mWaterMarkInfo = new WaterMarkInfo();
     private WaterMarkInfo mWaterMarkInfo1 = new WaterMarkInfo();
@@ -61,21 +55,13 @@ public class PushWaterMarkDialog extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         View view = inflater.inflate(R.layout.push_watermark, container);
-        mX = (EditText) view.findViewById(R.id.x);
-        mY = (EditText) view.findViewById(R.id.y);
-        mW = (EditText) view.findViewById(R.id.w);
+
         mX1 = (EditText) view.findViewById(R.id.x1);
         mY1 = (EditText) view.findViewById(R.id.y1);
         mW1 = (EditText) view.findViewById(R.id.w1);
-        mX2 = (EditText) view.findViewById(R.id.x2);
-        mY2 = (EditText) view.findViewById(R.id.y2);
-        mW2 = (EditText) view.findViewById(R.id.w2);
-        mSwitch = (Switch) view.findViewById(R.id.watermark);
+
         mSwitch1 = (Switch) view.findViewById(R.id.watermark1);
-        mSwitch2 = (Switch) view.findViewById(R.id.watermark2);
-        mSwitch.setOnCheckedChangeListener(onCheckedChangeListener);
         mSwitch1.setOnCheckedChangeListener(onCheckedChangeListener);
-        mSwitch2.setOnCheckedChangeListener(onCheckedChangeListener);
         return view;
     }
 
@@ -96,35 +82,6 @@ public class PushWaterMarkDialog extends DialogFragment {
     @Override
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
-        if(!mX.getText().toString().isEmpty()) {
-            if(mWaterMarkInfo != null) {
-                mWaterMarkInfo.mWaterMarkCoordX = Float.valueOf(mX.getText().toString());
-            }
-        } else {
-            if(mWaterMarkInfo != null) {
-                mWaterMarkInfo.mWaterMarkCoordX = 0.1f;
-            }
-        }
-
-        if(!mY.getText().toString().isEmpty()) {
-            if(mWaterMarkInfo != null) {
-                mWaterMarkInfo.mWaterMarkCoordY = Float.valueOf(mY.getText().toString());
-            }
-        } else {
-            if(mWaterMarkInfo != null) {
-                mWaterMarkInfo.mWaterMarkCoordY = 0.2f;
-            }
-        }
-
-        if(!mW.getText().toString().isEmpty()) {
-            if(mWaterMarkInfo != null) {
-                mWaterMarkInfo.mWaterMarkWidth = Float.valueOf(mW.getText().toString());
-            }
-        } else {
-            if(mWaterMarkInfo != null) {
-                mWaterMarkInfo.mWaterMarkWidth = 0.1f;
-            }
-        }
 
         if(!mX1.getText().toString().isEmpty()) {
             if(mWaterMarkInfo1 != null) {
@@ -156,35 +113,7 @@ public class PushWaterMarkDialog extends DialogFragment {
             }
         }
 
-        if(!mX2.getText().toString().isEmpty()) {
-            if(mWaterMarkInfo2 != null) {
-                mWaterMarkInfo2.mWaterMarkCoordX = Float.valueOf(mX2.getText().toString());
-            }
-        } else {
-            if(mWaterMarkInfo2 != null) {
-                mWaterMarkInfo2.mWaterMarkCoordX = 0.1f;
-            }
-        }
 
-        if(!mY2.getText().toString().isEmpty()) {
-            if(mWaterMarkInfo2 != null) {
-                mWaterMarkInfo2.mWaterMarkCoordY = Float.valueOf(mY2.getText().toString());
-            }
-        } else {
-            if(mWaterMarkInfo2 != null) {
-                mWaterMarkInfo2.mWaterMarkCoordY = 0.4f;
-            }
-        }
-
-        if(!mW2.getText().toString().isEmpty()) {
-            if(mWaterMarkInfo2 != null) {
-                mWaterMarkInfo2.mWaterMarkWidth = Float.valueOf(mW2.getText().toString());
-            }
-        } else {
-            if(mWaterMarkInfo2 != null) {
-                mWaterMarkInfo2.mWaterMarkWidth = 0.1f;
-            }
-        }
 
         mWaterMarkInfo.mWaterMarkPath = Common.waterMark;
         mWaterMarkInfo1.mWaterMarkPath = Common.waterMark;
@@ -206,13 +135,7 @@ public class PushWaterMarkDialog extends DialogFragment {
         @Override
         public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
             int id = compoundButton.getId();
-            if(id == R.id.watermark) {
-                mWater = b;
-            } else if (id == R.id.watermark1) {
-                mWater1 = b;
-            } else if (id == R.id.watermark2) {
-                mWater2 = b;
-            }
+
         }
     };
 }

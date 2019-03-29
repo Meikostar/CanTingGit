@@ -120,7 +120,7 @@ public interface netService {
 //    public static final String TOM_BASE_URL = "http://111.230.248.224:8780/ifun/";
 //    public static final String TOM_BASE_URL = "http://47.74.189.52:8080/ifun/";
 //      public static final String TOM_BASE_URL = "http://119.23.235.1:8080/ifun/";
-//    public static final String TOM_BASE_URL = "http://120.77.222.116:8080/ifun/";
+    public static final String TOM_BASE_URL = "http://120.77.222.116:8080/ifun/";
 
 
 //    public static final String TOM_BASE_URL = "http://119.23.212.8:8080/ifun/";
@@ -135,7 +135,7 @@ public interface netService {
 
 //    public static final String TOM_BASE_URL = "http://119.23.235.1:8089/ifun/";
 
-        public static final String TOM_BASE_URL = "http://192.168.50.145:8080/ifun/";
+//        public static final String TOM_BASE_URL = "http://192.168.50.145:8080/ifun/";
 
 //    public static final String TOM_BASE_URL = "http://192.168.50.193:8780/ifun/";
 //    public static final String TOM_BASE_URL = "http://192.168.50.79:8780/ifun/";
@@ -262,6 +262,9 @@ public interface netService {
     @FormUrlEncoded
     @POST("wap/dirRoomInfo/getDirectRoomList")
     Call<ZhiBo_GuanZhongBean> getDirectRoomList(@FieldMap Map<String, String> map);
+    @FormUrlEncoded
+    @POST("wap/video/getLatestVideoList")
+    Call<ZhiBo_GuanZhongBean> getLatestVideoList(@FieldMap Map<String, String> map);
 
     //2
     @FormUrlEncoded
@@ -1022,8 +1025,11 @@ public interface netService {
     @FormUrlEncoded
     @POST("wap/liveRecord/addConfig")
     Call<aliLive> addConfig(@FieldMap Map<String, String> opt);
-    @FormUrlEncoded
 
+    @FormUrlEncoded
+    @POST("wap/liveRecord/setLiveNotifyUrl")
+    Call<aliLive> setLiveNotifyUrl(@FieldMap Map<String, String> opt);
+    @FormUrlEncoded
     @POST("wap/liveRecordVod/addLiveRecordVod")
     Call<aliLive> addLiveRecordVod(@FieldMap Map<String, String> opt);
 
@@ -1043,5 +1049,16 @@ public interface netService {
     @POST("wap/video/getVideoList")
     Call<videobean> getVideoList(@FieldMap Map<String, String> opt);
 
+    @FormUrlEncoded
+    @POST("wap/liveRecord/deleteConfig")
+    Call<BaseResponse> deleteConfig(@FieldMap Map<String, String> opt);
 
+    @FormUrlEncoded
+    @POST("wap/chatrooms/delete")
+    Call<BaseResponse> deleteRoom(@FieldMap Map<String, String> opt);
+
+
+    @FormUrlEncoded
+    @POST("wap/chatrooms/create")
+    Call<aliLive> create(@FieldMap Map<String, String> opt);
 }

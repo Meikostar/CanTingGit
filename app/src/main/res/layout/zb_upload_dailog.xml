@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/wite_rectangle3"
+        android:orientation="vertical">
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15dp"
+            android:text="录播设置"
+            android:textColor="@color/color3"
+            android:textSize="15sp" />
+        <RelativeLayout
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:layout_gravity="center_vertical"
+            android:orientation="horizontal">
+
+
+
+            <ImageView
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/iv_photo"
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/up_bg" />
+            <TextView
+                android:id="@+id/tv_select"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:gravity="center"
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/alivc__up_bg"
+                android:text="请选择封面"
+                android:textColor="@color/white"
+                android:textSize="13sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_marginTop="25dp"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <LinearLayout
+
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.zhongchuang.canting.widget.ClearEditText
+                    android:id="@+id/et_content"
+
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="请输入标题"
+                    android:minHeight="35dp"
+                    android:textColor="@color/slow_black"
+                    android:textColorHint="@color/color6"
+                    android:textSize="14sp" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.2dp"
+                    android:background="@color/linecolor"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.3dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="15dp"
+                android:background="@color/linecolor" />
+        </RelativeLayout>
+
+
+
+
+        <TextView
+
+            android:id="@+id/tv_send"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:layout_marginBottom="35dp"
+            android:layout_marginLeft="22dp"
+            android:layout_marginRight="22dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/login_selector"
+            android:gravity="center"
+            android:text="开始录播"
+            android:textColor="@color/white"
+            android:textSize="@dimen/textsize_big" />
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

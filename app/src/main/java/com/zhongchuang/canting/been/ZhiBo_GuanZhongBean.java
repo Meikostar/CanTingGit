@@ -56,7 +56,16 @@ public class ZhiBo_GuanZhongBean extends BaseResponse{
         public String user_info_nickname;
         public String room_info_id;
         public String fans_num;
+        public String user_info_id;
         public String onlineNumber;
+        public String create_time;
+        public String id;
+        public String cover_image;
+        public String type;
+        public String request_id;
+        public String video_name;
+        public String video_url;
+
 
         public String getRoomNumber() {
             return roomNumber;

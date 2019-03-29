@@ -21,6 +21,7 @@ public class videobean extends BaseResponse{
 
     public long create_time;
     public String video_name;
+    public String room_info_id;
     public String video_url;
     public String id;
     public String cover_image;

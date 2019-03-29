@@ -101,6 +101,9 @@ public class MineVideoActivity extends BaseActivity1 implements BaseContract.Vie
             public void listener(int poistion) {
                 Intent intent = new Intent(MineVideoActivity.this, AliyunPlayerSkinActivity.class);
                 intent.putExtra("url",datas.get(poistion).video_url);
+                intent.putExtra("name",datas.get(poistion).video_name);
+                intent.putExtra("room_info_id",datas.get(poistion).room_info_id);
+                intent.putExtra("id",datas.get(poistion).user_info_id);
                 startActivity(intent);
             }
         });
@@ -286,7 +289,6 @@ public class MineVideoActivity extends BaseActivity1 implements BaseContract.Vie
     private int cout = 12;
 
     public void onDataLoaded(int loadType, final boolean haveNext, List<videobean> list) {
-
         if (loadType == TYPE_PULL_REFRESH) {
             currpage = 1;
             datas.clear();

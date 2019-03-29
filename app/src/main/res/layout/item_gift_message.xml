@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:paddingRight="80dp"
-            android:layout_marginTop="19dp"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="5dp"
 
             android:gravity="center_vertical"
@@ -50,7 +50,7 @@
                     android:gravity="center_vertical"
                     android:text=""
                     android:textColor="#5EB9FF"
-                    android:textSize="12sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:layout_marginLeft="5dp"
@@ -60,8 +60,9 @@
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:text="送给主播"
+
                     android:textColor="#ffffff"
-                    android:textSize="12sp" />
+                    android:textSize="15sp" />
             </LinearLayout>
         </RelativeLayout>
         <ImageView

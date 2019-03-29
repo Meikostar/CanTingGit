@@ -688,18 +688,18 @@ public class ControlView extends RelativeLayout implements ViewAction, ITheme {
      */
     private void updateScreenModeBtn() {
         if (mAliyunScreenMode == AliyunScreenMode.Full) {
-            LinearLayout.LayoutParams params= (LinearLayout.LayoutParams) mScreenModeBtn.getLayoutParams();
-            params.weight= DensityUtil.dip2px(25);//设置当前控件布局的高度
-            params.height= DensityUtil.dip2px(25);//设置当前控件布局的高度
-            mScreenModeBtn.setLayoutParams(params);//将设置好的布局参数应用到控件中
 
+            LinearLayout.LayoutParams params= (LinearLayout.LayoutParams) mScreenModeBtn.getLayoutParams();
+            params.weight= DensityUtil.dip2px(35);//设置当前控件布局的高度
+            params.height= DensityUtil.dip2px(35);//设置当前控件布局的高度
+            mScreenModeBtn.setLayoutParams(params);//将设置好的布局参数应用到控件中
             mScreenModeBtn.setImageResource(R.drawable.alivc_screen_mode_small);
         } else {
             LinearLayout.LayoutParams params= (LinearLayout.LayoutParams) mScreenModeBtn.getLayoutParams();
-            params.weight= DensityUtil.dip2px(18);//设置当前控件布局的高度
-            params.height= DensityUtil.dip2px(18);//设置当前控件布局的高度
+            params.weight= DensityUtil.dip2px(28);//设置当前控件布局的高度
+            params.height= DensityUtil.dip2px(28);//设置当前控件布局的高度
             mScreenModeBtn.setLayoutParams(params);//将设置好的布局参数应用到控件中
-            mScreenModeBtn.setImageResource(R.drawable.alivc_screen_mode_large);
+            mScreenModeBtn.setImageResource(R.drawable.alivc_screen_mode_small);
         }
     }
 

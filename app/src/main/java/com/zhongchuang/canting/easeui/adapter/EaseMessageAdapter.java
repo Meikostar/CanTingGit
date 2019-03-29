@@ -120,15 +120,12 @@ public class EaseMessageAdapter extends BaseAdapter{
 			for (EMMessage message : var) {
 					EMTextMessageBody body = (EMTextMessageBody) message.getBody();
 					String contents  = body.getMessage();
-					if(contents.equals("*&@@&*")||contents.contains("&!&&!&")){
-						RxBus.getInstance().send(SubscriptionBean.createSendBean(SubscriptionBean.LIVE_SEND_FRESH,""));
-						return;
-					}else {
+					if(!contents.equals("*&@@&*")&&!contents.contains("&!&&!&")){
 						mess.add(message);
 					}
 
 			}
-			messages = mess.toArray(new EMMessage[var.size()]);
+			messages = mess.toArray(new EMMessage[mess.size()]);
 			conversation.markAllMessagesAsRead();
 			notifyDataSetChanged();
 		}
@@ -268,12 +265,17 @@ public class EaseMessageAdapter extends BaseAdapter{
 	}
 
 	protected EaseChatRow createChatRow(Context context, EMMessage message, int position,int chatType) {
+
 		EaseChatRow chatRow = null;
 		if(customRowProvider != null && customRowProvider.getCustomChatRow(message, position, this) != null){
 			return customRowProvider.getCustomChatRow(message, position, this);
 		}
-		boolean red=message.getBooleanAttribute(EaseConstant.EXTRA_RED,false);
-		String type=message.getStringAttribute(EaseConstant.EXTRA_RED_TYPE,null);
+		String type="";
+		boolean red=false;
+          if(message!=null){
+			   red=message.getBooleanAttribute(EaseConstant.EXTRA_RED,false);
+			   type=message.getStringAttribute(EaseConstant.EXTRA_RED_TYPE,null);
+		  }
 
 
 			switch (message.getType()) {

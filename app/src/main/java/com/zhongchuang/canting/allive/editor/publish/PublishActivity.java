@@ -146,7 +146,7 @@ public class PublishActivity extends Activity implements View.OnClickListener , 
         String ossName  = "video/" + SpUtil.getUserInfoId(this)+"/"+TimeUtil.formatTtimeNames(System.currentTimeMillis())+"."+TimeUtil.formatRedTime(System.currentTimeMillis()); //vodPath + index + ".mp4";
 
         uploader.addFile(fineName, "oss-cn-shenzhen.aliyuncs.com", "video-zx", ossName, getVodInfo());
-        url="https://video-zx.oss-cn-shenzhen.aliyuncs.com"+ossName;
+        url="https://video-zx.oss-cn-shenzhen.aliyuncs.com/"+ossName;
     }
     private String url;
     private VodInfo getVodInfo() {

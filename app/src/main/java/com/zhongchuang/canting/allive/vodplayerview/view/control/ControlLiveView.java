@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -62,7 +63,8 @@ public class ControlLiveView extends RelativeLayout implements ViewAction, IThem
     private PlayState mPlayState = PlayState.NotPlaying;
     //播放按钮
     private ImageView mPlayStateBtn;
-    private ClearEditText et_comment;
+    private FrameLayout fl_bg;
+    private TextView et_comment;
     private Button btn_send_comment;
 
     //下载
@@ -183,14 +185,15 @@ public class ControlLiveView extends RelativeLayout implements ViewAction, IThem
         mTitleMore = findViewById(R.id.alivc_title_more);
         mScreenModeBtn = (ImageView) findViewById(R.id.alivc_screen_mode);
 
-        mPlayStateBtn = (ImageView) findViewById(R.id.alivc_player_state);;
-        et_comment = (ClearEditText) findViewById(R.id.et_comment);;
+        mPlayStateBtn = (ImageView) findViewById(R.id.alivc_player_state);
+        fl_bg = (FrameLayout) findViewById(R.id.fl_bg);
+        et_comment = (TextView) findViewById(R.id.et_comment);
         btn_send_comment = (Button) findViewById(R.id.btn_send_comment);
 
         mLargeInfoBar = findViewById(R.id.alivc_info_large_bar);
         mLargeChangeQualityBtn = (Button) findViewById(R.id.alivc_info_large_rate_btn);
 
-
+        fl_bg.setBackgroundColor(getResources().getColor(R.color.jrmf_b_transparent));
         mSmallInfoBar = findViewById(R.id.alivc_info_small_bar);
     }
 
@@ -298,6 +301,7 @@ public class ControlLiveView extends RelativeLayout implements ViewAction, IThem
      */
     public void setControlBarCanShow(boolean show) {
         mControlBarCanShow = show;
+        fl_bg.setBackgroundColor(getResources().getColor(R.color.jrmf_b_transparent));
         updateAllControlBar();
     }
 
@@ -485,7 +489,7 @@ public class ControlLiveView extends RelativeLayout implements ViewAction, IThem
         if (mLargeChangeQualityBtn != null) {
             VcPlayerLog.d(TAG, "mCurrentQuality = " + mCurrentQuality + " , isMts Source = " + isMtsSource + " , mForceQuality = " + mForceQuality);
             mLargeChangeQualityBtn.setText(QualityItem.getItem(getContext(), mCurrentQuality, isMtsSource).getName());
-            mLargeChangeQualityBtn.setVisibility(mForceQuality ? GONE : VISIBLE);
+            mLargeChangeQualityBtn.setVisibility( GONE );
         }
     }
 
@@ -497,6 +501,7 @@ public class ControlLiveView extends RelativeLayout implements ViewAction, IThem
         boolean canShow = mControlBarCanShow && !mScreenLocked;
         if (mControlBar != null) {
             mControlBar.setVisibility(canShow ? VISIBLE : INVISIBLE);
+            mControlBar.setBackgroundColor(getResources().getColor(R.color.jrmf_b_transparent));
         }
     }
 
@@ -538,7 +543,7 @@ public class ControlLiveView extends RelativeLayout implements ViewAction, IThem
 
             }
             //然后再显示出来。
-            mSmallInfoBar.setVisibility(VISIBLE);
+            mSmallInfoBar.setVisibility(INVISIBLE);
         }
     }
 
@@ -572,19 +577,17 @@ public class ControlLiveView extends RelativeLayout implements ViewAction, IThem
      */
     private void updateScreenModeBtn() {
         if (mAliyunScreenMode == AliyunScreenMode.Full) {
-            LinearLayout.LayoutParams params= (LinearLayout.LayoutParams) mScreenModeBtn.getLayoutParams();
-            params.weight= DensityUtil.dip2px(25);//设置当前控件布局的高度
-            params.height= DensityUtil.dip2px(25);//设置当前控件布局的高度
-            mScreenModeBtn.setLayoutParams(params);//将设置好的布局参数应用到控件中
-
-            mScreenModeBtn.setImageResource(R.drawable.alivc_screen_mode_small);
+            fl_bg.setVisibility(VISIBLE);
+            mScreenModeBtn.setVisibility(INVISIBLE);
+            mPlayStateBtn.setVisibility(INVISIBLE);
+            fl_bg.setBackgroundColor(getResources().getColor(R.color.jrmf_b_transparent));
         } else {
-            LinearLayout.LayoutParams params= (LinearLayout.LayoutParams) mScreenModeBtn.getLayoutParams();
-            params.weight= DensityUtil.dip2px(18);//设置当前控件布局的高度
-            params.height= DensityUtil.dip2px(18);//设置当前控件布局的高度
-            mScreenModeBtn.setLayoutParams(params);//将设置好的布局参数应用到控件中
-            mScreenModeBtn.setImageResource(R.drawable.alivc_screen_mode_large);
+            fl_bg.setVisibility(INVISIBLE);
+            mScreenModeBtn.setVisibility(VISIBLE);
+            mPlayStateBtn.setVisibility(VISIBLE);
+
         }
+        mScreenModeBtn.setImageResource(R.drawable.alivc_screen_mode_small);
     }
 
 

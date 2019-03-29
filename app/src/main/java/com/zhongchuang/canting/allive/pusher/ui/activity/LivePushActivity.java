@@ -44,13 +44,22 @@ import com.zhongchuang.canting.allive.pusher.ui.fragment.LivePushFragment;
 import com.zhongchuang.canting.allive.pusher.ui.fragment.PushDiagramStatsFragment;
 import com.zhongchuang.canting.allive.pusher.ui.fragment.PushTextStatsFragment;
 import com.zhongchuang.canting.allive.pusher.utils.NetWorkUtils;
+import com.zhongchuang.canting.app.CanTingAppLication;
+import com.zhongchuang.canting.been.BEAN;
+import com.zhongchuang.canting.hud.ToastUtils;
+import com.zhongchuang.canting.net.BaseCallBack;
+import com.zhongchuang.canting.net.HttpUtil;
+import com.zhongchuang.canting.net.netService;
+import com.zhongchuang.canting.utils.SpUtil;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -65,6 +74,7 @@ public class LivePushActivity extends AppCompatActivity {
     private static final int FLING_MIN_VELOCITY = 0;
     private final long REFRESH_INTERVAL = 1000;
     private static final String URL_KEY = "url_key";
+    private static final String ROOM_ID = "room_id";
     private static final String ASYNC_KEY = "async_key";
     private static final String AUDIO_ONLY_KEY = "audio_only_key";
     private static final String VIDEO_ONLY_KEY = "video_only_key";
@@ -120,7 +130,7 @@ public class LivePushActivity extends AppCompatActivity {
     private boolean audioThreadOn = false;
 
     private int mNetWork = 0;
-
+    private String room_id;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -128,6 +138,7 @@ public class LivePushActivity extends AppCompatActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         mPushUrl = getIntent().getStringExtra(URL_KEY);
+        room_id = getIntent().getStringExtra(ROOM_ID);
         mAsync = getIntent().getBooleanExtra(ASYNC_KEY, false);
         mAudioOnly = getIntent().getBooleanExtra(AUDIO_ONLY_KEY, false);
         mVideoOnly = getIntent().getBooleanExtra(VIDEO_ONLY_KEY, false);
@@ -215,7 +226,7 @@ public class LivePushActivity extends AppCompatActivity {
             }
         });
 
-        mLivePushFragment = new LivePushFragment().newInstance(mPushUrl, mAsync, mAudioOnly, mVideoOnly, mCameraId, mFlash, mAlivcLivePushConfig.getQualityMode().getQualityMode(), mAuthTime, mPrivacyKey, mMixExtern, mMixMain);
+        mLivePushFragment = new LivePushFragment().newInstance(room_id,mPushUrl, mAsync, mAudioOnly, mVideoOnly, mCameraId, mFlash, mAlivcLivePushConfig.getQualityMode().getQualityMode(), mAuthTime, mPrivacyKey, mMixExtern, mMixMain);
         mLivePushFragment.setAlivcLivePusher(mAlivcLivePusher);
         mLivePushFragment.setStateListener(mStateListener);
         mPushTextStatsFragment = new PushTextStatsFragment();
@@ -414,11 +425,13 @@ public class LivePushActivity extends AppCompatActivity {
             mSurfaceStatus = SurfaceStatus.DESTROYED;
         }
     };
-    public static void startActivity(Activity activity, AlivcLivePushConfig alivcLivePushConfig, String url, boolean async, boolean audioOnly, boolean videoOnly, AlivcPreviewOrientationEnum orientation, int cameraId, boolean isFlash, String authTime, String privacyKey, boolean mixExtern, boolean mixMain) {
+
+    public static void startActivity(Activity activity,String id, AlivcLivePushConfig alivcLivePushConfig, String url, boolean async, boolean audioOnly, boolean videoOnly, AlivcPreviewOrientationEnum orientation, int cameraId, boolean isFlash, String authTime, String privacyKey, boolean mixExtern, boolean mixMain) {
         Intent intent = new Intent(activity, LivePushActivity.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable(AlivcLivePushConfig.CONFIG, alivcLivePushConfig);
         bundle.putString(URL_KEY, url);
+        bundle.putString(ROOM_ID, id);
         bundle.putBoolean(ASYNC_KEY, async);
         bundle.putBoolean(AUDIO_ONLY_KEY, audioOnly);
         bundle.putBoolean(VIDEO_ONLY_KEY, videoOnly);

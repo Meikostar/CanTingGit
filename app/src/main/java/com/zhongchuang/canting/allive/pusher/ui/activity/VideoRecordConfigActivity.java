@@ -51,6 +51,10 @@ import com.zhongchuang.canting.allive.pusher.floatwindowpermission.rom.RomUtils;
 import com.zhongchuang.canting.allive.pusher.utils.Common;
 import com.zhongchuang.canting.allive.pusher.utils.VideoRecordViewManager;
 import com.zhongchuang.canting.base.BaseActivity1;
+import com.zhongchuang.canting.presenter.OtherContract;
+import com.zhongchuang.canting.presenter.OtherPresenter;
+import com.zhongchuang.canting.utils.SpUtil;
+import com.zhongchuang.canting.utils.TextUtil;
 import com.zhongchuang.canting.widget.PhotoPopupWindow;
 
 import java.io.File;
@@ -65,7 +69,7 @@ import static com.alivc.live.pusher.AlivcPreviewOrientationEnum.ORIENTATION_PORT
 
 //import com.google.zxing.activity.CaptureActivity;
 
-public class VideoRecordConfigActivity extends BaseActivity1 {
+public class VideoRecordConfigActivity extends BaseActivity1 implements OtherContract.View{
     private static final String TAG = "VideoRecordConfig";
 
     private AlivcResolutionEnum mDefinition = AlivcResolutionEnum.RESOLUTION_540P;
@@ -85,7 +89,7 @@ public class VideoRecordConfigActivity extends BaseActivity1 {
     public static final int OVERLAY_PERMISSION_REQUEST_CODE = 0x1124;
 
     private InputMethodManager manager;
-
+    private OtherPresenter presenter;
     private RelativeLayout mPublish;
     private SeekBar mResolution;
     private TextView mResolutionText;
@@ -134,6 +138,7 @@ public class VideoRecordConfigActivity extends BaseActivity1 {
         AlivcLivePushConfig.setMediaProjectionPermissionResultData(null);
         initView();
         setClick();
+        presenter = new OtherPresenter(this);
         new AsyncTask() {
             @Override
             protected Object doInBackground(Object[] objects) {
@@ -325,13 +330,13 @@ public class VideoRecordConfigActivity extends BaseActivity1 {
             if (id == R.id.beginPublish) {
                 if (getPushConfig() != null) {
                     if (mAlivcLivePusher == null) {
+                        String chatRoomId = SpUtil.getChatRoomId(VideoRecordConfigActivity.this);
+                        if(TextUtil.isEmpty(chatRoomId)){
+                            return;
+                        }
+                        presenter.setLiveNotifyUrl();
                         //if(VideoRecordViewManager.permission(getApplicationContext()))
-                        if (RomUtils.checkIsMeizuRom()){
-                            MeizuUtils.checkCameraPermission(VideoRecordConfigActivity.this);
-                        }
-                        if (FloatWindowManager.getInstance().applyFloatWindow(VideoRecordConfigActivity.this)) {
-                            startScreenCapture();
-                        }
+
                     } else {
                         stopPushWithoutSurface();
                     }
@@ -734,5 +739,25 @@ public class VideoRecordConfigActivity extends BaseActivity1 {
         for (int i = 0; i < radioGroup.getChildCount(); i++) {
             radioGroup.getChildAt(i).setEnabled(bool);
         }
+    }
+
+    @Override
+    public <T> void toEntity(T entity, int type) {
+        if (RomUtils.checkIsMeizuRom()){
+            MeizuUtils.checkCameraPermission(VideoRecordConfigActivity.this);
+        }
+        if (FloatWindowManager.getInstance().applyFloatWindow(VideoRecordConfigActivity.this)) {
+            startScreenCapture();
+        }
+    }
+
+    @Override
+    public void toNextStep(int type) {
+
+    }
+
+    @Override
+    public void showTomast(String msg) {
+
     }
 }

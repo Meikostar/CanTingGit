@@ -5,7 +5,7 @@ apply plugin: 'com.neenbedankt.android-apt'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion BUILD_TOOLS_VERSION
+    buildToolsVersion '26.0.2'
     packagingOptions {
         exclude('META-INF/LICENSE')
     }
@@ -144,5 +144,4 @@ dependencies {
     compile 'tyrant:heartlayout:1.0.1'
     testCompile 'junit:junit:4.12'
     apt 'com.jakewharton:butterknife-compiler:8.8.1'
-
 }

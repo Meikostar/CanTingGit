@@ -228,8 +228,11 @@ public class Minefagment extends BaseFragment implements BaseContract.View {
             }
         }
         integral=orderType.user_integral;
-        tvCout3.setText(orderType.user_integral);
-        tvCout4.setText(orderType.user_token_money);
+        if(getActivity()!=null){
+            tvCout3.setText(orderType.user_integral);
+            tvCout4.setText(orderType.user_token_money);
+        }
+
 
     }
    private String integral;

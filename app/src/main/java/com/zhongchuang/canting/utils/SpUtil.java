@@ -19,6 +19,12 @@ public class SpUtil {
     public static String getToken(Context context){
         return getString(context,"token","");
     }
+    public static String getRoomId(Context context){
+        return getString(context,"room_id","");
+    }
+    public static String getChatRoomId(Context context){
+        return getString(context,"chatroomsId","");
+    }
     public static String getLa(Context context){
         return getString(context,"la","");
     }

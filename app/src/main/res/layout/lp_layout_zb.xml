@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+        <com.zhongchuang.canting.widget.loadingView.LoadingPager
+            android:layout_weight="1"
+            android:background="@color/content_bg"
+            android:id="@+id/loadingViewzb"
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+                <com.zhongchuang.canting.widget.RegularListView
+                    android:id="@+id/list_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
+        </com.zhongchuang.canting.widget.loadingView.LoadingPager>
+</LinearLayout>

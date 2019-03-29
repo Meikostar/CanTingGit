@@ -327,11 +327,28 @@ public class BaseContract {
         /**
          * 增加直播录制配置接口
          */
-        void addConfig();
+        void addConfig(String coverImage	,String videoName);
 
         /**
          * 获取视频列表接口
          */
         void getVideoList(final int type, String pageNum);
+
+        /**
+         * 5.删除直播录制配置接口
+         */
+        void deleteConfig();
+        /**
+         *设置推流断流回调地址接口
+         */
+        void setLiveNotifyUrl();
+        /**
+         *1.创建聊天室
+         */
+        void create();
+        /**
+         *1.获取首页最新的视频列表接口
+         */
+        void getLatestVideoList( String pageNum, final int type);
     }
 }

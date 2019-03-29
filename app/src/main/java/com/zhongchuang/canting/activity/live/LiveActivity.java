@@ -20,6 +20,7 @@ import com.zhongchuang.canting.been.GAME;
 import com.zhongchuang.canting.been.SubscriptionBean;
 import com.zhongchuang.canting.been.aliLive;
 import com.zhongchuang.canting.fragment.live.ZhiBoFragment;
+import com.zhongchuang.canting.fragment.mall.LiveMineFragment;
 import com.zhongchuang.canting.fragment.mall.LiveMineFragments;
 import com.zhongchuang.canting.presenter.OtherContract;
 import com.zhongchuang.canting.presenter.OtherPresenter;
@@ -293,12 +294,12 @@ public class LiveActivity extends BaseAllActivity implements View.OnClickListene
                 pos = 3;
                 String anchor = SpUtil.isAnchor(LiveActivity.this);
 
-//                if (TextUtil.isNotEmpty(anchor) && anchor.equals("0")) {
-//                    fragment3 = new LiveMineFragment();
-//                } else {
+                if (TextUtil.isNotEmpty(anchor) && anchor.equals("0")) {
+                    fragment3 = new LiveMineFragment();
+                } else {
                     presenter.getPushUrl();
                     fragment3 = new LiveMineFragments();
-//                }
+                }
 
                 mTransaction.replace(R.id.fragment_container, fragment3);
                 mTransaction.commit();

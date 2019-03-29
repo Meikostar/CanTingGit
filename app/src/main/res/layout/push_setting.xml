@@ -127,16 +127,16 @@
         android:layout_marginBottom="18dp"
         android:layout_gravity="center"
         android:gravity="center">
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:src="@drawable/live_mine2" />
+
         <TextView
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:gravity="center"
+            android:background="@drawable/login_selector"
             android:id="@+id/pushStatusTex"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:text="@string/kqzb"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:text="开启直播"
             android:textColor="@color/white"
             android:textSize="15sp" />
 

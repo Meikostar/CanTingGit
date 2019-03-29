@@ -14,6 +14,8 @@ import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 
+import com.zhongchuang.canting.fragment.mall.LiveMineFragments;
+
 /**
  * 相片工具类
  */
@@ -125,7 +127,27 @@ public class PhotoUtils {
         intent.putExtra("noFaceDetection", true);
         activity.startActivityForResult(intent, requestCode);
     }
-
+    public static void cropImageUris(LiveMineFragments activity, Uri orgUri,
+                                     Uri desUri, int aspectX, int aspectY,
+                                     int width, int height, int requestCode) {
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        }
+        intent.setDataAndType(orgUri, "image/*");
+        intent.putExtra("crop", "true");
+        intent.putExtra("aspectX", aspectX);
+        intent.putExtra("aspectY", aspectY);
+        intent.putExtra("outputX", width);
+        intent.putExtra("outputY", height);
+        intent.putExtra("scale", true);
+        //将剪切的图片保存到目标Uri中
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, desUri);
+        intent.putExtra("return-data", false);
+        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+        intent.putExtra("noFaceDetection", true);
+        activity.startActivityForResult(intent, requestCode);
+    }
     /**
      * @param fragment
      *         当前activity

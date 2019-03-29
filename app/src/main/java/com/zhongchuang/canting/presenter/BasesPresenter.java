@@ -41,6 +41,7 @@ import com.zhongchuang.canting.been.ShopBean;
 import com.zhongchuang.canting.been.TabEntity;
 import com.zhongchuang.canting.been.Version;
 import com.zhongchuang.canting.been.WEIXINREQ;
+import com.zhongchuang.canting.been.ZhiBo_GuanZhongBean;
 import com.zhongchuang.canting.been.aliLive;
 import com.zhongchuang.canting.been.apply;
 import com.zhongchuang.canting.been.pay.alipay;
@@ -85,6 +86,34 @@ public class BasesPresenter implements BaseContract.Presenter {
             @Override
             public void onSuccess(Home userLoginBean) {
                 mView.toEntity(userLoginBean.data, 6);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                mView.showTomast(t);
+            }
+        });
+    }
+    @Override
+    public void create() {
+
+
+        Map<String, String> map = new HashMap<>();
+        map.put("userInfoId", SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
+        map.put("chatroomsName", SpUtil.getName(CanTingAppLication.getInstance()));
+        map.put("description", "live_"+SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
+        map.put("maxUsers", "5000");
+
+        api.create(map).enqueue(new BaseCallBack<aliLive>() {
+
+            @Override
+            public void onSuccess(aliLive userLoginBean) {
+                if(userLoginBean.data!=null&&TextUtil.isNotEmpty(userLoginBean.data.chatroomsId)){
+                    SpUtil.putString(CanTingAppLication.getInstance(),"chatroomsId",userLoginBean.data.chatroomsId);
+                }
+
+
             }
 
             @Override
@@ -145,7 +174,6 @@ public class BasesPresenter implements BaseContract.Presenter {
 
         params.put("userInfoId", SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
 
-        params.put("userInfoId", TextUtil.isEmpty(SpUtil.getUserInfoId(CanTingAppLication.getInstance())) ? "" : SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
         api.getVideoList(params).enqueue(new BaseCallBack<videobean>() {
 
             @Override
@@ -337,8 +365,14 @@ public class BasesPresenter implements BaseContract.Presenter {
     @Override
     public void getFriendCirclesList(final int type, String pageNum,  String Id) {
         Map<String, String> params = new TreeMap<>();
-        params.put("pageNum", pageNum);
-        params.put("pageSize", "12");
+        if(pageNum.equals("-1")){
+            params.put("pageNum", 1+"");
+            params.put("pageSize", "2000");
+        }else {
+            params.put("pageNum", pageNum);
+            params.put("pageSize", "12");
+        }
+
         if(!TextUtil.isEmpty(Id)){
             params.put("Id", Id);
         }
@@ -409,11 +443,13 @@ public class BasesPresenter implements BaseContract.Presenter {
             }
         });
     }
-    public void addConfig() {
+    public void addConfig(String coverImage	,String videoName ) {
 
 
         Map<String, String> map = new HashMap<>();
         map.put("userInfoId", SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
+        map.put("coverImage", coverImage);
+        map.put("videoName",videoName);
 
         api.addConfig(map).enqueue(new BaseCallBack<aliLive>() {
 
@@ -429,6 +465,27 @@ public class BasesPresenter implements BaseContract.Presenter {
             }
         });
     }
+    public void setLiveNotifyUrl() {
+
+
+        Map<String, String> map = new HashMap<>();
+        map.put("userInfoId", SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
+
+        api.setLiveNotifyUrl(map).enqueue(new BaseCallBack<aliLive>() {
+
+            @Override
+            public void onSuccess(aliLive userLoginBean) {
+                mView.toEntity(userLoginBean.data, 7);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                mView.showTomast(t);
+            }
+        });
+    }
+
     public void addLiveRecordVod() {
 
 
@@ -449,6 +506,48 @@ public class BasesPresenter implements BaseContract.Presenter {
             }
         });
     }
+    public void deleteConfig() {
+
+
+        Map<String, String> map = new HashMap<>();
+        map.put("userInfoId", SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
+
+        api.deleteConfig(map).enqueue(new BaseCallBack<BaseResponse>() {
+
+            @Override
+            public void onSuccess(BaseResponse userLoginBean) {
+                mView.toEntity(userLoginBean, 69);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                mView.showTomast(t);
+            }
+        });
+    }
+    public void deleteRoom() {
+
+
+        Map<String, String> map = new HashMap<>();
+        map.put("userInfoId", SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
+        map.put("chatroomsId", SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
+
+        api.deleteRoom(map).enqueue(new BaseCallBack<BaseResponse>() {
+
+            @Override
+            public void onSuccess(BaseResponse userLoginBean) {
+                mView.toEntity(userLoginBean, 79);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                mView.showTomast(t);
+            }
+        });
+    }
+
     @Override
     public void getProductList(final int type, String pageNum, String pageSize, String searchInfo, String proSite, String searchType, String sortType) {
         Map<String, String> params = new TreeMap<>();
@@ -1358,7 +1457,7 @@ public class BasesPresenter implements BaseContract.Presenter {
 
             @Override
             public void onSuccess(Host userLoginBean) {
-                mView.toEntity(userLoginBean.data, 7);
+                mView.toEntity(userLoginBean.data, 122);
             }
 
             @Override
@@ -1433,7 +1532,7 @@ public class BasesPresenter implements BaseContract.Presenter {
 
             @Override
             public void onSuccess(BaseResponse userLoginBean) {
-                mView.toEntity(userLoginBean, Integer.valueOf(type));
+                mView.toEntity(userLoginBean, Integer.valueOf(type)==1?3:4);
             }
 
             @Override
@@ -1779,9 +1878,18 @@ public class BasesPresenter implements BaseContract.Presenter {
         Map<String, String> params = new TreeMap<>();
 
 
-        params.put("pageNum", pageNum);
-        params.put("pageSize", "16");
-        params.put("roomInfoId", SpUtil.getString(CanTingAppLication.getInstance(), "room_id", ""));
+
+
+        if(pageNum.equals("-1")){
+            params.put("roomInfoId", roomInfoId);
+            params.put("pageNum", 1+"");
+            params.put("pageSize", "2000");
+        }else {
+            params.put("pageNum", pageNum);
+            params.put("pageSize", "16");
+            params.put("roomInfoId", SpUtil.getString(CanTingAppLication.getInstance(), "room_id", ""));
+        }
+
         params.put("type", type);
         params.put("startDate", startDate);
         params.put("endDate", endDate);
@@ -1791,6 +1899,35 @@ public class BasesPresenter implements BaseContract.Presenter {
             @Override
             public void onSuccess(Hands userLoginBean) {
                 mView.toEntity(userLoginBean, loadtype);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                mView.showTomast(t);
+            }
+        });
+    }
+
+
+
+    @Override
+    public void getLatestVideoList( String pageNum, final int type) {
+
+
+        Map<String, String> params = new TreeMap<>();
+
+        params.put("userInfoId", TextUtil.isEmpty(SpUtil.getUserInfoId(CanTingAppLication.getInstance())) ? "" : SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
+
+        params.put("pageSize","12" );
+        params.put("pageNum",pageNum );
+
+
+        api.getLatestVideoList(params).enqueue(new BaseCallBack<ZhiBo_GuanZhongBean>() {
+
+            @Override
+            public void onSuccess(ZhiBo_GuanZhongBean userLoginBean) {
+                mView.toEntity(userLoginBean,type);
             }
 
             @Override

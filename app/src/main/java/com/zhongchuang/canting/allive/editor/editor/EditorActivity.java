@@ -462,7 +462,7 @@ public class EditorActivity extends FragmentActivity implements
                                 intent.putExtra(PublishActivity.KEY_PARAM_THUMBNAIL, path);
                                 intent.putExtra(PublishActivity.KEY_PARAM_CONFIG, mUri.getPath());
                                 startActivity(intent);
-
+                               finish();
                                 fetcher.release();
                             }
 

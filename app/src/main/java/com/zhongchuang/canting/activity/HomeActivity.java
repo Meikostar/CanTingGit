@@ -502,10 +502,7 @@ public class HomeActivity extends BaseTitle_Activity implements BaseContract.Vie
             @Override
             public void call(SubscriptionBean.RxBusSendBean bean) {
                 if (bean == null) return;
-                if (bean.type == SubscriptionBean.LIVECLOSE) {
-                    String id = (String) bean.content;
-                    upRoomState(id);
-                } else if (bean.type == SubscriptionBean.SIGN) {
+                if (bean.type == SubscriptionBean.SIGN) {
                     if (states == 0) {
 
                     }
@@ -695,40 +692,9 @@ public class HomeActivity extends BaseTitle_Activity implements BaseContract.Vie
     }
 
 
-    // 登录
-    private void login() {
-        String strAccount = CanTingAppLication.userId;
-        String strPwd = CanTingAppLication.signStr;
-
-        if (TextUtils.isEmpty(strAccount) || TextUtils.isEmpty(strPwd)) {
-//            DlgMgr.showMsg(this, R.string.msg_input_empty);
-            return;
-        }
 
 
-    }
 
-    public void upRoomState(String roomInfoId) {
-
-
-        Map<String, String> map = new HashMap<>();
-        map.put("roomInfoId", roomInfoId);
-        map.put("userInfoId", TextUtil.isEmpty(SpUtil.getUserInfoId(CanTingAppLication.getInstance())) ? "" : SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
-
-        netService api = HttpUtil.getInstance().create(netService.class);
-        api.upRoomState(map).enqueue(new BaseCallBack<BaseResponse>() {
-            @Override
-            public void onSuccess(BaseResponse sign1) {
-
-            }
-
-            @Override
-            public void onOtherErr(int code, String t) {
-                super.onOtherErr(code, t);
-                ToastUtils.showNormalToast(t);
-            }
-        });
-    }
 
 
     private String userInfoId;

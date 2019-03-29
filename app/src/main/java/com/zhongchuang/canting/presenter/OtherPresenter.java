@@ -40,6 +40,7 @@ package com.zhongchuang.canting.presenter;
         import com.zhongchuang.canting.been.aliLive;
         import com.zhongchuang.canting.been.apply;
         import com.zhongchuang.canting.been.pay.alipay;
+        import com.zhongchuang.canting.been.videobean;
         import com.zhongchuang.canting.net.BaseCallBack;
         import com.zhongchuang.canting.net.HttpUtil;
         import com.zhongchuang.canting.net.netService;
@@ -92,7 +93,48 @@ public class OtherPresenter implements OtherContract.Presenter {
             }
         });
     }
+    public void setLiveNotifyUrl() {
 
+
+        Map<String, String> map = new HashMap<>();
+        map.put("userInfoId", SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
+
+        api.setLiveNotifyUrl(map).enqueue(new BaseCallBack<aliLive>() {
+
+            @Override
+            public void onSuccess(aliLive userLoginBean) {
+                mView.toEntity(userLoginBean.data, 7);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                mView.showTomast(t);
+            }
+        });
+    }
+    @Override
+    public void getVideoList(String id) {
+        Map<String, String> params = new TreeMap<>();
+        params.put("pageNum", "1");
+        params.put("pageSize", "2000");
+
+        params.put("userInfoId", id);
+
+        api.getVideoList(params).enqueue(new BaseCallBack<videobean>() {
+
+            @Override
+            public void onSuccess(videobean userLoginBean) {
+                mView.toEntity(userLoginBean.data, 111);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                mView.showTomast(t);
+            }
+        });
+    }
     @Override
     public void setPaymentPassword(String paymentPassword, String confirmPassword) {
 
@@ -141,11 +183,12 @@ public class OtherPresenter implements OtherContract.Presenter {
     }
 
     @Override
-    public void getLiveUrl() {
+    public void getLiveUrl(String id) {
 
 
         Map<String, String> map = new HashMap<>();
         map.put("userInfoId", SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
+        map.put("anchorUserId", id);
 
         api.getLiveUrl(map).enqueue(new BaseCallBack<aliLive>() {
 
@@ -182,6 +225,8 @@ public class OtherPresenter implements OtherContract.Presenter {
             }
         });
     }
+
+
     @Override
     public void uploadVideo(String coverImage,String videoName,String videoUrl) {
 

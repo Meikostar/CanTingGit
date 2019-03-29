@@ -18,6 +18,8 @@ public class OtherContract {
     }
 
     public interface Presenter {
+
+        void getVideoList(String id);
         /**
          * 设置支付密码接口
          * @param paymentPassword
@@ -68,7 +70,7 @@ public class OtherContract {
         /**
          * 阿里获取拉流接口
          */
-        void getLiveUrl();
+        void getLiveUrl(String id);
         /**
          * 增加直播录制转点播配置接口
          */
@@ -83,5 +85,9 @@ public class OtherContract {
          * 获取token接口
          */
         void uploadVideo(String coverImage,String videoName,String videoUrl);
+        /**
+         * 设置推流断流回调地址接口
+         */
+        void setLiveNotifyUrl();
     }
 }

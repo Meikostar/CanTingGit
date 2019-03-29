@@ -277,15 +277,17 @@ public class ZhiBo_HotFrag extends LazyFragment implements GetLiveViewCallBack {
                     startActivity(gotoLogin);
                     return ;
                 }
+                Intent intent = new Intent(getActivity(), AliyunPlayerSkinActivity.class);
+                intent.putExtra("id", dataBean.user_info_id);
+                intent.putExtra("room_info_id", dataBean.room_info_id);
+                startActivity(intent);
                 if(dataBean.is_enabled!=1){
 //                    if(TextUtil.isEmpty(dataBean.leave_massege)){
 //                        ToastUtils.showNormalToast("主播已下播!");
 //                    }else {
 //                        showPopwindow(dataBean.leave_massege);
 //                    }
-                    Intent intent = new Intent(getActivity(), AliyunPlayerSkinActivity.class);
 
-                    startActivity(intent);
 
 
                 }else {

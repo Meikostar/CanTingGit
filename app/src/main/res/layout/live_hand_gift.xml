@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:gravity="center_vertical"
+    android:layout_height="80.5dp">
+
+        <LinearLayout
+
+            android:layout_weight="1"
+            android:id="@+id/ll_bg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+                <ImageView
+                    android:layout_marginRight="11dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:id="@+id/iv_img"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+
+
+                        <TextView
+                            android:id="@+id/tv_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="0dp"
+                            android:layout_weight="1"
+                            android:text="昵称：hello"
+                            android:textColor="@color/slow_black"
+                            android:textSize="14sp" />
+
+                        <LinearLayout
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginRight="9dp"
+                            android:layout_marginTop="11dp"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/ds"
+                                    android:textColor="@color/slow_black"
+                                    android:textSize="13.5sp" />
+                                <TextView
+                                    android:id="@+id/tv_money"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text=""
+                                    android:textColor="#FF8400"
+                                    android:textSize="15sp" />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/jf"
+                                    android:textColor="@color/slow_black"
+                                    android:textSize="13.5sp" />
+                        </LinearLayout>
+
+
+                </LinearLayout>
+
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.4dp"
+            android:background="@color/linecolor"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"/>
+</LinearLayout>

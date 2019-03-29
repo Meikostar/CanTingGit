@@ -168,15 +168,11 @@ public class ZBVideoFragment extends LazyFragment implements GetLiveViewCallBack
             }else {
                 map.put("isEnabled", 0+"");
             }
-
         }
         if(TextUtil.isNotEmpty(cont)){
             map.put("directSeeName",  cont);
         }
 
-
-//        map.put("userLng", "");
-//        map.put("userLat", "");
         map.put("userInfoId", CanTingAppLication.userId);
 
         presenter.getLiveRoomData(map,type);

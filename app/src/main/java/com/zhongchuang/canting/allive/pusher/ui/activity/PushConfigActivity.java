@@ -55,7 +55,11 @@ import com.zhongchuang.canting.allive.pusher.utils.Common;
 import com.zhongchuang.canting.allive.pusher.utils.LogcatHelper;
 import com.zhongchuang.canting.allive.pusher.utils.SharedPreferenceUtils;
 import com.zhongchuang.canting.base.BaseActivity1;
+import com.zhongchuang.canting.been.aliLive;
+import com.zhongchuang.canting.presenter.OtherContract;
+import com.zhongchuang.canting.presenter.OtherPresenter;
 import com.zhongchuang.canting.utils.SpUtil;
+import com.zhongchuang.canting.utils.TextUtil;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -83,7 +87,7 @@ import static com.alivc.live.pusher.AlivcVideoEncodeGopEnum.GOP_THREE;
 import static com.alivc.live.pusher.AlivcVideoEncodeGopEnum.GOP_TWO;
 import static com.zhongchuang.canting.allive.pusher.ui.activity.LivePushActivity.REQ_CODE_PUSH;
 
-public class PushConfigActivity extends BaseActivity1 {
+public class PushConfigActivity extends BaseActivity1 implements OtherContract.View{
     private static final String TAG = "PushConfigActivity";
 
     private AlivcResolutionEnum mDefinition = AlivcResolutionEnum.RESOLUTION_540P;
@@ -104,7 +108,7 @@ public class PushConfigActivity extends BaseActivity1 {
     private static final int PROGRESS_AUDIO_441 = 70;
     private static final int PROGRESS_AUDIO_480 = 100;
     private InputMethodManager manager;
-
+    private OtherPresenter presenter;
     private RelativeLayout mPublish;
     private SeekBar mResolution;
     private SeekBar mAudioRate;
@@ -188,6 +192,8 @@ public class PushConfigActivity extends BaseActivity1 {
 //        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.push_setting);
         ButterKnife.bind(this);
+        presenter = new OtherPresenter(this);
+
         mAlivcLivePushConfig = new AlivcLivePushConfig();
         if(mAlivcLivePushConfig.getPreviewOrientation() == AlivcPreviewOrientationEnum.ORIENTATION_LANDSCAPE_HOME_RIGHT.getOrientation() || mAlivcLivePushConfig.getPreviewOrientation() == AlivcPreviewOrientationEnum.ORIENTATION_LANDSCAPE_HOME_LEFT.getOrientation())
         {
@@ -368,10 +374,12 @@ public class PushConfigActivity extends BaseActivity1 {
         public void onClick(View view) {
             int id = view.getId();
             if (id == R.id.beginPublish) {//
-                if (getPushConfig() != null) {
-                    LivePushActivity.startActivity(PushConfigActivity.this, mAlivcLivePushConfig, SpUtil.getLiveUrl(PushConfigActivity.this), mAsyncValue, mAudioOnlyPush, mVideoOnlyPush, mOrientationEnum, mCameraId, isFlash, mAuthTimeStr, mPrivacyKeyStr, mMixStream, mAlivcLivePushConfig.isExternMainStream());
-//                    LivePushActivity.startActivity(PushConfigActivity.this, mAlivcLivePushConfig, SpUtil.getUrl(PushConfigActivity.this), mAsyncValue, mAudioOnlyPush, mVideoOnlyPush, mOrientationEnum, mCameraId, isFlash, mAuthTimeStr, mPrivacyKeyStr, mMixStream, mAlivcLivePushConfig.isExternMainStream());
+                String chatRoomId = SpUtil.getChatRoomId(PushConfigActivity.this);
+                if(TextUtil.isEmpty(chatRoomId)){
+                    return;
                 }
+                presenter.setLiveNotifyUrl();
+
 
             } else if (id == R.id.qr_code) {
                 if (ContextCompat.checkSelfPermission(PushConfigActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
@@ -1190,13 +1198,14 @@ public class PushConfigActivity extends BaseActivity1 {
         waterMarkInfo.mWaterMarkPath = Common.waterMark;
         WaterMarkInfo waterMarkInfo1 = new WaterMarkInfo();
         waterMarkInfo1.mWaterMarkPath = Common.waterMark;
-        waterMarkInfo.mWaterMarkCoordY += 0.2;
+        waterMarkInfo1.mWaterMarkCoordY += 0.2;
+        waterMarkInfo1.mWaterMarkCoordX += 0.08f;
         WaterMarkInfo waterMarkInfo2 = new WaterMarkInfo();
         waterMarkInfo2.mWaterMarkPath = Common.waterMark;
         waterMarkInfo2.mWaterMarkCoordY += 0.4;
-        waterMarkInfos.add(waterMarkInfo);
+//        waterMarkInfos.add(waterMarkInfo);
         waterMarkInfos.add(waterMarkInfo1);
-        waterMarkInfos.add(waterMarkInfo2);
+//        waterMarkInfos.add(waterMarkInfo2);
     }
 
     @Override
@@ -1339,5 +1348,27 @@ public class PushConfigActivity extends BaseActivity1 {
         mAlivcLivePusher.startPush(url);
 
         mPushTex.setText(R.string.stop_button);
+    }
+   private String room_id;
+    @Override
+    public <T> void toEntity(T entity, int type) {
+
+        String chatRoomId = SpUtil.getChatRoomId(PushConfigActivity.this);
+        if (getPushConfig() != null) {
+            LivePushActivity.startActivity(PushConfigActivity.this,chatRoomId, mAlivcLivePushConfig, SpUtil.getLiveUrl(PushConfigActivity.this), mAsyncValue, mAudioOnlyPush, mVideoOnlyPush, mOrientationEnum, mCameraId, isFlash, mAuthTimeStr, mPrivacyKeyStr, mMixStream, mAlivcLivePushConfig.isExternMainStream());
+            finish();
+//                    LivePushActivity.startActivity(PushConfigActivity.this, mAlivcLivePushConfig, SpUtil.getUrl(PushConfigActivity.this), mAsyncValue, mAudioOnlyPush, mVideoOnlyPush, mOrientationEnum, mCameraId, isFlash, mAuthTimeStr, mPrivacyKeyStr, mMixStream, mAlivcLivePushConfig.isExternMainStream());
+        }
+
+    }
+
+    @Override
+    public void toNextStep(int type) {
+
+    }
+
+    @Override
+    public void showTomast(String msg) {
+
     }
 }

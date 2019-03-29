@@ -552,6 +552,7 @@ public class MediaActivity extends Activity implements View.OnClickListener {
                     intent.putExtra(PublishActivity.KEY_PARAM_THUMBNAIL, thpath);
                     intent.putExtra(PublishActivity.KEY_PARAM_CONFIG, path);
                     startActivity(intent);
+                    finish();
                 }
 
 

@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.hardware.Camera;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
@@ -29,6 +30,12 @@ import com.alivc.live.pusher.AlivcLivePushErrorListener;
 import com.alivc.live.pusher.AlivcLivePushInfoListener;
 import com.alivc.live.pusher.AlivcLivePushNetworkListener;
 import com.alivc.live.pusher.AlivcLivePusher;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.hyphenate.EMChatRoomChangeListener;
+import com.hyphenate.chat.EMChatRoom;
+import com.hyphenate.chat.EMClient;
+import com.hyphenate.exceptions.HyphenateException;
 import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.live.LiveChatRoomFragment;
 import com.zhongchuang.canting.allive.core.module.BeautyParams;
@@ -40,6 +47,8 @@ import com.zhongchuang.canting.allive.pusher.ui.myview.PushAnswerGameDialog;
 import com.zhongchuang.canting.allive.pusher.ui.myview.PushBeautyDialog;
 import com.zhongchuang.canting.allive.pusher.ui.myview.PushMoreDialog;
 import com.zhongchuang.canting.allive.pusher.utils.SharedPreferenceUtils;
+import com.zhongchuang.canting.app.CanTingAppLication;
+import com.zhongchuang.canting.been.BEAN;
 import com.zhongchuang.canting.been.FriendInfo;
 import com.zhongchuang.canting.been.Gift;
 import com.zhongchuang.canting.been.SubscriptionBean;
@@ -47,7 +56,14 @@ import com.zhongchuang.canting.easeui.Constant;
 import com.zhongchuang.canting.easeui.EaseConstant;
 import com.zhongchuang.canting.easeui.bean.CHATMESSAGE;
 import com.zhongchuang.canting.easeui.ui.EaseChatFragment;
+import com.zhongchuang.canting.hud.ToastUtils;
+import com.zhongchuang.canting.net.BaseCallBack;
+import com.zhongchuang.canting.net.HttpUtil;
+import com.zhongchuang.canting.net.netService;
+import com.zhongchuang.canting.utils.SpUtil;
+import com.zhongchuang.canting.utils.StringUtil;
 import com.zhongchuang.canting.utils.TextUtil;
+import com.zhongchuang.canting.widget.CircleImageView;
 import com.zhongchuang.canting.widget.GiftItemView;
 import com.zhongchuang.canting.widget.RxBus;
 
@@ -62,6 +78,9 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Vector;
 import java.util.concurrent.ScheduledExecutorService;
@@ -80,6 +99,7 @@ public class LivePushFragment extends Fragment implements Runnable {
     public static final String TAG = "LivePushFragment";
 
     private static final String URL_KEY = "url_key";
+    private static final String ROOM_ID = "room_id";
     private static final String ASYNC_KEY= "async_key";
     private static final String AUDIO_ONLY_KEY = "audio_only_key";
     private static final String VIDEO_ONLY_KEY = "video_only_key";
@@ -99,6 +119,9 @@ public class LivePushFragment extends Fragment implements Runnable {
     private HeartLayout heartLayout;
     private GiftItemView giftView;
     private ImageView mBeautyButton;
+    private TextView tvName;
+    private CircleImageView ivImg;
+    private TextView tv_count;
     private TextView mAnswer;
     private LinearLayout mTopBar;
     private TextView mUrl;
@@ -145,11 +168,12 @@ public class LivePushFragment extends Fragment implements Runnable {
 
     Vector<Integer> mDynamicals = new Vector<>();
     private LinearLayout mBottomMenu;
-
-    public static LivePushFragment newInstance(String url, boolean async, boolean mAudio, boolean mVideoOnly , int cameraId, boolean isFlash, int mode, String authTime, String privacyKey, boolean mixExtern, boolean mixMain) {
+    private String room_id;
+    public static LivePushFragment newInstance(String id,String url, boolean async, boolean mAudio, boolean mVideoOnly , int cameraId, boolean isFlash, int mode, String authTime, String privacyKey, boolean mixExtern, boolean mixMain) {
         LivePushFragment livePushFragment = new LivePushFragment();
         Bundle bundle = new Bundle();
         bundle.putString(URL_KEY, url);
+        bundle.putString(ROOM_ID, id);
         bundle.putBoolean(ASYNC_KEY, async);
         bundle.putBoolean(AUDIO_ONLY_KEY, mAudio);
         bundle.putBoolean(VIDEO_ONLY_KEY, mVideoOnly);
@@ -170,6 +194,7 @@ public class LivePushFragment extends Fragment implements Runnable {
         gifts = new ArrayList<>();
         if(getArguments() != null) {
             mPushUrl = getArguments().getString(URL_KEY);
+            room_id = getArguments().getString(ROOM_ID);
             mTempUrl = mPushUrl;
             mAsync = getArguments().getBoolean(ASYNC_KEY, false);
             mAudio = getArguments().getBoolean(AUDIO_ONLY_KEY, false);
@@ -191,7 +216,11 @@ public class LivePushFragment extends Fragment implements Runnable {
             isPushing = mAlivcLivePusher.isPushing();
         }
         startYUV(getActivity());
-        go2Chat("");
+        getDirIndexInfo();
+        go2Chat(room_id);
+
+        EMClient.getInstance().chatroomManager().addChatRoomChangeListener(roomlistener);
+
         mSubscription = RxBus.getInstance().toObserverable(SubscriptionBean.RxBusSendBean.class).subscribe(new Action1<SubscriptionBean.RxBusSendBean>() {
             @Override
             public void call(SubscriptionBean.RxBusSendBean bean) {
@@ -236,17 +265,110 @@ public class LivePushFragment extends Fragment implements Runnable {
 //        }
 
     }
+    Handler handlers =new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(Message msg) {
+            tv_count.setText("在线人数："+meber);
+            return false;
+        }
+    });
+     private int meber=0;
+     private  EMChatRoomChangeListener roomlistener=new EMChatRoomChangeListener(){
+
+         @Override
+         public void onChatRoomDestroyed(String roomId, String roomName) {
+
+         }
+
+         @Override
+         public void onMemberJoined(String roomId, String participant) {
+
+             meber=meber+1;
+             handlers.sendEmptyMessage(1);
+
+         }
+
+         @Override
+         public void onMemberExited(String roomId, String roomName, String participant) {
+             meber=meber-1;
+             handlers.sendEmptyMessage(1);
+         }
+
+         @Override
+         public void onRemovedFromChatRoom(String s, String s1, String s2) {
+
+         }
+
+
+         @Override
+         public void onMuteListAdded(final String chatRoomId, final List<String> mutes, final long expireTime) {
+
+         }
+
+         @Override
+         public void onMuteListRemoved(final String chatRoomId, final List<String> mutes) {
+
+         }
+
+         @Override
+         public void onAdminAdded(final String chatRoomId, final String admin) {
+
+         }
+
+         @Override
+         public void onAdminRemoved(final String chatRoomId, final String admin) {
+
+         }
+
+         @Override
+         public void onOwnerChanged(final String chatRoomId, final String newOwner, final String oldOwner) {
+
+         }
+         @Override
+         public void onAnnouncementChanged(String chatRoomId, final String announcement) {
+
+         }
+     };
+    public void getDirIndexInfo() {
+
+
+        Map<String, String> map = new HashMap<>();
+        map.put("userInfoId", CanTingAppLication.userId);
+        map.put("roomInfoId", SpUtil.getRoomId(getActivity()));
+        netService api = HttpUtil.getInstance().create(netService.class);
+        api.getDirIndexInfo(map).enqueue(new BaseCallBack<BEAN>() {
+            @Override
+            public void onSuccess(BEAN bean) {
+                BEAN data = bean.data;
+                if(data==null){
+                    return;
+                }
+                if(TextUtil.isNotEmpty(data.user_info_nickname)){
+                    tvName.setText(data.user_info_nickname);
+                }
+
+                Glide.with(getActivity()).load(data.room_image).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.drawable.dingdantouxiang).into(ivImg);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                ToastUtils.showNormalToast(t);
+            }
+        });
+    }
+
     private Subscription mSubscription;
     private ArrayList<Gift> gifts;
     private LiveChatRoomFragment chatFragment;
-    private void go2Chat(String username) {
+    private void go2Chat(String room_id) {
         FriendInfo info= new FriendInfo();
-        info.friendsId="76431921053697";
+        info.friendsId=room_id;
         CHATMESSAGE chatmessage= CHATMESSAGE.fromLogin(info);
         chatFragment = new LiveChatRoomFragment();
         getActivity().getIntent().putExtra(EaseConstant.EXTRA_CHAT_TYPE, Constant.CHATTYPE_CHATROOM);
         getActivity().getIntent().putExtra(EaseConstant.EXTRA_CHATMSG, chatmessage);
-        getActivity().getIntent().putExtra("group_id", "76431921053697");
+        getActivity().getIntent().putExtra("group_id", room_id);
         //pass parameters to chat fragment
         chatFragment.setArguments( getActivity().getIntent().getExtras());
 
@@ -264,6 +386,9 @@ public class LivePushFragment extends Fragment implements Runnable {
         mExit = (ImageView) view.findViewById(R.id.exit);
         mMusic = (ImageView) view.findViewById(R.id.music);
         mFlash = (ImageView) view.findViewById(R.id.flash);
+        tv_count = (TextView) view.findViewById(R.id.tv_count);
+        tvName = (TextView) view.findViewById(R.id.tv_name);
+        ivImg = (CircleImageView) view.findViewById(R.id.iv_img);
         heartLayout = (HeartLayout) view.findViewById(R.id.heart_layout);
         giftView = (GiftItemView) view.findViewById(R.id.gift_item_first);
         mRandom=new Random();
@@ -638,6 +763,8 @@ public class LivePushFragment extends Fragment implements Runnable {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+
+       EMClient.getInstance().chatroomManager().removeChatRoomChangeListener(roomlistener);
         if (mSubscription != null) {
             RxBus.getInstance().unSub(mSubscription);
         }
