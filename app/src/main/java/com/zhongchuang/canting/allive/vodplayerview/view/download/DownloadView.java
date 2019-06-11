@@ -95,16 +95,16 @@ public class DownloadView extends FrameLayout implements OnClickListener, Compou
 
     private void initView() {
         LayoutInflater.from(this.context.get()).inflate(R.layout.alivc_download_view_layout, this, true);
-        downloadEmptyView = (LinearLayout)findViewById(R.id.alivc_layout_empty_view);
-        downloadListView = (RecyclerView)findViewById(R.id.download_list_view);
+        downloadEmptyView = findViewById(R.id.alivc_layout_empty_view);
+        downloadListView = findViewById(R.id.download_list_view);
         linearLayoutManager = new LinearLayoutManager(getContext());
         downloadListView.setLayoutManager(linearLayoutManager);
 
-        rlDownloadManagerContent = (RelativeLayout)findViewById(R.id.rl_download_manager_content);
-        rlDownloadManagerEdit = (RelativeLayout)findViewById(R.id.rl_download_manager_edit);
-        rlDownloadManagerEditDefault = (RelativeLayout)findViewById(R.id.rl_download_manager_edit_default);
-        ivDownloadDelete = (ImageView)findViewById(R.id.iv_download_delete);
-        ivCloseEdit = (ImageView)findViewById(R.id.iv_close_edit);
+        rlDownloadManagerContent = findViewById(R.id.rl_download_manager_content);
+        rlDownloadManagerEdit = findViewById(R.id.rl_download_manager_edit);
+        rlDownloadManagerEditDefault = findViewById(R.id.rl_download_manager_edit_default);
+        ivDownloadDelete = findViewById(R.id.iv_download_delete);
+        ivCloseEdit = findViewById(R.id.iv_close_edit);
 
         cbAllDownloadCheck = findViewById(R.id.checkbox_all_select);
 

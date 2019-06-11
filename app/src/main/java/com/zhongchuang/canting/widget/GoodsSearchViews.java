@@ -10,7 +10,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -124,11 +124,11 @@ public class GoodsSearchViews extends LinearLayout {
 
         View view = inflater.inflate(R.layout.view_goods_searchs,this);
 
-        mYunShlEditText=(YunShlEditText)view.findViewById(R.id.edt_search_box);
+        mYunShlEditText= view.findViewById(R.id.edt_search_box);
 
-        iv_clean=(ImageView)view.findViewById(R.id.iv_clean);
-        back=(ImageView)view.findViewById(R.id.back);
-        iv_change=(ImageView)view.findViewById(R.id.iv_change);
+        iv_clean= view.findViewById(R.id.iv_clean);
+        back= view.findViewById(R.id.back);
+        iv_change= view.findViewById(R.id.iv_change);
 
         iv_change.setOnClickListener(new OnClickListener() {
             @Override

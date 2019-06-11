@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.malinskiy.superrecyclerview.OnMoreListener;
 import com.malinskiy.superrecyclerview.SuperRecyclerView;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.adapter.recycle.GiftReCycleAdapter;
 import com.zhongchuang.canting.base.BaseActivity1;
 import com.zhongchuang.canting.been.Hand;

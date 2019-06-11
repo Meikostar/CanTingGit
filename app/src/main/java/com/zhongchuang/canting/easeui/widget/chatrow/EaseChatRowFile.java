@@ -11,11 +11,16 @@ import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMNormalFileMessageBody;
+import com.hyphenate.chat.EMVideoMessageBody;
 import com.hyphenate.exceptions.HyphenateException;
 import com.hyphenate.util.FileUtils;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.hyphenate.util.TextFormater;
+import com.zhongchuang.canting.activity.chat.PlayVideoActivity;
+import com.zhongchuang.canting.activity.chat.VideoActivity;
+import com.zhongchuang.canting.app.CanTingAppLication;
 import com.zhongchuang.canting.easeui.ui.EaseShowNormalFileActivity;
+import com.zhongchuang.canting.utils.TextUtil;
 
 import java.io.File;
 
@@ -42,10 +47,10 @@ public class EaseChatRowFile extends EaseChatRow {
 
     @Override
     protected void onFindViewById() {
-        fileNameView = (TextView) findViewById(R.id.tv_file_name);
-        fileSizeView = (TextView) findViewById(R.id.tv_file_size);
-        fileStateView = (TextView) findViewById(R.id.tv_file_state);
-        percentageView = (TextView) findViewById(R.id.percentage);
+        fileNameView = findViewById(R.id.tv_file_name);
+        fileSizeView = findViewById(R.id.tv_file_size);
+        fileStateView = findViewById(R.id.tv_file_state);
+        percentageView = findViewById(R.id.percentage);
     }
 
 
@@ -112,23 +117,39 @@ public class EaseChatRowFile extends EaseChatRow {
 
     @Override
     protected void onBubbleClick() {
-        String filePath = fileMessageBody.getLocalUrl();
-        File file = new File(filePath);
-        if (file.exists()) {
-            // open files if it exist
-            FileUtils.openFile(file, (Activity) context);
-        } else {
-            // download the file
-            context.startActivity(new Intent(context, EaseShowNormalFileActivity.class).putExtra("msg", message));
-        }
-        if (message.direct() == EMMessage.Direct.RECEIVE && !message.isAcked() && message.getChatType() == EMMessage.ChatType.Chat) {
-            try {
-                EMClient.getInstance().chatManager().ackMessageRead(message.getFrom(), message.getMsgId());
-            } catch (HyphenateException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+        if(message!=null){
+            EMVideoMessageBody     fileMessageBody = (EMVideoMessageBody) message.getBody();
+            if(fileMessageBody!=null){
+                String filePath = fileMessageBody.getLocalUrl();
+                String url=fileMessageBody.getRemoteUrl();
+                File file = new File(filePath);
+                if(file!=null&&file.exists()){
+
+                }else {
+                    filePath=url;
+                }
+                CanTingAppLication.landType=2;
+
+                context.startActivity(new Intent(context, PlayVideoActivity.class).putExtra("path", filePath));
+
+//                if (file.exists()) {
+//                    // open files if it exist
+//                    FileUtils.openFile(file, (Activity) context);
+//                } else {
+//                    // download the file
+//                    context.startActivity(new Intent(context, EaseShowNormalFileActivity.class).putExtra("msg", message));
+//                }
+//                if (message.direct() == EMMessage.Direct.RECEIVE && !message.isAcked() && message.getChatType() == EMMessage.ChatType.Chat) {
+//                    try {
+//                        EMClient.getInstance().chatManager().ackMessageRead(message.getFrom(), message.getMsgId());
+//                    } catch (HyphenateException e) {
+//                        // TODO Auto-generated catch block
+//                        e.printStackTrace();
+//                    }
+//                }
             }
         }
+
 
     }
 }

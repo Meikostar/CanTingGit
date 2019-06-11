@@ -29,7 +29,7 @@ import android.widget.Toast;
 import com.hyphenate.util.DateUtils;
 import com.hyphenate.util.EMLog;
 import com.hyphenate.util.TextFormater;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.easeui.bean.VideoEntity;
 import com.zhongchuang.canting.easeui.utils.ImageCache;
 import com.zhongchuang.canting.easeui.utils.ImageResizer;
@@ -85,7 +85,7 @@ public class ImageGridFragment extends Fragment implements OnItemClickListener {
                              ViewGroup container, Bundle savedInstanceState) {
 		final View v = inflater.inflate(R.layout.em_image_grid_fragment,
 				container, false);
-		final GridView mGridView = (GridView) v.findViewById(R.id.gridView);
+		final GridView mGridView = v.findViewById(R.id.gridView);
 		mGridView.setAdapter(mAdapter);
 		mGridView.setOnItemClickListener(this);
 		mGridView.setOnScrollListener(new AbsListView.OnScrollListener() {
@@ -223,10 +223,10 @@ public class ImageGridFragment extends Fragment implements OnItemClickListener {
 			 {
 				 holder=new ViewHolder();
 				 convertView= LayoutInflater.from(mContext).inflate(R.layout.em_choose_griditem, container,false);
-				 holder.imageView=(RecyclingImageView) convertView.findViewById(R.id.imageView);
-				 holder.icon=(ImageView) convertView.findViewById(R.id.video_icon);
-				 holder.tvDur=(TextView)convertView.findViewById(R.id.chatting_length_iv);
-				 holder.tvSize=(TextView)convertView.findViewById(R.id.chatting_size_iv);
+				 holder.imageView= convertView.findViewById(R.id.imageView);
+				 holder.icon= convertView.findViewById(R.id.video_icon);
+				 holder.tvDur= convertView.findViewById(R.id.chatting_length_iv);
+				 holder.tvSize= convertView.findViewById(R.id.chatting_size_iv);
 				 holder.imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 				 holder.imageView.setLayoutParams(mImageViewLayoutParams);
 				 convertView.setTag(holder);

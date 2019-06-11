@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 
 /**
  * Created by Administrator on 2018/6/22.
@@ -39,9 +39,9 @@ public class AddEditText extends LinearLayout {
     public void init_widget(){
 
 
-        mEditText = (ClearEditText)findViewById(R.id.edit_cout);
-        bAdd = (TextView)findViewById(R.id.tv_add);
-        bReduce = (TextView)findViewById(R.id.tv_clear);
+        mEditText = findViewById(R.id.edit_cout);
+        bAdd = findViewById(R.id.tv_add);
+        bReduce = findViewById(R.id.tv_clear);
         mEditText.setShow(false);
         mEditText.setText("1");
         mEditText.setOnClearEditTextListener(new ClearEditText.ClearEditTextListener() {

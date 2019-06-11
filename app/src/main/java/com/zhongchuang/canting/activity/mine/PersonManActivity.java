@@ -15,8 +15,9 @@ import com.google.gson.Gson;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.HomeActivity;
+import com.zhongchuang.canting.activity.HomeActivitys;
 import com.zhongchuang.canting.activity.chat.AddFriendActivity;
 import com.zhongchuang.canting.activity.chat.QfriendActivity;
 import com.zhongchuang.canting.app.CanTingAppLication;
@@ -164,12 +165,20 @@ public class PersonManActivity extends BaseLoginActivity implements BaseContract
                 dataBean.setNickname(info.nickname);
                 dataBean.setRingLetterName(id);
                 Intent intent = new Intent(PersonManActivity.this, AddFriendActivity.class);
-                intent.putExtra("data", HomeActivity.messageGroup);
+                intent.putExtra("data", HomeActivitys.messageGroup);
                 intent.putExtra("datas", dataBean);
                 startActivityForResult(intent, 5);
             }
         });
+       ivImg.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
 
+               Intent intent = new Intent(PersonManActivity.this, NewPersonDetailActivity.class);
+               intent.putExtra("id", id + "");
+               startActivity(intent);
+           }
+       });
         tvDel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -221,10 +230,10 @@ public class PersonManActivity extends BaseLoginActivity implements BaseContract
     public void showPopwindow(String name, final String userid) {
 
         views = View.inflate(this, R.layout.del_friend, null);
-        sure = (TextView) views.findViewById(R.id.txt_sure);
-        cancel = (TextView) views.findViewById(R.id.txt_cancel);
-        title = (TextView) views.findViewById(R.id.tv_title);
-        reson = (EditText) views.findViewById(R.id.edit_reson);
+        sure = views.findViewById(R.id.txt_sure);
+        cancel = views.findViewById(R.id.txt_cancel);
+        title = views.findViewById(R.id.tv_title);
+        reson = views.findViewById(R.id.edit_reson);
         title.setText(getString(R.string.qesc) + name + getString(R.string.hys));
         final MarkaBaseDialog dialog = BaseDailogManager.getInstance().getBuilder(this).setMessageView(views).create();
         dialog.show();

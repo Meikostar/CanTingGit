@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMMessage;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.easeui.EaseConstant;
 import com.zhongchuang.canting.easeui.widget.chatrow.EaseChatRow;
 
@@ -32,7 +32,7 @@ public class ChatRowRedPacketAck extends EaseChatRow {
 
     @Override
     protected void onFindViewById() {
-        mTvMessage = (TextView) findViewById(R.id.ease_tv_money_msg);
+        mTvMessage = findViewById(R.id.ease_tv_money_msg);
     }
 
     @Override

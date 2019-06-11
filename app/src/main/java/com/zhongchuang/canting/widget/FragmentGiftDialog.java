@@ -17,7 +17,7 @@ import android.widget.GridView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.adapter.GiftGridViewAdapter;
 import com.zhongchuang.canting.been.GIFTDATA;
 import com.zhongchuang.canting.been.Gift;
@@ -70,8 +70,8 @@ public class FragmentGiftDialog extends DialogFragment {
             catogary_resourceIds[i] = typedArray.getResourceId(i, 0);
         }
         layoutInflater = getActivity().getLayoutInflater();
-        vp = (ViewPager) rootView.findViewById(R.id.view_pager);
-        radio_group = (RadioGroup) rootView.findViewById(R.id.radio_group);
+        vp = rootView.findViewById(R.id.view_pager);
+        radio_group = rootView.findViewById(R.id.radio_group);
         RadioButton radioButton = (RadioButton)radio_group.getChildAt(0);
         radioButton.setChecked(true);
         catogarys = new ArrayList<Gift>();

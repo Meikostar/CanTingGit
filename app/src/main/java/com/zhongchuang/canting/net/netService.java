@@ -45,6 +45,7 @@ import com.zhongchuang.canting.been.Param;
 import com.zhongchuang.canting.been.Product;
 import com.zhongchuang.canting.been.ProductBuy;
 import com.zhongchuang.canting.been.ProductDel;
+import com.zhongchuang.canting.been.Profit;
 import com.zhongchuang.canting.been.QfriendBean;
 import com.zhongchuang.canting.been.RedInfo;
 import com.zhongchuang.canting.been.SIGN;
@@ -58,6 +59,7 @@ import com.zhongchuang.canting.been.SureOrder;
 import com.zhongchuang.canting.been.TOKEN;
 import com.zhongchuang.canting.been.USER;
 import com.zhongchuang.canting.been.UserInfo;
+import com.zhongchuang.canting.been.UserInfoBean;
 import com.zhongchuang.canting.been.UserLoginBean;
 import com.zhongchuang.canting.been.TencentSing;
 import com.zhongchuang.canting.been.Version;
@@ -120,7 +122,10 @@ public interface netService {
 //    public static final String TOM_BASE_URL = "http://111.230.248.224:8780/ifun/";
 //    public static final String TOM_BASE_URL = "http://47.74.189.52:8080/ifun/";
 //      public static final String TOM_BASE_URL = "http://119.23.235.1:8080/ifun/";
-    public static final String TOM_BASE_URL = "http://120.77.222.116:8080/ifun/";
+    String TOM_BASE_URL = "http://120.77.222.116:8080/ifun/";
+//    public static final String TOM_BASE_URL = "http://120.78.148.31:8080/ifun/";//替换对了服务器
+
+
 
 
 //    public static final String TOM_BASE_URL = "http://119.23.212.8:8080/ifun/";
@@ -134,6 +139,7 @@ public interface netService {
 
 
 //    public static final String TOM_BASE_URL = "http://119.23.235.1:8089/ifun/";
+//    public static final String TOM_BASE_URL = "http://119.23.235.1:8080/ifun/";
 
 //        public static final String TOM_BASE_URL = "http://192.168.50.145:8080/ifun/";
 
@@ -145,105 +151,105 @@ public interface netService {
 
     //0
     //图片上传
-    public static final String UPDATE_PHOTO_URL = "common/upload/images";
+    String UPDATE_PHOTO_URL = "common/upload/images";
 
 
     //1
     //号码判断
-    public static final String REGIST_CHECK_URL = "wap/sysSmsLog/send";
+    String REGIST_CHECK_URL = "wap/sysSmsLog/send";
 
 
     //2
     //CODE 验证
-    public static final String CODE_CHECK_URL = "wap/register/checkCode";
+    String CODE_CHECK_URL = "wap/register/checkCode";
 
 
     //手机号码、密码提交
-    public static final String REGISTPHPW_URL = "wap/userInfo/savePwd";
+    String REGISTPHPW_URL = "wap/userInfo/savePwd";
 
     //用户登录
-    public static final String LOGIN_URL = "wap/login";
-    public static final String CODE_LOGIN = "wap/userLogin/login";
+    String LOGIN_URL = "wap/login";
+    String CODE_LOGIN = "wap/userLogin/login";
 
 
     //主播开播
-    public static final String LIVEZHUBO_URL = "web/userInfo/isDirectSeed";
+    String LIVEZHUBO_URL = "web/userInfo/isDirectSeed";
 
 
     //观众端收看
-    public static final String LIVEGUANZHONG_URL = "wap/dirRoomInfo/getDirRoomList";
+    String LIVEGUANZHONG_URL = "wap/dirRoomInfo/getDirRoomList";
 
     //主播上线通知   废弃
-    public static final String ONLIVE_URL = "web/dirRoomInfo/setOnline";
+    String ONLIVE_URL = "web/dirRoomInfo/setOnline";
 
     //主播下线通知   废弃
-    public static final String STOPLIVE_URL = "web/dirRoomInfo/setOffline";
+    String STOPLIVE_URL = "web/dirRoomInfo/setOffline";
 
     //即时通讯签名,暂缓后续处理
-    public static final String USERSING_URL = "web/sign/generation";
+    String USERSING_URL = "web/sign/generation";
 
     //添加好友
-    public static final String FRIEND_URL = "web/chatDirectories/getChatUserList";
+    String FRIEND_URL = "web/chatDirectories/getChatUserList";
 
 
     //游戏列表地址
-    public static final String GAME_URL = "wap/gameList/getGameInfoList";
+    String GAME_URL = "wap/gameList/getGameInfoList";
 
     //通讯录
-    public static final String DIREC_URL = "web/chatDirectories/getChatDirectoriesList";
+    String DIREC_URL = "web/chatDirectories/getChatDirectoriesList";
 
 
     //游戏下载与开启地址
-    public static final String GAME_DOWN_URL = "wap/gameList/getGameInfo";
+    String GAME_DOWN_URL = "wap/gameList/getGameInfo";
 
     //修改个人信息
-    public static final String CHANAGE_PERSONINFO_URL = "wap/userInfo/update";
+    String CHANAGE_PERSONINFO_URL = "wap/userInfo/update";
 
     //主页banner获取
-    public static final String MAIN_BANNER_URL = "wap/sysHomeInfo/list";
+    String MAIN_BANNER_URL = "wap/sysHomeInfo/list";
 
 
     //--------------------------------------------------------------------------------------------------------------------
     //商城模块
 
     //商城首页分类
-    public static final String SHOP_TYPE_URL = "wap/goodsCla/getGoodClass";
+    String SHOP_TYPE_URL = "wap/goodsCla/getGoodClass";
     //推荐列表头部
-    public static final String SHOP_HEADER_URL = "wap/goodsInfo/getGoodInfo";
+    String SHOP_HEADER_URL = "wap/goodsInfo/getGoodInfo";
     //推荐列表获取
-    public static final String CREOMMOND_LIST_URL = "wap/goodsInfo/getGoodInfoIndex";
+    String CREOMMOND_LIST_URL = "wap/goodsInfo/getGoodInfoIndex";
     //分类所属列表获取
-    public static final String SHOP_LIST_URL = "wap/goodsInfo/getGoodsListByType";
+    String SHOP_LIST_URL = "wap/goodsInfo/getGoodsListByType";
     //商品详情
-    public static final String GOODS_DETAIL_URL = "wap/goodsInfo/getInfoByGoodsId";
+    String GOODS_DETAIL_URL = "wap/goodsInfo/getInfoByGoodsId";
     //购物车列表
-    public static final String SHOPCAR_LIST_URL = "wap/goodsCart/getGoodsCartByUser";
+    String SHOPCAR_LIST_URL = "wap/goodsCart/getGoodsCartByUser";
     //添加倒购物车
-    public static final String SHOPCAR_ADD_URL = "wap/goodsCart/addGoodsCart";
+    String SHOPCAR_ADD_URL = "wap/goodsCart/addGoodsCart";
     //删除倒购物车
-    public static final String SHOPCAR_DELETE_URL = "wap/goodsCart/delGoodsCartByKey";
+    String SHOPCAR_DELETE_URL = "wap/goodsCart/delGoodsCartByKey";
     //地址列表
-    public static final String ADDRESS_LIST_URL = "wap/goodsUserAd/getAddress";
+    String ADDRESS_LIST_URL = "wap/goodsUserAd/getAddress";
     //新郑地址
-    public static final String ADDRESS_ADD_URL = "wap/goodsUserAd/addAdress";
+    String ADDRESS_ADD_URL = "wap/goodsUserAd/addAdress";
     //修改地址
-    public static final String ADDRESS_EDIT_URL = "wap/goodsUserAd/updateAdress";
+    String ADDRESS_EDIT_URL = "wap/goodsUserAd/updateAdress";
     //删除地址
-    public static final String ADDRESS_DELETE_URL = "wap/goodsUserAd/delUserAd";
+    String ADDRESS_DELETE_URL = "wap/goodsUserAd/delUserAd";
     //设置默认地址
-    public static final String ADDRESS_DEFAULT_URL = "wap/goodsUserAd/updateStateAdress";
+    String ADDRESS_DEFAULT_URL = "wap/goodsUserAd/updateStateAdress";
 
     //购物车提交订单 确定订单支付
-    public static final String SUBMIT_ORDER_URL = "goods/goodsOrder/buyFromCartGoodsOrder";
+    String SUBMIT_ORDER_URL = "goods/goodsOrder/buyFromCartGoodsOrder";
 
     //立即购买
-    public static final String SUBMIT_NOW_GOODS_ORDER_URL = "goods/goodsOrder/buyNowGoodsOrder";
+    String SUBMIT_NOW_GOODS_ORDER_URL = "goods/goodsOrder/buyNowGoodsOrder";
 
     //13 返回商品规格信息
-    public static final String GOODS_SPE_CATE_URL = "goods/goodsSpeCate/getGoodsCate";
+    String GOODS_SPE_CATE_URL = "goods/goodsSpeCate/getGoodsCate";
 
     //14 微信支付
-    public static final String GOODS_WX_PAY = "WechatPay/getWeiPayOrder";
+    String GOODS_WX_PAY = "WechatPay/getWeiPayOrder";
 
 
     //@Headers("Accept-Encoding : application/json;charset=UTF-8")
@@ -648,6 +654,10 @@ public interface netService {
     Call<INTEGRALIST> integralDetails(@FieldMap Map<String, String> map);
 
     @FormUrlEncoded
+    @POST("wap/profit/getProfitList")
+    Call<Profit> getProfitList(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
     @POST("web/integral/deleteIntegralGoods")
     Call<BaseResponse> deleteIntegralGoods(@FieldMap Map<String, String> map);
 
@@ -810,14 +820,16 @@ public interface netService {
     Call<BaseResponse> receiptGoods(@FieldMap Map<String, String> map);
 
 
-    @Headers({"Content-Type: application/json", "Accept: application/json"})
-    @POST("wap/orderManage/cancelOrder")
-    Call<BaseResponse> cancelOrder(@Body CancelParam body);
+//    @Headers({"Content-Type: application/json", "Accept: application/json"})
+//    @POST("wap/orderManage/cancelOrder")
+//    Call<BaseResponse> cancelOrder(@Body CancelParam body);
 
     @FormUrlEncoded
     @POST("wap/orderManage/deleteOrder")
     Call<BaseResponse> deleteOrder(@FieldMap Map<String, String> map);
-
+    @FormUrlEncoded
+    @POST("wap/orderManage/cancelOrder")
+    Call<BaseResponse> cancelOrder(@FieldMap Map<String, String> map);
 
     @GET("wap/app/getVersionAndUrl")
     Call<Version> getVersionAndUrl();
@@ -944,6 +956,15 @@ public interface netService {
     @FormUrlEncoded
     @POST("web/friendCircles/getFriendCirclesList")
     Call<QfriendBean> getFriendCirclesList(@FieldMap Map<String, String> opt);
+
+    @FormUrlEncoded
+    @POST("wap/information/getUserInformation")
+    Call<UserInfoBean> getUserInformation(@FieldMap Map<String, String> opt);
+
+    @FormUrlEncoded
+    @POST("wap/information/saveInformation")
+    Call<BaseResponse> saveInformation(@FieldMap Map<String, String> opt);
+
     @FormUrlEncoded
     @POST("web/friendCircles/getFriendCirclesDetail")
     Call<QfriendBean> getFriendById(@FieldMap Map<String, String> opt);
@@ -1030,6 +1051,11 @@ public interface netService {
     @POST("wap/liveRecord/setLiveNotifyUrl")
     Call<aliLive> setLiveNotifyUrl(@FieldMap Map<String, String> opt);
     @FormUrlEncoded
+    @POST("wap/liveRecord/updateType")
+    Call<BaseResponse> updateType(@FieldMap Map<String, String> opt);
+
+
+    @FormUrlEncoded
     @POST("wap/liveRecordVod/addLiveRecordVod")
     Call<aliLive> addLiveRecordVod(@FieldMap Map<String, String> opt);
 
@@ -1048,6 +1074,14 @@ public interface netService {
     @FormUrlEncoded
     @POST("wap/video/getVideoList")
     Call<videobean> getVideoList(@FieldMap Map<String, String> opt);
+
+    @FormUrlEncoded
+    @POST("wap/video/updateVideoType")
+    Call<BaseResponse> updateVideoType(@FieldMap Map<String, String> opt);
+
+    @FormUrlEncoded
+    @POST("wap/video/deleteVideo")
+    Call<BaseResponse> delVideo(@FieldMap Map<String, String> opt);
 
     @FormUrlEncoded
     @POST("wap/liveRecord/deleteConfig")

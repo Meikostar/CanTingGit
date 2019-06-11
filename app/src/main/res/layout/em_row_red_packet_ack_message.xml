@@ -5,7 +5,7 @@
               android:orientation="vertical"
     >
     <!-- 需要设置个不显示的用户头像 否则会报错-->
-    <ImageView
+    <com.zhongchuang.canting.easeui.widget.EaseImageView
         android:id="@+id/iv_userhead"
         android:layout_width="0dp"
         android:layout_height="0dp"

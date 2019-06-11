@@ -89,12 +89,12 @@ public class SpeedView extends RelativeLayout implements ITheme {
         mMainSpeedView.setVisibility(INVISIBLE);
 
         //找出控件
-        mOneQrtTimeBtn = (RadioButton) findViewById(R.id.one_quartern);
-        mNormalBtn = (RadioButton) findViewById(R.id.normal);
-        mOneHalfTimeBtn = (RadioButton) findViewById(R.id.one_half);
-        mTwoTimeBtn = (RadioButton) findViewById(R.id.two);
+        mOneQrtTimeBtn = findViewById(R.id.one_quartern);
+        mNormalBtn = findViewById(R.id.normal);
+        mOneHalfTimeBtn = findViewById(R.id.one_half);
+        mTwoTimeBtn = findViewById(R.id.two);
 
-        mSpeedTip = (TextView) findViewById(R.id.speed_tip);
+        mSpeedTip = findViewById(R.id.speed_tip);
         mSpeedTip.setVisibility(INVISIBLE);
 
         //对每个倍速项做点击监听
@@ -315,7 +315,7 @@ public class SpeedView extends RelativeLayout implements ITheme {
     /**
      * 倍速值
      */
-    public static enum SpeedValue {
+    public enum SpeedValue {
         /**
          * 正常倍速
          */

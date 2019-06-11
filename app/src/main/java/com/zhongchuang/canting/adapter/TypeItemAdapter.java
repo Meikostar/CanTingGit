@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.been.Param;
 import com.zhongchuang.canting.utils.TextUtil;
 
@@ -59,8 +59,8 @@ public class TypeItemAdapter extends BaseAdapter {
         if (view == null) {
             holder = new ViewHolder();
             view = inflater.inflate(R.layout.type_item_view, null);
-            holder.name = (TextView) view.findViewById(R.id.tv_name);
-            holder.type = (TextView) view.findViewById(R.id.tv_type);
+            holder.name = view.findViewById(R.id.tv_name);
+            holder.type = view.findViewById(R.id.tv_type);
 
 
             view.setTag(holder);

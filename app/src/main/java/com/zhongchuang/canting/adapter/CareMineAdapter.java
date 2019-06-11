@@ -10,7 +10,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.been.Care;
 import com.zhongchuang.canting.been.OrderData;
 import com.zhongchuang.canting.utils.StringUtil;
@@ -60,7 +60,7 @@ public class CareMineAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return list!=null?(list.size()==0?0:list.size()):0;
+        return list!=null?(list.size()):0;
     }
 
     @Override
@@ -79,15 +79,15 @@ public class CareMineAdapter extends BaseAdapter {
         ViewHolder holder;
         if (convertView == null) {
             holder=new ViewHolder();
-            convertView = convertView.inflate(context,R.layout.item_care_mine, null);
-            holder.tv_state = (TextView) convertView.findViewById(R.id.tv_state);
-            holder.name = (TextView) convertView.findViewById(R.id.p_name);
-            holder.dese = (TextView) convertView.findViewById(R.id.p_desc);
-            holder.tv_cout = (TextView) convertView.findViewById(R.id.tv_cout);
-            holder.tvjf = (TextView) convertView.findViewById(R.id.tv_jf);
-            holder.tvState2 = (TextView) convertView.findViewById(R.id.tv_state2);
-            holder.tvState3 = (TextView) convertView.findViewById(R.id.tv_state3);
-            holder.img = (ImageView) convertView.findViewById(R.id.p_logo);
+            convertView = View.inflate(context,R.layout.item_care_mine, null);
+            holder.tv_state = convertView.findViewById(R.id.tv_state);
+            holder.name = convertView.findViewById(R.id.p_name);
+            holder.dese = convertView.findViewById(R.id.p_desc);
+            holder.tv_cout = convertView.findViewById(R.id.tv_cout);
+            holder.tvjf = convertView.findViewById(R.id.tv_jf);
+            holder.tvState2 = convertView.findViewById(R.id.tv_state2);
+            holder.tvState3 = convertView.findViewById(R.id.tv_state3);
+            holder.img = convertView.findViewById(R.id.p_logo);
 
 
 

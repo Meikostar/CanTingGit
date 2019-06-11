@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.presenter.OnChangeListener;
 
 
@@ -88,17 +88,17 @@ public class FiveNevgBar extends LinearLayout implements View.OnClickListener {
     private void init() {
 
         view = LayoutInflater.from(context).inflate(R.layout.five_tab,this);
-        imageViews[0] = (ImageView)view.findViewById(R.id.iv_checkbox_image1);
-        imageViews[1] = (ImageView)view.findViewById(R.id.iv_checkbox_image2);
-        imageViews[2] = (ImageView)view.findViewById(R.id.iv_checkbox_image3);
-        imageViews[3] = (ImageView)view.findViewById(R.id.iv_checkbox_image4);
-        imageViews[4] = (ImageView)view.findViewById(R.id.iv_checkbox_image5);
+        imageViews[0] = view.findViewById(R.id.iv_checkbox_image1);
+        imageViews[1] = view.findViewById(R.id.iv_checkbox_image2);
+        imageViews[2] = view.findViewById(R.id.iv_checkbox_image3);
+        imageViews[3] = view.findViewById(R.id.iv_checkbox_image4);
+        imageViews[4] = view.findViewById(R.id.iv_checkbox_image5);
 
-        textViews[0] = (TextView)view.findViewById(R.id.tv_checkbox_text1);
-        textViews[1]  = (TextView)view.findViewById(R.id.tv_checkbox_text2);
-        textViews[2]  = (TextView)view.findViewById(R.id.tv_checkbox_text3);
-        textViews[3]  = (TextView)view.findViewById(R.id.tv_checkbox_text4);
-        textViews[4]  = (TextView)view.findViewById(R.id.tv_checkbox_text5);
+        textViews[0] = view.findViewById(R.id.tv_checkbox_text1);
+        textViews[1]  = view.findViewById(R.id.tv_checkbox_text2);
+        textViews[2]  = view.findViewById(R.id.tv_checkbox_text3);
+        textViews[3]  = view.findViewById(R.id.tv_checkbox_text4);
+        textViews[4]  = view.findViewById(R.id.tv_checkbox_text5);
 
 
 

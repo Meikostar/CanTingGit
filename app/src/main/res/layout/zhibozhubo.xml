@@ -2,82 +2,69 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
-
-
-    <com.tencent.rtmp.ui.TXCloudVideoView
-        android:id="@+id/video_zhuboview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-       >
-
-
-
-</com.tencent.rtmp.ui.TXCloudVideoView>
+    android:background="#00000000"
+    android:orientation="vertical">
 
 
     <RelativeLayout
-        android:layout_marginLeft="@dimen/x30"
-        android:layout_marginTop="@dimen/x60"
-        android:layout_width="@dimen/x350"
-        android:layout_height="@dimen/y70">
+        android:layout_width="189dp"
+        android:layout_height="36dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="13dp"
+        android:background="@drawable/zhibo_comnection">
 
 
         <ImageView
-            android:layout_width="@dimen/x70"
-            android:layout_height="match_parent"
+            android:id="@+id/iv_img"
+            android:layout_width="33dp"
+            android:layout_height="33dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="1.5dp"
 
-            >
-        </ImageView>
+            ></ImageView>
 
         <RelativeLayout
-            android:layout_marginLeft="@dimen/x85"
-            android:layout_width="@dimen/x120"
-            android:layout_height="@dimen/y70">
+            android:layout_width="90dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/x85">
+
             <LinearLayout
-                android:layout_marginTop="@dimen/x3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_centerInParent="true"
-                android:layout_width="@dimen/x120"
-                android:layout_height="@dimen/y70"
-                android:orientation="vertical"
-                >
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="@dimen/x3"
+                android:orientation="vertical">
 
                 <TextView
-                    android:textSize="@dimen/x28"
-                    android:textColor="#FFFFFF"
+                    android:id="@+id/tv_name"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/y35"
-                    android:text="阿娇"
-                    />
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text=""
+                    android:textColor="#FFFFFF"
+                    android:textSize="12sp" />
 
 
                 <LinearLayout
-                    android:layout_marginBottom="@dimen/y5"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/y30"
-                    android:orientation="horizontal"
-                    >
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/y5"
+                    android:layout_marginTop="1dp"
+                    android:orientation="horizontal">
 
                     <TextView
-                        android:textSize="@dimen/x24"
-                        android:textColor="#FFFFFF"
-                        android:gravity="center_vertical"
-                        android:layout_weight="1"
+                        android:id="@+id/tv_number"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="12万"
-                        />
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:singleLine="true"
+                        android:text="粉丝："
+                        android:textColor="#FFFFFF"
+                        android:textSize="10sp" />
 
-                    <TextView
-                        android:textSize="@dimen/x24"
-                        android:textColor="#FFFFFF"
-                        android:gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="热度"
-                        />
+
                 </LinearLayout>
 
             </LinearLayout>
@@ -85,91 +72,126 @@
         </RelativeLayout>
 
 
-
-
-        <RelativeLayout
-
-            android:layout_marginRight="@dimen/x10"
+        <LinearLayout
+            android:id="@+id/ll_care"
+            android:layout_width="50dp"
+            android:layout_height="28dp"
             android:layout_alignParentEnd="true"
-            android:layout_width="@dimen/x100"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true">
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="2.5dp"
+            android:background="@drawable/zhibo_text_select"
+            android:gravity="center">
 
             <ImageView
-                android:src="@drawable/zhibo_title_config"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:id="@+id/iv_care"
+                android:layout_width="12dp"
+                android:layout_height="13dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:src="@drawable/zbs_0" />
 
             <TextView
-                android:textSize="@dimen/x27"
-                android:textColor="@drawable/zhibo_text_select"
+                android:id="@+id/tv_cares"
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+                android:layout_marginRight="2dp"
+
                 android:gravity="center"
                 android:text="关注"
-                android:layout_width="@dimen/x100"
-                android:layout_height="match_parent" />
+                android:textColor="#fff"
+                android:textSize="11sp" />
 
 
-        </RelativeLayout>
+        </LinearLayout>
 
 
     </RelativeLayout>
 
 
-    <ListView
-        android:id="@+id/im_msg_listview"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="60dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginRight="100dp"
-        android:cacheColorHint="#00000000"
-
-        android:divider="#3c421b1b"
-        android:scrollbarStyle="outsideOverlay"
-        android:stackFromBottom="true"
-        android:transcriptMode="normal" />
-
-
     <LinearLayout
-        android:padding="@dimen/x20"
-        android:layout_gravity="bottom"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/y100"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
         android:orientation="horizontal"
-        >
+        android:padding="7dp">
 
 
-        <ImageView
+        <TextView
             android:id="@+id/iv_text"
-            android:layout_weight="7"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/zhibo_comnection"
-            />
+            android:layout_width="130dp"
+            android:layout_height="34dp"
+            android:layout_marginTop="1dp"
+            android:background="@drawable/zhibo_comnection"
+            android:gravity="center_vertical"
+            android:text="   说点什么~"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            android:visibility="gone" />
 
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
 
         <ImageView
-            android:layout_marginLeft="@dimen/x20"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            />
+            android:id="@+id/iv_gift"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginLeft="8dp"
+            android:src="@drawable/zbs_1" />
+
         <ImageView
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            />
+            android:id="@+id/iv_love"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginLeft="8dp"
+            android:src="@drawable/zbs_2" />
+
         <ImageView
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            />
+            android:id="@+id/iv_share"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginLeft="8dp"
+            android:src="@drawable/zbs_3" />
+
+        <ImageView
+            android:id="@+id/iv_sale"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:src="@drawable/zbs_4" />
 
 
     </LinearLayout>
 
 
+    <ImageView
+        android:id="@+id/iv_close"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_gravity="right"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="6dp"
+        android:layout_marginTop="13dp"
+        android:padding="5dp"
+        android:src="@drawable/zbs_5" />
 
+    <Button
 
+        android:id="@+id/alivc_info_large_rate_btn"
+        android:layout_width="39dp"
+        android:layout_height="19dp"
+        android:layout_gravity="right"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="46dp"
+        android:layout_marginTop="21dp"
+        android:background="@drawable/white_rectangle_lines"
+        android:gravity="center"
+        android:text="高清"
+        android:textColor="@color/white"
+        android:textSize="13sp" />
 </FrameLayout>

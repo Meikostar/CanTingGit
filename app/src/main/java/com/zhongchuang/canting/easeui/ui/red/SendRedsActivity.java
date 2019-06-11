@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.pay.ChangPaySmsPActivity;
 import com.zhongchuang.canting.activity.pay.PaySettingActivity;
 import com.zhongchuang.canting.app.CanTingAppLication;
@@ -87,7 +87,7 @@ public class SendRedsActivity extends BaseAllActivity implements OtherContract.V
     public void initViews() {
         setContentView(R.layout.activity_sends_red);
         ButterKnife.bind(this);
-        group_id = (String) getIntent().getStringExtra("id");
+        group_id = getIntent().getStringExtra("id");
         presenter = new OtherPresenter(this);
         menuWindow = new SelectPopupWindow(this, this);
         tvRecord.setOnClickListener(new View.OnClickListener() {
@@ -145,19 +145,19 @@ public class SendRedsActivity extends BaseAllActivity implements OtherContract.V
         if(views==null){
 
             views = View.inflate(this, R.layout.pay_type_item, null);
-            tvLel = (TextView) views.findViewById(R.id.tv_lel);
-            tvQk = (TextView) views.findViewById(R.id.tv_qk);
-            tvZb = (TextView) views.findViewById(R.id.tv_zb);
-            tvCz = (TextView) views.findViewById(R.id.tv_cz);
-            ivType1 = (MCheckBox) views.findViewById(R.id.iv_type1);
-            ivType2 = (MCheckBox) views.findViewById(R.id.iv_type2);
-            ivType3 = (MCheckBox) views.findViewById(R.id.iv_type3);
-            ivType4 = (MCheckBox) views.findViewById(R.id.iv_type4);
-            ivClose = (ImageView) views.findViewById(R.id.iv_close);
-            llCz = (LinearLayout) views.findViewById(R.id.ll_cz);
-            llLel = (LinearLayout) views.findViewById(R.id.ll_lel);
-            llQk = (LinearLayout) views.findViewById(R.id.ll_qk);
-            llZb = (LinearLayout) views.findViewById(R.id.ll_zb);
+            tvLel = views.findViewById(R.id.tv_lel);
+            tvQk = views.findViewById(R.id.tv_qk);
+            tvZb = views.findViewById(R.id.tv_zb);
+            tvCz = views.findViewById(R.id.tv_cz);
+            ivType1 = views.findViewById(R.id.iv_type1);
+            ivType2 = views.findViewById(R.id.iv_type2);
+            ivType3 = views.findViewById(R.id.iv_type3);
+            ivType4 = views.findViewById(R.id.iv_type4);
+            ivClose = views.findViewById(R.id.iv_close);
+            llCz = views.findViewById(R.id.ll_cz);
+            llLel = views.findViewById(R.id.ll_lel);
+            llQk = views.findViewById(R.id.ll_qk);
+            llZb = views.findViewById(R.id.ll_zb);
 
 
             dialog = BaseDailogManager.getInstance().getBuilder(this).setMessageView(views).create();

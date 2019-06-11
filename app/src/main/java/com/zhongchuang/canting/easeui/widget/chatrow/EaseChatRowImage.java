@@ -11,14 +11,18 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMFileMessageBody;
 import com.hyphenate.chat.EMImageMessageBody;
 import com.hyphenate.chat.EMMessage;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.easeui.model.EaseImageCache;
 import com.zhongchuang.canting.easeui.ui.EaseShowBigImageActivity;
 import com.zhongchuang.canting.easeui.utils.EaseImageUtils;
+import com.zhongchuang.canting.utils.StringUtil;
+import com.zhongchuang.canting.utils.TextUtil;
+import com.zhongchuang.canting.widget.CircleTransform;
 
 import java.io.File;
 public class EaseChatRowImage extends EaseChatRowFile {
@@ -37,8 +41,8 @@ public class EaseChatRowImage extends EaseChatRowFile {
 
     @Override
     protected void onFindViewById() {
-        percentageView = (TextView) findViewById(R.id.percentage);
-        imageView = (ImageView) findViewById(R.id.image);
+        percentageView = findViewById(R.id.percentage);
+        imageView = findViewById(R.id.image);
     }
 
 
@@ -50,18 +54,35 @@ public class EaseChatRowImage extends EaseChatRowFile {
             if (imgBody.thumbnailDownloadStatus() == EMFileMessageBody.EMDownloadStatus.DOWNLOADING ||
                     imgBody.thumbnailDownloadStatus() == EMFileMessageBody.EMDownloadStatus.PENDING) {
                 imageView.setImageResource(R.drawable.ease_default_image);
-                //set the receive message callback
-                setMessageReceiveCallback();
+                String thumbPath = imgBody.getThumbnailUrl();
+                String remoteUrl = imgBody.getRemoteUrl();
+                if(TextUtil.isNotEmpty(remoteUrl)){
+                    Glide.with(context).load(StringUtil.changeUrl(remoteUrl)).asBitmap().placeholder(R.drawable.ease_default_image).into(imageView);
+
+                }else {
+
+                    showImageView(thumbPath, imgBody.getLocalUrl(), message);
+                    //set the receive message callback
+                    setMessageReceiveCallback();
+                }
+
             } else {
                 progressBar.setVisibility(View.GONE);
                 percentageView.setVisibility(View.GONE);
                 imageView.setImageResource(R.drawable.ease_default_image);
-                String thumbPath = imgBody.thumbnailLocalPath();
-                if (!new File(thumbPath).exists()) {
-                    // to make it compatible with thumbnail received in previous version
-                    thumbPath = EaseImageUtils.getThumbnailImagePath(imgBody.getLocalUrl());
+                String remoteUrl = imgBody.getRemoteUrl();
+                if(TextUtil.isNotEmpty(remoteUrl)){
+                    Glide.with(context).load(StringUtil.changeUrl(remoteUrl)).asBitmap().placeholder(R.drawable.ease_default_image).into(imageView);
+
+                }else {
+                    String thumbPath = imgBody.getRemoteUrl();
+                    if (!new File(thumbPath).exists()) {
+                        // to make it compatible with thumbnail received in previous version
+                        thumbPath = EaseImageUtils.getThumbnailImagePath(imgBody.getLocalUrl());
+                    }
+                    showImageView(thumbPath, imgBody.getLocalUrl(), message);
                 }
-                showImageView(thumbPath, imgBody.getLocalUrl(), message);
+
             }
             return;
         }

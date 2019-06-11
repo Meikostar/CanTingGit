@@ -11,7 +11,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.HomeActivity;
 import com.zhongchuang.canting.activity.live.LiveActivity;
 import com.zhongchuang.canting.app.CanTingAppLication;
@@ -56,10 +56,10 @@ public class ChatSplashActivity extends AppCompatActivity implements BaseContrac
         messageGroup = (GAME) getIntent().getSerializableExtra("data");
         type = getIntent().getIntExtra("type", 0);
         if (type == 1) {
-            img.setImageResource(R.drawable.live_bg);
+            img.setImageResource(R.mipmap.splash_2);
         } else {
             rlBgs.setVisibility(View.VISIBLE);
-            img.setImageResource(R.mipmap.splash_05);
+            img.setImageResource(R.mipmap.splash_3);
         }
         handler = new Handler();
 
@@ -72,22 +72,10 @@ public class ChatSplashActivity extends AppCompatActivity implements BaseContrac
         if (data != null && TextUtil.isNotEmpty(data.is_direct)) {
 
             if (data.is_direct.equals("1")) {
-                if (TextUtil.isNotEmpty(data.user_integral)) {
-                    CanTingAppLication.totalintegral = Double.valueOf(data.user_integral);
-                } else {
-                    if (TextUtil.isNotEmpty(data.userIntegral)) {
-                        CanTingAppLication.totalintegral = Double.valueOf(data.userIntegral);
-                    }
-                }
+
                 SpUtil.putString(ChatSplashActivity.this, "isAnchor", 1 + "");
             } else {
-                if (TextUtil.isNotEmpty(data.userIntegral)) {
-                    CanTingAppLication.totalintegral = Double.valueOf(data.userIntegral);
-                } else {
-                    if (TextUtil.isNotEmpty(data.user_integral)) {
-                        CanTingAppLication.totalintegral = Double.valueOf(data.user_integral);
-                    }
-                }
+
                 SpUtil.putString(ChatSplashActivity.this, "isAnchor", 0 + "");
             }
         }
@@ -123,6 +111,26 @@ public class ChatSplashActivity extends AppCompatActivity implements BaseContrac
 
     @Override
     public void showTomast(String msg) {
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (ChatSplashActivity.this.type == 1) {
+                    Intent intent2 = new Intent(ChatSplashActivity.this, LiveActivity.class);
+                    intent2.putExtra("data", messageGroup);
+                    startActivity(intent2);
+                    finish();
+                } else {
+                    Intent intents = new Intent(ChatSplashActivity.this, MessageActivity.class);
+                    if (messageGroup == null) {
+                        return;
+                    }
+                    intents.putExtra("data", messageGroup);
+                    startActivity(intents);
+                    finish();
+                }
 
+
+            }
+        }, 1200);
     }
 }

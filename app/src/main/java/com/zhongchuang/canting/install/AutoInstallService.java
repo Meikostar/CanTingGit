@@ -22,18 +22,18 @@ import java.util.Set;
 public class AutoInstallService extends AccessibilityService {
     private static final String TAG = AutoInstallService.class.getSimpleName();
 
-    private final Set<String> installViewSet = new HashSet<>(Arrays.asList(new String[]{"com.android.packageinstaller.PackageInstallerActivity",
+    private final Set<String> installViewSet = new HashSet<>(Arrays.asList("com.android.packageinstaller.PackageInstallerActivity",
             "com.android.packageinstaller.OppoPackageInstallerActivity","com.android.packageinstaller.InstallAppProgress",
             "com.lenovo.safecenter.install.InstallerActivity","com.lenovo.safecenter.defense.install.fragment.InstallInterceptActivity",
             "com.lenovo.safecenter.install.InstallProgress","com.lenovo.safecenter.install.InstallAppProgress",
-            "com.lenovo.safecenter.defense.fragment.install.InstallInterceptActivity"}));
+            "com.lenovo.safecenter.defense.fragment.install.InstallInterceptActivity"));
 
-    private final Set<String> installPkgSet = new HashSet<>(Arrays.asList(new String[]{"com.samsung.android.packageinstaller",
+    private final Set<String> installPkgSet = new HashSet<>(Arrays.asList("com.samsung.android.packageinstaller",
             "com.android.packageinstaller", "com.google.android.packageinstaller", "com.lenovo.safecenter", "com.lenovo.security"
-            , "com.xiaomi.gamecenter"}));
+            , "com.xiaomi.gamecenter"));
 
-    private final Set<String> uninstallPkgSet = new HashSet<>(Arrays.asList(new String[]{"com.android.packageinstaller.UninstallAppProgress"
-            , "android.app.AlertDialog"}));
+    private final Set<String> uninstallPkgSet = new HashSet<>(Arrays.asList("com.android.packageinstaller.UninstallAppProgress"
+            , "android.app.AlertDialog"));
 
     boolean isInstallOrUninstall = true;
 

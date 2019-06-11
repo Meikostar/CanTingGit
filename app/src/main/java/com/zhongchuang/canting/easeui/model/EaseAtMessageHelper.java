@@ -5,7 +5,7 @@ import android.text.TextUtils;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMMessage.ChatType;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.easeui.EaseConstant;
 import com.zhongchuang.canting.easeui.EaseUI;
 import com.zhongchuang.canting.easeui.domain.EaseUser;
@@ -78,10 +78,7 @@ public class EaseAtMessageHelper {
 
     public boolean containsAtAll(String content){
         String atAll = "@" + EaseUI.getInstance().getContext().getString(R.string.all_members);
-        if(content.contains(atAll)){
-            return true;
-        }
-        return false;
+        return content.contains(atAll);
     }
     
     /**
@@ -198,9 +195,7 @@ public class EaseAtMessageHelper {
                 //perhaps is a @ all message
                 String atUsername = message.getStringAttribute(EaseConstant.MESSAGE_ATTR_AT_MSG, null);
                 if(atUsername != null){
-                    if(atUsername.toUpperCase().equals(EaseConstant.MESSAGE_ATTR_VALUE_AT_MSG_ALL)){
-                        return true;
-                    }
+                    return atUsername.toUpperCase().equals(EaseConstant.MESSAGE_ATTR_VALUE_AT_MSG_ALL);
                 }
                 return  false;
             }

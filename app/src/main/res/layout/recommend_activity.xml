@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/content_bg"
+    android:orientation="vertical"
+
+    >
+
+    <com.zhongchuang.canting.widget.NavigationBar
+        android:id="@+id/navigationBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:navigationLeft_img="@drawable/back_white"
+        app:navigationTitle="利润明细" />
+
+
+    <com.zhongchuang.canting.widget.loadingView.LoadingPager
+        android:layout_weight="1"
+        android:id="@+id/loadingView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.malinskiy.superrecyclerview.SuperRecyclerView
+            android:id="@+id/super_recycle_view"
+            android:overScrollMode="never"
+            android:scrollbars="none"
+            android:background="@color/content_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:mainLayoutId="@layout/layout_recyclerview_verticalscroll"
+            app:layout_moreProgress="@layout/view_more_progress"
+            app:recyclerClipToPadding="true"
+            app:scrollbarStyle="outsideOverlay" />
+
+    </com.zhongchuang.canting.widget.loadingView.LoadingPager>
+
+</LinearLayout>

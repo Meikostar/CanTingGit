@@ -11,7 +11,7 @@ import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.been.GAME;
 
 import java.util.List;
@@ -68,12 +68,12 @@ public class BaseNevgTitle extends LinearLayout{
     }
     private void init() {
         view = LayoutInflater.from(context).inflate(R.layout.title_change_view, this);
-        gridView = (GridView) view.findViewById(R.id.grid);
-        scroll_view = (HorizontalScrollView) view.findViewById(R.id.scroll_view);
+        gridView = view.findViewById(R.id.grid);
+        scroll_view = view.findViewById(R.id.scroll_view);
         adapter=new OrderGridAdapter(context);
          length=(int)((context.getResources().getDisplayMetrics().density)*(98)+0.5f);
 
-        int gridviewWidth = (int) (list.size() * (length ));
+        int gridviewWidth = list.size() * (length );
         int itemWidth =length ;
         LayoutParams params = new LayoutParams(
                 gridviewWidth, LayoutParams.MATCH_PARENT);
@@ -91,11 +91,7 @@ public class BaseNevgTitle extends LinearLayout{
                 mListener.onChagne(position);
 
                 for(int i=0;i<list.size();i++){
-                    if(i==position){
-                        list.get(i).isChoose=true;
-                    }else {
-                        list.get(i).isChoose=false;
-                    }
+                    list.get(i).isChoose = i == position;
                 }
                 adapter.setLists(list);
 
@@ -115,11 +111,7 @@ public class BaseNevgTitle extends LinearLayout{
        //获取屏幕宽度
        int screenWidth=getResources().getDisplayMetrics().widthPixels;
        for(int i=0;i<list.size();i++){
-           if(i==position){
-               list.get(i).isChoose=true;
-           }else {
-               list.get(i).isChoose=false;
-           }
+           list.get(i).isChoose = i == position;
        }
 
            scroll_view.smoothScrollTo((position)*(length)-screenWidth/2,0);

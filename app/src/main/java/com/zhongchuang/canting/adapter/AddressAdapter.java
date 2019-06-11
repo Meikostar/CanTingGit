@@ -7,7 +7,7 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.been.AddressBase;
 import com.zhongchuang.canting.utils.TextUtil;
 import com.zhongchuang.canting.widget.MCheckBox;

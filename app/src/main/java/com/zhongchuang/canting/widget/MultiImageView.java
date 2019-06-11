@@ -8,7 +8,7 @@ import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.been.GoodsImageBean;
 import com.zhongchuang.canting.utils.DensityUtil;
 import com.zhongchuang.canting.utils.StringUtil;
@@ -249,6 +249,6 @@ public class MultiImageView extends LinearLayout {
     }
 
     public interface OnItemClickListener {
-        public void onItemClick(View view, int position);
+        void onItemClick(View view, int position);
     }
 }

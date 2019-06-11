@@ -22,7 +22,7 @@
     <color name="alivc_blue">#379DF2</color>
     <color name="alivc_green">#57AB44</color>
     <color name="alivc_orange">#EE7C33</color>
-    <color name="alivc_red">#E94033</color>
+    <color name="alivc_red">#2d3342</color>
 
     <color name="alivc_info_text_duration">#9f9e9e</color>
     <color name="alivc_dialog_error_bg">#b2000000</color>
@@ -418,7 +418,9 @@
     <color name="color10">#CED1D9</color>
     <color name="color8">#888</color>
     <color name="color6">#666</color>
+    <color name="color5">#555</color>
     <color name="color3">#333</color>
+    <color name="color2">#222</color>
     <color name="color57">#576b9c</color>
     <color name="background">#f0f0f0</color>
     <color name="divider">#E5E5E5</color>

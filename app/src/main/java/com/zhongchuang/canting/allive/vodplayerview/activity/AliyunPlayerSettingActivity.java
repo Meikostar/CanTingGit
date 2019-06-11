@@ -41,12 +41,12 @@ public class AliyunPlayerSettingActivity extends FragmentActivity implements OnC
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_setting_layout);
-        tvVidplay = (TextView)findViewById(R.id.tv_vidplay);
-        tvUrlplay = (TextView)findViewById(R.id.tv_urlplay);
-        ivVidplay = (ImageView)findViewById(R.id.iv_vidplay);
-        ivUrlplay = (ImageView)findViewById(R.id.iv_urlplay);
-        ivBack = (ImageView)findViewById(R.id.iv_back);
-        btnStartPlayer = (Button) findViewById(R.id.btn_start_player);
+        tvVidplay = findViewById(R.id.tv_vidplay);
+        tvUrlplay = findViewById(R.id.tv_urlplay);
+        ivVidplay = findViewById(R.id.iv_vidplay);
+        ivUrlplay = findViewById(R.id.iv_urlplay);
+        ivBack = findViewById(R.id.iv_back);
+        btnStartPlayer = findViewById(R.id.btn_start_player);
 
         fragmentArrayList = new ArrayList<Fragment>();
         aliyunVidPlayFragment = new AliyunVidPlayFragment();

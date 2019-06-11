@@ -4,6 +4,7 @@ import android.content.Context;
 import android.text.Spannable;
 import android.view.View;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TextView.BufferType;
@@ -13,13 +14,15 @@ import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMTextMessageBody;
 import com.hyphenate.exceptions.HyphenateException;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.easeui.Constant;
 import com.zhongchuang.canting.easeui.utils.EaseSmileUtils;
 
 public class EaseChatRowText extends EaseChatRow {
 
     private TextView contentView;
+    private TextView tvTime;
+    private ImageView img;
     private LinearLayout ll_bg;
 
     public EaseChatRowText(Context context,int chatType, EMMessage message, int position, BaseAdapter adapter) {
@@ -40,8 +43,9 @@ public class EaseChatRowText extends EaseChatRow {
 
     @Override
     protected void onFindViewById() {
-        contentView = (TextView) findViewById(R.id.tv_chatcontent);
-        ll_bg = (LinearLayout) findViewById(R.id.ll_bg);
+        contentView = findViewById(R.id.tv_chatcontent);
+        img = findViewById(R.id.iv_img);
+        ll_bg = findViewById(R.id.ll_bg);
     }
 
     @Override
@@ -55,8 +59,27 @@ public class EaseChatRowText extends EaseChatRow {
             Spannable span = EaseSmileUtils.getSmiledText(context, txtBody.getMessage());
             // 设置内容
             contentView.setText(span, BufferType.SPANNABLE);
+        String text = contentView.getText().toString();
+        if(message.getBooleanAttribute(Constant.MESSAGE_ATTR_IS_VIDEO_CALL, false)||message.getBooleanAttribute(Constant.MESSAGE_ATTR_IS_VOICE_CALL, false)){
+            img.setVisibility(VISIBLE);
+          if(message.getBooleanAttribute(Constant.MESSAGE_ATTR_IS_VOICE_CALL, false)){
 
-            handleTextMessage();
+             img.setImageDrawable(getResources().getDrawable(R.drawable.chat_voice));
+          }else {
+              if(message.direct() == EMMessage.Direct.SEND){
+                  img.setImageDrawable(getResources().getDrawable(R.drawable.chat_videos));
+              }else {
+                  img.setImageDrawable(getResources().getDrawable(R.drawable.chat_video));
+              }
+          }
+        }else {
+            if(img!=null){
+                img.setVisibility(GONE);
+            }
+
+        }
+
+        handleTextMessage();
 //        }
 
     }

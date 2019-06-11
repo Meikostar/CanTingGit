@@ -71,10 +71,10 @@ public class ImvChooserMediator extends BaseChooser implements OnItemClickListen
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View mView = LayoutInflater.from(getActivity()).inflate(R.layout.aliyun_svideo_filter_view, container);
-        mListView = (RecyclerView) mView.findViewById(R.id.effect_list_filter);
-        mDismiss = (ImageView) mView.findViewById(R.id.dismiss);
+        mListView = mView.findViewById(R.id.effect_list_filter);
+        mDismiss = mView.findViewById(R.id.dismiss);
         mDismiss.setOnClickListener(onClickListener);
-        mDismissRelative = (RelativeLayout) mView.findViewById(R.id.effect_list_dismiss);
+        mDismissRelative = mView.findViewById(R.id.effect_list_dismiss);
         if(mEditorService != null && mEditorService.isFullScreen()) {
             mListView.setBackgroundColor(getResources().getColor(R.color.action_bar_bg_50pct));
             mDismissRelative.setBackgroundColor(getResources().getColor(R.color.tab_bg_color_50pct));

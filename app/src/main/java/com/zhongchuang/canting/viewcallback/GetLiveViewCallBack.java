@@ -9,4 +9,5 @@ import com.zhongchuang.canting.net.BaseViewCallBack;
 
 public interface GetLiveViewCallBack extends BaseViewCallBack<ZhiBo_GuanZhongBean> {
     void successLive(ZhiBo_GuanZhongBean weixinreq,int loadtype); //登陆成功
+    void successRecordLive(ZhiBo_GuanZhongBean weixinreq,int loadtype); //登陆成功
 }

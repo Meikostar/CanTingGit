@@ -28,7 +28,7 @@ import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMMessage.ChatType;
 import com.hyphenate.chat.EMVoiceMessageBody;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.hyphenate.util.EMLog;
 import com.zhongchuang.canting.easeui.EaseUI;
 

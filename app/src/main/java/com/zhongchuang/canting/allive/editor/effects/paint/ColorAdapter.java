@@ -75,7 +75,7 @@ public class ColorAdapter extends RecyclerView.Adapter<ViewHolder> {
         private ImageView colorImage;
         public ColorViewHolder(View itemView) {
             super(itemView);
-            colorImage = (ImageView) itemView.findViewById(R.id.paint_color_image);
+            colorImage = itemView.findViewById(R.id.paint_color_image);
         }
     }
 

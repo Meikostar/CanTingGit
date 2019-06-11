@@ -56,8 +56,8 @@ public class FixScrollView extends ScrollView {
          * 回调方法， 返回MyScrollView滑动的Y方向距离 
          * @param scrollY 
          *              、 
-         */  
-        public void onScroll(int scrollY);  
+         */
+        void onScroll(int scrollY);
     }  
       
       

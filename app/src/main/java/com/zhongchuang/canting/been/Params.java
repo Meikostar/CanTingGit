@@ -11,6 +11,8 @@ public class Params implements Serializable{
 
 
     public String proSite;
+    public String payType;
+    public String transactionId;
     public String id;
 
 

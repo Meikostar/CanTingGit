@@ -577,7 +577,6 @@ public class Base64Coder {
                             & 0xff);
                         tailLen = 0;
                     }
-                    ;
                     break;
 
                 case 2:

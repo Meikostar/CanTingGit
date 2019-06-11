@@ -82,12 +82,12 @@ public class Indicator {
             } else {
                 mIndicatorView = View.inflate(mContext, R.layout.aliyun_isb_indicator, null);
                 //container
-                mTopContentView = (LinearLayout) mIndicatorView.findViewById(R.id.indicator_container);
+                mTopContentView = mIndicatorView.findViewById(R.id.indicator_container);
                 //arrow
-                mIndicatorArrow = (ArrowView) mIndicatorView.findViewById(R.id.indicator_arrow);
+                mIndicatorArrow = mIndicatorView.findViewById(R.id.indicator_arrow);
                 mIndicatorArrow.setColor(p.mIndicatorColor);
                 //progressText
-                mIndicatorText = (TextView) mIndicatorView.findViewById(R.id.isb_progress);
+                mIndicatorText = mIndicatorView.findViewById(R.id.isb_progress);
                 mIndicatorText.setText(String.valueOf(mSeekBar.getProgress()));
                 mIndicatorText.setTextSize(IndicatorUtils.px2sp(mContext, p.mIndicatorTextSize));
                 mIndicatorText.setTextColor(p.mIndicatorTextColor);

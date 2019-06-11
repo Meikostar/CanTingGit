@@ -19,6 +19,7 @@ import android.media.RingtoneManager;
 import android.media.SoundPool;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -47,7 +48,7 @@ import com.hyphenate.exceptions.HyphenateException;
 import com.hyphenate.media.EMCallSurfaceView;
 import com.hyphenate.util.EMLog;
 import com.superrtc.sdk.VideoView;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.adapter.BannerAdaps;
 import com.zhongchuang.canting.adapter.BannerAdaptes;
 import com.zhongchuang.canting.been.Banner;
@@ -180,31 +181,31 @@ public class VideoCallActivity extends CallActivity implements OnClickListener, 
         presenter.getBanners(1 + "");
 
 
-        rootContainer = (RelativeLayout) findViewById(R.id.root_layout);
-        refuseBtn = (ImageView) findViewById(R.id.btn_refuse_call);
-        answerBtn = (ImageView) findViewById(R.id.btn_answer_call);
+        rootContainer = findViewById(R.id.root_layout);
+        refuseBtn = findViewById(R.id.btn_refuse_call);
+        answerBtn = findViewById(R.id.btn_answer_call);
 
-        muteImage = (ImageView) findViewById(R.id.iv_mute);
-        iv_type = (TextView) findViewById(R.id.iv_type);
-        handsFreeImage = (ImageView) findViewById(R.id.iv_handsfree);
-        callStateTextView = (TextView) findViewById(R.id.tv_call_state);
-        nickTextView = (TextView) findViewById(R.id.tv_nick);
-        chronometer = (Chronometer) findViewById(R.id.chronometer);
-        ll_bg2 = (LinearLayout) findViewById(R.id.ll_bg2);
-        ll_bg1 = (LinearLayout) findViewById(R.id.ll_bg1);
-        ll_bg3 = (LinearLayout) findViewById(R.id.ll_bg3);
-        ll_bg4 = (LinearLayout) findViewById(R.id.ll_bg4);
-        RelativeLayout btnsContainer = (RelativeLayout) findViewById(R.id.ll_btns);
-        rl_bg = (RelativeLayout) findViewById(R.id.rl_bg);
-        topContainer = (LinearLayout) findViewById(R.id.ll_top_container);
-        bottomContainer = (LinearLayout) findViewById(R.id.ll_bottom_container);
-        monitorTextView = (TextView) findViewById(R.id.tv_call_monitor);
-        netwrokStatusVeiw = (TextView) findViewById(R.id.tv_network_status);
-        bannerView = (BannerView) findViewById(R.id.bannerView);
+        muteImage = findViewById(R.id.iv_mute);
+        iv_type = findViewById(R.id.iv_type);
+        handsFreeImage = findViewById(R.id.iv_handsfree);
+        callStateTextView = findViewById(R.id.tv_call_state);
+        nickTextView = findViewById(R.id.tv_nick);
+        chronometer = findViewById(R.id.chronometer);
+        ll_bg2 = findViewById(R.id.ll_bg2);
+        ll_bg1 = findViewById(R.id.ll_bg1);
+        ll_bg3 = findViewById(R.id.ll_bg3);
+        ll_bg4 = findViewById(R.id.ll_bg4);
+        RelativeLayout btnsContainer = findViewById(R.id.ll_btns);
+        rl_bg = findViewById(R.id.rl_bg);
+        topContainer = findViewById(R.id.ll_top_container);
+        bottomContainer = findViewById(R.id.ll_bottom_container);
+        monitorTextView = findViewById(R.id.tv_call_monitor);
+        netwrokStatusVeiw = findViewById(R.id.tv_network_status);
+        bannerView = findViewById(R.id.bannerView);
 //        recordBtn = (Button) findViewById(R.id.btn_record_video);
-        ImageView switchCameraBtn = (ImageView) findViewById(R.id.btn_switch_camera);
-        Button captureImageBtn = (Button) findViewById(R.id.btn_capture_image);
-        SeekBar YDeltaSeekBar = (SeekBar) findViewById(R.id.seekbar_y_detal);
+        ImageView switchCameraBtn = findViewById(R.id.btn_switch_camera);
+        Button captureImageBtn = findViewById(R.id.btn_capture_image);
+        SeekBar YDeltaSeekBar = findViewById(R.id.seekbar_y_detal);
         bannerAdapter = new BannerAdaps(this);
         refuseBtn.setOnClickListener(this);
         answerBtn.setOnClickListener(this);
@@ -250,9 +251,15 @@ public class VideoCallActivity extends CallActivity implements OnClickListener, 
             fava = chatmessage.getUserinfo().hx_favater;
             name = chatmessage.getUserinfo().hx_fname;
             callExt = "";
-            callExt = chatmessage.getUserinfo().hx_fuid + "," + chatmessage.getUserinfo().hx_fname + "," + (TextUtil.isEmpty(chatmessage.getUserinfo().hx_favater) ? "" : chatmessage.getUserinfo().hx_favater);
+            callExt = chatmessage.getUserinfo().hx_fuid + "," + chatmessage.getUserinfo().hx_fname + "," + (TextUtil.isEmpty(chatmessage.getUserinfo().hx_favater) ? "zx" : chatmessage.getUserinfo().hx_favater);
         } else {
             callExt = EMClient.getInstance().callManager().getCurrentCallSession().getExt();
+            if(TextUtil.isNotEmpty(callExt)){
+                String[] split = callExt.split(",");
+                if(split!=null&&split.length==3){
+                    name=split[1];
+                }
+            }
         }
         if (!TextUtils.isEmpty(name)) {
             nickTextView.setText(name);
@@ -261,13 +268,13 @@ public class VideoCallActivity extends CallActivity implements OnClickListener, 
         }
 
         // local surfaceview
-        localSurface = (EMCallSurfaceView) findViewById(R.id.local_surface);
+        localSurface = findViewById(R.id.local_surface);
         localSurface.setOnClickListener(this);
         localSurface.setZOrderMediaOverlay(true);
         localSurface.setZOrderOnTop(true);
 
         // remote surfaceview
-        oppositeSurface = (EMCallSurfaceView) findViewById(R.id.opposite_surface);
+        oppositeSurface = findViewById(R.id.opposite_surface);
 
         // set call state listener
         addCallStateListener();
@@ -351,7 +358,7 @@ public class VideoCallActivity extends CallActivity implements OnClickListener, 
     private int state;
     private long start;
     private long end;
-
+    private CountDownTimer countDownTimer1;
     /**
      * set call state listener
      */
@@ -392,6 +399,18 @@ public class VideoCallActivity extends CallActivity implements OnClickListener, 
                     case ACCEPTED: // call is accepted
                         surfaceState = 0;
                         handler.removeCallbacks(timeoutHangup);
+//                        countDownTimer1 = new CountDownTimer(1000*60*60*36, 1000) {
+//                            @Override
+//                            public void onTick(long millisUntilFinished) {
+//                                chatTime=millisUntilFinished;
+//                            }
+//
+//                            @Override
+//                            public void onFinish() {
+//
+//                                countDownTimer1.cancel();
+//                            }
+//                        }.start();
                         runOnUiThread(new Runnable() {
 
                             @Override
@@ -519,7 +538,7 @@ public class VideoCallActivity extends CallActivity implements OnClickListener, 
         };
         EMClient.getInstance().callManager().addCallStateChangeListener(callStateListener);
     }
-
+    private long chatTime;
     public EMCallStateChangeListener.CallError fError;
 
     void removeCallStateListener() {
@@ -534,6 +553,9 @@ public class VideoCallActivity extends CallActivity implements OnClickListener, 
                     @Override
                     public void run() {
                         removeCallStateListener();
+                        if(countDownTimer1!=null){
+                            countDownTimer1.cancel();
+                        }
                         saveCallRecord();
                         Animation animation = new AlphaAnimation(1.0f, 0.0f);
                         animation.setDuration(1200);
@@ -745,7 +767,7 @@ public class VideoCallActivity extends CallActivity implements OnClickListener, 
                 DateFormat df = new DateFormat();
                 Date d = new Date();
                 File storage = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-                final String filename = storage.getAbsolutePath() + "/" + df.format("MM-dd-yy--h-mm-ss", d) + ".jpg";
+                final String filename = storage.getAbsolutePath() + "/" + DateFormat.format("MM-dd-yy--h-mm-ss", d) + ".jpg";
                 EMClient.getInstance().callManager().getVideoCallHelper().takePicture(filename);
                 runOnUiThread(new Runnable() {
                     @Override

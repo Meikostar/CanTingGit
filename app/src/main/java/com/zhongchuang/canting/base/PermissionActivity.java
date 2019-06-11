@@ -3,7 +3,7 @@ package com.zhongchuang.canting.base;
 import android.support.annotation.NonNull;
 
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.permission.AfterPermissionGranted;
 import com.zhongchuang.canting.permission.EasyPermissions;
 

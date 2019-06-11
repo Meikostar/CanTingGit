@@ -6,7 +6,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.ChatActivity;
 import com.zhongchuang.canting.adapter.CareMineAdapter;
 import com.zhongchuang.canting.adapter.LiveCareAdapter;
@@ -174,6 +174,8 @@ public class MinetCareLiveActivitys extends BaseActivity1 implements BaseContrac
             showTomast(getString(R.string.xgcg));
         }else if(type==2) {
             presenter.anchorsList();
+        }else if(type==3||type==4) {
+
         }else {
             dimessProgress();
             List<Care> data= (List<Care>) entity;

@@ -15,7 +15,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.ImageView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 
 
 /**

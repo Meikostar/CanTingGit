@@ -22,7 +22,7 @@ import com.hyphenate.chat.EMMessage.Status;
 import com.hyphenate.chat.EMTextMessageBody;
 import com.hyphenate.exceptions.EMServiceNotReadyException;
 import com.hyphenate.util.EMLog;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.app.CanTingAppLication;
 import com.zhongchuang.canting.easeui.Constant;
 import com.zhongchuang.canting.easeui.bean.CHATMESSAGE;
@@ -94,7 +94,7 @@ public class CallActivity extends BaseActivity {
                 // set the user-defined extension field
                 message.setAttribute("em_apns_ext", true);
 
-                message.setAttribute("is_voice_call", callType == 0 ? true : false);
+                message.setAttribute("is_voice_call", callType == 0);
 
                 message.setMessageStatusCallback(new EMCallBack() {
 
@@ -175,14 +175,13 @@ public class CallActivity extends BaseActivity {
                     try {
                         String id = SpUtil.getUserInfoId(CanTingAppLication.getInstance());
                         String avar = SpUtil.getAvar(CanTingAppLication.getInstance());
-                        String name= TextUtil.isEmpty( SpUtil.getName(CanTingAppLication.getInstance()))?SpUtil.getNick(CanTingAppLication.getInstance()): SpUtil.getName(CanTingAppLication.getInstance());
-
+                        String name = TextUtil.isEmpty(SpUtil.getName(CanTingAppLication.getInstance())) ? SpUtil.getNick(CanTingAppLication.getInstance()) : SpUtil.getName(CanTingAppLication.getInstance());
 
 
                         if (msg.what == MSG_CALL_MAKE_VIDEO) {
-                            EMClient.getInstance().callManager().makeVideoCall(username,id+","+name+","+avar);
+                            EMClient.getInstance().callManager().makeVideoCall(username, id + "," + name + "," + avar);
                         } else {
-                            EMClient.getInstance().callManager().makeVoiceCall(username,id+","+name+","+avar);
+                            EMClient.getInstance().callManager().makeVoiceCall(username, id + "," + name + "," + avar);
                         }
                     } catch (final EMServiceNotReadyException e) {
                         e.printStackTrace();
@@ -371,7 +370,18 @@ public class CallActivity extends BaseActivity {
                 txtBody = new EMTextMessageBody(st1 + callDruationText);
                 break;
             case REFUSED:
-                txtBody = new EMTextMessageBody(st2);
+                if (callDruationText.contains(":")&&!callDruationText.equals("00:00")) {
+                    txtBody = new EMTextMessageBody(st1 + callDruationText);
+                } else {
+                    if(isInComingCall){
+                        txtBody = new EMTextMessageBody(st2);
+                    }else {
+                        txtBody = new EMTextMessageBody("已取消");
+
+                    }
+
+                }
+
                 break;
             case BEREFUSED:
                 txtBody = new EMTextMessageBody(st3);

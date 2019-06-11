@@ -82,83 +82,90 @@
                     android:orientation="horizontal">
 
                     <RadioButton
+                        android:background="@drawable/alivc_beauty_default_bt_selector"
                         android:id="@+id/beauty_buffing"
                         android:layout_width="45dp"
                         android:layout_height="45dp"
                         android:button="@null"
-                        android:drawableStart="@drawable/icon_buffing"
+                        android:drawableStart="@mipmap/icon_buffing"
                         android:gravity="center"
                         android:padding="10.5dp"
                         android:textColor="#ffffff"
                         android:textSize="14dp" />
 
                     <RadioButton
+                        android:background="@drawable/alivc_beauty_default_bt_selector"
                         android:id="@+id/beauty_whitening"
                         android:layout_width="45dp"
                         android:layout_height="45dp"
                         android:layout_marginLeft="15dp"
                         android:button="@null"
-                        android:drawableStart="@drawable/icon_whitening"
+                        android:drawableStart="@mipmap/icon_whitening"
                         android:gravity="center"
                         android:padding="10.5dp"
                         android:textColor="#ffffff"
                         android:textSize="14dp" />
 
                     <RadioButton
+                        android:background="@drawable/alivc_beauty_default_bt_selector"
                         android:id="@+id/beauty_ruddy"
                         android:layout_width="45dp"
                         android:layout_height="45dp"
                         android:layout_marginLeft="15dp"
                         android:button="@null"
-                        android:drawableStart="@drawable/icon_ruddy"
+                        android:drawableStart="@mipmap/icon_ruddy"
                         android:gravity="center"
                         android:padding="10.5dp"
                         android:textColor="#ffffff"
                         android:textSize="14dp" />
 
                     <RadioButton
+                        android:background="@drawable/alivc_beauty_default_bt_selector"
                         android:id="@+id/beauty_shorten_jaw"
                         android:layout_width="45dp"
                         android:layout_height="45dp"
                         android:layout_marginLeft="15dp"
                         android:button="@null"
-                        android:drawableStart="@drawable/icon_short_jaw"
+                        android:drawableStart="@mipmap/icon_short_jaw"
                         android:gravity="center"
                         android:padding="10.5dp"
                         android:textColor="#ffffff"
                         android:textSize="14dp" />
 
                     <RadioButton
+                        android:background="@drawable/alivc_beauty_default_bt_selector"
                         android:id="@+id/beauty_bigeye"
                         android:layout_width="45dp"
                         android:layout_height="45dp"
                         android:layout_marginLeft="15dp"
                         android:button="@null"
-                        android:drawableStart="@drawable/icon_big_eye"
+                        android:drawableStart="@mipmap/icon_big_eye"
                         android:gravity="center"
                         android:padding="10.5dp"
                         android:textColor="#ffffff"
                         android:textSize="14dp" />
 
                     <RadioButton
+                        android:background="@drawable/alivc_beauty_default_bt_selector"
                         android:id="@+id/beauty_thin_face"
                         android:layout_width="45dp"
                         android:layout_height="45dp"
                         android:layout_marginLeft="15dp"
                         android:button="@null"
-                        android:drawableStart="@drawable/icon_thin_face"
+                        android:drawableStart="@mipmap/icon_thin_face"
                         android:gravity="center"
                         android:padding="10.5dp"
                         android:textColor="#ffffff"
                         android:textSize="14dp" />
 
                     <RadioButton
+                        android:background="@drawable/alivc_beauty_default_bt_selector"
                         android:id="@+id/beauty_red_lips"
                         android:layout_width="45dp"
                         android:layout_height="45dp"
                         android:layout_marginLeft="15dp"
                         android:button="@null"
-                        android:drawableStart="@drawable/icon_checkpink"
+                        android:drawableStart="@mipmap/icon_checkpink"
                         android:gravity="center"
                         android:padding="10.5dp"
                         android:textColor="#ffffff"

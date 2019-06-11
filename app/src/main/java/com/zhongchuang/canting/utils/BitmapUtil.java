@@ -1,6 +1,7 @@
 package com.zhongchuang.canting.utils;
 
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.media.MediaMetadataRetriever;
 import android.media.ThumbnailUtils;
@@ -8,6 +9,9 @@ import android.os.Build;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.HashMap;
 
 /***
@@ -24,6 +28,34 @@ public class BitmapUtil {
         }else {
             return ThumbnailUtils.createVideoThumbnail(url, MediaStore.Video.Thumbnails.MINI_KIND);
         }
+    }
+
+    public static String saveBitmapToFile(Context context, Bitmap mBitmap, String fileName, int quality, boolean isPng) {
+        File file = new File(context.getCacheDir().getAbsolutePath()+"/image");
+        file.mkdirs();// 创建文件夹
+        fileName = context.getCacheDir().getAbsolutePath()+"/image" + File.separator + fileName;//图片名字
+        FileOutputStream b = null;
+        try {
+            b = new FileOutputStream(fileName);
+            if (isPng) {
+                mBitmap.compress(Bitmap.CompressFormat.PNG, quality, b);// 把数据写入文件
+            }else {
+                mBitmap.compress(Bitmap.CompressFormat.JPEG, quality, b);// 把数据写入文件
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                //关闭流
+                b.flush();
+                b.close();
+                return fileName;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
     }
 
     @Nullable

@@ -67,7 +67,7 @@ public abstract class ActionBarActivity extends AppCompatActivity {
     }
 
     private void setupActionBar() {
-        Toolbar toolbar = (Toolbar) mViewContainer.findViewById(R.id.tool_bar);
+        Toolbar toolbar = mViewContainer.findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
         mActionBar = getSupportActionBar();
         if(mActionBar == null) {
@@ -86,11 +86,11 @@ public abstract class ActionBarActivity extends AppCompatActivity {
             layoutParams.width = LayoutParams.MATCH_PARENT;
             view.setLayoutParams(layoutParams);
             View actionBarView = mActionBar.getCustomView();
-            mIvLeft = (ImageView) actionBarView.findViewById(R.id.iv_left);
-            mTvCenter = (TextView) actionBarView.findViewById(R.id.tv_center);
-            mIvRight = (Button) actionBarView.findViewById(R.id.iv_right);
-            mTvRight = (TextView) actionBarView.findViewById(R.id.tv_right);
-            mTvLeft = (TextView) actionBarView.findViewById(R.id.tv_left);
+            mIvLeft = actionBarView.findViewById(R.id.iv_left);
+            mTvCenter = actionBarView.findViewById(R.id.tv_center);
+            mIvRight = actionBarView.findViewById(R.id.iv_right);
+            mTvRight = actionBarView.findViewById(R.id.tv_right);
+            mTvLeft = actionBarView.findViewById(R.id.tv_left);
             mIvLeft.setOnClickListener(mDefaultClicKListener);
             mIvLeft.setImageResource(R.mipmap.aliyun_svideo_icon_back);
 //            mIvRight.setImageResource(R.mipmap.aliyun_svideo_icon_next);

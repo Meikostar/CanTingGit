@@ -36,7 +36,7 @@ import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.util.EMLog;
 import com.zhongchuang.canting.BuildConfig;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.chat.ChatSplashActivity;
 import com.zhongchuang.canting.activity.mall.ShopCompsiteMallActivity;
 import com.zhongchuang.canting.activity.mall.ShopMallActivity;
@@ -65,6 +65,7 @@ import com.zhongchuang.canting.net.BaseCallBack;
 import com.zhongchuang.canting.net.HttpUtil;
 import com.zhongchuang.canting.net.netService;
 import com.zhongchuang.canting.permission.PermissionConst;
+import com.zhongchuang.canting.permission.PermissionFail;
 import com.zhongchuang.canting.permission.PermissionGen;
 import com.zhongchuang.canting.permission.PermissionSuccess;
 import com.zhongchuang.canting.presenter.BaseContract;
@@ -160,7 +161,6 @@ public class HomeActivity extends BaseTitle_Activity implements BaseContract.Vie
                 .addRequestCode(PermissionConst.REQUECT_CODE_CAMERA)
                 .permissions(Manifest.permission.WRITE_EXTERNAL_STORAGE,
                         Manifest.permission.READ_EXTERNAL_STORAGE,
-                        Manifest.permission.REQUEST_INSTALL_PACKAGES,
                         Manifest.permission.CAMERA,
                         Manifest.permission.ACCESS_FINE_LOCATION
                 )
@@ -177,6 +177,10 @@ public class HomeActivity extends BaseTitle_Activity implements BaseContract.Vie
         initView();
 
     }
+    @PermissionFail(requestCode = PermissionConst.REQUECT_CODE_CAMERA)
+    public void requestSdcardFailed() {
+
+    }
     @PermissionSuccess(requestCode = PermissionConst.REQUECT_CODE_CAMERA)
     public void requestSdcardSuccess() {
         File file = new File(StorageUtils.getCacheDirectory(CanTingAppLication.getInstance()).getAbsolutePath() + File.separator + "live.zip");
@@ -187,7 +191,13 @@ public class HomeActivity extends BaseTitle_Activity implements BaseContract.Vie
             CanTingAppLication.isComplete=false;
             new Thread(new HomeActivity.DownloadApk("http://119.23.212.8:8080/live.zip", 2)).start();
         }else {
-            Common.unZip();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    Common.unZip();
+                }
+            }).start();
+
             CanTingAppLication.isComplete=true;
         }
 
@@ -214,21 +224,21 @@ public class HomeActivity extends BaseTitle_Activity implements BaseContract.Vie
         views = View.inflate(this, R.layout.langue_item_choose, null);
 
 
-        ivType1 = (MCheckBox) views.findViewById(R.id.iv_type1);
-        ivType2 = (MCheckBox) views.findViewById(R.id.iv_type2);
-        ivType3 = (MCheckBox) views.findViewById(R.id.iv_type3);
-        ivType4 = (MCheckBox) views.findViewById(R.id.iv_type4);
-        ivType5 = (MCheckBox) views.findViewById(R.id.iv_type5);
-        ivType6 = (MCheckBox) views.findViewById(R.id.iv_type6);
-        ivType7 = (MCheckBox) views.findViewById(R.id.iv_type7);
+        ivType1 = views.findViewById(R.id.iv_type1);
+        ivType2 = views.findViewById(R.id.iv_type2);
+        ivType3 = views.findViewById(R.id.iv_type3);
+        ivType4 = views.findViewById(R.id.iv_type4);
+        ivType5 = views.findViewById(R.id.iv_type5);
+        ivType6 = views.findViewById(R.id.iv_type6);
+        ivType7 = views.findViewById(R.id.iv_type7);
 
-        ll_langue1 = (LinearLayout) views.findViewById(R.id.ll_langue1);
-        ll_langue2 = (LinearLayout) views.findViewById(R.id.ll_langue2);
-        ll_langue3 = (LinearLayout) views.findViewById(R.id.ll_langue3);
-        ll_langue4 = (LinearLayout) views.findViewById(R.id.ll_langue4);
-        ll_langue5 = (LinearLayout) views.findViewById(R.id.ll_langue5);
-        ll_langue6 = (LinearLayout) views.findViewById(R.id.ll_langue6);
-        ll_langue7 = (LinearLayout) views.findViewById(R.id.ll_langue7);
+        ll_langue1 = views.findViewById(R.id.ll_langue1);
+        ll_langue2 = views.findViewById(R.id.ll_langue2);
+        ll_langue3 = views.findViewById(R.id.ll_langue3);
+        ll_langue4 = views.findViewById(R.id.ll_langue4);
+        ll_langue5 = views.findViewById(R.id.ll_langue5);
+        ll_langue6 = views.findViewById(R.id.ll_langue6);
+        ll_langue7 = views.findViewById(R.id.ll_langue7);
 
 
         dialogs = BaseDailogManager.getInstance().getBuilder(this).setMessageView(views).create();
@@ -303,7 +313,8 @@ public class HomeActivity extends BaseTitle_Activity implements BaseContract.Vie
         Configuration conf = res.getConfiguration();
         conf.locale = myLocale;
         res.updateConfiguration(conf, dm);
-        startActivity((new Intent(this, HomeActivity.class)));
+        startActivity((new Intent(HomeActivity.this, HomeActivity.class)));
+
 
     }
 
@@ -393,8 +404,7 @@ public class HomeActivity extends BaseTitle_Activity implements BaseContract.Vie
     }
 
 
-    private int[] homeimg1 = {R.drawable.shangcheng, R.drawable.homes_jf, R.drawable.tongcheng, R.drawable.zhibo,
-            R.drawable.leliao, R.drawable.wode, R.drawable.yingyong, R.drawable.shares, R.drawable.home_gj};
+    private int[] homeimg1 = {};
 
 
     public boolean isLogin;
@@ -572,14 +582,18 @@ public class HomeActivity extends BaseTitle_Activity implements BaseContract.Vie
 
                         break;
                     case 3://直播
-                        Intent intent2 = new Intent(HomeActivity.this, ChatSplashActivity.class);
-                        if (messageGroup == null) {
-                            return;
-                        }
-                        intent2.putExtra("data", data);
-                        intent2.putExtra("type", 1);
-                        startActivity(intent2);
 
+                        if (isLogin) {
+                            Intent intent2 = new Intent(HomeActivity.this, ChatSplashActivity.class);
+                            if (messageGroup == null) {
+                                return;
+                            }
+                            intent2.putExtra("data", data);
+                            intent2.putExtra("type", 1);
+                            startActivity(intent2);
+                        } else {
+                            startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+                        }
                         break;
                     case 4://我的
 
@@ -656,9 +670,9 @@ public class HomeActivity extends BaseTitle_Activity implements BaseContract.Vie
         TextView title = null;
         EditText reson = null;
         View views = View.inflate(this, R.layout.down_dialog, null);
-        sure = (TextView) views.findViewById(R.id.txt_sure);
-        cancel = (TextView) views.findViewById(R.id.txt_cancel);
-        title = (TextView) views.findViewById(R.id.txt_title);
+        sure = views.findViewById(R.id.txt_sure);
+        cancel = views.findViewById(R.id.txt_cancel);
+        title = views.findViewById(R.id.txt_title);
         if (TextUtil.isNotEmpty(description)) {
             title.setText(description);
 
@@ -873,10 +887,14 @@ public class HomeActivity extends BaseTitle_Activity implements BaseContract.Vie
         hidePress();
         if (type == 12) {
             data = new GAME();
+            GAME gas = new GAME();
+            gas.directTypeName = "录播视频";
+            gas.id = "-1";
+            dat.clear();
+            dat.add(gas);
             GAME ga = new GAME();
             ga.directTypeName = "热门";
             ga.id = "0";
-            dat.clear();
             dat.add(ga);
             List<GAME> games = (List<GAME>) entity;
             for (GAME game : games) {
@@ -913,20 +931,14 @@ public class HomeActivity extends BaseTitle_Activity implements BaseContract.Vie
             if (data != null && TextUtil.isNotEmpty(data.is_direct)) {
 
                 if (data.is_direct.equals("1")) {
-                    if (TextUtil.isNotEmpty(data.user_integral)) {
-                        CanTingAppLication.totalintegral = Double.valueOf(data.user_integral);
-                    } else {
-                        if (TextUtil.isNotEmpty(data.userIntegral)) {
-                            CanTingAppLication.totalintegral = Double.valueOf(data.userIntegral);
-                        }
-                    }
+
                     SpUtil.putString(HomeActivity.this, "isAnchor", 1 + "");
                 } else {
                     if (TextUtil.isNotEmpty(data.userIntegral)) {
-                        CanTingAppLication.totalintegral = Double.valueOf(data.userIntegral);
+//                        CanTingAppLication.totalintegral = Double.valueOf(data.userIntegral);
                     } else {
                         if (TextUtil.isNotEmpty(data.user_integral)) {
-                            CanTingAppLication.totalintegral = Double.valueOf(data.user_integral);
+//                            CanTingAppLication.totalintegral = Double.valueOf(data.user_integral);
                         }
                     }
                     SpUtil.putString(HomeActivity.this, "isAnchor", 0 + "");

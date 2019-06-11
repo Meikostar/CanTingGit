@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.easeui.widget.EaseTitleBar;
 import com.zhongchuang.canting.permission.PermissionGen;
 
@@ -21,7 +21,7 @@ public abstract class EaseBaseFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         //noinspection ConstantConditions
-        titleBar = (EaseTitleBar) getView().findViewById(R.id.title_bar);
+        titleBar = getView().findViewById(R.id.title_bar);
 
         initView();
         setUpView();

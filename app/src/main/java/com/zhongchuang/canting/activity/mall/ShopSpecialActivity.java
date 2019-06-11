@@ -3,7 +3,7 @@ package com.zhongchuang.canting.activity.mall;
 
 import android.support.v4.app.Fragment;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.adapter.FragmentViewPagerAdapter;
 import com.zhongchuang.canting.base.BaseActivity1;
 import com.zhongchuang.canting.been.SubscriptionBean;

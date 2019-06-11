@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.base.BaseLoginActivity;
 import com.zhongchuang.canting.been.FriendInfo;
 import com.zhongchuang.canting.been.SubscriptionBean;

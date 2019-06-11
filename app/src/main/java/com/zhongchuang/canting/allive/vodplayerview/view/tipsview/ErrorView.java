@@ -62,9 +62,9 @@ public class ErrorView extends RelativeLayout implements ITheme{
         LayoutParams params = new LayoutParams(viewWidth, viewHeight);
         addView(view, params);
 
-        mRetryBtn = (TextView) view.findViewById(R.id.retry_btn);
-        mMsgView = (TextView) view.findViewById(R.id.msg);
-        mCodeView = (TextView) view.findViewById(R.id.code);
+        mRetryBtn = view.findViewById(R.id.retry_btn);
+        mMsgView = view.findViewById(R.id.msg);
+        mCodeView = view.findViewById(R.id.code);
         mRetryView = view.findViewById(R.id.retry);
         //重试的点击监听
         mRetryView.setOnClickListener(new OnClickListener() {

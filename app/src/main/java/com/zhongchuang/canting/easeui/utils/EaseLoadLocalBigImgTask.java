@@ -21,7 +21,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import com.hyphenate.util.ImageUtils;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.easeui.model.EaseImageCache;
 import com.zhongchuang.canting.easeui.widget.photoview.EasePhotoView;
 

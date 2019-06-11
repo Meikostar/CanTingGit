@@ -17,7 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.HomeActivity;
 import com.zhongchuang.canting.base.BaseActivity1;
 import com.zhongchuang.canting.been.Codes;
@@ -162,9 +162,9 @@ public class CodeUploadActivity extends BaseActivity1 implements BaseContract.Vi
 
         if(view==null){
             view = LayoutInflater.from(CodeUploadActivity.this).inflate(R.layout.chat_phone_popwindow_view, null);
-            TextView tv_camera = (TextView) view.findViewById(R.id.tv_camera);
-            TextView tv_choose = (TextView) view.findViewById(R.id.tv_choose);
-            TextView tv_cancel = (TextView) view.findViewById(R.id.tv_cancel);
+            TextView tv_camera = view.findViewById(R.id.tv_camera);
+            TextView tv_choose = view.findViewById(R.id.tv_choose);
+            TextView tv_cancel = view.findViewById(R.id.tv_cancel);
             tv_camera.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

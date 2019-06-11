@@ -18,7 +18,7 @@ import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMMessage.Direct;
 import com.hyphenate.exceptions.HyphenateException;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.easeui.Constant;
 import com.zhongchuang.canting.easeui.widget.EaseChatMessageList.MessageListItemClickListener;
 import com.hyphenate.util.DateUtils;
@@ -76,15 +76,15 @@ public abstract class EaseChatRow extends LinearLayout {
 
     private void initView() {
         onInflateView(chatType);
-        timeStampView = (TextView) findViewById(R.id.timestamp);
-        userAvatarView = (ImageView) findViewById(R.id.iv_userhead);
+        timeStampView = findViewById(R.id.timestamp);
+        userAvatarView = findViewById(R.id.iv_userhead);
         bubbleLayout = findViewById(R.id.bubble);
-        usernickView = (TextView) findViewById(R.id.tv_userid);
+        usernickView = findViewById(R.id.tv_userid);
 
-        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
-        statusView = (ImageView) findViewById(R.id.msg_status);
-        ackedView = (TextView) findViewById(R.id.tv_ack);
-        deliveredView = (TextView) findViewById(R.id.tv_delivered);
+        progressBar = findViewById(R.id.progress_bar);
+        statusView = findViewById(R.id.msg_status);
+        ackedView = findViewById(R.id.tv_ack);
+        deliveredView = findViewById(R.id.tv_delivered);
 
         onFindViewById();
     }
@@ -110,7 +110,7 @@ public abstract class EaseChatRow extends LinearLayout {
 
     private void setUpBaseView() {
         // set nickname, avatar and background of bubble
-        TextView timestamp = (TextView) findViewById(R.id.timestamp);
+        TextView timestamp = findViewById(R.id.timestamp);
         if (timestamp != null) {
             if (position == 0) {
                 timestamp.setText(DateUtils.getTimestampString(new Date(message.getMsgTime())));
@@ -135,8 +135,12 @@ public abstract class EaseChatRow extends LinearLayout {
             }else {
                 EaseUserUtils.setUserAvatar(context, HxMessageUtils.getMyAvater(message), userAvatarView);
             }
-            usernickView.setTextColor(getResources().getColor(R.color.colorSendName7));
-            EaseUserUtils.setUserNick(SpUtil.getName(context), usernickView);
+            if(usernickView!=null){
+                usernickView.setTextColor(getResources().getColor(R.color.colorSendName7));
+                EaseUserUtils.setUserNick(SpUtil.getName(context), usernickView);
+            }
+
+
         }else{
             if(message.getUserName().equals("ifun")){
 
@@ -148,8 +152,11 @@ public abstract class EaseChatRow extends LinearLayout {
             }else {
                 EaseUserUtils.setUserAvatar(context, HxMessageUtils.getFAvater(message), userAvatarView);
             }
-            usernickView.setTextColor(getResources().getColor(R.color.t_blue));
-            EaseUserUtils.setUserNick(HxMessageUtils.getFName(message), usernickView);
+            if(usernickView!=null){
+                usernickView.setTextColor(getResources().getColor(R.color.t_blue));
+                EaseUserUtils.setUserNick(HxMessageUtils.getFName(message), usernickView);
+            }
+
         }
 
         if(ackedView != null){
@@ -203,8 +210,10 @@ public abstract class EaseChatRow extends LinearLayout {
             if(chatType== Constant.CHATTYPE_CHATROOM){
                 timeStampView.setVisibility(GONE);
                 userAvatarView.setVisibility(GONE);
+                if (usernickView != null) {
+                    usernickView.setVisibility(View.VISIBLE);
+                }
 
-                usernickView.setVisibility(View.VISIBLE);
             }
         }
 

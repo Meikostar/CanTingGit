@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.app.CanTingAppLication;
 import com.zhongchuang.canting.base.BaseActivity1;
 import com.zhongchuang.canting.been.BEAN;
@@ -201,7 +201,6 @@ public class RechargeDbActivity extends BaseActivity1 {
         Map<String, String> map = new HashMap<>();
         map.put("userInfoId", CanTingAppLication.userId);
         map.put("amount", Integer.valueOf(Amount) + "");
-        ;
         netService api = HttpUtil.getInstance().create(netService.class);
         api.exchangeGlod(map).enqueue(new BaseCallBack<BEAN>() {
             @Override

@@ -18,7 +18,7 @@
             android:layout_gravity="left|center_vertical"
             android:layout_marginLeft="8dp"
             android:contentDescription="@null"
-            android:padding="11dp"
+            android:padding="13dp"
             android:src="@drawable/aliyun_svideo_icon_back" />
 
         <LinearLayout

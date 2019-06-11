@@ -143,22 +143,22 @@ public class RecorderSettingTest extends Activity implements View.OnClickListene
     }
 
     private void initView(){
-        minDurationEt = (EditText) findViewById(R.id.aliyun_min_duration_edit);
-        maxDurationEt = (EditText) findViewById(R.id.aliyun_max_duration_edit);
-        gopEt = (EditText)findViewById(R.id.aliyun_gop_edit);
-        mBitrateEdit = (EditText) findViewById(R.id.aliyun_bitrate_edit);
-        mStartRecordTxt = (TextView)findViewById(R.id.aliyun_start_record);
+        minDurationEt = findViewById(R.id.aliyun_min_duration_edit);
+        maxDurationEt = findViewById(R.id.aliyun_max_duration_edit);
+        gopEt = findViewById(R.id.aliyun_gop_edit);
+        mBitrateEdit = findViewById(R.id.aliyun_bitrate_edit);
+        mStartRecordTxt = findViewById(R.id.aliyun_start_record);
         mStartRecordTxt.setOnClickListener(this);
         mStartRecordTxt.setEnabled(false);
-        mBackBtn = (ImageView) findViewById(R.id.aliyun_back);
+        mBackBtn = findViewById(R.id.aliyun_back);
         mBackBtn.setOnClickListener(this);
-        mRecordResolutionTxt = (TextView) findViewById(R.id.aliyun_resolution_txt);
-        mVideoQualityTxt = (TextView) findViewById(R.id.aliyun_quality_txt);
-        mVideoRatioTxt = (TextView) findViewById(R.id.aliyun_ratio_txt);
-        mResolutionBar = (SeekBar) findViewById(R.id.aliyun_resolution_seekbar);
-        mVideoQualityBar = (SeekBar) findViewById(R.id.aliyun_quality_seekbar);
-        mVideoRatioBar = (SeekBar) findViewById(R.id.aliyun_ratio_seekbar);
-        mVideoCodecBar = (SeekBar) findViewById(R.id.aliyun_video_codec_seekbar);
+        mRecordResolutionTxt = findViewById(R.id.aliyun_resolution_txt);
+        mVideoQualityTxt = findViewById(R.id.aliyun_quality_txt);
+        mVideoRatioTxt = findViewById(R.id.aliyun_ratio_txt);
+        mResolutionBar = findViewById(R.id.aliyun_resolution_seekbar);
+        mVideoQualityBar = findViewById(R.id.aliyun_quality_seekbar);
+        mVideoRatioBar = findViewById(R.id.aliyun_ratio_seekbar);
+        mVideoCodecBar = findViewById(R.id.aliyun_video_codec_seekbar);
         mResolutionBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {

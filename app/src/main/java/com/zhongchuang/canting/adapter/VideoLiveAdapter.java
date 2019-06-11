@@ -27,8 +27,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-;
-
 /**
  * author zaaach on 2016/1/26.
  */
@@ -86,18 +84,25 @@ public class VideoLiveAdapter extends BaseAdapter {
             holder.tv_time = view.findViewById(R.id.tv_time);
             holder.tv_desc = view.findViewById(R.id.tv_desc);
             holder.rl_bg = view.findViewById(R.id.rl_bg);
+            holder.ll_bgs = view.findViewById(R.id.ll_bgs);
             view.setTag(holder);
         } else {
             holder = (CityViewHolder) view.getTag();
         }
         videobean shop=list.get(position);
-        Glide.with(mContext).load(StringUtil.changeUrl(shop.cover_image)).asBitmap().placeholder(R.drawable.moren).into(holder.hotPic);
+        Glide.with(mContext).load(StringUtil.changeUrl(shop.cover_image)).asBitmap().placeholder(R.drawable.moren3).into(holder.hotPic);
         if (TextUtil.isNotEmpty(shop.video_name)) {
             holder.tv_desc.setText(shop.video_name);
         }
-
+        holder.ll_bgs.setVisibility(View.GONE);
         holder.tv_time.setText(TimeUtil.formatChatTime(shop.create_time));
         holder.rl_bg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.listener(position);
+            }
+        });
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listener.listener(position);
@@ -123,6 +128,7 @@ public class VideoLiveAdapter extends BaseAdapter {
         TextView tv_time;
         TextView tv_desc;
         LinearLayout rl_bg;
+        LinearLayout ll_bgs;
         CardView cardView;
     }
 

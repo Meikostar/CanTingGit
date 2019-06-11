@@ -11,7 +11,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.hyphenate.util.EasyUtils;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.been.BaseResponse;
 import com.zhongchuang.canting.been.FriendInfo;
 import com.zhongchuang.canting.been.SubscriptionBean;
@@ -77,21 +77,21 @@ public class ChatActivity extends FragmentActivity implements BaseContract.View 
 
         }
         int choosType= SpUtil.getInt(this,"choosTyp",0);
-        if(choosType==0){
-            bg_img.setImageDrawable(getResources().getDrawable(R.drawable.bg0));
-        }else if (choosType==1){
-            bg_img.setImageDrawable(getResources().getDrawable(R.drawable.bg1));
-        }else if (choosType==2){
-            bg_img.setImageDrawable(getResources().getDrawable(R.drawable.bg2));
-        }else if (choosType==3){
-            bg_img.setImageDrawable(getResources().getDrawable(R.drawable.bg3));
-        }else if (choosType==4){
-            bg_img.setImageDrawable(getResources().getDrawable(R.drawable.bg4));
-        }else if (choosType==5){
-            bg_img.setImageDrawable(getResources().getDrawable(R.drawable.bg5));
-        }else if (choosType==6){
-            bg_img.setImageDrawable(getResources().getDrawable(R.drawable.bg6));
-        }
+//        if(choosType==0){
+//            bg_img.setImageDrawable(getResources().getDrawable(R.drawable.bg0));
+//        }else if (choosType==1){
+//            bg_img.setImageDrawable(getResources().getDrawable(R.drawable.bg1));
+//        }else if (choosType==2){
+//            bg_img.setImageDrawable(getResources().getDrawable(R.drawable.bg2));
+//        }else if (choosType==3){
+//            bg_img.setImageDrawable(getResources().getDrawable(R.drawable.bg3));
+//        }else if (choosType==4){
+//            bg_img.setImageDrawable(getResources().getDrawable(R.drawable.bg4));
+//        }else if (choosType==5){
+//            bg_img.setImageDrawable(getResources().getDrawable(R.drawable.bg5));
+//        }else if (choosType==6){
+//            bg_img.setImageDrawable(getResources().getDrawable(R.drawable.bg6));
+//        }
 
         activityInstance = this;
         //get user id or group id
@@ -163,7 +163,7 @@ public class ChatActivity extends FragmentActivity implements BaseContract.View 
         }
 
         if (EasyUtils.isSingleActivity(this)) {
-            Intent intent = new Intent(this, HomeActivity.class);
+            Intent intent = new Intent(this, HomeActivitys.class);
             startActivity(intent);
         }
     }

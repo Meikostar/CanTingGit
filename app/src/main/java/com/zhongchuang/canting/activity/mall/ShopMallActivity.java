@@ -13,7 +13,7 @@ import android.widget.RadioGroup;
 import com.google.gson.Gson;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.LoginActivity;
 import com.zhongchuang.canting.app.CanTingAppLication;
 import com.zhongchuang.canting.base.BaseAllActivity;
@@ -290,6 +290,10 @@ public class ShopMallActivity extends BaseAllActivity implements View.OnClickLis
             case 3:
                 rdGroup.check(R.id.rd_mine);
                 pos = 3;
+                if(!isLogin()){
+                    startActivity(new Intent(ShopMallActivity.this, LoginActivity.class));
+                    return;
+                }
                 fragment3 = new Minefagment();
                 mTransaction.replace(R.id.fragment_container, fragment3);
                 mTransaction.commit();
@@ -303,6 +307,13 @@ public class ShopMallActivity extends BaseAllActivity implements View.OnClickLis
         }
     }
 
+    private boolean isLogin() {
+        boolean isLogin;
+        String token = SpUtil.getString(this, "token", "");
+        isLogin = !TextUtils.isEmpty(token) && !token.equals("");
+        return isLogin;
+
+    }
 }
 
 

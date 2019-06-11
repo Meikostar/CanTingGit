@@ -10,7 +10,9 @@ import android.widget.TextView;
 
 import com.aliyun.common.utils.StorageUtils;
 import com.zhongchuang.canting.R;
-import com.zhongchuang.canting.app.CanTingAppLication;;import java.io.File;
+import com.zhongchuang.canting.app.CanTingAppLication;
+
+import java.io.File;
 
 
 /**

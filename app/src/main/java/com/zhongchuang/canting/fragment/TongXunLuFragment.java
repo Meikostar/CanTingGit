@@ -28,6 +28,7 @@ import com.zhongchuang.canting.activity.chat.AddGroupActivity;
 import com.zhongchuang.canting.activity.chat.ChatMenberActivity;
 import com.zhongchuang.canting.activity.chat.ChatSetActivity;
 import com.zhongchuang.canting.activity.chat.SeachFriendActivity;
+import com.zhongchuang.canting.activity.mine.NewPersonDetailActivity;
 import com.zhongchuang.canting.adapter.ChatMenberAdapter;
 import com.zhongchuang.canting.app.CanTingAppLication;
 import com.zhongchuang.canting.been.BaseResponse;
@@ -38,7 +39,7 @@ import com.zhongchuang.canting.been.SubscriptionBean;
 import com.zhongchuang.canting.easeui.domain.EaseUser;
 import com.zhongchuang.canting.easeui.ui.AddFriendActivity;
 import com.zhongchuang.canting.easeui.ui.EaseContactListFragment;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.ChatActivity;
 import com.zhongchuang.canting.activity.FindFriendActivity;
 
@@ -55,6 +56,7 @@ import com.zhongchuang.canting.permission.PermissionGen;
 import com.zhongchuang.canting.presenter.BaseContract;
 import com.zhongchuang.canting.presenter.BasesPresenter;
 import com.zhongchuang.canting.utils.LogUtil;
+import com.zhongchuang.canting.utils.SpUtil;
 import com.zhongchuang.canting.utils.TextUtil;
 import com.zhongchuang.canting.widget.BaseDailogManager;
 import com.zhongchuang.canting.widget.MarkaBaseDialog;
@@ -82,6 +84,7 @@ public class TongXunLuFragment extends EaseContactListFragment implements View.O
     StickyScrollView scrollView;
     GridView gridView;
     ContactItemView add_friend;
+    ContactItemView ct_mine;
     EditText tongxunluIpt;
     ImageView tongxunluBacbut;
     ImageView tongxunluFind;
@@ -109,6 +112,7 @@ public class TongXunLuFragment extends EaseContactListFragment implements View.O
         scrollView = super.getView().findViewById(R.id.scrollView);
         gridView = super.getView().findViewById(R.id.grid);
         add_friend = super.getView().findViewById(R.id.add_friend);
+        ct_mine = super.getView().findViewById(R.id.ct_mine);
         tongxunluIpt = super.getView().findViewById(R.id.query);
         tongxunluBacbut = super.getView().findViewById(R.id.tongxunlu_bacbut);
         tongxunluFind = super.getView().findViewById(R.id.tongxunlu_find);
@@ -145,6 +149,7 @@ public class TongXunLuFragment extends EaseContactListFragment implements View.O
                 startActivity(fridIntent);
             }
         });
+        ct_mine.setValues(SpUtil.getName(getActivity())+"  (自己)",SpUtil.getAvar(getActivity()));
     }
 
 
@@ -254,6 +259,7 @@ public class TongXunLuFragment extends EaseContactListFragment implements View.O
         group.setOnClickListener(this);
         add.setOnClickListener(this);
         add_friend.setOnClickListener(this);
+        ct_mine.setOnClickListener(this);
         tongxunluFind.setOnClickListener(this);
 
     }
@@ -308,10 +314,10 @@ public class TongXunLuFragment extends EaseContactListFragment implements View.O
     public void showPopwindow(String name, final String userid) {
 
             views = View.inflate(getActivity(), R.layout.del_friend, null);
-            sure = (TextView) views.findViewById(R.id.txt_sure);
-            cancel = (TextView) views.findViewById(R.id.txt_cancel);
-            title = (TextView) views.findViewById(R.id.tv_title);
-            reson = (EditText) views.findViewById(R.id.edit_reson);
+            sure = views.findViewById(R.id.txt_sure);
+            cancel = views.findViewById(R.id.txt_cancel);
+            title = views.findViewById(R.id.tv_title);
+            reson = views.findViewById(R.id.edit_reson);
             title.setText(getString(R.string.qdsc)+name+getString(R.string.hys));
             final MarkaBaseDialog dialog = BaseDailogManager.getInstance().getBuilder(getActivity()).setMessageView(views).create();
             dialog.show();
@@ -363,6 +369,12 @@ public class TongXunLuFragment extends EaseContactListFragment implements View.O
                 Intent intents = new Intent(getActivity(), FindFriendActivity .class);
                 intents.putExtra("data",gameinfo);
                 startActivity(intents);
+                break;
+            case R.id.ct_mine:
+                Intent intens = new Intent(getActivity(), NewPersonDetailActivity.class);
+                intens.putExtra("id", SpUtil.getUserInfoId(getActivity()) + "");
+                startActivity(intens);
+
                 break;
 
             case R.id.tongxunlu_but_saoyisao:

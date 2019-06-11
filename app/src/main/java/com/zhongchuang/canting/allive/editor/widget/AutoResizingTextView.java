@@ -981,6 +981,6 @@ public class AutoResizingTextView extends TextView implements BitmapGenerator {
          * text, it takes less space than {@code availableSpace}, > 0
          * otherwise
          */
-        public int onTestSize(int suggestedSize, RectF availableSpace, String text);
+        int onTestSize(int suggestedSize, RectF availableSpace, String text);
     }
 }

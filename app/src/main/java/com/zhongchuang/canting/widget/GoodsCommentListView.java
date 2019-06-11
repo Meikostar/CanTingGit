@@ -16,7 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.been.CommetLikeBean;
 import com.zhongchuang.canting.been.GoodsComentBean;
 import com.zhongchuang.canting.been.QfriendBean;
@@ -132,7 +132,7 @@ public class GoodsCommentListView extends LinearLayout {
 
         View convertView = layoutInflater.inflate(R.layout.item_friend_comment, null, false);
 
-        TextView commentTv = (TextView) convertView.findViewById(R.id.tv_comment);
+        TextView commentTv = convertView.findViewById(R.id.tv_comment);
 
         final TodayNewGoodsMovementMethod circleMovementMethod = new TodayNewGoodsMovementMethod(itemSelectorColor, itemSelectorColor);
 
@@ -227,12 +227,12 @@ public class GoodsCommentListView extends LinearLayout {
         return subjectSpanText;
     }
 
-    public static interface OnItemClickListener{
-        public void onItemClick(int position);
+    public interface OnItemClickListener{
+        void onItemClick(int position);
     }
 
-    public static interface OnItemLongClickListener{
-        public void onItemLongClick(int position);
+    public interface OnItemLongClickListener{
+        void onItemLongClick(int position);
     }
 
 

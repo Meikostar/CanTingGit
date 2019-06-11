@@ -20,7 +20,7 @@ import android.support.v4.view.animation.PathInterpolatorCompat;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 
 /**
  * Created by tanfujun on 15/9/4.

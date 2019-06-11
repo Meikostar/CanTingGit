@@ -7,7 +7,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.base.BaseTitle_Activity;
 import com.zhongchuang.canting.been.ZhiBo_GuanZhongBean;
 

@@ -2,6 +2,8 @@ package com.zhongchuang.canting.easeui.ui;
 
 import android.app.Activity;
 import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
@@ -19,13 +21,19 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.aliyun.common.utils.ToastUtil;
+import com.hyphenate.EMCallBack;
+import com.hyphenate.chat.EMChatManager;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMGroup;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMTextMessageBody;
+import com.hyphenate.util.EasyUtils;
 import com.hyphenate.util.PathUtil;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
+import com.zhongchuang.canting.activity.PersonMessageActivity;
+import com.zhongchuang.canting.activity.mine.NewPersonDetailActivity;
 import com.zhongchuang.canting.activity.mine.PersonManActivity;
 import com.zhongchuang.canting.adapter.BannerAdaptes;
 import com.zhongchuang.canting.app.CanTingAppLication;
@@ -124,10 +132,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragment.E
 
             @Override
             public void onClick(View v) {
-//                        if (EasyUtils.isSingleActivity(getActivity())) {
-//                            Intent intent = new Intent(getActivity(), MainActivity.class);
-//                            startActivity(intent);
-//                        }
+
                 onBackPressed();
             }
         });
@@ -187,7 +192,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragment.E
             inputMenu.registerExtendMenuItem(R.string.attach_voice_call, R.drawable.em_chat_voice_call_selector, ITEM_VOICE_CALL, extendMenuItemClickListener);
             inputMenu.registerExtendMenuItem(R.string.attach_video_call, R.drawable.em_chat_video_call_selector, ITEM_VIDEO_CALL, extendMenuItemClickListener);
             inputMenu.registerExtendMenuItem(R.string.attach_red, R.drawable.chat_red_input, ITEM_RED_PACKET, extendMenuItemClickListener);
-        }else if(chatType == Constant.CHATTYPE_GROUP){
+        } else if (chatType == Constant.CHATTYPE_GROUP) {
             inputMenu.registerExtendMenuItem(R.string.attach_red, R.drawable.chat_red_input, ITEM_RED_PACKET, extendMenuItemClickListener);
         }
 
@@ -302,7 +307,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragment.E
 
 
     public void onAvatarClick(String user_id) {
-        if (TextUtil.isNotEmpty(user_id) && (!user_id.equals("null")) && !user_id.equals(SpUtil.getUserInfoId(getActivity()))) {
+        if (TextUtil.isNotEmpty(user_id) && (!user_id.equals("null")) ) {
             Intent intent = new Intent(getActivity(), PersonManActivity.class);
             intent.putExtra("id", user_id + "");
             startActivity(intent);
@@ -327,6 +332,14 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragment.E
         if (TextUtil.isNotEmpty(id)) {
             presenter.getLuckInfo(id);
 
+        }
+        if (message.getBooleanAttribute(Constant.MESSAGE_ATTR_IS_VIDEO_CALL, false) || message.getBooleanAttribute(Constant.MESSAGE_ATTR_IS_VOICE_CALL, false)) {
+
+            if (message.getBooleanAttribute(Constant.MESSAGE_ATTR_IS_VOICE_CALL, false)) {
+                startVoiceCall();
+            } else {
+                startVideoCall();
+            }
         }
 
         return false;
@@ -371,29 +384,45 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragment.E
 //                        .putExtra("ischatroom", chatType == EaseConstant.CHATTYPE_CHATROOM),
 //                REQUEST_CODE_CONTEXT_MENU);
     }
-    private View views=null;
-    private TextView sure = null;
-    private TextView cancel = null;
-    private TextView title = null;
-    private EditText reson = null;
+
+    private View views = null;
+    private TextView tv_ch = null;
+    private TextView tv_fz = null;
+    private TextView tv_delete = null;
+
+
     public void showPopwindow(final EMMessage message) {
 
-        views = View.inflate(getActivity(), R.layout.del_friend, null);
-        sure = (TextView) views.findViewById(R.id.txt_sure);
-        cancel = (TextView) views.findViewById(R.id.txt_cancel);
-        title = (TextView) views.findViewById(R.id.tv_title);
-        reson = (EditText) views.findViewById(R.id.edit_reson);
-        title.setText(R.string.qdscgxx);
+        views = View.inflate(getActivity(), R.layout.message_choose, null);
+        tv_ch = views.findViewById(R.id.tv_ch);
+        tv_fz = views.findViewById(R.id.tv_fz);
+        tv_delete = views.findViewById(R.id.tv_delete);
+
         final MarkaBaseDialog dialog = BaseDailogManager.getInstance().getBuilder(getActivity()).setMessageView(views).create();
         dialog.show();
-        cancel.setOnClickListener(new View.OnClickListener() {
+        tv_ch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ToastUtil.showToast(getActivity(), "开发中");
+
                 dialog.dismiss();
             }
         });
-        final EditText finalReson = reson;
-        sure.setOnClickListener(new View.OnClickListener() {
+        tv_fz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String body = message.getBody().toString();
+                if(TextUtil.isNotEmpty(body)){
+                    ClipboardManager cm = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+                    // 将文本内容放到系统剪贴板里。
+                    cm.setText(body);
+                    ToastUtil.showToast(getActivity(), getString(R.string.fzcg));
+                }
+                dialog.dismiss();
+            }
+        });
+
+        tv_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 EMConversation conversation = EMClient.getInstance().chatManager().getConversation(toChatUsername);
@@ -407,9 +436,32 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragment.E
 
 
     }
+
+    /**
+     * 撤回
+     * 原理：
+     * A用户发送消息。
+     * A用户需要撤回某条消息，将消息id通过扩展消息发送到用户B。
+     * B用户收到扩展消息，解析其中的messageid，从数据库删除对应消息。
+     */
+    private void recall() {
+
+//        sendTextMessage();
+        EMMessage cmdMsg = EMMessage.createSendMessage(EMMessage.Type.CMD);
+// 如果是群聊，设置chattype，默认是单聊
+        if (chatType == EaseConstant.CHATTYPE_GROUP) {
+            cmdMsg.setChatType(EMMessage.ChatType.GroupChat);
+        } else if (chatType == EaseConstant.CHATTYPE_CHATROOM) {
+            cmdMsg.setChatType(EMMessage.ChatType.ChatRoom);
+        }
+
+        messageList.refreshSelectLast();
+    }
+
     @Override
     public boolean onExtendMenuItemClick(int itemId, View view) {
         switch (itemId) {
+
             case ITEM_VIDEO:
                 Intent intent = new Intent(getActivity(), ImageGridActivity.class);
                 startActivityForResult(intent, REQUEST_CODE_SELECT_VIDEO);
@@ -428,7 +480,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragment.E
 
                 if (chatType == Constant.CHATTYPE_GROUP) {
                     Intent intents = new Intent(getActivity(), SendRedsActivity.class);
-                    intents.putExtra("id",group_id);
+                    intents.putExtra("id", group_id);
                     startActivityForResult(intents, ITEM_RED_PACKET);
                 } else {
                     Intent intents = new Intent(getActivity(), SendRedActivity.class);
@@ -592,14 +644,14 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragment.E
                 mRedPacketDialog.dismiss();
                 Intent intent = new Intent(getActivity(), WaitRedDetailActivity.class);
                 intent.putExtra("id", id);
-                if(info!=null){
+                if (info != null) {
                     intent.putExtra("type", info.chatType);
                 }
 
                 startActivity(intent);
                 RedPacketInfo redPacketInfo = new RedPacketInfo();
                 redPacketInfo.red_name = SpUtil.getName(getActivity());
-                redPacketInfo.send_name =send_name;
+                redPacketInfo.send_name = send_name;
                 redPacketInfo.isgrab = 1;
                 redPacketInfo.type = "2";
                 redPacketInfo.redEnvelopeId = id;

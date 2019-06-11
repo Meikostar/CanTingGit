@@ -18,7 +18,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.utils.TextUtil;
 
 import java.util.ArrayList;
@@ -117,13 +117,13 @@ public class SelectPopupWindow extends PopupWindow implements View.OnClickListen
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mMenuView = inflater.inflate(R.layout.layout_popwindow_dialog_input_psw, null);
-        GridView gridView = (GridView) mMenuView.findViewById(R.id.gridView);
-        tv_pay_amount = (TextView) mMenuView.findViewById(R.id.tv_pay_amount);
-        tv_paytype_name = (TextView) mMenuView.findViewById(R.id.tv_paytype_name);
-        tv_forget_pswd = (TextView) mMenuView.findViewById(R.id.tv_forget_pswd);
-        iv_exit = (ImageView) mMenuView.findViewById(R.id.iv_exit);
-        pswView = (PswView) mMenuView.findViewById(R.id.pswView);
-        layout_paytype = (LinearLayout) mMenuView.findViewById(R.id.layout_paytype);
+        GridView gridView = mMenuView.findViewById(R.id.gridView);
+        tv_pay_amount = mMenuView.findViewById(R.id.tv_pay_amount);
+        tv_paytype_name = mMenuView.findViewById(R.id.tv_paytype_name);
+        tv_forget_pswd = mMenuView.findViewById(R.id.tv_forget_pswd);
+        iv_exit = mMenuView.findViewById(R.id.iv_exit);
+        pswView = mMenuView.findViewById(R.id.pswView);
+        layout_paytype = mMenuView.findViewById(R.id.layout_paytype);
         String[] keys = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "", "0", "delete"};
         String[] key_engs = new String[]{"", "ABC", "DEF", "GHI", "JKL", "MNO", "PQRS", "TUV", "WXYZ", "", "", "delete"};
         //构造数据

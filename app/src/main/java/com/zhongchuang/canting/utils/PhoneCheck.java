@@ -15,11 +15,7 @@ public class PhoneCheck {
      * @param phoneNums
      */
     public static boolean judgePhoneNums(String phoneNums) {
-        if(TextUtil.isNotEmpty(phoneNums)){
-            return true;
-        }else {
-            return false;
-        }
+        return TextUtil.isNotEmpty(phoneNums);
 
 
     }
@@ -31,10 +27,7 @@ public class PhoneCheck {
     public static boolean judgePhoneNum(String phoneNums) {
 
 
-        if (isMatchLength(phoneNums, 11) && isMobileNO(phoneNums)) {
-            return true;
-        }
-        return false;
+        return isMatchLength(phoneNums, 11) && isMobileNO(phoneNums);
     }
     /**
      * 判断一个字符串的位数
@@ -47,7 +40,7 @@ public class PhoneCheck {
         if (str.isEmpty()|| str==null) {
             return false;
         } else {
-            return str.length() == length ? true : false;
+            return str.length() == length;
         }
     }
 

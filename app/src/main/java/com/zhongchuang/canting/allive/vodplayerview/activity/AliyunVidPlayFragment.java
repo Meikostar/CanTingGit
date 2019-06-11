@@ -47,10 +47,10 @@ public class AliyunVidPlayFragment extends Fragment {
     }
 
     private void initStsView(View v){
-        etVid = (EditText)v.findViewById(R.id.vid);
-        etAkId = (EditText)v.findViewById(R.id.akId);
-        etAkSecret = (EditText)v.findViewById(R.id.akSecret);
-        etScuToken = (EditText)v.findViewById(R.id.scuToken);
+        etVid = v.findViewById(R.id.vid);
+        etAkId = v.findViewById(R.id.akId);
+        etAkSecret = v.findViewById(R.id.akSecret);
+        etScuToken = v.findViewById(R.id.scuToken);
     }
 
     public void startToPlayerByVid(){

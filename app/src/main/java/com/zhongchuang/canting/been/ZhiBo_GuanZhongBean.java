@@ -62,6 +62,8 @@ public class ZhiBo_GuanZhongBean extends BaseResponse{
         public String id;
         public String cover_image;
         public String type;
+        public String video_type;
+        public String new_type;
         public String request_id;
         public String video_name;
         public String video_url;

@@ -50,11 +50,7 @@ public class PermissionUtils {
             return true;
         }
 
-        if (ContextCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
-            return false;
-        }
-
-        return true;
+        return ContextCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED;
     }
 
     /**
@@ -100,11 +96,8 @@ public class PermissionUtils {
         String meizuFlymeOSFlag  = getSystemProperty("ro.build.display.id");
         if (TextUtils.isEmpty(meizuFlymeOSFlag)){
             return false;
-        }else if (meizuFlymeOSFlag.contains("flyme") || meizuFlymeOSFlag.toLowerCase().contains("flyme")){
-            return  true;
-        }else {
-            return false;
-        }
+        }else
+            return meizuFlymeOSFlag.contains("flyme") || meizuFlymeOSFlag.toLowerCase().contains("flyme");
     }
 
     public static String getSystemProperty(String propName) {

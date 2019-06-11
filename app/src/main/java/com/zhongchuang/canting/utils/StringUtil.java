@@ -15,7 +15,7 @@ import android.text.style.ClickableSpan;
 import android.view.View;
 
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.LoginActivity;
 
 import java.security.MessageDigest;
@@ -38,10 +38,7 @@ public class StringUtil {
      * @return true if str is null or zero length
      */
     public static boolean isEmpty(CharSequence str){
-        if (str == null || str.length() == 0)
-            return true;
-        else
-            return false;
+        return str == null || str.length() == 0;
     }
     public static Spanned getRedColorText(Context context, String txtL, String txtR) {
         String str = "<font color=\'" + context.getResources().getColor(R.color.color3) + "\'>" +
@@ -136,10 +133,7 @@ public class StringUtil {
      */
 
     public static boolean isNotEmpty(CharSequence str){
-        if (str == null || str.length() == 0)
-            return false;
-        else
-            return true;
+        return str != null && str.length() != 0;
     }
     //判断手机号
     public static boolean isMobileNum(String mobiles) {
@@ -186,11 +180,7 @@ public class StringUtil {
             return true;
         }else {
             str=str.toString().trim();
-            if(isEmpty(str)){
-                return true;
-            }else {
-                return false;
-            }
+            return isEmpty(str);
         }
     }
     public static  long lastClickTime;

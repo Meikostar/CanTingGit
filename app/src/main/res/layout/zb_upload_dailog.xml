@@ -10,17 +10,31 @@
         android:layout_centerInParent="true"
         android:background="@drawable/wite_rectangle3"
         android:orientation="vertical">
-        <TextView
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="15dp"
-            android:text="录播设置"
-            android:textColor="@color/color3"
-            android:textSize="15sp" />
         <RelativeLayout
-            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            >
+            <TextView
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="录播设置"
+                android:textColor="@color/color3"
+                android:textSize="15sp" />
+            <ImageView
+                android:id="@+id/iv_close"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:padding="6dp"
+                android:src="@drawable/closes"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+
             android:layout_width="match_parent"
             android:layout_height="140dp"
             android:layout_gravity="center_vertical"

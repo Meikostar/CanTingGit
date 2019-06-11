@@ -14,7 +14,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.adapter.GeguarAdapter;
 import com.zhongchuang.canting.been.ProductBuy;
 import com.zhongchuang.canting.been.Type;
@@ -58,9 +58,9 @@ public class payWindow extends PopupWindow {
         super(context);
         mContext = context;
         mView = View.inflate(context, R.layout.pay_popwindow_view, null);
-        cbWx = (CheckBox)mView.findViewById(R.id.cb_wx);
-        cbZfb = (CheckBox)mView.findViewById(R.id.cb_zfb);
-        cbPp = (CheckBox)mView.findViewById(R.id.cb_paypal);
+        cbWx = mView.findViewById(R.id.cb_wx);
+        cbZfb = mView.findViewById(R.id.cb_zfb);
+        cbPp = mView.findViewById(R.id.cb_paypal);
         ll_zfb = mView.findViewById(R.id.ll_zfb);
         ll_wx = mView.findViewById(R.id.ll_wx);
         tv_pay = mView.findViewById(R.id.tv_pay);

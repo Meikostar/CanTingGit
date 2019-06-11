@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.been.Type;
 
 import java.util.List;
@@ -55,9 +55,9 @@ public class TypeAdapter extends BaseAdapter {
         if (view == null) {
             holder = new ViewHolder();
             view = inflater.inflate(R.layout.type_adapter, null);
-            holder.tvName = (TextView) view.findViewById(R.id.tv_name);
-            holder.line = (View) view.findViewById(R.id.line);
-            holder.rlBg = (RelativeLayout) view.findViewById(R.id.rl_bg);
+            holder.tvName = view.findViewById(R.id.tv_name);
+            holder.line = view.findViewById(R.id.line);
+            holder.rlBg = view.findViewById(R.id.rl_bg);
 
             view.setTag(holder);
         } else {
@@ -75,11 +75,7 @@ public class TypeAdapter extends BaseAdapter {
             public void onClick(View v) {
                 listener.itemclick(i,list.get(i).id);
                 for (int a = 0; a < list.size(); a++) {
-                    if (a == i) {
-                        list.get(a).isChoose = true;
-                    } else {
-                        list.get(a).isChoose = false;
-                    }
+                    list.get(a).isChoose = a == i;
                 }
                 notifyDataSetChanged();
 

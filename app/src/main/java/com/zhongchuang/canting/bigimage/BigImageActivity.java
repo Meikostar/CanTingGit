@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.base.BaseActivity;
 
 import butterknife.BindView;
@@ -96,7 +96,7 @@ public class BigImageActivity extends BaseActivity {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private View getBottomView(final int index, final int page, int drawableRes) {
         View view = getLayoutInflater().inflate(R.layout.layout_big_photo_point, null);
-        ImageView button = (ImageView) view.findViewById(R.id.iv_foot_point);
+        ImageView button = view.findViewById(R.id.iv_foot_point);
         if (index == page) {
             tabs[index].select();
         }
@@ -126,7 +126,7 @@ public class BigImageActivity extends BaseActivity {
 
         @Override
         public boolean isViewFromObject(View view, Object object) {
-            return view == (PhotoView) object;
+            return view == object;
         }
 
         @Override

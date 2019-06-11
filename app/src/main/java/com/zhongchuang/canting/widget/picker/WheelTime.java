@@ -3,7 +3,7 @@ package com.zhongchuang.canting.widget.picker;
 import android.view.View;
 
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -82,13 +82,13 @@ public class WheelTime {
       /*  final Context context = view.getContext();*/
         currentYear = year;
         // 年
-        wv_year = (WheelView) view.findViewById(R.id.year);
+        wv_year = view.findViewById(R.id.year);
         wv_year.setAdapter(new NumericWheelAdapter(startYear, endYear));// 设置"年"的显示数据
         /*wv_year.setLabel(context.getString(R.string.pickerview_year));// 添加文字*/
         wv_year.setCurrentItem(year - startYear);// 初始化时显示的数据
         wv_year.setGravity(gravity);
         // 月
-        wv_month = (WheelView) view.findViewById(R.id.month);
+        wv_month = view.findViewById(R.id.month);
         if (startYear == endYear) {//开始年等于终止年
             wv_month.setAdapter(new NumericWheelAdapter(startMonth, endMonth));
             wv_month.setCurrentItem(month + 1 - startMonth);
@@ -108,7 +108,7 @@ public class WheelTime {
 
         wv_month.setGravity(gravity);
         // 日
-        wv_day = (WheelView) view.findViewById(R.id.day);
+        wv_day = view.findViewById(R.id.day);
 
         if (startYear == endYear && startMonth == endMonth) {
             if (list_big.contains(String.valueOf(month + 1))) {
@@ -207,19 +207,19 @@ public class WheelTime {
 
         wv_day.setGravity(gravity);
         //时
-        wv_hours = (WheelView) view.findViewById(R.id.hour);
+        wv_hours = view.findViewById(R.id.hour);
         wv_hours.setAdapter(new NumericWheelAdapter(0, 23));
       /*  wv_hours.setLabel(context.getString(R.string.pickerview_hours));// 添加文字*/
         wv_hours.setCurrentItem(h);
         wv_hours.setGravity(gravity);
         //分
-        wv_mins = (WheelView) view.findViewById(R.id.min);
+        wv_mins = view.findViewById(R.id.min);
         wv_mins.setAdapter(new NumericWheelAdapter(0, 59));
        /* wv_mins.setLabel(context.getString(R.string.pickerview_minutes));// 添加文字*/
         wv_mins.setCurrentItem(m);
         wv_mins.setGravity(gravity);
         //秒
-        wv_seconds = (WheelView) view.findViewById(R.id.second);
+        wv_seconds = view.findViewById(R.id.second);
         wv_seconds.setAdapter(new NumericWheelAdapter(0, 59));
        /* wv_seconds.setLabel(context.getString(R.string.pickerview_seconds));// 添加文字*/
         wv_seconds.setCurrentItem(s);

@@ -25,6 +25,7 @@ import android.widget.ListView;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;
+import com.hyphenate.chat.EMMessageBody;
 import com.hyphenate.chat.EMTextMessageBody;
 import com.hyphenate.util.EMLog;
 import com.zhongchuang.canting.been.SubscriptionBean;
@@ -111,6 +112,7 @@ public class EaseMessageAdapter extends BaseAdapter{
 		this.conversation = EMClient.getInstance().chatManager().getConversation(username, EaseCommonUtils.getConversationType(chatType), true);
 	}
 
+	@SuppressLint("HandlerLeak")
 	Handler handler = new Handler() {
 
 		private void refreshList() {
@@ -118,11 +120,17 @@ public class EaseMessageAdapter extends BaseAdapter{
 			java.util.List<EMMessage> var = conversation.getAllMessages();
 			mess.clear();
 			for (EMMessage message : var) {
-					EMTextMessageBody body = (EMTextMessageBody) message.getBody();
-					String contents  = body.getMessage();
-					if(!contents.equals("*&@@&*")&&!contents.contains("&!&&!&")){
-						mess.add(message);
-					}
+
+				if(message.getBody().getClass().equals(EMTextMessageBody.class)){
+                    EMTextMessageBody body = (EMTextMessageBody)message.getBody() ;
+                    String contents  = body.getMessage();
+                    if(!contents.equals("*&@@&*")&&!contents.contains("&!&&!&")){
+                        mess.add(message);
+                    }
+                }else {
+                    mess.add(message);
+                }
+
 
 			}
 			messages = mess.toArray(new EMMessage[mess.size()]);
@@ -286,6 +294,8 @@ public class EaseMessageAdapter extends BaseAdapter{
 
 						  }else if(type.equals("2")){
 							  chatRow = new ChatRowRedPacketAck(context,chatType, message, position, this);
+						  }else if(type.equals("3")){
+							  chatRow = new EaseChatRowVideo(context, chatType, message, position, this);
 						  }
 					  }else {
 						  if(message.getBooleanAttribute(EaseConstant.MESSAGE_ATTR_IS_BIG_EXPRESSION, false)){

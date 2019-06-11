@@ -15,7 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.CityPickerActivity;
 import com.zhongchuang.canting.activity.RegistActivity;
 import com.zhongchuang.canting.app.CanTingAppLication;
@@ -28,6 +28,7 @@ import com.zhongchuang.canting.presenter.RegisterPresenter;
 import com.zhongchuang.canting.presenter.impl.RegisterPresenterImpl;
 import com.zhongchuang.canting.utils.PhoneCheck;
 import com.zhongchuang.canting.utils.SpUtil;
+import com.zhongchuang.canting.utils.TextUtil;
 import com.zhongchuang.canting.viewcallback.RegisterViewCallback;
 import com.zhongchuang.canting.widget.ClearEditText;
 
@@ -70,10 +71,11 @@ public class Regiet_PhoneFragment extends Fragment implements RegisterViewCallba
     ImageView regisit2YanzhenWeibo;
     @BindView(R.id.regist_phone)
     LinearLayout registPhone;
+    @BindView(R.id.ct_invitation)
+    ClearEditText ctInvitation;
     private Unbinder unbinder;
     @BindView(R.id.txt_choose)
     TextView txt_choose;
-
 
 
     //    private int code;
@@ -81,7 +83,8 @@ public class Regiet_PhoneFragment extends Fragment implements RegisterViewCallba
 
     private RegisterPresenter presenter;
 
-   private TimeCount timeCount;
+    private TimeCount timeCount;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -92,17 +95,19 @@ public class Regiet_PhoneFragment extends Fragment implements RegisterViewCallba
         txt_choose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(new Intent(getActivity(), CityPickerActivity.class),0);
+                startActivityForResult(new Intent(getActivity(), CityPickerActivity.class), 0);
             }
         });
         return view;
 
     }
+
     @Override
     public void onResume() {
         super.onResume();
-        txt_choose.setText("+"+CanTingAppLication.code+">");
+        txt_choose.setText("+" + CanTingAppLication.code + ">");
     }
+
     //计时器
     class TimeCount extends CountDownTimer {
 
@@ -112,7 +117,7 @@ public class Regiet_PhoneFragment extends Fragment implements RegisterViewCallba
 
         @Override
         public void onTick(long millisUntilFinished) {
-            if(sendCode!=null){
+            if (sendCode != null) {
                 sendCode.setEnabled(false);
                 sendCode.setText(millisUntilFinished / 1000 + getString(R.string.cshq));
             }
@@ -121,7 +126,7 @@ public class Regiet_PhoneFragment extends Fragment implements RegisterViewCallba
 
         @Override
         public void onFinish() {
-            if(sendCode!=null){
+            if (sendCode != null) {
                 sendCode.setText(getString(R.string.cxhq));
                 sendCode.setBackground(getResources().getDrawable(R.drawable.login_selector));
                 sendCode.setEnabled(true);
@@ -129,14 +134,17 @@ public class Regiet_PhoneFragment extends Fragment implements RegisterViewCallba
 
         }
     }
+
     private String checkNum;
+    private String invitationCode = "";
+
     @OnClick({R.id.login_yanzhen_send, R.id.login_yanzhen_login})
     public void onViewClicked(View view) {
 
         switch (view.getId()) {
             case R.id.login_yanzhen_send:
                 mobileNumber = loginYanzhenPhone.getText().toString().trim();
-                SpUtil.putString(getActivity(), "mobileNumber", (CanTingAppLication.code.equals("86")?"": CanTingAppLication.code)+mobileNumber);
+                SpUtil.putString(getActivity(), "mobileNumber", (CanTingAppLication.code.equals("86") ? "" : CanTingAppLication.code) + mobileNumber);
                 // Log.d(TAG, "onCreateView1:" + mobileNumber);
 //                ChekPhoneNet();
                 if (!PhoneCheck.judgePhoneNums(mobileNumber)) {
@@ -147,18 +155,33 @@ public class Regiet_PhoneFragment extends Fragment implements RegisterViewCallba
                 mDialog = new ProgressDialog(getActivity());
                 mDialog.setMessage(getString(R.string.hqyzms));
                 mDialog.show();
-                presenter.getYzm("1", (CanTingAppLication.code.equals("86")?"": CanTingAppLication.code)+mobileNumber,CanTingAppLication.code);
+                presenter.getYzm("1", (CanTingAppLication.code.equals("86") ? "" : CanTingAppLication.code) + mobileNumber, CanTingAppLication.code);
                 break;
             case R.id.login_yanzhen_login:
                 checkNum = loginYanzhenYanzhenma.getText().toString().trim();
+                invitationCode = ctInvitation.getText().toString().trim();
                 // SMSSDK.submitVerificationCode("86", Regiet_PhoneFragment.mobileNumber, registCheckPhoneyanzhen.getText().toString());
                 if (TextUtils.isEmpty(checkNum) || checkNum.equals("")) {
                     Toast.makeText(getActivity(), R.string.yzmbnwk, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+//                if (TextUtil.isEmpty(invitationCode)) {
+//
+//                    Toast.makeText(getActivity(), "请输入邀请码", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+                if (TextUtil.isNotEmpty(invitationCode) && invitationCode.length()!=6) {
+                    ctInvitation.setText("");
+                    Toast.makeText(getActivity(), "邀请码错误", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Map<String, String> map = new HashMap<>();
+                map.put("mobileNumber", (CanTingAppLication.code.equals("86") ? "" : CanTingAppLication.code) + mobileNumber);
+                map.put("code", checkNum);
+                if(TextUtil.isNotEmpty(invitationCode)){
+                    map.put("invitationCode", invitationCode);
                 }
 
-                Map<String, String> map = new HashMap<>();
-                map.put("mobileNumber", (CanTingAppLication.code.equals("86")?"": CanTingAppLication.code)+mobileNumber);
-                map.put("code", checkNum);
                 presenter.checkCode(map);
                 mDialog = new ProgressDialog(getActivity());
                 mDialog.setMessage(getString(R.string.jxz));
@@ -171,47 +194,6 @@ public class Regiet_PhoneFragment extends Fragment implements RegisterViewCallba
     private ProgressDialog mDialog;
 
 
-    //注册号码判断
-
-    private void ChekPhoneNet() {
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(netService.TOM_BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        //Log.d(TAG, "onCreateView12345: " + netService.BASE_URL);
-
-        netService mNetService = retrofit.create(netService.class);
-
-
-        Map<String, String> map = new HashMap<>();
-        map.put("mobileNumber", mobileNumber);
-        map.put("smsType", "1");
-//        call = mNetService.getCall(map);
-
-
-        call.enqueue(new Callback<PhoneBackBean>() {
-            @Override
-            public void onResponse(Call<PhoneBackBean> call, Response<PhoneBackBean> response) {
-                //Gson Gson=new Gson();
-                PhoneBackBean mPhoneBackBean = response.body();
-
-
-            }
-
-
-            @Override
-            public void onFailure(Call<PhoneBackBean> call, Throwable t) {
-                if (mDialog != null) {
-                    mDialog.dismiss();
-                }
-                Toast.makeText(getActivity(), R.string.wlbglqcs, Toast.LENGTH_SHORT).show();
-
-            }
-        });
-
-    }
 
 
     //页面跳转
@@ -219,7 +201,7 @@ public class Regiet_PhoneFragment extends Fragment implements RegisterViewCallba
 
         RegistActivity parentActivity = (RegistActivity) getActivity();
         parentActivity.repalcePassWordFrag();
-        if(mDialog!=null){
+        if (mDialog != null) {
             mDialog.dismiss();
         }
 
@@ -260,7 +242,7 @@ public class Regiet_PhoneFragment extends Fragment implements RegisterViewCallba
 //            Toast.makeText(getActivity(), "此号码已经注册过！", Toast.LENGTH_SHORT).show();
 //            return;
 //        }
-        if(mDialog!=null){
+        if (mDialog != null) {
             mDialog.dismiss();
         }
         timeCount.start();
@@ -278,6 +260,7 @@ public class Regiet_PhoneFragment extends Fragment implements RegisterViewCallba
     private String token;
     private String ringLetterName;
     private String ringLetterPwd;
+
     @Override
     public void checkCode(CodeCheckBean mCodeCheckBean) {
         userInfoId = mCodeCheckBean.getData().getUserInfoId();
@@ -302,6 +285,7 @@ public class Regiet_PhoneFragment extends Fragment implements RegisterViewCallba
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+
 
     }
 }

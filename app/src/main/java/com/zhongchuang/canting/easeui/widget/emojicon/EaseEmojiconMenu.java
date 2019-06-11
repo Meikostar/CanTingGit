@@ -8,7 +8,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.easeui.widget.emojicon.EaseEmojiconPagerView.EaseEmojiconPagerViewListener;
 import com.zhongchuang.canting.easeui.widget.emojicon.EaseEmojiconScrollTabBar.EaseScrollTabBarItemClickListener;
 import com.zhongchuang.canting.easeui.domain.EaseEmojicon;
@@ -56,9 +56,9 @@ public class EaseEmojiconMenu extends EaseEmojiconMenuBase {
         bigEmojiconColumns = ta.getInt(R.styleable.EaseEmojiconMenu_bigEmojiconRows, defaultBigColumns);
 		ta.recycle();
 		
-		pagerView = (EaseEmojiconPagerView) findViewById(R.id.pager_view);
-		indicatorView = (EaseEmojiconIndicatorView) findViewById(R.id.indicator_view);
-		tabBar = (EaseEmojiconScrollTabBar) findViewById(R.id.tab_bar);
+		pagerView = findViewById(R.id.pager_view);
+		indicatorView = findViewById(R.id.indicator_view);
+		tabBar = findViewById(R.id.tab_bar);
 		
 	}
 	
@@ -103,7 +103,7 @@ public class EaseEmojiconMenu extends EaseEmojiconMenuBase {
         for(int i= 0; i < groupEntitieList.size(); i++){
             EaseEmojiconGroupEntity groupEntity = groupEntitieList.get(i);
             emojiconGroupList.add(groupEntity);
-            pagerView.addEmojiconGroup(groupEntity, i == groupEntitieList.size()-1 ? true : false);
+            pagerView.addEmojiconGroup(groupEntity, i == groupEntitieList.size() - 1);
             tabBar.addTab(groupEntity.getIcon());
         }
         

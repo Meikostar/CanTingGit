@@ -53,9 +53,9 @@ public class GuideView extends LinearLayout implements ITheme {
         LayoutInflater.from(getContext()).inflate(R.layout.alivc_view_guide, this, true);
 
         //这几个文字有颜色的变化
-        mBrightText = (TextView) findViewById(R.id.bright_text);
-        mProgressText = (TextView) findViewById(R.id.progress_text);
-        mVolumeText = (TextView) findViewById(R.id.volume_text);
+        mBrightText = findViewById(R.id.bright_text);
+        mProgressText = findViewById(R.id.progress_text);
+        mVolumeText = findViewById(R.id.volume_text);
 
         //默认是隐藏的
         hide();

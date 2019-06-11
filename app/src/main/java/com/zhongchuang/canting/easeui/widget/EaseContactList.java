@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.easeui.adapter.EaseContactAdapter;
 import com.zhongchuang.canting.easeui.domain.EaseUser;
 import com.zhongchuang.canting.widget.RegularListView;
@@ -89,8 +89,8 @@ public class EaseContactList extends RelativeLayout {
 
 
         LayoutInflater.from(context).inflate(R.layout.ease_widget_contact_list, this);
-        listView = (RegularListView)findViewById(R.id.list);
-        sidebar = (EaseSidebar) findViewById(R.id.sidebar);
+        listView = findViewById(R.id.list);
+        sidebar = findViewById(R.id.sidebar);
         if(!showSiderBar)
             sidebar.setVisibility(View.GONE);
     }

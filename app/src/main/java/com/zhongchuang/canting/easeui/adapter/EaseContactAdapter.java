@@ -18,7 +18,7 @@ import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import com.hyphenate.util.EMLog;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.ChatActivity;
 import com.zhongchuang.canting.activity.chat.ChatMessageActivity;
 import com.zhongchuang.canting.easeui.EaseUI;
@@ -74,13 +74,13 @@ public class EaseContactAdapter extends ArrayAdapter<EaseUser> implements Sectio
                 convertView = layoutInflater.inflate(R.layout.ease_row_contact, parent, false);
             else
                 convertView = layoutInflater.inflate(res, null);
-            holder.avatar = (EaseImageView) convertView.findViewById(R.id.avatar);
-            holder.address = (TextView) convertView.findViewById(R.id.address);
-            holder.ll_bg = (LinearLayout) convertView.findViewById(R.id.ll_bg);
-            holder.iv_choose = (MCheckBox) convertView.findViewById(R.id.iv_choose);
-            holder.judge = (TextView) convertView.findViewById(R.id.judge);
-            holder.headerView = (TextView) convertView.findViewById(R.id.header);
-            holder.member_select = (ImageView) convertView.findViewById(R.id.member_select);
+            holder.avatar = convertView.findViewById(R.id.avatar);
+            holder.address = convertView.findViewById(R.id.address);
+            holder.ll_bg = convertView.findViewById(R.id.ll_bg);
+            holder.iv_choose = convertView.findViewById(R.id.iv_choose);
+            holder.judge = convertView.findViewById(R.id.judge);
+            holder.headerView = convertView.findViewById(R.id.header);
+            holder.member_select = convertView.findViewById(R.id.member_select);
             convertView.setTag(holder);
         }else{
             holder = (ViewHolder) convertView.getTag();
@@ -147,7 +147,7 @@ public class EaseContactAdapter extends ArrayAdapter<EaseUser> implements Sectio
 
         EaseAvatarOptions avatarOptions = EaseUI.getInstance().getAvatarOptions();
         if(avatarOptions != null && holder.avatar instanceof EaseImageView) {
-            EaseImageView avatarView = ((EaseImageView) holder.avatar);
+            EaseImageView avatarView = holder.avatar;
             if (avatarOptions.getAvatarShape() != 0)
                 avatarView.setShapeType(avatarOptions.getAvatarShape());
             if (avatarOptions.getAvatarBorderWidth() != 0)

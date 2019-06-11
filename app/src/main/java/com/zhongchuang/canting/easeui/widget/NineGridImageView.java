@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 
 import java.util.ArrayList;
 import java.util.List;

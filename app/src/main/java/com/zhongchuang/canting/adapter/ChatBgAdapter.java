@@ -12,7 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.been.Type;
 
 import java.util.List;
@@ -61,10 +61,10 @@ public class ChatBgAdapter extends BaseAdapter {
         if (view == null) {
             holder = new ViewHolder();
             view = inflater.inflate(R.layout.item_chat_bg, null);
-            holder.img = (ImageView) view.findViewById(R.id.iv_img);
+            holder.img = view.findViewById(R.id.iv_img);
 
-            holder.llchoose = (LinearLayout) view.findViewById(R.id.ll_choose);
-            holder.card = (CardView) view.findViewById(R.id.card);
+            holder.llchoose = view.findViewById(R.id.ll_choose);
+            holder.card = view.findViewById(R.id.card);
 
             view.setTag(holder);
         } else {
@@ -77,31 +77,27 @@ public class ChatBgAdapter extends BaseAdapter {
             holder.llchoose.setVisibility(View.GONE);
         }
 
-        if(i==0){
-            holder.img.setImageDrawable(context.getResources().getDrawable(R.drawable.bg0));
-        }else if(i==1){
-            holder.img.setImageDrawable(context.getResources().getDrawable(R.drawable.bg1));
-        }else if(i==2){
-            holder.img.setImageDrawable(context.getResources().getDrawable(R.drawable.bg2));
-        }else if(i==3){
-            holder.img.setImageDrawable(context.getResources().getDrawable(R.drawable.bg3));
-        }else if(i==4){
-            holder.img.setImageDrawable(context.getResources().getDrawable(R.drawable.bg4));
-        }else if(i==5){
-            holder.img.setImageDrawable(context.getResources().getDrawable(R.drawable.bg5));
-        }else if(i==6){
-            holder.img.setImageDrawable(context.getResources().getDrawable(R.drawable.bg6));
-        }
+//        if(i==0){
+//            holder.img.setImageDrawable(context.getResources().getDrawable(R.drawable.bg0));
+//        }else if(i==1){
+//            holder.img.setImageDrawable(context.getResources().getDrawable(R.drawable.bg1));
+//        }else if(i==2){
+//            holder.img.setImageDrawable(context.getResources().getDrawable(R.drawable.bg2));
+//        }else if(i==3){
+//            holder.img.setImageDrawable(context.getResources().getDrawable(R.drawable.bg3));
+//        }else if(i==4){
+//            holder.img.setImageDrawable(context.getResources().getDrawable(R.drawable.bg4));
+//        }else if(i==5){
+//            holder.img.setImageDrawable(context.getResources().getDrawable(R.drawable.bg5));
+//        }else if(i==6){
+//            holder.img.setImageDrawable(context.getResources().getDrawable(R.drawable.bg6));
+//        }
 
         holder.card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
               for(int j=0;j<list.size();j++){
-                  if(j==i){
-                      list.get(j).isChoose=true;
-                  }else {
-                      list.get(j).isChoose=false;
-                  }
+                  list.get(j).isChoose = j == i;
               }
               notifyDataSetChanged();
             }

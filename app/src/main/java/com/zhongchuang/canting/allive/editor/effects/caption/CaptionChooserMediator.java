@@ -67,10 +67,10 @@ public class CaptionChooserMediator extends BaseChooser implements OnItemClickLi
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View mView = LayoutInflater.from(getActivity()).inflate(R.layout.aliyun_svideo_caption_view, container);
-        mDismiss = (ImageView) mView.findViewById(R.id.dismiss);
+        mDismiss = mView.findViewById(R.id.dismiss);
         mDismiss.setOnClickListener(onClickListener);
-        mDismissRelative = (RelativeLayout) mView.findViewById(R.id.caption_dismiss);
-        mIvCancel = (ImageView) mView.findViewById(R.id.cancel);
+        mDismissRelative = mView.findViewById(R.id.caption_dismiss);
+        mIvCancel = mView.findViewById(R.id.cancel);
         mIvCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,7 +79,7 @@ public class CaptionChooserMediator extends BaseChooser implements OnItemClickLi
                 }
             }
         });
-        mCaptionList = (RecyclerView) mView.findViewById(R.id.effect_list);
+        mCaptionList = mView.findViewById(R.id.effect_list);
         mCaptionList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         mCaptionList.addItemDecoration(new SpaceItemDecoration(getContext().getResources().getDimensionPixelSize(R.dimen.list_item_space)));
         if(mEditorService != null && mEditorService.isFullScreen()) {
@@ -89,7 +89,7 @@ public class CaptionChooserMediator extends BaseChooser implements OnItemClickLi
         mCaptionAdapter = new CaptionAdapter(getActivity());
         mCaptionAdapter.setOnItemClickListener(this);
         mCaptionList.setAdapter(mCaptionAdapter);
-        mCategoryList = (RecyclerView) mView.findViewById(R.id.category_list);
+        mCategoryList = mView.findViewById(R.id.category_list);
         mCategoryList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         mCategoryList.addItemDecoration(new SpaceItemDecoration(getContext().getResources().getDimensionPixelSize(R.dimen.list_item_space)));
         mCategoryAdapter = new CategoryAdapter(getActivity());

@@ -8,7 +8,7 @@ import android.view.View;
 
 public interface SizeChangedNotifier {
 
-    public interface Listener {
+    interface Listener {
         void onSizeChanged(View view, int w, int h, int oldw, int oldh);
     }
 

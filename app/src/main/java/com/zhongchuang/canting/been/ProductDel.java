@@ -24,6 +24,7 @@ public class ProductDel extends BaseResponse{
     public String picture_description_url;
     public String p_stock;
     public String market_price;
+    public double profit;
     public String pro_price;
     public String shop_id;
     public String picture_url;

@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ScrollView;
 
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -83,7 +83,7 @@ public class StickyScrollView extends ScrollView {
      * @param viewGroup
      */
     private void findViewByStickyTag(ViewGroup viewGroup) {
-        int childCount = ((ViewGroup) viewGroup).getChildCount();
+        int childCount = viewGroup.getChildCount();
         for (int i = 0; i < childCount; i++) {
             View child = viewGroup.getChildAt(i);
 

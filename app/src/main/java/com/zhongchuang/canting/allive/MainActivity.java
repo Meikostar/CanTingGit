@@ -234,7 +234,7 @@ public class MainActivity extends AppCompatActivity {
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                 layoutParams.leftMargin = (int) getResources().getDimension(R.dimen.alivc_home_points_item_margin);//设置点点点view的左边距
                 layoutParams.rightMargin = (int) getResources().getDimension(R.dimen.alivc_home_points_item_margin);
-                ;//设置点点点view的右边距
+                //设置点点点view的右边距
                 points.addView(imageView, layoutParams);
             }
             points.setVisibility(View.VISIBLE);

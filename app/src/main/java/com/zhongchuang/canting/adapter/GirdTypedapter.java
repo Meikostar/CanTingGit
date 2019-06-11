@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.been.Catage;
 
 import com.zhongchuang.canting.utils.StringUtil;
@@ -66,9 +66,9 @@ public class GirdTypedapter extends BaseAdapter {
         if (view == null) {
             holder = new ViewHolder();
             view = inflater.inflate(R.layout.shop_grid_item, null);
-            holder.txt_name = (TextView) view.findViewById(R.id.txt_name);
-            holder.img_icon = (ImageView) view.findViewById(R.id.img_icon);
-            holder.llbg = (LinearLayout) view.findViewById(R.id.ll_bg);
+            holder.txt_name = view.findViewById(R.id.txt_name);
+            holder.img_icon = view.findViewById(R.id.img_icon);
+            holder.llbg = view.findViewById(R.id.ll_bg);
             view.setTag(holder);
         } else {
             holder = (ViewHolder) view.getTag();

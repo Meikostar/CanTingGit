@@ -1,9 +1,9 @@
 package com.zhongchuang.canting.allive.vodplayerview.activity;
 
-import android.Manifest;
+
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
+
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
@@ -15,15 +15,10 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -33,6 +28,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
@@ -41,8 +37,6 @@ import android.widget.Toast;
 
 import com.alivc.player.VcPlayerLog;
 import com.aliyun.vodplayer.downloader.AliyunDownloadConfig;
-import com.aliyun.vodplayer.downloader.AliyunDownloadInfoListener;
-import com.aliyun.vodplayer.downloader.AliyunDownloadManager;
 import com.aliyun.vodplayer.downloader.AliyunDownloadMediaInfo;
 import com.aliyun.vodplayer.media.AliyunLocalSource;
 import com.aliyun.vodplayer.media.AliyunVidSts;
@@ -53,33 +47,22 @@ import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;
 import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.ChatActivity;
+import com.zhongchuang.canting.activity.live.MineVideoActivity;
 import com.zhongchuang.canting.adapter.FragmentViewPagerAdapter;
 import com.zhongchuang.canting.adapter.HandGitsAdapter;
 import com.zhongchuang.canting.adapter.QFriendsAdapter;
 import com.zhongchuang.canting.adapter.VideoLiveAdapter;
 import com.zhongchuang.canting.allive.vodplayerview.constants.PlayParameter;
-import com.zhongchuang.canting.allive.vodplayerview.playlist.AlivcPlayListAdapter;
-import com.zhongchuang.canting.allive.vodplayerview.playlist.AlivcPlayListManager;
-import com.zhongchuang.canting.allive.vodplayerview.playlist.AlivcVideoInfo;
 import com.zhongchuang.canting.allive.vodplayerview.utils.ScreenUtils;
 import com.zhongchuang.canting.allive.vodplayerview.utils.VidStsUtil;
 import com.zhongchuang.canting.allive.vodplayerview.utils.download.DownloadDBHelper;
 import com.zhongchuang.canting.allive.vodplayerview.view.choice.AlivcShowMoreDialog;
 import com.zhongchuang.canting.allive.vodplayerview.view.control.ControlLiveView;
-import com.zhongchuang.canting.allive.vodplayerview.view.download.AddDownloadView;
-import com.zhongchuang.canting.allive.vodplayerview.view.download.AlivcDialog;
-import com.zhongchuang.canting.allive.vodplayerview.view.download.AlivcDialog.onCancelOnclickListener;
-import com.zhongchuang.canting.allive.vodplayerview.view.download.AlivcDialog.onConfirmClickListener;
-import com.zhongchuang.canting.allive.vodplayerview.view.download.AlivcDownloadMediaInfo;
-import com.zhongchuang.canting.allive.vodplayerview.view.download.DownloadChoiceDialog;
-import com.zhongchuang.canting.allive.vodplayerview.view.download.DownloadDataProvider;
 import com.zhongchuang.canting.allive.vodplayerview.view.download.DownloadView;
-import com.zhongchuang.canting.allive.vodplayerview.view.download.DownloadView.OnDownloadViewListener;
 import com.zhongchuang.canting.allive.vodplayerview.view.more.AliyunShowMoreValue;
 import com.zhongchuang.canting.allive.vodplayerview.view.more.ShowMoreView;
 import com.zhongchuang.canting.allive.vodplayerview.view.more.SpeedValue;
 import com.zhongchuang.canting.allive.vodplayerview.view.tipsview.ErrorInfo;
-import com.zhongchuang.canting.allive.vodplayerview.view.tipsview.LoadingView;
 import com.zhongchuang.canting.allive.vodplayerview.widget.AliyunScreenMode;
 import com.zhongchuang.canting.allive.vodplayerview.widget.AliyunVodPlayerView;
 import com.zhongchuang.canting.allive.vodplayerview.widget.AliyunVodPlayerView.OnPlayerViewClickListener;
@@ -87,15 +70,18 @@ import com.zhongchuang.canting.allive.vodplayerview.widget.AliyunVodPlayerView.P
 import com.zhongchuang.canting.app.CanTingAppLication;
 import com.zhongchuang.canting.base.StatusBarUtil;
 import com.zhongchuang.canting.been.BEAN;
+import com.zhongchuang.canting.been.BaseBean;
 import com.zhongchuang.canting.been.CommetLikeBean;
 import com.zhongchuang.canting.been.FriendInfo;
+import com.zhongchuang.canting.been.GIFTDATA;
+import com.zhongchuang.canting.been.Gift;
 import com.zhongchuang.canting.been.Hands;
 import com.zhongchuang.canting.been.QfriendBean;
+import com.zhongchuang.canting.been.ShareBean;
 import com.zhongchuang.canting.been.aliLive;
 import com.zhongchuang.canting.been.videobean;
+import com.zhongchuang.canting.db.Constant;
 import com.zhongchuang.canting.fragment.live.ChatFragments;
-import com.zhongchuang.canting.fragment.live.ZBLiveFragment;
-import com.zhongchuang.canting.fragment.mall.HandFragment;
 import com.zhongchuang.canting.hud.ToastUtils;
 import com.zhongchuang.canting.net.BaseCallBack;
 import com.zhongchuang.canting.net.HttpUtil;
@@ -105,11 +91,13 @@ import com.zhongchuang.canting.presenter.BasesPresenter;
 import com.zhongchuang.canting.presenter.OtherContract;
 import com.zhongchuang.canting.presenter.OtherPresenter;
 import com.zhongchuang.canting.utils.AdapterUtility;
+import com.zhongchuang.canting.utils.ShareUtils;
 import com.zhongchuang.canting.utils.SpUtil;
-import com.zhongchuang.canting.utils.StringUtil;
 import com.zhongchuang.canting.utils.TextUtil;
 import com.zhongchuang.canting.viewcallback.CareListener;
 import com.zhongchuang.canting.widget.CircleTransform;
+import com.zhongchuang.canting.widget.FragmentGiftDialog;
+import com.zhongchuang.canting.widget.GiftItemView;
 import com.zhongchuang.canting.widget.NoScrollViewPager;
 import com.zhongchuang.canting.widget.RegularListView;
 import com.zhongchuang.canting.widget.StickyScrollView;
@@ -119,14 +107,10 @@ import com.zhongchuang.canting.widget.popupwindow.PopView_Comment;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 
 /**
@@ -140,6 +124,7 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity implements Other
     private DownloadView dialogDownloadView;
     private AlivcShowMoreDialog showMoreDialog;
     private String url;
+    private int type;
     private String room_info_id;
     private String id;
     private String name;
@@ -198,7 +183,7 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity implements Other
 
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
 
-
+    private GiftItemView giftView;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         if (isStrangePhone()) {
@@ -212,6 +197,7 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity implements Other
 
 
         url = getIntent().getStringExtra("url");
+        type = getIntent().getIntExtra("type",0);
         name = getIntent().getStringExtra("name");
         room_info_id = getIntent().getStringExtra("room_info_id");
         id = getIntent().getStringExtra("id");
@@ -224,22 +210,29 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity implements Other
         inittab();
 
         if (TextUtil.isNotEmpty(url)) {
-            if(url.contains("https:")){
+            selectPosition(1);
+            if(url.contains("https:")||url.contains("http:")){
                 DEFAULT_URL = url;
 
             }else {
-                DEFAULT_URL = "http://video-zx.oss-cn-shenzhen.aliyuncs.com/"+url;
+                DEFAULT_URL = Constant.APP_FILE_NAME+url;
 
             }
             setPlaySource();
+
         }
 
     }
     private FragmentViewPagerAdapter mainViewPagerAdapter;
     private List<Fragment> mFragments;
     private ChatFragments chatFragments;
-
-
+    public interface GiftMessageListener{
+        void click(int poistion);
+    }
+    private GiftMessageListener giftMessageListener;
+    public void setGiftMessageListener(GiftMessageListener listener){
+        giftMessageListener=listener;
+    }
     private void addFragment() {
         mFragments = new ArrayList<>();
         chatFragments = new ChatFragments();
@@ -247,12 +240,14 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity implements Other
         chatFragments.setId(id);
         chatFragments.setRoomInfoId(room_info_id);
         mFragments.add(chatFragments);
-
+        giftMessageListener= chatFragments;
 
     }
+    private ArrayList<Gift> gifts;
     public void initViewPager(){
 
         addFragment();
+        gifts=new ArrayList<>();
         mainViewPagerAdapter = new FragmentViewPagerAdapter(getSupportFragmentManager(), mFragments);
         stub_chat.setAdapter(mainViewPagerAdapter);
         stub_chat.setOffscreenPageLimit(1);//设置缓存view 的个数
@@ -266,9 +261,29 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity implements Other
                setHostData(data);
 
             }
+            @Override
+            public void setGift(Gift gift) {
+                if(gift==null){
+                    return;
+                }
+                if(mAliyunVodPlayerView.getScreenMode()==AliyunScreenMode.Full){
+                    if (!gifts.contains(gift)) {
+                        gifts.add(gift);
+                        giftView.setGift(gift);
+                    }
+                    giftView.addNum(1);
+                }
+
+
+            }
+            @Override
+            public void change() {
+
+            }
         });
     }
     private BEAN ben;
+    private int status;
     public void setHostData(BEAN data){
         ben=data;
         if(TextUtil.isNotEmpty(data.type)){
@@ -282,11 +297,40 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity implements Other
                 flbg.setBackgroundColor(getResources().getColor(R.color.blue));
             }
         }
+        String title="";
+        if(TextUtil.isNotEmpty(data.live_address)){
+            status=1;
+            title=(TextUtil.isNotEmpty(ben.room_image)?ben.room_image:"#")+","+ (TextUtil.isNotEmpty(ben.user_info_nickname)?ben.user_info_nickname:"#")+","+ben.fans_num+","+ ben.type+","+(TextUtil.isNotEmpty(ben.live_address)?ben.live_address:"#")+","+(TextUtil.isNotEmpty(name)?name:"#");
 
+            mAliyunVodPlayerView.updateTitleViews(title);
+
+
+        }
+//        if(TextUtil.isNotEmpty(data.live_address)&&status==0){
+//            status=1;
+//            if(TextUtil.isNotEmpty(name)){
+//                mAliyunVodPlayerView.updateTitleViews(name+" ("+data.live_address+")");
+//            }else {
+//                mAliyunVodPlayerView.updateTitleViews( data.direct_see_name+" ("+data.live_address+")");
+//            }
+//
+//        }
+        ShareBean shareBean = new ShareBean();
+        shareBean.img_ = data.room_image;
+        shareBean.content_ = data.direct_see_name + getString(R.string.zzklgk);
+//                shareBean.content_ = data.direct_see_name + getString(R.string.zzgszbklgkb);
+        shareBean.title_ = data.direct_see_name;
+        shareBean.url_ = Constant.APP_LIVE_DOWN;
+        CanTingAppLication.shareBean = shareBean;
         tvFee.setText("粉丝数："+data.fans_num);
 
+        if (!TextUtils.isEmpty(ben.user_info_nickname)) {
+            tvName.setText(ben.user_info_nickname);
+        }
+        Glide.with(AliyunPlayerSkinActivity.this).load(ben.room_image).asBitmap().transform(new CircleTransform(AliyunPlayerSkinActivity.this)).placeholder(R.drawable.editor_ava).into(iv_imgs);
 
-        tvCout.setText(data.fans_num);
+        tvCout.setText(ben.fans_num);
+
     }
 
     /**
@@ -303,6 +347,7 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity implements Other
     private ImageView ivZb;
     private ImageView iv_imgs;
     private ImageView ivRank;
+    private ImageView iv_share;
 
     private TextView tvName;
     private TextView tvFee;
@@ -321,6 +366,7 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity implements Other
 
         tvDetail = (TextView) findViewById(R.id.tv_detail);
         scrollView = (StickyScrollView) findViewById(R.id.scrooll);
+        giftView = (GiftItemView) findViewById(R.id.gift_item_firsts);
         ll_zb = (LinearLayout) findViewById(R.id.ll_zb);
         ll_bgs = (LinearLayout) findViewById(R.id.ll_bgs);
         tvVideo = (TextView) findViewById(R.id.tv_video);
@@ -338,6 +384,7 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity implements Other
         ivZb = (ImageView) findViewById(R.id.iv_zb);
         iv_imgs = (ImageView) findViewById(R.id.iv_imgs);
         ivRank = (ImageView) findViewById(R.id.iv_rank);
+        iv_share = (ImageView) findViewById(R.id.iv_share);
         stub_chat = (NoScrollViewPager) findViewById(R.id.viewpager_main);
         stub_zb = (ViewStub) findViewById(R.id.stub_zb);
         stub_hand = (ViewStub) findViewById(R.id.stub_hand);
@@ -400,7 +447,12 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity implements Other
 //                flbg.setClickable(false);
             }
         });
-
+        iv_share.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShareUtils.showMyShares(AliyunPlayerSkinActivity.this, getString(R.string.jiguang), "http://www.gwlaser.tech");
+            }
+        });
 
     }
 
@@ -415,7 +467,11 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity implements Other
     private HandGitsAdapter handGitsAdapter;
     private FrameLayout container;
     private RegularListView relist_info;
+    private ListView relist_infos;
+    private LinearLayout ll_rbg;
     private RegularListView relist_hand;
+
+    private List<Gift> dats;
 
 
     private void updateUI(int poistion) {
@@ -441,6 +497,8 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity implements Other
 
                     view_stub_zb = stub_zb.inflate();
                     relist_info = (RegularListView) findViewById(R.id.list_info);
+                    relist_infos = (ListView) findViewById(R.id.list_infos);
+                    ll_rbg = (LinearLayout) findViewById(R.id.ll_rbg);
                     loadingViewZb = (LoadingPager) findViewById(R.id.loadingViewzb);
                     qFriendsAdapter = new QFriendsAdapter(AliyunPlayerSkinActivity.this);
                     liveAdapter = new VideoLiveAdapter(AliyunPlayerSkinActivity.this);
@@ -509,14 +567,60 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity implements Other
                 if(dat.get(poistion).video_url.contains("http")){
                     PlayParameter.PLAY_PARAM_URL=dat.get(poistion).video_url;
                 }else {
-                    PlayParameter.PLAY_PARAM_URL="http://video-zx.oss-cn-shenzhen.aliyuncs.com/"+dat.get(poistion).video_url;
+                    PlayParameter.PLAY_PARAM_URL=Constant.APP_FILE_NAME+dat.get(poistion).video_url;
                 }
-
                 String title="";
                 if(TextUtil.isNotEmpty(dat.get(poistion).video_name)){
                     title=dat.get(poistion).video_name;
                 }
-                changePlayLocalSource( PlayParameter.PLAY_PARAM_URL, title);
+                if(!dat.get(poistion).new_type.equals("0")){
+                    CanTingAppLication.landType=0;
+                    Intent intent = new Intent(AliyunPlayerSkinActivity.this, AliyunPlayerSkinActivity.class);
+                    intent.putExtra("url",dat.get(poistion).video_url);
+                    intent.putExtra("name",dat.get(poistion).video_name);
+                    intent.putExtra("room_info_id",dat.get(poistion).room_info_id);
+                    intent.putExtra("id",dat.get(poistion).user_info_id);
+                    intent.putExtra("type",3);
+
+                    startActivity(intent);
+                    finish();
+                }else {
+                    if(dat.get(poistion).video_type==2){
+
+                        CanTingAppLication.landType=0;
+                        Intent intent = new Intent(AliyunPlayerSkinActivity.this, AliyunPlayerSkinActivity.class);
+                        intent.putExtra("url",dat.get(poistion).video_url);
+                        intent.putExtra("name",dat.get(poistion).video_name);
+                        intent.putExtra("room_info_id",dat.get(poistion).room_info_id);
+                        intent.putExtra("id",dat.get(poistion).user_info_id);
+                        startActivity(intent);
+                        finish();
+//                    changePlayLocalSource( PlayParameter.PLAY_PARAM_URL, title);
+                    }else if(dat.get(poistion).video_type==3){
+                        CanTingAppLication.landType=0;
+                        Intent intent = new Intent(AliyunPlayerSkinActivity.this, AliyunPlayerSkinActivity.class);
+                        intent.putExtra("url",dat.get(poistion).video_url);
+                        intent.putExtra("name",dat.get(poistion).video_name);
+                        intent.putExtra("room_info_id",dat.get(poistion).room_info_id);
+                        intent.putExtra("id",dat.get(poistion).user_info_id);
+                        intent.putExtra("type",3);
+                        startActivity(intent);
+                        finish();
+
+                    }else {
+                        CanTingAppLication.landType=1;
+                        Intent intent = new Intent(AliyunPlayerSkinActivity.this, AliyunPlayerSkinActivityMin.class);
+                        intent.putExtra("url",dat.get(poistion).video_url);
+                        intent.putExtra("name",dat.get(poistion).video_name);
+                        intent.putExtra("room_info_id",dat.get(poistion).room_info_id);
+                        intent.putExtra("id",dat.get(poistion).user_info_id);
+                        startActivity(intent);
+                        finish();
+
+                    }
+                }
+
+
             }
         });
         popView_cancelOrSure = new PopView_CancelOrSure(this);
@@ -720,7 +824,17 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity implements Other
             }
         });
     }
+    private Handler handler =new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(Message msg) {
+            selectPosition(1);
+            if(mAliyunVodPlayerView!=null){
+                mAliyunVodPlayerView.setScandModel();
+            }
 
+            return false;
+        }
+    });
 
     private void initAliyunPlayerView() {
         mAliyunVodPlayerView = (AliyunVodPlayerView) findViewById(R.id.video_view);
@@ -732,10 +846,18 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity implements Other
         PlayParameter.PLAY_PARAM_URL = DEFAULT_URL;
         String sdDir = Environment.getExternalStorageDirectory().getAbsolutePath() + "/test_save_cache";
         mAliyunVodPlayerView.setPlayingCache(false, sdDir, 60 * 60 /*时长, s */, 900 /*大小，MB*/);
-        mAliyunVodPlayerView.setTheme(AliyunVodPlayerView.Theme.Red);
+        mAliyunVodPlayerView.setTheme(AliyunVodPlayerView.Theme.Blue);
         //mAliyunVodPlayerView.setCirclePlay(true);
         mAliyunVodPlayerView.setAutoPlay(true);
+        mAliyunVodPlayerView.changeQuality(IAliyunVodPlayer.QualityValue.QUALITY_2K);
+       if(type!=0){
+           mAliyunVodPlayerView.setVideoScalingMode(IAliyunVodPlayer.VideoScalingMode.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING);
 
+       }else {
+           mAliyunVodPlayerView.setVideoScalingMode(IAliyunVodPlayer.VideoScalingMode.VIDEO_SCALING_MODE_SCALE_TO_FIT);
+
+       }
+//        mAliyunVodPlayerView.setVideoScalingMode(IAliyunVodPlayer.VideoScalingMode.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING);
         mAliyunVodPlayerView.setOnPreparedListener(new MyPrepareListener(this));
         mAliyunVodPlayerView.setNetConnectedListener(new MyNetConnectedListener(this));
         mAliyunVodPlayerView.setOnCompletionListener(new MyCompletionListener(this));
@@ -747,9 +869,48 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity implements Other
         mAliyunVodPlayerView.setOnUrlTimeExpiredListener(new MyOnUrlTimeExpiredListener(this));
         mAliyunVodPlayerView.setOnShowMoreClickListener(new MyShowMoreClickLisener(this));
         mAliyunVodPlayerView.enableNativeLog();
+        mAliyunVodPlayerView.setGiftMessageListener(new AliyunVodPlayerView.GiftMessageListener() {
+            @Override
+            public void click(int poistion,int state) {
+                if(poistion==1){
+                    giftMessageListener.click(1);
+                }else if(poistion==2) {
+//                    if(type==1){
+                        mAliyunVodPlayerView.setChangeModel();
+                        selectPosition(0);
+//                    }
+//                    giftMessageListener.click(2);
+
+                }else if(poistion==3) {
+                    setPlaySource();
+
+                }else if(poistion==4) {
+                    playCare();
+
+                }
+            }
+        });
+        mAliyunVodPlayerView.setChangeListener(new AliyunVodPlayerView.ChangeListener() {
+            @Override
+            public void change(AliyunScreenMode mode) {
+                if (mode == AliyunScreenMode.Small) {
+                    iv_share.setVisibility(View.VISIBLE);
+                }else {
+                    iv_share.setVisibility(View.GONE);
+                }
+            }
+        });
 
     }
-
+    public void playCare(){
+        if(ben!=null&&TextUtil.isNotEmpty(ben.type)){
+            if(ben.type.equals("1")){
+                presenters.focusTV(room_info_id,id, "2");
+            }else if(ben.type.equals("0")){
+                presenters.focusTV(room_info_id,id, "1");
+            }
+        }
+    }
     private boolean isCare;
 
     /**
@@ -825,7 +986,7 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity implements Other
     private String to_id;
     public static final String GID = "hx_gid";
     private int poistion;
-    private int type = 0;
+
     private int commentPosition;
     private String username = SpUtil.getNick(this);
     private String userid = SpUtil.getUserInfoId(this);
@@ -843,19 +1004,34 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity implements Other
         if (type == 19) {
             aliLive aliLive = (aliLive) entity;
             if (aliLive != null && aliLive.liveUrl != null) {
-                DEFAULT_URL = aliLive.liveUrl.rtmp_url;
+
 //                DEFAULT_URL = "rtmp://alive.chushenduojin.cn/zhixing/stream_urio1098110334129930240?auth_key=1553756190-0-0-da7b83d44eced17ea0b878c1d89aedbb";
                 room_id = aliLive.liveUrl.chatrooms_id;
                 if (TextUtil.isNotEmpty(DEFAULT_URL)&&TextUtil.isEmpty(url)) {
+                    DEFAULT_URL = aliLive.liveUrl.rtmp_url;
                     setPlaySource();
 
                 }
                 initViewPager();
-                selectPosition(0);
+                if (TextUtil.isNotEmpty(url)) {
+                    selectPosition(0);
+                    handler.sendEmptyMessageDelayed(1,200);
+
+                }else {
+                    selectPosition(0);
+                }
+
+            }else {
+                getDirIndexInfo();
             }
         } else if (type == 111) {
             dat = (List<videobean>) entity;
             if (dat != null && dat.size() > 0) {
+                relist_infos.setVisibility(View.GONE);
+                ll_rbg.setVisibility(View.GONE);
+                relist_info.setVisibility(View.VISIBLE);
+                relist_info.setFocusable(false);
+                relist_infos.setFocusable(false);
                 relist_info.setAdapter(liveAdapter);
                 liveAdapter.setData(dat);
                 loadingViewZb.showPager(LoadingPager.STATE_SUCCEED);
@@ -936,12 +1112,20 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity implements Other
                     i++;
                 }
                 if (data != null) {
-                    relist_info.setAdapter(qFriendsAdapter);
+                    relist_infos.setVisibility(View.VISIBLE);
+                    ll_rbg.setVisibility(View.VISIBLE);
+                    relist_info.setVisibility(View.GONE);
+                    relist_info.setFocusable(false);
+                    relist_infos.setFocusable(false);
+                    setWithOrHeigth();
+                    relist_infos.setAdapter(qFriendsAdapter);
                     qFriendsAdapter.setDatas(data);
                     loadingViewZb.showPager(LoadingPager.STATE_SUCCEED);
                 } else {
                     loadingView.showPager(LoadingPager.STATE_EMPTY);
                 }
+            }else {
+                loadingView.showPager(LoadingPager.STATE_EMPTY);
             }
             closeKeyBoard(tvChat);
         } else if (type == 77) {
@@ -958,7 +1142,13 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity implements Other
                     i++;
                 }
                 if (data != null) {
-                    relist_info.setAdapter(qFriendsAdapter);
+                    relist_infos.setVisibility(View.VISIBLE);
+                    ll_rbg.setVisibility(View.VISIBLE);
+                    relist_info.setVisibility(View.GONE);
+                    relist_info.setFocusable(false);
+                    relist_infos.setFocusable(false);
+                    setWithOrHeigth();
+                    relist_infos.setAdapter(qFriendsAdapter);
                     qFriendsAdapter.setDatas(data);
                     loadingViewZb.showPager(LoadingPager.STATE_SUCCEED);
                 } else {
@@ -966,6 +1156,8 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity implements Other
                 }
 
 
+            }else {
+                loadingView.showPager(LoadingPager.STATE_EMPTY);
             }
             closeKeyBoard(tvChat);
         } else if (type == 88) {
@@ -982,7 +1174,13 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity implements Other
                     i++;
                 }
                 if (data != null) {
-                    relist_info.setAdapter(qFriendsAdapter);
+                    relist_infos.setVisibility(View.VISIBLE);
+                    ll_rbg.setVisibility(View.VISIBLE);
+                    relist_info.setVisibility(View.GONE);
+                    setWithOrHeigth();
+                    relist_info.setFocusable(false);
+                    relist_infos.setFocusable(false);
+                    relist_infos.setAdapter(qFriendsAdapter);
                     qFriendsAdapter.setDatas(data);
                     loadingViewZb.showPager(LoadingPager.STATE_SUCCEED);
                 } else {
@@ -990,6 +1188,8 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity implements Other
                 }
 
 
+            }else {
+                loadingView.showPager(LoadingPager.STATE_EMPTY);
             }
             closeKeyBoard(tvChat);
         } else if (type == 99) {
@@ -997,6 +1197,7 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity implements Other
         } else if (type == 2) {
             Hands data = (Hands) entity;
             if (data != null && data.data.giftList != null) {
+                relist_hand.setFocusable(false);
                 relist_hand.setAdapter(handGitsAdapter);
                 handGitsAdapter.setDatas(data.data.giftList);
                 AdapterUtility.setListViewHeightBasedOnChildren(relist_hand);
@@ -1009,7 +1210,13 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity implements Other
         } else if (type == 55 || type == 1) {
             List<QfriendBean> datas = (List<QfriendBean>) entity;
             if (datas != null) {
-                relist_info.setAdapter(qFriendsAdapter);
+                relist_infos.setVisibility(View.VISIBLE);
+                ll_rbg.setVisibility(View.VISIBLE);
+                relist_info.setVisibility(View.GONE);
+                setWithOrHeigth();
+                relist_info.setFocusable(false);
+                relist_infos.setFocusable(false);
+                relist_infos.setAdapter(qFriendsAdapter);
                 list.addAll(datas);
                 qFriendsAdapter.setDatas(datas);
                 loadingViewZb.showPager(LoadingPager.STATE_SUCCEED);
@@ -1021,6 +1228,12 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity implements Other
         }
 
 
+    }
+    public void setWithOrHeigth(){
+        LinearLayout.LayoutParams params=( LinearLayout.LayoutParams)stub_zb.getLayoutParams();
+        params.width= LinearLayout.LayoutParams.MATCH_PARENT;
+        params.height=LinearLayout.LayoutParams.WRAP_CONTENT;
+        stub_zb.setLayoutParams(params);
     }
 
     @Override
@@ -1300,7 +1513,7 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity implements Other
                 mAliyunVodPlayerView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
 
                 //设置view的布局，宽高之类
-                LinearLayout.LayoutParams aliVcVideoViewLayoutParams = (LinearLayout.LayoutParams) mAliyunVodPlayerView
+                RelativeLayout.LayoutParams aliVcVideoViewLayoutParams = (RelativeLayout.LayoutParams) mAliyunVodPlayerView
                         .getLayoutParams();
                 aliVcVideoViewLayoutParams.height = (int) (ScreenUtils.getWidth(this) * 9.0f / 16);
                 aliVcVideoViewLayoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
@@ -1323,7 +1536,7 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity implements Other
                 }
 
                 //设置view的布局，宽高
-                LinearLayout.LayoutParams aliVcVideoViewLayoutParams = (LinearLayout.LayoutParams) mAliyunVodPlayerView
+                RelativeLayout.LayoutParams aliVcVideoViewLayoutParams = (RelativeLayout.LayoutParams) mAliyunVodPlayerView
                         .getLayoutParams();
                 aliVcVideoViewLayoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
                 aliVcVideoViewLayoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
@@ -1441,7 +1654,7 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity implements Other
 
     }
 
-    private static class MyOrientationChangeListener implements AliyunVodPlayerView.OnOrientationChangeListener {
+    private  class MyOrientationChangeListener implements AliyunVodPlayerView.OnOrientationChangeListener {
 
         private final WeakReference<AliyunPlayerSkinActivity> weakReference;
 
@@ -1454,6 +1667,11 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity implements Other
             AliyunPlayerSkinActivity activity = weakReference.get();
             activity.hideDownloadDialog(from, currentMode);
             activity.hideShowMoreDialog(from, currentMode);
+            if (currentMode == AliyunScreenMode.Small) {
+                iv_share.setVisibility(View.VISIBLE);
+            }else {
+                iv_share.setVisibility(View.GONE);
+            }
         }
     }
 
@@ -1514,7 +1732,7 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity implements Other
 
                         unCompleteDownload++;
                     }
-                }
+            }
 
                 if (unCompleteDownload > 0) {
                     Toast.makeText(this, "网络恢复, 请手动开启下载任务...", Toast.LENGTH_SHORT).show();
@@ -1548,7 +1766,7 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity implements Other
 
     }
 
-    private static class MyShowMoreClickLisener implements ControlLiveView.OnShowMoreClickListener {
+    private  class MyShowMoreClickLisener implements ControlLiveView.OnShowMoreClickListener {
         WeakReference<AliyunPlayerSkinActivity> weakReference;
 
         MyShowMoreClickLisener(AliyunPlayerSkinActivity activity) {
@@ -1557,8 +1775,9 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity implements Other
 
         @Override
         public void showMore() {
-            AliyunPlayerSkinActivity activity = weakReference.get();
-            activity.showMore(activity);
+            ShareUtils.showMyShares(AliyunPlayerSkinActivity.this, getString(R.string.jiguang), "http://www.gwlaser.tech");
+//            AliyunPlayerSkinActivity activity = weakReference.get();
+//            activity.showMore(activity);
         }
     }
 

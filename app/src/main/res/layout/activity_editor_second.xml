@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/content_bg"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+        <ImageView
+            android:layout_marginLeft="7dp"
+            android:id="@+id/iv_back"
+            android:layout_width="20dp"
+            android:layout_height="30dp"
+            android:padding="5dp"
+            android:src="@drawable/fb_back" />
+        <LinearLayout
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:orientation="vertical"
+            android:gravity="center_vertical">
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="编辑资料"
+                android:textColor="#222"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+        <Button
+            android:id="@+id/but_save"
+            android:layout_width="wrap_content"
+            android:minWidth="57.5dp"
+            android:layout_height="29dp"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="11.5dp"
+            android:background="@drawable/shape_bg_lin_cancel"
+            android:text="@string/bc"
+            android:textColor="@color/white" />
+    </LinearLayout>
+    <LinearLayout
+        android:paddingBottom="20dp"
+        android:minHeight="86dp"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <com.zhongchuang.canting.widget.ClearEditText
+            android:id="@+id/et_content"
+            android:hint="请编辑"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="65dp"
+            android:layout_centerVertical="true"
+            android:paddingRight="11dp"
+            android:background="@null"
+            android:paddingLeft="19dp"
+            android:text=""
+            android:textColor="#333"
+            android:textColorHint="#999"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.been.ZhiBo_GuanZhongBean;
 import com.zhongchuang.canting.widget.ClearEditText;
 import com.zhongchuang.canting.widget.RegularListView;

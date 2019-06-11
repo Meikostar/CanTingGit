@@ -52,7 +52,7 @@ import com.aliyun.struct.common.CropKey;
 import com.aliyun.struct.common.ScaleMode;
 import com.aliyun.struct.common.VideoQuality;
 import com.aliyun.struct.snap.AliyunSnapVideoParam;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 
 
 import java.io.File;
@@ -253,25 +253,25 @@ public class AliyunVideoCrop extends Activity implements TextureView.SurfaceText
         OUT_STROKE_WIDTH = DensityUtil.dip2px(this, 5);
         kFrame = new FrameExtractor10();
         kFrame.setDataSource(path);
-        seekBar = (VideoSliceSeekBar)findViewById(R.id.aliyun_seek_bar);
+        seekBar = findViewById(R.id.aliyun_seek_bar);
         seekBar.setSeekBarChangeListener(this);
         int minDiff = (int)(cropDuration / (float)duration * 100) + 1;
         seekBar.setProgressMinDiff(minDiff > 100 ? 100 : minDiff);
-        listView = (HorizontalListView)findViewById(R.id.aliyun_video_tailor_image_list);
+        listView = findViewById(R.id.aliyun_video_tailor_image_list);
         listView.setOnScrollCallBack(this);
         adapter = new VideoTrimAdapter(this, duration, maxDuration, kFrame, seekBar);
         listView.setAdapter(adapter);
-        transFormBtn = (ImageView)findViewById(R.id.aliyun_transform);
+        transFormBtn = findViewById(R.id.aliyun_transform);
         transFormBtn.setOnClickListener(this);
-        nextBtn = (ImageView)findViewById(R.id.aliyun_next);
+        nextBtn = findViewById(R.id.aliyun_next);
         nextBtn.setOnClickListener(this);
-        cancelBtn = (ImageView)findViewById(R.id.aliyun_back);
+        cancelBtn = findViewById(R.id.aliyun_back);
         cancelBtn.setOnClickListener(this);
-        dirationTxt = (TextView)findViewById(R.id.aliyun_duration_txt);
+        dirationTxt = findViewById(R.id.aliyun_duration_txt);
         dirationTxt.setText((float)duration / 1000 + "");
-        mCropProgressBg = (FrameLayout)findViewById(R.id.aliyun_crop_progress_bg);
+        mCropProgressBg = findViewById(R.id.aliyun_crop_progress_bg);
         mCropProgressBg.setVisibility(View.GONE);
-        mCropProgress = (FanProgressBar)findViewById(R.id.aliyun_crop_progress);
+        mCropProgress = findViewById(R.id.aliyun_crop_progress);
         mCropProgress.setOutRadius(DensityUtil.dip2px(this, 40) / 2 - OUT_STROKE_WIDTH / 2);
         mCropProgress.setOffset(OUT_STROKE_WIDTH / 2, OUT_STROKE_WIDTH / 2);
         mCropProgress.setOutStrokeWidth(OUT_STROKE_WIDTH);
@@ -286,11 +286,11 @@ public class AliyunVideoCrop extends Activity implements TextureView.SurfaceText
     }
 
     public void initSurface() {
-        frame = (VideoTrimFrameLayout)findViewById(R.id.aliyun_video_surfaceLayout);
+        frame = findViewById(R.id.aliyun_video_surfaceLayout);
         frame.setOnSizeChangedListener(this);
         frame.setOnScrollCallBack(this);
         resizeFrame();
-        textureview = (TextureView)findViewById(R.id.aliyun_video_textureview);
+        textureview = findViewById(R.id.aliyun_video_textureview);
         textureview.setSurfaceTextureListener(this);
     }
 

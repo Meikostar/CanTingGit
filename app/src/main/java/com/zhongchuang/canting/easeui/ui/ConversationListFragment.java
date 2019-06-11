@@ -16,7 +16,7 @@ import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMConversation.EMConversationType;
 import com.hyphenate.util.NetUtils;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.ChatActivity;
 import com.zhongchuang.canting.easeui.Constant;
 import com.zhongchuang.canting.easeui.EaseConstant;
@@ -35,9 +35,9 @@ public class ConversationListFragment extends EaseConversationListFragment {
     @Override
     protected void initView() {
         super.initView();
-        View errorView = (LinearLayout) View.inflate(getActivity(), R.layout.em_chat_neterror_item, null);
+        View errorView = View.inflate(getActivity(), R.layout.em_chat_neterror_item, null);
         errorItemContainer.addView(errorView);
-        errorText = (TextView) errorView.findViewById(R.id.tv_connect_errormsg);
+        errorText = errorView.findViewById(R.id.tv_connect_errormsg);
     }
 
     @Override

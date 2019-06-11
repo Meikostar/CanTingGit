@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 
 
 public class MarkaBaseDialog extends Dialog {
@@ -142,12 +142,12 @@ public class MarkaBaseDialog extends Dialog {
 				mView = inflater.inflate(R.layout.dialog_base_two_button,null);
 			}
 			dialog.setContentView(mView, new LayoutParams(w, h));
-			mButtonLeft = (Button) mView.findViewById(R.id.but_left);
-			mButtonRight=(Button)mView.findViewById(R.id.but_right);
-			mTexViewTitle= (TextView) mView.findViewById(R.id.tv_title);
-			mLayoutContent = (LinearLayout)mView.findViewById(R.id.ll_content);
+			mButtonLeft = mView.findViewById(R.id.but_left);
+			mButtonRight= mView.findViewById(R.id.but_right);
+			mTexViewTitle= mView.findViewById(R.id.tv_title);
+			mLayoutContent = mView.findViewById(R.id.ll_content);
 			mViewLine = mView.findViewById(R.id.view_line);
-			mLayoutMessage = (LinearLayout) mView.findViewById(R.id.ll_message);
+			mLayoutMessage = mView.findViewById(R.id.ll_message);
 
 
 			setOnLeftListener(dialog);
@@ -178,11 +178,11 @@ public class MarkaBaseDialog extends Dialog {
 
 			if (messageView!=null){
 				mLayoutMessage.addView(messageView);
-				TextView mTexViewContent = (TextView) mView.findViewById(R.id.tv_content);
+				TextView mTexViewContent = mView.findViewById(R.id.tv_content);
 				mTexViewContent.setVisibility(View.GONE);
 			}else {
 				if (content != null) {
-					TextView mTexViewContent = (TextView) mView.findViewById(R.id.tv_content);
+					TextView mTexViewContent = mView.findViewById(R.id.tv_content);
 					mTexViewContent.setVisibility(View.VISIBLE);
 					mTexViewContent.setText(content);
 				}

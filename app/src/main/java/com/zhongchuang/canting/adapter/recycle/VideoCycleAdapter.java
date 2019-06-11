@@ -21,11 +21,10 @@ import com.zhongchuang.canting.been.videobean;
 import com.zhongchuang.canting.utils.StringUtil;
 import com.zhongchuang.canting.utils.TextUtil;
 import com.zhongchuang.canting.utils.TimeUtil;
+import com.zhongchuang.canting.widget.MCheckBox;
 
 import java.util.HashMap;
 import java.util.Map;
-
-;
 
 
 /**
@@ -45,7 +44,7 @@ public class VideoCycleAdapter extends BaseRecycleViewAdapter {
     }
 
     public interface TakeawayListener {
-        void listener(int poistion);
+        void listener(int poistion,int type);
 
     }
 
@@ -73,8 +72,10 @@ public class VideoCycleAdapter extends BaseRecycleViewAdapter {
 
     }
 
-
-
+   public void setType(int type){
+        this.type=type;
+   }
+  private int type;
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holders, final int position) {
 
@@ -86,10 +87,48 @@ public class VideoCycleAdapter extends BaseRecycleViewAdapter {
         }
 
         holder.tv_time.setText(TimeUtil.formatChatTime(shop.create_time));
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.listener(position,0);
+
+            }
+        });
+        if(shop.new_type.equals("0")){
+            holder.tv_change.setText("切换全屏");
+            holder.choose.setChecked(false);
+        }else {
+            holder.tv_change.setText("还原视频");
+            holder.choose.setChecked(true);
+        }
+        holder.cardView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                listener.listener(position,1);
+                return true;
+
+            }
+        });
+        holder.rl_bg.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                listener.listener(position,1);
+                return true;
+
+            }
+        });
+
         holder.rl_bg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.listener(position);
+                listener.listener(position,0);
+            }
+        });
+
+        holder.ll_bgs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.listener(position,-2);
             }
         });
 
@@ -109,7 +148,10 @@ public class VideoCycleAdapter extends BaseRecycleViewAdapter {
 
         TextView tv_time;
         TextView tv_desc;
+        TextView tv_change;
+        MCheckBox choose;
         LinearLayout rl_bg;
+        LinearLayout ll_bgs;
         CardView cardView;
 
 
@@ -119,7 +161,10 @@ public class VideoCycleAdapter extends BaseRecycleViewAdapter {
             cardView = itemView.findViewById(R.id.card);
             tv_time = itemView.findViewById(R.id.tv_time);
             tv_desc = itemView.findViewById(R.id.tv_desc);
+            tv_change = itemView.findViewById(R.id.tv_change);
             rl_bg = itemView.findViewById(R.id.rl_bg);
+            choose = itemView.findViewById(R.id.iv_choose);
+            ll_bgs = itemView.findViewById(R.id.ll_bgs);
 
         }
     }

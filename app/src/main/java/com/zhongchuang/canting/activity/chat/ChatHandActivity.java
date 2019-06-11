@@ -6,7 +6,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.adapter.FragmentViewPagerAdapter;
 import com.zhongchuang.canting.base.BaseActivity1;
 import com.zhongchuang.canting.fragment.ChatHandFragment;

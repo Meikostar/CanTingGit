@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.been.DATA;
 import com.zhongchuang.canting.been.GAME;
 import com.zhongchuang.canting.utils.TextUtil;
@@ -62,7 +62,7 @@ public class ListPopAdapter extends BaseAdapter {
         if (view == null){
             holder = new ResultViewHolder();
             view = LayoutInflater.from(mContext).inflate(R.layout.item_list_pop, parent, false);
-            holder.data= (TextView) view.findViewById(R.id.tv_data);
+            holder.data= view.findViewById(R.id.tv_data);
 
 
             view.setTag(holder);

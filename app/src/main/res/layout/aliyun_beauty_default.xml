@@ -14,7 +14,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:drawableLeft="@drawable/icon_beauty"
+            android:drawableLeft="@mipmap/icon_beauty"
             android:drawablePadding="10dp"
             android:gravity="center_vertical"
             android:text="@string/alivc_beauty"
@@ -46,6 +46,7 @@
         android:orientation="horizontal">
 
         <RadioButton
+            android:background="@drawable/alivc_beauty_default_bt_selector"
             android:id="@+id/beauty_0"
             android:layout_width="45dp"
             android:layout_height="45dp"
@@ -56,6 +57,7 @@
             android:textSize="14dp" />
 
         <RadioButton
+            android:background="@drawable/alivc_beauty_default_bt_selector"
             android:id="@+id/beauty_1"
             android:layout_width="45dp"
             android:layout_height="45dp"
@@ -67,6 +69,7 @@
             android:textSize="14dp" />
 
         <RadioButton
+            android:background="@drawable/alivc_beauty_default_bt_selector"
             android:id="@+id/beauty_2"
             android:layout_width="45dp"
             android:layout_height="45dp"
@@ -78,6 +81,7 @@
             android:textSize="14dp" />
 
         <RadioButton
+            android:background="@drawable/alivc_beauty_default_bt_selector"
             android:id="@+id/beauty_3"
             android:layout_width="45dp"
             android:layout_height="45dp"
@@ -89,6 +93,7 @@
             android:textSize="14dp" />
 
         <RadioButton
+            android:background="@drawable/alivc_beauty_default_bt_selector"
             android:id="@+id/beauty_4"
             android:layout_width="45dp"
             android:layout_height="45dp"
@@ -100,6 +105,7 @@
             android:textSize="14dp" />
 
         <RadioButton
+            android:background="@drawable/alivc_beauty_default_bt_selector"
             android:id="@+id/beauty_5"
             android:layout_width="45dp"
             android:layout_height="45dp"

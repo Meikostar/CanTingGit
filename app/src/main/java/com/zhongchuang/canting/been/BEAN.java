@@ -16,6 +16,7 @@ public class BEAN extends BaseResponse {
     public String anchorHeadImages;
     public String totalPeople;
     public String touxiang;
+    public String live_address;
     public String totalGlod;
     public String bs;
     public String zs;

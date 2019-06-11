@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.adapter.ChatSetAdapter;
 import com.zhongchuang.canting.base.BaseActivity1;
 import com.zhongchuang.canting.been.GAME;
@@ -94,9 +94,9 @@ public class GroupSetActivity extends BaseActivity1 implements BaseContract.View
         TextView title = null;
         EditText reson = null;
         View views = View.inflate(this, R.layout.base_dailog_view, null);
-        sure = (TextView) views.findViewById(R.id.txt_sure);
-        cancel = (TextView) views.findViewById(R.id.txt_cancel);
-        title = (TextView) views.findViewById(R.id.txt_title);
+        sure = views.findViewById(R.id.txt_sure);
+        cancel = views.findViewById(R.id.txt_cancel);
+        title = views.findViewById(R.id.txt_title);
 
         title.setText(getString(R.string.qdsc) + name + getString(R.string.fzs));
         dialog = BaseDailogManager.getInstance().getBuilder(this).setMessageView(views).create();

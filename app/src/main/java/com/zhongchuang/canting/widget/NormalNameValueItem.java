@@ -16,7 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.utils.DensityUtil;
 import com.zhongchuang.canting.utils.StringUtil;
 
@@ -125,17 +125,17 @@ public class NormalNameValueItem extends LinearLayout {
     private void initView(){
         LayoutInflater inflater = LayoutInflater.from(mContext);
         mView = inflater.inflate(R.layout.item_normal_name_value,this);
-        mEditTextContent = (YunShlEditText) mView.findViewById(R.id.edt_value);
-        mLinearLayoutItem = (LinearLayout)mView.findViewById(R.id.ll_item);
-        bg = (LinearLayout)mView.findViewById(R.id.ll_bg);
-        mTextViewName = (TextView)mView.findViewById(R.id.tv_name);
-        mTextViewNames = (TextView)mView.findViewById(R.id.tv_names);
+        mEditTextContent = mView.findViewById(R.id.edt_value);
+        mLinearLayoutItem = mView.findViewById(R.id.ll_item);
+        bg = mView.findViewById(R.id.ll_bg);
+        mTextViewName = mView.findViewById(R.id.tv_name);
+        mTextViewNames = mView.findViewById(R.id.tv_names);
         mViewBorderBottom = mView.findViewById(R.id.view_border_bottom);
         mViewBorderTop = mView.findViewById(R.id.view_border_top);
         mViewLine = mView.findViewById(R.id.view_line);
-        mImageViewArrows = (ImageView)mView.findViewById(R.id.iv_arrows);
-        mImageViewImg = (ImageView)mView.findViewById(R.id.iv_img);
-        mImageViewCheck = (CheckBox) mView.findViewById(R.id.cb_check);
+        mImageViewArrows = mView.findViewById(R.id.iv_arrows);
+        mImageViewImg = mView.findViewById(R.id.iv_img);
+        mImageViewCheck = mView.findViewById(R.id.cb_check);
         if (StringUtil.isNotEmpty(hint)){
             mEditTextContent.setHint(hint);
         }

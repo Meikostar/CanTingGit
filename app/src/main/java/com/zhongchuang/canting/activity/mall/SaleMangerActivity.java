@@ -2,7 +2,7 @@ package com.zhongchuang.canting.activity.mall;
 
 import android.widget.ListView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.adapter.SaleMangerAdapter;
 import com.zhongchuang.canting.base.BaseActivity1;
 import com.zhongchuang.canting.widget.NavigationBar;

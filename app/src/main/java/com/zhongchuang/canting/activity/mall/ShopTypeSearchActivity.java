@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment;
 import android.widget.GridView;
 import android.widget.ListView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.ShopListSearchActivitys;
 import com.zhongchuang.canting.adapter.GirdTypedapter;
 import com.zhongchuang.canting.adapter.TypeAdapter;

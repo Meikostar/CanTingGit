@@ -66,14 +66,32 @@
             android:background="@drawable/wite_rectangle3"
             android:gravity="center_horizontal"
             android:orientation="vertical">
+           <FrameLayout
+               android:layout_marginTop="50dp"
+
+               android:layout_width="200dp"
+               android:layout_height="200dp">
+               <ImageView
+                   android:id="@+id/iv_code"
+                   android:layout_width="200dp"
+                   android:layout_height="200dp"
+                   android:scaleType="fitXY" />
+               <ImageView
+                   android:src="@drawable/white_rectange_bg"
+                   android:layout_width="42dp"
+                   android:layout_height="42dp"
+                   android:layout_gravity="center"
+              />
+               <com.zhongchuang.canting.easeui.widget.NineGridImageView
+                   android:id="@+id/group_avatar"
+                   android:layout_width="42dp"
+                   android:layout_height="42dp"
+                   android:layout_gravity="center"
+                   app:imgGap="1dp"
+                   />
+           </FrameLayout>
 
 
-            <ImageView
-                android:id="@+id/iv_code"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_marginTop="50dp"
-                android:scaleType="fitXY" />
 
             <TextView
                 android:id="@+id/tv_content"

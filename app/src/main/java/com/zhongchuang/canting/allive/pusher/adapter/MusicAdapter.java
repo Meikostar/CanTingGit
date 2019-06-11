@@ -42,12 +42,12 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MusicViewHol
     public MusicViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.music_item_info, parent, false);
         MusicViewHolder holder = new MusicViewHolder(itemView);
-        holder.tvMusicName = (TextView) itemView.findViewById(R.id.music_name);
-        holder.tvPlayTime = (TextView) itemView.findViewById(R.id.play_time);
-        holder.tvTotalTime = (TextView) itemView.findViewById(R.id.total_time);
-        holder.tvTime = (LinearLayout) itemView.findViewById(R.id.time);
-        holder.tvMusicCheck = (ImageView) itemView.findViewById(R.id.music_check);
-        holder.tvLoop = (ImageView) itemView.findViewById(R.id.loop);
+        holder.tvMusicName = itemView.findViewById(R.id.music_name);
+        holder.tvPlayTime = itemView.findViewById(R.id.play_time);
+        holder.tvTotalTime = itemView.findViewById(R.id.total_time);
+        holder.tvTime = itemView.findViewById(R.id.time);
+        holder.tvMusicCheck = itemView.findViewById(R.id.music_check);
+        holder.tvLoop = itemView.findViewById(R.id.loop);
         return holder;
     }
 

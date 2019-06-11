@@ -65,7 +65,11 @@ public class CanTingAppLication extends Application {
 
     private static CanTingAppLication instance;
     public static ShareBean shareBean;
+    public static ShareBean productBean;
+    public static ShareBean appbean;
     public static String mobileNumber;
+    public static String invitation_code;
+    public static String video_path;
     public static INTEGRAL integral;
     public Handler mHandler = new Handler();
     public static Map<String ,String > list=new Hashtable<>();
@@ -78,12 +82,14 @@ public class CanTingAppLication extends Application {
     private UserInfo userInfo;
     public static  String userId="";
     public static  int choosType=0;
+    public static  int landType=0;
     public static  String state="";
     public static  String sk="LTAICEWfthnWiWww";
     public static  String stcry="xivcP4sGTIH7qz5TZjFMFe9Dyo3sz0";
     public static  String url="http://ychc.9913seo.com";
     public static  String code="86";
     public static  String GroupName="";
+    public static  List<String> headimage;
     public static  boolean isSetting=false;
     public static  boolean isLogin;
     public static  boolean isComplete;
@@ -107,6 +113,7 @@ public class CanTingAppLication extends Application {
         ToastUtils.init(this) ;
         LocationUtil.initUtil(this);
         locationUtil = LocationUtil.shareInstance();
+        locationUtil.startLocation();
         ThirdShareManager.getInstance().init(this);
         String userInfoId = SpUtil.getUserInfoId(this);
         //初始化环信

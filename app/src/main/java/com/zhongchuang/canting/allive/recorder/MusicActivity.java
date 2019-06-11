@@ -79,10 +79,7 @@ public class MusicActivity extends Activity implements View.OnClickListener{
         File[] files = new File(Common.SD_DIR + Common.QU_NAME + "/mp3").listFiles(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {
-                if(name != null && (name.endsWith(".mp3") || name.endsWith(".m4a")||name.endsWith(".m4r")|| name.endsWith(".aac"))) {
-                    return true;
-                }
-                return false;
+                return name != null && (name.endsWith(".mp3") || name.endsWith(".m4a") || name.endsWith(".m4r") || name.endsWith(".aac"));
             }
 
         });
@@ -107,15 +104,15 @@ public class MusicActivity extends Activity implements View.OnClickListener{
     }
 
     private void initView(){
-        mMusicList = (RecyclerView) findViewById(R.id.aliyun_music_list);
+        mMusicList = findViewById(R.id.aliyun_music_list);
         mMusicList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        mBackBtn = (ImageView) findViewById(R.id.aliyun_back_btn);
+        mBackBtn = findViewById(R.id.aliyun_back_btn);
         mBackBtn.setOnClickListener(this);
-        mCompeletBtn = (TextView) findViewById(R.id.aliyun_compelet_btn);
+        mCompeletBtn = findViewById(R.id.aliyun_compelet_btn);
         mCompeletBtn.setOnClickListener(this);
-        mOnlineMusicBtn = (TextView) findViewById(R.id.aliyun_online_music);
+        mOnlineMusicBtn = findViewById(R.id.aliyun_online_music);
         mOnlineMusicBtn.setOnClickListener(this);
-        mLocalMusicBtn = (TextView) findViewById(R.id.aliyun_local_music);
+        mLocalMusicBtn = findViewById(R.id.aliyun_local_music);
         mLocalMusicBtn.setOnClickListener(this);
         mMusicQuery = new MusicQuery(this);
         mMusicAdapter = new MusicAdapter();

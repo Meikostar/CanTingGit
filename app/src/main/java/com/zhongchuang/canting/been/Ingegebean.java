@@ -16,7 +16,9 @@ public class Ingegebean extends BaseResponse {
     public Ingegebean data;
     public String money_buy_integral;
     public String direct_integral;
+    public String profit_count ;
     public String chat_integral;
+    public String invitation_code;
     public String direct_gift_integral;
     public String jewel_integral;
     public String chat_presenter_integral;

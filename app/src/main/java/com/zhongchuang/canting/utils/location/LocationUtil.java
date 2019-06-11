@@ -35,14 +35,14 @@ public class LocationUtil implements BDLocationListener {
      * 定位的用户信息
      * */
     public static String province = "广东";
-    public static String city = "深圳";
+    public static String city = "";
     public static MyLocationData location;
 
     /**
      * 定义重新定位的时候回调接口
      */
     public interface ReLocationListenner {
-        public void relocation();
+        void relocation();
     }
 
     private ReLocationListenner mRelocationListener;
@@ -103,7 +103,7 @@ public class LocationUtil implements BDLocationListener {
             // toast.show();暂时不显示定位失败
             isLocated = false;
         } else {
-             this.location = new MyLocationData.Builder()
+             LocationUtil.location = new MyLocationData.Builder()
                     .accuracy(location.getRadius())
                             // 此处设置开发者获取到的方向信息，顺时针0-360
                     .direction(100).latitude(location.getLatitude())
@@ -113,7 +113,7 @@ public class LocationUtil implements BDLocationListener {
             SpUtil.putString(mContext, "lg", location.getLongitude()+"");
             SpUtil.putString(mContext, "adress", location.getAddress().address);
 
-            ToastUtils.showNormalToast(location.getAddress().address);
+//            ToastUtils.showNormalToast(location.getAddress().address);
             LocationUtil.latitude = location.getLatitude();
             LocationUtil.longitude = location.getLongitude();
             province = location.getProvince();

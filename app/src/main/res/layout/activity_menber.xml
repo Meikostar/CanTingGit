@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+    <LinearLayout
+        android:background="#FF2A93FF"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <RelativeLayout
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+
+
+
+            <TextView
+                android:layout_weight="0.6"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:text="会员管理"
+                android:gravity="center"
+                android:id="@+id/tv_search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+
+            <ImageView
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:padding="5dp"
+                android:id="@+id/iv_back"
+                android:layout_width="22dp"
+                android:layout_height="29dp"
+                android:src="@drawable/back_white"
+                android:layout_marginRight="5dp"
+                />
+        </RelativeLayout>
+
+
+
+
+    </LinearLayout>
+    <com.zhongchuang.canting.widget.NoScrollGridView
+        android:gravity="center"
+        android:layout_marginTop="18dp"
+        android:paddingLeft="19dp"
+        android:paddingRight="19dp"
+        android:id="@+id/grid_content"
+        android:verticalSpacing="6dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/white"
+        android:listSelector="@color/transparent"
+        android:numColumns="3"
+        />
+</LinearLayout>

@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 
 
 /**
@@ -57,8 +57,8 @@ public class LoadingPager extends BaseLoadingPager{
     }
     protected View creatErrorView(LayoutInflater inflater) {
         mErrorView = inflater.inflate(R.layout.fragment_baseerror, null);
-        btn_retry = (Button) mErrorView.findViewById(R.id.btn_retry);
-        img_empty = (ImageView) mErrorView.findViewById(R.id.img_empty);
+        btn_retry = mErrorView.findViewById(R.id.btn_retry);
+        img_empty = mErrorView.findViewById(R.id.img_empty);
         btn_retry.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,7 +75,7 @@ public class LoadingPager extends BaseLoadingPager{
         mEmptyView = inflater.inflate(R.layout.fragment_emtyview, null);
         btn_empty_retry = mEmptyView.findViewById(R.id.btn_empty_retry);
         text = mEmptyView.findViewById(R.id.txt_desc);
-        img_empty = (ImageView) mEmptyView.findViewById(R.id.img_empty);
+        img_empty = mEmptyView.findViewById(R.id.img_empty);
         btn_empty_retry.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {

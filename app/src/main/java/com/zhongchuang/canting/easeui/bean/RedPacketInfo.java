@@ -23,5 +23,8 @@ public class RedPacketInfo implements Serializable {
     public int number = 1;
     public int isgrab = 0;//1表示已抢
 
+    public String video_url = "";
+    public String img_url = "";
+
 }
 

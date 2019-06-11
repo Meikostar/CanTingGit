@@ -17,7 +17,7 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 
 import java.util.ArrayList;
 

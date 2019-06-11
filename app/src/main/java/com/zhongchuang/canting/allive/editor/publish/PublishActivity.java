@@ -9,15 +9,21 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.MediaMetadataRetriever;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.Gravity;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -32,6 +38,8 @@ import com.alibaba.sdk.android.vod.upload.VODUploadClientImpl;
 import com.alibaba.sdk.android.vod.upload.common.UploadStateType;
 import com.alibaba.sdk.android.vod.upload.model.UploadFileInfo;
 import com.alibaba.sdk.android.vod.upload.model.VodInfo;
+import com.aliyun.common.utils.ToastUtil;
+import com.bumptech.glide.Glide;
 import com.zhongchuang.canting.R;
 import com.aliyun.common.global.AliyunTag;
 import com.aliyun.querrorcode.AliyunErrorCode;
@@ -42,14 +50,20 @@ import com.zhongchuang.canting.app.CanTingAppLication;
 import com.zhongchuang.canting.been.SubscriptionBean;
 import com.zhongchuang.canting.been.TOKEN;
 import com.zhongchuang.canting.been.aliLive;
+import com.zhongchuang.canting.db.Constant;
+import com.zhongchuang.canting.hud.ToastUtils;
 import com.zhongchuang.canting.net.HXRequestService;
 import com.zhongchuang.canting.net.netService;
 import com.zhongchuang.canting.presenter.OtherContract;
 import com.zhongchuang.canting.presenter.OtherPresenter;
+import com.zhongchuang.canting.utils.PhotoUtils;
 import com.zhongchuang.canting.utils.QiniuUtils;
 import com.zhongchuang.canting.utils.SpUtil;
 import com.zhongchuang.canting.utils.TextUtil;
 import com.zhongchuang.canting.utils.TimeUtil;
+import com.zhongchuang.canting.widget.BaseDailogManager;
+import com.zhongchuang.canting.widget.MarkaBaseDialog;
+import com.zhongchuang.canting.widget.PhotoPopupWindow;
 import com.zhongchuang.canting.widget.RxBus;
 import com.zhongchuang.canting.widget.waitLoading.ShapeLoadingDialog;
 
@@ -58,6 +72,9 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.valuesfeng.picker.ImageSelectActivity;
+import io.valuesfeng.picker.Picker;
+import io.valuesfeng.picker.widget.ImageLoaderEngine;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -95,6 +112,7 @@ public class PublishActivity extends Activity implements View.OnClickListener , 
     private AliyunICompose mCompose;
     private boolean mComposeCompleted;
    private ShapeLoadingDialog shapeLoadingDialog;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,6 +124,7 @@ public class PublishActivity extends Activity implements View.OnClickListener , 
         mCompose.init(this);
         presenter=new OtherPresenter(this);
         presenter.getLiveToken();
+        type=getIntent().getIntExtra("type",1);
         uploader = new VODUploadClientImpl(getApplicationContext());
         shapeLoadingDialog = new ShapeLoadingDialog.Builder(this)
                 .loadText("上传中...")
@@ -136,17 +155,64 @@ public class PublishActivity extends Activity implements View.OnClickListener , 
             }
         });
         new MyAsyncTask(this).execute(mThumbnailPath);
-        if(TextUtil.isNotEmpty(mThumbnailPath)){
-            getUpToken(mThumbnailPath);
-        }
+
 
     }
+
+    private Handler handler =new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(Message msg) {
+            showPopwindows();
+            return false;
+        }
+    });
+    private MarkaBaseDialog dialogs;
+
+    public void showPopwindows() {
+        sta=1;
+        TextView sure = null;
+        TextView cancel = null;
+        TextView title = null;
+        View view = null;
+        EditText reson = null;
+        View views = View.inflate(this, R.layout.base_dailog_view, null);
+        sure = views.findViewById(R.id.txt_sure);
+        cancel = views.findViewById(R.id.txt_cancel);
+        title = views.findViewById(R.id.txt_title);
+        view = views.findViewById(R.id.line_center);
+
+        title.setText("您上传的视频如果出现红边可现在点击处理，也可以看具体效果后在“上传视频记录”进行修复");
+        sure.setText("视频正常");
+        dialogs = BaseDailogManager.getInstance().getBuilder(this).setMessageView(views).create();
+        dialogs.show();
+
+        cancel.setText("去红边");
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.uploadVideo(imgUrl,mVideoDesc.getText().toString(),url,3);
+                dialogs.dismiss();
+
+            }
+        });
+
+        sure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.uploadVideo(imgUrl,mVideoDesc.getText().toString(),url,type);
+                dialogs.dismiss();
+
+            }
+        });
+    }
+
+    private int sta=0;
     public void initUpload(){
         String fineName = mOutputPath;
         String ossName  = "video/" + SpUtil.getUserInfoId(this)+"/"+TimeUtil.formatTtimeNames(System.currentTimeMillis())+"."+TimeUtil.formatRedTime(System.currentTimeMillis()); //vodPath + index + ".mp4";
 
-        uploader.addFile(fineName, "oss-cn-shenzhen.aliyuncs.com", "video-zx", ossName, getVodInfo());
-        url="https://video-zx.oss-cn-shenzhen.aliyuncs.com/"+ossName;
+        uploader.addFile(fineName, "oss-cn-shenzhen.aliyuncs.com", Constant.FILE_NAME, ossName, getVodInfo());
+        url= ossName;
     }
     private String url;
     private VodInfo getVodInfo() {
@@ -164,8 +230,10 @@ public class PublishActivity extends Activity implements View.OnClickListener , 
         @Override
         public void onUploadSucceed(UploadFileInfo info) {
             OSSLog.logDebug("onsucceed ------------------" + info.getFilePath());
+            shapeLoadingDialog.dismiss();
+            handler.sendEmptyMessage(1);
 
-           presenter.uploadVideo(imgUrl,mVideoDesc.getText().toString(),url);
+
         }
 
         @Override
@@ -216,7 +284,7 @@ public class PublishActivity extends Activity implements View.OnClickListener , 
     @Override
     public <T> void toEntity(T entity, int type) {
         if(type==12){
-            shapeLoadingDialog.dismiss();
+
             RxBus.getInstance().send(SubscriptionBean.createSendBean(SubscriptionBean.LIVE_FINISH,""));
             finish();
         }else {
@@ -228,7 +296,7 @@ public class PublishActivity extends Activity implements View.OnClickListener , 
         }
 
     }
-    private int type;
+    private int type=1;
     @Override
     public void toNextStep(int type) {
 
@@ -236,6 +304,11 @@ public class PublishActivity extends Activity implements View.OnClickListener , 
 
     @Override
     public void showTomast(String msg) {
+        if(shapeLoadingDialog!=null){
+            shapeLoadingDialog.dismiss();
+           ToastUtil.showToast(this,"上传失败");
+        }
+
 
     }
     private void getUpToken(final String path) {
@@ -274,6 +347,22 @@ public class PublishActivity extends Activity implements View.OnClickListener , 
         });
 
     }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){
+                 if(sta==1){
+                     presenter.uploadVideo(imgUrl,mVideoDesc.getText().toString(),url,type);
+                 }else {
+                     finish();
+
+                 }
+
+
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
 
     static class MyAsyncTask extends AsyncTask<String, Void, Bitmap> {
 
@@ -341,18 +430,18 @@ public class PublishActivity extends Activity implements View.OnClickListener , 
         mActionBar.setBackgroundColor(
                 getResources().getColor(R.color.white));
 //        mPublish = (TextView) findViewById(R.id.tv_right);
-        mPublish = (TextView) findViewById(R.id.tv_rights);
-        mIvLeft = (ImageView) findViewById(R.id.iv_left);
+        mPublish = findViewById(R.id.tv_rights);
+        mIvLeft = findViewById(R.id.iv_left);
         mIvLeft.setOnClickListener(this);
 //        mIvLeft.setImageResource(R.mipmap.aliyun_svideo_icon_back);
         mPublish.setText(R.string.publish);
         mIvLeft.setVisibility(View.VISIBLE);
         mPublish.setVisibility(View.VISIBLE);
-        mProgress = (ProgressBar) findViewById(R.id.publish_progress);
+        mProgress = findViewById(R.id.publish_progress);
         mComposeProgressView = findViewById(R.id.compose_progress_view);
-        mCoverBlur = (ImageView) findViewById(R.id.publish_cover_blur);
-        mCoverImage = (ImageView) findViewById(R.id.publish_cover_image);
-        mVideoDesc = (EditText) findViewById(R.id.publish_desc);
+        mCoverBlur = findViewById(R.id.publish_cover_blur);
+        mCoverImage = findViewById(R.id.publish_cover_image);
+        mVideoDesc = findViewById(R.id.publish_desc);
         mComposeIndiate = findViewById(R.id.image_compose_indicator);
 //        mDescCount = (TextView) findViewById(R.id.publish_desc_count);
         mPublish.setEnabled(mComposeCompleted);
@@ -360,9 +449,9 @@ public class PublishActivity extends Activity implements View.OnClickListener , 
         mCoverSelect = findViewById(R.id.publish_cover_select);
         mCoverSelect.setEnabled(mComposeCompleted);
         mCoverSelect.setOnClickListener(this);
-        mComposeProgress = (TextView) findViewById(R.id.compose_progress_text);
-        mComposeStatusText = (TextView) findViewById(R.id.compose_status_text);
-        mComposeStatusTip = (TextView) findViewById(R.id.compose_status_tip);
+        mComposeProgress = findViewById(R.id.compose_progress_text);
+        mComposeStatusText = findViewById(R.id.compose_status_text);
+        mComposeStatusTip = findViewById(R.id.compose_status_tip);
         mVideoDesc.addTextChangedListener(new TextWatcher() {
 
             private int start;
@@ -436,23 +525,103 @@ public class PublishActivity extends Activity implements View.OnClickListener , 
 
     private boolean isChinese(char c) {
         Character.UnicodeBlock ub = Character.UnicodeBlock.of(c);
-        if (ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS
+        return ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS
                 || ub == Character.UnicodeBlock.CJK_COMPATIBILITY_IDEOGRAPHS
                 || ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_A
                 || ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_B
                 || ub == Character.UnicodeBlock.CJK_SYMBOLS_AND_PUNCTUATION
                 || ub == Character.UnicodeBlock.HALFWIDTH_AND_FULLWIDTH_FORMS
-                || ub == Character.UnicodeBlock.GENERAL_PUNCTUATION) {
-            return true;
-        }
-        return false;
+                || ub == Character.UnicodeBlock.GENERAL_PUNCTUATION;
     }
+    private PhotoPopupWindow mWindowAddPhotos;
+    public void getPhotos() {
+        Picker.from(this)
+                .count(1)
+                .enableCamera(true)
+                .setEngine(new ImageLoaderEngine())
+                .setAdd_watermark(false)
+                .forResult(66);
 
+    }
+    private String img_path;
+    private String path;
+    private File fileCropUri;
+    private Uri cropImageUri;
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            int output_X = 360, output_Y = 360;
+            switch (requestCode) {
+
+                //上传照片
+                case 66:
+                    path=Environment.getExternalStorageDirectory().getPath() + "/"+ System.currentTimeMillis()+".jpg";
+                    fileCropUri = new File(path);
+                    List<String> imgs = data.getStringArrayListExtra(ImageSelectActivity.EXTRA_RESULT_SELECTION);
+                    if (imgs != null && imgs.size() > 0) {
+                        img_path = imgs.get(0);
+                        cropImageUri = Uri.fromFile(fileCropUri);
+                        Uri newUri = Uri.fromFile(new File(img_path));
+                        PhotoUtils.cropImageUris(PublishActivity.this, newUri, cropImageUri, 16, 9, output_X, output_Y, 99);
+                        img_path="";
+                    }
+
+
+                    break;
+                case 99:
+                    new MyAsyncTask(this).execute(path);
+                    break;
+                case 0:
+                    path = data.getStringExtra(CoverEditActivity.KEY_PARAM_RESULT);
+                    new MyAsyncTask(this).execute(path);
+                    break;
+            }
+        }
+    }
+    public void showAddPhotoWindow() {
+        View view = LayoutInflater.from(PublishActivity.this).inflate(R.layout.view_add_photo_window, null);
+      TextView text=  view.findViewById(R.id.tv_cancel);
+      text.setText("从视频里选择封面");
+        view.findViewById(R.id.tv_photo).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getPhotos();
+                mWindowAddPhotos.dismiss();
+            }
+        });
+        view.findViewById(R.id.tv_cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PublishActivity.this, CoverEditActivity.class);
+                intent.putExtra(CoverEditActivity.KEY_PARAM_VIDEO, mOutputPath);
+                startActivityForResult(intent, 0);
+                mWindowAddPhotos.dismiss();
+
+
+            }
+        });
+        mWindowAddPhotos = new PhotoPopupWindow(PublishActivity.this).bindView(view);
+
+        mWindowAddPhotos.showAtLocation(mPublish, Gravity.BOTTOM, 0, 0);
+
+
+    }
     @Override
     public void onClick(View v) {
         if (v == mPublish) {
+
+            if(TextUtils.isEmpty(path)){
+                ToastUtil.showToast(PublishActivity.this,"请上传封面");
+                return;
+
+            }
+            if(TextUtils.isEmpty(mVideoDesc.getText().toString())){
+                ToastUtil.showToast(PublishActivity.this,"请输入视频标题");
+                return;
+
+            }
             shapeLoadingDialog.show();
-            getUpToken(mThumbnailPath);
+            getUpToken(path);
             uploader.start();
 //            mPublish.setEnabled(false);
 //            Intent intent = new Intent(this, UploadActivity.class);
@@ -463,9 +632,9 @@ public class PublishActivity extends Activity implements View.OnClickListener , 
 //            }
 //            startActivity(intent);
         } else if (v == mCoverSelect) {
-            Intent intent = new Intent(this, CoverEditActivity.class);
-            intent.putExtra(CoverEditActivity.KEY_PARAM_VIDEO, mOutputPath);
-            startActivityForResult(intent, 0);
+
+            showAddPhotoWindow();
+
         } else if (v == mIvLeft) {
             onBackPressed();
         }
@@ -494,14 +663,7 @@ public class PublishActivity extends Activity implements View.OnClickListener , 
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 0 && resultCode == RESULT_OK) {
-            mThumbnailPath = data.getStringExtra(CoverEditActivity.KEY_PARAM_RESULT);
-            new MyAsyncTask(this).execute(mThumbnailPath);
-        }
-    }
+
 
     private final AliyunIComposeCallBack mCallback = new AliyunIComposeCallBack() {
         @Override

@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.been.ActionItem;
 import com.zhongchuang.canting.utils.DensityUtil;
 
@@ -56,9 +56,9 @@ public class TodayNewGoodsDrawDownView extends PopupWindow implements View.OnCli
 
         View view = LayoutInflater.from(context).inflate(R.layout.view_draw_down, null);
 
-        tv_no_look = (TextView) view.findViewById(R.id.tv_no_look);
+        tv_no_look = view.findViewById(R.id.tv_no_look);
 
-        tv_cancle_concer = (TextView) view.findViewById(R.id.tv_cancle_concer);
+        tv_cancle_concer = view.findViewById(R.id.tv_cancle_concer);
 
         tv_no_look.setOnClickListener(this);
 
@@ -143,7 +143,7 @@ public class TodayNewGoodsDrawDownView extends PopupWindow implements View.OnCli
     /**
      * 功能描述：弹窗子类项按钮监听事件
      */
-    public static interface OnItemClickListener {
-        public void onItemClick(ActionItem item, int position);
+    public interface OnItemClickListener {
+        void onItemClick(ActionItem item, int position);
     }
 }

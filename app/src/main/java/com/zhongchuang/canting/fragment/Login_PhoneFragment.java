@@ -16,8 +16,9 @@ import android.widget.Toast;
 
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.CityPickerActivity;
+import com.zhongchuang.canting.activity.HomeActivitys;
 import com.zhongchuang.canting.activity.LoginActivity;
 import com.zhongchuang.canting.activity.RegistActivity;
 import com.zhongchuang.canting.activity.RigsterActivity;
@@ -187,7 +188,7 @@ public class Login_PhoneFragment extends BaseFragment implements RegisterViewCal
 
                 }
                 CanTingAppLication.getInstance().setUserInfo(db);
-                Intent gotoZhuYe = new Intent(getActivity(), HomeActivity.class);
+                Intent gotoZhuYe = new Intent(getActivity(), HomeActivitys.class);
                 startActivity(gotoZhuYe);
                 getActivity().finish();
                 RxBus.getInstance().send(SubscriptionBean.createSendBean(SubscriptionBean.SIGN, ""));

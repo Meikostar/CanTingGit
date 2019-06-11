@@ -91,8 +91,8 @@ public class OverlayChooserMediator extends BaseChooser implements OnItemClickLi
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mCategoryList = (RecyclerView) view.findViewById(R.id.category_list);
-        mDissRelative = (RelativeLayout) view.findViewById(R.id.overlay_dismiss);
+        mCategoryList = view.findViewById(R.id.category_list);
+        mDissRelative = view.findViewById(R.id.overlay_dismiss);
         mCategoryList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         mCategoryList.addItemDecoration(new SpaceItemDecoration(getContext().getResources().getDimensionPixelSize(R.dimen.list_item_space)));
         mCategoryAdapter = new CategoryAdapter(getActivity());
@@ -100,10 +100,10 @@ public class OverlayChooserMediator extends BaseChooser implements OnItemClickLi
         mCategoryList.setAdapter(mCategoryAdapter);
         mCategoryAdapter.setData(mPasterList);
         mCategoryAdapter.setMoreClickListener(this);
-        mRecyclerView = (PageRecyclerView) view.findViewById(R.id.effect_overlay_view);
+        mRecyclerView = view.findViewById(R.id.effect_overlay_view);
         mRecyclerView.setPageSize(2, 5);
         mRecyclerView.setPageMargin(30);
-        mIndicator = (PageIndicatorView) view.findViewById(R.id.view_indicator);
+        mIndicator = view.findViewById(R.id.view_indicator);
         if(mEditorService != null && mEditorService.isFullScreen()) {
             mRecyclerView.setBackgroundColor(getResources().getColor(R.color.action_bar_bg_50pct));
             mDissRelative.setBackgroundColor(getResources().getColor(R.color.tab_bg_color_50pct));
@@ -130,9 +130,9 @@ public class OverlayChooserMediator extends BaseChooser implements OnItemClickLi
         mRecyclerView.setIndicator(mIndicator);
         mAdapter.setHasStableIds(true);
         mRecyclerView.setAdapter(mAdapter);
-        mDismiss = (ImageView) view.findViewById(R.id.dismiss);
+        mDismiss = view.findViewById(R.id.dismiss);
         mDismiss.setOnClickListener(onClickListener);
-        mIvCancel = (ImageView) view.findViewById(R.id.cancel);
+        mIvCancel = view.findViewById(R.id.cancel);
         mIvCancel.setOnClickListener(this);
     }
 

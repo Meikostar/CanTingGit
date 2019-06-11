@@ -43,13 +43,13 @@ public class PaintMenuView {
     public View getPaintMenu(Context context) {
         mContext = context;
         mView = View.inflate(context, R.layout.aliyun_svideo_paint_view, null);
-        mListView = (RecyclerView)mView.findViewById(R.id.color_list);
-        mCacnel = (ImageView) mView.findViewById(R.id.cancel);
-        mUndo = (ImageView) mView.findViewById(R.id.undo);
-        mComplete = (ImageView) mView.findViewById(R.id.complete);
-        mPaintOne = (FrameLayout) mView.findViewById(R.id.paint_one);
-        mPaintTwo = (FrameLayout) mView.findViewById(R.id.paint_two);
-        mPaintThree = (FrameLayout) mView.findViewById(R.id.paint_three);
+        mListView = mView.findViewById(R.id.color_list);
+        mCacnel = mView.findViewById(R.id.cancel);
+        mUndo = mView.findViewById(R.id.undo);
+        mComplete = mView.findViewById(R.id.complete);
+        mPaintOne = mView.findViewById(R.id.paint_one);
+        mPaintTwo = mView.findViewById(R.id.paint_two);
+        mPaintThree = mView.findViewById(R.id.paint_three);
         fillViews();
         mCurrentSize = dip2px(mContext, 5);
         mCurrentPaint.setColor(mCurrentColor);

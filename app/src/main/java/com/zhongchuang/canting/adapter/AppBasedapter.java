@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.been.apply;
 import com.zhongchuang.canting.widget.NoScrollGridView;
 
@@ -60,8 +60,8 @@ public class AppBasedapter extends BaseAdapter {
         if (view == null) {
             holder = new ViewHolder();
             view = inflater.inflate(R.layout.app_store_item, null);
-            holder.txt_name = (TextView) view.findViewById(R.id.tv_type);
-            holder.gird = (NoScrollGridView) view.findViewById(R.id.grid_content);
+            holder.txt_name = view.findViewById(R.id.tv_type);
+            holder.gird = view.findViewById(R.id.grid_content);
             view.setTag(holder);
         } else {
             holder = (ViewHolder) view.getTag();

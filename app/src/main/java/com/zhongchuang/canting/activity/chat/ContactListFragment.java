@@ -33,7 +33,7 @@ import com.hyphenate.EMConnectionListener;
 import com.hyphenate.EMError;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.exceptions.HyphenateException;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.easeui.domain.EaseUser;
 import com.zhongchuang.canting.easeui.ui.EaseBaseFragment;
 import com.zhongchuang.canting.easeui.utils.EaseCommonUtils;
@@ -89,7 +89,7 @@ public class ContactListFragment extends EaseBaseFragment {
     protected void initView() {
 
 
-        contactListLayout = (EaseContactList) getView().findViewById(R.id.contact_list);
+        contactListLayout = getView().findViewById(R.id.contact_list);
         listView = contactListLayout.getListView();
         
         //search

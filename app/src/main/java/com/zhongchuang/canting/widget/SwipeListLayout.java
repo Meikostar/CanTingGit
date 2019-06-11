@@ -241,7 +241,7 @@ public class SwipeListLayout extends FrameLayout {
     public boolean onTouchEvent(MotionEvent event) {
         mDragHelper.processTouchEvent(event);
         return true;
-    };
+    }
 
     @Override
     protected void onFinishInflate() {

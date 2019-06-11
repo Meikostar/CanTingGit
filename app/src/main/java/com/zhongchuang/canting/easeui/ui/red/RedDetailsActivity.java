@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.base.BaseAllActivity;
 import com.zhongchuang.canting.been.RedInfo;
 import com.zhongchuang.canting.hud.ToastUtils;

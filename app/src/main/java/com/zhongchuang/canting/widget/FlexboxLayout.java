@@ -28,7 +28,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

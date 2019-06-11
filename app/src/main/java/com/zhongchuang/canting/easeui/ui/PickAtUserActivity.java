@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMGroup;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.easeui.adapter.EaseContactAdapter;
 import com.zhongchuang.canting.easeui.domain.EaseUser;
 import com.zhongchuang.canting.easeui.utils.EaseUserUtils;
@@ -39,8 +39,8 @@ public class PickAtUserActivity extends BaseActivity {
         groupId = getIntent().getStringExtra("groupId");
         group = EMClient.getInstance().groupManager().getGroup(groupId);
 
-        EaseSidebar sidebar = (EaseSidebar) findViewById(R.id.sidebar);
-        listView = (ListView) findViewById(R.id.list);
+        EaseSidebar sidebar = findViewById(R.id.sidebar);
+        listView = findViewById(R.id.list);
         sidebar.setListView(listView);
         updateList();
 
@@ -132,8 +132,8 @@ public class PickAtUserActivity extends BaseActivity {
     private void addHeadView(){
         if (listView.getHeaderViewsCount() == 0) {
             View view = LayoutInflater.from(this).inflate(R.layout.ease_row_contact, listView, false);
-            ImageView avatarView = (ImageView) view.findViewById(R.id.avatar);
-            TextView textView = (TextView) view.findViewById(R.id.name);
+            ImageView avatarView = view.findViewById(R.id.avatar);
+            TextView textView = view.findViewById(R.id.name);
             textView.setText(getString(R.string.all_members));
             avatarView.setImageResource(R.drawable.ease_groups_icon);
             listView.addHeaderView(view);

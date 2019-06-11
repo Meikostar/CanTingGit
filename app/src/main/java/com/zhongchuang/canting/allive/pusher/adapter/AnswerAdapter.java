@@ -62,10 +62,10 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.AnswerView
     public AnswerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.question_item_info, parent, false);
         AnswerViewHolder holder = new AnswerViewHolder(itemView);
-        holder.questionInfo = (TextView) itemView.findViewById(R.id.question_info);
-        holder.questionId = (TextView) itemView.findViewById(R.id.question_id);
-        holder.sendQuestion = (TextView) itemView.findViewById(R.id.send_question);
-        holder.sendAnswer = (TextView) itemView.findViewById(R.id.send_answer);
+        holder.questionInfo = itemView.findViewById(R.id.question_info);
+        holder.questionId = itemView.findViewById(R.id.question_id);
+        holder.sendQuestion = itemView.findViewById(R.id.send_question);
+        holder.sendAnswer = itemView.findViewById(R.id.send_answer);
         return holder;
     }
 

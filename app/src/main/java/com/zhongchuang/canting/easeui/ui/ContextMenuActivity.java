@@ -18,7 +18,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.hyphenate.chat.EMMessage;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.easeui.Constant;
 
 

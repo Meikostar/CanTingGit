@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 
 /**
  * Created by Administrator on 2018/6/22.
@@ -70,11 +70,11 @@ public class TwoNevgBar extends LinearLayout implements View.OnClickListener {
     private void init() {
 
         view = LayoutInflater.from(context).inflate(R.layout.nevagbar_two,this);
-        imageViews[0] = (ImageView)view.findViewById(R.id.iv_checkbox_image1);
-        imageViews[1] = (ImageView)view.findViewById(R.id.iv_checkbox_image2);
+        imageViews[0] = view.findViewById(R.id.iv_checkbox_image1);
+        imageViews[1] = view.findViewById(R.id.iv_checkbox_image2);
 
-        textViews[0] = (TextView)view.findViewById(R.id.tv_checkbox_text1);
-        textViews[1]  = (TextView)view.findViewById(R.id.tv_checkbox_text2);
+        textViews[0] = view.findViewById(R.id.tv_checkbox_text1);
+        textViews[1]  = view.findViewById(R.id.tv_checkbox_text2);
 
 
 

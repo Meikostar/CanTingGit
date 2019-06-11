@@ -122,25 +122,25 @@ public class CropSettingTest extends Activity implements View.OnClickListener,Co
 
 
     private void initView(){
-        startImport = (TextView) findViewById(com.zhongchuang.canting.R.id.aliyun_start_import);
+        startImport = findViewById(com.zhongchuang.canting.R.id.aliyun_start_import);
         startImport.setOnClickListener(this);
         startImport.setEnabled(false);
-        resolutionSeekbar = (SeekBar) findViewById(com.zhongchuang.canting.R.id.aliyun_resolution_seekbar);
-        qualitySeekbar = (SeekBar) findViewById(com.zhongchuang.canting.R.id.aliyun_quality_seekbar);
-        ratioSeekbar = (SeekBar) findViewById(com.zhongchuang.canting.R.id.aliyun_ratio_seekbar);
-        ratioTxt = (TextView) findViewById(com.zhongchuang.canting.R.id.aliyun_ratio_txt);
-        qualityTxt = (TextView) findViewById(com.zhongchuang.canting.R.id.aliyun_quality_txt);
-        resolutionTxt = (TextView) findViewById(com.zhongchuang.canting.R.id.aliyun_resolution_txt);
-        radioCrop = (RadioButton) findViewById(com.zhongchuang.canting.R.id.aliyun_radio_crop);
+        resolutionSeekbar = findViewById(com.zhongchuang.canting.R.id.aliyun_resolution_seekbar);
+        qualitySeekbar = findViewById(com.zhongchuang.canting.R.id.aliyun_quality_seekbar);
+        ratioSeekbar = findViewById(com.zhongchuang.canting.R.id.aliyun_ratio_seekbar);
+        ratioTxt = findViewById(com.zhongchuang.canting.R.id.aliyun_ratio_txt);
+        qualityTxt = findViewById(com.zhongchuang.canting.R.id.aliyun_quality_txt);
+        resolutionTxt = findViewById(com.zhongchuang.canting.R.id.aliyun_resolution_txt);
+        radioCrop = findViewById(com.zhongchuang.canting.R.id.aliyun_radio_crop);
         radioCrop.setOnCheckedChangeListener(this);
-        radioFill = (RadioButton) findViewById(com.zhongchuang.canting.R.id.aliyun_radio_fill);
+        radioFill = findViewById(com.zhongchuang.canting.R.id.aliyun_radio_fill);
         radioFill.setOnCheckedChangeListener(this);
-        back = (ImageView) findViewById(com.zhongchuang.canting.R.id.aliyun_back);
+        back = findViewById(com.zhongchuang.canting.R.id.aliyun_back);
         back.setOnClickListener(this);
-        mGpuSwitch = (ToggleButton) findViewById(com.zhongchuang.canting.R.id.tbtn_gpu);
-        frameRateEdit = (EditText) findViewById(com.zhongchuang.canting.R.id.aliyun_frame_rate_edit);
-        gopEdit = (EditText) findViewById(com.zhongchuang.canting.R.id.aliyun_gop_edit);
-        mBitrateEdit = (EditText) findViewById(com.zhongchuang.canting.R.id.aliyun_bitrate_edit);
+        mGpuSwitch = findViewById(com.zhongchuang.canting.R.id.tbtn_gpu);
+        frameRateEdit = findViewById(com.zhongchuang.canting.R.id.aliyun_frame_rate_edit);
+        gopEdit = findViewById(com.zhongchuang.canting.R.id.aliyun_gop_edit);
+        mBitrateEdit = findViewById(com.zhongchuang.canting.R.id.aliyun_bitrate_edit);
         ratioSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {

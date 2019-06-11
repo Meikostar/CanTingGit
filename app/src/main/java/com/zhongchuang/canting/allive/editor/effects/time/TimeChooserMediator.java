@@ -29,17 +29,17 @@ public class TimeChooserMediator extends BaseChooser implements View.OnClickList
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = LayoutInflater.from(getActivity()).inflate(R.layout.aliyun_svideo_time_view, container);
-        mTimeNone = (ImageView) rootView.findViewById(R.id.time_effect_none);
+        mTimeNone = rootView.findViewById(R.id.time_effect_none);
         mTimeNone.setOnClickListener(this);
-        mTimeSlow = (ImageView) rootView.findViewById(R.id.time_effect_slow);
+        mTimeSlow = rootView.findViewById(R.id.time_effect_slow);
         mTimeSlow.setOnClickListener(this);
-        mTimeFast = (ImageView) rootView.findViewById(R.id.time_effect_speed_up);
+        mTimeFast = rootView.findViewById(R.id.time_effect_speed_up);
         mTimeFast.setOnClickListener(this);
-        mTimeRepeat2Invert = (ImageView) rootView.findViewById(R.id.time_effect_repeat_invert);
+        mTimeRepeat2Invert = rootView.findViewById(R.id.time_effect_repeat_invert);
         mTimeRepeat2Invert.setOnClickListener(this);
-        mTimeMoment = (TextView) rootView.findViewById(R.id.time_moment);
+        mTimeMoment = rootView.findViewById(R.id.time_moment);
         mTimeMoment.setOnClickListener(this);
-        mTimeAll = (TextView) rootView.findViewById(R.id.time_all);
+        mTimeAll = rootView.findViewById(R.id.time_all);
         mTimeAll.setOnClickListener(this);
         mTimeMoment.performClick();
         return rootView;

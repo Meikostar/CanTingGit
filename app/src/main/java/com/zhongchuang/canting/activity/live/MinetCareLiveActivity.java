@@ -6,7 +6,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.ChatActivity;
 import com.zhongchuang.canting.adapter.CareMineAdapter;
 import com.zhongchuang.canting.adapter.LiveCareAdapter;
@@ -134,7 +134,7 @@ public class MinetCareLiveActivity extends BaseActivity1 implements BaseContract
 
                 } else {
                     loadingView.showPager(LoadingPager.STATE_EMPTY);
-                    loadingView.setContent(getString(R.string.zwmx));
+                    loadingView.setContent(getString(R.string.zwfls));
                 }
 
 

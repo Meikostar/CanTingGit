@@ -8,7 +8,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 
 
 /**

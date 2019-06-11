@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.been.Message;
 
 
@@ -26,8 +26,8 @@ public class MessageAdapter extends BaseListAdapter<Message> {
         if (convertView == null) {
             viewHolder = new ViewHolder();
             convertView = inflater.inflate(R.layout.item_message, null, false);
-            viewHolder.level = (TextView) convertView.findViewById(R.id.level);
-            viewHolder.message = (TextView) convertView.findViewById(R.id.message);
+            viewHolder.level = convertView.findViewById(R.id.level);
+            viewHolder.message = convertView.findViewById(R.id.message);
             convertView.setTag(viewHolder);
         }else {
             viewHolder = (ViewHolder) convertView.getTag();

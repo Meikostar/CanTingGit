@@ -15,7 +15,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.app.CanTingAppLication;
 import com.zhongchuang.canting.utils.SpUtil;
 import com.zhongchuang.canting.utils.TextUtil;
@@ -48,7 +48,7 @@ public class SplashActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.splash);
         ButterKnife.bind(this);
-        rlBg.setVisibility(View.VISIBLE);
+        rlBg.setVisibility(View.GONE);
         setLoginMessage();
         updateActivity(SpUtil.getLangueType(this));
 
@@ -98,7 +98,7 @@ public class SplashActivity extends AppCompatActivity {
 
     }
     public void goActivity() {
-        Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
+        Intent intent = new Intent(SplashActivity.this, HomeActivitys.class);
         startActivity(intent);
         SplashActivity.this.finish();
     }
@@ -110,11 +110,7 @@ public class SplashActivity extends AppCompatActivity {
     private void setLoginMessage() {
         String token = SpUtil.getString(this, "token", "");
         avar = SpUtil.getString(this, "ava", "");
-        if (TextUtils.isEmpty(token)) {
-            isLogin = false;
-        } else {
-            isLogin = true;
-        }
+        isLogin = !TextUtils.isEmpty(token);
 
 
     }

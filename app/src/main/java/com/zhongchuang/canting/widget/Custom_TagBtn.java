@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.utils.DensityUtil;
 
 
@@ -86,7 +86,7 @@ public class Custom_TagBtn extends RelativeLayout {
 
     private void initView(View selfView) {
 
-        txt_content = (TextView) selfView.findViewById(R.id.txt_content);
+        txt_content = selfView.findViewById(R.id.txt_content);
 
         txt_content.setOnClickListener(new OnClickListener() {
             @Override
@@ -102,7 +102,7 @@ public class Custom_TagBtn extends RelativeLayout {
 
         LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) txt_content.getLayoutParams();
          if(type==1){
-             lp.width = DensityUtil.dip2px(context, with<=35?35:with);
+             lp.width = DensityUtil.dip2px(context, with<=55?55:with);
          }else {
              lp.width = DensityUtil.dip2px(context, with<=55?55:with);
          }

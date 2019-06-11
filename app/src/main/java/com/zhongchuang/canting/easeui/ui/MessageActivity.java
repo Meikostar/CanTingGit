@@ -18,7 +18,7 @@ import android.widget.Toast;
 import com.google.zxing.client.android.activity.CaptureActivity;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.chat.AddFriendActivity;
 import com.zhongchuang.canting.been.BaseResponse;
 import com.zhongchuang.canting.been.FriendSearchBean;
@@ -371,9 +371,9 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
         TextView title = null;
         EditText reson = null;
         View views = View.inflate(this, R.layout.base_dailog_view, null);
-        sure = (TextView) views.findViewById(R.id.txt_sure);
-        cancel = (TextView) views.findViewById(R.id.txt_cancel);
-        title = (TextView) views.findViewById(R.id.txt_title);
+        sure = views.findViewById(R.id.txt_sure);
+        cancel = views.findViewById(R.id.txt_cancel);
+        title = views.findViewById(R.id.txt_title);
 
         title.setText(getString(R.string.jrs) + name + getString(R.string.q));
         dialog = BaseDailogManager.getInstance().getBuilder(this).setMessageView(views).create();

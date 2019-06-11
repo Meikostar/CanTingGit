@@ -11,7 +11,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 
 
 /**

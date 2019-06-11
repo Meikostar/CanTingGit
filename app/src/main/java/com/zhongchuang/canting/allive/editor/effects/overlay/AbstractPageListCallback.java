@@ -41,7 +41,7 @@ public abstract class AbstractPageListCallback implements PageRecyclerView.CallB
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.aliyun_svideo_overlay_item_view, parent, false);
         PageViewHolder holder = new PageViewHolder(view);
-        holder.mImageView = (CircularImageView) view.findViewById(R.id.overlayout_image_source);
+        holder.mImageView = view.findViewById(R.id.overlayout_image_source);
         return holder;
     }
 

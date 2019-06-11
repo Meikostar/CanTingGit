@@ -15,7 +15,7 @@ import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMGroup;
 import com.hyphenate.chat.EMGroupManager;
 import com.hyphenate.exceptions.HyphenateException;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.ChatActivity;
 import com.zhongchuang.canting.adapter.FragmentViewPagerAdapter;
 import com.zhongchuang.canting.been.HXFriend;
@@ -217,10 +217,10 @@ public class AddFriendorDelActivity extends BaseActivity {
         TextView title = null;
         EditText reson = null;
         View views = View.inflate(this, R.layout.write_group_name, null);
-        sure = (TextView) views.findViewById(R.id.txt_sure);
-        cancel = (TextView) views.findViewById(R.id.txt_cancel);
-        title = (TextView) views.findViewById(R.id.tv_title);
-        reson = (EditText) views.findViewById(R.id.edit_reson);
+        sure = views.findViewById(R.id.txt_sure);
+        cancel = views.findViewById(R.id.txt_cancel);
+        title = views.findViewById(R.id.tv_title);
+        reson = views.findViewById(R.id.edit_reson);
 
         final MarkaBaseDialog dialog = BaseDailogManager.getInstance().getBuilder(this).setMessageView(views).create();
         dialog.show();

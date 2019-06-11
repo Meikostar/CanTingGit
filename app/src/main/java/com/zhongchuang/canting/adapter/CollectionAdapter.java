@@ -1,6 +1,7 @@
 package com.zhongchuang.canting.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
+import com.zhongchuang.canting.activity.mall.ShopDetailActivity;
+import com.zhongchuang.canting.activity.mall.ShopMallDetailActivity;
 import com.zhongchuang.canting.been.Favor;
 import com.zhongchuang.canting.utils.StringUtil;
 import com.zhongchuang.canting.utils.TextUtil;
@@ -34,21 +37,26 @@ public class CollectionAdapter extends BaseAdapter {
     private ListView lv_content;
     private Set<SwipeListLayout> sets = new HashSet();
     private selectItemListener listener;
-    public interface selectItemListener{
+
+    public interface selectItemListener {
         void delete(String id, int type, int poistion);
     }
-    public void setListener(selectItemListener listener){
-        this.listener=listener;
+
+    public void setListener(selectItemListener listener) {
+        this.listener = listener;
     }
-    public void setData( List<Favor> list){
-        this.list=list;
+
+    public void setData(List<Favor> list) {
+        this.list = list;
         notifyDataSetChanged();
     }
-    public List<Favor> getDatas(){
+
+    public List<Favor> getDatas() {
         return list;
     }
+
     public CollectionAdapter(Context context, List<Favor> list, ListView lv_content) {
-        this.lv_content=lv_content;
+        this.lv_content = lv_content;
         this.context = context;
         this.list = list;
         inflater = LayoutInflater.from(context);
@@ -85,7 +93,7 @@ public class CollectionAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return list!=null?(list.size()==0?0:list.size()):0;
+        return list != null ? (list.size()) : 0;
     }
 
     @Override
@@ -105,48 +113,63 @@ public class CollectionAdapter extends BaseAdapter {
         if (convertView == null) {
             holder = new ViewHolder();
             convertView = inflater.inflate(R.layout.item_collection, parent, false);
-            holder.tvTime = (TextView) convertView.findViewById(R.id.tv_link);
-            holder.tv_phone = (TextView) convertView.findViewById(R.id.tv_phone);
-            holder.tv_delete = (TextView) convertView.findViewById(R.id.tv_delete);
-            holder.tvAdress = (TextView) convertView.findViewById(R.id.tv_address);
-            holder.tvName = (TextView) convertView.findViewById(R.id.tv_name);
+            holder.tvTime = convertView.findViewById(R.id.tv_link);
+            holder.tv_phone = convertView.findViewById(R.id.tv_phone);
+            holder.tv_delete = convertView.findViewById(R.id.tv_delete);
+            holder.tvAdress = convertView.findViewById(R.id.tv_address);
+            holder.tvName = convertView.findViewById(R.id.tv_name);
 
-            holder.ivImg = (ImageView) convertView.findViewById(R.id.iv_img);
+            holder.ivImg = convertView.findViewById(R.id.iv_img);
+            holder.line = convertView.findViewById(R.id.line);
 
-            holder.rl_bg = (RelativeLayout) convertView.findViewById(R.id.rl_bg);
+            holder.rl_bg = convertView.findViewById(R.id.rl_bg);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
 
+        final SwipeListLayout swipeListLayout = (SwipeListLayout) convertView;
 
-           final SwipeListLayout swipeListLayout = (SwipeListLayout) convertView;
+        swipeListLayout.setOnSwipeStatusListener(new MyOnSlipStatusListener(
+                swipeListLayout));
 
-           swipeListLayout.setOnSwipeStatusListener(new MyOnSlipStatusListener(
-                   swipeListLayout));
+        holder.tv_delete.setOnClickListener(new View.OnClickListener() {
 
-           holder.tv_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                swipeListLayout.setStatus(SwipeListLayout.Status.Close, true);
+                if (listener != null) {
+                    listener.delete(list.get(position).shop_id, list.size() == 1 ? 1 : 0, position);
+                }
+            }
+        });
 
-               @Override
-               public void onClick(View view) {
-                   swipeListLayout.setStatus(SwipeListLayout.Status.Close, true);
-                   if(listener!=null){
-                       listener.delete(list.get(position).shop_id,list.size()==1?1:0,position);
-                   }
-               }
-           });
-        if(TextUtil.isNotEmpty(list.get(position).link_man)){
-            holder.tvTime.setText(context.getString(R.string.lxrs)+list.get(position).link_man);
-        }  if(TextUtil.isNotEmpty(list.get(position).mer_phone)){
-            holder.tv_phone.setText(context.getString(R.string.dhs)+list.get(position).mer_phone);
-        }  if(TextUtil.isNotEmpty(list.get(position).mer_name)){
+        if (list.size() == 1 || position == list.size() - 1) {
+            holder.line.setVisibility(View.GONE);
+        } else {
+            holder.line.setVisibility(View.VISIBLE);
+        }
+
+        if (TextUtil.isNotEmpty(list.get(position).link_man)) {
+            holder.tvTime.setText(context.getString(R.string.lxrs) + list.get(position).link_man);
+        }
+        if (TextUtil.isNotEmpty(list.get(position).mer_phone)) {
+            holder.tv_phone.setText(context.getString(R.string.dhs) + list.get(position).mer_phone);
+        }
+        if (TextUtil.isNotEmpty(list.get(position).mer_name)) {
             holder.tvName.setText(list.get(position).mer_name);
         }
         Glide.with(context).load(StringUtil.changeUrl(list.get(position).mer_Image_url)).asBitmap().placeholder(R.drawable.moren1).into(holder.ivImg);
+           holder.rl_bg.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
+                   Intent intent = new Intent(context, ShopDetailActivity.class);
 
-
-
+                   intent.putExtra("id", list.get(position).m_id);
+                   context.startActivity(intent);
+               }
+           });
         return convertView;
     }
 
@@ -163,6 +186,7 @@ public class CollectionAdapter extends BaseAdapter {
 
         RelativeLayout rl_bg;
     }
+
     class MyOnSlipStatusListener implements SwipeListLayout.OnSwipeStatusListener {
 
         private SwipeListLayout slipListLayout;

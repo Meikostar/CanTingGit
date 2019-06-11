@@ -10,7 +10,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.fragment.Regiet_PhoneFragment;
 import com.zhongchuang.canting.fragment.Regist_ChecknumFragment;
 import com.zhongchuang.canting.fragment.Regist_PasswordFragment;

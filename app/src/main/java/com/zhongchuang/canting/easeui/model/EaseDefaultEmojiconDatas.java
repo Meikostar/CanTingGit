@@ -1,6 +1,6 @@
 package com.zhongchuang.canting.easeui.model;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.easeui.domain.EaseEmojicon;
 import com.zhongchuang.canting.easeui.domain.EaseEmojicon.Type;
 import com.zhongchuang.canting.easeui.utils.EaseSmileUtils;

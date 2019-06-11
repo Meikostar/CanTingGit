@@ -28,7 +28,7 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 
 
 public class KProgressHUD {
@@ -285,14 +285,14 @@ public class KProgressHUD {
         }
 
         private void initViews() {
-            mBackgroundLayout = (BackgroundLayout) findViewById(R.id.background);
+            mBackgroundLayout = findViewById(R.id.background);
             mBackgroundLayout.setBaseColor(mWindowColor);
             mBackgroundLayout.setCornerRadius(mCornerRadius);
             if (mWidth != 0) {
                 updateBackgroundSize();
             }
 
-            mCustomViewContainer = (FrameLayout) findViewById(R.id.container);
+            mCustomViewContainer = findViewById(R.id.container);
             addViewToFrame(mView);
 
             if (mDeterminateView != null) {
@@ -302,14 +302,14 @@ public class KProgressHUD {
                 mIndeterminateView.setAnimationSpeed(mAnimateSpeed);
             }
 
-            mLabelText = (TextView) findViewById( R.id.label);
+            mLabelText = findViewById( R.id.label);
             if (mLabel != null) {
                 mLabelText.setText(mLabel);
                 mLabelText.setVisibility(View.VISIBLE);
             } else {
                 mLabelText.setVisibility(View.GONE);
             }
-            mDetailsText = (TextView) findViewById( R.id.details_label);
+            mDetailsText = findViewById( R.id.details_label);
             if (mDetailsLabel != null) {
                 mDetailsText.setText(mDetailsLabel);
                 mDetailsText.setVisibility(View.VISIBLE);

@@ -48,8 +48,8 @@ public class MyCodeButton extends Button implements OnClickListener {
 			if (time < 0) {
 				reSet();
 			}
-		};
-	};
+		}
+    };
 
 	private void initTimer() {
 		time = lenght;

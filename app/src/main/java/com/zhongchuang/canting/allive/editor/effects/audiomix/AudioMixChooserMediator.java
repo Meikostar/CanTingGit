@@ -115,14 +115,14 @@ public class AudioMixChooserMediator extends BaseChooser implements OnItemClickL
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mViewPager = (ViewPager) view.findViewById(R.id.music_content_container);
-        mVoiceBtn = (ImageView) view.findViewById(R.id.voice_btn);
+        mViewPager = view.findViewById(R.id.music_content_container);
+        mVoiceBtn = view.findViewById(R.id.voice_btn);
         mVoiceBtn.setOnClickListener(this);
-        mPlayTimeStart = (EditText) view.findViewById(R.id.play_time_start);
-        mPlayTimeEnd = (EditText) view.findViewById(R.id.play_time_end);
-        mStreamTimeStart = (EditText) view.findViewById(R.id.stream_time_start);
-        mStremTimeEnd = (EditText) view.findViewById(R.id.stream_time_end);
-        mMusicWeightSeekBar = (SeekBar) view.findViewById(R.id.music_weight);
+        mPlayTimeStart = view.findViewById(R.id.play_time_start);
+        mPlayTimeEnd = view.findViewById(R.id.play_time_end);
+        mStreamTimeStart = view.findViewById(R.id.stream_time_start);
+        mStremTimeEnd = view.findViewById(R.id.stream_time_end);
+        mMusicWeightSeekBar = view.findViewById(R.id.music_weight);
         mMusicWeightSeekBar.setMax(100);
         int musicWeight = getMusicWeight();
         mMusicWeightSeekBar.setProgress(musicWeight);
@@ -164,7 +164,7 @@ public class AudioMixChooserMediator extends BaseChooser implements OnItemClickL
         mLocalMusicRecyclerView.setAdapter(mLocalMusicAdapter);
         mLocalMusicRecyclerView.setOverScrollMode(View.OVER_SCROLL_NEVER);
         mViewPager.setAdapter(new MusicPagerAdapter());
-        mTabPageIndicator = (PagerSlidingTabStrip) view.findViewById(R.id.music_content_container_indicator);
+        mTabPageIndicator = view.findViewById(R.id.music_content_container_indicator);
         mTabPageIndicator.setTextColorResource(R.color.aliyun_svideo_tab_text_color_selector);
         mTabPageIndicator.setTabViewId(R.layout.aliyun_svideo_layout_tab_top);
         mTabPageIndicator.setViewPager(mViewPager);

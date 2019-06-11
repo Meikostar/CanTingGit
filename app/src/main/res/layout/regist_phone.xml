@@ -80,7 +80,6 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:layout_marginLeft="9dp"
             android:layout_marginRight="19dp"
             android:layout_marginTop="1dp"
             android:background="@color/linecolor" />
@@ -110,8 +109,50 @@
                 android:background="@null"
                 android:gravity="center_vertical"
                 android:hint="请输入验证码"
-                android:inputType="number"
                 android:maxLength="8"
+                android:text=""
+                android:textColor="@color/slow_black"
+                android:textColorHint="@color/bd"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+
+
+        <View
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginRight="19dp"
+            android:layout_marginTop="3dp"
+            android:background="@color/linecolor" />
+        <LinearLayout
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="18dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="0dp"
+                android:text="邀 请 码"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <com.zhongchuang.canting.widget.ClearEditText
+                android:id="@+id/ct_invitation"
+                android:layout_width="fill_parent"
+                android:layout_height="35dp"
+                android:layout_marginLeft="22dp"
+                android:layout_marginRight="12dp"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:hint="邀请码长度为6位（选填）"
+                android:maxLength="6"
                 android:text=""
                 android:textColor="@color/slow_black"
                 android:textColorHint="@color/bd"
@@ -124,11 +165,9 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:layout_marginLeft="9dp"
             android:layout_marginRight="19dp"
             android:layout_marginTop="3dp"
             android:background="@color/linecolor" />
-
         <TextView
             android:id="@+id/login_yanzhen_login"
             android:layout_width="match_parent"

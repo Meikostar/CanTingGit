@@ -270,7 +270,7 @@ public class FrameAnimation {
         }, mDuration);
     }
 
-    public static interface AnimationListener {
+    public interface AnimationListener {
 
         /**
          * <p>Notifies the start of the animation.</p>

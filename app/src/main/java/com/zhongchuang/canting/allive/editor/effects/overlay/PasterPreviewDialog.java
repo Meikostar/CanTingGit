@@ -60,7 +60,7 @@ public class PasterPreviewDialog extends DialogFragment {
 
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.aliyun_svideo_layout_paster_preview, container);
 
-        WebView webView = (WebView) view.findViewById(R.id.webview);
+        WebView webView = view.findViewById(R.id.webview);
         View close = view.findViewById(R.id.close);
 
         webView.setBackgroundColor(getResources().getColor(android.R.color.black));

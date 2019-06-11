@@ -4,6 +4,7 @@ package com.zhongchuang.canting.presenter;
 import com.zhongchuang.canting.been.CancelParam;
 import com.zhongchuang.canting.been.OrderParam;
 import com.zhongchuang.canting.been.Params;
+import com.zhongchuang.canting.been.UserInfoBean;
 
 import java.util.List;
 
@@ -268,7 +269,7 @@ public class BaseContract {
 
         void getGiftDetailedList(String pageNum, final int loadtype);
 
-        void cancelOrder(List<Params> cancelList);
+        void cancelOrder(Params cancelList);
 
         void getVersionAndUrl();
 
@@ -350,5 +351,34 @@ public class BaseContract {
          *1.获取首页最新的视频列表接口
          */
         void getLatestVideoList( String pageNum, final int type);
+        /**
+         *1.获qu推流地址
+         */
+        void getLiveUrl(String id);
+
+        /**
+         *推荐注册利润详情
+         */
+        void getProfitList(final int type, String pageNum);
+        /**
+         * 编辑个人资料-接口
+         */
+        void saveInformation(UserInfoBean bean);
+        /**
+         * 获取用户资料信息-接口
+         */
+        void getUserInformation(String id);
+        /**
+         * 删除视频接口
+         */
+        void delVideo(String id,String name,String type);
+        /**
+         * 视频类型
+         */
+        void updateType(String id,String type);
+        /**
+         * 视频类型修复
+         */
+        void updateVideoType(String id, String newType);
     }
 }

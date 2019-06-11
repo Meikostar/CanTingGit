@@ -20,7 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 
 import java.lang.ref.WeakReference;
 
@@ -514,9 +514,9 @@ public final class ToastUtils {
         if (sViewWeakReference != null) {
             final View view = sViewWeakReference.get();
             if (view != null) {
-                TextView tv = (TextView) view.findViewById(R.id.message);
+                TextView tv = view.findViewById(R.id.message);
                 if (resId!=-1){
-                    ImageView imge = (ImageView) view.findViewById(R.id.border);
+                    ImageView imge = view.findViewById(R.id.border);
                     imge.setVisibility(View.VISIBLE);
                     imge.setImageResource(resId);
                 }

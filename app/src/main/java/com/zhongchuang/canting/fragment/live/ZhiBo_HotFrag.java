@@ -18,10 +18,12 @@ import android.widget.TextView;
 
 import com.malinskiy.superrecyclerview.OnMoreListener;
 import com.malinskiy.superrecyclerview.SuperRecyclerView;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.LoginActivity;
+import com.zhongchuang.canting.activity.live.MineVideoActivity;
 import com.zhongchuang.canting.adapter.ZhiBoHotRecyAdapter;
 import com.zhongchuang.canting.allive.vodplayerview.activity.AliyunPlayerSkinActivity;
+import com.zhongchuang.canting.allive.vodplayerview.activity.AliyunPlayerSkinActivityMin;
 import com.zhongchuang.canting.app.CanTingAppLication;
 import com.zhongchuang.canting.base.LazyFragment;
 import com.zhongchuang.canting.been.SubscriptionBean;
@@ -105,7 +107,13 @@ public class ZhiBo_HotFrag extends LazyFragment implements GetLiveViewCallBack {
             public void onRefresh() {
                 //  mSuperRecyclerView.showMoreProgress();
                 currpage=1;
-                requestData(1);
+                if(id.equals("-1")){
+                    getLatestVideoList(1);
+                }else {
+                    requestData(1);
+
+                }
+
 
             }
         };
@@ -137,9 +145,9 @@ public class ZhiBo_HotFrag extends LazyFragment implements GetLiveViewCallBack {
         });
         RxBus.getInstance().addSubscription(mSubscription);
         itemClick();
-        if(state==0){
-            reflash();
-        }
+//        if(state==0){
+//            reflash();
+//        }
 
         return view;
     }
@@ -149,6 +157,7 @@ public class ZhiBo_HotFrag extends LazyFragment implements GetLiveViewCallBack {
     public void setCont(String content){
         cont=content;
     }
+
     private void requestData(int type) {
         if(currpage==1){
             hot=false;
@@ -176,6 +185,19 @@ public class ZhiBo_HotFrag extends LazyFragment implements GetLiveViewCallBack {
 
         presenter.getLiveRoomData(map,type);
     }
+
+    private void getLatestVideoList(int type) {
+        if(currpage==1){
+            hot=false;
+        }
+        Map<String, String> map = new HashMap<>();
+        map.put("pageNum", currpage+"");
+        map.put("pageSize", "12");
+        map.put("userInfoId", CanTingAppLication.userId);
+
+        presenter.getLatestVideoList(map,type);
+    }
+
     private void reflash(){
         if(mSuperRecyclerView!=null) {
             //实现自动下拉刷新功能
@@ -191,11 +213,7 @@ public class ZhiBo_HotFrag extends LazyFragment implements GetLiveViewCallBack {
     private List<ZhiBo_GuanZhongBean.DataBean> cooks=new ArrayList<>();
     public void onDataLoaded(int loadType, final boolean haveNext, List<ZhiBo_GuanZhongBean.DataBean> list) {
         if(list!=null&&list.size()>0){
-            if(list.get(list.size()-1).is_enabled==1){
-                hot=false;
-            }else {
-                hot=true;
-            }
+            hot = list.get(list.size() - 1).is_enabled != 1;
         }
         if (loadType == TYPE_PULL_REFRESH) {
             currpage = 1;
@@ -221,6 +239,12 @@ public class ZhiBo_HotFrag extends LazyFragment implements GetLiveViewCallBack {
             }
 
         }
+
+        if(id.equals("-1")){
+            mZhiBoHotRecyAdapter.setType(1);
+        }else {
+            mZhiBoHotRecyAdapter.setType(0);
+        }
         mZhiBoHotRecyAdapter.setData(cooks);
 
         if(mSuperRecyclerView!=null){
@@ -241,7 +265,12 @@ public class ZhiBo_HotFrag extends LazyFragment implements GetLiveViewCallBack {
                                         mSuperRecyclerView.hideMoreProgress();
                                     }
                                 currpage++;
-                                requestData(2);
+                                if(id.equals("-1")){
+                                    getLatestVideoList(2);
+                                }else {
+                                    requestData(2);
+
+                                }
 
                             }
                         }, 2000);
@@ -277,29 +306,67 @@ public class ZhiBo_HotFrag extends LazyFragment implements GetLiveViewCallBack {
                     startActivity(gotoLogin);
                     return ;
                 }
-                Intent intent = new Intent(getActivity(), AliyunPlayerSkinActivity.class);
-                intent.putExtra("id", dataBean.user_info_id);
-                intent.putExtra("room_info_id", dataBean.room_info_id);
-                startActivity(intent);
-                if(dataBean.is_enabled!=1){
-//                    if(TextUtil.isEmpty(dataBean.leave_massege)){
-//                        ToastUtils.showNormalToast("主播已下播!");
-//                    }else {
-//                        showPopwindow(dataBean.leave_massege);
-//                    }
+                if(id.equals("-1")){
+                    if(!dataBean.new_type.equals("0")){
+                        CanTingAppLication.landType=0;
+                        Intent intent = new Intent(getActivity(), AliyunPlayerSkinActivity.class);
+                        intent.putExtra("type", 3);
+                        intent.putExtra("url",dataBean.video_url);
+                        intent.putExtra("name",dataBean.video_name);
+                        intent.putExtra("room_info_id",dataBean.room_info_id);
+                        intent.putExtra("id",dataBean.user_info_id);
+                        startActivity(intent);
+                    }else {
+                        if(dataBean.video_type.equals("2")){
+                            CanTingAppLication.landType=0;
+                            Intent intent = new Intent(getActivity(), AliyunPlayerSkinActivity.class);
+                            intent.putExtra("url",dataBean.video_url);
+                            intent.putExtra("name",dataBean.video_name);
+                            intent.putExtra("room_info_id",dataBean.room_info_id);
+                            intent.putExtra("id",dataBean.user_info_id);
+                            startActivity(intent);
+                        }else if(dataBean.video_type.equals("3")) {
+                            CanTingAppLication.landType=1;
+                            Intent intent = new Intent(getActivity(), AliyunPlayerSkinActivity.class);
+                            intent.putExtra("url",dataBean.video_url);
+                            intent.putExtra("type",3);
+                            intent.putExtra("name",dataBean.video_name);
+                            intent.putExtra("room_info_id",dataBean.room_info_id);
+                            intent.putExtra("id",dataBean.user_info_id);
+                            startActivity(intent);
 
+                        }else  {
+                            CanTingAppLication.landType=1;
+                            Intent intent = new Intent(getActivity(), AliyunPlayerSkinActivityMin.class);
+                            intent.putExtra("url",dataBean.video_url);
+                            intent.putExtra("name",dataBean.video_name);
+                            intent.putExtra("room_info_id",dataBean.room_info_id);
+                            intent.putExtra("id",dataBean.user_info_id);
+                            startActivity(intent);
 
+                        }
+                    }
 
                 }else {
-//                    Intent intent = new Intent(getActivity(), DemoGuest.class);
-//                    intent.putExtra("room",dataBean.room_number);
-//                    intent.putExtra("id",dataBean.room_info_id);
-//                    startActivity(intent);
+
+                        if(dataBean.type.equals("2")){
+                            CanTingAppLication.landType=0;
+                            Intent intent = new Intent(getActivity(), AliyunPlayerSkinActivity.class);
+                            intent.putExtra("id", dataBean.user_info_id);
+                            intent.putExtra("room_info_id", dataBean.room_info_id);
+                            startActivity(intent);
+                        }else {
+                            CanTingAppLication.landType=1;
+                            Intent intent = new Intent(getActivity(), AliyunPlayerSkinActivityMin.class);
+                            intent.putExtra("id", dataBean.user_info_id);
+                            intent.putExtra("room_info_id", dataBean.room_info_id);
+                            startActivity(intent);
+                        }
+
+
                 }
 
-//                Intent guanZhongIntent = new Intent(getActivity(), GuanZhongActivity.class);
-//                guanZhongIntent.putExtra("playurl",url);
-//                startActivity(guanZhongIntent);
+
 
             }
         });
@@ -346,6 +413,7 @@ public class ZhiBo_HotFrag extends LazyFragment implements GetLiveViewCallBack {
     @Override
     public void onResume() {
         super.onResume();
+        reflash();
 
     }
     private View views=null;
@@ -356,8 +424,8 @@ public class ZhiBo_HotFrag extends LazyFragment implements GetLiveViewCallBack {
     public void showPopwindow(String name) {
 
         views = View.inflate(getActivity(), R.layout.tell_popwindow_view, null);
-        tv_content = (TextView) views.findViewById(R.id.tv_content);
-        close = (ImageView) views.findViewById(R.id.close);
+        tv_content = views.findViewById(R.id.tv_content);
+        close = views.findViewById(R.id.close);
 
         tv_content.setText(name);
         final MarkaBaseDialog dialog = BaseDailogManager.getInstance().getBuilder(getActivity()).setMessageView(views).create();
@@ -378,6 +446,14 @@ public class ZhiBo_HotFrag extends LazyFragment implements GetLiveViewCallBack {
 //        mZhiBoHotRecyAdapter.setData(zhiBo_guanZhongBean.getData());
         onDataLoaded(loadtype,!(zhiBo_guanZhongBean.getData().size()<12),zhiBo_guanZhongBean.getData());
     }
+
+    @Override
+    public void successRecordLive(ZhiBo_GuanZhongBean zhiBo_guanZhongBean, int loadtype) {
+        hidePress();
+//        mZhiBoHotRecyAdapter.setData(zhiBo_guanZhongBean.getData());
+        onDataLoaded(loadtype,!(zhiBo_guanZhongBean.getData().size()<12),zhiBo_guanZhongBean.getData());
+    }
+
     private boolean isFirst=false;
     @Override
     public void lazyView() {

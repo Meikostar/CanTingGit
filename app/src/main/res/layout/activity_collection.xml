@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:navigationLeft_img="@drawable/back_white"
-        app:navigationTitle="@string/gzdp" />
+        app:navigationTitle="已关注的店铺" />
     <com.zhongchuang.canting.widget.loadingView.LoadingPager
         android:layout_weight="1"
         android:id="@+id/loadingView"

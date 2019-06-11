@@ -12,7 +12,7 @@ import android.widget.GridView;
 import android.widget.PopupWindow;
 
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.app.CanTingAppLication;
 import com.zhongchuang.canting.been.ShareBean;
 import com.zhongchuang.canting.utils.ThirdShareManager;
@@ -48,11 +48,11 @@ public class SharePopupWindow extends PopupWindow {
     public void showShareWindow() {
         View view = LayoutInflater.from(context).inflate(R.layout.share_layout, null);
 
-        GridView gridView = (GridView) view.findViewById(R.id.share_gridview);
+        GridView gridView = view.findViewById(R.id.share_gridview);
         ShareAdapter adapter = new ShareAdapter(context);
         gridView.setAdapter(adapter);
 
-        Button btn_cancel = (Button) view.findViewById(R.id.btn_cancel);
+        Button btn_cancel = view.findViewById(R.id.btn_cancel);
         // 取消按钮
         btn_cancel.setOnClickListener(new View.OnClickListener() {
 
@@ -70,6 +70,7 @@ public class SharePopupWindow extends PopupWindow {
         this.setHeight(LayoutParams.WRAP_CONTENT);
         // 设置SelectPicPopupWindow弹出窗体可点击
         this.setFocusable(true);
+        this.setOutsideTouchable(true);
         // 设置SelectPicPopupWindow弹出窗体动画效果
 //        this.setAnimationStyle(R.style.AnimBottom);
         // 实例化一个ColorDrawable颜色为半透明
@@ -91,8 +92,12 @@ public class SharePopupWindow extends PopupWindow {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position,
                                 long id) {
-            if(type!=0){
+            if(type==1){
                 shares(position);
+            }else if(type==-1){
+                shareProduct(position);
+            }else if(type==-2){
+                shareAPP(position);
             }else {
                 share(position);
             }
@@ -129,6 +134,33 @@ public class SharePopupWindow extends PopupWindow {
             ThirdShareManager.getInstance().shareWeChats(CanTingAppLication.shareBean,true);
         } else if (position == 1) {
             ThirdShareManager.getInstance().shareWeChats(CanTingAppLication.shareBean,false);
+        }
+    }
+
+    /**
+     * 分享
+     *
+     * @param position
+     */
+    private void shareProduct(int position) {
+
+        if (position == 0) {
+            ThirdShareManager.getInstance().shareWeChats(CanTingAppLication.productBean,true);
+        } else if (position == 1) {
+            ThirdShareManager.getInstance().shareWeChats(CanTingAppLication.productBean,false);
+        }
+    }
+    /**
+     * 分享
+     *
+     * @param position
+     */
+    private void shareAPP(int position) {
+
+        if (position == 0) {
+            ThirdShareManager.getInstance().shareWeChats(CanTingAppLication.appbean,true);
+        } else if (position == 1) {
+            ThirdShareManager.getInstance().shareWeChats(CanTingAppLication.appbean,false);
         }
     }
     private ShareBean mGoodsShareBean;

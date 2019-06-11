@@ -8,7 +8,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.ChatActivity;
 import com.zhongchuang.canting.adapter.OrderItemAdapter;
 import com.zhongchuang.canting.base.BaseActivity1;
@@ -104,6 +104,9 @@ public class OrderDetailActivity extends BaseActivity1 implements BaseContract.V
 
             @Override
             public void navigationRight() {
+                if(data==null){
+                    return;
+                }
                 if(TextUtil.isNotEmpty(data.merchantUserId)){
                     Intent intentc = new Intent(OrderDetailActivity.this, ChatActivity.class);
                     intentc.putExtra("userId",data.merchantUserId );
@@ -190,9 +193,9 @@ public class OrderDetailActivity extends BaseActivity1 implements BaseContract.V
         TextView title = null;
         EditText reson = null;
         View views = View.inflate(OrderDetailActivity.this, R.layout.base_dailog_view, null);
-        sure = (TextView) views.findViewById(R.id.txt_sure);
-        cancel = (TextView) views.findViewById(R.id.txt_cancel);
-        title = (TextView) views.findViewById(R.id.txt_title);
+        sure = views.findViewById(R.id.txt_sure);
+        cancel = views.findViewById(R.id.txt_cancel);
+        title = views.findViewById(R.id.txt_title);
 
         title.setText(R.string.qdqxgdd);
         final MarkaBaseDialog dialog = BaseDailogManager.getInstance().getBuilder(OrderDetailActivity.this).setMessageView(views).create();

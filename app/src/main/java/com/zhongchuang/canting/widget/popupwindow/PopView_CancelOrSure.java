@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 
 /**
  * Created by xzh on 15/8/14.
@@ -39,9 +39,9 @@ public class PopView_CancelOrSure extends BasePopView {
     @Override
     protected View initPopView(LayoutInflater infalter) {
         View v = infalter.inflate(R.layout.op_circular_dialog, null);
-        txt_title = (TextView) v.findViewById(R.id.txt_title);
-        txt_cancel = (TextView) v.findViewById(R.id.txt_cancel);
-        txt_sure = (TextView) v.findViewById(R.id.txt_sure);
+        txt_title = v.findViewById(R.id.txt_title);
+        txt_cancel = v.findViewById(R.id.txt_cancel);
+        txt_sure = v.findViewById(R.id.txt_sure);
         line = v.findViewById(R.id.line);
 
         txt_cancel.setOnClickListener(this);

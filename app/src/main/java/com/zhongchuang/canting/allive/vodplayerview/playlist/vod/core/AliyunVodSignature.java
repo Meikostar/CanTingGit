@@ -109,8 +109,7 @@ public class AliyunVodSignature {
      * @return
      * @throws UnsupportedEncodingException
      */
-    public static String newStringByBase64(byte[] bytes)
-            throws UnsupportedEncodingException {
+    public static String newStringByBase64(byte[] bytes) {
         if (bytes == null || bytes.length == 0) {
             return null;
         }

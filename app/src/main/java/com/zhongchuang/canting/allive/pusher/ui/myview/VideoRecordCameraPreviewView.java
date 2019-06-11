@@ -54,7 +54,7 @@ public class VideoRecordCameraPreviewView extends LinearLayout {
         View view = findViewById(R.id.record_camera_layout);
         viewWidth = view.getLayoutParams().width;
         viewHeight = view.getLayoutParams().height;
-        cameraPreview = (SurfaceView) findViewById(R.id.camera_preview);
+        cameraPreview = findViewById(R.id.camera_preview);
         cameraPreview.getHolder().addCallback(mCallback);
     }
 

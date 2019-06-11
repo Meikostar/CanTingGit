@@ -6,7 +6,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.adapter.AddressAdapter;
 import com.zhongchuang.canting.base.BaseActivity1;
 import com.zhongchuang.canting.been.AddressBase;
@@ -153,10 +153,10 @@ public class AddressListActivity extends BaseActivity1 implements BaseContract.V
     public void showPopwindow(final String id,final String isdefat) {
 
         views = View.inflate(this, R.layout.del_friend, null);
-        sure = (TextView) views.findViewById(R.id.txt_sure);
-        cancel = (TextView) views.findViewById(R.id.txt_cancel);
-        title = (TextView) views.findViewById(R.id.tv_title);
-        reson = (EditText) views.findViewById(R.id.edit_reson);
+        sure = views.findViewById(R.id.txt_sure);
+        cancel = views.findViewById(R.id.txt_cancel);
+        title = views.findViewById(R.id.tv_title);
+        reson = views.findViewById(R.id.edit_reson);
         title.setText(R.string.qdscgdz);
         final MarkaBaseDialog dialog = BaseDailogManager.getInstance().getBuilder(this).setMessageView(views).create();
         dialog.show();

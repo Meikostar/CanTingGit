@@ -63,8 +63,8 @@ public class MultilayerGridAdapter extends BaseAdapter{
         if(convertView == null){
             convertView = inflater.inflate(R.layout.alivc_home_item_layout,parent,false);
             holder = new ViewHolder();
-            holder.proName = (TextView) convertView.findViewById(R.id.tv_item_title);
-            holder.imgUrl = (ImageView) convertView.findViewById(R.id.iv_item_image);
+            holder.proName = convertView.findViewById(R.id.tv_item_title);
+            holder.imgUrl = convertView.findViewById(R.id.iv_item_image);
             int width = (ScreenUtils.getWidth(context.get()) - 100)/2;
             int height = width *  2 / 3 ;
             //item的layoutparams用GridView.LayoutParams或者  AbsListView.LayoutParams设置，不能用LinearLayout.LayoutParams

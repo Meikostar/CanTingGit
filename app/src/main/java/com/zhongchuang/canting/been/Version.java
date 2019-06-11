@@ -17,7 +17,8 @@ public class Version extends BaseResponse{
 //                "id": 6
 //        }
 
-        public Version data;
+
+        public List<Version> data;
 
 
         public String id;

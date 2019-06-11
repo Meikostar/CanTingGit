@@ -13,7 +13,7 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.adapter.TypeItemAdapter;
 import com.zhongchuang.canting.been.Param;
 import com.zhongchuang.canting.utils.DensityUtil;

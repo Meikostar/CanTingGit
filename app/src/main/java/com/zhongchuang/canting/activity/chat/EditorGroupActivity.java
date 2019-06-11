@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.exceptions.HyphenateException;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.adapter.BannerAdapters;
 import com.zhongchuang.canting.adapter.BannerAdaptes;
 import com.zhongchuang.canting.base.BaseActivity1;

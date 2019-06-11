@@ -704,7 +704,7 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
                     tabViewId, null);
             _Root.setTag(this);
 
-            title = (TextView) _Root.findViewById(com.zhongchuang.canting.R.id.aliyun_tv_title);
+            title = _Root.findViewById(com.zhongchuang.canting.R.id.aliyun_tv_title);
 
             final GestureDetectorCompat gesture = new GestureDetectorCompat(
                     _Root.getContext(),

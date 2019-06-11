@@ -34,7 +34,7 @@ import android.widget.Toast;
 
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.exceptions.HyphenateException;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.ChatActivity;
 import com.zhongchuang.canting.app.CanTingAppLication;
 import com.zhongchuang.canting.been.SubscriptionBean;
@@ -105,9 +105,9 @@ public class GroupsActivity extends BaseActivity {
 		getGroupList( );
 		instance = this;
 		inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-		groupListView = (ListView) findViewById(R.id.list);
-		back = (ImageView) findViewById(R.id.tongxunlu_bacbut);
-		add = (ImageView) findViewById(R.id.iv_add);
+		groupListView = findViewById(R.id.list);
+		back = findViewById(R.id.tongxunlu_bacbut);
+		add = findViewById(R.id.iv_add);
 		//show group list
 
 //		model=new FriendModel();
@@ -116,7 +116,7 @@ public class GroupsActivity extends BaseActivity {
 		groupAdapter = new GroupsListAdapter(this,grouplist);
 		groupListView.setAdapter(groupAdapter);
 
-		swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_layout);
+		swipeRefreshLayout = findViewById(R.id.swipe_layout);
 		swipeRefreshLayout.setColorSchemeResources(R.color.holo_blue_bright, R.color.holo_green_light,
 				R.color.holo_orange_light, R.color.holo_red_light);
 		//pull down to refresh
@@ -160,7 +160,8 @@ public class GroupsActivity extends BaseActivity {
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
 				GROUP item = groupAdapter.getItem(position);
-
+				CanTingAppLication.GroupName=item.groupname;
+				CanTingAppLication.headimage=item.headimage;
 					Intent intent = new Intent(GroupsActivity.this, ChatActivity.class);
 					// it is group chat
 					intent.putExtra(EaseConstant.EXTRA_CHAT_TYPE, Constant.CHATTYPE_GROUP);
@@ -198,9 +199,9 @@ public class GroupsActivity extends BaseActivity {
 	}
     public void showDailog(final int id){
 		View views = View.inflate(GroupsActivity.this, R.layout.base_dailog_view, null);
-		TextView sure = (TextView) views.findViewById(R.id.txt_sure);
-		TextView cancel = (TextView) views.findViewById(R.id.txt_cancel);
-		TextView title = (TextView) views.findViewById(R.id.txt_title);
+		TextView sure = views.findViewById(R.id.txt_sure);
+		TextView cancel = views.findViewById(R.id.txt_cancel);
+		TextView title = views.findViewById(R.id.txt_title);
 		title.setText(getString(R.string.quedingshanchugaiqz));
 
 		final MarkaBaseDialog dialog = BaseDailogManager.getInstance().getBuilder(GroupsActivity.this).setMessageView(views).create();

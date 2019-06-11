@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.view.View;
 
 import com.google.gson.Gson;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.HomeActivity;
 import com.zhongchuang.canting.app.CanTingAppLication;
 import com.zhongchuang.canting.base.BaseActivity1;
@@ -173,6 +173,7 @@ public class NewAddressActivity extends BaseActivity1 implements BaseContract.Vi
             navigationBar.setNaviTitle(getString(R.string.bjshdz));
             initAddressView(addressBase);
         } else {
+            checkSetDefault.setChecked(true);
             navigationBar.setNaviTitle(getString(R.string.xzshdz));
         }
 

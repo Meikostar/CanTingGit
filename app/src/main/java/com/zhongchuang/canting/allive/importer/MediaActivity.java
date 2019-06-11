@@ -362,13 +362,13 @@ public class MediaActivity extends Activity implements View.OnClickListener {
                 });
             }
         });
-        mBtnNextStep = (Button) findViewById(R.id.btn_next_step);
-        galleryView = (RecyclerView) findViewById(R.id.gallery_media);
-        title = (TextView) findViewById(R.id.gallery_title);
+        mBtnNextStep = findViewById(R.id.btn_next_step);
+        galleryView = findViewById(R.id.gallery_media);
+        title = findViewById(R.id.gallery_title);
         title.setText(R.string.gallery_all_media);
-        mEtVideoPath = (EditText) findViewById(R.id.et_video_path);
+        mEtVideoPath = findViewById(R.id.et_video_path);
 //        mEtVideoPath.setText("sdcard/test.gif;sdcard/2A965369-89B.A-495A-AF84-1F4EC63D390F.gif");
-        back = (ImageView) findViewById(R.id.gallery_closeBtn);
+        back = findViewById(R.id.gallery_closeBtn);
         back.setOnClickListener(this);
         storage = new MediaStorage(this, new JSONSupportImpl());
         thumbnailGenerator = new ThumbnailGenerator(this);
@@ -410,8 +410,8 @@ public class MediaActivity extends Activity implements View.OnClickListener {
                 mTransCoder.addMedia(infoCopy);
             }
         });
-        mRvSelectedVideo = (RecyclerView) findViewById(R.id.rv_selected_video);
-        mTvTotalDuration = (TextView) findViewById(R.id.tv_duration_value);
+        mRvSelectedVideo = findViewById(R.id.rv_selected_video);
+        mTvTotalDuration = findViewById(R.id.tv_duration_value);
         //最大时长5分钟
         mSelectedVideoAdapter = new SelectedMediaAdapter(new MediaImageLoader(this), 5 * 60 * 1000);
         mRvSelectedVideo.setAdapter(mSelectedVideoAdapter);
@@ -535,9 +535,9 @@ public class MediaActivity extends Activity implements View.OnClickListener {
     public void showPopWindows() {
 
         View view = LayoutInflater.from(MediaActivity.this).inflate(R.layout.chat_phone_popwindow_view, null);
-        TextView tv_camera = (TextView) view.findViewById(R.id.tv_camera);
-        TextView tv_choose = (TextView) view.findViewById(R.id.tv_choose);
-        TextView tv_cancel = (TextView) view.findViewById(R.id.tv_cancel);
+        TextView tv_camera = view.findViewById(R.id.tv_camera);
+        TextView tv_choose = view.findViewById(R.id.tv_choose);
+        TextView tv_cancel = view.findViewById(R.id.tv_cancel);
         tv_choose.setText("编辑视频");
         tv_camera.setText("直接上传");
         tv_camera.setOnClickListener(new View.OnClickListener() {
@@ -551,6 +551,7 @@ public class MediaActivity extends Activity implements View.OnClickListener {
                     Intent intent = new Intent(MediaActivity.this, PublishActivity.class);
                     intent.putExtra(PublishActivity.KEY_PARAM_THUMBNAIL, thpath);
                     intent.putExtra(PublishActivity.KEY_PARAM_CONFIG, path);
+                    intent.putExtra("type", mOutputResolution[0]>mOutputResolution[1]?2:1);
                     startActivity(intent);
                     finish();
                 }
@@ -605,16 +606,33 @@ public class MediaActivity extends Activity implements View.OnClickListener {
         if (v == back) {
             finish();
         } else if (v.getId() == R.id.btn_next_step) {//点击下一步
-           showPopWindows();
+            chooses(1);
         }
     }
 
 
     public void chooses(int poition){
 
-        String videoPath = mEtVideoPath.getText().toString();
+        List<MediaInfo> video = mSelectedVideoAdapter.getData();
+        String videoPath="";
+        if(video!=null&&video.size()>0){
+            int i=0;
+            for(MediaInfo info:video){
+                if(i==0){
+                    videoPath=info.filePath;
+                }else {
+                    videoPath=videoPath+","+info.filePath;
+                }
+                i++;
+            }
+
+        }
+
+
         ArrayList<MediaInfo> resultVideos = new ArrayList<>();
         if(videoPath != null && !videoPath.isEmpty()){
+
+
             String[] videos = videoPath.split(";");
             for(String path : videos){
                 MediaInfo mediaInfo = new MediaInfo();
@@ -767,10 +785,11 @@ public class MediaActivity extends Activity implements View.OnClickListener {
             String projectJsonPath = mImport.generateProjectConfigure();
 
             if (projectJsonPath != null ) {
-                Intent intent = new Intent(this,EditorActivity.class);
-                intent.putExtra("video_param", mVideoParam);
-                intent.putExtra("project_json_path", projectJsonPath);
-                startActivity(intent);
+                Intent intents = new Intent(this,EditorActivity.class);
+                intents.putExtra("video_param", mVideoParam);
+                intents.putExtra("project_json_path", projectJsonPath);
+                startActivity(intents);
+
             }
             return;
         }

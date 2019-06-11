@@ -142,10 +142,10 @@ public class AlivcDialog extends Dialog {
      * 初始化界面控件
      */
     private void initView() {
-        btnConfirm = (Button) findViewById(R.id.yes);
-        btnCancel = (Button) findViewById(R.id.no);
-        ivDialogIcon = (ImageView) findViewById(R.id.iv_dialog_icon);
-        tvMessage = (TextView) findViewById(R.id.tv_message);
+        btnConfirm = findViewById(R.id.yes);
+        btnCancel = findViewById(R.id.no);
+        ivDialogIcon = findViewById(R.id.iv_dialog_icon);
+        tvMessage = findViewById(R.id.tv_message);
     }
 
     /**

@@ -53,9 +53,9 @@ public class FilterChooserMediator extends BaseChooser
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = LayoutInflater.from(getActivity()).inflate(R.layout.aliyun_svideo_layout_filter_container, container);
-        mViewPager = (ViewPager) rootView.findViewById(R.id.aliyun_svideo_filter_content_container);
-        mPagerTab = (PagerSlidingTabStrip) rootView.findViewById(R.id.aliyun_svideo_filter_content_container_indicator);
-        mCancelBtn = (ImageView) rootView.findViewById(R.id.aliyun_svideo_btn_cancel);
+        mViewPager = rootView.findViewById(R.id.aliyun_svideo_filter_content_container);
+        mPagerTab = rootView.findViewById(R.id.aliyun_svideo_filter_content_container_indicator);
+        mCancelBtn = rootView.findViewById(R.id.aliyun_svideo_btn_cancel);
         mCancelBtn.setOnClickListener(this);
         return rootView;
     }

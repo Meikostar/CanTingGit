@@ -9,7 +9,7 @@ import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMFileMessageBody;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.util.FileUtils;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 
 import java.io.File;
 
@@ -20,7 +20,7 @@ public class EaseShowNormalFileActivity extends EaseBaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.ease_activity_show_file);
-		progressBar = (ProgressBar) findViewById(R.id.progressBar);
+		progressBar = findViewById(R.id.progressBar);
 
 		final EMMessage message = getIntent().getParcelableExtra("msg");
         if (!(message.getBody() instanceof EMFileMessageBody)) {

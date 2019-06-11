@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#f5f5f5">
+
+
+        <TextView
+
+            android:id="@+id/tv_video"
+            android:background="@drawable/selector_common_item"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:textSize="17.5sp"
+            android:textColor="@color/slow_black"
+            android:text="上传视频"
+            android:gravity="center"/>
+         <View
+             android:id="@+id/line"
+             android:layout_width="match_parent"
+             android:layout_height="0.3dp"
+             android:background="@color/linecolor"/>
+
+        <TextView
+            android:id="@+id/tv_photo"
+            android:background="@drawable/selector_common_item"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:textSize="17.5sp"
+            android:textColor="@color/slow_black"
+            android:text="@string/cxcpsxz"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:background="@drawable/selector_common_item"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:textSize="17.5sp"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/slow_black"
+            android:text="@string/cancel"
+            android:gravity="center"/>
+
+    </LinearLayout>
+
+</LinearLayout>

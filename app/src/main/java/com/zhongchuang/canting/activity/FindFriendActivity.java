@@ -12,7 +12,9 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,15 +22,14 @@ import android.widget.Toast;
 import com.google.zxing.client.android.activity.CaptureActivity;
 import com.hyphenate.EMContactListener;
 import com.hyphenate.chat.EMClient;
+import com.zhongchuang.canting.R;
+import com.zhongchuang.canting.activity.chat.AddFriendActivity;
+import com.zhongchuang.canting.adapter.Liaotian_haoyouRecAdapter;
 import com.zhongchuang.canting.been.BaseResponse;
+import com.zhongchuang.canting.been.FriendSearchBean;
 import com.zhongchuang.canting.been.GAME;
 import com.zhongchuang.canting.been.SubscriptionBean;
-import com.zhongchuang.canting.R;;
-import com.zhongchuang.canting.adapter.Liaotian_haoyouRecAdapter;
-import com.zhongchuang.canting.been.FriendSearchBean;
-import com.zhongchuang.canting.easeui.ui.AddFriendActivity;
 import com.zhongchuang.canting.easeui.ui.BaseActivity;
-import com.zhongchuang.canting.easeui.ui.MessageActivity;
 import com.zhongchuang.canting.hud.ToastUtils;
 import com.zhongchuang.canting.net.BaseCallBack;
 import com.zhongchuang.canting.net.HXRequestService;
@@ -74,6 +75,10 @@ public class FindFriendActivity extends BaseActivity {
     RecyclerView findFrdRecy;//清单列表
     @BindView(R.id.iv_scan)
     ImageView iv_scan;
+    @BindView(R.id.search_clear)
+    ImageButton searchClear;
+    @BindView(R.id.tv_seach)
+    Button tvSeach;
 //    private ArrayList<Integer> mList;
 
 
@@ -104,12 +109,14 @@ public class FindFriendActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        game= (GAME) getIntent().getSerializableExtra("data");
-        StatusBarUtils.setWindowStatusBarColor( this,getResources().getColor(R.color.wordColor));
+        game = (GAME) getIntent().getSerializableExtra("data");
+        StatusBarUtils.setWindowStatusBarColor(this, getResources().getColor(R.color.wordColor));
         setContentView(R.layout.liaotian_findfriend);
         ButterKnife.bind(this);
 
         initView();
+        mPhone="1";
+        SearchNet();
 //        tongXunLuFragment = new TongXunLuFragment();
         EMClient.getInstance().contactManager().setContactListener(new EMContactListener() {
 
@@ -188,7 +195,7 @@ public class FindFriendActivity extends BaseActivity {
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
 
                 mPhone = findFriendsearch.getText().toString().trim();
-                LogUtil.d("键盘搜索相应===="+mPhone);
+                LogUtil.d("键盘搜索相应====" + mPhone);
                 if (!TextUtils.isEmpty(mPhone)) {
                     SearchNet();
                 }
@@ -208,7 +215,16 @@ public class FindFriendActivity extends BaseActivity {
                         .request();
             }
         });
-
+        tvSeach.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPhone = findFriendsearch.getText().toString().trim();
+                LogUtil.d("键盘搜索相应====" + mPhone);
+                if (!TextUtils.isEmpty(mPhone)) {
+                    SearchNet();
+                }
+            }
+        });
         findFriendsearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -222,7 +238,7 @@ public class FindFriendActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (TextUtils.isEmpty(editable.toString())){
+                if (TextUtils.isEmpty(editable.toString())) {
                     mLiaotian_haoyouRecAdapter.clear();
                 }
             }
@@ -230,6 +246,7 @@ public class FindFriendActivity extends BaseActivity {
 
 
     }
+
     @PermissionSuccess(requestCode = PermissionConst.REQUECT_CODE_CAMERA)
     public void requestSuccess() {
         Intent intent = new Intent(FindFriendActivity.this, CaptureActivity.class);
@@ -242,45 +259,47 @@ public class FindFriendActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            if(requestCode==2){
+            if (requestCode == 2) {
                 finish();
-            }else {
+            } else {
 
 
                 String result = data.getStringExtra("result");
                 String[] userids = result.split(",");
-                if(result.contains("@@!!##$$%%")){
+                if (result.contains("@@!!##$$%%")) {
                     if (userids == null || userids.length != 3) {
                         return;
                     }
                     showPopwindows(userids[0], userids[1]);
-                }else {
+                } else {
                     if (userids == null || userids.length != 3) {
                         return;
                     }
                     FriendSearchBean.DataBean dataBean = new FriendSearchBean.DataBean();
                     dataBean.setNickname(userids[0]);
                     dataBean.setRingLetterName(userids[1]);
-                    Intent intent = new Intent(FindFriendActivity.this, com.zhongchuang.canting.activity.chat.AddFriendActivity.class);
-                    intent.putExtra("data",game);
-                    intent.putExtra("datas",dataBean);
-                    startActivityForResult(intent,2);
+                    Intent intent = new Intent(FindFriendActivity.this, AddFriendActivity.class);
+                    intent.putExtra("data", game);
+                    intent.putExtra("datas", dataBean);
+                    startActivityForResult(intent, 2);
 //                    showPopwindow(userids[0], userids[1]);
                 }
             }
 
         }
     }
+
     private MarkaBaseDialog dialog;
+
     public void showPopwindows(final String name, final String id) {
         TextView sure = null;
         TextView cancel = null;
         TextView title = null;
         EditText reson = null;
         View views = View.inflate(this, R.layout.base_dailog_view, null);
-        sure = (TextView) views.findViewById(R.id.txt_sure);
-        cancel = (TextView) views.findViewById(R.id.txt_cancel);
-        title = (TextView) views.findViewById(R.id.txt_title);
+        sure = views.findViewById(R.id.txt_sure);
+        cancel = views.findViewById(R.id.txt_cancel);
+        title = views.findViewById(R.id.txt_title);
 
         title.setText("加入 " + name + " 群");
         dialog = BaseDailogManager.getInstance().getBuilder(this).setMessageView(views).create();
@@ -296,13 +315,14 @@ public class FindFriendActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
 
-                addFriendList(id,name);
+                addFriendList(id, name);
                 dialog.dismiss();
 
             }
         });
     }
-    public void addFriendList(String id , final String groupsName){
+
+    public void addFriendList(String id, final String groupsName) {
 
         Map<String, String> map = new HashMap<>();
 //        map.put("userInfoId", CanTingAppLication.userId);
@@ -314,8 +334,8 @@ public class FindFriendActivity extends BaseActivity {
         api.addFriendList(map).enqueue(new BaseCallBack<BaseResponse>() {
             @Override
             public void onSuccess(BaseResponse group) {
-                RxBus.getInstance().send(SubscriptionBean.createSendBean(SubscriptionBean.REFRESSH,""));
-                ToastUtils.showNormalToast(getString(R.string.nyjs)+groupsName+getString(R.string.qcy));
+                RxBus.getInstance().send(SubscriptionBean.createSendBean(SubscriptionBean.REFRESSH, ""));
+                ToastUtils.showNormalToast(getString(R.string.nyjs) + groupsName + getString(R.string.qcy));
             }
 
             @Override
@@ -325,15 +345,16 @@ public class FindFriendActivity extends BaseActivity {
             }
         });
     }
+
     public void showPopwindow(final String name, final String id) {
         TextView sure = null;
         TextView cancel = null;
         TextView title = null;
         EditText reson = null;
         View views = View.inflate(this, R.layout.base_dailog_view, null);
-        sure = (TextView) views.findViewById(R.id.txt_sure);
-        cancel = (TextView) views.findViewById(R.id.txt_cancel);
-        title = (TextView) views.findViewById(R.id.txt_title);
+        sure = views.findViewById(R.id.txt_sure);
+        cancel = views.findViewById(R.id.txt_cancel);
+        title = views.findViewById(R.id.txt_title);
 
         title.setText(getString(R.string.add) + name + getString(R.string.why));
         dialog = BaseDailogManager.getInstance().getBuilder(this).setMessageView(views).create();
@@ -366,6 +387,7 @@ public class FindFriendActivity extends BaseActivity {
 
         }
     }
+
     private void addFriendRequest(final String nickName, String hxNameId) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(netService.TOM_BASE_URL)
@@ -411,7 +433,7 @@ public class FindFriendActivity extends BaseActivity {
         String userInfoId = SpUtil.getString(this, "userInfoId", "");
         String token = SpUtil.getString(this, "token", "");
         String pageNum = "1";
-        String pageSize = "100";
+        String pageSize = "1000";
         String findStr = mPhone;
 
         if (userInfoId.equals("") || TextUtils.isEmpty(userInfoId)
@@ -449,10 +471,10 @@ public class FindFriendActivity extends BaseActivity {
                     mLiaotian_haoyouRecAdapter.setOnAddClickListener(new Liaotian_haoyouRecAdapter.OnItemAddListener() {
                         @Override
                         public void onItemClick(FriendSearchBean.DataBean dataBean) {
-                            Intent intent = new Intent(FindFriendActivity.this, com.zhongchuang.canting.activity.chat.AddFriendActivity.class);
-                            intent.putExtra("data",game);
-                            intent.putExtra("datas",dataBean);
-                            startActivityForResult(intent,2);
+                            Intent intent = new Intent(FindFriendActivity.this, AddFriendActivity.class);
+                            intent.putExtra("data", game);
+                            intent.putExtra("datas", dataBean);
+                            startActivityForResult(intent, 2);
                         }
                     });
                     //子条目点击事件处理
@@ -479,7 +501,6 @@ public class FindFriendActivity extends BaseActivity {
                             Toast.makeText(FindFriendActivity.this, "long click " + position, Toast.LENGTH_SHORT).show();
                         }
                     });
-
 
 
                     call.cancel();

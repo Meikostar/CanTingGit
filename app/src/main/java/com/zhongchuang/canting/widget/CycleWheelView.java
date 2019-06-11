@@ -19,7 +19,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -208,7 +208,7 @@ public class CycleWheelView extends ListView {
             if (itemView == null) {
                 continue;
             }
-            TextView labelTv = (TextView) itemView.findViewById(mItemLabelTvId);
+            TextView labelTv = itemView.findViewById(mItemLabelTvId);
             if (position == i) {
                 labelTv.setTextColor(mLabelSelectColor);
                 if(LabelSelectSize!=-1){
@@ -489,7 +489,7 @@ public class CycleWheelView extends ListView {
     }
 
     public interface WheelItemSelectedListener {
-        public void onItemSelected(int position, String label);
+        void onItemSelected(int position, String label);
     }
 
     public class CycleWheelViewException extends Exception {
@@ -540,7 +540,7 @@ public class CycleWheelView extends ListView {
             if (convertView == null) {
                 convertView = LayoutInflater.from(getContext()).inflate(mItemLayoutId, null);
             }
-            TextView textView = (TextView) convertView.findViewById(mItemLabelTvId);
+            TextView textView = convertView.findViewById(mItemLabelTvId);
             if (position < mWheelSize / 2
                     || (!cylceEnable && position >= mData.size() + mWheelSize / 2)) {
                 textView.setText("");

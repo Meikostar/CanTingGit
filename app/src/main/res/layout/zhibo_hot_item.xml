@@ -27,7 +27,7 @@
         <RelativeLayout
             android:id="@+id/rl_bg"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="120dp"
             android:orientation="vertical">
 
             <ImageView
@@ -39,15 +39,7 @@
                 android:layout_alignParentTop="true"
                 android:scaleType="fitXY"
               />
-            <ImageView
-                android:id="@+id/iv_bg"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:scaleType="fitXY"
-                />
+
             <LinearLayout
                 android:layout_marginBottom="3dp"
                 android:layout_alignParentBottom="true"
@@ -75,10 +67,11 @@
                     />
 
                 <ImageView
-
+                    android:id="@+id/iv_man"
+                    android:visibility="gone"
                     android:layout_width="15dp"
                     android:layout_height="14dp"
-                    android:scaleType="fitXY"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/fensi" />
 
                 <TextView

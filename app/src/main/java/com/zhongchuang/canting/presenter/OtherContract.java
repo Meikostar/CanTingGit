@@ -84,10 +84,15 @@ public class OtherContract {
         /**
          * 获取token接口
          */
-        void uploadVideo(String coverImage,String videoName,String videoUrl);
+        void uploadVideo(String coverImage,String videoName,String videoUrl,int type);
         /**
          * 设置推流断流回调地址接口
          */
-        void setLiveNotifyUrl();
+        void setLiveNotifyUrl(int type);
+
+        /**
+         * 视频类型
+         */
+        void updateType(String id,String type);
     }
 }

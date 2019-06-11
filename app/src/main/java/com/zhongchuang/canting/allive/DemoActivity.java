@@ -93,7 +93,7 @@ public class DemoActivity extends Activity {
     }
 
     private void initView() {
-        demoView = (RecyclerView) findViewById(R.id.demo_view);
+        demoView = findViewById(R.id.demo_view);
         demoView.setAdapter(demoAdapter);
         demoView.setLayoutManager(new GridLayoutManager(this, 2));
         demoAdapter.setOnItemClickListener(new OnItemClickListener() {
@@ -161,8 +161,8 @@ public class DemoActivity extends Activity {
             public DemoHolder(View itemView, OnItemClickListener listener) {
                 super(itemView);
                 this.listener = listener;
-                demoIcon = (ImageView) itemView.findViewById(R.id.demo_icon);
-                demoTitle = (TextView) itemView.findViewById(R.id.demo_title);
+                demoIcon = itemView.findViewById(R.id.demo_icon);
+                demoTitle = itemView.findViewById(R.id.demo_title);
                 itemView.setOnClickListener(this);
             }
 

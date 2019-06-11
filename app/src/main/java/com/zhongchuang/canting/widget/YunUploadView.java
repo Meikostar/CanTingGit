@@ -14,7 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.been.ImageOptions;
 import com.zhongchuang.canting.utils.StringUtil;
 
@@ -59,16 +59,19 @@ public class YunUploadView extends LinearLayout {
     private void init(Context context){
         mContext = context;
         mView = LayoutInflater.from(context).inflate(R.layout.view_upload_image,this);
-        mImageViewContent = (ImageView) mView.findViewById(R.id.iv_image_content);
-        mImageViewDelete = (ImageView)mView.findViewById(R.id.iv_delete);
-        mProgress = (ProgressBar)mView.findViewById(R.id.pb_upload_progress);
-        mTextViewReady = (TextView)mView.findViewById(R.id.tv_ready_upload);
+        mImageViewContent = mView.findViewById(R.id.iv_image_content);
+        mImageViewDelete = mView.findViewById(R.id.iv_delete);
+        mProgress = mView.findViewById(R.id.pb_upload_progress);
+        mTextViewReady = mView.findViewById(R.id.tv_ready_upload);
         mViewMask = mView.findViewById(R.id.view_mask);
-        mTextViewMainImage = (TextView) mView.findViewById(R.id.tv_main_image);
-        mImageViewVideo = (ImageView)mView.findViewById(R.id.iv_is_video);
+        mTextViewMainImage = mView.findViewById(R.id.tv_main_image);
+        mImageViewVideo = mView.findViewById(R.id.iv_is_video);
     }
     public void setDiss(){
         mImageViewDelete.setVisibility(View.GONE);
+    }
+    public void setShow(){
+        mImageViewDelete.setVisibility(View.VISIBLE);
     }
     public void setContent(String imagePath, ImageOptions options){
         if (StringUtil.isEmpty(imagePath)){

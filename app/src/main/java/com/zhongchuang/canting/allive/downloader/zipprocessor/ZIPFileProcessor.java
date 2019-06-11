@@ -44,9 +44,10 @@ public class ZIPFileProcessor implements FileProcessor {
                 if(apf != null){
                     apf.close();
                 }
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
+
         }
 //        try {
 //            ZipUtils.unZip(file.getAbsolutePath(), mPackageDir.getAbsolutePath());

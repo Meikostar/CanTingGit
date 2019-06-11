@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.been.Type;
 import com.zhongchuang.canting.utils.DensityUtil;
 import com.zhongchuang.canting.utils.TextUtil;
@@ -63,8 +63,8 @@ public class GeguarAdapter extends BaseAdapter {
         if (view == null) {
             holder = new ViewHolder();
             view = inflater.inflate(R.layout.gui_item_view, null);
-            holder.flb = (FlexboxLayout) view.findViewById(R.id.fbl_cont);
-            holder.type = (TextView) view.findViewById(R.id.type);
+            holder.flb = view.findViewById(R.id.fbl_cont);
+            holder.type = view.findViewById(R.id.type);
 
 
             view.setTag(holder);

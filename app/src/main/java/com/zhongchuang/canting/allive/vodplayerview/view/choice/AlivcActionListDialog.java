@@ -262,8 +262,8 @@ public class AlivcActionListDialog extends Dialog{
 
         private View buildViews() {
             View wrapperView = View.inflate(mContext, getContentViewLayoutId(), null);
-            TextView tvCloseBottomCheck = (TextView) wrapperView.findViewById(R.id.tv_close_bottom_check);
-            RecyclerView mContainerView = (RecyclerView) wrapperView.findViewById(R.id.check_list_view);
+            TextView tvCloseBottomCheck = wrapperView.findViewById(R.id.tv_close_bottom_check);
+            RecyclerView mContainerView = wrapperView.findViewById(R.id.check_list_view);
 
             tvCloseBottomCheck.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -324,9 +324,9 @@ public class AlivcActionListDialog extends Dialog{
                 TextView value;
                 public ViewHolder(View itemView) {
                     super(itemView);
-                    bottomDialogListItem = (LinearLayout)itemView.findViewById(R.id.bottom_dialog_list_item);
-                    type = (TextView)itemView.findViewById(R.id.bottom_dialog_list_item_type);
-                    value = (TextView)itemView.findViewById(R.id.bottom_dialog_list_item_value);
+                    bottomDialogListItem = itemView.findViewById(R.id.bottom_dialog_list_item);
+                    type = itemView.findViewById(R.id.bottom_dialog_list_item_type);
+                    value = itemView.findViewById(R.id.bottom_dialog_list_item_value);
                 }
             }
 

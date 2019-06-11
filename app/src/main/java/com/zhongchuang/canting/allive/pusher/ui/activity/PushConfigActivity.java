@@ -16,6 +16,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -50,6 +52,8 @@ import com.alivc.live.pusher.AlivcResolutionEnum;
 import com.alivc.live.pusher.AlivcSoundFormat;
 import com.alivc.live.pusher.WaterMarkInfo;
 import com.zhongchuang.canting.R;
+import com.zhongchuang.canting.activity.chat.CameraActivity;
+import com.zhongchuang.canting.activity.chat.SendDynamicActivity;
 import com.zhongchuang.canting.allive.pusher.ui.myview.PushWaterMarkDialog;
 import com.zhongchuang.canting.allive.pusher.utils.Common;
 import com.zhongchuang.canting.allive.pusher.utils.LogcatHelper;
@@ -60,9 +64,11 @@ import com.zhongchuang.canting.presenter.OtherContract;
 import com.zhongchuang.canting.presenter.OtherPresenter;
 import com.zhongchuang.canting.utils.SpUtil;
 import com.zhongchuang.canting.utils.TextUtil;
+import com.zhongchuang.canting.widget.PhotoPopupWindow;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.ButterKnife;
 
@@ -171,7 +177,7 @@ public class PushConfigActivity extends BaseActivity1 implements OtherContract.V
     private AlivcPreviewOrientationEnum mOrientationEnum = ORIENTATION_LANDSCAPE_HOME_RIGHT;
     private AlivcQualityModeEnum mQualityModeEnum = AlivcQualityModeEnum.QM_RESOLUTION_FIRST;
 
-    private ArrayList<WaterMarkInfo> waterMarkInfos = new ArrayList<>();
+    private List<WaterMarkInfo> waterMarkInfos = new ArrayList<>();
 
     private int mCameraId = Camera.CameraInfo.CAMERA_FACING_FRONT;
     private boolean isFlash = false;
@@ -184,7 +190,7 @@ public class PushConfigActivity extends BaseActivity1 implements OtherContract.V
     private ImageView mQrCreate;
 
 
-
+    private String id;
     @Override
     public void initViews() {
 //        requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -214,6 +220,7 @@ public class PushConfigActivity extends BaseActivity1 implements OtherContract.V
             }
         }
         AlivcLivePushConfig.setMediaProjectionPermissionResultData(null);
+        id=getIntent().getStringExtra("id");
         initView();
         new AsyncTask() {
             @Override
@@ -374,11 +381,8 @@ public class PushConfigActivity extends BaseActivity1 implements OtherContract.V
         public void onClick(View view) {
             int id = view.getId();
             if (id == R.id.beginPublish) {//
-                String chatRoomId = SpUtil.getChatRoomId(PushConfigActivity.this);
-                if(TextUtil.isEmpty(chatRoomId)){
-                    return;
-                }
-                presenter.setLiveNotifyUrl();
+
+                showAddPhotoWindow();
 
 
             } else if (id == R.id.qr_code) {
@@ -400,7 +404,12 @@ public class PushConfigActivity extends BaseActivity1 implements OtherContract.V
                 PushWaterMarkDialog pushWaterMarkDialog = new PushWaterMarkDialog();
                 pushWaterMarkDialog.setWaterMarkInfo(waterMarkInfos);
                 pushWaterMarkDialog.show(getSupportFragmentManager(), "waterDialog");
-
+                pushWaterMarkDialog.setDismissListener(new PushWaterMarkDialog.OnDisMissListener() {
+                    @Override
+                    public void dismiss(List<WaterMarkInfo> mWaterMarkInfos) {
+                        waterMarkInfos=mWaterMarkInfos;
+                    }
+                });
             } else if (id == R.id.iv_back) {
                 finish();
 
@@ -409,20 +418,7 @@ public class PushConfigActivity extends BaseActivity1 implements OtherContract.V
             }
         }
     };
-    private String getPullUrl(){
-        String pullUrl = "rtmp://push-demo.aliyunlive.com/test/";
-        String pushUrl = mUrl.getText().toString();
-        if (TextUtils.isEmpty(pushUrl)){
-            Toast.makeText(this,"推流地址为空",Toast.LENGTH_SHORT).show();
-            return pullUrl;
-        }
-        int index = pushUrl.indexOf("stream");
-        if (index<0||index>pushUrl.length()-1){
-            return pullUrl;
-        }
-        String pushId = pushUrl.substring(index);
-        return pullUrl+pushId;
-    }
+
     private OnCheckedChangeListener onCheckedChangeListener = new OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -972,6 +968,80 @@ public class PushConfigActivity extends BaseActivity1 implements OtherContract.V
         }
     };
 
+
+
+    private PhotoPopupWindow mWindowAddPhoto;
+
+    public void showAddPhotoWindow() {
+        View view = LayoutInflater.from(this).inflate(R.layout.view_add_photo_windows, null);
+       TextView name= view.findViewById(R.id.tv_video);
+       TextView names= view.findViewById(R.id.tv_photo);
+       name.setText("横屏直播");
+        names.setText("竖屏直播");
+        view.findViewById(R.id.tv_photo).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mAlivcLivePushConfig != null) {
+                    mAlivcLivePushConfig.setPreviewOrientation(ORIENTATION_PORTRAIT);
+                    mOrientationEnum = ORIENTATION_PORTRAIT;
+                    if (mAlivcLivePushConfig.getPausePushImage() != null && !mAlivcLivePushConfig.getPausePushImage().equals("")) {
+                        mAlivcLivePushConfig.setPausePushImage(Environment.getExternalStorageDirectory().getPath() + File.separator + "alivc_resource/background_push.png");
+                    }
+                    if (mAlivcLivePushConfig.getNetworkPoorPushImage() != null && !mAlivcLivePushConfig.getNetworkPoorPushImage().equals("")) {
+                        mAlivcLivePushConfig.setNetworkPoorPushImage(Environment.getExternalStorageDirectory().getPath() + File.separator + "alivc_resource/poor_network.png");
+                    }
+                }
+                String chatRoomId = SpUtil.getChatRoomId(PushConfigActivity.this);
+                if(TextUtil.isEmpty(chatRoomId)){
+                    return;
+                }
+                presenter.setLiveNotifyUrl(1);
+                if(TextUtil.isNotEmpty(id)){
+                    presenter.updateType(id,1+"");
+                }
+
+                mWindowAddPhoto.dismiss();
+            }
+        });
+        view.findViewById(R.id.tv_video).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mAlivcLivePushConfig != null) {
+                    mAlivcLivePushConfig.setPreviewOrientation(ORIENTATION_LANDSCAPE_HOME_RIGHT);
+                    mOrientationEnum = ORIENTATION_LANDSCAPE_HOME_RIGHT;
+                    if (mAlivcLivePushConfig.getPausePushImage() != null && !mAlivcLivePushConfig.getPausePushImage().equals("")) {
+                        mAlivcLivePushConfig.setPausePushImage(Environment.getExternalStorageDirectory().getPath() + File.separator + "alivc_resource/background_push_land.png");
+                    }
+                    if (mAlivcLivePushConfig.getNetworkPoorPushImage() != null && !mAlivcLivePushConfig.getNetworkPoorPushImage().equals("")) {
+                        mAlivcLivePushConfig.setNetworkPoorPushImage(Environment.getExternalStorageDirectory().getPath() + File.separator + "alivc_resource/poor_network_land.png");
+                    }
+                }
+                String chatRoomId = SpUtil.getChatRoomId(PushConfigActivity.this);
+                if(TextUtil.isEmpty(chatRoomId)){
+                    return;
+                }
+                presenter.setLiveNotifyUrl(2);
+                if(TextUtil.isNotEmpty(id)){
+                    presenter.updateType(id,2+"");
+                }
+
+                mWindowAddPhoto.dismiss();
+            }
+        });
+        view.findViewById(R.id.tv_cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mWindowAddPhoto.dismiss();
+
+
+            }
+        });
+        mWindowAddPhoto = new PhotoPopupWindow(this).bindView(view);
+        mWindowAddPhoto.showAtLocation(this.findViewById(R.id.ll_title), Gravity.BOTTOM, 0, 0);
+
+
+
+    }
     private RadioGroup.OnCheckedChangeListener mOrientationListener = new RadioGroup.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(RadioGroup radioGroup, int i) {
@@ -1179,11 +1249,11 @@ public class PushConfigActivity extends BaseActivity1 implements OtherContract.V
             mAlivcLivePushConfig.setConnectRetryInterval(DEFAULT_VALUE_INT_RETRY_INTERVAL);
         }
 
-        if(mWaterMark.isChecked()) {
-            for(int i = 0; i < waterMarkInfos.size(); i++) {
-                mAlivcLivePushConfig.addWaterMark(waterMarkInfos.get(i).mWaterMarkPath, waterMarkInfos.get(i).mWaterMarkCoordX, waterMarkInfos.get(i).mWaterMarkCoordY, waterMarkInfos.get(i).mWaterMarkWidth);
-            }
-        }
+//        if(mWaterMark.isChecked()) {
+//            for(int i = 0; i < waterMarkInfos.size(); i++) {
+//                mAlivcLivePushConfig.addWaterMark(waterMarkInfos.get(i).mWaterMarkPath, waterMarkInfos.get(i).mWaterMarkCoordX, waterMarkInfos.get(i).mWaterMarkCoordY, waterMarkInfos.get(i).mWaterMarkWidth);
+//            }
+//        }
 
         mAuthTimeStr = mAuthTime.getText().toString();
 
@@ -1194,15 +1264,12 @@ public class PushConfigActivity extends BaseActivity1 implements OtherContract.V
 
     private void addWaterMarkInfo() {
         //添加三个水印，位置坐标不同
-        WaterMarkInfo waterMarkInfo = new WaterMarkInfo();
-        waterMarkInfo.mWaterMarkPath = Common.waterMark;
+
         WaterMarkInfo waterMarkInfo1 = new WaterMarkInfo();
         waterMarkInfo1.mWaterMarkPath = Common.waterMark;
         waterMarkInfo1.mWaterMarkCoordY += 0.2;
         waterMarkInfo1.mWaterMarkCoordX += 0.08f;
-        WaterMarkInfo waterMarkInfo2 = new WaterMarkInfo();
-        waterMarkInfo2.mWaterMarkPath = Common.waterMark;
-        waterMarkInfo2.mWaterMarkCoordY += 0.4;
+
 //        waterMarkInfos.add(waterMarkInfo);
         waterMarkInfos.add(waterMarkInfo1);
 //        waterMarkInfos.add(waterMarkInfo2);

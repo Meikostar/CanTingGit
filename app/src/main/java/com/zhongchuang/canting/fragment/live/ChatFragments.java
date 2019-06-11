@@ -23,12 +23,16 @@ import com.zhongchuang.canting.activity.RechargeActivity;
 import com.zhongchuang.canting.activity.live.LiveChatRoomFragment;
 import com.zhongchuang.canting.adapter.MemberAdapters;
 import com.zhongchuang.canting.adapter.MessageAdapter;
+import com.zhongchuang.canting.allive.vodplayerview.activity.AliyunPlayerSkinActivity;
+import com.zhongchuang.canting.allive.vodplayerview.activity.AliyunPlayerSkinActivityMin;
+import com.zhongchuang.canting.allive.vodplayerview.widget.AliyunVodPlayerView;
 import com.zhongchuang.canting.app.CanTingAppLication;
 import com.zhongchuang.canting.been.BEAN;
 import com.zhongchuang.canting.been.BaseBean;
 import com.zhongchuang.canting.been.FriendInfo;
 import com.zhongchuang.canting.been.GIFTDATA;
 import com.zhongchuang.canting.been.Gift;
+import com.zhongchuang.canting.been.Ingegebean;
 import com.zhongchuang.canting.been.Member;
 import com.zhongchuang.canting.been.Message;
 import com.zhongchuang.canting.been.ShareBean;
@@ -67,15 +71,13 @@ import rx.Subscription;
 import rx.functions.Action1;
 import tyrantgit.widget.HeartLayout;
 
-;
-
 
 /**
  * author：Administrator on 2016/12/26 09:35
  * description:文件说明
  * version:版本
  */
-public class ChatFragments extends Fragment implements View.OnClickListener, View.OnLayoutChangeListener, BaseContract.View {
+public class ChatFragments extends Fragment implements View.OnClickListener, View.OnLayoutChangeListener, BaseContract.View,AliyunPlayerSkinActivity.GiftMessageListener,AliyunPlayerSkinActivityMin.GiftMessageListener  {
 
 
     @BindView(R.id.container)
@@ -147,20 +149,51 @@ public class ChatFragments extends Fragment implements View.OnClickListener, Vie
         this.listener = listener;
     }
 
+    @Override
+    public void click(int poistion) {
+        if(poistion==1){
+            if (datas != null && datas.size() > 0) {
+                FragmentGiftDialog.newInstance(datas).setOnGridViewClickListener(new FragmentGiftDialog.OnGridViewClickListener() {
+                    @Override
+                    public void click(Gift gift) {
+                        gifs = gift;
+                        listener.setGift(gifs);
+                        if(gift.gift_intege<=CanTingAppLication.totalintegral){
+                            sendGiftForGirl(gift.gift_info_id,gift.gift_name,1);
+                        }else {
+                            showPopwindow();
+                        }
+
+                    }
+                }).show(getChildFragmentManager(), "dialog");
+
+            } else {
+                type = 1;
+                listGiftRoom();
+            }
+        }else {
+            popComment.showPopView("");
+        }
+    }
+
     public interface  CareListener{
         void setData(BEAN data);
+        void setGift(Gift data);
+        void change();
     }
     private CareListener listener;
     private CountDownTimer countDownTimer;
+
     private void initView(View view) {
         mRandom = new Random();
         presenter = new BasesPresenter(this);
         mAdapter = new MemberAdapters(getActivity());
         messageAdapter = new MessageAdapter(getActivity());
-        giftView = (GiftItemView) view.findViewById(R.id.gift_item_first);
+        giftView = view.findViewById(R.id.gift_item_first);
         sendMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                listener.change();
                 popComment.showPopView("");
             }
         });
@@ -170,13 +203,14 @@ public class ChatFragments extends Fragment implements View.OnClickListener, Vie
         gift.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if (datas != null && datas.size() > 0) {
                     FragmentGiftDialog.newInstance(datas).setOnGridViewClickListener(new FragmentGiftDialog.OnGridViewClickListener() {
                         @Override
                         public void click(Gift gift) {
                             gifs = gift;
 
-                        if(gift.gift_intege<=balance){
+                        if(gift.gift_intege<=CanTingAppLication.totalintegral){
                             sendGiftForGirl(gift.gift_info_id,gift.gift_name,1);
                         }else {
                             showPopwindow();
@@ -276,8 +310,6 @@ public class ChatFragments extends Fragment implements View.OnClickListener, Vie
 
     }
 
-    ;
-
     @Override
     public void onPause() {
         super.onPause();
@@ -331,12 +363,20 @@ public class ChatFragments extends Fragment implements View.OnClickListener, Vie
             ShareUtils.showMyShares(getActivity(), getString(R.string.jiguang), "http://www.gwlaser.tech");
         } else if (id == R.id.message) {
 
-            chatFragment.sendMessages("*&@@&*");
+
             heartLayout.addHeart(randomColor());
+            sendMessage();
         }
 
     }
 
+
+    public static void sendMessage(){
+        if(chatFragment!=null){
+            chatFragment.sendMessages("*&@@&*");
+        }
+
+    }
     @Override
     public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
         //现在认为只要控件将Activity向上推的高度超过了1/3屏幕高，就认为软键盘弹起
@@ -391,7 +431,7 @@ public class ChatFragments extends Fragment implements View.OnClickListener, Vie
         });
     }
 
-    private LiveChatRoomFragment chatFragment;
+    private static LiveChatRoomFragment chatFragment;
 
     private void go2Chat() {
         FriendInfo info = new FriendInfo();
@@ -426,7 +466,7 @@ public class ChatFragments extends Fragment implements View.OnClickListener, Vie
                         FragmentGiftDialog.newInstance(data.data).setOnGridViewClickListener(new FragmentGiftDialog.OnGridViewClickListener() {
                             @Override
                             public void click(Gift gift) {
-
+                                listener.setGift(gifs);
                                 if (!gifts.contains(gift)) {
                                     gifts.add(gift);
                                     giftView.setGift(gift);
@@ -472,26 +512,29 @@ public class ChatFragments extends Fragment implements View.OnClickListener, Vie
         api.getDirIndexInfo(map).enqueue(new BaseCallBack<BEAN>() {
             @Override
             public void onSuccess(BEAN bean) {
-                BEAN data = bean.data;
-                ShareBean shareBean = new ShareBean();
-                shareBean.img_ = data.room_image;
-                shareBean.content_ = data.direct_see_name + getString(R.string.zzklgk);
-                shareBean.content_ = data.direct_see_name + getString(R.string.zzgszbklgkb);
-                shareBean.title_ = data.direct_see_name;
-                shareBean.url_ = "http://119.23.212.8:8088/cloudOne/index.html";
-                CanTingAppLication.shareBean = shareBean;
+                if(getActivity()!=null){
+                    BEAN data = bean.data;
+                    ShareBean shareBean = new ShareBean();
+                    shareBean.img_ = data.room_image;
+                    shareBean.content_ = data.direct_see_name + getString(R.string.zzklgk);
+//                shareBean.content_ = data.direct_see_name + getString(R.string.zzgszbklgkb);
+                    shareBean.title_ = data.direct_see_name;
+                    shareBean.url_ = com.zhongchuang.canting.db.Constant.APP_LIVE_DOWN;
+                    CanTingAppLication.shareBean = shareBean;
 
-                anchorid = data.user_info_id;
-                listener.setData(data);
+                    anchorid = data.user_info_id;
+                    listener.setData(data);
 //                if(!TextUtils.isEmpty(data.dirRoomInfo.totalPeople)){
 //                    tv_count.setText(data.dirRoomInfo.totalPeople);
 //                }
 //                count=data.giftcount;
 
 
-                if (data.threeuser != null) {
-                    mAdapter.setDatas(data.threeuser);
+                    if (data.threeuser != null) {
+                        mAdapter.setDatas(data.threeuser);
+                    }
                 }
+
 
             }
 
@@ -527,8 +570,8 @@ public class ChatFragments extends Fragment implements View.OnClickListener, Vie
                 }else {
                     chatFragment.sendMessages(gifs.gift_image + "&!&&!&" + nickname);
                 }
-
-                balance = Double.valueOf(bean.data);
+                presenter.getUserIntegral();
+//                balance = Double.valueOf(bean.data);
                 count = count + 1;
 //                    textView.setText("礼物数量: "+count);
 
@@ -559,10 +602,10 @@ public class ChatFragments extends Fragment implements View.OnClickListener, Vie
 
         if (views == null) {
             views = View.inflate(getActivity(), R.layout.del_friend, null);
-            sure = (TextView) views.findViewById(R.id.txt_sure);
-            cancel = (TextView) views.findViewById(R.id.txt_cancel);
-            title = (TextView) views.findViewById(R.id.tv_title);
-            reson = (EditText) views.findViewById(R.id.edit_reson);
+            sure = views.findViewById(R.id.txt_sure);
+            cancel = views.findViewById(R.id.txt_cancel);
+            title = views.findViewById(R.id.tv_title);
+            reson = views.findViewById(R.id.edit_reson);
             title.setText(R.string.jfyywqcz);
             sure.setText(R.string.mscz);
 
@@ -597,9 +640,27 @@ public class ChatFragments extends Fragment implements View.OnClickListener, Vie
         if (type == 1) {
             ToastUtils.showNormalToast(getString(R.string.gzcg));
             attention = 1;
-        } else {
-            attention = 0;
+        } else if(type==19) {
+            Ingegebean bean = (Ingegebean) entity;
+            if(bean==null){
+                return;
+            }
+            if (TextUtil.isNotEmpty(bean.money_buy_integral)) {
+                CanTingAppLication.totalintegral =  CanTingAppLication.totalintegral +Double.valueOf(bean.money_buy_integral);
+            }
+            if (TextUtil.isNotEmpty(bean.chat_integral)) {
+                CanTingAppLication.totalintegral =  CanTingAppLication.totalintegral +Double.valueOf(bean.chat_integral);
+            }
+            if (TextUtil.isNotEmpty(bean.jewel_integral)) {
+                CanTingAppLication.totalintegral =  CanTingAppLication.totalintegral +Double.valueOf(bean.jewel_integral);
+            }
+            if (TextUtil.isNotEmpty(bean.direct_integral)) {
+                CanTingAppLication.totalintegral =  CanTingAppLication.totalintegral +Double.valueOf(bean.direct_integral);
+            }
 
+
+        }else {
+            attention = 0;
         }
     }
 

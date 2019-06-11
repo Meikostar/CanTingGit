@@ -14,11 +14,14 @@ import android.widget.ImageView.ScaleType;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.been.IMG;
+import com.zhongchuang.canting.easeui.widget.RoundImageView;
 import com.zhongchuang.canting.utils.StringUtil;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -35,16 +38,16 @@ public class ListImageAdapter extends BaseAdapter {
         mInflater = LayoutInflater.from(mContext);
 
     }
-   public void setData(List<String> list){
-       for(String url:list){
-           IMG tem_img = new IMG();
-           tem_img.type = IMG.IMG_URL;
-           tem_img.img_url = url;
-           guide_img.child_list.add(tem_img);
-       }
-       this.list = list;
-       notifyDataSetChanged();
-   }
+    public void setData(List<String> list){
+        for(String url:list){
+            IMG tem_img = new IMG();
+            tem_img.type = IMG.IMG_URL;
+            tem_img.img_url = url;
+            guide_img.child_list.add(tem_img);
+        }
+        this.list = list;
+        notifyDataSetChanged();
+    }
     @Override
     public int getCount() {
         return list==null?0:list.size();
@@ -62,16 +65,13 @@ public class ListImageAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-      final   ViewHolder holder;
-        if (convertView == null) {
-            holder = new ViewHolder();
+
+
             convertView = mInflater.inflate(R.layout.lp_griditem_image, parent, false);
-            holder.image = (ImageView) convertView.findViewById(R.id.image);
-            holder.image.setScaleType(ScaleType.CENTER_CROP);
-            convertView.setTag(holder);
-        } else {
-            holder = (ViewHolder) convertView.getTag();
-        }
+       final ImageView image = convertView.findViewById(R.id.image);
+            image.setScaleType(ScaleType.CENTER_CROP);
+
+
         Glide.with(mContext).load(StringUtil.changeUrl(list.get(position))).asBitmap().into(new SimpleTarget<Bitmap>() {
             @Override
             public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
@@ -84,12 +84,12 @@ public class ListImageAdapter extends BaseAdapter {
 
 
                 FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,height);
-                holder.image.setLayoutParams(params);
-                holder.image.setImageBitmap(resource);
+               image.setLayoutParams(params);
+               image.setImageBitmap(resource);
             }
         });
-       // Glide.with(mContext).load( ).asBitmap().placeholder(R.drawable.all_img).into(holder.image);
-        holder.image.setOnClickListener(new View.OnClickListener() {
+
+        image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                Intent intent = new Intent(mContext, ImageListWitesActivity.class);
@@ -101,7 +101,13 @@ public class ListImageAdapter extends BaseAdapter {
         return convertView;
     }
 
+     class MySimple  extends SimpleTarget{
 
+         @Override
+         public void onResourceReady(Object resource, GlideAnimation glideAnimation) {
+
+         }
+     }
     class ViewHolder {
         ImageView image;
     }

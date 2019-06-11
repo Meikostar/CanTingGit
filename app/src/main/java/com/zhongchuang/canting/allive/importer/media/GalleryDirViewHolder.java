@@ -26,10 +26,10 @@ public class GalleryDirViewHolder extends RecyclerView.ViewHolder {
 
     public GalleryDirViewHolder(View itemView, ThumbnailGenerator thumbnailGenerator) {
         super(itemView);
-        sortVideoLayout = (LinearLayout) itemView.findViewById(R.id.sort_video_layout);
-        thumbImage = (ImageView) itemView.findViewById(R.id.thumb_image);
-        sortDirTxt = (TextView) itemView.findViewById(R.id.video_dir_name);
-        sortFileNum = (TextView) itemView.findViewById(R.id.video_file_count);
+        sortVideoLayout = itemView.findViewById(R.id.sort_video_layout);
+        thumbImage = itemView.findViewById(R.id.thumb_image);
+        sortDirTxt = itemView.findViewById(R.id.video_dir_name);
+        sortFileNum = itemView.findViewById(R.id.video_file_count);
 
         this.thumbnailGenerator = thumbnailGenerator;
 

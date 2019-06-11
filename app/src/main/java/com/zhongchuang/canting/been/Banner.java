@@ -9,6 +9,7 @@ import java.util.List;
 public class Banner extends BaseResponse{
 
     public long create_time;
+    public int poition;
     public String activityImage;
     public String ads_name;
     public String image_url;

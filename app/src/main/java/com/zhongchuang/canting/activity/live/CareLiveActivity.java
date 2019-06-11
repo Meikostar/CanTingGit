@@ -6,10 +6,11 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.ChatActivity;
 import com.zhongchuang.canting.adapter.LiveCareAdapter;
 import com.zhongchuang.canting.adapter.RecordGiftAdapter;
+import com.zhongchuang.canting.allive.vodplayerview.activity.AliyunPlayerSkinActivity;
 import com.zhongchuang.canting.app.CanTingAppLication;
 import com.zhongchuang.canting.base.BaseActivity1;
 import com.zhongchuang.canting.been.Care;
@@ -77,6 +78,10 @@ public class CareLiveActivity extends BaseActivity1 implements BaseContract.View
                     startActivity(intentc);
                 }else if(poistion==2){
                     if(data.is_enabled.equals("1")){
+                        Intent intent = new Intent(CareLiveActivity.this, AliyunPlayerSkinActivity.class);
+                        intent.putExtra("id", data.anchors_id);
+                        intent.putExtra("room_info_id", data.room_info_id);
+                        startActivity(intent);
 //                        Intent intent = new Intent(CareLiveActivity.this, DemoGuest.class);
 //                        intent.putExtra("room",data.room_info_id);
 //                        intent.putExtra("id",data.room_info_id);

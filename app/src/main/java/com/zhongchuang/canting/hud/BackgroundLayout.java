@@ -24,7 +24,7 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 
 
 public class BackgroundLayout extends LinearLayout {

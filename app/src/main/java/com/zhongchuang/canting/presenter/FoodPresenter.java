@@ -5,6 +5,6 @@ package com.zhongchuang.canting.presenter;
  */
 
 public interface FoodPresenter {
-    public void getFoodInfo(String shopLng, String shopLat, String cuisineInfoId,int july,String shopName);
+    void getFoodInfo(String shopLng, String shopLat, String cuisineInfoId, int july, String shopName);
 
 }

@@ -12,8 +12,9 @@ import android.widget.TextView;
 
 import com.baidu.mapapi.SDKInitializer;
 import com.hyphenate.chat.EMClient;
+import com.hyphenate.chat.EMGroup;
 import com.hyphenate.exceptions.HyphenateException;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.MineCodeActivity;
 import com.zhongchuang.canting.activity.chat.EditorGroupActivity;
 import com.zhongchuang.canting.app.CanTingAppLication;
@@ -115,6 +116,24 @@ public class GroupSetActivity extends BaseActivity implements View.OnClickListen
         id = getIntent().getStringExtra("id");
         name = getIntent().getStringExtra("name");
         admin = getIntent().getBooleanExtra("admin", false);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    EMGroup group = EMClient.getInstance().groupManager().getGroupFromServer(id);
+                    final int memberCount = group.getMemberCount();
+                    final String groupName = group.getGroupName();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            tv_title.setText("聊天信息"+"("+getMenber(memberCount+"")+")");
+                        }
+                    });
+                } catch (HyphenateException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
         getGroupInfo(id);
         if(TextUtil.isNotEmpty(name)){
             tvName.setText(name);
@@ -126,7 +145,7 @@ public class GroupSetActivity extends BaseActivity implements View.OnClickListen
                 tvNick.setText(SpUtil.getName(this));
             }
         }
-       if(admin){
+
            ivArrows.setVisibility(View.VISIBLE);
            llName.setOnClickListener(new View.OnClickListener() {
                @Override
@@ -137,9 +156,7 @@ public class GroupSetActivity extends BaseActivity implements View.OnClickListen
                    startActivityForResult(intent,15);
                }
            });
-       }else {
-           ivArrows.setVisibility(View.GONE);
-       }
+
        llNick.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
@@ -227,7 +244,21 @@ public class GroupSetActivity extends BaseActivity implements View.OnClickListen
 
     private Subscription mSubscription;
     private int status;
-
+    public String getMenber(String menber){
+        String  name="";
+        if(menber.length()==1){
+            name="0000"+menber;
+        }else if(menber.length()==2){
+            name="000"+menber;
+        }else if(menber.length()==3){
+            name="00"+menber;
+        }else if(menber.length()==4){
+            name="0"+menber;
+        }else {
+            name=menber;
+        }
+        return name;
+    }
     private void fillView() {
         place.setGroup_id(id);
         Group_name = name;
@@ -337,6 +368,10 @@ public class GroupSetActivity extends BaseActivity implements View.OnClickListen
                     if (!TextUtils.isEmpty(user.user_group_name)) {
                         avatar.user_group_name=user.user_group_name;
                     }
+                    if (!TextUtils.isEmpty(user.user_info_id)) {
+                        avatar.user_info_id=user.user_info_id;
+                    }
+
                     if (i == 0) {
                         ids = user.user_info_id;
                     } else {
@@ -379,7 +414,8 @@ public class GroupSetActivity extends BaseActivity implements View.OnClickListen
                 case 15:
                     String name = data.getStringExtra("name");
                     tvName.setText(name);
-
+                    CanTingAppLication.GroupName=name;
+                    RxBus.getInstance().send(SubscriptionBean.createSendBean(SubscriptionBean.GROUP_NAME,name));
                     break;
                 case 18:
                     getGroupInfo(id);

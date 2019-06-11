@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.MediaMetadataRetriever;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -14,15 +16,21 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.zhongchuang.canting.R;
 import com.aliyun.common.media.ShareableBitmap;
 import com.aliyun.qupai.editor.AliyunIThumbnailFetcher;
 import com.aliyun.qupai.editor.AliyunThumbnailFetcherFactory;
 import com.aliyun.qupai.editor.impl.AliyunThumbnailFetcher;
 import com.aliyun.struct.common.ScaleMode;
+import com.zhongchuang.canting.utils.PhotoUtils;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
+
+import io.valuesfeng.picker.ImageSelectActivity;
 
 /**
  * Created by macpro on 2017/11/7.
@@ -71,26 +79,30 @@ public class CoverEditActivity extends Activity implements View.OnClickListener{
     }
 
     private void initView(){
-        mIvLeft = (ImageView) findViewById(R.id.iv_left);
-        mIvRight = (Button) findViewById(R.id.iv_right);
-        mTitle = (TextView) findViewById(R.id.tv_center);
+        mIvLeft = findViewById(R.id.iv_left);
+        mIvRight = findViewById(R.id.iv_right);
+        mTitle = findViewById(R.id.tv_center);
 
         mIvLeft.setVisibility(View.VISIBLE);
         mIvRight.setVisibility(View.VISIBLE);
         mTitle.setVisibility(View.VISIBLE);
 
         mTitle.setText(R.string.edit_cover);
-        mIvLeft.setImageResource(R.drawable.aliyun_svideo_icon_cancel);
+        mIvLeft.setImageResource(R.drawable.arrow_left_white);
 
         mIvLeft.setOnClickListener(this);
         mIvRight.setOnClickListener(this);
 
         mSlider = findViewById(R.id.indiator);
         mSlider.setOnTouchListener(mSliderListener);
-        mCoverImage = (ImageView) findViewById(R.id.cover_image);
-        mThumbnailList = (LinearLayout) findViewById(R.id.cover_thumbnail_list);
+        mCoverImage = findViewById(R.id.cover_image);
+        mThumbnailList = findViewById(R.id.cover_thumbnail_list);
         mThumbnailList.setOnTouchListener(mClickListener);
     }
+    private String img_path;
+    private String path;
+    private File fileCropUri;
+    private Uri cropImageUri;
 
     @Override
     public void onClick(View v) {
@@ -99,7 +111,16 @@ public class CoverEditActivity extends Activity implements View.OnClickListener{
         }else if(v == mIvRight){
             ShareableBitmap sbmp = (ShareableBitmap) mCoverImage.getTag();
             if(sbmp != null || sbmp.getData() != null){
-                String path = getExternalFilesDir(null) + "thumbnail.jpeg";
+                int output_X = 360, output_Y = 360;
+                 path=Environment.getExternalStorageDirectory().getPath() + "/"+ System.currentTimeMillis()+".jpg";
+                fileCropUri = new File(path);
+
+                    img_path = getExternalFilesDir(null) + "thumbnail.jpeg";
+                    cropImageUri = Uri.fromFile(fileCropUri);
+                    Uri newUri = Uri.fromFile(new File(img_path));
+                    PhotoUtils.cropImageUris(CoverEditActivity.this, newUri, cropImageUri, 16, 9, output_X, output_Y, 99);
+                    img_path="";
+
                 try{
                     sbmp.getData().compress(Bitmap.CompressFormat.JPEG, 100,
                             new FileOutputStream(path));
@@ -107,14 +128,25 @@ public class CoverEditActivity extends Activity implements View.OnClickListener{
                     e.printStackTrace();
                 }
 
-                Intent data = new Intent();
-                data.putExtra(KEY_PARAM_RESULT, path);
-                setResult(RESULT_OK, data);
-                finish();
+
             }
         }
     }
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            int output_X = 360, output_Y = 360;
+            switch (requestCode) {
+                //上传照片
 
+                case 99:
+                    Intent datas = new Intent();
+                    datas.putExtra(KEY_PARAM_RESULT, path);
+                    setResult(RESULT_OK, datas);
+                    finish();
+                    break;
+            }
+        }
+    }
     private final View.OnTouchListener mClickListener = new View.OnTouchListener() {
         @Override
         public boolean onTouch(View view, MotionEvent motionEvent) {

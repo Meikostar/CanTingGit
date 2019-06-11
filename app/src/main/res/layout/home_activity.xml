@@ -19,8 +19,7 @@
                  android:id="@+id/img"
                  android:layout_width="match_parent"
                  android:layout_height="208dp"
-                 android:scaleType="fitXY"
-                 android:src="@drawable/aa0" />
+                 android:scaleType="fitXY"/>
              <com.zhongchuang.canting.widget.banner.BannerView
                  android:id="@+id/bannerView"
                  android:layout_width="match_parent"

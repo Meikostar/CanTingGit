@@ -17,7 +17,7 @@ public class LicenseActivity extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_license);
-        mBack = (ImageView) findViewById(R.id.iv_back);
+        mBack = findViewById(R.id.iv_back);
         mBack.setOnClickListener(mListener);
     }
 

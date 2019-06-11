@@ -14,7 +14,7 @@ import android.view.animation.CycleInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.EditText;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 
 
 public class ClearEditText extends EditText implements

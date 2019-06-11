@@ -17,7 +17,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 
 import java.util.Locale;
 import java.util.concurrent.Executors;

@@ -12,7 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.BalanceActivity;
 import com.zhongchuang.canting.activity.RechargeActivity;
 import com.zhongchuang.canting.activity.mall.AddressListActivity;
@@ -210,6 +210,9 @@ public class Minefagment extends BaseFragment implements BaseContract.View {
 
     @Override
     public <T> void toEntity(T entity, int type) {
+        if(getActivity()==null){
+            return;
+        }
         OrderType orderType = (OrderType) entity;
         if(btnWaitConfirm==null&&orderType.order_type==null){
             return;

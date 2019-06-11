@@ -15,7 +15,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 
 
 /**

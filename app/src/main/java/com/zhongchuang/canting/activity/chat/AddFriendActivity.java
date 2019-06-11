@@ -12,7 +12,8 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMMessage;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
+import com.zhongchuang.canting.activity.mine.NewPersonDetailActivity;
 import com.zhongchuang.canting.adapter.ChatSetAdapter;
 import com.zhongchuang.canting.base.BaseActivity1;
 import com.zhongchuang.canting.been.BaseResponse;
@@ -138,6 +139,24 @@ public class AddFriendActivity extends BaseActivity1 implements BaseContract.Vie
 
                 addFriendRequest(dataBean.getNickname(), dataBean.getRingLetterName());
 
+
+            }
+        });
+        navigationBar.setNavigationBarListener(new NavigationBar.NavigationBarListener() {
+            @Override
+            public void navigationLeft() {
+                finish();
+            }
+
+            @Override
+            public void navigationRight() {
+                Intent intent = new Intent(AddFriendActivity.this, NewPersonDetailActivity.class);
+                intent.putExtra("id", dataBean.getRingLetterName() + "");
+                startActivity(intent);
+            }
+
+            @Override
+            public void navigationimg() {
 
             }
         });
@@ -271,6 +290,11 @@ public class AddFriendActivity extends BaseActivity1 implements BaseContract.Vie
 
     @Override
     public void showTomast(String msg) {
+        if(TextUtil.isNotEmpty(msg)){
+            if(msg.equals("该用户已属于您的好友")){
+                finish();
+            }
+        }
         showToasts(msg);
     }
 

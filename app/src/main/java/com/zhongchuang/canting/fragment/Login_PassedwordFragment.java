@@ -21,7 +21,7 @@ import android.widget.Toast;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.exceptions.HyphenateException;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.CityPickerActivity;
 import com.zhongchuang.canting.activity.LoginActivity;
 import com.zhongchuang.canting.activity.RegistActivity;
@@ -215,7 +215,7 @@ public class Login_PassedwordFragment extends Fragment implements BaseViewCallBa
     }
     private UserInfo userInfo;
 
-    private void initDta(UserInfo db) throws HyphenateException {
+    private void initDta(UserInfo db) {
 
         mDialog = new ProgressDialog(getActivity());
         mDialog.setMessage(getString(R.string.dlzqsh));
@@ -296,15 +296,10 @@ public class Login_PassedwordFragment extends Fragment implements BaseViewCallBa
     @Override
     public void onResultSuccess(UserLoginBean loginMess) {
 
-        try {
-            initDta(loginMess.getData());
-        } catch (HyphenateException e) {
-            e.printStackTrace();
-        }
+        initDta(loginMess.getData());
 
 
     }
-
     @Override
     public void onFail(int code, String msg) {
 

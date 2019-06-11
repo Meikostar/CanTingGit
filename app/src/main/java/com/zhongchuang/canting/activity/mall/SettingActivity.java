@@ -19,7 +19,7 @@ import android.widget.TextView;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 import com.zhongchuang.canting.BuildConfig;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.AboubtProductActivity;
 import com.zhongchuang.canting.activity.LoginActivity;
 import com.zhongchuang.canting.activity.pay.ChangePayActivity;
@@ -300,9 +300,9 @@ public class SettingActivity extends BaseAllActivity {
         try {
             if (newVersion.compareTo(oldVersion) > 0) {
                 View view = View.inflate(this, R.layout.base_dailog_view, null);
-                TextView sure = (TextView) view.findViewById(R.id.txt_sure);
-                TextView cancel = (TextView) view.findViewById(R.id.txt_cancel);
-                TextView title = (TextView) view.findViewById(R.id.txt_title);
+                TextView sure = view.findViewById(R.id.txt_sure);
+                TextView cancel = view.findViewById(R.id.txt_cancel);
+                TextView title = view.findViewById(R.id.txt_title);
                 title.setText(getString(R.string.check_versions));
                 cancel.setText(R.string.yihougx);
                 sure.setText(R.string.wozhidol);
@@ -323,9 +323,9 @@ public class SettingActivity extends BaseAllActivity {
                 });
             } else {
                 View view = View.inflate(this, R.layout.base_dailog_view, null);
-                TextView sure = (TextView) view.findViewById(R.id.txt_sure);
-                TextView cancel = (TextView) view.findViewById(R.id.txt_cancel);
-                TextView title = (TextView) view.findViewById(R.id.txt_title);
+                TextView sure = view.findViewById(R.id.txt_sure);
+                TextView cancel = view.findViewById(R.id.txt_cancel);
+                TextView title = view.findViewById(R.id.txt_title);
                 title.setText(getString(R.string.check_version));
                 cancel.setVisibility(View.GONE);
                 sure.setText(R.string.wozhidol);

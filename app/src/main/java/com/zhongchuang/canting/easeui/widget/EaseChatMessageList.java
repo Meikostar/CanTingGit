@@ -11,7 +11,7 @@ import android.widget.RelativeLayout;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.easeui.adapter.EaseMessageAdapter;
 import com.zhongchuang.canting.easeui.model.styles.EaseMessageListItemStyle;
 import com.zhongchuang.canting.easeui.utils.EaseCommonUtils;
@@ -49,8 +49,8 @@ public class EaseChatMessageList extends RelativeLayout{
     private void init(Context context){
         this.context = context;
         LayoutInflater.from(context).inflate(R.layout.ease_chat_message_list, this);
-        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.chat_swipe_layout);
-        listView = (ListView) findViewById(R.id.list);
+        swipeRefreshLayout = findViewById(R.id.chat_swipe_layout);
+        listView = findViewById(R.id.list);
     }
 
     /**

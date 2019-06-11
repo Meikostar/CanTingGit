@@ -23,6 +23,7 @@ public class USER_AVATAR implements Serializable {
     public String user_group_name;
     private String nickname;
     private String english_name;
+    public String user_info_id;
     private String name;
     private String remarks;
     private String filter;

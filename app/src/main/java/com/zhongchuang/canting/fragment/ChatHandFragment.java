@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.malinskiy.superrecyclerview.OnMoreListener;
 import com.malinskiy.superrecyclerview.SuperRecyclerView;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.adapter.recycle.ChatDelReCycleAdapter;
 import com.zhongchuang.canting.adapter.recycle.HandGitReCycleAdapter;
 import com.zhongchuang.canting.base.BaseFragment;

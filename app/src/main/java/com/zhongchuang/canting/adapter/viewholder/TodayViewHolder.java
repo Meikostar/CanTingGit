@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.widget.GoodsCommentListView;
 import com.zhongchuang.canting.widget.PraiseTextView;
 import com.zhongchuang.canting.widget.TodayNewGoodsDrawDownView;
@@ -73,42 +73,42 @@ public abstract class TodayViewHolder extends RecyclerView.ViewHolder {
 
         this.viewType=viewType;
 
-        ViewStub viewStub = (ViewStub) itemView.findViewById(R.id.viewStub);
+        ViewStub viewStub = itemView.findViewById(R.id.viewStub);
 
         initSubView(viewType, viewStub);
 
-        iv_shop_head=(ImageView)itemView.findViewById(R.id.iv_shop_head);
-        iv_prase=(LinearLayout)itemView.findViewById(R.id.iv_prase);
-        iv_prases=(ImageView)itemView.findViewById(R.id.iv_prases);
-        iv_comment=(LinearLayout)itemView.findViewById(R.id.iv_comment);
+        iv_shop_head= itemView.findViewById(R.id.iv_shop_head);
+        iv_prase= itemView.findViewById(R.id.iv_prase);
+        iv_prases= itemView.findViewById(R.id.iv_prases);
+        iv_comment= itemView.findViewById(R.id.iv_comment);
 
-        tv_shop_name=(TextView) itemView.findViewById(R.id.tv_shop_name);
+        tv_shop_name= itemView.findViewById(R.id.tv_shop_name);
 
-        mPraiseTextView=(PraiseTextView) itemView.findViewById(R.id.praise);
+        mPraiseTextView= itemView.findViewById(R.id.praise);
 
-        tv_good_name=(TextView) itemView.findViewById(R.id.tv_good_name);
-        tv_count=(TextView) itemView.findViewById(R.id.tv_count);
+        tv_good_name= itemView.findViewById(R.id.tv_good_name);
+        tv_count= itemView.findViewById(R.id.tv_count);
 
-        btn_concern=(Button)itemView.findViewById(R.id.btn_concern);
+        btn_concern= itemView.findViewById(R.id.btn_concern);
 
-        rl_down_show_area=(RelativeLayout)itemView.findViewById(R.id.rl_down_show_area);
+        rl_down_show_area= itemView.findViewById(R.id.rl_down_show_area);
 
-        iv_down_show=(ImageView)itemView.findViewById(R.id.iv_down_show);
+        iv_down_show= itemView.findViewById(R.id.iv_down_show);
 
-        tv_titel=(TextView)itemView.findViewById(R.id.tv_titel);
+        tv_titel= itemView.findViewById(R.id.tv_titel);
 
-        tv_time=(TextView)itemView.findViewById(R.id.tv_time);
-        tv_type= (TextView) itemView.findViewById(R.id.tv_type);
-        rl_qf1= (LinearLayout) itemView.findViewById(R.id.ll_qf1);
-
-
-        tv_address= (TextView) itemView.findViewById(R.id.tv_address);
+        tv_time= itemView.findViewById(R.id.tv_time);
+        tv_type= itemView.findViewById(R.id.tv_type);
+        rl_qf1= itemView.findViewById(R.id.ll_qf1);
 
 
+        tv_address= itemView.findViewById(R.id.tv_address);
 
 
 
-        lv_comments=(GoodsCommentListView)itemView.findViewById(R.id.lv_comments);
+
+
+        lv_comments= itemView.findViewById(R.id.lv_comments);
 
         mTodayNewGoodsDrawDownView=new TodayNewGoodsDrawDownView(itemView.getContext());
 

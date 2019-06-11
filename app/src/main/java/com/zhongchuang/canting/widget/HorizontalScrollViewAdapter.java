@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 
 
 public abstract class HorizontalScrollViewAdapter<T> {
@@ -42,8 +42,8 @@ public abstract class HorizontalScrollViewAdapter<T> {
         if (convertView == null) {
             viewHolder = new ViewHolder();
             convertView = mInflater.inflate(R.layout.horizontal_list_item, parent, false);
-            viewHolder.textView = (TextView) convertView.findViewById(R.id.text_list_item);
-            viewHolder.img = (ImageView) convertView.findViewById(R.id.img_list_item);
+            viewHolder.textView = convertView.findViewById(R.id.text_list_item);
+            viewHolder.img = convertView.findViewById(R.id.img_list_item);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();

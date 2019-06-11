@@ -13,7 +13,8 @@ import android.widget.RadioGroup;
 import com.google.gson.Gson;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
+import com.zhongchuang.canting.activity.HomeActivitys;
 import com.zhongchuang.canting.activity.LoginActivity;
 import com.zhongchuang.canting.app.CanTingAppLication;
 import com.zhongchuang.canting.base.BaseAllActivity;
@@ -71,7 +72,7 @@ public class ShopCompsiteMallActivity extends BaseAllActivity implements View.On
     private int pos = 1;
     private Subscription mSubscription;
     //    private ProfileInfoHelper infoHelper;
-    private int type=1;
+    private int type = 1;
 
 
     @Override
@@ -93,17 +94,27 @@ public class ShopCompsiteMallActivity extends BaseAllActivity implements View.On
         setSelect(type);
     }
 
+    private boolean isLogin() {
+        boolean isLogin;
+        String phone = SpUtil.getString(this, "mobileNumber", "");
+        String token = SpUtil.getString(this, "token", "");
+        String avar = SpUtil.getString(this, "avar", "");
+        isLogin = !TextUtils.isEmpty(token) && !token.equals("") && !TextUtils.isEmpty(token) && !token.equals("");
+        return isLogin;
+
+    }
+
     @Override
     public void bindEvents() {
         mSubscription = RxBus.getInstance().toObserverable(SubscriptionBean.RxBusSendBean.class).subscribe(new Action1<SubscriptionBean.RxBusSendBean>() {
             @Override
             public void call(SubscriptionBean.RxBusSendBean bean) {
                 if (bean == null) return;
-                if(bean.type== SubscriptionBean.LOGIN_FINISH){
+                if (bean.type == SubscriptionBean.LOGIN_FINISH) {
                     exitApp();
                     Intent intent = new Intent(ShopCompsiteMallActivity.this, LoginActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                    intent.putExtra("status",1);
+                    intent.putExtra("status", 1);
                     startActivity(intent);
                 }
 
@@ -116,7 +127,9 @@ public class ShopCompsiteMallActivity extends BaseAllActivity implements View.On
         });
         RxBus.getInstance().addSubscription(mSubscription);
     }
+
     private String userInfoId;
+
     private void exitApp() {
         String olderToken = SpUtil.getString(this, "token", "");//token值
         String code = SpUtil.getString(this, "code", "");
@@ -152,6 +165,7 @@ public class ShopCompsiteMallActivity extends BaseAllActivity implements View.On
 
         }
     }
+
     @Override
     public void initData() {
 
@@ -199,6 +213,7 @@ public class ShopCompsiteMallActivity extends BaseAllActivity implements View.On
         }).start();
 
     }
+
     @Override
     public void onClick(View v) {
         onViewClicked(v);
@@ -287,6 +302,10 @@ public class ShopCompsiteMallActivity extends BaseAllActivity implements View.On
             case 3:
                 rdGroup.check(R.id.rd_mine);
                 pos = 3;
+                if(!isLogin()){
+                    startActivity(new Intent(ShopCompsiteMallActivity.this, LoginActivity.class));
+                    return;
+                }
                 fragment3 = new Minefagment();
                 mTransaction.replace(R.id.fragment_container, fragment3);
                 mTransaction.commit();

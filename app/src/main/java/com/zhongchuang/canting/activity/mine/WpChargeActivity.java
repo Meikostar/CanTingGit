@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.malinskiy.superrecyclerview.OnMoreListener;
 import com.malinskiy.superrecyclerview.SuperRecyclerView;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.RechargeActivity;
 import com.zhongchuang.canting.activity.RechargeIntegerActivity;
 import com.zhongchuang.canting.activity.chat.SumbitJfActivity;

@@ -10,7 +10,7 @@
         android:id="@+id/iv_img"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@mipmap/splash_05"
+        android:background="@mipmap/splash_1"
         android:scaleType="fitXY" />
     <RelativeLayout
         android:visibility="gone"

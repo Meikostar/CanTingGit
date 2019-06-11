@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.been.HOMES;
 
 import java.util.ArrayList;
@@ -78,9 +78,9 @@ public class Basedapter1 extends BaseAdapter {
         if (view == null) {
             holder = new ViewHolder();
             view = View.inflate(context,R.layout.tools_item, null);
-            holder.txt_name = (TextView) view.findViewById(R.id.txt_name);
-            holder.txt_unread = (TextView) view.findViewById(R.id.txt_unread);
-            holder.img_icon = (ImageView) view.findViewById(R.id.img_icon);
+            holder.txt_name = view.findViewById(R.id.txt_name);
+            holder.txt_unread = view.findViewById(R.id.txt_unread);
+            holder.img_icon = view.findViewById(R.id.img_icon);
             view.setTag(holder);
         } else {
             holder = (ViewHolder) view.getTag();

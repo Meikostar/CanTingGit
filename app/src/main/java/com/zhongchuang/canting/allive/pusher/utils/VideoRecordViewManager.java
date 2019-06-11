@@ -56,7 +56,7 @@ public class VideoRecordViewManager {
     }
 
     public interface CameraOn {
-        public void onCameraOn(boolean on);
+        void onCameraOn(boolean on);
     }
 
     public static void hideViewRecordWindow()

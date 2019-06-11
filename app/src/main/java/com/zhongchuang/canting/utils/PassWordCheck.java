@@ -9,11 +9,8 @@ import android.text.TextUtils;
 public class PassWordCheck {
     public static boolean judgePhoneNums(String passWord) {
 
-        if (isMatchLength(passWord) && isPassWordNO(passWord)) {
-            return true;
-        }
+        return isMatchLength(passWord) && isPassWordNO(passWord);
 
-        return false;
     }
 
 
@@ -23,11 +20,8 @@ public class PassWordCheck {
         } else {
             //return passWord.length() == length ? true : false;
 
-            if (passWord.length() >= 8 || passWord.length() <= 20) {
-                return true;
-            }
+            return passWord.length() >= 8 || passWord.length() <= 20;
         }
-        return false;
     }
 
     //匹配

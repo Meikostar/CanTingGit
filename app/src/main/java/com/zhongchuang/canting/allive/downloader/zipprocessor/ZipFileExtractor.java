@@ -71,7 +71,7 @@ class ZipFileExtractor {
     protected abstract File getOutputFile(ZipEntry entry);
 
     public
-    void close() throws IOException {
+    void close() {
 
     }
 

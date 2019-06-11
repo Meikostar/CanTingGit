@@ -38,6 +38,9 @@ public class SubscriptionBean {
     public static int DOWN_COMPELTE=1297;
     public static int LIVE_SEND_FRESH=1298;
     public static int LIVE_FINISH=1299;
+    public static int MINE_FRESH=1301;
+    public static int LIVE_FINISH_FRESH=1302;
+    public static int GROUP_NAME=1303;
     /**
      * 重新登入
      */

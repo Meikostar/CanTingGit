@@ -80,7 +80,7 @@ public class PasterAdapter extends RecyclerView.Adapter<PasterAdapter.AssetInfoV
         public AssetInfoViewHolder(View itemView,OnItemClickListener l) {
             super(itemView);
             this.listener = l;
-            imageView = (CircularImageView) itemView.findViewById(R.id.aliyun_icon);
+            imageView = itemView.findViewById(R.id.aliyun_icon);
             itemView.setOnClickListener(this);
         }
 

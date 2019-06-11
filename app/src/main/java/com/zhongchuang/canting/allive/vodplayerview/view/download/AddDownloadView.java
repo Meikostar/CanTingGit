@@ -195,10 +195,10 @@ public class AddDownloadView extends LinearLayout {
     }
 
     private void findAllViews() {
-        ivVideoCover = (ImageView)findViewById(R.id.iv_video_cover);
-        tvAddDownloadViewTitle = (TextView)findViewById(R.id.tv_add_download_view_title);
-        tvAddDownloadViewSize = (TextView)findViewById(R.id.tv_add_download_view_size);
-        downloadBtn = (Button)findViewById(R.id.download);
+        ivVideoCover = findViewById(R.id.iv_video_cover);
+        tvAddDownloadViewTitle = findViewById(R.id.tv_add_download_view_title);
+        tvAddDownloadViewSize = findViewById(R.id.tv_add_download_view_size);
+        downloadBtn = findViewById(R.id.download);
 
         //wrapCheckGroup = (WrapCheckGroup) findViewById(R.id.quality_list);
         rgQualityList = findViewById(R.id.rg_quality_list);

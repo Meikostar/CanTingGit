@@ -35,10 +35,12 @@ import com.zhongchuang.canting.been.Params;
 import com.zhongchuang.canting.been.Product;
 import com.zhongchuang.canting.been.ProductBuy;
 import com.zhongchuang.canting.been.ProductDel;
+import com.zhongchuang.canting.been.Profit;
 import com.zhongchuang.canting.been.QfriendBean;
 import com.zhongchuang.canting.been.RedInfo;
 import com.zhongchuang.canting.been.ShopBean;
 import com.zhongchuang.canting.been.TabEntity;
+import com.zhongchuang.canting.been.UserInfoBean;
 import com.zhongchuang.canting.been.Version;
 import com.zhongchuang.canting.been.WEIXINREQ;
 import com.zhongchuang.canting.been.ZhiBo_GuanZhongBean;
@@ -80,7 +82,7 @@ public class BasesPresenter implements BaseContract.Presenter {
     public void getHomeBanner(String type) {
         Map<String, String> params = new TreeMap<>();
         params.put("imageSite", type);
-        params.put("bannerSite", 0+ "");
+        params.put("bannerSite", 0 + "");
         api.getBanner(params).enqueue(new BaseCallBack<Home>() {
 
             @Override
@@ -95,6 +97,31 @@ public class BasesPresenter implements BaseContract.Presenter {
             }
         });
     }
+
+
+    @Override
+    public void getLiveUrl(String id) {
+
+
+        Map<String, String> map = new HashMap<>();
+        map.put("userInfoId", SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
+        map.put("anchorUserId", id);
+
+        api.getLiveUrl(map).enqueue(new BaseCallBack<aliLive>() {
+
+            @Override
+            public void onSuccess(aliLive userLoginBean) {
+                mView.toEntity(userLoginBean.data, 999);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                mView.showTomast(t);
+            }
+        });
+    }
+
     @Override
     public void create() {
 
@@ -102,15 +129,15 @@ public class BasesPresenter implements BaseContract.Presenter {
         Map<String, String> map = new HashMap<>();
         map.put("userInfoId", SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
         map.put("chatroomsName", SpUtil.getName(CanTingAppLication.getInstance()));
-        map.put("description", "live_"+SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
+        map.put("description", "live_" + SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
         map.put("maxUsers", "5000");
 
         api.create(map).enqueue(new BaseCallBack<aliLive>() {
 
             @Override
             public void onSuccess(aliLive userLoginBean) {
-                if(userLoginBean.data!=null&&TextUtil.isNotEmpty(userLoginBean.data.chatroomsId)){
-                    SpUtil.putString(CanTingAppLication.getInstance(),"chatroomsId",userLoginBean.data.chatroomsId);
+                if (userLoginBean.data != null && TextUtil.isNotEmpty(userLoginBean.data.chatroomsId)) {
+                    SpUtil.putString(CanTingAppLication.getInstance(), "chatroomsId", userLoginBean.data.chatroomsId);
                 }
 
 
@@ -123,6 +150,7 @@ public class BasesPresenter implements BaseContract.Presenter {
             }
         });
     }
+
     @Override
     public void setLanguge(String languge) {
         Map<String, String> params = new TreeMap<>();
@@ -144,7 +172,7 @@ public class BasesPresenter implements BaseContract.Presenter {
     }
 
     @Override
-    public void redGrab(String redEnvelopeId	,String sendType) {
+    public void redGrab(String redEnvelopeId, String sendType) {
 
 
         Map<String, String> map = new HashMap<>();
@@ -166,6 +194,7 @@ public class BasesPresenter implements BaseContract.Presenter {
             }
         });
     }
+
     @Override
     public void getVideoList(final int type, String pageNum) {
         Map<String, String> params = new TreeMap<>();
@@ -188,11 +217,54 @@ public class BasesPresenter implements BaseContract.Presenter {
             }
         });
     }
+    @Override
+    public void updateVideoType(String id, String newType) {
+        Map<String, String> params = new TreeMap<>();
+        params.put("newType", newType);
+        params.put("id", id);
 
 
+        api.updateVideoType(params).enqueue(new BaseCallBack<BaseResponse>() {
+
+            @Override
+            public void onSuccess(BaseResponse userLoginBean) {
+                mView.toEntity(userLoginBean, 123);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                mView.showTomast(t);
+            }
+        });
+    }
+    @Override
+    public void delVideo(String id, String name, String type) {
+        Map<String, String> params = new TreeMap<>();
+
+
+        params.put("userInfoId", SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
+        params.put("id", id);
+        params.put("objectName", name);
+        params.put("type", type);
+
+        api.delVideo(params).enqueue(new BaseCallBack<BaseResponse>() {
+
+            @Override
+            public void onSuccess(BaseResponse userLoginBean) {
+                mView.toEntity(userLoginBean, 66);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                mView.showTomast(t);
+            }
+        });
+    }
 
     @Override
-    public void getDetails(String startTime	,String pageNum	,String type,final  int state) {
+    public void getDetails(String startTime, String pageNum, String type, final int state) {
 
 
         Map<String, String> map = new HashMap<>();
@@ -241,11 +313,12 @@ public class BasesPresenter implements BaseContract.Presenter {
             }
         });
     }
+
     @Override
-    public void deposit(String number,String type) {
+    public void deposit(String number, String type) {
         Map<String, String> params = new TreeMap<>();
         params.put("number", number);
-        params.put("type", type+ "");
+        params.put("type", type + "");
         params.put("userInfoId", TextUtil.isEmpty(SpUtil.getUserInfoId(CanTingAppLication.getInstance())) ? "" : SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
 
         api.deposit(params).enqueue(new BaseCallBack<BaseResponse>() {
@@ -268,7 +341,7 @@ public class BasesPresenter implements BaseContract.Presenter {
     public void getHomeBanners(String type) {
         Map<String, String> params = new TreeMap<>();
         params.put("imageSite", type);
-        params.put("bannerSite", 3+ "");
+        params.put("bannerSite", 3 + "");
         api.getBanner(params).enqueue(new BaseCallBack<Home>() {
 
             @Override
@@ -283,13 +356,14 @@ public class BasesPresenter implements BaseContract.Presenter {
             }
         });
     }
-    public void addChatDetail(String friendId,String chatType,String stringStartTime,String stringEndTime) {
+
+    public void addChatDetail(String friendId, String chatType, String stringStartTime, String stringEndTime) {
         Map<String, String> map = new TreeMap<>();
         map.put("userInfoId", CanTingAppLication.userId);
         map.put("friendId", friendId);
         map.put("chatType", chatType);
-        map.put("stringStartTime", stringStartTime+"");
-        map.put("stringEndTime",stringEndTime+"");
+        map.put("stringStartTime", stringStartTime + "");
+        map.put("stringEndTime", stringEndTime + "");
         api.addChatDetail(map).enqueue(new BaseCallBack<BaseResponse>() {
 
             @Override
@@ -307,20 +381,21 @@ public class BasesPresenter implements BaseContract.Presenter {
     }
 
     @Override
-    public void integralDetails(final int type, String pageNum,  String integralSite, String types, String stringStartTime, String stringEndTime,String pageSize) {
+    public void integralDetails(final int type, String pageNum, String integralSite, String types, String stringStartTime, String stringEndTime, String pageSize) {
         Map<String, String> params = new TreeMap<>();
         params.put("pageNum", pageNum);
-        if(TextUtil.isEmpty(pageSize)){
+        if (TextUtil.isEmpty(pageSize)) {
             params.put("pageSize", "50");
-        }else {
+        } else {
             params.put("pageSize", pageSize);
         }
 
         params.put("integralSite", integralSite);
         params.put("type", types);
-        if(TextUtil.isNotEmpty(stringStartTime)){
+        if (TextUtil.isNotEmpty(stringStartTime)) {
             params.put("stringStartTime", stringStartTime);
-        }if(TextUtil.isNotEmpty(stringEndTime)){
+        }
+        if (TextUtil.isNotEmpty(stringEndTime)) {
             params.put("stringEndTime", stringEndTime);
         }
 
@@ -342,9 +417,35 @@ public class BasesPresenter implements BaseContract.Presenter {
     }
 
     @Override
-    public void getFriendById( String Ids) {
+    public void getProfitList(final int type, String pageNum) {
         Map<String, String> params = new TreeMap<>();
-        if(!TextUtil.isEmpty(Ids)){
+        params.put("pageNum", pageNum);
+
+        params.put("pageSize", 20 + "");
+
+
+        params.put("userInfoId", TextUtil.isEmpty(SpUtil.getUserInfoId(CanTingAppLication.getInstance())) ? "" : SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
+        api.getProfitList(params).enqueue(new BaseCallBack<Profit>() {
+
+            @Override
+            public void onSuccess(Profit userLoginBean) {
+                mView.toEntity(userLoginBean.data, type);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                mView.showTomast(t);
+            }
+        });
+    }
+
+
+    @Override
+
+    public void getFriendById(String Ids) {
+        Map<String, String> params = new TreeMap<>();
+        if (!TextUtil.isEmpty(Ids)) {
             params.put("id", Ids);
         }
 
@@ -362,18 +463,19 @@ public class BasesPresenter implements BaseContract.Presenter {
             }
         });
     }
+
     @Override
-    public void getFriendCirclesList(final int type, String pageNum,  String Id) {
+    public void getFriendCirclesList(final int type, String pageNum, String Id) {
         Map<String, String> params = new TreeMap<>();
-        if(pageNum.equals("-1")){
-            params.put("pageNum", 1+"");
+        if (pageNum.equals("-1")) {
+            params.put("pageNum", 1 + "");
             params.put("pageSize", "2000");
-        }else {
+        } else {
             params.put("pageNum", pageNum);
             params.put("pageSize", "12");
         }
 
-        if(!TextUtil.isEmpty(Id)){
+        if (!TextUtil.isEmpty(Id)) {
             params.put("Id", Id);
         }
 
@@ -391,12 +493,128 @@ public class BasesPresenter implements BaseContract.Presenter {
             }
         });
     }
+
+
     @Override
-    public void getFriendData(final int type, String pageNum,  String Id) {
+    public void getUserInformation(String id) {
+        Map<String, String> params = new TreeMap<>();
+
+        if (TextUtil.isNotEmpty(id)) {
+            params.put("friendId", id);
+        }
+
+        params.put("userInfoId", TextUtil.isEmpty(SpUtil.getUserInfoId(CanTingAppLication.getInstance())) ? "" : SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
+        api.getUserInformation(params).enqueue(new BaseCallBack<UserInfoBean>() {
+            @Override
+            public void onSuccess(UserInfoBean userLoginBean) {
+                mView.toEntity(userLoginBean.data, 321);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                mView.showTomast(t);
+            }
+        });
+    }
+
+    @Override
+    public void saveInformation(UserInfoBean bean) {
+        Map<String, String> params = new TreeMap<>();
+        if (TextUtil.isNotEmpty(bean.emotional_state)) {
+            params.put("emotionalState", bean.emotional_state);
+
+        }
+        if (TextUtil.isNotEmpty(bean.home_town)) {
+            params.put("homeTown", bean.home_town);
+
+        }
+        if (TextUtil.isNotEmpty(bean.job)) {
+            params.put("job", bean.job);
+
+        }
+        if (TextUtil.isNotEmpty(bean.graduate_school)) {
+            params.put("graduateSchool", bean.graduate_school);
+
+        }
+        if (TextUtil.isNotEmpty(bean.label)) {
+            params.put("label", bean.label);
+
+        }
+        if (TextUtil.isNotEmpty(bean.personal_statement)) {
+            params.put("personalStatement", bean.personal_statement);
+
+        }
+        if (TextUtil.isNotEmpty(bean.place_notes)) {
+            params.put("placeNotes", bean.place_notes);
+
+        }
+        if (TextUtil.isNotEmpty(bean.movie)) {
+            params.put("movie", bean.movie);
+
+        }
+        if (TextUtil.isNotEmpty(bean.personality_sign)) {
+            params.put("personalitySign", bean.personality_sign);
+
+        }
+        if (TextUtil.isNotEmpty(bean.nickname)) {
+            params.put("nickname", bean.nickname);
+
+        }
+        if (TextUtil.isNotEmpty(bean.book)) {
+            params.put("book", bean.book);
+
+        }
+        if (TextUtil.isNotEmpty(bean.music)) {
+            params.put("music", bean.music);
+
+        }
+        if (bean.image_url != null) {
+            params.put("imageUrl", bean.image_url);
+
+        }
+        if (TextUtil.isNotEmpty(bean.birthday)) {
+            params.put("birthday", bean.birthday);
+
+        }
+        if (TextUtil.isNotEmpty(bean.cocial_card)) {
+            params.put("cocialCard", bean.cocial_card);
+
+        }
+        if (TextUtil.isNotEmpty(bean.self_personality)) {
+            params.put("selfPersonality", bean.self_personality);
+
+        }
+        if (TextUtil.isNotEmpty(bean.current_state)) {
+            params.put("currentState", bean.current_state);
+
+        }
+        if (TextUtil.isNotEmpty(bean.superpower)) {
+            params.put("superpower", bean.superpower);
+
+        }
+
+        params.put("userInfoId", TextUtil.isEmpty(SpUtil.getUserInfoId(CanTingAppLication.getInstance())) ? "" : SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
+        api.saveInformation(params).enqueue(new BaseCallBack<BaseResponse>() {
+            @Override
+            public void onSuccess(BaseResponse userLoginBean) {
+                mView.toEntity(userLoginBean, 123);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                mView.showTomast(t);
+            }
+        });
+    }
+
+    @Override
+    public void getFriendData(final int type, String pageNum, String Id) {
         Map<String, String> params = new TreeMap<>();
         params.put("pageNum", pageNum);
         params.put("pageSize", "1");
-        if(!TextUtil.isEmpty(Id)){
+        if (!TextUtil.isEmpty(Id)) {
             params.put("Id", Id);
         }
 
@@ -414,16 +632,18 @@ public class BasesPresenter implements BaseContract.Presenter {
             }
         });
     }
+
     @Override
-    public void recordIntegralDetails(final int type, String pageNum,  String integralSite, String types, String stringStartTime, String stringEndTime) {
+    public void recordIntegralDetails(final int type, String pageNum, String integralSite, String types, String stringStartTime, String stringEndTime) {
         Map<String, String> params = new TreeMap<>();
         params.put("pageNum", pageNum);
         params.put("pageSize", "20");
         params.put("integralSite", integralSite);
         params.put("type", types);
-        if(TextUtil.isNotEmpty(stringStartTime)){
+        if (TextUtil.isNotEmpty(stringStartTime)) {
             params.put("stringStartTime", stringStartTime);
-        }if(TextUtil.isNotEmpty(stringEndTime)){
+        }
+        if (TextUtil.isNotEmpty(stringEndTime)) {
             params.put("stringEndTime", stringEndTime);
         }
 
@@ -443,13 +663,14 @@ public class BasesPresenter implements BaseContract.Presenter {
             }
         });
     }
-    public void addConfig(String coverImage	,String videoName ) {
+
+    public void addConfig(String coverImage, String videoName) {
 
 
         Map<String, String> map = new HashMap<>();
         map.put("userInfoId", SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
         map.put("coverImage", coverImage);
-        map.put("videoName",videoName);
+        map.put("videoName", videoName);
 
         api.addConfig(map).enqueue(new BaseCallBack<aliLive>() {
 
@@ -465,6 +686,7 @@ public class BasesPresenter implements BaseContract.Presenter {
             }
         });
     }
+
     public void setLiveNotifyUrl() {
 
 
@@ -486,6 +708,28 @@ public class BasesPresenter implements BaseContract.Presenter {
         });
     }
 
+    public void updateType(String id,String type) {
+
+
+        Map<String, String> map = new HashMap<>();
+        map.put("id", id);
+        map.put("type", type);
+
+        api.updateType(map).enqueue(new BaseCallBack<BaseResponse>() {
+
+            @Override
+            public void onSuccess(BaseResponse userLoginBean) {
+                mView.toEntity(userLoginBean, 5);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                mView.showTomast(t);
+            }
+        });
+    }
+
     public void addLiveRecordVod() {
 
 
@@ -496,7 +740,7 @@ public class BasesPresenter implements BaseContract.Presenter {
 
             @Override
             public void onSuccess(aliLive userLoginBean) {
-                mView.toEntity(userLoginBean.data, 29);
+                mView.toEntity(userLoginBean.data, 299);
             }
 
             @Override
@@ -506,6 +750,7 @@ public class BasesPresenter implements BaseContract.Presenter {
             }
         });
     }
+
     public void deleteConfig() {
 
 
@@ -526,6 +771,7 @@ public class BasesPresenter implements BaseContract.Presenter {
             }
         });
     }
+
     public void deleteRoom() {
 
 
@@ -572,6 +818,7 @@ public class BasesPresenter implements BaseContract.Presenter {
             }
         });
     }
+
     @Override
     public void getActivityProductList(final int type, String pageNum, String pageSize, String searchInfo, String proSite, String productType) {
         Map<String, String> params = new TreeMap<>();
@@ -591,13 +838,16 @@ public class BasesPresenter implements BaseContract.Presenter {
             @Override
             public void onOtherErr(int code, String t) {
                 super.onOtherErr(code, t);
+                if (code == 304) {
+                    mView.toEntity(null, type);
+                }
                 mView.showTomast(t);
             }
         });
     }
 
     @Override
-    public void groupSort(String sortType	,String sortId) {
+    public void groupSort(String sortType, String sortId) {
         Map<String, String> params = new TreeMap<>();
         params.put("sortId", sortId);
         params.put("sortType", sortType);
@@ -988,7 +1238,7 @@ public class BasesPresenter implements BaseContract.Presenter {
     public void deleteOrder(String orderId) {
         Map<String, String> params = new TreeMap<>();
         params.put("userInfoId", TextUtil.isEmpty(SpUtil.getUserInfoId(CanTingAppLication.getInstance())) ? "" : SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
-        params.put("orderId", orderId);
+        params.put("transactionId", orderId);
 
 
         api.deleteOrder(params).enqueue(new BaseCallBack<BaseResponse>() {
@@ -1013,11 +1263,11 @@ public class BasesPresenter implements BaseContract.Presenter {
 
         Map<String, String> map = new HashMap<>();
         map.put("userInfoId", SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
-        if(!TextUtil.isEmpty(paymentPassword)){
+        if (!TextUtil.isEmpty(paymentPassword)) {
             map.put("paymentPassword", paymentPassword);
-            map.put("type", 1+"");
-        }else {
-            map.put("type", 2+"");
+            map.put("type", 1 + "");
+        } else {
+            map.put("type", 2 + "");
         }
 
 
@@ -1026,24 +1276,24 @@ public class BasesPresenter implements BaseContract.Presenter {
             @Override
             public void onSuccess(BaseResponse userLoginBean) {
                 mView.toEntity(userLoginBean, 989);
-                CanTingAppLication.isSetting=true;
+                CanTingAppLication.isSetting = true;
             }
 
             @Override
             public void onOtherErr(int code, String t) {
                 super.onOtherErr(code, t);
-                if(code==202){
-                    CanTingAppLication.isSetting=false;
-                }else if(code==200) {
-                    CanTingAppLication.isSetting=true;
+                if (code == 202) {
+                    CanTingAppLication.isSetting = false;
+                } else if (code == 200) {
+                    CanTingAppLication.isSetting = true;
                 }
                 mView.showTomast(t);
             }
         });
     }
+
     @Override
     public void getVersionAndUrl() {
-
 
 
         api.getVersionAndUrl().enqueue(new BaseCallBack<Version>() {
@@ -1067,7 +1317,7 @@ public class BasesPresenter implements BaseContract.Presenter {
         Map<String, String> params = new TreeMap<>();
 
         params.put("userInfoId", TextUtil.isEmpty(SpUtil.getUserInfoId(CanTingAppLication.getInstance())) ? "" : SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
-        if(TextUtil.isNotEmpty(orderType)){
+        if (TextUtil.isNotEmpty(orderType)) {
             params.put("orderType", orderType);
         }
         params.put("orderId", orderId);
@@ -1087,12 +1337,20 @@ public class BasesPresenter implements BaseContract.Presenter {
             }
         });
     }
+
     @Override
-    public void cancelOrder(List<Params> cancelList) {
-        CancelParam param=new CancelParam();
-        param.userInfoId=TextUtil.isEmpty(SpUtil.getUserInfoId(CanTingAppLication.getInstance())) ? "" : SpUtil.getUserInfoId(CanTingAppLication.getInstance());
-        param.cancelList=cancelList;
-        api.cancelOrder(param).enqueue(new BaseCallBack<BaseResponse>() {
+    public void cancelOrder(Params cancelList) {
+
+        Map<String, String> params = new TreeMap<>();
+
+        params.put("userInfoId", TextUtil.isEmpty(SpUtil.getUserInfoId(CanTingAppLication.getInstance())) ? "" : SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
+        params.put("id", cancelList.id);
+        params.put("transactionId", cancelList.transactionId);
+        params.put("proSite", cancelList.proSite);
+
+        params.put("payType", cancelList.payType);
+
+        api.cancelOrder(params).enqueue(new BaseCallBack<BaseResponse>() {
 
             @Override
             public void onSuccess(BaseResponse userLoginBean) {
@@ -1147,10 +1405,10 @@ public class BasesPresenter implements BaseContract.Presenter {
     }
 
     @Override
-    public void getFrendList(String groupId)  {
+    public void getFrendList(String groupId) {
 
         Map<String, String> params = new TreeMap<>();
-        if(TextUtil.isNotEmpty(groupId)){
+        if (TextUtil.isNotEmpty(groupId)) {
             params.put("groupId", groupId);
         }
 //        params.put("paymentId", paymentId);
@@ -1171,13 +1429,14 @@ public class BasesPresenter implements BaseContract.Presenter {
             }
         });
     }
+
     @Override
-    public void addGroup(String chatGroupName,String groupBackImage	)  {
+    public void addGroup(String chatGroupName, String groupBackImage) {
 
         Map<String, String> params = new TreeMap<>();
 //        params.put("paymentId", paymentId);
         params.put("chatGroupName", chatGroupName);
-        params.put("groupBackImage", groupBackImage	);
+        params.put("groupBackImage", groupBackImage);
         params.put("createBy", TextUtil.isEmpty(SpUtil.getUserInfoId(CanTingAppLication.getInstance())) ? "" : SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
 
         api.addGroup(params).enqueue(new BaseCallBack<BaseResponse>() {
@@ -1194,8 +1453,9 @@ public class BasesPresenter implements BaseContract.Presenter {
             }
         });
     }
+
     @Override
-    public void deleteGroups(String id)  {
+    public void deleteGroups(String id) {
 
         Map<String, String> params = new TreeMap<>();
 //        params.put("paymentId", paymentId);
@@ -1216,16 +1476,17 @@ public class BasesPresenter implements BaseContract.Presenter {
             }
         });
     }
+
     @Override
-    public void alterGroupName(String chatGroupName,String id,String groupBackImage)  {
+    public void alterGroupName(String chatGroupName, String id, String groupBackImage) {
 
         Map<String, String> params = new TreeMap<>();
 //        params.put("paymentId", paymentId);
 
-        if(TextUtil.isNotEmpty(chatGroupName)){
+        if (TextUtil.isNotEmpty(chatGroupName)) {
             params.put("chatGroupName", chatGroupName);
         }
-        if(TextUtil.isNotEmpty(groupBackImage)){
+        if (TextUtil.isNotEmpty(groupBackImage)) {
             params.put("groupBackImage", groupBackImage);
         }
 
@@ -1246,14 +1507,15 @@ public class BasesPresenter implements BaseContract.Presenter {
             }
         });
     }
+
     @Override
-    public void alterGroupImage(String id,String groupBackImage)  {
+    public void alterGroupImage(String id, String groupBackImage) {
 
         Map<String, String> params = new TreeMap<>();
 //        params.put("paymentId", paymentId);
 
 
-        if(TextUtil.isNotEmpty(groupBackImage)){
+        if (TextUtil.isNotEmpty(groupBackImage)) {
             params.put("groupBackImage", groupBackImage);
         }
 
@@ -1276,11 +1538,11 @@ public class BasesPresenter implements BaseContract.Presenter {
     }
 
     @Override
-    public void updateOwnerName(String userGroupName,String groupsId)  {
+    public void updateOwnerName(String userGroupName, String groupsId) {
 
         Map<String, String> params = new TreeMap<>();
 
-        params.put("userGroupName", userGroupName	);
+        params.put("userGroupName", userGroupName);
         params.put("groupsId", groupsId);
         params.put("userInfoId", TextUtil.isEmpty(SpUtil.getUserInfoId(CanTingAppLication.getInstance())) ? "" : SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
 
@@ -1298,8 +1560,9 @@ public class BasesPresenter implements BaseContract.Presenter {
             }
         });
     }
+
     @Override
-    public void updateGroupsName(String groupsName,String groupsId)  {
+    public void updateGroupsName(String groupsName, String groupsId) {
 
         Map<String, String> params = new TreeMap<>();
 //        params.put("paymentId", paymentId);
@@ -1324,7 +1587,7 @@ public class BasesPresenter implements BaseContract.Presenter {
 
 
     @Override
-    public void success(String paymentId,String orderCode)  {
+    public void success(String paymentId, String orderCode) {
 
         Map<String, String> params = new TreeMap<>();
 //        params.put("paymentId", paymentId);
@@ -1343,12 +1606,13 @@ public class BasesPresenter implements BaseContract.Presenter {
             }
         });
     }
+
     @Override
-    public void integerSuccess(String  orderId)  {
+    public void integerSuccess(String orderId) {
 
         Map<String, String> params = new TreeMap<>();
 //        params.put("paymentId", paymentId);
-        params.put(" orderId",  orderId);
+        params.put(" orderId", orderId);
         api.integerSuccess(params).enqueue(new BaseCallBack<BaseResponse>() {
 
             @Override
@@ -1382,6 +1646,7 @@ public class BasesPresenter implements BaseContract.Presenter {
             }
         });
     }
+
     @Override
     public void submitOrderpal(OrderParam proList) {
 
@@ -1400,6 +1665,7 @@ public class BasesPresenter implements BaseContract.Presenter {
             }
         });
     }
+
     @Override
     public void submitOrder(OrderParam proList) {
 
@@ -1520,7 +1786,7 @@ public class BasesPresenter implements BaseContract.Presenter {
     }
 
     @Override
-    public void  focusTV(String roomInfoId, String anchorsId, final String type) {
+    public void focusTV(String roomInfoId, String anchorsId, final String type) {
 
         Map<String, String> params = new TreeMap<>();
         params.put("roomInfoId", roomInfoId);
@@ -1532,7 +1798,7 @@ public class BasesPresenter implements BaseContract.Presenter {
 
             @Override
             public void onSuccess(BaseResponse userLoginBean) {
-                mView.toEntity(userLoginBean, Integer.valueOf(type)==1?3:4);
+                mView.toEntity(userLoginBean, Integer.valueOf(type) == 1 ? 3 : 4);
             }
 
             @Override
@@ -1544,13 +1810,13 @@ public class BasesPresenter implements BaseContract.Presenter {
     }
 
     @Override
-    public void  addInfo(String postInfo, String postImage) {
+    public void addInfo(String postInfo, String postImage) {
 
         Map<String, String> params = new TreeMap<>();
         params.put("postInfo", postInfo);
-        if(TextUtil.isNotEmpty(postImage)){
+        if (TextUtil.isNotEmpty(postImage)) {
             params.put("postImage", postImage);
-        }else {
+        } else {
             params.put("postImage", "");
         }
 
@@ -1571,8 +1837,9 @@ public class BasesPresenter implements BaseContract.Presenter {
             }
         });
     }
+
     @Override
-    public void  addFriendComment(String topicId, String toUid,String fromUid,String content ) {
+    public void addFriendComment(String topicId, String toUid, String fromUid, String content) {
 
         Map<String, String> params = new TreeMap<>();
         params.put("topicId", topicId);
@@ -1597,8 +1864,9 @@ public class BasesPresenter implements BaseContract.Presenter {
             }
         });
     }
+
     @Override
-    public void  delFriendComment(String topicId, String sendId,String fromUid,String id ) {
+    public void delFriendComment(String topicId, String sendId, String fromUid, String id) {
 
         Map<String, String> params = new TreeMap<>();
         params.put("topicId", topicId);
@@ -1647,8 +1915,9 @@ public class BasesPresenter implements BaseContract.Presenter {
             }
         });
     }
+
     @Override
-    public void addRemark(String friendsId, String remarkName,String remarkPhone, String remarkMessage) {
+    public void addRemark(String friendsId, String remarkName, String remarkPhone, String remarkMessage) {
 
 
         Map<String, String> map = new HashMap<>();
@@ -1678,9 +1947,9 @@ public class BasesPresenter implements BaseContract.Presenter {
 
 
         Map<String, String> map = new HashMap<>();
-        if(TextUtil.isNotEmpty(id)){
+        if (TextUtil.isNotEmpty(id)) {
             map.put("userInfoId", id);
-        }else {
+        } else {
             map.put("userInfoId", SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
         }
 
@@ -1724,7 +1993,7 @@ public class BasesPresenter implements BaseContract.Presenter {
     }
 
     @Override
-    public void  changeFriendLike(String topicId, String type ) {
+    public void changeFriendLike(String topicId, String type) {
 
         Map<String, String> params = new TreeMap<>();
         params.put("topicId", topicId);
@@ -1749,7 +2018,7 @@ public class BasesPresenter implements BaseContract.Presenter {
     }
 
     @Override
-    public void upUserGroup(String chatUserId, String groupName, String groupId,String type) {
+    public void upUserGroup(String chatUserId, String groupName, String groupId, String type) {
 
 
         Map<String, String> map = new HashMap<>();
@@ -1773,6 +2042,7 @@ public class BasesPresenter implements BaseContract.Presenter {
             }
         });
     }
+
     @Override
     public void upRoomInfo(String directSeeName, String leaveMassege, String roomImage, String directOverview) {
 
@@ -1878,13 +2148,11 @@ public class BasesPresenter implements BaseContract.Presenter {
         Map<String, String> params = new TreeMap<>();
 
 
-
-
-        if(pageNum.equals("-1")){
+        if (pageNum.equals("-1")) {
             params.put("roomInfoId", roomInfoId);
-            params.put("pageNum", 1+"");
+            params.put("pageNum", 1 + "");
             params.put("pageSize", "2000");
-        }else {
+        } else {
             params.put("pageNum", pageNum);
             params.put("pageSize", "16");
             params.put("roomInfoId", SpUtil.getString(CanTingAppLication.getInstance(), "room_id", ""));
@@ -1910,24 +2178,23 @@ public class BasesPresenter implements BaseContract.Presenter {
     }
 
 
-
     @Override
-    public void getLatestVideoList( String pageNum, final int type) {
+    public void getLatestVideoList(String pageNum, final int type) {
 
 
         Map<String, String> params = new TreeMap<>();
 
         params.put("userInfoId", TextUtil.isEmpty(SpUtil.getUserInfoId(CanTingAppLication.getInstance())) ? "" : SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
 
-        params.put("pageSize","12" );
-        params.put("pageNum",pageNum );
+        params.put("pageSize", "12");
+        params.put("pageNum", pageNum);
 
 
         api.getLatestVideoList(params).enqueue(new BaseCallBack<ZhiBo_GuanZhongBean>() {
 
             @Override
             public void onSuccess(ZhiBo_GuanZhongBean userLoginBean) {
-                mView.toEntity(userLoginBean,type);
+                mView.toEntity(userLoginBean, type);
             }
 
             @Override
@@ -1937,15 +2204,16 @@ public class BasesPresenter implements BaseContract.Presenter {
             }
         });
     }
+
     @Override
-    public void getChatDetailListForTime( String chatType, String timeType) {
+    public void getChatDetailListForTime(String chatType, String timeType) {
 
 
         Map<String, String> params = new TreeMap<>();
 
         params.put("userInfoId", TextUtil.isEmpty(SpUtil.getUserInfoId(CanTingAppLication.getInstance())) ? "" : SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
 
-        params.put("pageNum", 1+"");
+        params.put("pageNum", 1 + "");
         params.put("pageSize", "500");
         params.put("chatType", chatType);
         params.put("timeType", timeType);
@@ -1955,7 +2223,7 @@ public class BasesPresenter implements BaseContract.Presenter {
 
             @Override
             public void onSuccess(Hand userLoginBean) {
-                mView.toEntity(userLoginBean,0);
+                mView.toEntity(userLoginBean, 0);
             }
 
             @Override
@@ -1965,14 +2233,15 @@ public class BasesPresenter implements BaseContract.Presenter {
             }
         });
     }
+
     @Override
-    public void getChatDetailForTimeSearch( String chatType, String stringStartTime,String stringEndTime) {
+    public void getChatDetailForTimeSearch(String chatType, String stringStartTime, String stringEndTime) {
 
 
         Map<String, String> params = new TreeMap<>();
 
         params.put("userInfoId", TextUtil.isEmpty(SpUtil.getUserInfoId(CanTingAppLication.getInstance())) ? "" : SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
-        params.put("pageNum", 1+"");
+        params.put("pageNum", 1 + "");
         params.put("pageSize", "500");
         params.put("chatType", chatType);
         params.put("stringStartTime", stringStartTime);
@@ -1983,7 +2252,7 @@ public class BasesPresenter implements BaseContract.Presenter {
 
             @Override
             public void onSuccess(Hand userLoginBean) {
-                mView.toEntity(userLoginBean,0);
+                mView.toEntity(userLoginBean, 0);
             }
 
             @Override
@@ -2047,7 +2316,7 @@ public class BasesPresenter implements BaseContract.Presenter {
     }
 
     @Override
-    public void uploadCode(String type,String codeUrl) {
+    public void uploadCode(String type, String codeUrl) {
 
 
         Map<String, String> params = new TreeMap<>();
@@ -2072,6 +2341,7 @@ public class BasesPresenter implements BaseContract.Presenter {
             }
         });
     }
+
     @Override
     public void getGiftDetailedList(String pageNum, final int loadtype) {
 
@@ -2080,8 +2350,8 @@ public class BasesPresenter implements BaseContract.Presenter {
 
 
         params.put("roomInfoId", SpUtil.getString(CanTingAppLication.getInstance(), "room_id", ""));
-        params.put("pageSize","12" );
-        params.put("pageNum",pageNum );
+        params.put("pageSize", "12");
+        params.put("pageNum", pageNum);
 
 
         api.getGiftDetailedList(params).enqueue(new BaseCallBack<Hands>() {
@@ -2123,6 +2393,7 @@ public class BasesPresenter implements BaseContract.Presenter {
             }
         });
     }
+
     @Override
     public void anchorsList() {
 
@@ -2172,7 +2443,7 @@ public class BasesPresenter implements BaseContract.Presenter {
     }
 
     @Override
-    public void rechargeInteger(String integralNumber,String payType) {
+    public void rechargeInteger(String integralNumber, String payType) {
 
 
         Map<String, String> params = new TreeMap<>();
@@ -2195,8 +2466,9 @@ public class BasesPresenter implements BaseContract.Presenter {
             }
         });
     }
+
     @Override
-    public void rechargeIntegers(String integralNumber,String payType) {
+    public void rechargeIntegers(String integralNumber, String payType) {
 
 
         Map<String, String> params = new TreeMap<>();
@@ -2221,7 +2493,7 @@ public class BasesPresenter implements BaseContract.Presenter {
     }
 
     @Override
-    public void rechargeIntegerss(String integralNumber,String payType) {
+    public void rechargeIntegerss(String integralNumber, String payType) {
 
 
         Map<String, String> params = new TreeMap<>();

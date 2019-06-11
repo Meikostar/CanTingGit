@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/face_bg"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="23dp"
+        android:id="@+id/line"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+        <ImageView
+            android:layout_marginLeft="7dp"
+            android:id="@+id/iv_back"
+            android:layout_width="22dp"
+            android:layout_height="36dp"
+            android:padding="7dp"
+            android:src="@drawable/arrow_left_white" />
+        <LinearLayout
+            android:layout_marginLeft="8dp"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:orientation="vertical"
+            android:gravity="center_vertical">
+            <TextView
+
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="面对面建群"
+                android:textColor="#fff"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="8dp"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+        <TextView
+
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="和身边的朋友输入同样的四个数字，\n进入同一个群聊"
+            android:textColor="#fff"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="35dp"
+        android:layout_marginLeft="8dp"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/iv_bg1"
+                android:layout_centerInParent="true"
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:src="@drawable/face_psw_bg"/>
+            <TextView
+                android:id="@+id/tv_text1"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="#2A93FF"
+                android:textSize="35sp" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_marginLeft="25dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/iv_bg2"
+                android:layout_centerInParent="true"
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:src="@drawable/face_psw_bg"/>
+            <TextView
+                android:id="@+id/tv_text2"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="#2A93FF"
+                android:textSize="35sp" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_marginLeft="25dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/iv_bg3"
+                android:layout_centerInParent="true"
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:src="@drawable/face_psw_bg"/>
+            <TextView
+                android:id="@+id/tv_text3"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="#2A93FF"
+                android:textSize="35sp" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_marginLeft="25dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/iv_bg4"
+                android:layout_centerInParent="true"
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:src="@drawable/face_psw_bg"/>
+            <TextView
+                android:id="@+id/tv_text4"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="#2A93FF"
+                android:textSize="35sp" />
+        </RelativeLayout>
+    </LinearLayout>
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"/>
+    <GridView
+        android:horizontalSpacing="0.1dp"
+        android:verticalSpacing="0.1dp"
+        android:id="@+id/gridView"
+        android:numColumns="3"
+        android:layout_width="match_parent"
+        android:layout_height="214dp"/>
+
+
+</LinearLayout>

@@ -8,7 +8,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 
 
 public class DefaultLoadMoreView extends RelativeLayout implements ILoadMoreView {
@@ -33,8 +33,8 @@ public class DefaultLoadMoreView extends RelativeLayout implements ILoadMoreView
 
     private void init(Context context) {
         inflate(context, R.layout.loading_view_final_footer_default, this);
-        mPbLoading = (ProgressBar) findViewById(R.id.pb_loading);
-        mTvMessage = (TextView) findViewById(R.id.tv_loading_msg);
+        mPbLoading = findViewById(R.id.pb_loading);
+        mTvMessage = findViewById(R.id.tv_loading_msg);
     }
 
     @Override

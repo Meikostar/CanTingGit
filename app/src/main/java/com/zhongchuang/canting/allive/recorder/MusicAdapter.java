@@ -171,15 +171,15 @@ public class MusicAdapter extends RecyclerView.Adapter implements View.OnClickLi
 
         public MusicViewHolder(View itemView) {
             super(itemView);
-            musicName = (TextView) itemView.findViewById(R.id.aliyun_music_name);
-            musicSinger = (TextView) itemView.findViewById(R.id.aliyun_music_artist);
-            musicWave = (MusicWaveView) itemView.findViewById(R.id.aliyun_wave_view);
-            musicInfoLayout = (LinearLayout) itemView.findViewById(R.id.aliyun_music_info_layout);
-            musicNameLayout = (LinearLayout) itemView.findViewById(R.id.aliyun_music_name_layout);
-            scrollBar = (MusicHorizontalScrollView) itemView.findViewById(R.id.aliyun_scroll_bar);
-            musicStartTxt = (TextView) itemView.findViewById(R.id.aliyun_music_start_txt);
-            musicEndTxt = (TextView) itemView.findViewById(R.id.aliyun_music_end_txt);
-            musicSelect = (ImageView) itemView.findViewById(R.id.aliyun_music_select);
+            musicName = itemView.findViewById(R.id.aliyun_music_name);
+            musicSinger = itemView.findViewById(R.id.aliyun_music_artist);
+            musicWave = itemView.findViewById(R.id.aliyun_wave_view);
+            musicInfoLayout = itemView.findViewById(R.id.aliyun_music_info_layout);
+            musicNameLayout = itemView.findViewById(R.id.aliyun_music_name_layout);
+            scrollBar = itemView.findViewById(R.id.aliyun_scroll_bar);
+            musicStartTxt = itemView.findViewById(R.id.aliyun_music_start_txt);
+            musicEndTxt = itemView.findViewById(R.id.aliyun_music_end_txt);
+            musicSelect = itemView.findViewById(R.id.aliyun_music_select);
             setDurationTxt(this,0,0);
         }
 

@@ -18,7 +18,7 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.FindFriendActivity;
 import com.zhongchuang.canting.activity.chat.ContactListFragment;
 import com.zhongchuang.canting.adapter.BannerAdapters;
@@ -138,7 +138,7 @@ public class addFriendFragment extends ContactListFragment implements View.OnCli
             }
             InputMethodManager inputMethodManager = (InputMethodManager)
                     getActivity().getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-            inputMethodManager.hideSoftInputFromWindow(iBinder, inputMethodManager.HIDE_NOT_ALWAYS);
+            inputMethodManager.hideSoftInputFromWindow(iBinder, InputMethodManager.HIDE_NOT_ALWAYS);
         } catch (Exception e) {
             e.printStackTrace();
         }

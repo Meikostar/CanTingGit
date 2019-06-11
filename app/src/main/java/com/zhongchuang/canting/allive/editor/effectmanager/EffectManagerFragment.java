@@ -45,7 +45,7 @@ public class EffectManagerFragment extends Fragment implements StateController.S
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.aliyun_svideo_activity_effect_fragment, null);
-        mRv = (RecyclerView) view.findViewById(R.id.rv_view);
+        mRv = view.findViewById(R.id.rv_view);
         mRv.setLayoutManager(new LinearLayoutManager(getActivity()));
         mAdapter = new RecycleViewAdapter(mList);
         mAdapter.setStateChangeListener(this);

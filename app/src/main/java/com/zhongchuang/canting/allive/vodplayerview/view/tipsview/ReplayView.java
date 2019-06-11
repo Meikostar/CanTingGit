@@ -54,7 +54,7 @@ public class ReplayView extends RelativeLayout implements ITheme {
         addView(view, params);
 
         //设置监听
-        mReplayBtn = (TextView) view.findViewById(R.id.replay);
+        mReplayBtn = view.findViewById(R.id.replay);
         mReplayBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {

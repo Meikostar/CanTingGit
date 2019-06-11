@@ -12,7 +12,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.adapter.LoginAdapter;
 import com.zhongchuang.canting.been.SubscriptionBean;
 import com.zhongchuang.canting.fragment.Login_PassedwordFragment;
@@ -24,6 +24,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import rx.Subscription;
 import rx.functions.Action1;
 
@@ -134,18 +135,18 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-//    @OnClick(R.id.shezhi_regest)
-//    public void onViewClicked() {
-//        Intent logintent=new Intent(this,RegistActivity.class);
-//        startActivity(logintent);
-//}
+    @OnClick(R.id.shezhi_regest)
+    public void onViewClicked() {
+        Intent logintent=new Intent(this,RegistActivity.class);
+        startActivity(logintent);
+}
 
 
     public void gotoZhuyeFrag() {
         if(status!=0){
             finish();
         }else {
-            Intent gotoZhuYe=new Intent(this,HomeActivity.class);
+            Intent gotoZhuYe=new Intent(this,HomeActivitys.class);
             startActivity(gotoZhuYe);
             finish();
         }

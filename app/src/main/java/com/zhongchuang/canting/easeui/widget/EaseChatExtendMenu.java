@@ -18,7 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hyphenate.util.DensityUtil;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.HomeActivity;
 import com.zhongchuang.canting.permission.PermissionConst;
 import com.zhongchuang.canting.permission.PermissionGen;
@@ -174,8 +174,8 @@ public class EaseChatExtendMenu extends GridView{
 
         private void init(Context context, AttributeSet attrs) {
             LayoutInflater.from(context).inflate(R.layout.ease_chat_menu_item, this);
-            imageView = (ImageView) findViewById(R.id.image);
-            textView = (TextView) findViewById(R.id.text);
+            imageView = findViewById(R.id.image);
+            textView = findViewById(R.id.text);
         }
 
         public void setImage(int resid) {

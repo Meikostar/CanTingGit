@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.been.FriendListBean;
 import com.zhongchuang.canting.been.GAME;
 import com.zhongchuang.canting.utils.StringUtil;
@@ -63,10 +63,10 @@ public class ChatMessageAdapter extends BaseAdapter {
         if (view == null) {
             holder = new ChatMessageAdapter.ViewHolder();
             view = inflater.inflate(R.layout.tools_item, null);
-            holder.txt_name = (TextView) view.findViewById(R.id.txt_name);
-            holder.tv_count = (TextView) view.findViewById(R.id.tv_count);
-            holder.llbg = (LinearLayout) view.findViewById(R.id.ll_bg);
-            holder.img_icon = (ImageView) view.findViewById(R.id.img_icon);
+            holder.txt_name = view.findViewById(R.id.txt_name);
+            holder.tv_count = view.findViewById(R.id.tv_count);
+            holder.llbg = view.findViewById(R.id.ll_bg);
+            holder.img_icon = view.findViewById(R.id.img_icon);
             view.setTag(holder);
         } else {
             holder = (ChatMessageAdapter.ViewHolder) view.getTag();

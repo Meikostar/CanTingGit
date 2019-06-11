@@ -9,7 +9,7 @@ import android.widget.ListView;
 
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.easeui.adapter.EaseConversationAdapter;
 
 import java.util.ArrayList;
@@ -94,7 +94,7 @@ public class EaseConversationList extends ListView{
     };
 
     public EMConversation getItem(int position) {
-        return (EMConversation)adapter.getItem(position);
+        return adapter.getItem(position);
     }
     
     public void refresh() {

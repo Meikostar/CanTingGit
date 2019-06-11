@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.easeui.EaseUI;
 import com.zhongchuang.canting.easeui.EaseUI.EaseUserProfileProvider;
 import com.zhongchuang.canting.easeui.domain.EaseUser;

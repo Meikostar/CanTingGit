@@ -29,7 +29,7 @@ import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import com.hyphenate.util.DensityUtil;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 
 public class EaseSidebar extends View{
 	private Paint paint;
@@ -120,7 +120,7 @@ public class EaseSidebar extends View{
 		switch (event.getAction()) {
 		case MotionEvent.ACTION_DOWN:{
 			if(header == null){
-				header = (TextView) ((View)getParent()).findViewById(R.id.floating_header);
+				header = ((View)getParent()).findViewById(R.id.floating_header);
 			}
 			setHeaderTextAndscroll(event);
 			header.setVisibility(View.VISIBLE);

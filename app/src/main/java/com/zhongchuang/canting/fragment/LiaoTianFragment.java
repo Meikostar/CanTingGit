@@ -23,7 +23,7 @@ import com.zhongchuang.canting.easeui.EaseConstant;
 import com.zhongchuang.canting.easeui.bean.CHATMESSAGE;
 import com.zhongchuang.canting.easeui.ui.EaseConversationListFragment;
 import com.hyphenate.util.NetUtils;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.ChatActivity;
 import com.zhongchuang.canting.activity.TongXunLuActivity;
 import com.zhongchuang.canting.listener.MyConnectionListener;
@@ -210,10 +210,10 @@ public class LiaoTianFragment extends EaseConversationListFragment implements Vi
     public void showPopwindow(final String id) {
 
         views = View.inflate(getActivity(), R.layout.del_friend, null);
-        sure = (TextView) views.findViewById(R.id.txt_sure);
-        cancel = (TextView) views.findViewById(R.id.txt_cancel);
-        title = (TextView) views.findViewById(R.id.tv_title);
-        reson = (EditText) views.findViewById(R.id.edit_reson);
+        sure = views.findViewById(R.id.txt_sure);
+        cancel = views.findViewById(R.id.txt_cancel);
+        title = views.findViewById(R.id.tv_title);
+        reson = views.findViewById(R.id.edit_reson);
         title.setText(R.string.schjqkjl);
         final MarkaBaseDialog dialog = BaseDailogManager.getInstance().getBuilder(getActivity()).setMessageView(views).create();
         dialog.show();

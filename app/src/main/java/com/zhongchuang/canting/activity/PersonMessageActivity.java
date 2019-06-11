@@ -25,7 +25,9 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
+import com.zhongchuang.canting.activity.mine.NewPersonDetailActivity;
+import com.zhongchuang.canting.activity.mine.PersonManActivity;
 import com.zhongchuang.canting.app.CanTingAppLication;
 import com.zhongchuang.canting.base.BaseLoginActivity;
 import com.zhongchuang.canting.been.BaseResponse;
@@ -95,7 +97,8 @@ public class PersonMessageActivity extends BaseLoginActivity implements GetUserI
     TextView tvNext;
     @BindView(R.id.ll_first)
     LinearLayout llFirst;
-
+    @BindView(R.id.editor)
+    TextView editor;
 
     private PersonInfoPresenter personInfoPresenter;
     private Unbinder unbind;
@@ -159,10 +162,19 @@ public class PersonMessageActivity extends BaseLoginActivity implements GetUserI
     }
 
     private void setEvents() {
+        editor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PersonMessageActivity.this, NewPersonDetailActivity.class);
+                intent.putExtra("id", SpUtil.getUserInfoId(PersonMessageActivity.this));
+                startActivity(intent);
+            }
+        });
+
         tvNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PersonMessageActivity.this, HomeActivity.class);
+                Intent intent = new Intent(PersonMessageActivity.this, HomeActivitys.class);
                 startActivity(intent);
                 PersonMessageActivity.this.finish();
             }
@@ -234,11 +246,7 @@ public class PersonMessageActivity extends BaseLoginActivity implements GetUserI
     }
 
     private boolean checkData() {
-        if (TextUtils.isEmpty(nickEt.getText().toString())) {
-            return false;
-        }
-
-        return true;
+        return !TextUtils.isEmpty(nickEt.getText().toString());
     }
 
     private void changeSunbmit() {
@@ -331,9 +339,9 @@ public class PersonMessageActivity extends BaseLoginActivity implements GetUserI
     @PermissionSuccess(requestCode = PermissionConst.REQUECT_CODE_CAMERA)
     public void requestSdcardSuccess() {
         View view = LayoutInflater.from(PersonMessageActivity.this).inflate(R.layout.chat_phone_popwindow_view, null);
-        TextView tv_camera = (TextView) view.findViewById(R.id.tv_camera);
-        TextView tv_choose = (TextView) view.findViewById(R.id.tv_choose);
-        TextView tv_cancel = (TextView) view.findViewById(R.id.tv_cancel);
+        TextView tv_camera = view.findViewById(R.id.tv_camera);
+        TextView tv_choose = view.findViewById(R.id.tv_choose);
+        TextView tv_cancel = view.findViewById(R.id.tv_cancel);
         tv_camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -436,7 +444,7 @@ public class PersonMessageActivity extends BaseLoginActivity implements GetUserI
 
 
                 if (type == 1) {
-                    Intent intent = new Intent(PersonMessageActivity.this, HomeActivity.class);
+                    Intent intent = new Intent(PersonMessageActivity.this, HomeActivitys.class);
                     startActivity(intent);
                     finish();
 

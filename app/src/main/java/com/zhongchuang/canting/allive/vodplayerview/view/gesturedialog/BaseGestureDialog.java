@@ -36,8 +36,8 @@ public class BaseGestureDialog extends PopupWindow {
         setContentView(view);
 
         //找出view
-        mTextView = (TextView) view.findViewById(R.id.gesture_text);
-        mImageView = (ImageView) view.findViewById(R.id.gesture_image);
+        mTextView = view.findViewById(R.id.gesture_text);
+        mImageView = view.findViewById(R.id.gesture_image);
 
         //设置对话框宽高
         mDialogWidthAndHeight = context.getResources().getDimensionPixelSize(R.dimen.alivc_gesture_dialog_size);

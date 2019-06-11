@@ -12,7 +12,7 @@ import android.widget.RadioGroup;
 
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.LoginActivity;
 import com.zhongchuang.canting.base.BaseAllActivity;
 import com.zhongchuang.canting.base.LazyFragment;
@@ -226,13 +226,7 @@ public class LiveActivity extends BaseAllActivity implements View.OnClickListene
     private void setLoginMessage() {
         String token = SpUtil.getString(this, "token", "");
 
-        if (TextUtils.isEmpty(token) || token.equals("") || TextUtils.isEmpty(token) || token.equals("")) {
-
-            isLogin = false;
-        } else {
-
-            isLogin = true;
-        }
+        isLogin = !TextUtils.isEmpty(token) && !token.equals("") && !TextUtils.isEmpty(token) && !token.equals("");
 
 
     }

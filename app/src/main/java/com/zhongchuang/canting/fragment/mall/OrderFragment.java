@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 
 import com.malinskiy.superrecyclerview.OnMoreListener;
 import com.malinskiy.superrecyclerview.SuperRecyclerView;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.mall.ShopMallDetailActivity;
 import com.zhongchuang.canting.adapter.recycle.GoodRecyAdapter;
 import com.zhongchuang.canting.adapter.recycle.ItemRecycleAdapter;

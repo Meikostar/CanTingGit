@@ -447,9 +447,7 @@ public class IndicatorSeekBar extends View implements ViewTreeObserver.OnGlobalL
                         mLocation = new int[2];
                     }
                     this.getLocationInWindow(mLocation);
-                    if (left == mLocation[0] && top == mLocation[1]) {
-                        return false;
-                    }
+                    return left != mLocation[0] || top != mLocation[1];
                 }
             }
         }

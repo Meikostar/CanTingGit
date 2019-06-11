@@ -42,7 +42,7 @@ public class LiveStreamPresenterImpl extends BasePresenterImpl implements LiveSt
 
             @Override
             public void onSuccess(ZhiBo_GuanZhongBean userLoginBean) {
-                callBack.successLive(userLoginBean, loadtype);
+                callBack.successRecordLive(userLoginBean, loadtype);
             }
 
             @Override

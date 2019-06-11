@@ -50,7 +50,7 @@ public class LoadingView extends RelativeLayout {
         LayoutParams params = new LayoutParams(viewWidth, viewHeight);
         addView(view, params);
 
-        mLoadPercentView = (TextView) view.findViewById(R.id.net_speed);
+        mLoadPercentView = view.findViewById(R.id.net_speed);
         mLoadPercentView.setText(getContext().getString(R.string.alivc_loading) + " 0%");
     }
 

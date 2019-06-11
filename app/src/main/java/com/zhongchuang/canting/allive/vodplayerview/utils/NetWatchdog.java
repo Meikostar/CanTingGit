@@ -184,11 +184,7 @@ public class NetWatchdog {
         if (NetworkInfo.State.CONNECTED != wifiState && NetworkInfo.State.CONNECTED != mobileState) {
             return false;
         }
-        if (activeNetworkInfo == null || !activeNetworkInfo.isConnectedOrConnecting()) {
-            return false;
-        }
-
-        return true;
+        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
     }
 
     /**

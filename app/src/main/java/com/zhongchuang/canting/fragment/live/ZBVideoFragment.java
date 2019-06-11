@@ -51,8 +51,6 @@ import butterknife.Unbinder;
 import rx.Subscription;
 import rx.functions.Action1;
 
-;
-
 /**
  * Created by Administrator on 2017/11/8.
  */
@@ -192,11 +190,7 @@ public class ZBVideoFragment extends LazyFragment implements GetLiveViewCallBack
     private List<ZhiBo_GuanZhongBean.DataBean> cooks=new ArrayList<>();
     public void onDataLoaded(int loadType, final boolean haveNext, List<ZhiBo_GuanZhongBean.DataBean> list) {
         if(list!=null&&list.size()>0){
-            if(list.get(list.size()-1).is_enabled==1){
-                hot=false;
-            }else {
-                hot=true;
-            }
+            hot = list.get(list.size() - 1).is_enabled != 1;
         }
         if (loadType == TYPE_PULL_REFRESH) {
             currpage = 1;
@@ -327,8 +321,8 @@ public class ZBVideoFragment extends LazyFragment implements GetLiveViewCallBack
     public void showPopwindow(String name) {
 
         views = View.inflate(getActivity(), R.layout.tell_popwindow_view, null);
-        tv_content = (TextView) views.findViewById(R.id.tv_content);
-        close = (ImageView) views.findViewById(R.id.close);
+        tv_content = views.findViewById(R.id.tv_content);
+        close = views.findViewById(R.id.close);
 
         tv_content.setText(name);
         final MarkaBaseDialog dialog = BaseDailogManager.getInstance().getBuilder(getActivity()).setMessageView(views).create();
@@ -349,6 +343,12 @@ public class ZBVideoFragment extends LazyFragment implements GetLiveViewCallBack
 //        mZhiBoHotRecyAdapter.setData(zhiBo_guanZhongBean.getData());
         onDataLoaded(loadtype,!(zhiBo_guanZhongBean.getData().size()<12),zhiBo_guanZhongBean.getData());
     }
+
+    @Override
+    public void successRecordLive(ZhiBo_GuanZhongBean weixinreq, int loadtype) {
+
+    }
+
     private boolean isFirst=false;
     @Override
     public void lazyView() {

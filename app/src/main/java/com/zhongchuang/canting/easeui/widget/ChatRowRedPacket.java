@@ -8,7 +8,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hyphenate.chat.EMMessage;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.easeui.EaseConstant;
 import com.zhongchuang.canting.easeui.widget.chatrow.EaseChatRow;
 
@@ -34,11 +34,11 @@ public class ChatRowRedPacket extends EaseChatRow {
 
     @Override
     protected void onFindViewById() {
-        mTvGreeting = (TextView) findViewById(R.id.tv_money_greeting);
-        tv_money_state = (TextView) findViewById(R.id.tv_money_state);
-        mTvSponsorName = (TextView) findViewById(R.id.tv_sponsor_name);
-        mTvPacketType = (TextView) findViewById(R.id.tv_packet_type);
-        bubble = (RelativeLayout) findViewById(R.id.bubble);
+        mTvGreeting = findViewById(R.id.tv_money_greeting);
+        tv_money_state = findViewById(R.id.tv_money_state);
+        mTvSponsorName = findViewById(R.id.tv_sponsor_name);
+        mTvPacketType = findViewById(R.id.tv_packet_type);
+        bubble = findViewById(R.id.bubble);
 
     }
 

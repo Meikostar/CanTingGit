@@ -47,7 +47,7 @@ public class PushAnswerGameDialog extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.push_answer, container);
-        mAnswerView = (RecyclerView) view.findViewById(R.id.answer_view);
+        mAnswerView = view.findViewById(R.id.answer_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         if(mAnswerAdapter == null) {
             mAnswerAdapter = new AnswerAdapter(getActivity());

@@ -88,7 +88,7 @@ public class MVChooser extends DialogFragment implements MvAdapter.OnItemClickLi
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View mView = LayoutInflater.from(getActivity()).inflate(R.layout.aliyun_video_layout_effect_list, container);
-        mListView = (RecyclerView) mView.findViewById(R.id.effect_list);
+        mListView = mView.findViewById(R.id.effect_list);
         LinearLayoutManager lm = new LinearLayoutManager(getActivity());
         lm.setOrientation(LinearLayoutManager.HORIZONTAL);
         mListView.setLayoutManager(lm);

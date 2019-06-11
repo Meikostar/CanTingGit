@@ -407,9 +407,7 @@ public class DownloaderManager {
     public boolean isFinish(int downloadId, String path) {
         FileDownloaderModel model = getFileDownloaderModelById(downloadId);
         if (model != null) {
-            if (getStatus(downloadId, path) == FileDownloadStatus.completed && new File(model.getPath()).exists()) {
-                return true;
-            }
+            return getStatus(downloadId, path) == FileDownloadStatus.completed && new File(model.getPath()).exists();
         }
 
         return false;
@@ -450,11 +448,8 @@ public class DownloaderManager {
      */
     public boolean exists(String url) {
         FileDownloaderModel model = getFileDownloaderModelByUrl(url);
-        if (model != null) {
-            return true;
-        }
+        return model != null;
 
-        return false;
     }
 
     /**

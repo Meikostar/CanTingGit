@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.hyphenate.chat.EMMessage;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.easeui.EaseConstant;
 import com.zhongchuang.canting.easeui.EaseUI;
 import com.zhongchuang.canting.easeui.domain.EaseEmojicon;
@@ -33,8 +33,8 @@ public class EaseChatRowBigExpression extends EaseChatRowText {
 
     @Override
     protected void onFindViewById() {
-        percentageView = (TextView) findViewById(R.id.percentage);
-        imageView = (ImageView) findViewById(R.id.image);
+        percentageView = findViewById(R.id.percentage);
+        imageView = findViewById(R.id.image);
     }
 
 

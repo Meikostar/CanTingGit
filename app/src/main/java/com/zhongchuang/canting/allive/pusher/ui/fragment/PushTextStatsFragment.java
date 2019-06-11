@@ -33,7 +33,7 @@ public class PushTextStatsFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mLogRecyclerView = (RecyclerView) view.findViewById(R.id.log_recycler);
+        mLogRecyclerView = view.findViewById(R.id.log_recycler);
 
         mAdapter = new LogInfoAdapter(getActivity());
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());

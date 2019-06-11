@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 
 public class EaseSwitchButton extends FrameLayout{
 
@@ -34,8 +34,8 @@ public class EaseSwitchButton extends FrameLayout{
         ta.recycle();
         
         LayoutInflater.from(context).inflate(R.layout.ease_widget_switch_button, this);
-        openImage = (ImageView) findViewById(R.id.iv_switch_open);
-        closeImage = (ImageView) findViewById(R.id.iv_switch_close);
+        openImage = findViewById(R.id.iv_switch_open);
+        closeImage = findViewById(R.id.iv_switch_close);
         if(openDrawable != null){
             openImage.setImageDrawable(openDrawable);
         }

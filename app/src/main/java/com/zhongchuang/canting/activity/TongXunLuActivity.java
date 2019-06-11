@@ -16,7 +16,7 @@ import com.zhongchuang.canting.been.BaseResponse;
 import com.zhongchuang.canting.been.SubscriptionBean;
 
 import com.zhongchuang.canting.easeui.ui.BaseActivity;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.fragment.TongXunLuFragment;
 import com.zhongchuang.canting.net.HXRequestService;
 import com.zhongchuang.canting.net.netService;
@@ -107,9 +107,9 @@ public class TongXunLuActivity extends BaseActivity {
         TextView title = null;
         EditText reson = null;
         View views = View.inflate(this, R.layout.base_dailog_view, null);
-        sure = (TextView) views.findViewById(R.id.txt_sure);
-        cancel = (TextView) views.findViewById(R.id.txt_cancel);
-        title = (TextView) views.findViewById(R.id.txt_title);
+        sure = views.findViewById(R.id.txt_sure);
+        cancel = views.findViewById(R.id.txt_cancel);
+        title = views.findViewById(R.id.txt_title);
 
         title.setText(getString(R.string.add)+name+getString(R.string.why));
         final MarkaBaseDialog dialog = BaseDailogManager.getInstance().getBuilder(this).setMessageView(views).create();

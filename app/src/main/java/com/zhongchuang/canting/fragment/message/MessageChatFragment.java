@@ -28,7 +28,7 @@ import android.widget.TextView;
 
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.chat.AddGroupActivity;
 import com.zhongchuang.canting.activity.chat.ChatMessageActivity;
 import com.zhongchuang.canting.adapter.ChatMenberAdapter;
@@ -439,7 +439,7 @@ public class MessageChatFragment extends Fragment implements BaseContract.View {
             }
             if (permissions.size() != 0) {
                 ActivityCompat.requestPermissions(getActivity(),
-                        (String[]) permissions.toArray(new String[0]),
+                        permissions.toArray(new String[0]),
                         WRITE_PERMISSION_REQ_CODE);
                 return false;
             }

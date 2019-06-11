@@ -15,7 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hyphenate.EMError;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.easeui.model.EaseVoiceRecorder;
 import com.zhongchuang.canting.easeui.utils.EaseCommonUtils;
 import com.zhongchuang.canting.easeui.widget.chatrow.EaseChatRowVoicePlayer;
@@ -61,8 +61,8 @@ public class EaseVoiceRecorderView extends RelativeLayout {
         this.context = context;
         LayoutInflater.from(context).inflate(R.layout.ease_widget_voice_recorder, this);
 
-        micImage = (ImageView) findViewById(R.id.mic_image);
-        recordingHint = (TextView) findViewById(R.id.recording_hint);
+        micImage = findViewById(R.id.mic_image);
+        recordingHint = findViewById(R.id.recording_hint);
 
         voiceRecorder = new EaseVoiceRecorder(micImageHandler);
 

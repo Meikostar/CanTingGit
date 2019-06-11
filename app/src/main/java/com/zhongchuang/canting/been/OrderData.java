@@ -34,6 +34,7 @@ public class OrderData extends BaseResponse{
     public String order_type;
     public boolean isChoose;
     public String phone_message;
+    public String transaction_id;
     public String order_id;
     public String merchantUserId;
     public String product_sku_id;
@@ -41,7 +42,7 @@ public class OrderData extends BaseResponse{
     public String phone_number;
     public String nick_name;
     public String payment_type;
-    public String transaction_id;
+    public String pay_type;
     public String express_id;
     public String address;
     public String totalPrice;

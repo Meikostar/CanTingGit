@@ -12,7 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.been.GoodsInfo;
 import com.zhongchuang.canting.been.ShopFirst;
 import com.zhongchuang.canting.utils.StringUtil;

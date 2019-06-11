@@ -180,11 +180,7 @@ public class NetWatchdog {
             mobileState = mobileNetworkInfo.getState();
         }
 
-        if (NetworkInfo.State.CONNECTED != wifiState && NetworkInfo.State.CONNECTED != mobileState) {
-            return false;
-        }
-
-        return true;
+        return NetworkInfo.State.CONNECTED == wifiState || NetworkInfo.State.CONNECTED == mobileState;
     }
 
     /**

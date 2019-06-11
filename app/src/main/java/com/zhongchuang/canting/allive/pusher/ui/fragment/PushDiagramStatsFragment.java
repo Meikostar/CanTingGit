@@ -60,34 +60,34 @@ public class PushDiagramStatsFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mAudioEncodeText = (TextView) view.findViewById(R.id.audio_encode_fps_text);
-        mAudioEncodeProgress = (ProgressBar) view.findViewById(R.id.audio_encode_fps_bar);
-        mAudioPushText = (TextView) view.findViewById(R.id.audio_push_fps_text);
-        mAudioPushProgress = (ProgressBar) view.findViewById(R.id.audio_push_fps_bar);
-        mVideoCaptureText = (TextView) view.findViewById(R.id.video_capture_fps_text);
-        mVideoCaptureProgress = (ProgressBar) view.findViewById(R.id.video_capture_fps_bar);
-        mVideoRenderText = (TextView) view.findViewById(R.id.video_render_fps_text);
-        mVideoRenderProgress = (ProgressBar) view.findViewById(R.id.video_render_fps_bar);
-        mVideoEncodeText = (TextView) view.findViewById(R.id.video_encode_fps_text);
-        mVideoEncodeProgress = (ProgressBar) view.findViewById(R.id.video_encode_fps_bar);
-        mVideoPushText = (TextView) view.findViewById(R.id.video_push_fps_text);
-        mVideoPushProgress = (ProgressBar) view.findViewById(R.id.video_push_fps_bar);
-        mBitAudioEncodeText = (TextView) view.findViewById(R.id.bit_audio_encode_text);
-        mBitAudioEncodeProgress = (ProgressBar) view.findViewById(R.id.bit_audio_encode_bar);
-        mBitVideoEncodeText = (TextView) view.findViewById(R.id.bit_video_encode_text);
-        mBitVideoEncodeProgress = (ProgressBar) view.findViewById(R.id.bit_video_encode_bar);
-        mBitPushText = (TextView) view.findViewById(R.id.bit_push_text);
-        mBitPushProgress = (ProgressBar) view.findViewById(R.id.bit_push_bar);
-        mVideoRenderBufferText = (TextView) view.findViewById(R.id.video_renderbuffer_text);
-        mVideoRenderBufferProgress = (ProgressBar) view.findViewById(R.id.video_renderbuffer_bar);
-        mVideoEncodeBufferText = (TextView) view.findViewById(R.id.video_encodebuffer_text);
-        mVideoEncodeBufferProgress = (ProgressBar) view.findViewById(R.id.video_encodebuffer_bar);
-        mVideoUploadBufferText = (TextView) view.findViewById(R.id.video_uploadbuffer_text);
-        mVideoUploadBufferProgress = (ProgressBar) view.findViewById(R.id.video_uploadbuffer_bar);
-        mAudioEncodeBufferText = (TextView) view.findViewById(R.id.audio_encodebuffer_text);
-        mAudioEncodeBufferProgress = (ProgressBar) view.findViewById(R.id.audio_encodebuffer_bar);
-        mAudioUploadBufferText = (TextView) view.findViewById(R.id.audio_uploadbuffer_text);
-        mAudioUploadBufferProgress = (ProgressBar) view.findViewById(R.id.audio_uploadbuffer_bar);
+        mAudioEncodeText = view.findViewById(R.id.audio_encode_fps_text);
+        mAudioEncodeProgress = view.findViewById(R.id.audio_encode_fps_bar);
+        mAudioPushText = view.findViewById(R.id.audio_push_fps_text);
+        mAudioPushProgress = view.findViewById(R.id.audio_push_fps_bar);
+        mVideoCaptureText = view.findViewById(R.id.video_capture_fps_text);
+        mVideoCaptureProgress = view.findViewById(R.id.video_capture_fps_bar);
+        mVideoRenderText = view.findViewById(R.id.video_render_fps_text);
+        mVideoRenderProgress = view.findViewById(R.id.video_render_fps_bar);
+        mVideoEncodeText = view.findViewById(R.id.video_encode_fps_text);
+        mVideoEncodeProgress = view.findViewById(R.id.video_encode_fps_bar);
+        mVideoPushText = view.findViewById(R.id.video_push_fps_text);
+        mVideoPushProgress = view.findViewById(R.id.video_push_fps_bar);
+        mBitAudioEncodeText = view.findViewById(R.id.bit_audio_encode_text);
+        mBitAudioEncodeProgress = view.findViewById(R.id.bit_audio_encode_bar);
+        mBitVideoEncodeText = view.findViewById(R.id.bit_video_encode_text);
+        mBitVideoEncodeProgress = view.findViewById(R.id.bit_video_encode_bar);
+        mBitPushText = view.findViewById(R.id.bit_push_text);
+        mBitPushProgress = view.findViewById(R.id.bit_push_bar);
+        mVideoRenderBufferText = view.findViewById(R.id.video_renderbuffer_text);
+        mVideoRenderBufferProgress = view.findViewById(R.id.video_renderbuffer_bar);
+        mVideoEncodeBufferText = view.findViewById(R.id.video_encodebuffer_text);
+        mVideoEncodeBufferProgress = view.findViewById(R.id.video_encodebuffer_bar);
+        mVideoUploadBufferText = view.findViewById(R.id.video_uploadbuffer_text);
+        mVideoUploadBufferProgress = view.findViewById(R.id.video_uploadbuffer_bar);
+        mAudioEncodeBufferText = view.findViewById(R.id.audio_encodebuffer_text);
+        mAudioEncodeBufferProgress = view.findViewById(R.id.audio_encodebuffer_bar);
+        mAudioUploadBufferText = view.findViewById(R.id.audio_uploadbuffer_text);
+        mAudioUploadBufferProgress = view.findViewById(R.id.audio_uploadbuffer_bar);
     }
 
     @Override

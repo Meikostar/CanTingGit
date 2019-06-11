@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/selector_common_item"
+    android:orientation="vertical"
+
+    >
+
+    <LinearLayout
+        android:id="@+id/ll_bg"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+
+        <ImageView
+            android:id="@+id/iv_img"
+            android:layout_width="95dp"
+            android:layout_height="95dp"/>
+
+
+        <TextView
+            android:layout_marginLeft="2dp"
+            android:id="@+id/tv_name"
+            android:maxWidth="95dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:gravity="center"
+            android:lines="1"
+            android:textColor="#222"
+            android:textSize="13sp"
+            tools:text="" />
+
+        <LinearLayout
+            android:layout_marginTop="3dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_marginLeft="2dp"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:lines="1"
+                android:textColor="#FF4014"
+                android:textSize="10sp"
+                tools:text="￥" />
+
+            <TextView
+                android:id="@+id/tv_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:gravity="center"
+                android:lines="1"
+                android:textColor="#FF4014"
+                android:textSize="14sp"
+                tools:text="0.0" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

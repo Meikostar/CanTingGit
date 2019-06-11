@@ -100,7 +100,7 @@ public class GetSTStokenActivity extends AppCompatActivity implements View.OnCli
     String objectKey;
     String prefix;
 
-    public void getVodUploadInfo() throws Exception {
+    public void getVodUploadInfo() {
         Request request = new Request.Builder()
                 .url("https://demo-vod.cn-shanghai.aliyuncs.com/voddemo/CreateSecurityToken" +
                         "?BusinessType=vodai" +

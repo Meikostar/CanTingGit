@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 
 
 public class PopView_UploadImg extends BasePopView {
@@ -22,8 +22,8 @@ public class PopView_UploadImg extends BasePopView {
     @Override
     protected View initPopView(LayoutInflater infalter) {
         View popView = infalter.inflate(R.layout.popview_upload_img, null);
-        txt_progress = (TextView) popView.findViewById(R.id.txt_progress);
-        seekBar= (AppCompatSeekBar) popView.findViewById(R.id.seekbar);
+        txt_progress = popView.findViewById(R.id.txt_progress);
+        seekBar= popView.findViewById(R.id.seekbar);
         return popView;
     }
     public void setData(int current,int max){

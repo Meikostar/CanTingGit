@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 
 import io.valuesfeng.picker.universalimageloader.core.DisplayImageOptions;
 import io.valuesfeng.picker.universalimageloader.core.ImageLoader;

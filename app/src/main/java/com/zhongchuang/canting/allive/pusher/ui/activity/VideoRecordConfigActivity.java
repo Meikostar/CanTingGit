@@ -51,11 +51,13 @@ import com.zhongchuang.canting.allive.pusher.floatwindowpermission.rom.RomUtils;
 import com.zhongchuang.canting.allive.pusher.utils.Common;
 import com.zhongchuang.canting.allive.pusher.utils.VideoRecordViewManager;
 import com.zhongchuang.canting.base.BaseActivity1;
+import com.zhongchuang.canting.been.SubscriptionBean;
 import com.zhongchuang.canting.presenter.OtherContract;
 import com.zhongchuang.canting.presenter.OtherPresenter;
 import com.zhongchuang.canting.utils.SpUtil;
 import com.zhongchuang.canting.utils.TextUtil;
 import com.zhongchuang.canting.widget.PhotoPopupWindow;
+import com.zhongchuang.canting.widget.RxBus;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -129,8 +131,14 @@ public class VideoRecordConfigActivity extends BaseActivity1 implements OtherCon
         mAlivcLivePushConfig = new AlivcLivePushConfig();
 //        if(mAlivcLivePushConfig.getPreviewOrientation() == AlivcPreviewOrientationEnum.ORIENTATION_LANDSCAPE_HOME_RIGHT.getOrientation() || mAlivcLivePushConfig.getPreviewOrientation() == AlivcPreviewOrientationEnum.ORIENTATION_LANDSCAPE_HOME_LEFT.getOrientation())
 //        {
-            mAlivcLivePushConfig.setNetworkPoorPushImage(Environment.getExternalStorageDirectory().getPath() + File.separator + "alivc_resource/poor_network_land.png");
-            mAlivcLivePushConfig.setPausePushImage(Environment.getExternalStorageDirectory().getPath() + File.separator + "alivc_resource/background_push_land.png");
+//            mAlivcLivePushConfig.setNetworkPoorPushImage(Environment.getExternalStorageDirectory().getPath() + File.separator + "alivc_resource/poor_network_land.png");
+//            mAlivcLivePushConfig.setPausePushImage(Environment.getExternalStorageDirectory().getPath() + File.separator + "alivc_resource/background_push_land.png");
+        mAlivcLivePushConfig.setPreviewOrientation(ORIENTATION_LANDSCAPE_HOME_RIGHT);
+        mOrientationEnum = ORIENTATION_LANDSCAPE_HOME_RIGHT;
+        VideoRecordViewManager.cameraRotation = 270;
+        mAlivcLivePushConfig.setPausePushImage(Environment.getExternalStorageDirectory().getPath() + File.separator + "alivc_resource/background_push_land.png");
+        mAlivcLivePushConfig.setNetworkPoorPushImage(Environment.getExternalStorageDirectory().getPath() + File.separator + "alivc_resource/poor_network_land.png");
+
 //        } else {
 //            mAlivcLivePushConfig.setNetworkPoorPushImage(Environment.getExternalStorageDirectory().getPath() + File.separator + "alivc_resource/poor_network.png");
 //            mAlivcLivePushConfig.setPausePushImage(Environment.getExternalStorageDirectory().getPath() + File.separator + "alivc_resource/background_push.png");
@@ -175,9 +183,9 @@ public class VideoRecordConfigActivity extends BaseActivity1 implements OtherCon
     public void showPopWindows() {
 
         View view = LayoutInflater.from(VideoRecordConfigActivity.this).inflate(R.layout.chat_phone_popwindow_view, null);
-        TextView tv_camera = (TextView) view.findViewById(R.id.tv_camera);
-        TextView tv_choose = (TextView) view.findViewById(R.id.tv_choose);
-        TextView tv_cancel = (TextView) view.findViewById(R.id.tv_cancel);
+        TextView tv_camera = view.findViewById(R.id.tv_camera);
+        TextView tv_choose = view.findViewById(R.id.tv_choose);
+        TextView tv_cancel = view.findViewById(R.id.tv_cancel);
         tv_choose.setText("Portrait");
         tv_camera.setText("Homeleft");
         tv_cancel.setText("HomeRig");
@@ -290,7 +298,7 @@ public class VideoRecordConfigActivity extends BaseActivity1 implements OtherCon
     private void initView() {
         mUrl = (EditText) findViewById(R.id.url_editor);
         int streamId = (int) (Math.random()*9999);
-        mUrl.setText("rtmp://push-demo-rtmp.aliyunlive.com/test/stream"+streamId);
+        mUrl.setText(SpUtil.getLiveUrl(VideoRecordConfigActivity.this));
 
         mPublish = (RelativeLayout) findViewById(R.id.beginPublish);
         mPushTex = (TextView) findViewById(R.id.pushStatusTex);
@@ -334,7 +342,7 @@ public class VideoRecordConfigActivity extends BaseActivity1 implements OtherCon
                         if(TextUtil.isEmpty(chatRoomId)){
                             return;
                         }
-                        presenter.setLiveNotifyUrl();
+                        presenter.setLiveNotifyUrl(1);
                         //if(VideoRecordViewManager.permission(getApplicationContext()))
 
                     } else {
@@ -554,7 +562,7 @@ public class VideoRecordConfigActivity extends BaseActivity1 implements OtherCon
                     mAlivcLivePushConfig.setMediaProjectionPermissionResultData(data);
                     if (mAlivcLivePushConfig.getMediaProjectionPermissionResultData() != null) {
                         if (mAlivcLivePusher == null) {
-                            startPushWithoutSurface(getPullUrl());
+                            startPushWithoutSurface(SpUtil.getLiveUrl(VideoRecordConfigActivity.this));
                         } else {
                             stopPushWithoutSurface();
                         }
@@ -584,6 +592,9 @@ public class VideoRecordConfigActivity extends BaseActivity1 implements OtherCon
 
     @Override
     protected void onDestroy() {
+        if(state==1){
+            RxBus.getInstance().send(SubscriptionBean.createSendBean(SubscriptionBean.LIVE_FINISH_FRESH,""));
+        }
         VideoRecordViewManager.removeVideoRecordCameraWindow(getApplicationContext());
         VideoRecordViewManager.removeVideoRecordWindow(getApplicationContext());
         if (mAlivcLivePusher != null) {
@@ -618,6 +629,8 @@ public class VideoRecordConfigActivity extends BaseActivity1 implements OtherCon
     }
 
     private void stopPushWithoutSurface() {
+        state=0;
+        RxBus.getInstance().send(SubscriptionBean.createSendBean(SubscriptionBean.LIVE_FINISH_FRESH,""));
         VideoRecordViewManager.removeVideoRecordCameraWindow(getApplicationContext());
         VideoRecordViewManager.removeVideoRecordWindow(getApplicationContext());
         if (mAlivcLivePusher != null) {
@@ -638,8 +651,9 @@ public class VideoRecordConfigActivity extends BaseActivity1 implements OtherCon
         mResolution.setEnabled(true);
         setRadioGroup(mOrientation, true);
     }
-
+    private int state;
     private void startPushWithoutSurface(String url) {
+        state=1;
         mAlivcLivePusher = new AlivcLivePusher();
         try {
             mAlivcLivePusher.init(getApplicationContext(), mAlivcLivePushConfig);

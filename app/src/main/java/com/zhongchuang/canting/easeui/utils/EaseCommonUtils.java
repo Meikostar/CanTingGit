@@ -26,7 +26,7 @@ import com.hyphenate.chat.EMTextMessageBody;
 import com.hyphenate.util.EMLog;
 import com.hyphenate.util.HanziToPinyin;
 import com.hyphenate.util.HanziToPinyin.Token;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.app.CanTingAppLication;
 import com.zhongchuang.canting.easeui.EaseConstant;
 import com.zhongchuang.canting.easeui.bean.RedPacketInfo;
@@ -108,6 +108,10 @@ public class EaseCommonUtils {
             message.setAttribute(EaseConstant.EXTRA_NAME, info.red_name);
         }if(TextUtil.isNotEmpty(info.send_name)){
             message.setAttribute(EaseConstant.EXTRA_SEND, info.send_name);
+        }if(TextUtil.isNotEmpty(info.img_url)){
+            message.setAttribute(EaseConstant.EXTRA_NAME, info.img_url);
+        }if(TextUtil.isNotEmpty(info.video_url)){
+            message.setAttribute(EaseConstant.EXTRA_SEND, info.video_url);
         }if(TextUtil.isNotEmpty(info.grap_id)){
             message.setAttribute(EaseConstant.EXTRA_GRAPID, info.grap_id);
         }

@@ -9,9 +9,9 @@ import java.util.Map;
 public interface RegisterPresenter {
 
 
-    public void getYzm(String type, String phone,String code);
-    public void checkCode(Map<String, String> map);
-    public void register(Map<String, String> map);
+    void getYzm(String type, String phone, String code);
+    void checkCode(Map<String, String> map);
+    void register(Map<String, String> map);
 
 
 

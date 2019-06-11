@@ -9,7 +9,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.easeui.domain.EaseEmojicon.Type;
 import com.zhongchuang.canting.easeui.adapter.EmojiconGridAdapter;
 import com.zhongchuang.canting.easeui.adapter.EmojiconPagerAdapter;
@@ -116,7 +116,7 @@ public class EaseEmojiconPagerView extends ViewPager{
         List<View> views = new ArrayList<View>();
         for(int i = 0; i < pageSize; i++){
             View view = View.inflate(context, R.layout.ease_expression_gridview, null);
-            GridView gv = (GridView) view.findViewById(R.id.gridview);
+            GridView gv = view.findViewById(R.id.gridview);
             if(emojiType == Type.BIG_EXPRESSION){
                 gv.setNumColumns(bigEmojiconColumns);
             }else{

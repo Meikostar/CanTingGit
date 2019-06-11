@@ -1,14 +1,20 @@
 package com.zhongchuang.canting.activity;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
+import com.zhongchuang.canting.app.CanTingAppLication;
 import com.zhongchuang.canting.base.BaseTitle_Activity;
+import com.zhongchuang.canting.easeui.widget.NineGridImageView;
+import com.zhongchuang.canting.easeui.widget.NineGridImageViewAdapter;
+import com.zhongchuang.canting.easeui.widget.WebImageView;
 import com.zhongchuang.canting.utils.SpUtil;
 import com.zhongchuang.canting.utils.TextUtil;
 import com.zhongchuang.canting.utils.ZXingUtils;
@@ -27,18 +33,23 @@ public class MineCodeActivity extends BaseTitle_Activity {
     ImageView ivCode;
     @BindView(R.id.tv_content)
     TextView tv_content;
+    @BindView(R.id.group_avatar)
+    NineGridImageView groupAvatar;
+
 
     public View addContentView() {
         return getLayoutInflater().inflate(R.layout.activity_mine_code, null);
     }
+
     private String state;
     private String name;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
-        state=getIntent().getStringExtra("state");
-        name=getIntent().getStringExtra("name");
+        state = getIntent().getStringExtra("state");
+        name = getIntent().getStringExtra("name");
         initViews();
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,22 +57,38 @@ public class MineCodeActivity extends BaseTitle_Activity {
                 finish();
             }
         });
-        if(TextUtil.isNotEmpty(state)){
+        if (TextUtil.isNotEmpty(state)) {
             tvSearch.setText(R.string.qewm);
             tv_content.setText(R.string.syssmdqew);
-            content=name+ ","+ state+",@@!!##$$%%qwertyuioplkjhgfdsazxcvbnm";
-        }else {
-            content=SpUtil.getName(MineCodeActivity.this) + ","+ SpUtil.getUserInfoId(MineCodeActivity.this)+ ","+ SpUtil.getName(MineCodeActivity.this);
+            content = name + "," + state + ",@@!!##$$%%qwertyuioplkjhgfdsazxcvbnm";
+        } else {
+            content = SpUtil.getName(MineCodeActivity.this) + "," + SpUtil.getUserInfoId(MineCodeActivity.this) + "," + SpUtil.getName(MineCodeActivity.this);
         }
+         if(CanTingAppLication.headimage!=null&&CanTingAppLication.headimage.size()>-1){
+             groupAvatar.setAdapter(new NineGridImageViewAdapter() {
+                 @Override
+                 protected void onDisplayImage(Context context, WebImageView imageView, Object o) {
+                     if (TextUtils.isEmpty((String) o)) {
+                         imageView.setImageResource(R.drawable.dingdantouxiang);
+                         return;
+                     }
+                     Glide.with(context).load((String)o).asBitmap().placeholder(R.drawable.dingdantouxiang).into(imageView);
+//                imageView.setImageWithURL(context,(String)o,R.drawable.dingdantouxiang);
+                 }
+             });
+             groupAvatar.setImagesData(CanTingAppLication.headimage);
+         }
+
     }
 
     @Override
     public boolean isTitleShow() {
         return false;
     }
-    private String content;
-    public void initViews() {
 
+    private String content;
+
+    public void initViews() {
 
 
         new Thread(new Runnable() {

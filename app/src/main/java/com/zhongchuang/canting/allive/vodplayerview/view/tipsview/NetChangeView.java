@@ -63,7 +63,7 @@ public class NetChangeView extends RelativeLayout implements ITheme {
         });
 
         //停止播放的点击事件
-        mStopPlayBtn = (TextView) view.findViewById(R.id.stop_play);
+        mStopPlayBtn = view.findViewById(R.id.stop_play);
         mStopPlayBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {

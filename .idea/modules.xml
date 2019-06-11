@@ -7,11 +7,9 @@
       <module fileurl="file://$PROJECT_DIR$/Aliyunplayer/AlivcReporter/AlivcReporter.iml" filepath="$PROJECT_DIR$/Aliyunplayer/AlivcReporter/AlivcReporter.iml" />
       <module fileurl="file://$PROJECT_DIR$/AliyunVideoSdk/AliyunVideoSdk.iml" filepath="$PROJECT_DIR$/AliyunVideoSdk/AliyunVideoSdk.iml" />
       <module fileurl="file://$PROJECT_DIR$/Aliyunplayer/Aliyunplayer.iml" filepath="$PROJECT_DIR$/Aliyunplayer/Aliyunplayer.iml" />
-      <module fileurl="file://$PROJECT_DIR$/CanTingGit.iml" filepath="$PROJECT_DIR$/CanTingGit.iml" />
-      <module fileurl="file://$PROJECT_DIR$/FlycoDialog_Lib/FlycoDialog_Lib.iml" filepath="$PROJECT_DIR$/FlycoDialog_Lib/FlycoDialog_Lib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CantingGit.iml" filepath="$PROJECT_DIR$/CantingGit.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/easeui/easeui.iml" filepath="$PROJECT_DIR$/easeui/easeui.iml" />
-      <module fileurl="file://$PROJECT_DIR$/framework/framework.iml" filepath="$PROJECT_DIR$/framework/framework.iml" />
       <module fileurl="file://$PROJECT_DIR$/gallery/gallery.iml" filepath="$PROJECT_DIR$/gallery/gallery.iml" />
       <module fileurl="file://$PROJECT_DIR$/sharesdk/sharesdk.iml" filepath="$PROJECT_DIR$/sharesdk/sharesdk.iml" />
       <module fileurl="file://$PROJECT_DIR$/zxingLibrary/zxingLibrary.iml" filepath="$PROJECT_DIR$/zxingLibrary/zxingLibrary.iml" />

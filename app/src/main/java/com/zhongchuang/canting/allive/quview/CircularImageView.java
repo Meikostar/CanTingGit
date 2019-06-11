@@ -45,7 +45,7 @@ public class CircularImageView extends View {
     @Override
     protected
     boolean verifyDrawable(Drawable who) {
-        return who == _Drawable ? true : super.verifyDrawable(who);
+        return who == _Drawable || super.verifyDrawable(who);
     }
 
 

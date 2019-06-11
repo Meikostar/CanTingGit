@@ -66,19 +66,19 @@ public class PushMoreDialog extends DialogFragment implements View.OnClickListen
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         View view = inflater.inflate(R.layout.push_more, container);
-        mShare = (Button) view.findViewById(R.id.share);
-        mDynamicAdd = (Button) view.findViewById(R.id.dynamic_add);
-        mDynamicRemove = (Button) view.findViewById(R.id.dynamic_remove);
+        mShare = view.findViewById(R.id.share);
+        mDynamicAdd = view.findViewById(R.id.dynamic_add);
+        mDynamicRemove = view.findViewById(R.id.dynamic_remove);
         mShare.setOnClickListener(this);
         mDynamicAdd.setOnClickListener(this);
         mDynamicRemove.setOnClickListener(this);
-        mTargetRate = (EditText) view.findViewById(R.id.target_rate_edit);
-        mMinRate = (EditText) view.findViewById(R.id.min_rate_edit);
+        mTargetRate = view.findViewById(R.id.target_rate_edit);
+        mMinRate = view.findViewById(R.id.min_rate_edit);
 
-        mPushMirror = (Switch) view.findViewById(R.id.push_mirror_switch);
-        mPreviewMirror = (Switch) view.findViewById(R.id.preview_mirror_switch);
-        mPreviewMode = (RadioGroup) view.findViewById(R.id.setting_display_mode);
-        mAutoFocus = (Switch) view.findViewById(R.id.autofocus_switch);
+        mPushMirror = view.findViewById(R.id.push_mirror_switch);
+        mPreviewMirror = view.findViewById(R.id.preview_mirror_switch);
+        mPreviewMode = view.findViewById(R.id.setting_display_mode);
+        mAutoFocus = view.findViewById(R.id.autofocus_switch);
         mPushMirror.setChecked(SharedPreferenceUtils.isPushMirror(getActivity().getApplicationContext()));
         mPreviewMirror.setChecked(SharedPreferenceUtils.isPreviewMirror(getActivity().getApplicationContext()));
         mAutoFocus.setChecked(SharedPreferenceUtils.isAutoFocus(getActivity().getApplicationContext()));

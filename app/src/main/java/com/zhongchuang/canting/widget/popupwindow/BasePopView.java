@@ -66,7 +66,7 @@ public abstract class BasePopView implements View.OnClickListener {
     public void dismiss() {
         View view = activity.getWindow().peekDecorView();
         if (view != null) {
-            InputMethodManager inputmanger = (InputMethodManager) activity.getSystemService(activity.INPUT_METHOD_SERVICE);
+            InputMethodManager inputmanger = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
             inputmanger.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
 //        InputMethodManager inputMethodManager = (InputMethodManager)

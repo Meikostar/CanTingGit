@@ -7,7 +7,7 @@ import android.util.Log;
 import android.view.Gravity;
 
 import com.mob.MobSDK;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.widget.share.ShareModel;
 import com.zhongchuang.canting.widget.share.SharePopupWindow;
 
@@ -93,6 +93,77 @@ public class ShareUtils {
         MobSDK.init(activity.getApplicationContext());
         SharePopupWindow share = new SharePopupWindow(activity);
         share.setType(1);
+        share.setPlatformActionListener(new PlatformActionListener() {
+            //分享成功
+            @Override
+            public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
+                Log.i("sharesdk","分享成功"+i);
+
+            }
+
+            @Override
+            public void onError(Platform platform, int i, Throwable throwable) {
+                Log.i("sharesdk","onError"+i);
+            }
+
+            @Override
+            public void onCancel(Platform platform, int i) {
+                Log.i("sharesdk","onCancel"+i);
+            }
+        });
+        ShareModel model = new ShareModel();
+        model.setImageUrl(SHARE_LOGO);
+        model.setText(text);
+        if (TextUtils.isEmpty(url)) {
+            model.setUrl(DOWNLOAD);
+        } else {
+            model.setUrl(url);
+        }
+        model.setTitle("一起来吧");
+        share.initShareParams(model);
+        share.showShareWindow();
+        share.showAtLocation(activity.getWindow().getDecorView(), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+    }
+
+    public static void showMyShareProduct(Activity activity, String text, String url) {
+        MobSDK.init(activity.getApplicationContext());
+        SharePopupWindow share = new SharePopupWindow(activity);
+        share.setType(-1);
+        share.setPlatformActionListener(new PlatformActionListener() {
+            //分享成功
+            @Override
+            public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
+                Log.i("sharesdk","分享成功"+i);
+
+            }
+
+            @Override
+            public void onError(Platform platform, int i, Throwable throwable) {
+                Log.i("sharesdk","onError"+i);
+            }
+
+            @Override
+            public void onCancel(Platform platform, int i) {
+                Log.i("sharesdk","onCancel"+i);
+            }
+        });
+        ShareModel model = new ShareModel();
+        model.setImageUrl(SHARE_LOGO);
+        model.setText(text);
+        if (TextUtils.isEmpty(url)) {
+            model.setUrl(DOWNLOAD);
+        } else {
+            model.setUrl(url);
+        }
+        model.setTitle("一起来吧");
+        share.initShareParams(model);
+        share.showShareWindow();
+        share.showAtLocation(activity.getWindow().getDecorView(), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+    }
+    public static void showMyShareApp(Activity activity, String text, String url) {
+        MobSDK.init(activity.getApplicationContext());
+        SharePopupWindow share = new SharePopupWindow(activity);
+        share.setType(-2);
         share.setPlatformActionListener(new PlatformActionListener() {
             //分享成功
             @Override

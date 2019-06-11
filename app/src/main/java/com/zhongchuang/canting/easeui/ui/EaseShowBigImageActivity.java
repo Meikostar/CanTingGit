@@ -29,7 +29,7 @@ import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.util.EMLog;
 import com.hyphenate.util.ImageUtils;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.easeui.model.EaseImageCache;
 import com.zhongchuang.canting.easeui.utils.EaseLoadLocalBigImgTask;
 import com.zhongchuang.canting.easeui.widget.photoview.EasePhotoView;
@@ -56,8 +56,8 @@ public class EaseShowBigImageActivity extends EaseBaseActivity {
 		setContentView(R.layout.ease_activity_show_big_image);
 		super.onCreate(savedInstanceState);
 
-		image = (EasePhotoView) findViewById(R.id.images);
-		ProgressBar loadLocalPb = (ProgressBar) findViewById(R.id.pb_load_local);
+		image = findViewById(R.id.images);
+		ProgressBar loadLocalPb = findViewById(R.id.pb_load_local);
 		default_res = getIntent().getIntExtra("default_image", R.drawable.ease_default_avatar);
 		Uri uri = getIntent().getParcelableExtra("uri");
 		localFilePath = getIntent().getExtras().getString("localUrl");

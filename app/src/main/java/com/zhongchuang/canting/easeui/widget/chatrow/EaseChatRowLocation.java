@@ -10,7 +10,7 @@ import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMLocationMessageBody;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.exceptions.HyphenateException;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.hyphenate.util.LatLng;
 import com.zhongchuang.canting.easeui.ui.EaseBaiduMapActivity;
 
@@ -31,7 +31,7 @@ public class EaseChatRowLocation extends EaseChatRow {
 
     @Override
     protected void onFindViewById() {
-        locationView = (TextView) findViewById(R.id.tv_location);
+        locationView = findViewById(R.id.tv_location);
     }
 
 

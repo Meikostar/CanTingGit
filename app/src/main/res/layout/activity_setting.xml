@@ -268,11 +268,14 @@
             android:layout_marginRight="13dp"/>
     </LinearLayout>
     <View
+        android:visibility="gone"
+
         android:layout_marginLeft="16dp"
         android:layout_width="match_parent"
         android:layout_height="0.3dp"
         android:background="@color/linecolor"/>
     <LinearLayout
+        android:visibility="gone"
         android:background="@color/white"
         android:id="@+id/ll_clear"
         android:gravity="center_vertical"

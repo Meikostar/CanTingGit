@@ -458,7 +458,7 @@ public class StatusBarUtils {
      * @param statusBarAlpha 透明值
      */
     private static void addTranslucentView(Activity activity, int statusBarAlpha) {
-        ViewGroup contentView = (ViewGroup) activity.findViewById(android.R.id.content);
+        ViewGroup contentView = activity.findViewById(android.R.id.content);
         if (contentView.getChildCount() > 1) {
             contentView.getChildAt(1).setBackgroundColor(Color.argb(statusBarAlpha, 0, 0, 0));
         } else {

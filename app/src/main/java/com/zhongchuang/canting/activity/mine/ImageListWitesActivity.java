@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.base.BaseActivity;
 import com.zhongchuang.canting.base.BaseActivity1;
 import com.zhongchuang.canting.base.BaseAllActivity;
@@ -97,7 +97,7 @@ public class ImageListWitesActivity extends BaseAllActivity {
         public Object instantiateItem(ViewGroup container, int new_position) {
             View view = LayoutInflater.from(ImageListWitesActivity.this).inflate(
                     R.layout.lp_pager_img_list, null);
-            PhotoView photoView = (PhotoView) view.findViewById(R.id.img_content);
+            PhotoView photoView = view.findViewById(R.id.img_content);
             photoView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

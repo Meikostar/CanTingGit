@@ -39,10 +39,7 @@ public class MusicQuery extends AsyncTask<Void, ArrayList<MusicQuery.MediaEntity
         if (minute <= 0 && second <= 30) {
             return false;
         }
-        if (size <= 1024 * 1024) {
-            return false;
-        }
-        return true;
+        return size > 1024 * 1024;
     }
 
     @Override

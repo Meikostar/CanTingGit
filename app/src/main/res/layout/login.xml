@@ -14,7 +14,6 @@
            <ImageView
                android:id="@+id/iv_back"
                android:padding="16dp"
-
                android:layout_centerVertical="true"
                android:src="@drawable/back_white"
                android:layout_width="40dp"
@@ -27,21 +26,20 @@
             android:gravity="center"
             android:text="@string/dl"
             android:textColor="#ffffff"
-            android:textSize="17sp"
+            android:textSize="18sp"
 
             />
 
         <TextView
-            android:visibility="gone"
             android:id="@+id/shezhi_regest"
-            android:layout_width="wrap_content"
+            android:layout_width="45dp"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/x40"
+            android:layout_marginRight="10dp"
             android:gravity="center"
             android:text="注册"
             android:textColor="#FFFFFF"
-            android:textSize="@dimen/x45" />
+            android:textSize="16sp" />
     </RelativeLayout>
 
 

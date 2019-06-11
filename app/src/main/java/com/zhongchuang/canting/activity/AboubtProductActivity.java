@@ -3,7 +3,7 @@ package com.zhongchuang.canting.activity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.base.BaseActivity1;
 import com.zhongchuang.canting.utils.StringUtil;
 import com.zhongchuang.canting.widget.NavigationBar;

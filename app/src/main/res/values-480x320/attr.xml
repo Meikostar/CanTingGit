@@ -12,6 +12,7 @@
         <attr name="dashOrientation" format="integer"/>
 
     </declare-styleable>
+
     <declare-styleable name="CircleImageView">
         <attr name="border_width" format="dimension" />
         <attr name="border_color" format="color" />

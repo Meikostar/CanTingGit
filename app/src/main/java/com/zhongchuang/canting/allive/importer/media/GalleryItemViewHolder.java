@@ -31,8 +31,8 @@ public class GalleryItemViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
 
         this.thumbnailGenerator = thumbnailGenerator;
-        thumbImage = (ImageView) itemView.findViewById(R.id.draft_thumbnail);
-        duration = (TextView) itemView.findViewById(R.id.draft_duration);
+        thumbImage = itemView.findViewById(R.id.draft_thumbnail);
+        duration = itemView.findViewById(R.id.draft_duration);
         durationLayoput = itemView.findViewById(R.id.duration_layoput);
 
         itemView.setTag(this);

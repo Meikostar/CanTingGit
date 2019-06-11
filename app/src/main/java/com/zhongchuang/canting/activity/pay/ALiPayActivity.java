@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 
 import com.alipay.sdk.app.PayTask;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.base.BaseActivity;
 import com.zhongchuang.canting.hud.ToastUtils;
 import com.zhongchuang.canting.utils.ali.PayResult;

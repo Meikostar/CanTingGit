@@ -44,7 +44,7 @@ public class ColorViewHolder extends ColorViewPagerAdapter.ViewHolder {
     @Override
     protected View onCreateView(Context context) {
         View rootView = LayoutInflater.from(context).inflate( R.layout.aliyun_svideo_layout_color_tab_content, null, false);
-        mGridView = (GridView) rootView.findViewById( R.id.grid_view);
+        mGridView = rootView.findViewById( R.id.grid_view);
         return rootView;
     }
 
@@ -131,7 +131,7 @@ public class ColorViewHolder extends ColorViewPagerAdapter.ViewHolder {
 
         ColorItemViewMediator(ViewGroup parent) {
             root = View.inflate(parent.getContext(),  R.layout.aliyun_svideo_item_qupai_textcolor, null);
-            mIvColor = (ImageView) root.findViewById( R.id.iv_color);
+            mIvColor = root.findViewById( R.id.iv_color);
             select = root.findViewById( R.id.selected);
 
             root.setTag(this);

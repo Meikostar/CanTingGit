@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 
 /**
  * title bar
@@ -40,12 +40,12 @@ public class EaseTitleBar extends RelativeLayout{
     
     private void init(Context context, AttributeSet attrs){
         LayoutInflater.from(context).inflate(R.layout.ease_widget_title_bar, this);
-        leftLayout = (RelativeLayout) findViewById(R.id.left_layout);
-        leftImage = (ImageView) findViewById(R.id.left_image);
-        rightLayout = (RelativeLayout) findViewById(R.id.right_layout);
-        rightImage = (ImageView) findViewById(R.id.right_image);
-        titleView = (TextView) findViewById(R.id.title);
-        titleLayout = (RelativeLayout) findViewById(R.id.root);
+        leftLayout = findViewById(R.id.left_layout);
+        leftImage = findViewById(R.id.left_image);
+        rightLayout = findViewById(R.id.right_layout);
+        rightImage = findViewById(R.id.right_image);
+        titleView = findViewById(R.id.title);
+        titleLayout = findViewById(R.id.root);
         
         parseStyle(context, attrs);
     }

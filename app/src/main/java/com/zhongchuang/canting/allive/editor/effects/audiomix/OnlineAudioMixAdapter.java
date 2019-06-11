@@ -57,13 +57,13 @@ public class OnlineAudioMixAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.aliyun_svideo_music_item_view, parent, false);
         AudioMixViewHolder audioMixViewHolder = new AudioMixViewHolder(view);
-        audioMixViewHolder.musicName = (TextView) view.findViewById(R.id.music_name);
-        audioMixViewHolder.musicType = (TextView) view.findViewById(R.id.music_type);
+        audioMixViewHolder.musicName = view.findViewById(R.id.music_name);
+        audioMixViewHolder.musicType = view.findViewById(R.id.music_type);
         audioMixViewHolder.musicType.setVisibility(View.GONE);
-        audioMixViewHolder.selectFlag = (ImageView) view.findViewById(R.id.selected_flag);
-        audioMixViewHolder.downloadBtn = (ImageView) view.findViewById(R.id.download_btn);
+        audioMixViewHolder.selectFlag = view.findViewById(R.id.selected_flag);
+        audioMixViewHolder.downloadBtn = view.findViewById(R.id.download_btn);
         audioMixViewHolder.downloadBtn.setVisibility(View.VISIBLE);
-        audioMixViewHolder.downloadProgress = (CircleProgressBar) view.findViewById(R.id.download_progress);
+        audioMixViewHolder.downloadProgress = view.findViewById(R.id.download_progress);
         int width = DensityUtil.dip2px(view.getContext(), 25);
         audioMixViewHolder.downloadProgress.setBackgroundWidth(width, width);
         audioMixViewHolder.downloadProgress.setProgressWidth(width);

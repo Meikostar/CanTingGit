@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
+
    <View
        android:layout_width="match_parent"
        android:layout_height="0.01dp"
@@ -43,15 +44,7 @@
                     app:bannerPageScale="1"
                     app:bannerScrollDuration="4000" />
 
-                <ImageView
-                    android:id="@+id/iv_back"
-                    android:layout_width="34dp"
-                    android:layout_height="34dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="30dp"
-                    android:padding="5dp"
-                    android:src="@drawable/shap_back" />
+
 
             </RelativeLayout>
 
@@ -70,48 +63,86 @@
                     tools:text="￥ 89.0"
                     android:textColor="@color/original"
                     android:textSize="15sp" />
-                 <RelativeLayout
-                     android:layout_marginTop="5dp"
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content">
-                     <TextView
-                         android:layout_centerVertical="true"
-                         android:id="@+id/tv_mark"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:layout_marginTop="10dp"
-                         android:paddingLeft="15dp"
-                         android:text="@string/scj"
-                         android:textColor="@color/color9"
-                         android:textSize="13sp" />
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <RelativeLayout
+                        android:layout_marginTop="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_centerVertical="true"
+                            android:id="@+id/tv_mark"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:paddingLeft="15dp"
+                            android:text="@string/scj"
+                            android:textColor="@color/color9"
+                            android:textSize="13sp" />
 
 
 
-                     <TextView
-                         android:layout_marginLeft="10dp"
-                         android:layout_centerVertical="true"
-                         android:layout_toRightOf="@+id/tv_mark"
-                         android:id="@+id/tv_price_mark"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:layout_marginTop="10dp"
-                         android:paddingLeft="3dp"
-                         android:textColor="@color/color9"
-                         android:textSize="13sp"
-                         tools:text="￥ rrr.0" />
-                     <View
-                         android:layout_marginLeft="15dp"
+                        <TextView
+                            android:layout_marginLeft="10dp"
+                            android:layout_centerVertical="true"
+                            android:layout_toRightOf="@+id/tv_mark"
+                            android:id="@+id/tv_price_mark"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:paddingLeft="3dp"
+                            android:textColor="@color/color9"
+                            android:textSize="13sp"
+                            tools:text="￥ rrr.0" />
+                        <View
+                            android:layout_marginLeft="15dp"
 
-                         android:layout_centerVertical="true"
-                         android:layout_toRightOf="@+id/tv_mark"
-                         android:layout_marginTop="5dp"
-                         android:layout_gravity="center_vertical"
-                         android:layout_width="30dp"
-                         android:layout_height="2dp"
-                         android:background="@color/linecolor"
-                         />
+                            android:layout_centerVertical="true"
+                            android:layout_toRightOf="@+id/tv_mark"
+                            android:layout_marginTop="5dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_width="30dp"
+                            android:layout_height="2dp"
+                            android:background="@color/linecolor"
+                            />
 
-                 </RelativeLayout>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:visibility="gone"
+                        android:layout_marginLeft="5dp"
+                        android:id="@+id/rl_bgs"
+                        android:layout_marginTop="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_centerVertical="true"
+                            android:id="@+id/tv_marks"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:paddingLeft="15dp"
+                            android:text="利润:"
+                            android:textColor="@color/color9"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:layout_marginLeft="5dp"
+                            android:layout_centerVertical="true"
+                            android:layout_toRightOf="@+id/tv_marks"
+                            android:id="@+id/tv_profit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:paddingLeft="1dp"
+                            android:textColor="@color/color9"
+                            android:textSize="13sp"
+                            tools:text="￥ rrr.0" />
+
+
+                    </RelativeLayout>
+                </LinearLayout>
 
 
                 <TextView
@@ -136,12 +167,15 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:lineSpacingExtra="2dp"
+
+                        android:layout_centerVertical="true"
                         android:id="@+id/tv_turn"
+                        android:maxWidth="170dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:singleLine="true"
+                        android:lines="2"
                         android:layout_marginLeft="15dp"
-                        tools:text="@string/kds"
                         android:text="@string/kds"
                         android:textColor="@color/color6"
                         android:paddingRight="15dp"
@@ -159,14 +193,17 @@
 
                     <TextView
                         android:layout_alignParentRight="true"
-                        android:gravity="right"
-                        android:lines="1"
+                        android:gravity="left"
+                        android:lines="2"
                         android:id="@+id/tv_address"
+                        android:maxWidth="120dp"
+                        android:layout_centerVertical="true"
+                        android:lineSpacingExtra="2dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="135dp"
-                        android:layout_marginRight="25dp"
-                        tools:text="发货地址："
+                        android:layout_marginRight="15dp"
+                        tools:text=""
                         android:text="@string/fhdzs"
                         android:textColor="@color/color6"
                         android:textSize="13sp" />
@@ -350,5 +387,23 @@
             android:textColor="@color/white"
             android:textSize="@dimen/sp_14" />
     </LinearLayout>
-
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="30dp"
+        android:padding="5dp"
+        android:src="@drawable/shap_back" />
+    <ImageView
+        android:id="@+id/iv_shre"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="center_vertical"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="30dp"
+        android:padding="5dp"
+        android:src="@drawable/icon_share" />
 </RelativeLayout>

@@ -6,9 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.ChatActivity;
 import com.zhongchuang.canting.adapter.BannerAdapter;
 import com.zhongchuang.canting.adapter.ListImageAdapter;
@@ -20,9 +21,12 @@ import com.zhongchuang.canting.been.OrderParam;
 import com.zhongchuang.canting.been.Param;
 import com.zhongchuang.canting.been.ProductBuy;
 import com.zhongchuang.canting.been.ProductDel;
+import com.zhongchuang.canting.been.ShareBean;
 import com.zhongchuang.canting.been.SubscriptionBean;
+import com.zhongchuang.canting.db.Constant;
 import com.zhongchuang.canting.presenter.BaseContract;
 import com.zhongchuang.canting.presenter.BasesPresenter;
+import com.zhongchuang.canting.utils.ShareUtils;
 import com.zhongchuang.canting.utils.SpUtil;
 import com.zhongchuang.canting.utils.TextUtil;
 import com.zhongchuang.canting.widget.BaseDailogManager;
@@ -74,6 +78,8 @@ public class ShopMallDetailActivity extends BaseAllActivity implements View.OnCl
     TextView tvShopName;
     @BindView(R.id.iv_back)
     ImageView ivBack;
+    @BindView(R.id.iv_shre)
+    ImageView iv_shre;
     @BindView(R.id.scrollView)
     StickyScrollView scrollView;
     @BindView(R.id.line)
@@ -82,6 +88,16 @@ public class ShopMallDetailActivity extends BaseAllActivity implements View.OnCl
     LinearLayout llChat;
     @BindView(R.id.tv_detail)
     TextView tvDetail;
+    @BindView(R.id.tv_mark)
+    TextView tvMark;
+    @BindView(R.id.tv_marks)
+    TextView tvMarks;
+    @BindView(R.id.tv_profit)
+    TextView tvProfit;
+    @BindView(R.id.rl_bgs)
+    RelativeLayout rlBgs;
+
+
     private Subscription mSubscription;
     //    private ProfileInfoHelper infoHelper;
     private int type = 1;
@@ -110,16 +126,21 @@ public class ShopMallDetailActivity extends BaseAllActivity implements View.OnCl
 
     @Override
     public void bindEvents() {
+
+
         llChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (TextUtil.isNotEmpty(product.userInfoId)) {
-                    Intent intentc = new Intent(ShopMallDetailActivity.this, ChatActivity.class);
-                    intentc.putExtra("userId", product.userInfoId);
-                    startActivity(intentc);
-                } else {
-                    showToasts(getString(R.string.sjwkt));
+                if(product!=null){
+                    if (TextUtil.isNotEmpty(product.userInfoId)) {
+                        Intent intentc = new Intent(ShopMallDetailActivity.this, ChatActivity.class);
+                        intentc.putExtra("userId", product.userInfoId);
+                        startActivity(intentc);
+                    } else {
+                        showToasts(getString(R.string.sjwkt));
+                    }
                 }
+
 
             }
         });
@@ -142,7 +163,14 @@ public class ShopMallDetailActivity extends BaseAllActivity implements View.OnCl
                 finish();
             }
         });
+        iv_shre.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShareUtils.showMyShareProduct(ShopMallDetailActivity.this, "", "");
 
+
+            }
+        });
     }
 
     @Override
@@ -284,6 +312,7 @@ public class ShopMallDetailActivity extends BaseAllActivity implements View.OnCl
     private String product_platform_id;
     private String shopId;
     private ProductDel product;
+    private ShareBean shareBean;
 
     @Override
     public <T> void toEntity(T entity, int type) {
@@ -291,6 +320,7 @@ public class ShopMallDetailActivity extends BaseAllActivity implements View.OnCl
         if (type == 2) {
             product = (ProductDel) entity;
             if (product != null) {
+
                 if (TextUtil.isNotEmpty(product.picture_url)) {
                     String[] split = product.picture_url.split(",");
                     for (String url : split) {
@@ -301,6 +331,20 @@ public class ShopMallDetailActivity extends BaseAllActivity implements View.OnCl
                     bannerAdapter.setData(data);
 
                 }
+                if (shareBean == null) {
+                    shareBean = new ShareBean();
+                    shareBean.title_ = SpUtil.getNick(this) + "分享一款产品给您!";
+                    shareBean.content_ = product.pro_name;
+                    shareBean.url_ = Constant.APP_PRODUCT +CanTingAppLication.invitation_code+","+ id;
+                    shareBean.img_ = data.get(0).image_url;
+
+                } else {
+                    shareBean.title_ = SpUtil.getNick(this) + "分享一款产品给您!";
+                    shareBean.content_ = product.pro_name;
+                    shareBean.url_ = Constant.APP_PRODUCT +CanTingAppLication.invitation_code+","+ id;
+                    shareBean.img_ = data.get(0).image_url;
+                }
+                CanTingAppLication.productBean = shareBean;
                 if (TextUtil.isNotEmpty(product.picture_description_url)) {
                     String[] split = product.picture_description_url.split(",");
                     List<String> dat = new ArrayList<>();
@@ -315,28 +359,40 @@ public class ShopMallDetailActivity extends BaseAllActivity implements View.OnCl
                 presenter.getProudctSku(product.product_platform_id);
                 presenter.getProParameter(product.product_sku_id);
                 if (TextUtil.isNotEmpty(product.market_price)) {
-
+                    shareBean.content_= shareBean.content_+"   市场价：￥"+product.market_price;
                     tvPriceMark.setText("￥" + product.market_price);
 
                 }
+                if (product.profit!=0) {
+                    rlBgs.setVisibility(View.VISIBLE);
+                    tvProfit.setText("￥" + product.profit);
+                    shareBean.content_= shareBean.content_+"   利润：￥"+product.profit;
+
+                }else {
+                    rlBgs.setVisibility(View.GONE);
+                }
                 if (product.pro_site.equals("1")) {
                     if (TextUtil.isNotEmpty(product.pro_price)) {
+
                         if (Integer.valueOf(product.integral_price) > 0) {
+                            shareBean.content_= shareBean.content_+"   商城价：￥"+product.pro_price;
                             tvPrice.setText("￥" + product.pro_price + "+" + product.integral_price + "积分");
                         } else {
+                            shareBean.content_= shareBean.content_+"   商城价：￥"+product.pro_price;
                             tvPrice.setText("￥" + product.pro_price);
                         }
 //                        tvPrice.setText("￥" + product.pro_price);
                     }
                 } else if (product.pro_site.equals("3")) {
                     if (TextUtil.isNotEmpty(product.pro_price)) {
-
+                        shareBean.content_= shareBean.content_+"   商城价：￥"+product.pro_price;
                         tvPrice.setText("￥" + product.pro_price);
 
                     }
                 } else {
 
                     if (TextUtil.isNotEmpty(product.integral_price)) {
+                        shareBean.content_= shareBean.content_+"   商城价:"+product.pro_price+"积分";
                         tvPrice.setText(getString(R.string.jf) + product.integral_price);
                     }
                 }
@@ -424,9 +480,9 @@ public class ShopMallDetailActivity extends BaseAllActivity implements View.OnCl
     public void showPopwindow(String content) {
 
         views = View.inflate(this, R.layout.pop_expross_view, null);
-        tv_content = (TextView) views.findViewById(R.id.tv_content);
+        tv_content = views.findViewById(R.id.tv_content);
 
-        ivClose = (ImageView) views.findViewById(R.id.iv_close);
+        ivClose = views.findViewById(R.id.iv_close);
 
 
         dialog = BaseDailogManager.getInstance().getBuilder(this).setMessageView(views).create();

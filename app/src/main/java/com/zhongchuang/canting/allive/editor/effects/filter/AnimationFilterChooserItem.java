@@ -44,7 +44,7 @@ public class AnimationFilterChooserItem extends Fragment
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mListView = (RecyclerView) view.findViewById(R.id.effect_list_filter);
+        mListView = view.findViewById(R.id.effect_list_filter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         mListView.setLayoutManager(layoutManager);
         mFilterAdapter = new FilterAdapter(getContext());

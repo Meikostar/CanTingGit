@@ -46,12 +46,12 @@ import com.baidu.mapapi.map.MyLocationConfiguration.LocationMode;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.utils.CoordinateConverter;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 
 public class EaseBaiduMapActivity extends EaseBaseActivity {
 
 	private final static String TAG = "map";
-	static MapView mMapView = null;
+	private MapView mMapView = null;
 	FrameLayout mMapViewContainer = null;
 	LocationClient mLocClient;
 	public MyLocationListenner myListener = new MyLocationListenner();
@@ -90,8 +90,8 @@ public class EaseBaiduMapActivity extends EaseBaseActivity {
 		//initialize SDK with context, should call this before setContentView
         SDKInitializer.initialize(getApplicationContext());  
 		setContentView(R.layout.ease_activity_baidumap);
-		mMapView = (MapView) findViewById(R.id.bmapView);
-		sendButton = (Button) findViewById(R.id.btn_location_send);
+		mMapView = findViewById(R.id.bmapView);
+		sendButton = findViewById(R.id.btn_location_send);
 		Intent intent = getIntent();
 		double latitude = intent.getDoubleExtra("latitude", 0);
 		LocationMode mCurrentMode = LocationMode.NORMAL;

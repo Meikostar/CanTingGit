@@ -60,6 +60,7 @@ import com.zhongchuang.canting.been.LIVEBEAN;
 import com.zhongchuang.canting.been.SubscriptionBean;
 import com.zhongchuang.canting.been.TOKEN;
 import com.zhongchuang.canting.been.UploadFileBean;
+import com.zhongchuang.canting.been.aliLive;
 import com.zhongchuang.canting.hud.ToastUtils;
 import com.zhongchuang.canting.net.BaseCallBack;
 import com.zhongchuang.canting.net.HXRequestService;
@@ -103,8 +104,6 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Subscription;
 import rx.functions.Action1;
-
-;
 
 /**
  * Created by Administrator on 2017/12/4.
@@ -178,7 +177,7 @@ public class LiveMineFragments extends LazyFragment implements BaseContract.View
         setListener();
         initAssetPath();
 
-//        copyAssets();
+
         return viewRoot;
     }
 
@@ -199,7 +198,42 @@ public class LiveMineFragments extends LazyFragment implements BaseContract.View
         }
     }
     private int playTypes=1;
+    private MarkaBaseDialog dialogs;
 
+    public void showPopwindows() {
+        TextView sure = null;
+        TextView cancel = null;
+        TextView title = null;
+        View view = null;
+        EditText reson = null;
+        View views = View.inflate(getActivity(), R.layout.base_dailog_view, null);
+        sure = views.findViewById(R.id.txt_sure);
+        cancel = views.findViewById(R.id.txt_cancel);
+        title = views.findViewById(R.id.txt_title);
+        view = views.findViewById(R.id.line_center);
+
+        title.setText("您录播的视频需要云端进行编辑和存储，需要 3 分钟后你方可看到录播视频！");
+        sure.setText("知道了");
+        dialogs = BaseDailogManager.getInstance().getBuilder(getActivity()).setMessageView(views).create();
+        dialogs.show();
+        view.setVisibility(View.GONE);
+        cancel.setVisibility(View.GONE);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogs.dismiss();
+            }
+        });
+
+        sure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                dialogs.dismiss();
+
+            }
+        });
+    }
     private void setListener() {
         tvSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -324,7 +358,8 @@ public class LiveMineFragments extends LazyFragment implements BaseContract.View
                     return;
                 }
                 playTypes=2;
-                presenter.deleteConfig();
+                showChooseAddPhotoWindow();
+
 
 
             }
@@ -347,13 +382,16 @@ public class LiveMineFragments extends LazyFragment implements BaseContract.View
                 if(!canPlay()){
                     return;
                 }
+                playTypes=1;
                 showPopwind();
+                state=2;
 //                isAnchor();
             }
         });
     }
 
      private int playType=1;//1 直播被禁用 2，直播ok 3，未开通
+     private int chooseType=0;//1 直播被禁用 2，直播ok 3，未开通
     public boolean canPlay(){
 
         boolean canplay=false;
@@ -371,9 +409,9 @@ public class LiveMineFragments extends LazyFragment implements BaseContract.View
 
     public void showDailog() {
         View views = View.inflate(getActivity(), R.layout.base_dailog_view, null);
-        TextView sure = (TextView) views.findViewById(R.id.txt_sure);
-        TextView cancel = (TextView) views.findViewById(R.id.txt_cancel);
-        TextView title = (TextView) views.findViewById(R.id.txt_title);
+        TextView sure = views.findViewById(R.id.txt_sure);
+        TextView cancel = views.findViewById(R.id.txt_cancel);
+        TextView title = views.findViewById(R.id.txt_title);
         title.setText(R.string.nhwtxxzbjxgxx);
 
         final MarkaBaseDialog dialog = BaseDailogManager.getInstance().getBuilder(getActivity()).setMessageView(views).create();
@@ -426,6 +464,11 @@ public class LiveMineFragments extends LazyFragment implements BaseContract.View
                         shapeLoadingDialog.dismiss();
                     }
 
+                }else if(bean.type == SubscriptionBean.LIVE_FINISH_FRESH){
+                    if(chooseType==1){
+                        showPopwindows();
+                    }
+
                 }
 
             }
@@ -464,6 +507,7 @@ public class LiveMineFragments extends LazyFragment implements BaseContract.View
     @Override
     public void onResume() {
         super.onResume();
+
         if (null != presenter) {
             presenter.hostInfo();
             presenter.getUserIntegral();
@@ -515,18 +559,26 @@ public class LiveMineFragments extends LazyFragment implements BaseContract.View
     private TextView tv_select = null;
     private ClearEditText content = null;
     private ImageView iv_photo = null;
+    private ImageView iv_close = null;
     private   MarkaBaseDialog dialog;
     public void showPopwind() {
 
         EditText reson = null;
         View views = View.inflate(getActivity(), R.layout.zb_upload_dailog, null);
-        sure = (TextView) views.findViewById(R.id.tv_send);
-        tv_select = (TextView) views.findViewById(R.id.tv_select);
-        content = (ClearEditText) views.findViewById(R.id.et_content);
-        iv_photo = (ImageView) views.findViewById(R.id.iv_photo);
+        sure = views.findViewById(R.id.tv_send);
+        tv_select = views.findViewById(R.id.tv_select);
+        content = views.findViewById(R.id.et_content);
+        iv_photo = views.findViewById(R.id.iv_photo);
+        iv_close = views.findViewById(R.id.iv_close);
 
         dialog = BaseDailogManager.getInstance().getBuilder(getActivity()).setMessageView(views).create();
         dialog.show();
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                img_path="";
+            }
+        });
         sure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -544,10 +596,17 @@ public class LiveMineFragments extends LazyFragment implements BaseContract.View
                 dialog.dismiss();
             }
         });
+        iv_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                closeKeyBoard(v);
+                dialog.dismiss();
+            }
+        });
         tv_select.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                closeKeyBoard();
+                closeKeyBoard(v);
                 showAddPhotoWindow();
                 dialog.dismiss();
             }
@@ -555,7 +614,7 @@ public class LiveMineFragments extends LazyFragment implements BaseContract.View
         iv_photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                closeKeyBoard();
+                closeKeyBoard(v);
                 showAddPhotoWindow();
                 dialog.dismiss();
             }
@@ -587,7 +646,36 @@ public class LiveMineFragments extends LazyFragment implements BaseContract.View
 
 
     }
+    public void showChooseAddPhotoWindow() {
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.view_add_photo_window, null);
+        TextView live= view.findViewById(R.id.tv_photo);
+        TextView lives= view.findViewById(R.id.tv_cancel);
+        live.setText("屏内直播");
+        lives.setText("屏内直播并开启录播");
+        live.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.deleteConfig();
+                mWindowAddPhotos.dismiss();
+            }
+        });
+        lives.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPopwind();
+                state=1;
+                mWindowAddPhotos.dismiss();
 
+
+            }
+        });
+        mWindowAddPhotos = new PhotoPopupWindow(getActivity()).bindView(view);
+
+        mWindowAddPhotos.showAtLocation(tvName, Gravity.BOTTOM, 0, 0);
+
+
+    }
+    private int state;
     public void getPhotos() {
         Picker.from(this)
                 .count(1)
@@ -612,7 +700,7 @@ public class LiveMineFragments extends LazyFragment implements BaseContract.View
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == getActivity().RESULT_OK) {
-            int output_X = 180, output_Y = 180;
+            int output_X = 360, output_Y = 360;
             switch (requestCode) {
                 //上传照片
                 case 66:
@@ -684,22 +772,17 @@ public class LiveMineFragments extends LazyFragment implements BaseContract.View
     /**
      * 关闭键盘
      */
-    public void closeKeyBoard() {
-        try {
-            if (getActivity().getCurrentFocus() == null) {
-                return;
+    public void closeKeyBoard(View v) {
+
+
+            InputMethodManager imm = ( InputMethodManager ) v.getContext( ).getSystemService( Context.INPUT_METHOD_SERVICE );
+            if ( imm.isActive( ) ) {
+                imm.hideSoftInputFromWindow( v.getApplicationWindowToken( ) , 0 );
+
             }
-            IBinder iBinder = getActivity().getCurrentFocus().getWindowToken();
-            if (iBinder == null) {
-                return;
-            }
-            InputMethodManager inputMethodManager = (InputMethodManager)
-                    getActivity().getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-            inputMethodManager.hideSoftInputFromWindow(iBinder, inputMethodManager.HIDE_NOT_ALWAYS);
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-    }
+
+
 
     public void showPopwindows(final String var1, final String var2, final String var3) {
         TextView content = null;
@@ -708,10 +791,10 @@ public class LiveMineFragments extends LazyFragment implements BaseContract.View
         TextView title = null;
         EditText reson = null;
         View views = View.inflate(getActivity(), R.layout.live_popow_view, null);
-        title = (TextView) views.findViewById(R.id.txt_title);
-        content = (TextView) views.findViewById(R.id.txt_content);
-        desc = (TextView) views.findViewById(R.id.txt_desc);
-        iv_close = (ImageView) views.findViewById(R.id.iv_close);
+        title = views.findViewById(R.id.txt_title);
+        content = views.findViewById(R.id.txt_content);
+        desc = views.findViewById(R.id.txt_desc);
+        iv_close = views.findViewById(R.id.iv_close);
 
         title.setText(var1);
         content.setText(var2);
@@ -737,18 +820,45 @@ public class LiveMineFragments extends LazyFragment implements BaseContract.View
             Ingegebean bean = (Ingegebean) entity;
             tvJf.setText(bean.direct_gift_integral);
         } else if (type == 29) {
-            Intent intent = new Intent(getActivity(), PushConfigActivity.class);
-            startActivity(intent);
-        } else if (type == 69) {
-            if(playTypes==1){
-                Intent intent = new Intent(getActivity(), PushConfigActivity.class);
+            if(state==1){
+                aliLive aliLive = (aliLive) entity;
+                presenter.updateType(aliLive.id,2+"");
+                chooseType=1;
+                Intent intent = new Intent(getActivity(), VideoRecordConfigActivity.class);
                 startActivity(intent);
             }else {
-                Intent intent = new Intent(getActivity(), VideoRecordConfigActivity.class);
+                aliLive aliLive = (aliLive) entity;
+                chooseType=1;
+                Intent intent = new Intent(getActivity(), PushConfigActivity.class);
+                intent.putExtra("id",aliLive.id);
                 startActivity(intent);
             }
 
-        } else if (type == 7) {
+        } else if (type == 69) {
+            if(playTypes==1){
+                chooseType=0;
+//                aliLive aliLive = (aliLive) entity;
+                Intent intent = new Intent(getActivity(), PushConfigActivity.class);
+//                intent.putExtra("id",aliLive.id);
+                startActivity(intent);
+            }else {
+
+                chooseType=1;
+
+                Intent intent = new Intent(getActivity(), VideoRecordConfigActivity.class);
+                startActivity(intent);
+
+            }
+
+        }else if (type == 999) {
+            aliLive aliLive = (aliLive) entity;
+            if (aliLive != null && aliLive.liveUrl != null) {
+
+                SpUtil.putString(getActivity(), "chatroomsId", aliLive.liveUrl.chatrooms_id);
+
+                }
+
+        } else if (type == 5||type == 7||type == 299) {
         } else {
             data = (Host) entity;
             if (data != null && TextUtil.isNotEmpty(data.play_type)) {
@@ -760,6 +870,8 @@ public class LiveMineFragments extends LazyFragment implements BaseContract.View
                         String chatRoomId = SpUtil.getChatRoomId(getActivity());
                         if(TextUtil.isEmpty(chatRoomId)){
                             presenter.create();
+                        }else {
+                            presenter.getLiveUrl(SpUtil.getUserInfoId(getActivity()));
                         }
 
                     } else {
@@ -768,8 +880,9 @@ public class LiveMineFragments extends LazyFragment implements BaseContract.View
                     }
 
                 }
+                SpUtil.putString(getActivity(), "room_id", data.room_info_id);
             }
-            SpUtil.putString(getActivity(), "room_id", data.room_info_id);
+
             if (this != null) {
                 initData();
             }

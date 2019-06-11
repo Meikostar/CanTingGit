@@ -23,7 +23,6 @@
             <TextView
                 android:id="@+id/tv_download"
                 android:layout_width="0dp"
-                android:drawableTop="@drawable/alivc_download_downloading"
                 android:text="下载"
                 android:gravity="center"
                 android:textColor="@color/alivc_white"
@@ -37,7 +36,7 @@
                 android:id="@+id/tv_cast_screen"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:drawableTop="@drawable/alivc_screen_cast"
+
                 android:text="投屏"
                 android:gravity="center"
                 android:drawablePadding="6dp"
@@ -49,7 +48,6 @@
                 android:id="@+id/tv_barrage"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:drawableTop="@drawable/alivc_barrage"
                 android:text="弹幕设置"
                 android:drawablePadding="6dp"
                 android:gravity="center"

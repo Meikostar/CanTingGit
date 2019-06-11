@@ -22,7 +22,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.ChatActivity;
 import com.zhongchuang.canting.adapter.ChatMenberBasedapter;
 import com.zhongchuang.canting.adapter.ChatMessageAdapter;
@@ -173,9 +173,9 @@ public class ChatMessageActivity extends BaseActivity1 implements BaseContract.V
             @Override
             public void onClick(View v) {
                 View view = LayoutInflater.from(ChatMessageActivity.this).inflate(R.layout.chat_phone_popwindow_view, null);
-                TextView tv_camera = (TextView) view.findViewById(R.id.tv_camera);
-                TextView tv_choose = (TextView) view.findViewById(R.id.tv_choose);
-                TextView tv_cancel = (TextView) view.findViewById(R.id.tv_cancel);
+                TextView tv_camera = view.findViewById(R.id.tv_camera);
+                TextView tv_choose = view.findViewById(R.id.tv_choose);
+                TextView tv_cancel = view.findViewById(R.id.tv_cancel);
                 tv_camera.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

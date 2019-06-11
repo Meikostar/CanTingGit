@@ -138,8 +138,8 @@ public class TextDialog extends DialogFragment {
         }
 
 //        isStroke = mEditInfo.textStrokeColor != 0;
-        mEditView = (AutoResizingEditText) contentView.findViewById( R.id.qupai_overlay_content_text);
-        mSend = (TextView) contentView.findViewById( R.id.send);
+        mEditView = contentView.findViewById( R.id.qupai_overlay_content_text);
+        mSend = contentView.findViewById( R.id.send);
 
         mEditView.setTextOnly(mEditInfo.isTextOnly);
         mEditView.setText(mEditInfo.text);
@@ -154,7 +154,7 @@ public class TextDialog extends DialogFragment {
         mEditView.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 18,
                 getResources().getDisplayMetrics()));
 
-        pageContainer = (FrameLayout) contentView.findViewById( R.id.container);
+        pageContainer = contentView.findViewById( R.id.container);
         ViewStack pagerViewStack = new ViewStack(View.GONE);
         pagerViewStack.addView(new View(getActivity()));
         pagerViewStack.addView(contentView.findViewById( R.id.font_layout));
@@ -193,8 +193,8 @@ public class TextDialog extends DialogFragment {
         pagerStackBinding.setViewStack(pagerViewStack);
         pageTabGroup.setOnCheckedChangeListener(pagerStackBinding);
 
-        mColorTabHost = (TabLayout) contentView.findViewById( R.id.color_tab_host);
-        mColorViewPager = (ViewPager) contentView.findViewById( R.id.color_viewpager);
+        mColorTabHost = contentView.findViewById( R.id.color_tab_host);
+        mColorViewPager = contentView.findViewById( R.id.color_viewpager);
         mColorPagerAdapter = new ColorViewPagerAdapter();
 
 
@@ -221,7 +221,7 @@ public class TextDialog extends DialogFragment {
         mColorViewPager.setAdapter(mColorPagerAdapter);
         mColorTabHost.setupWithViewPager(mColorViewPager);
 
-        fontList = (GridView) contentView.findViewById( R.id.font_list);
+        fontList = contentView.findViewById( R.id.font_list);
         fontAdapter = new FontAdapter();
 
         fontAdapter.setData(getFontList());
@@ -268,7 +268,7 @@ public class TextDialog extends DialogFragment {
 //		font_new.setVisibility(isFontHasNew ? View.VISIBLE : View.GONE);
         setOnClick();
         pageTabGroup.setCheckedIndex(0);
-        textLimit = (TextView) contentView.findViewById( R.id.message);
+        textLimit = contentView.findViewById( R.id.message);
         requestFocusForKeyboard();
         if (isTextOnly()) {
             textLimit.setVisibility(View.GONE);
@@ -406,16 +406,13 @@ public class TextDialog extends DialogFragment {
 
     private boolean isChinese(char c) {
         Character.UnicodeBlock ub = Character.UnicodeBlock.of(c);
-        if (ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS
+        return ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS
                 || ub == Character.UnicodeBlock.CJK_COMPATIBILITY_IDEOGRAPHS
                 || ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_A
                 || ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_B
                 || ub == Character.UnicodeBlock.CJK_SYMBOLS_AND_PUNCTUATION
                 || ub == Character.UnicodeBlock.HALFWIDTH_AND_FULLWIDTH_FORMS
-                || ub == Character.UnicodeBlock.GENERAL_PUNCTUATION) {
-            return true;
-        }
-        return false;
+                || ub == Character.UnicodeBlock.GENERAL_PUNCTUATION;
     }
 
     private class MyTextWatcher implements TextWatcher {
@@ -697,9 +694,9 @@ public class TextDialog extends DialogFragment {
         public FontItemViewMediator(ViewGroup parent) {
             root = View.inflate(parent.getContext(),  R.layout.aliyun_svideo_item_qupai_font_effect, null);
             select = root.findViewById( R.id.selected);
-            image = (ImageView) root.findViewById( R.id.font_item_image);
-            indiator = (ImageView) root.findViewById( R.id.indiator);
-            name = (TextView) root.findViewById( R.id.item_name);
+            image = root.findViewById( R.id.font_item_image);
+            indiator = root.findViewById( R.id.indiator);
+            name = root.findViewById( R.id.item_name);
             root.setTag(this);
         }
 

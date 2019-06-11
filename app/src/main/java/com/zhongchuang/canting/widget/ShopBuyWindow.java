@@ -12,8 +12,9 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.aliyun.vod.common.utils.ToastUtil;
 import com.bumptech.glide.Glide;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.adapter.GeguarAdapter;
 import com.zhongchuang.canting.been.ProductBuy;
 import com.zhongchuang.canting.been.Type;
@@ -53,7 +54,7 @@ public class ShopBuyWindow extends PopupWindow {
     private AddEditText add;
     private TextView sureButton;
 
-    public ShopBuyWindow(Activity context) {
+    public ShopBuyWindow(final Activity context) {
         super(context);
         mContext = context;
         mView = View.inflate(context, R.layout.shop_tab_dialog, null);
@@ -78,7 +79,10 @@ public class ShopBuyWindow extends PopupWindow {
        add.setListener(new AddEditText.ChangeListener() {
            @Override
            public void change(String name) {
-
+            if(Integer.valueOf(productBuy.pro_stock)<Integer.valueOf(name)){
+                ToastUtil.showToast(context,"添加量不能大于库存");
+                add.setTexts(productBuy.pro_stock);
+            }
            }
        });
         sureButton.setOnClickListener(new View.OnClickListener() {
@@ -100,6 +104,8 @@ public class ShopBuyWindow extends PopupWindow {
                     isHavae(select);
                     listener.clickListener(sku_id,add.getCout(),productBuy);
                     dismiss();
+                }else {
+                    ToastUtil.showToast(context,"请选择商品属性");
                 }
 
 
@@ -215,11 +221,11 @@ public class ShopBuyWindow extends PopupWindow {
         for (ProductBuy bug : list) {
             int i = 0;
             for (Type cot : sel) {
-                if ((TextUtil.isNotEmpty(bug.firstSpeciValue) ? bug.firstSpeciValue.equals(cot.cont) : false)
-                        || (TextUtil.isNotEmpty(bug.secondSpeciValue) ? bug.secondSpeciValue.equals(cot.cont) : false)
-                        || (TextUtil.isNotEmpty(bug.threeSpeciValue) ? bug.threeSpeciValue.equals(cot.cont) : false)
-                        || (TextUtil.isNotEmpty(bug.fourSpeciValue) ? bug.fourSpeciValue.equals(cot.cont) : false)
-                        || (TextUtil.isNotEmpty(bug.fiveSpeciValue) ? bug.fiveSpeciValue.equals(cot.cont) : false)
+                if ((TextUtil.isNotEmpty(bug.firstSpeciValue) && bug.firstSpeciValue.equals(cot.cont))
+                        || (TextUtil.isNotEmpty(bug.secondSpeciValue) && bug.secondSpeciValue.equals(cot.cont))
+                        || (TextUtil.isNotEmpty(bug.threeSpeciValue) && bug.threeSpeciValue.equals(cot.cont))
+                        || (TextUtil.isNotEmpty(bug.fourSpeciValue) && bug.fourSpeciValue.equals(cot.cont))
+                        || (TextUtil.isNotEmpty(bug.fiveSpeciValue) && bug.fiveSpeciValue.equals(cot.cont))
                         ) {
                     i++;
                 }

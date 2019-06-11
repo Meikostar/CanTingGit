@@ -101,29 +101,27 @@ public class Common {
 //        File dir = new File(Common.QU_DIR);
 //        copySelf(cxt,QU_NAME);
 //        dir.mkdirs();
-        unZip();
+//        unZip();
 
     }
 
     public static void unZip() {
         SD_DIR = StorageUtils.getCacheDirectory(CanTingAppLication.getInstance()).getAbsolutePath() + File.separator;
-
+        QU_DIR = SD_DIR + QU_NAME + File.separator;
         File[] files = new File(Common.SD_DIR + QU_NAME).listFiles(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {
-                if(name != null && name.endsWith(".zip")) {
-                    return true;
-                }
-                return false;
+                return name != null && name.endsWith(".zip");
             }
         });
 
         for(final File file : files) {
             int len = file.getAbsolutePath().length();
+            insertDB(file.getAbsolutePath().substring(0, len - 4));
             if (!new File(file.getAbsolutePath().substring(0, len - 4)).exists()) {
                 try {
                     UnZipFolder(file.getAbsolutePath(), Common.SD_DIR + QU_NAME);
-                    insertDB(file.getAbsolutePath().substring(0, len - 4));
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

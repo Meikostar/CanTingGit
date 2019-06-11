@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.been.Product;
 import com.zhongchuang.canting.been.ZhiBo_GuanZhongBean;
 import com.zhongchuang.canting.utils.StringUtil;
@@ -85,8 +85,8 @@ public class GoodRecyAdapter extends RecyclerView.Adapter<GoodRecyAdapter.ViewHo
 
 
         if (datas.size() % 2 == 0) {
-            final Product data = (Product) datas.get(2 * position);
-            final Product data1 = (Product) datas.get(2 * position + 1);
+            final Product data = datas.get(2 * position);
+            final Product data1 = datas.get(2 * position + 1);
             if (TextUtil.isNotEmpty(data.pro_name)) {
                 holders.tvName.setText(data.pro_name);
             }
@@ -154,7 +154,7 @@ public class GoodRecyAdapter extends RecyclerView.Adapter<GoodRecyAdapter.ViewHo
                 }
             });
         } else {
-            final Product data = (Product) datas.get(2 * position);
+            final Product data = datas.get(2 * position);
 
             if (TextUtil.isNotEmpty(data.pro_name)) {
                 holders.tvName.setText(data.pro_name);
@@ -190,7 +190,7 @@ public class GoodRecyAdapter extends RecyclerView.Adapter<GoodRecyAdapter.ViewHo
             });
             if (position != datas.size() / 2) {
 
-                final Product data1 = (Product) datas.get(2 * position + 1);
+                final Product data1 = datas.get(2 * position + 1);
                 if (TextUtil.isNotEmpty(data1.pro_name)) {
                     holders.tvName1.setText(data1.pro_name);
                 }

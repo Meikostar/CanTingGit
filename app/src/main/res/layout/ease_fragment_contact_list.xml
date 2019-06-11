@@ -137,6 +137,13 @@
                 android:background="@color/white"
                 app:contactItemImage="@drawable/chat_sets"
                 app:contactItemName="@string/fzgl" />
+            <com.zhongchuang.canting.easeui.widget.ContactItemView
+                android:id="@+id/ct_mine"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+               />
 
             <com.zhongchuang.canting.easeui.widget.EaseContactList
                 android:id="@+id/contact_list"

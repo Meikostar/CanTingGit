@@ -1,6 +1,6 @@
 package com.zhongchuang.canting.base;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 
 /**
  * @Title:基础Activity类

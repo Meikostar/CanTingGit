@@ -8,6 +8,7 @@
     android:paddingTop="13dp" >
 
     <TextView
+
         android:id="@+id/timestamp"
         style="@style/chat_text_date_style"
         android:layout_width="wrap_content"
@@ -19,6 +20,7 @@
         android:layout_marginTop="@dimen/margin_chat_activity" >
 
         <com.zhongchuang.canting.easeui.widget.EaseImageView
+            android:layout_marginTop="22dp"
             android:id="@+id/iv_userhead"
             android:layout_width="@dimen/size_avatar"
             android:layout_height="@dimen/size_avatar"
@@ -29,6 +31,7 @@
             android:scaleType="fitXY" />
 
         <RelativeLayout
+            android:layout_marginTop="22dp"
             android:id="@+id/bubble"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -42,27 +45,40 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:autoLink="web"
+                android:text=""
                 android:layout_centerInParent="true"
                 android:gravity="center|left"
                 android:paddingRight="6dp"
                 android:paddingLeft="1dp"
                 android:minHeight="38dp"
                 android:lineSpacingExtra="2dp"
-              	android:textColor="#000000"
+                android:textColor="#000000"
                 android:maxWidth="225.0dip"
                 android:textSize="15sp" />
+
+
+            <ImageView
+                android:visibility="gone"
+                android:layout_centerInParent="true"
+                android:layout_marginRight="32dp"
+                android:layout_toRightOf="@+id/tv_chatcontent"
+                android:src="@drawable/chat_videos"
+                android:id="@+id/iv_img"
+                android:layout_width="22dp"
+                android:layout_height="22dp"/>
         </RelativeLayout>
 
-         <TextView
-            android:id="@+id/tv_userid"
+
+        <TextView
             android:visibility="gone"
+            android:id="@+id/tv_userid"
+            android:textColor="@color/color3"
             style="@style/chat_text_name_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="15dp"
             android:layout_toLeftOf="@id/iv_userhead"
-            android:text="xxx" />
-
+            android:text="" />
         <ImageView
             android:id="@+id/msg_status"
             android:layout_width="wrap_content"

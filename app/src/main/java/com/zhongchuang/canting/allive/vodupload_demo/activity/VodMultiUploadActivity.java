@@ -453,7 +453,7 @@ public class VodMultiUploadActivity extends AppCompatActivity {
         };
     }
 
-    public void getVodUploadInfo() throws Exception {
+    public void getVodUploadInfo() {
         OkHttpClient client;
         client = new OkHttpClient.Builder()
                 .build();

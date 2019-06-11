@@ -15,11 +15,25 @@
         android:gravity="center">
 
         <TextView
+            android:paddingLeft="16dp"
+            android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/watermark_setting"
             android:textColor="@color/color3"
             android:textSize="@dimen/font_size_28px" />
+        <TextView
+            android:id="@+id/sure"
+            android:gravity="center"
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="15dp"
+            android:padding="5dp"
+            android:text="@string/qd"
+            android:textColor="@color/white"
+            android:background="@drawable/shape_bg_lin_cancel"
+            android:textSize="12sp" />
     </LinearLayout>
 
 

@@ -11,8 +11,9 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.mine.ImageListWitesActivity;
+import com.zhongchuang.canting.activity.mine.NewPersonDetailActivity;
 import com.zhongchuang.canting.adapter.viewholder.ImageViewHolder;
 import com.zhongchuang.canting.been.CommetLikeBean;
 import com.zhongchuang.canting.been.GoodsComentBean;
@@ -90,7 +91,7 @@ public class QFriendRecyleAdapter extends BaseRecycleViewAdapter {
         ImageViewHolder viewHolder = (ImageViewHolder) viewHolders;
         final QfriendBean infos = (QfriendBean) datas.get(position);
         final List<CommetLikeBean> comment = infos.commentList;
-        boolean hasComment = comment.size() > 0 ? true : false;
+        boolean hasComment = comment.size() > 0;
         viewHolder.iv_shop_head.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,6 +114,14 @@ public class QFriendRecyleAdapter extends BaseRecycleViewAdapter {
 
         }
 
+        viewHolder.iv_shop_head.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, NewPersonDetailActivity.class);
+                intent.putExtra("id", infos.user_info_id + "");
+                context.startActivity(intent);
+            }
+        });
 
         viewHolder.rl_qf1.setVisibility(View.VISIBLE);
 

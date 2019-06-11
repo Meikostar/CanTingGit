@@ -75,22 +75,22 @@ public class MusicDialog extends DialogFragment implements View.OnClickListener 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 //        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         View view = inflater.inflate(R.layout.push_music, container);
-        mPause = (Button) view.findViewById(R.id.pause);
+        mPause = view.findViewById(R.id.pause);
         mPause.setSelected(isPause);
         mPause.setText(isPause ? getString(R.string.pause) : getString(R.string.resume));
-        mStop = (Button) view.findViewById(R.id.stop);
+        mStop = view.findViewById(R.id.stop);
         mStop.setSelected(isStop);
         mStop.setText(isStop ? getString(R.string.stop) : getString(R.string.start));
-        mLoop = (Button) view.findViewById(R.id.loop);
+        mLoop = view.findViewById(R.id.loop);
         mLoop.setSelected(isLoop);
         mLoop.setText(isLoop ? getString(R.string.close_loop) : getString(R.string.open_loop));
-        mMute = (Button) view.findViewById(R.id.mute);
+        mMute = view.findViewById(R.id.mute);
         mMute.setSelected(isMute);
         mMute.setText(isMute ? getString(R.string.close_mute) : getString(R.string.open_mute));
-        mEarsBack = (Button) view.findViewById(R.id.ears_back);
+        mEarsBack = view.findViewById(R.id.ears_back);
         mEarsBack.setSelected(isEarsBack);
         mEarsBack.setText(isEarsBack ? getString(R.string.close_ears_back) : getString(R.string.open_ears_back));
-        mAudioDenoise = (Button) view.findViewById(R.id.audio_denoise);
+        mAudioDenoise = view.findViewById(R.id.audio_denoise);
         mAudioDenoise.setSelected(isAudioDenoise);
         mAudioDenoise.setText(isAudioDenoise ? getString(R.string.close_audio_denoise) : getString(R.string.open_audio_denoise));
 
@@ -100,12 +100,12 @@ public class MusicDialog extends DialogFragment implements View.OnClickListener 
         mMute.setOnClickListener(this);
         mEarsBack.setOnClickListener(this);
         mAudioDenoise.setOnClickListener(this);
-        mAccompanimentText = (TextView) view.findViewById(R.id.accompaniment_text);
-        mAccompanimentBar = (SeekBar) view.findViewById(R.id.accompaniment_seekbar);
-        mVoiceText = (TextView) view.findViewById(R.id.voice_text);
-        mVoiceBar = (SeekBar) view.findViewById(R.id.voice_seekbar);
+        mAccompanimentText = view.findViewById(R.id.accompaniment_text);
+        mAccompanimentBar = view.findViewById(R.id.accompaniment_seekbar);
+        mVoiceText = view.findViewById(R.id.voice_text);
+        mVoiceBar = view.findViewById(R.id.voice_seekbar);
 
-        mMusicRecyclerView = (RecyclerView) view.findViewById(R.id.music_list);
+        mMusicRecyclerView = view.findViewById(R.id.music_list);
         if(mMusicAdapter == null) {
             mMusicAdapter = new MusicAdapter(getActivity());
             mMusicAdapter.setOnItemClick(mOnItemClick);
@@ -119,7 +119,7 @@ public class MusicDialog extends DialogFragment implements View.OnClickListener 
 
         mAccompanimentBar.setOnSeekBarChangeListener(onSeekBarChangeListener);
         mVoiceBar.setOnSeekBarChangeListener(onSeekBarChangeListener);
-        updateButton(mPosition > 0 ? true : false);
+        updateButton(mPosition > 0);
         if (visibleListener!=null){
             visibleListener.isDialogVisible(true);
         }
@@ -270,7 +270,7 @@ public class MusicDialog extends DialogFragment implements View.OnClickListener 
         public void onItemClick(MusicAdapter.MusicInfo musicInfo, int position) {
             mMusicInfo = musicInfo;
             mPosition = position;
-            updateButtonState(position > 0 ? true : false);
+            updateButtonState(position > 0);
             if(musicInfo.getPath() != null && !musicInfo.getPath().isEmpty()) {
                 startBGMAsync(musicInfo.getPath());
             } else {

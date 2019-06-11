@@ -500,9 +500,7 @@ public class FileDownloaderModel implements Serializable {
     public boolean equals(Object o) {
         if (o instanceof FileDownloaderModel) {
             FileDownloaderModel model = (FileDownloaderModel) o;
-            if (model != null && model.getTaskId() == getTaskId()) {
-                return true;
-            }
+            return model != null && model.getTaskId() == getTaskId();
         }
         return false;
     }

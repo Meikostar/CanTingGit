@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.been.INTEGRALIST;
 import com.zhongchuang.canting.utils.TextUtil;
 import com.zhongchuang.canting.utils.TimeUtil;
@@ -59,7 +59,7 @@ public class ChargeDetailRecycleAdapter extends BaseRecycleViewAdapter {
 
 
         if (position == 0) {
-            String time = TimeUtil.formatToMf((long) data.create_time);
+            String time = TimeUtil.formatToMf(data.create_time);
             String[] split = time.split("##");
             holders.tvTime.setVisibility(View.VISIBLE);
             if(TextUtil.isNotEmpty(data.integral_site)){
@@ -86,8 +86,8 @@ public class ChargeDetailRecycleAdapter extends BaseRecycleViewAdapter {
             }
 
         } else {
-            String time = TimeUtil.formatToMf((long) data.create_time);
-            String times = TimeUtil.formatToMf((long) dat.create_time);
+            String time = TimeUtil.formatToMf(data.create_time);
+            String times = TimeUtil.formatToMf(dat.create_time);
             String[] split = time.split("##");
             String[] splits = times.split("##");
             if(split[0].equals(splits[0])){

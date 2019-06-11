@@ -11,7 +11,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.PopupWindow;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.widget.ClearEditText;
 
 
@@ -33,7 +33,7 @@ public class PopView_Comment extends BasePopView {
     @Override
     protected View initPopView(LayoutInflater infalter) {
         View popView = infalter.inflate(R.layout.view_add_goods_new_comment, null);
-        et_comment = (ClearEditText) popView.findViewById(R.id.et_comment);
+        et_comment = popView.findViewById(R.id.et_comment);
         et_comment.setOnClearEditTextListener(new ClearEditText.ClearEditTextListener() {
             @Override
             public void afterTextChanged4ClearEdit(Editable s) {
@@ -49,7 +49,7 @@ public class PopView_Comment extends BasePopView {
 
             }
         });
-        btn_send_comment = (Button) popView.findViewById(R.id.btn_send_comment);
+        btn_send_comment = popView.findViewById(R.id.btn_send_comment);
         btn_send_comment.setOnClickListener(this);
         return popView;
     }

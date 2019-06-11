@@ -26,7 +26,7 @@ import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;
 import com.malinskiy.superrecyclerview.OnMoreListener;
 import com.malinskiy.superrecyclerview.SuperRecyclerView;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.chat.QfriendActivity;
 import com.zhongchuang.canting.activity.chat.SendDynamicActivity;
 import com.zhongchuang.canting.adapter.recycle.QFriendRecyleAdapter;

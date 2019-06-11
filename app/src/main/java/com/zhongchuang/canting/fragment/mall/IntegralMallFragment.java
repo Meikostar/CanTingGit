@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 import com.malinskiy.superrecyclerview.OnMoreListener;
 import com.malinskiy.superrecyclerview.SuperRecyclerView;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.mall.SearchGoodActivity;
 import com.zhongchuang.canting.activity.mall.ShopMallActivity;
 import com.zhongchuang.canting.activity.mall.ShopMallDetailActivity;

@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.alivc.player.VcPlayerLog;
 import com.aliyun.vodplayer.media.AliyunMediaInfo;
+import com.bumptech.glide.Glide;
 import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.allive.vodplayerview.constants.PlayParameter;
 import com.zhongchuang.canting.allive.vodplayerview.theme.ITheme;
@@ -30,6 +31,8 @@ import com.zhongchuang.canting.allive.vodplayerview.view.quality.QualityItem;
 import com.zhongchuang.canting.allive.vodplayerview.widget.AliyunScreenMode;
 import com.zhongchuang.canting.allive.vodplayerview.widget.AliyunVodPlayerView;
 import com.zhongchuang.canting.utils.DensityUtil;
+import com.zhongchuang.canting.utils.TextUtil;
+import com.zhongchuang.canting.widget.CircleTransform;
 import com.zhongchuang.canting.widget.ClearEditText;
 
 import java.lang.ref.WeakReference;
@@ -59,12 +62,19 @@ public class ControlLiveView extends RelativeLayout implements ViewAction, IThem
     private ImageView mTitlebarBackBtn;
     //标题
     private TextView mTitlebarText;
+    private TextView address;
     //视频播放状态
     private PlayState mPlayState = PlayState.NotPlaying;
     //播放按钮
     private ImageView mPlayStateBtn;
-    private FrameLayout fl_bg;
+    private ImageView iv_gift;
+    private ImageView iv_care;
+    private LinearLayout fl_bg;
+    private LinearLayout ll_care;
     private TextView et_comment;
+    private TextView tv_number;
+    private TextView tv_care;
+    private TextView tv_name;
     private Button btn_send_comment;
 
     //下载
@@ -81,6 +91,8 @@ public class ControlLiveView extends RelativeLayout implements ViewAction, IThem
     private AliyunScreenMode mAliyunScreenMode = AliyunScreenMode.Small;
     //全屏/小屏按钮
     private ImageView mScreenModeBtn;
+    private ImageView alivc_player_refesh;
+    private ImageView iv_img;
 
     //大小屏公用的信息
     //视频信息，info显示用。
@@ -96,7 +108,6 @@ public class ControlLiveView extends RelativeLayout implements ViewAction, IThem
 
     //这些是大屏时显示的
     //大屏的底部控制栏
-    private View mLargeInfoBar;
     //当前位置文字
 
     //时长文字
@@ -138,6 +149,9 @@ public class ControlLiveView extends RelativeLayout implements ViewAction, IThem
     private OnDownloadClickListener onDownloadClickListener;
     //标题返回按钮监听
     private OnBackClickListener mOnBackClickListener;
+
+    //标题返回按钮监听
+    private OnSendGiftMessageListener mOngiftMessageListener;
     //播放按钮点击监听
     private OnPlayStateClickListener mOnPlayStateClickListener;
     //清晰度按钮点击监听
@@ -152,16 +166,19 @@ public class ControlLiveView extends RelativeLayout implements ViewAction, IThem
 
     public ControlLiveView(Context context) {
         super(context);
+        this.context=context;
         init();
     }
 
     public ControlLiveView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        this.context=context;
         init();
     }
 
     public ControlLiveView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        this.context=context;
         init();
     }
 
@@ -179,21 +196,30 @@ public class ControlLiveView extends RelativeLayout implements ViewAction, IThem
         mTitleBar = findViewById(R.id.titlebar);
         mControlBar = findViewById(R.id.controlbar);
 
-        mTitlebarBackBtn = (ImageView) findViewById(R.id.alivc_title_back);
-        mTitlebarText = (TextView) findViewById(R.id.alivc_title_title);
+        mTitlebarBackBtn = findViewById(R.id.alivc_title_back);
+        mTitlebarText = findViewById(R.id.alivc_title_title);
+        address = findViewById(R.id.address);
 
         mTitleMore = findViewById(R.id.alivc_title_more);
-        mScreenModeBtn = (ImageView) findViewById(R.id.alivc_screen_mode);
+        mScreenModeBtn = findViewById(R.id.alivc_screen_mode);
+        alivc_player_refesh = findViewById(R.id.alivc_player_refesh);
+        iv_img = findViewById(R.id.iv_img);
 
-        mPlayStateBtn = (ImageView) findViewById(R.id.alivc_player_state);
-        fl_bg = (FrameLayout) findViewById(R.id.fl_bg);
-        et_comment = (TextView) findViewById(R.id.et_comment);
-        btn_send_comment = (Button) findViewById(R.id.btn_send_comment);
+        mPlayStateBtn = findViewById(R.id.alivc_player_state);
+        iv_gift = findViewById(R.id.iv_gift);
+        iv_care = findViewById(R.id.iv_care);
+        fl_bg = findViewById(R.id.alivc_info_large_bar);
+        ll_care = findViewById(R.id.ll_care);
+        et_comment = findViewById(R.id.et_comment);
+        tv_number = findViewById(R.id.tv_number);
+        tv_care = findViewById(R.id.tv_care);
+        tv_name = findViewById(R.id.tv_name);
+        btn_send_comment = findViewById(R.id.btn_send_comment);
 
-        mLargeInfoBar = findViewById(R.id.alivc_info_large_bar);
-        mLargeChangeQualityBtn = (Button) findViewById(R.id.alivc_info_large_rate_btn);
 
-        fl_bg.setBackgroundColor(getResources().getColor(R.color.jrmf_b_transparent));
+        mLargeChangeQualityBtn = findViewById(R.id.alivc_info_large_rate_btn);
+
+//        fl_bg.setBackgroundColor(getResources().getColor(R.color.jrmf_b_transparent));
         mSmallInfoBar = findViewById(R.id.alivc_info_small_bar);
     }
 
@@ -207,7 +233,24 @@ public class ControlLiveView extends RelativeLayout implements ViewAction, IThem
                 }
             }
         });
-
+//标题的返回按钮监听
+        iv_gift.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mOngiftMessageListener != null) {
+                    mOngiftMessageListener.onClick(1);
+                }
+            }
+        });
+        //标题的返回按钮监听
+        fl_bg.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mOngiftMessageListener != null) {
+                    mOngiftMessageListener.onClick(2);
+                }
+            }
+        });
 //控制栏的播放按钮监听
         mPlayStateBtn.setOnClickListener(new OnClickListener() {
             @Override
@@ -218,7 +261,14 @@ public class ControlLiveView extends RelativeLayout implements ViewAction, IThem
             }
         });
 
-
+        ll_care.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mOnScreenModeClickListener != null) {
+                    mOnScreenModeClickListener.onClick(3);
+                }
+            }
+        });
 
 
 //大小屏按钮监听
@@ -226,7 +276,16 @@ public class ControlLiveView extends RelativeLayout implements ViewAction, IThem
             @Override
             public void onClick(View v) {
                 if (mOnScreenModeClickListener != null) {
-                    mOnScreenModeClickListener.onClick();
+                    mOnScreenModeClickListener.onClick(1);
+                }
+            }
+        });
+
+        alivc_player_refesh.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mOnScreenModeClickListener != null) {
+                    mOnScreenModeClickListener.onClick(2);
                 }
             }
         });
@@ -253,7 +312,11 @@ public class ControlLiveView extends RelativeLayout implements ViewAction, IThem
             }
         });
     }
-
+    public void setChangeModel(){
+        if (mOnScreenModeClickListener != null) {
+            mOnScreenModeClickListener.onClick(1);
+        }
+    }
     /**
      * 是不是MTS的源 //MTS的清晰度显示与其他的不太一样，所以这里需要加一个作为区分
      *
@@ -301,7 +364,7 @@ public class ControlLiveView extends RelativeLayout implements ViewAction, IThem
      */
     public void setControlBarCanShow(boolean show) {
         mControlBarCanShow = show;
-        fl_bg.setBackgroundColor(getResources().getColor(R.color.jrmf_b_transparent));
+//        fl_bg.setBackgroundColor(getResources().getColor(R.color.jrmf_b_transparent));
         updateAllControlBar();
     }
 
@@ -343,7 +406,7 @@ public class ControlLiveView extends RelativeLayout implements ViewAction, IThem
      */
     private void updateShowSendMessage() {
         if (mAliyunScreenMode == AliyunScreenMode.Full) {
-            btn_send_comment.setVisibility(VISIBLE);
+            btn_send_comment.setVisibility(GONE);
             et_comment.setVisibility(VISIBLE);
         } else {
             btn_send_comment.setVisibility(GONE);
@@ -504,7 +567,7 @@ public class ControlLiveView extends RelativeLayout implements ViewAction, IThem
             mControlBar.setBackgroundColor(getResources().getColor(R.color.jrmf_b_transparent));
         }
     }
-
+     private Context context;
     /**
      * 更新标题栏的显示
      */
@@ -523,10 +586,52 @@ public class ControlLiveView extends RelativeLayout implements ViewAction, IThem
         if (mAliyunMediaInfo != null && mAliyunMediaInfo.getTitle() != null && !("null".equals(mAliyunMediaInfo.getTitle()))) {
             mTitlebarText.setText(mAliyunMediaInfo.getTitle());
         } else {
-            mTitlebarText.setText("");
+//            mTitlebarText.setText("");
         }
     }
+//    /**
+//     * 更新标题栏的标题文字
+//     */
+//    public void updateTitleView(String title) {
+//
+//            mTitlebarText.setText(title);
+//
+//    }
+    /**
+     * 更新标题栏的标题文字
+     */
+    public void updateTitleView(String title) {
+        if(TextUtil.isNotEmpty(title)){
+            String[] split = title.split(",");
+            if(!split[0].equals("#")){
+                Glide.with(context).load(split[0]).asBitmap().transform(new CircleTransform(context)).placeholder(R.drawable.editor_ava).into(iv_img);
+            }
+            if(!split[1].equals("#")){
+                tv_name.setText(split[1]);
+            }
+            if(!split[2].equals("#")){
+                tv_number.setText("人数: "+split[2]);
+            }
+            if(!split[5].equals("#")){
+                mTitlebarText.setText(split[5]);
+            }
+            if(!split[4].equals("#")){
+                address.setText("直播位置: "+split[4]);
+            }
+            if(!split[3].equals("#")){
+                if(split[3].equals("1")){
+                    iv_care.setVisibility(GONE);
+                    tv_care.setText("已关注");
+                }else {
+                    iv_care.setVisibility(VISIBLE);
+                    tv_care.setText("关注");
+                }
+            }
 
+
+        }
+
+    }
     /**
      * 更新小屏下的控制条信息
      */
@@ -553,7 +658,7 @@ public class ControlLiveView extends RelativeLayout implements ViewAction, IThem
     private void updateLargeInfoBar() {
         if (mAliyunScreenMode == AliyunScreenMode.Small) {
             //里面包含了很多按钮，比如切换清晰度的按钮之类的
-            mLargeInfoBar.setVisibility(INVISIBLE);
+//            mLargeInfoBar.setVisibility(INVISIBLE);
         } else if (mAliyunScreenMode == AliyunScreenMode.Full) {
 
 
@@ -566,7 +671,7 @@ public class ControlLiveView extends RelativeLayout implements ViewAction, IThem
             mLargeChangeQualityBtn.setText(QualityItem.getItem(getContext(), mCurrentQuality, isMtsSource).getName());
 
             //然后再显示出来。
-            mLargeInfoBar.setVisibility(VISIBLE);
+//            mLargeInfoBar.setVisibility(VISIBLE);
         }
 
 
@@ -578,11 +683,13 @@ public class ControlLiveView extends RelativeLayout implements ViewAction, IThem
     private void updateScreenModeBtn() {
         if (mAliyunScreenMode == AliyunScreenMode.Full) {
             fl_bg.setVisibility(VISIBLE);
-            mScreenModeBtn.setVisibility(INVISIBLE);
-            mPlayStateBtn.setVisibility(INVISIBLE);
-            fl_bg.setBackgroundColor(getResources().getColor(R.color.jrmf_b_transparent));
+            mScreenModeBtn.setVisibility(VISIBLE);
+            mPlayStateBtn.setVisibility(VISIBLE);
+            iv_gift.setVisibility(VISIBLE);
+//            fl_bg.setBackgroundColor(getResources().getColor(R.color.jrmf_b_transparent));
         } else {
             fl_bg.setVisibility(INVISIBLE);
+            iv_gift.setVisibility(INVISIBLE);
             mScreenModeBtn.setVisibility(VISIBLE);
             mPlayStateBtn.setVisibility(VISIBLE);
 
@@ -738,6 +845,9 @@ public class ControlLiveView extends RelativeLayout implements ViewAction, IThem
     public void setOnQualityBtnClickListener(OnQualityBtnClickListener l) {
         mOnQualityBtnClickListener = l;
     }
+    public void setGiftMessageClickListener(OnSendGiftMessageListener l) {
+        mOngiftMessageListener = l;
+    }
 
     public interface OnQualityBtnClickListener {
         /**
@@ -775,7 +885,7 @@ public class ControlLiveView extends RelativeLayout implements ViewAction, IThem
         /**
          * 大小屏按钮点击事件
          */
-        void onClick();
+        void onClick(int state);
     }
 
 
@@ -789,6 +899,14 @@ public class ControlLiveView extends RelativeLayout implements ViewAction, IThem
          */
         void onClick();
     }
+    public interface OnSendGiftMessageListener {
+        /**
+         * 返回按钮点击事件
+         */
+        void onClick(int poistion);
+    }
+
+
 
     public interface OnSeekListener {
         /**
@@ -810,7 +928,7 @@ public class ControlLiveView extends RelativeLayout implements ViewAction, IThem
     /**
      * 播放状态
      */
-    public static enum PlayState {
+    public enum PlayState {
         /**
          * Playing:正在播放
          * NotPlaying: 停止播放

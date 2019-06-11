@@ -20,6 +20,7 @@ import android.media.SoundPool;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -37,7 +38,7 @@ import com.hyphenate.chat.EMCallStateChangeListener;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.exceptions.HyphenateException;
 import com.hyphenate.util.EMLog;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.adapter.BannerAdapters;
 import com.zhongchuang.canting.adapter.BannerAdapterss;
 import com.zhongchuang.canting.been.Banner;
@@ -93,21 +94,21 @@ public class VoiceCallActivity extends CallActivity implements OnClickListener ,
 		DemoHelper.getInstance().isVoiceCalling = true;
 		callType = 0;
 
-		refuseBtn = (ImageView) findViewById(R.id.btn_refuse_call);
-		answerBtn = (ImageView) findViewById(R.id.btn_answer_call);
-        bannerView = (BannerView) findViewById(R.id.bannerView);
+		refuseBtn = findViewById(R.id.btn_refuse_call);
+		answerBtn = findViewById(R.id.btn_answer_call);
+        bannerView = findViewById(R.id.bannerView);
 
-		muteImage = (ImageView) findViewById(R.id.iv_mute);
-		handsFreeImage = (ImageView) findViewById(R.id.iv_handsfree);
-		callStateTextView = (TextView) findViewById(R.id.tv_call_state);
-        TextView nickTextView = (TextView) findViewById(R.id.tv_nick);
-        TextView durationTextView = (TextView) findViewById(R.id.tv_calling_duration);
-		chronometer = (Chronometer) findViewById(R.id.chronometer);
-        ll_bg2 = (LinearLayout) findViewById(R.id.ll_bg2);
-        ll_bg1 = (LinearLayout) findViewById(R.id.ll_bg1);
-        ll_bg3 = (LinearLayout) findViewById(R.id.ll_bg3);
-        ll_bg4 = (LinearLayout) findViewById(R.id.ll_bg4);
-		netwrokStatusVeiw = (TextView) findViewById(R.id.tv_network_status);
+		muteImage = findViewById(R.id.iv_mute);
+		handsFreeImage = findViewById(R.id.iv_handsfree);
+		callStateTextView = findViewById(R.id.tv_call_state);
+        TextView nickTextView = findViewById(R.id.tv_nick);
+        TextView durationTextView = findViewById(R.id.tv_calling_duration);
+		chronometer = findViewById(R.id.chronometer);
+        ll_bg2 = findViewById(R.id.ll_bg2);
+        ll_bg1 = findViewById(R.id.ll_bg1);
+        ll_bg3 = findViewById(R.id.ll_bg3);
+        ll_bg4 = findViewById(R.id.ll_bg4);
+		netwrokStatusVeiw = findViewById(R.id.tv_network_status);
 
 		refuseBtn.setOnClickListener(this);
 		answerBtn.setOnClickListener(this);
@@ -150,16 +151,27 @@ public class VoiceCallActivity extends CallActivity implements OnClickListener ,
 
 		isInComingCall = getIntent().getBooleanExtra("isComingCall", false);
         chatmessage= (CHATMESSAGE) getIntent().getSerializableExtra(EaseConstant.EXTRA_CHATMSG);
+
         if(chatmessage!=null){
             fava = chatmessage.getUserinfo().hx_favater;
             name = chatmessage.getUserinfo().hx_fname;
             callExt="";
-            callExt=chatmessage.getUserinfo().hx_fuid+","+chatmessage.getUserinfo().hx_fname+","+ (TextUtil.isEmpty(chatmessage.getUserinfo().hx_favater)?"":chatmessage.getUserinfo().hx_favater);
+            callExt=chatmessage.getUserinfo().hx_fuid+","+chatmessage.getUserinfo().hx_fname+","+ (TextUtil.isEmpty(chatmessage.getUserinfo().hx_favater)?"zx":chatmessage.getUserinfo().hx_favater);
         }else {
             callExt = EMClient.getInstance().callManager().getCurrentCallSession().getExt();
+            if(TextUtil.isNotEmpty(callExt)){
+                String[] split = callExt.split(",");
+                if(split!=null&&split.length==3){
+                    name=split[1];
+                }
+            }
+        }
+        if (!TextUtils.isEmpty(name)) {
+            nickTextView.setText(name);
+        } else {
+            nickTextView.setText(username);
         }
 
-		nickTextView.setText(username);
 		if (!isInComingCall) {// outgoing call
 			soundPool = new SoundPool(1, AudioManager.STREAM_RING, 0);
 			outgoing = soundPool.load(this, R.raw.em_outgoing, 1);

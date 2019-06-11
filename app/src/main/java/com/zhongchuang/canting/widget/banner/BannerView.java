@@ -23,7 +23,7 @@ import android.widget.FrameLayout;
 import android.widget.Scroller;
 
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 
 import java.lang.reflect.Field;
 
@@ -94,7 +94,7 @@ public class BannerView extends FrameLayout {
 
     private void initView() {
         mRootView = LayoutInflater.from(getContext()).inflate(R.layout.banner_view, this);
-        mViewPager = (ViewPager) mRootView.findViewById(R.id.viewPager);
+        mViewPager = mRootView.findViewById(R.id.viewPager);
 
         // 注意clipChildren属性的使用
         // 初始化ViewPager
@@ -149,7 +149,13 @@ public class BannerView extends FrameLayout {
         if (mScrollTask == null) mScrollTask = new AutoScrollTask();
         if (isAutoScroll) startAutoScroll();
     }
-
+    public interface  CurrentListener {
+        void  current(int poition);
+    }
+    public void setCurrtentPoiton(CurrentListener listener){
+        this.listener=listener;
+    }
+    private CurrentListener listener;
     /**
      * 自动轮播任务
      */
@@ -158,7 +164,9 @@ public class BannerView extends FrameLayout {
         @Override
         public void run() {
             int currentPosition = mViewPager.getCurrentItem();
-
+             if(listener!=null){
+                 listener.current(currentPosition);
+             }
             if (mViewPager.getAdapter() != null) {
                 if (currentPosition == mViewPager.getAdapter().getCount() - 1) {
                     // 最后一页

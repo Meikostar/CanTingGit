@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.text.TextUtils;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 
 
 /***

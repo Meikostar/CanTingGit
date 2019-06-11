@@ -69,8 +69,6 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-;
-
 public class LiveChatRoomFragment extends EaseChatFragment implements EaseChatFragment.EaseChatFragmentHelper, BaseContract.View {
 
 

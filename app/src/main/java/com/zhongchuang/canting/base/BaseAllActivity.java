@@ -21,8 +21,9 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.HomeActivity;
+import com.zhongchuang.canting.activity.HomeActivitys;
 import com.zhongchuang.canting.app.CanTingAppLication;
 import com.zhongchuang.canting.permission.PermissionGen;
 import com.zhongchuang.canting.utils.SpUtil;
@@ -106,7 +107,7 @@ public abstract class BaseAllActivity extends AppCompatActivity implements Handl
         Configuration conf = res.getConfiguration();
         conf.locale = myLocale;
         res.updateConfiguration(conf, dm);
-        startActivity((new Intent(this, HomeActivity.class)));
+        startActivity((new Intent(this, HomeActivitys.class)));
 
     }
 
@@ -389,7 +390,7 @@ public abstract class BaseAllActivity extends AppCompatActivity implements Handl
             }
             InputMethodManager inputMethodManager = (InputMethodManager)
                     getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-            inputMethodManager.hideSoftInputFromWindow(iBinder, inputMethodManager.HIDE_NOT_ALWAYS);
+            inputMethodManager.hideSoftInputFromWindow(iBinder, InputMethodManager.HIDE_NOT_ALWAYS);
         } catch (Exception e) {
             e.printStackTrace();
         }

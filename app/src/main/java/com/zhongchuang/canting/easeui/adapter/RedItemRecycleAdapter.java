@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.adapter.BannerAdapter;
 import com.zhongchuang.canting.adapter.Homedapter;
 import com.zhongchuang.canting.adapter.recycle.BaseRecycleViewAdapter;

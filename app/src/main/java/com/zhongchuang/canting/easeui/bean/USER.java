@@ -227,9 +227,7 @@ public class USER implements Serializable {
     public boolean equals(Object object) {
         if (object instanceof USER) {
             USER otherUser = (USER) object;
-            if (this.user_id == otherUser.user_id) {
-                return true;
-            }
+            return this.user_id == otherUser.user_id;
         }
         return false;
     }

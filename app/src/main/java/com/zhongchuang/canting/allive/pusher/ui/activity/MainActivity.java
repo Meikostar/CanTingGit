@@ -88,11 +88,7 @@ public class MainActivity extends ListActivity {
                 permissionCheck = PackageManager.PERMISSION_DENIED;
             }
         }
-        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
-            return false;
-        } else {
-            return true;
-        }
+        return permissionCheck == PackageManager.PERMISSION_GRANTED;
     }
 
     private void showNoPermissionTip(String tip) {

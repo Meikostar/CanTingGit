@@ -9,7 +9,7 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 
 
 /***
@@ -51,7 +51,7 @@ public class MCheckBox extends LinearLayout {
     public void init(){
         LayoutInflater inflater = LayoutInflater.from(mContext);
        View view = inflater.inflate( R.layout.checkout_layout, this);
-         check = (ImageView) view.findViewById(R.id.iv_checkbox);
+         check = view.findViewById(R.id.iv_checkbox);
         if (!canNoClick) {
             setOnClickListener(new OnClickListener() {
                 @Override

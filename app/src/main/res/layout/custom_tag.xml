@@ -10,7 +10,7 @@
         android:gravity="center"
         android:id="@+id/txt_content"
         android:layout_width="105dp"
-        android:layout_height="60dp"
+        android:layout_height="40dp"
         android:layout_centerVertical="true"
         android:text=""
         android:textColor="@color/black"

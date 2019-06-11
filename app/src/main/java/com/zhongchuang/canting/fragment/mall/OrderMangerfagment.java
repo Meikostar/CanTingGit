@@ -11,7 +11,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.mall.EditorOrderActivity;
 import com.zhongchuang.canting.activity.mall.OrderDetailActivity;
 import com.zhongchuang.canting.adapter.OrderDelAdapter;
@@ -60,7 +60,12 @@ public class OrderMangerfagment extends BaseFragment implements BaseContract.Vie
     private int type = 1;
 
     public void setType(int type) {
-        this.type = type;
+        if(type==4){
+            this.type = 7;
+        }else {
+            this.type = type;
+        }
+
     }
 
     private BasesPresenter presenter;
@@ -94,7 +99,7 @@ public class OrderMangerfagment extends BaseFragment implements BaseContract.Vie
                     startActivity(intent);
                 } else if (poistion == -2){
                     if (data.protList.get(0).order_type.equals("8")||data.protList.get(0).order_type.equals("7")) {
-                        showPopwindow(data.protList.get(0).order_id);
+                        showPopwindow(data.protList.get(0).transaction_id);
                     }
                 }else {
                     if (data.protList.get(0).order_type.equals("3")) {
@@ -132,7 +137,7 @@ public class OrderMangerfagment extends BaseFragment implements BaseContract.Vie
                             intent.putExtra("type", data.proSite.equals("1")?1:2);
                             startActivity(intent);
                         }else {
-                            showPopwind(data.protList.get(0).order_id);
+                            showPopwind(data.protList.get(0).transaction_id);
                         }
 
                     } else if (data.protList.get(0).order_type.equals("2")) {
@@ -153,9 +158,9 @@ public class OrderMangerfagment extends BaseFragment implements BaseContract.Vie
         TextView title = null;
         EditText reson = null;
         View views = View.inflate(getActivity(), R.layout.base_dailog_view, null);
-        sure = (TextView) views.findViewById(R.id.txt_sure);
-        cancel = (TextView) views.findViewById(R.id.txt_cancel);
-        title = (TextView) views.findViewById(R.id.txt_title);
+        sure = views.findViewById(R.id.txt_sure);
+        cancel = views.findViewById(R.id.txt_cancel);
+        title = views.findViewById(R.id.txt_title);
 
         title.setText(getString(R.string.qdqxgdd));
         final MarkaBaseDialog dialog = BaseDailogManager.getInstance().getBuilder(getActivity()).setMessageView(views).create();
@@ -171,7 +176,7 @@ public class OrderMangerfagment extends BaseFragment implements BaseContract.Vie
             @Override
             public void onClick(View v) {
                 showPress(getString(R.string.xqz));
-                presenter.receiptGoods( "",id);
+                presenter.deleteOrder( id);
                 dialog.dismiss();
             }
         });
@@ -182,9 +187,9 @@ public class OrderMangerfagment extends BaseFragment implements BaseContract.Vie
         TextView title = null;
         EditText reson = null;
         View views = View.inflate(getActivity(), R.layout.base_dailog_view, null);
-        sure = (TextView) views.findViewById(R.id.txt_sure);
-        cancel = (TextView) views.findViewById(R.id.txt_cancel);
-        title = (TextView) views.findViewById(R.id.txt_title);
+        sure = views.findViewById(R.id.txt_sure);
+        cancel = views.findViewById(R.id.txt_cancel);
+        title = views.findViewById(R.id.txt_title);
 
         title.setText(R.string.qdysdbblm);
         final MarkaBaseDialog dialog = BaseDailogManager.getInstance().getBuilder(getActivity()).setMessageView(views).create();
@@ -213,10 +218,10 @@ public class OrderMangerfagment extends BaseFragment implements BaseContract.Vie
         EditText reson = null;
         ListView listView = null;
         View views = View.inflate(getActivity(), R.layout.chooe_base_dailog_view, null);
-        sure = (TextView) views.findViewById(R.id.txt_sure);
-        cancel = (TextView) views.findViewById(R.id.txt_cancel);
-        title = (TextView) views.findViewById(R.id.txt_title);
-        listView = (ListView) views.findViewById(R.id.listview);
+        sure = views.findViewById(R.id.txt_sure);
+        cancel = views.findViewById(R.id.txt_cancel);
+        title = views.findViewById(R.id.txt_title);
+        listView = views.findViewById(R.id.listview);
         delAdapter=new OrderDelAdapter(getActivity());
         delAdapter.setDatas(protList);
 
@@ -238,17 +243,16 @@ public class OrderMangerfagment extends BaseFragment implements BaseContract.Vie
                 if(protList.get(0).order_type.equals("1")){
                     presenter.receiptGoods( "",protList.get(0).order_id);
                 }else {
-                    par.clear();
                     List<OrderData> data1 = delAdapter.getData();
-                    for(OrderData data:data1){
-                        if(data.isChoose){
+
+
                             Params param = new Params();
-                            param.id=data.id;
-                            param.proSite=data.pro_site;
-                            par.add(param);
-                        }
-                    }
-                   presenter.cancelOrder(par);
+                            param.id=data1.get(0).id;
+                            param.proSite=data1.get(0).pro_site;
+                            param.payType=data1.get(0).pay_type;
+                            param.transactionId=data1.get(0).transaction_id;
+
+                   presenter.cancelOrder(param);
                 }
 
                 dialog.dismiss();
@@ -263,9 +267,9 @@ public class OrderMangerfagment extends BaseFragment implements BaseContract.Vie
 
         EditText reson = null;
         View views = View.inflate(getActivity(), R.layout.chooe_base_dailog_view, null);
-        sure = (TextView) views.findViewById(R.id.txt_sure);
-        cancel = (TextView) views.findViewById(R.id.txt_cancel);
-        title = (TextView) views.findViewById(R.id.txt_title);
+        sure = views.findViewById(R.id.txt_sure);
+        cancel = views.findViewById(R.id.txt_cancel);
+        title = views.findViewById(R.id.txt_title);
 
         title.setText(R.string.qdscgdd);
         final MarkaBaseDialog dialog = BaseDailogManager.getInstance().getBuilder(getActivity()).setMessageView(views).create();
@@ -323,6 +327,8 @@ public class OrderMangerfagment extends BaseFragment implements BaseContract.Vie
     public <T> void toEntity(T entity, int types) {
 
         if (types == 5) {
+            presenter.favoriteList(1 + "", 100 + "", type + "");
+        }else if (types == 3) {
             presenter.favoriteList(1 + "", 100 + "", type + "");
         } else {
             hidePress();

@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.mine.NewPersonDetailActivity">
+    <com.zhongchuang.canting.widget.StickyScrollView
+        android:id="@+id/sticky"
+        android:fillViewport="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <com.youth.banner.Banner
+                android:id="@+id/banner"
+                android:layout_width="match_parent"
+                android:layout_height="320dp"
+                app:indicator_drawable_selected="@drawable/banner_tab_press"
+                app:indicator_drawable_unselected="@drawable/banner_tab_normal"
+                app:indicator_height="4dp"
+                app:indicator_margin="10dp"
+                app:indicator_width="12dp"
+                app:image_scale_type="fit_xy"
+                app:is_auto_play="true"/>
+
+            <LinearLayout
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="112dp">
+                <LinearLayout
+                    android:gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/tv_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:text=""
+                        android:textSize="25sp"
+                        android:textColor="@color/color3" />
+                    <TextView
+                        android:layout_marginTop="3dp"
+                        android:id="@+id/tv_location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="21dp"
+                        android:text="0.00km.1 分钟前"
+                        android:textSize="14sp"
+                        android:textColor="@color/color3" />
+                    <LinearLayout
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginTop="7dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <LinearLayout
+                            android:background="@drawable/mine_blue_bg"
+                            android:gravity="center"
+                            android:minWidth="35dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="15dp"
+                            android:orientation="horizontal">
+                            <ImageView
+                                android:id="@+id/iv_sex"
+                                android:src="@drawable/mine_man"
+                                android:layout_width="9dp"
+                                android:layout_height="9dp" />
+                            <TextView
+                                android:layout_marginRight="3dp"
+                                android:id="@+id/tv_date"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="2dp"
+                                android:text="24"
+                                android:textSize="10sp"
+                                android:textColor="@color/white" />
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_marginLeft="3dp"
+                            android:background="@drawable/mine_yellow_bg"
+
+                            android:gravity="center"
+                            android:minWidth="35dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="15dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+
+                                android:id="@+id/tv_dj"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="LV.1"
+                                android:textSize="11sp"
+                                android:textColor="@color/white" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/ll_friend"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginLeft="15dp"
+                    android:background="@drawable/mine_yell_bg"
+                    android:gravity="center"
+                    android:minWidth="35dp"
+                    android:layout_width="63dp"
+                    android:layout_height="30dp"
+                    android:orientation="horizontal">
+                    <ImageView
+
+                        android:src="@drawable/mine_adds"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp" />
+                    <TextView
+                        android:layout_marginRight="3dp"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:text="好友"
+                        android:textSize="14sp"
+                        android:textColor="@color/white" />
+
+                </LinearLayout>
+                <ImageView
+                    android:src="@drawable/mine_zan"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginLeft="15dp"
+                    android:id="@+id/iv_care"
+                    android:layout_width="62dp"
+                    android:layout_height="62dp" />
+            </LinearLayout>
+            <View
+                android:layout_marginLeft="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="0.2dp"
+                android:background="@color/linecolor"/>
+            <io.valuesfeng.picker.tablayout.SlidingScaleTabLayout
+                android:tag="sticky"
+                android:background="@color/white"
+                android:id="@+id/tablayout"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                app:tl_indicator_color="#333"
+                app:tl_indicator_corner_radius="3dp"
+                app:tl_indicator_gravity="BOTTOM"
+                app:tl_indicator_height="2dp"
+                app:tl_indicator_width="7dp"
+                app:tl_textBold="SELECT"
+                app:tl_tab_gravity="Bottom"
+                app:tl_tab_marginBottom="8dp"
+                app:tl_tab_padding="15dp"
+                app:tl_textSelectColor="#333"
+                app:tl_textSelectSize="20sp"
+                app:tl_textUnSelectColor="#333"
+                app:tl_textUnSelectSize="14sp" />
+
+            <LinearLayout
+                android:id="@+id/ll_isblack"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ViewStub
+                    android:inflatedId="@+id/view_shop_name"
+                    android:id="@+id/stub_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout="@layout/lp_layout_info" />
+
+                <ViewStub
+                    android:inflatedId="@+id/view_guide_img"
+                    android:id="@+id/stub_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout="@layout/lp_layout_style" />
+
+
+                <ViewStub
+                    android:inflatedId="@+id/view_fashion_seller"
+                    android:id="@+id/stub_video"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout="@layout/lp_layout_veido" />
+
+
+            </LinearLayout>
+        </LinearLayout>
+    </com.zhongchuang.canting.widget.StickyScrollView>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="10dp"
+        android:layout_height="10dp" />
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_marginTop="27dp"
+        android:layout_marginLeft="7dp"
+        android:padding="5dp"
+        android:layout_width="22dp"
+        android:layout_height="31dp"
+        android:src="@drawable/mine_arrow_white_back"
+        />
+    <Button
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="25dp"
+
+        android:orientation="vertical"
+        android:id="@+id/iv_editor"
+        android:layout_width="wrap_content"
+        android:minWidth="57.5dp"
+        android:layout_height="29dp"
+        android:layout_gravity="right|center_vertical"
+        android:layout_marginRight="11.5dp"
+        android:background="@drawable/shape_bg_lin_cancel"
+        android:text="@string/bj"
+        android:textColor="@color/white" />
+
+
+</RelativeLayout>

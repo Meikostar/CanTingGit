@@ -79,22 +79,22 @@ public class UploadActivity extends Activity implements  OtherContract.View {
     }
    private String token;
     private void initView(){
-        mTitle = (TextView) findViewById(R.id.tv_center);
+        mTitle = findViewById(R.id.tv_center);
         mTitle.setVisibility(View.VISIBLE);
         mTitle.setText(R.string.my_video);
-        mVideoDesc = (TextView) findViewById(R.id.video_desc);
-        mTextureView = (TextureView) findViewById(R.id.texture);
-        mIvLeft = (ImageView) findViewById(R.id.iv_left);
+        mVideoDesc = findViewById(R.id.video_desc);
+        mTextureView = findViewById(R.id.texture);
+        mIvLeft = findViewById(R.id.iv_left);
         mIvLeft.setVisibility(View.VISIBLE);
         mIvLeft.setImageResource(R.drawable.aliyun_svideo_icon_cancel);
-        mProgress = (ProgressBar) findViewById(R.id.upload_progress);
+        mProgress = findViewById(R.id.upload_progress);
         mIvLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
             }
         });
-        mProgressText = (TextView) findViewById(R.id.progress_text);
+        mProgressText = findViewById(R.id.progress_text);
     }
 
 

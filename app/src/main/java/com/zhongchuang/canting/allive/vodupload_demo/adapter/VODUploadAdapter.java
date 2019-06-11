@@ -42,13 +42,13 @@ public class VODUploadAdapter extends ArrayAdapter<ItemInfo> {
         ItemInfo info = getItem(position);
         //为子项动态加载布局
         View view = LayoutInflater.from(getContext()).inflate(resourceId, null);
-        TextView title = (TextView) view.findViewById(R.id.item_file);
+        TextView title = view.findViewById(R.id.item_file);
         title.setText(info.getFile());
-        TextView progress = (TextView) view.findViewById(R.id.item_progress);
+        TextView progress = view.findViewById(R.id.item_progress);
         progress.setText(info.getProgress() + "%");
-        TextView content = (TextView) view.findViewById(R.id.item_oss);
+        TextView content = view.findViewById(R.id.item_oss);
         content.setText(info.getOss());
-        TextView status = (TextView) view.findViewById(R.id.item_status);
+        TextView status = view.findViewById(R.id.item_status);
         status.setText(info.getStatus());
         return view;
     }

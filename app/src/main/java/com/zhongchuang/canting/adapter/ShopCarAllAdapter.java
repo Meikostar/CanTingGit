@@ -5,7 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.been.Product;
 import com.zhongchuang.canting.utils.TextUtil;
 import com.zhongchuang.canting.widget.RegularListView;
@@ -61,7 +61,7 @@ public class ShopCarAllAdapter extends BaseAdapter {
         if (view == null) {
             view = View.inflate(mContext, R.layout.shopcar_items, null);
             holder = new ShopCarHolder();
-            holder.listView = (RegularListView) view.findViewById(R.id.listview);
+            holder.listView = view.findViewById(R.id.listview);
 
             view.setTag(holder);
 

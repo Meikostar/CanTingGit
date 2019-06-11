@@ -200,7 +200,7 @@ public class CameraDemo extends Activity implements View.OnClickListener, Gestur
         initSDK();
         initAssetPath();
         copyAssets();
-        final FrameLayout parent = (FrameLayout) findViewById(R.id.parent);
+        final FrameLayout parent = findViewById(R.id.parent);
 //        parent.post(new Runnable() {
 //            @Override
 //            public void run() {
@@ -627,10 +627,7 @@ public class CameraDemo extends Activity implements View.OnClickListener, Gestur
             files = aseetFile.listFiles(new FileFilter() {
                 @Override
                 public boolean accept(File pathname) {
-                    if (pathname.isDirectory() && pathname.getName().contains("-")) {
-                        return true;
-                    }
-                    return false;
+                    return pathname.isDirectory() && pathname.getName().contains("-");
                 }
             });
         }
@@ -746,7 +743,7 @@ public class CameraDemo extends Activity implements View.OnClickListener, Gestur
 
     private void initView() {
         OUT_STROKE_WIDTH = DensityUtil.dip2px(10);
-        glSurfaceView = (GLSurfaceView) findViewById(R.id.aliyun_preview);
+        glSurfaceView = findViewById(R.id.aliyun_preview);
         glSurfaceView.setOnTouchListener(this);
         FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) glSurfaceView.getLayoutParams();
         Rect rect = new Rect();
@@ -754,13 +751,13 @@ public class CameraDemo extends Activity implements View.OnClickListener, Gestur
         layoutParams.width = rect.width();
         layoutParams.height = rect.height();
         glSurfaceView.setLayoutParams(layoutParams);
-        switchCameraBtn = (ImageView) findViewById(R.id.aliyun_switch_camera);
+        switchCameraBtn = findViewById(R.id.aliyun_switch_camera);
         switchCameraBtn.setOnClickListener(this);
-        switchLightBtn = (ImageView) findViewById(R.id.aliyun_switch_light);
+        switchLightBtn = findViewById(R.id.aliyun_switch_light);
         switchLightBtn.setOnClickListener(this);
-        musicBtn = (ImageView) findViewById(R.id.aliyun_music);
+        musicBtn = findViewById(R.id.aliyun_music);
         musicBtn.setOnClickListener(this);
-        pasterView = (RecyclerView) findViewById(R.id.aliyun_pasterView);
+        pasterView = findViewById(R.id.aliyun_pasterView);
         pasterView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
@@ -789,13 +786,13 @@ public class CameraDemo extends Activity implements View.OnClickListener, Gestur
 
         });
 //        fanProgressBar = (FanProgressBar) findViewById(R.id.record_progress);
-        progressBar = (CircleProgressBar) findViewById(R.id.aliyun_download_progress);
-        recordTimelineView = (RecordTimelineView) findViewById(R.id.aliyun_record_timeline);
+        progressBar = findViewById(R.id.aliyun_download_progress);
+        recordTimelineView = findViewById(R.id.aliyun_record_timeline);
         recordTimelineView.setColor(R.color.aliyun_color_record_duraton, R.color.aliyun_colorPrimary, R.color.qupai_black_opacity_70pct, R.color.aliyun_transparent);
-        recordBg = (FrameLayout) findViewById(R.id.aliyun_record_bg);
+        recordBg = findViewById(R.id.aliyun_record_bg);
         recordBg.setOnTouchListener(this);
-        waitingLayout = (FrameLayout) findViewById(R.id.aliyun_copy_res_tip);
-        tipTxt = (TextView) findViewById(R.id.aliyun_tip_text);
+        waitingLayout = findViewById(R.id.aliyun_copy_res_tip);
+        tipTxt = findViewById(R.id.aliyun_tip_text);
         linearSnapHelper = new LinearSnapHelper();
         linearSnapHelper.attachToRecyclerView(pasterView);
         calculateItemWidth();
@@ -813,27 +810,27 @@ public class CameraDemo extends Activity implements View.OnClickListener, Gestur
         progressBar.setBackgroundWidth(itemWidth, itemWidth);
         progressBar.setProgressWidth(itemWidth - DensityUtil.dip2px(this, 20));
         progressBar.isFilled(true);
-        backBtn = (ImageView) findViewById(R.id.aliyun_back);
+        backBtn = findViewById(R.id.aliyun_back);
         backBtn.setOnClickListener(this);
-        recordDurationTxt = (TextView) findViewById(R.id.aliyun_record_duration);
+        recordDurationTxt = findViewById(R.id.aliyun_record_duration);
         recordDurationTxt.setVisibility(View.GONE);
-        filterTxt = (TextView) findViewById(R.id.aliyun_filter_txt);
+        filterTxt = findViewById(R.id.aliyun_filter_txt);
         filterTxt.setVisibility(View.GONE);
-        rateVerySlowTxt = (TextView) findViewById(R.id.aliyun_rate_quarter);
+        rateVerySlowTxt = findViewById(R.id.aliyun_rate_quarter);
         rateVerySlowTxt.setOnClickListener(this);
-        rateSlowTxt = (TextView) findViewById(R.id.aliyun_rate_half);
+        rateSlowTxt = findViewById(R.id.aliyun_rate_half);
         rateSlowTxt.setOnClickListener(this);
-        rateStandardTxt = (TextView) findViewById(R.id.aliyun_rate_origin);
+        rateStandardTxt = findViewById(R.id.aliyun_rate_origin);
         rateStandardTxt.setOnClickListener(this);
-        rateFastTxt = (TextView) findViewById(R.id.aliyun_rate_double);
+        rateFastTxt = findViewById(R.id.aliyun_rate_double);
         rateFastTxt.setOnClickListener(this);
-        rateVeryFastTxt = (TextView) findViewById(R.id.aliyun_rate_double_power2);
+        rateVeryFastTxt = findViewById(R.id.aliyun_rate_double_power2);
         rateVeryFastTxt.setOnClickListener(this);
-        deleteBtn = (TextView) findViewById(R.id.aliyun_delete);
+        deleteBtn = findViewById(R.id.aliyun_delete);
         deleteBtn.setOnClickListener(this);
-        compeleteBtn = (ImageView) findViewById(R.id.aliyun_complete);
+        compeleteBtn = findViewById(R.id.aliyun_complete);
         compeleteBtn.setOnClickListener(this);
-        rateBar = (LinearLayout) findViewById(R.id.aliyun_rate_bar);
+        rateBar = findViewById(R.id.aliyun_rate_bar);
         gestureDetector = new GestureDetector(this, this);
         scaleGestureDetector = new ScaleGestureDetector(this, this);
         recordLayoutBottom = findViewById(R.id.aliyun_record_layout_bottom);

@@ -68,7 +68,7 @@ public class QualityView extends FrameLayout implements ITheme {
     private void init() {
         //初始化布局
         LayoutInflater.from(getContext()).inflate(R.layout.alivc_view_quality, this, true);
-        mListView = (ListView) findViewById(R.id.quality_view);
+        mListView = findViewById(R.id.quality_view);
 
         mListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         //不显示滚动条，保证全部被显示

@@ -21,7 +21,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 
 
 public class EaseAlertDialog extends Dialog {
@@ -91,9 +91,9 @@ public class EaseAlertDialog extends Dialog {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.ease_alert_dialog);
 		
-		Button cancel = (Button)findViewById(R.id.btn_cancel);
-		Button ok = (Button)findViewById(R.id.btn_ok);
-		TextView titleView = (TextView) findViewById(R.id.title);
+		Button cancel = findViewById(R.id.btn_cancel);
+		Button ok = findViewById(R.id.btn_ok);
+		TextView titleView = findViewById(R.id.title);
 		setTitle(title);
 		
 		View.OnClickListener listener = new View.OnClickListener() {

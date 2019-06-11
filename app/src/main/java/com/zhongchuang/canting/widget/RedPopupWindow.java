@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 
 
 /***
@@ -29,8 +29,8 @@ public class RedPopupWindow extends PopupWindow {
         super(context);
         mContext = context;
         mView = LayoutInflater.from(mContext).inflate(R.layout.red_pop_view, null);
-        final TextView tv_recive = (TextView) mView.findViewById(R.id.tv_recive);
-        TextView tv_send = (TextView) mView.findViewById(R.id.tv_send);
+        final TextView tv_recive = mView.findViewById(R.id.tv_recive);
+        TextView tv_send = mView.findViewById(R.id.tv_send);
 
         tv_send.setOnClickListener(new View.OnClickListener() {
             @Override

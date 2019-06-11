@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.WebViewActivity;
 import com.zhongchuang.canting.adapter.AppBasedapter;
 import com.zhongchuang.canting.adapter.Basedapter;

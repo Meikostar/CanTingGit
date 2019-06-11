@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.been.GAME;
 import com.zhongchuang.canting.utils.TextUtil;
 
@@ -60,7 +60,7 @@ public class OrderGridAdapter extends BaseAdapter {
             if (view == null){
                 view = LayoutInflater.from(mContext).inflate(R.layout.grid_text_view, parent, false);
                 holder = new ResultViewHolder();
-                holder.name = (TextView) view.findViewById(R.id.tv_name);
+                holder.name = view.findViewById(R.id.tv_name);
 
 
                 view.setTag(holder);

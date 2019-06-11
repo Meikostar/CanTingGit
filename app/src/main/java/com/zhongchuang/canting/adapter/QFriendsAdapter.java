@@ -36,8 +36,6 @@ import com.zhongchuang.canting.widget.PraiseTextView;
 import java.util.ArrayList;
 import java.util.List;
 
-;
-
 /***
  * 功能描述:今日新款适配器
  * 作者:chenwei
@@ -87,9 +85,9 @@ public class QFriendsAdapter extends BaseAdapter {
         } else {
             viewHolder = (ImageViewHolder) view.getTag();
         }
-        final QfriendBean infos = (QfriendBean) datas.get(position);
+        final QfriendBean infos = datas.get(position);
         final List<CommetLikeBean> comment = infos.commentList;
-        boolean hasComment = comment.size() > 0 ? true : false;
+        boolean hasComment = comment.size() > 0;
         viewHolder.iv_shop_head.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -301,7 +299,7 @@ public class QFriendsAdapter extends BaseAdapter {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_qfriend, parent, false);
 
-
+        view.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         viewHolder = new ImageViewHolder(view);
 
 

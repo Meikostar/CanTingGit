@@ -14,7 +14,7 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.adapter.ListPopAdapter;
 import com.zhongchuang.canting.been.DATA;
 import com.zhongchuang.canting.been.GAME;
@@ -42,12 +42,12 @@ public class ListPopupWindow extends PopupWindow{
         super(context);
         mContext = context;
         mView = LayoutInflater.from(mContext).inflate(R.layout.list_popwindow, null);
-        listView = (ListView) mView.findViewById(R.id.list);
-        card = (CardView) mView.findViewById(R.id.card);
+        listView = mView.findViewById(R.id.list);
+        card = mView.findViewById(R.id.card);
         adapter=new ListPopAdapter(context);
         adapter.setData(data);
         listView.setAdapter(adapter);
-         tv_cancel = (TextView) mView.findViewById(R.id.tv_cancel);
+         tv_cancel = mView.findViewById(R.id.tv_cancel);
 
         tv_cancel.setOnClickListener(new View.OnClickListener() {
             @Override

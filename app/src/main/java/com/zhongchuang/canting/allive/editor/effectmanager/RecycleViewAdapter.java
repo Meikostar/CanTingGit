@@ -43,10 +43,10 @@ public class RecycleViewAdapter extends StateController.StateAdapter<RecycleView
 
         public PasterViewHolder(View itemView) {
             super(itemView);
-            mTvName = (TextView) itemView.findViewById(R.id.tv_name);
-            mTvDesc = (TextView) itemView.findViewById(R.id.tv_desc);
-            mTvRightButton = (TextView) itemView.findViewById(R.id.tv_right_button);
-            mIvIcon = (ImageView) itemView.findViewById(R.id.iv_icon);
+            mTvName = itemView.findViewById(R.id.tv_name);
+            mTvDesc = itemView.findViewById(R.id.tv_desc);
+            mTvRightButton = itemView.findViewById(R.id.tv_right_button);
+            mIvIcon = itemView.findViewById(R.id.iv_icon);
             mTvRightButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

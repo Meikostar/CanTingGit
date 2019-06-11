@@ -64,11 +64,7 @@ public class AnimationFilterController {
 
     @Subscribe(threadMode = ThreadMode.POSTING)
     public void onEventAnimationFilterLongClick(LongClickAnimationFilter filter) {
-        if (mAliyunIEditor.getTimeEffect() == TimeEffectType.TIME_EFFECT_TYPE_INVERT) {
-            mInvert = true;
-        } else {
-            mInvert = false;
-        }
+        mInvert = mAliyunIEditor.getTimeEffect() == TimeEffectType.TIME_EFFECT_TYPE_INVERT;
         mLastStartTime = mAliyunIEditor.getCurrentStreamPosition();
 
         EffectInfo info = filter.getEffectInfo();

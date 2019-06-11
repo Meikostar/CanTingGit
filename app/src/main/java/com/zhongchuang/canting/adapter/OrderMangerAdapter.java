@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.mall.OrderDetailActivity;
 import com.zhongchuang.canting.been.OrderData;
 import com.zhongchuang.canting.utils.TextUtil;
@@ -60,7 +60,7 @@ public class OrderMangerAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return list!=null?(list.size()==0?0:list.size()):0;
+        return list!=null?(list.size()):0;
     }
 
     @Override
@@ -79,22 +79,22 @@ public class OrderMangerAdapter extends BaseAdapter {
         ViewHolder holder;
         if (convertView == null) {
             holder=new ViewHolder();
-            convertView = convertView.inflate(context,R.layout.item_order_manger, null);
-            holder.tvStoreName = (TextView) convertView.findViewById(R.id.tv_store_name);
-            holder.tvStatus = (TextView) convertView.findViewById(R.id.tv_status);
-            holder.tvCont3 = (TextView) convertView.findViewById(R.id.tv_cont3);
-            holder.tvCont2 = (TextView) convertView.findViewById(R.id.tv_cont2);
-            holder.tvCont1 = (TextView) convertView.findViewById(R.id.tv_cont1);
-            holder.tvState1 = (TextView) convertView.findViewById(R.id.tv_state1);
-            holder.tvState2 = (TextView) convertView.findViewById(R.id.tv_state2);
-            holder.tv_delete = (TextView) convertView.findViewById(R.id.tv_delete);
+            convertView = View.inflate(context,R.layout.item_order_manger, null);
+            holder.tvStoreName = convertView.findViewById(R.id.tv_store_name);
+            holder.tvStatus = convertView.findViewById(R.id.tv_status);
+            holder.tvCont3 = convertView.findViewById(R.id.tv_cont3);
+            holder.tvCont2 = convertView.findViewById(R.id.tv_cont2);
+            holder.tvCont1 = convertView.findViewById(R.id.tv_cont1);
+            holder.tvState1 = convertView.findViewById(R.id.tv_state1);
+            holder.tvState2 = convertView.findViewById(R.id.tv_state2);
+            holder.tv_delete = convertView.findViewById(R.id.tv_delete);
 
 
-            holder.rlMenu = (RegularListView) convertView.findViewById(R.id.rl_menu);
+            holder.rlMenu = convertView.findViewById(R.id.rl_menu);
 
-            holder.llBg = (LinearLayout) convertView.findViewById(R.id.ll_bg);
-            holder.llBgs = (LinearLayout) convertView.findViewById(R.id.ll_bgs);
-            holder.llHeadPurchases = (LinearLayout) convertView.findViewById(R.id.ll_head_purchases);
+            holder.llBg = convertView.findViewById(R.id.ll_bg);
+            holder.llBgs = convertView.findViewById(R.id.ll_bgs);
+            holder.llHeadPurchases = convertView.findViewById(R.id.ll_head_purchases);
 
 
             convertView.setTag(holder);

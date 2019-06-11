@@ -15,7 +15,7 @@ import java.net.URL;
 public class HttpUrlConnectionUtil {
 
     private static final int CONNECTION_TIMEOUT = 10000;
-    public static String doHttpsPost(String serverURL, String xmlString) throws Exception {
+    public static String doHttpsPost(String serverURL, String xmlString) {
 
         try {
             URL url = new URL(serverURL);

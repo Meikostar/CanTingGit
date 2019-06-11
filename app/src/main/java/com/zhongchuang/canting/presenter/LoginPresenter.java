@@ -5,6 +5,6 @@ package com.zhongchuang.canting.presenter;
  */
 
 public interface LoginPresenter {
-    public void login(String type, String name, String paw);
+    void login(String type, String name, String paw);
 
 }

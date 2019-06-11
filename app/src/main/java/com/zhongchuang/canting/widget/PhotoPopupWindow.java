@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 
 
 /***
@@ -31,8 +31,8 @@ public class PhotoPopupWindow extends PopupWindow {
         super(context);
         mContext = context;
         mView = LayoutInflater.from(mContext).inflate(R.layout.chat_phone_popwindow_view, null);
-        final TextView tv_camera = (TextView) mView.findViewById(R.id.tv_camera);
-        TextView tv_cancel = (TextView) mView.findViewById(R.id.tv_cancel);
+        final TextView tv_camera = mView.findViewById(R.id.tv_camera);
+        TextView tv_cancel = mView.findViewById(R.id.tv_cancel);
 
         tv_cancel.setOnClickListener(new View.OnClickListener() {
             @Override

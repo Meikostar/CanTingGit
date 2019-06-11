@@ -22,8 +22,9 @@ import com.hyphenate.chat.EMConversation.EMConversationType;
 import com.hyphenate.chat.EMGroup;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.util.DateUtils;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.app.CanTingAppLication;
+import com.zhongchuang.canting.easeui.EaseConstant;
 import com.zhongchuang.canting.easeui.EaseUI;
 import com.zhongchuang.canting.easeui.domain.EaseAvatarOptions;
 import com.zhongchuang.canting.easeui.domain.EaseUser;
@@ -104,15 +105,15 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
         ViewHolder holder = (ViewHolder) convertView.getTag();
         if (holder == null) {
             holder = new ViewHolder();
-            holder.name = (TextView) convertView.findViewById(R.id.name);
-            holder.unreadLabel = (TextView) convertView.findViewById(R.id.unread_msg_number);
-            holder.message = (TextView) convertView.findViewById(R.id.message);
-            holder.time = (TextView) convertView.findViewById(R.id.time);
-            holder.avatar = (ImageView) convertView.findViewById(R.id.avatar);
+            holder.name = convertView.findViewById(R.id.name);
+            holder.unreadLabel = convertView.findViewById(R.id.unread_msg_number);
+            holder.message = convertView.findViewById(R.id.message);
+            holder.time = convertView.findViewById(R.id.time);
+            holder.avatar = convertView.findViewById(R.id.avatar);
             holder.msgState = convertView.findViewById(R.id.msg_state);
             holder.group_avatar = convertView.findViewById(R.id.group_avatar);
-            holder.list_itease_layout = (RelativeLayout) convertView.findViewById(R.id.list_itease_layout);
-            holder.motioned = (TextView) convertView.findViewById(R.id.mentioned);
+            holder.list_itease_layout = convertView.findViewById(R.id.list_itease_layout);
+            holder.motioned = convertView.findViewById(R.id.mentioned);
             convertView.setTag(holder);
         }
         holder.list_itease_layout.setBackgroundResource(R.drawable.ease_mm_listitem);
@@ -192,6 +193,10 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
                 String content = null;
                 if(cvsListHelper != null){
                     content = cvsListHelper.onSetItemSecondaryText(lastMessage);
+                }
+                String type=lastMessage.getStringAttribute(EaseConstant.EXTRA_RED_TYPE,null);
+                if(TextUtil.isNotEmpty(type)&&type.equals("3")){
+                    content="[视频]";
                 }
                 holder.message.setText(EaseSmileUtils.getSmiledText(getContext(), EaseCommonUtils.getMessageDigest(lastMessage, (this.getContext()))),
                         BufferType.SPANNABLE);

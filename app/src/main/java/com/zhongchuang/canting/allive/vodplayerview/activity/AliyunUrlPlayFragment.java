@@ -43,8 +43,8 @@ public class AliyunUrlPlayFragment extends Fragment implements OnClickListener{
                              @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_player_urlplay_layout, container, false);
 
-        ivQRcode =(ImageView)v.findViewById(R.id.iv_qrcode);
-        etPlayUrl = (EditText)v.findViewById(R.id.et_play_url);
+        ivQRcode = v.findViewById(R.id.iv_qrcode);
+        etPlayUrl = v.findViewById(R.id.et_play_url);
         ivQRcode.setOnClickListener(this);
         return v;
     }

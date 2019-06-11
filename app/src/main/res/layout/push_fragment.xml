@@ -89,20 +89,7 @@
                 android:gravity="center"
                 android:clickable="true"
                 android:text="@string/answer"/>
-            <ImageView
-                android:id="@+id/beauty_button"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@drawable/zhibo3"
-                android:layout_marginRight="12dp"
-                android:clickable="true"/>
-            <ImageView
-                android:id="@+id/music"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/zhubo"
-                android:layout_marginRight="12dp"
-                android:clickable="true"/>
+
 
             <ImageView
                 android:id="@+id/flash"
@@ -232,10 +219,11 @@
         android:layout_height="35dp"
         android:layout_width="65dp"
         android:background="@drawable/bg_round_black30"
-
+        android:visibility="gone"
         android:textSize="12sp"
         android:textColor="@color/white"
         android:text="@string/start_button"/>
+
     <LinearLayout
         android:id="@+id/guide"
         android:layout_width="match_parent"
@@ -273,9 +261,10 @@
         android:layout_marginBottom="20dp"
         />
     <com.zhongchuang.canting.widget.GiftItemView
+        android:layout_marginRight="50dp"
         android:id="@+id/gift_item_first"
         android:layout_marginBottom="190dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="20dp"
         android:layout_alignParentBottom="true"
         android:clipChildren="true"
         android:layout_width="match_parent"
@@ -288,4 +277,35 @@
         android:layout_alignParentRight="true"
         android:layout_marginBottom="60dp"
         android:layout_alignParentBottom="true"/>
+    <ImageView
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:id="@+id/beauty_button"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/zhibo3"
+        android:layout_marginRight="68dp"
+        android:layout_marginBottom="15dp"
+        android:clickable="true"/>
+    <ImageView
+        android:visibility="gone"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:id="@+id/music"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/zhubo"
+        android:layout_marginRight="36dp"
+        android:layout_marginBottom="15dp"
+        android:clickable="true"/>
+    <ImageView
+        android:layout_marginBottom="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:id="@+id/share"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/live_share"
+        android:clickable="true"/>
 </RelativeLayout>

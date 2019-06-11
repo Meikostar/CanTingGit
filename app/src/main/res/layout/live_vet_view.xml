@@ -13,45 +13,160 @@
 
         <ImageView
             android:id="@+id/alivc_title_back"
-            android:layout_width="28dp"
+            android:layout_width="20dp"
             android:layout_height="37dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="15dp"
-            android:padding="5dp"
+            android:layout_marginTop="12dp"
+            android:padding="6dp"
             android:src="@drawable/back_white" />
+         <LinearLayout
+             android:layout_marginLeft="3dp"
+             android:minWidth="60dp"
+             android:layout_marginTop="12.5dp"
+             android:layout_width="wrap_content"
+             android:layout_height="35dp"
+             android:orientation="vertical">
+             <TextView
+                 android:id="@+id/alivc_title_title"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
 
-        <TextView
-            android:id="@+id/alivc_title_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+                 android:text=""
+                 android:ellipsize="end"
 
-            android:layout_weight="1"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:textColor="@color/white"
-            android:textSize="15sp" />
+                 android:maxLines="1"
+                 android:textColor="@color/white"
+                 android:textSize="13sp" />
+             <TextView
+                 android:id="@+id/address"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_marginTop="1dp"
+                 android:text=""
 
+                 android:ellipsize="end"
+                 android:maxLines="1"
+                 android:textColor="@color/white"
+                 android:textSize="12sp" />
+         </LinearLayout>
+         <View
+             android:layout_width="wrap_content"
+             android:layout_height="11dp"
+             android:layout_weight="1"/>
+        <RelativeLayout
+            android:layout_width="169dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="14dp"
+            android:background="@drawable/zhibo_comnection">
+
+
+            <ImageView
+                android:id="@+id/iv_img"
+                android:layout_width="27dp"
+                android:layout_height="27dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="1.5dp"
+
+                ></ImageView>
+
+            <RelativeLayout
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/x85">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginTop="@dimen/x3"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:text="f"
+                        android:textColor="#FFFFFF"
+                        android:textSize="11sp" />
+
+
+                    <TextView
+                        android:id="@+id/tv_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:singleLine="true"
+                        android:text="人数："
+                        android:textColor="#FFFFFF"
+                        android:textSize="9sp" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:id="@+id/ll_care"
+                android:layout_width="50dp"
+                android:layout_height="21dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="4.5dp"
+                android:background="@drawable/zhibo_text_select"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/iv_care"
+                    android:layout_width="12dp"
+                    android:layout_height="13dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:src="@drawable/zbs_0" />
+
+                <TextView
+                    android:id="@+id/tv_care"
+                    android:layout_width="wrap_content"
+
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="2dp"
+
+                    android:gravity="center"
+                    android:text="关注"
+                    android:textColor="#fff"
+                    android:textSize="11sp" />
+
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
 
         <Button
             android:id="@+id/alivc_info_large_rate_btn"
-            android:layout_width="50dp"
-            android:layout_height="22dp"
+            android:layout_width="39dp"
+            android:layout_height="16dp"
+            android:layout_marginTop="20dp"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
             android:background="@drawable/white_rectangle_lines"
             android:gravity="center"
             android:textColor="@color/white"
-            android:textSize="14sp" />
+            android:textSize="13sp" />
 
         <ImageView
-            android:layout_marginTop="17dp"
-            android:layout_marginRight="15dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginRight="10dp"
             android:id="@+id/alivc_title_more"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:padding="3dp"
-            android:src="@drawable/alivc_more" />
+            android:padding="8dp"
+            android:src="@drawable/lands_2" />
     </LinearLayout>
 
 
@@ -67,61 +182,66 @@
 
 
         <ImageView
+            android:src="@drawable/alivc_playstate_pause"
             android:id="@+id/alivc_player_state"
-            android:layout_width="26dp"
-            android:layout_height="32dp"
-            android:layout_marginLeft="12dp" />
-
-        <FrameLayout
-            android:id="@+id/fl_bg"
+            android:layout_width="22dp"
+            android:padding="2.5dp"
+            android:layout_height="23dp"
+            android:layout_marginLeft="15dp" />
+        <ImageView
+            android:src="@drawable/lands_3"
+            android:id="@+id/alivc_player_refesh"
+            android:layout_width="24dp"
+            android:layout_height="23dp"
+            android:padding="3dp"
+            android:layout_marginLeft="9dp" />
+        <LinearLayout
+            android:layout_marginLeft="15dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:background="@drawable/alivc_comment_bg"
+            android:id="@+id/alivc_info_large_bar"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="27dp"
             android:layout_weight="1"
             android:paddingLeft="6dp">
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="29dp"
+                android:layout_width="23dp"
+                android:layout_height="23dp"
+                 android:layout_marginLeft="3dp"
                 android:layout_gravity="center_vertical"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="20dp"
-                android:src="@drawable/gift" />
+                android:padding="3dp"
+                android:src="@drawable/lands_1" />
 
-            <LinearLayout
-                android:id="@+id/alivc_info_large_bar"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="65dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+
 
 
                 <TextView
+                    android:layout_marginLeft="5dp"
                     android:gravity="center_vertical"
                     android:id="@+id/et_comment"
-                    android:layout_width="match_parent"
-                    android:layout_height="34dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/white_rectangle3"
-                    android:hint="@string/fsnr"
-                    android:paddingLeft="5dp"
-                    android:textColorHint="#bcbcbc"
-                    android:textSize="14sp" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="说点什么吧~"
+                    android:textColor="@color/color9"
+
+                    android:textSize="11sp" />
 
                 <Button
+                    android:visibility="gone"
+                    android:layout_marginTop="0.7dp"
                     android:id="@+id/btn_send_comment"
-                    android:layout_width="60dp"
-                    android:layout_height="33dp"
+                    android:layout_width="50dp"
+                    android:layout_height="25dp"
                     android:layout_alignParentRight="true"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="15dp"
                     android:background="@drawable/btn_commentbg"
                     android:text="@string/fs"
                     android:textColor="#fff"
-                    android:textSize="18sp" />
+                    android:textSize="13sp" />
 
-            </LinearLayout>
+
 
             <LinearLayout
                 android:id="@+id/alivc_info_small_bar"
@@ -134,15 +254,24 @@
 
             </LinearLayout>
 
-        </FrameLayout>
-
+        </LinearLayout>
 
         <ImageView
+            android:layout_marginLeft="16dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:id="@+id/iv_gift"
+            android:layout_gravity="center_vertical"
+            android:padding="3dp"
+            android:src="@drawable/gift" />
+        <ImageView
+            android:padding="6dp"
+            android:src="@drawable/alivc_screen_mode_small"
             android:id="@+id/alivc_screen_mode"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp" />
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" />
 
     </LinearLayout>
 

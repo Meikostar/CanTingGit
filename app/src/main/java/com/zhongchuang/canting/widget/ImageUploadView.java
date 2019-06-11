@@ -14,7 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.been.UploadFileBean;
 import com.zhongchuang.canting.utils.TextUtil;
 import com.zhongchuang.canting.viewcallback.OnRecyclerItemClickListener;
@@ -141,7 +141,7 @@ public class ImageUploadView extends LinearLayout {
     private void init(Context context){
         this.mContext = context;
         mView = LayoutInflater.from(context).inflate(R.layout.view_upload_group_view,this);
-        mRecyclerView = (RecyclerView) mView.findViewById(R.id.rl_upload_groud);
+        mRecyclerView = mView.findViewById(R.id.rl_upload_groud);
         mAdapter = new MAdapter(context);
         mAdapter.setMaxCount(maxCount);
         mRecyclerView.setAdapter(mAdapter);
@@ -317,6 +317,11 @@ public class ImageUploadView extends LinearLayout {
                 }
                 final UploadFileBean bean = imagePaths.get(position);
                 final GridHolder thisHolder = (GridHolder) holder;
+                if(bean.ishow){
+                    thisHolder.mUploadView.setDiss();
+                }else {
+                    thisHolder.mUploadView.setShow();
+                }
                 if (position==0){
                     thisHolder.mUploadView.setHaveMainImage(true);
                     thisHolder.mUploadView.setMainImage(true);
@@ -417,7 +422,7 @@ public class ImageUploadView extends LinearLayout {
             YunUploadView mUploadView;
             public GridHolder(View itemView) {
                 super(itemView);
-                mUploadView = (YunUploadView) itemView.findViewById(R.id.yuv_upload);
+                mUploadView = itemView.findViewById(R.id.yuv_upload);
             }
         }
 
@@ -425,7 +430,7 @@ public class ImageUploadView extends LinearLayout {
             ImageView mTextView;
             public LastHolder(View itemView) {
                 super(itemView);
-                mTextView = (ImageView) itemView.findViewById(R.id.tv_add_detail);
+                mTextView = itemView.findViewById(R.id.tv_add_detail);
             }
         }
     }

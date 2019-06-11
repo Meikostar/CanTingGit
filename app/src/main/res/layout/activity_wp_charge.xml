@@ -121,9 +121,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="14dp"
-             android:id="@+id/tv_content"
+            android:id="@+id/tv_content"
             android:text="@string/llktqsyjf"
-           android:textColor="@color/color3"
+            android:textColor="@color/color3"
             android:textSize="14sp" />
 
         <TextView

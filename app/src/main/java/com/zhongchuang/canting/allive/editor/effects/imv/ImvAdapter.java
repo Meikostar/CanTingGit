@@ -53,7 +53,7 @@ public class ImvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> im
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.aliyun_svideo_resources_item_view, parent, false);
         IMVViewHolder iMVViewHolder = new IMVViewHolder(view);
-        iMVViewHolder.frameLayout = (FrameLayout) view.findViewById(R.id.resource_image);
+        iMVViewHolder.frameLayout = view.findViewById(R.id.resource_image);
         return iMVViewHolder;
     }
 
@@ -119,8 +119,8 @@ public class ImvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> im
         TextView mName;
         public IMVViewHolder(View itemView) {
             super(itemView);
-            mImage = (CircularImageView) itemView.findViewById(R.id.resource_image_view);
-            mName = (TextView) itemView.findViewById(R.id.resource_name);
+            mImage = itemView.findViewById(R.id.resource_image_view);
+            mName = itemView.findViewById(R.id.resource_name);
         }
     }
 

@@ -18,7 +18,7 @@ import android.view.View;
 import android.widget.TextView;
 
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 
 import java.util.List;
 
@@ -157,9 +157,9 @@ public class PraiseTextView extends TextView {
     }
 
     public interface onPraiseClickListener {
-        public void onClick(int position, PraiseInfo mPraiseInfo);
+        void onClick(int position, PraiseInfo mPraiseInfo);
 
-        public void onOtherClick();
+        void onOtherClick();
     }
 
     public static class PraiseInfo {

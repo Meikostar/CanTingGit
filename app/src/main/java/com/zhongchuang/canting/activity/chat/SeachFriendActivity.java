@@ -11,7 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.adapter.FragmentViewPagerAdapter;
 import com.zhongchuang.canting.app.CanTingAppLication;
 import com.zhongchuang.canting.been.BaseBean;

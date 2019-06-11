@@ -1,6 +1,7 @@
 package com.zhongchuang.canting.fragment.mall;
 
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,7 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.mall.EditorOrderActivity;
 import com.zhongchuang.canting.activity.mall.ShopMallDetailActivity;
 import com.zhongchuang.canting.adapter.ShopCarAllAdapter;
@@ -75,6 +76,7 @@ public class Carfagment extends BaseFragment implements BaseContract.View {
 
     private int status;
 
+    @SuppressLint("ValidFragment")
     public Carfagment(int type) {
         status = type;
     }
@@ -215,8 +217,8 @@ public class Carfagment extends BaseFragment implements BaseContract.View {
                         }
                     }
                     tvPay.setText(getString(R.string.qjss) + cout + ")");
-                    tvDelete.setText(getString(R.string.shanchu) + couts + ")");
-                    tvTotal.setText(getString(R.string.heji) + totalMoney + (product.data.get(0).protList.get(0).pro_site.equals("1") ||product.data.get(0).protList.get(0).pro_site.equals("3")? "￥" : getString(R.string.jf)));
+                    tvDelete.setText(getString(R.string.shanchu) +"("+ couts + ")");
+                    tvTotal.setText(getString(R.string.heji) +(product.data.get(0).protList.get(0).pro_site.equals("1") ||product.data.get(0).protList.get(0).pro_site.equals("3")? "￥" : "")+ totalMoney + (product.data.get(0).protList.get(0).pro_site.equals("1") ||product.data.get(0).protList.get(0).pro_site.equals("3")? "" : getString(R.string.jf)));
                 } else {
                     cout = 0;
                     totalMoney = 0;

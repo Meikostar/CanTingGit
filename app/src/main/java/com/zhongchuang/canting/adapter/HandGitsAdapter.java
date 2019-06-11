@@ -21,8 +21,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-;
-
 
 /**
  * Created by mykar on 17/4/12.
@@ -60,7 +58,7 @@ public class HandGitsAdapter extends BaseAdapter {
         } else {
             holder1 = (CommentViewHolder) view.getTag();
         }
-        Hand data = (Hand) datas.get(position);
+        Hand data = datas.get(position);
         Glide.with(context).load(StringUtil.changeUrl(data.head_image)).asBitmap().placeholder(R.drawable.moren2).into(holder1.img);
         if(TextUtil.isNotEmpty(data.user_nick_name)){
             holder1.tvName.setText(context.getString(R.string.ncs)+data.user_nick_name);

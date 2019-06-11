@@ -40,10 +40,10 @@ public class AlivcPlayListAdapter extends RecyclerView.Adapter<AlivcPlayListAdap
         LinearLayout alivcVideoInfoItemLayout;
         public ViewHolder(View itemView) {
             super(itemView);
-            alivcVideoInfoItemLayout = (LinearLayout)itemView.findViewById(R.id.alivc_video_info_item_layout);
-            coverImage = (ImageView)itemView.findViewById(R.id.iv_video_cover);
-            title = (TextView)itemView.findViewById(R.id.tv_video_title);
-            tvVideoDuration= (TextView)itemView.findViewById(R.id.tv_video_duration);
+            alivcVideoInfoItemLayout = itemView.findViewById(R.id.alivc_video_info_item_layout);
+            coverImage = itemView.findViewById(R.id.iv_video_cover);
+            title = itemView.findViewById(R.id.tv_video_title);
+            tvVideoDuration= itemView.findViewById(R.id.tv_video_duration);
         }
     }
 

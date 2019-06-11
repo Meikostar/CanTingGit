@@ -125,7 +125,7 @@ public class ThumbnailGenerator {
 
         public Bitmap get(String key) {
             Bitmap result = null;
-            Reference reference = (Reference)this.softMap.get(key);
+            Reference reference = this.softMap.get(key);
             if(reference != null) {
                 result = (Bitmap)reference.get();
             }
@@ -139,7 +139,7 @@ public class ThumbnailGenerator {
         }
 
         public Bitmap remove(String key) {
-            Reference bmpRef = (Reference)this.softMap.remove(key);
+            Reference bmpRef = this.softMap.remove(key);
             return bmpRef == null?null:(Bitmap)bmpRef.get();
         }
 

@@ -138,8 +138,8 @@ public class TagView extends View {
         mRectF = new RectF();
         mPath = new Path();
         mOriginText = text == null ? "" : text;
-        mMoveSlop = (int) UIUtil.dip2px(context, mMoveSlop);
-        mSlopThreshold = (int) UIUtil.dip2px(context, mSlopThreshold);
+        mMoveSlop = UIUtil.dip2px(context, mMoveSlop);
+        mSlopThreshold = UIUtil.dip2px(context, mSlopThreshold);
     }
 
     private void onDealText(){

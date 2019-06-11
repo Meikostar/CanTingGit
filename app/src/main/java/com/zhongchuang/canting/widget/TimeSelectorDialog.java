@@ -11,7 +11,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.utils.StringUtil;
 
 import java.text.DecimalFormat;
@@ -132,16 +132,16 @@ public class TimeSelectorDialog {
 
     private void initView(){
         mView= View.inflate(mContext, R.layout.view_dialog_time_selector, null);
-        mCycleWheelViewDate = (CycleWheelView)mView.findViewById(R.id.cwv_date);
-        mCycleWheelViewHour = (CycleWheelView)mView.findViewById(R.id.cwv_hour);
-        mCycleWheelViewMinute = (CycleWheelView)mView.findViewById(R.id.cwv_minute);
+        mCycleWheelViewDate = mView.findViewById(R.id.cwv_date);
+        mCycleWheelViewHour = mView.findViewById(R.id.cwv_hour);
+        mCycleWheelViewMinute = mView.findViewById(R.id.cwv_minute);
         mCycleWheelViewDate.setCycleEnable(false);
         mCycleWheelViewHour.setCycleEnable(false);
         mCycleWheelViewMinute.setCycleEnable(false);
-        mButtonCancel = (TextView)mView.findViewById(R.id.but_cancel);
-        mButtonConfirm = (TextView)mView.findViewById(R.id.but_confirm);
+        mButtonCancel = mView.findViewById(R.id.but_cancel);
+        mButtonConfirm = mView.findViewById(R.id.but_confirm);
 
-        mFrameLayout = (FrameLayout)mView.findViewById(R.id.fl_time_select);
+        mFrameLayout = mView.findViewById(R.id.fl_time_select);
         setDate();
         setHour();
         setMinute();

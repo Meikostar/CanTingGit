@@ -2,18 +2,21 @@ package com.zhongchuang.canting.activity.chat;
 
 import android.Manifest;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.Editable;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.zhongchuang.canting.R;;
-import com.zhongchuang.canting.base.BaseActivity;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.base.BaseActivity1;
 import com.zhongchuang.canting.been.SubscriptionBean;
 import com.zhongchuang.canting.been.TOKEN;
@@ -37,8 +40,6 @@ import com.zhongchuang.canting.widget.PhotoPopupWindow;
 import com.zhongchuang.canting.widget.RxBus;
 import com.zhongchuang.canting.widget.popupwindow.PopView_UploadImg;
 
-import org.json.JSONObject;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +57,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 
 //发布朋友圈
-public class SendDynamicActivity extends BaseActivity1 implements BaseContract.View  {
+public class SendDynamicActivity extends BaseActivity1 implements BaseContract.View {
 
 
     @BindView(R.id.navigationBar)
@@ -71,6 +72,10 @@ public class SendDynamicActivity extends BaseActivity1 implements BaseContract.V
     TextView txtSend;
     @BindView(R.id.ll_bottom_button)
     View llBottomButton;
+    @BindView(R.id.ll_bg)
+    LinearLayout llBg;
+    @BindView(R.id.iv_video_cover)
+    ImageView ivVideoCover;
 
     private int upload_position;
 
@@ -100,7 +105,7 @@ public class SendDynamicActivity extends BaseActivity1 implements BaseContract.V
             @Override
             public void onItemDelete(int position) {
                 img_path.remove(position);
-                if (img_path.size() == 0&&TextUtil.isEmpty(etContent.getText().toString())) {
+                if (img_path.size() == 0 && TextUtil.isEmpty(etContent.getText().toString())) {
                     haveFous(false);
                 }
                 notifyImageDataChange();
@@ -113,7 +118,7 @@ public class SendDynamicActivity extends BaseActivity1 implements BaseContract.V
             @Override
             public void onAddMoreClick() {
                 if (count - img_path.size() >= 1) {
-                   showAddPhotoWindow(count - img_path.size());
+                    showAddPhotoWindow(count - img_path.size());
 
                 }
 
@@ -147,18 +152,18 @@ public class SendDynamicActivity extends BaseActivity1 implements BaseContract.V
             public void onClick(View v) {
 
                 showProgress(getString(R.string.fbz));
-                url="";
+                url = "";
                 haveFous(false);
-                if(img_path!=null&&img_path.size()>0){
+                if (img_path != null && img_path.size() > 0) {
 
                     getUpToken(img_path.get(0).getForderPath());
-                }else {
-                    if(TextUtil.isEmpty(etContent.getText().toString())){
+                } else {
+                    if (TextUtil.isEmpty(etContent.getText().toString())) {
                         dimessProgress();
 
                         return;
-                    }else {
-                        presenter.addInfo(etContent.getText().toString(),"");
+                    } else {
+                        presenter.addInfo(etContent.getText().toString(), "");
                     }
 
                 }
@@ -196,10 +201,9 @@ public class SendDynamicActivity extends BaseActivity1 implements BaseContract.V
 
     @PermissionSuccess(requestCode = PermissionConst.REQUECT_CODE_CAMERA)
     public void requestSdcardSuccess() {
-      showAddPhotoWindow(count-img_path.size());
+        showAddPhotoWindow(count - img_path.size());
 
     }
-
 
 
     @PermissionFail(requestCode = PermissionConst.REQUECT_CODE_CAMERA)
@@ -217,6 +221,22 @@ public class SendDynamicActivity extends BaseActivity1 implements BaseContract.V
      */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+
+        if (resultCode == 101) {
+            Log.i("CJT", "picture");
+            String path = data.getStringExtra("path");
+            ivVideoCover.setVisibility(View.VISIBLE);
+            llBg.setVisibility(View.GONE);
+            ivVideoCover.setImageBitmap(BitmapFactory.decodeFile(path));
+        }
+        if (resultCode == 102) {
+            Log.i("CJT", "video");
+            String path = data.getStringExtra("path");
+        }
+        if (resultCode == 103) {
+            Toast.makeText(this, "请检查相机权限~", Toast.LENGTH_SHORT).show();
+        }
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 //上传照片
@@ -257,10 +277,12 @@ public class SendDynamicActivity extends BaseActivity1 implements BaseContract.V
                 url = url + "," + info;
             }
 
-            presenter.addInfo(etContent.getText().toString(),url);
+            presenter.addInfo(etContent.getText().toString(), url);
         }
     }
+
     private String token;
+
     private void getUpToken(final String path) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(netService.TOM_BASE_URL)
@@ -275,7 +297,7 @@ public class SendDynamicActivity extends BaseActivity1 implements BaseContract.V
         call.enqueue(new Callback<TOKEN>() {
             @Override
             public void onResponse(Call<TOKEN> call, Response<TOKEN> response) {
-                token=response.body().data.upToken;
+                token = response.body().data.upToken;
                 upFlile(path);
             }
 
@@ -312,8 +334,8 @@ public class SendDynamicActivity extends BaseActivity1 implements BaseContract.V
         piuvRemarkImage.setData(img_path);
     }
 
-    public void  showAddPhotoWindow(int count) {
-        View view = LayoutInflater.from(this).inflate(R.layout.view_add_photo_window, null);
+    public void showAddPhotoWindow(int count) {
+        View view = LayoutInflater.from(this).inflate(R.layout.view_add_photo_windows, null);
 
         view.findViewById(R.id.tv_photo).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -321,6 +343,8 @@ public class SendDynamicActivity extends BaseActivity1 implements BaseContract.V
                 getPhotos();
             }
         });
+        view.findViewById(R.id.tv_video).setVisibility(View.GONE);
+        view.findViewById(R.id.line).setVisibility(View.GONE);
         view.findViewById(R.id.tv_cancel).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -342,7 +366,7 @@ public class SendDynamicActivity extends BaseActivity1 implements BaseContract.V
 
     public void getPhotos() {
         Picker.from(this)
-                .count(count-img_path.size())
+                .count(count - img_path.size())
                 .enableCamera(true)
                 .setEngine(new ImageLoaderEngine())
                 .setAdd_watermark(false)
@@ -351,6 +375,7 @@ public class SendDynamicActivity extends BaseActivity1 implements BaseContract.V
     }
 
     private PhotoPopupWindow mWindowAddPhoto;
+
     public void sendSuccess() {
         dimessProgress();
         finish();
@@ -378,9 +403,9 @@ public class SendDynamicActivity extends BaseActivity1 implements BaseContract.V
         TextView title = null;
         EditText reson = null;
         View views = View.inflate(this, R.layout.base_dailog_view, null);
-        sure = (TextView) views.findViewById(R.id.txt_sure);
-        cancel = (TextView) views.findViewById(R.id.txt_cancel);
-        title = (TextView) views.findViewById(R.id.txt_title);
+        sure = views.findViewById(R.id.txt_sure);
+        cancel = views.findViewById(R.id.txt_cancel);
+        title = views.findViewById(R.id.txt_title);
 
         title.setText(R.string.sftcccbj);
         dialog = BaseDailogManager.getInstance().getBuilder(this).setMessageView(views).create();
@@ -402,23 +427,25 @@ public class SendDynamicActivity extends BaseActivity1 implements BaseContract.V
             }
         });
     }
+
     @Override
     public void showTomast(String msg) {
-       dimessProgress();
+        dimessProgress();
         haveFous(true);
-       showToasts(msg);
+        showToasts(msg);
     }
 
 
-        @Override
+    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-           if(TextUtil.isNotEmpty(etContent.getText().toString())||(img_path.size()>0)){
-               showPopwindows();
-               return true;
-           }
+            if (TextUtil.isNotEmpty(etContent.getText().toString()) || (img_path.size() > 0)) {
+                showPopwindows();
+                return true;
+            }
         }
         return super.onKeyDown(keyCode, event);
     }
+
 
 }

@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.been.PREFIX;
 import com.zhongchuang.canting.utils.PinYinUtils;
 
@@ -122,10 +122,10 @@ public class CityListAdapter extends BaseAdapter {
         if (view == null) {
             view = View.inflate(mContext, R.layout.choose_contry_items, null);
             holder = new CityViewHolder();
-            holder.letter = (TextView) view.findViewById(R.id.tv_item_city_listview_letter);
-            holder.name = (TextView) view.findViewById(R.id.tv_item_city_listview_name);
-            holder.names = (TextView) view.findViewById(R.id.tv_item_city_listview_names);
-            holder.ll_bg = (LinearLayout) view.findViewById(R.id.ll_bg);
+            holder.letter = view.findViewById(R.id.tv_item_city_listview_letter);
+            holder.name = view.findViewById(R.id.tv_item_city_listview_name);
+            holder.names = view.findViewById(R.id.tv_item_city_listview_names);
+            holder.ll_bg = view.findViewById(R.id.ll_bg);
             view.setTag(holder);
         } else {
             holder = (CityViewHolder) view.getTag();

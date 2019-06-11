@@ -225,16 +225,16 @@ public class EditorActivity extends FragmentActivity implements
     private Subscription mSubscription;
 
     private void initView() {
-        mEditor = (RelativeLayout) findViewById(R.id.activity_editor);
-        resCopy = (FrameLayout) findViewById(R.id.copy_res_tip);
-        mTransCodeTip = (FrameLayout) findViewById(R.id.transcode_tip);
-        mTransCodeProgress = (ProgressBar) findViewById(R.id.transcode_progress);
-        mBarLinear = (LinearLayout) findViewById(R.id.bar_linear);
+        mEditor = findViewById(R.id.activity_editor);
+        resCopy = findViewById(R.id.copy_res_tip);
+        mTransCodeTip = findViewById(R.id.transcode_tip);
+        mTransCodeProgress = findViewById(R.id.transcode_progress);
+        mBarLinear = findViewById(R.id.bar_linear);
         mBarLinear.bringToFront();
-        mActionBar = (RelativeLayout) findViewById(R.id.action_bar);
-        mIvLeft = (ImageView) findViewById(R.id.iv_left);
-        mTvCenter = (TextView) findViewById(R.id.tv_center);
-        mIvRight = (Button) findViewById(R.id.iv_right);
+        mActionBar = findViewById(R.id.action_bar);
+        mIvLeft = findViewById(R.id.iv_left);
+        mTvCenter = findViewById(R.id.tv_center);
+        mIvRight = findViewById(R.id.iv_right);
         mIvLeft.setImageResource(R.mipmap.aliyun_svideo_icon_back);
         mTvCenter.setText(getString(R.string.edit_nav_edit));
 //        mIvRight.setImageResource(R.mipmap.aliyun_svideo_icon_next);
@@ -247,15 +247,15 @@ public class EditorActivity extends FragmentActivity implements
                 onBackPressed();
             }
         });
-        mTvCurrTime = (TextView) findViewById(R.id.tv_curr_duration);
+        mTvCurrTime = findViewById(R.id.tv_curr_duration);
 
-        mGlSurfaceContainer = (FrameLayout) findViewById(R.id.glsurface_view);
-        mSurfaceView = (SurfaceView) findViewById(R.id.play_view);
-        mBottomLinear = (LinearLayout) findViewById(R.id.edit_bottom_tab);
+        mGlSurfaceContainer = findViewById(R.id.glsurface_view);
+        mSurfaceView = findViewById(R.id.play_view);
+        mBottomLinear = findViewById(R.id.edit_bottom_tab);
 
-        mPasterContainer = (FrameLayout) findViewById(R.id.pasterView);
+        mPasterContainer = findViewById(R.id.pasterView);
 
-        mPlayImage = (ImageView) findViewById(R.id.play_button);
+        mPlayImage = findViewById(R.id.play_button);
         mPlayImage.setOnClickListener(this);
 
         final GestureDetector mGesture = new GestureDetector(this,
@@ -270,7 +270,7 @@ public class EditorActivity extends FragmentActivity implements
 
         mPasterContainer.setOnTouchListener(pasterTouchListener);
 
-        mThumbnailView = (RecyclerView) findViewById(R.id.rv_thumbnail);
+        mThumbnailView = findViewById(R.id.rv_thumbnail);
         mThumbnailView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         mThumbnailFetcher = AliyunThumbnailFetcherFactory.createThumbnailFetcher();
         mThumbnailFetcher.fromConfigJson(mUri.getPath());
@@ -461,8 +461,9 @@ public class EditorActivity extends FragmentActivity implements
                                 Intent intent = new Intent(EditorActivity.this, PublishActivity.class);
                                 intent.putExtra(PublishActivity.KEY_PARAM_THUMBNAIL, path);
                                 intent.putExtra(PublishActivity.KEY_PARAM_CONFIG, mUri.getPath());
+                                intent.putExtra("type", mAliyunIEditor.getVideoWidth()>mAliyunIEditor.getVideoHeight()?2:1);
                                 startActivity(intent);
-                               finish();
+                                finish();
                                 fetcher.release();
                             }
 
@@ -682,7 +683,6 @@ public class EditorActivity extends FragmentActivity implements
         if (mTranscoder != null) {
             if (mIsTranscoding) {
                 mTranscoder.cancel();
-                ;
             }
         }
         super.onDestroy();

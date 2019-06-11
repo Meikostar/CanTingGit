@@ -192,7 +192,6 @@ public class DownloadSaveInfoUtil {
                 try {
                     reader.close();
                 } catch (IOException var12) {
-                    ;
                 }
             }
 

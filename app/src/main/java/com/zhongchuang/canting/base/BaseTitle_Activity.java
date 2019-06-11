@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.MActivityManager;
 import com.zhongchuang.canting.event.BaseEvent;
 import com.zhongchuang.canting.widget.TitleBar;
@@ -71,7 +71,7 @@ public abstract class BaseTitle_Activity extends BaseActivity {
             }
             InputMethodManager inputMethodManager = (InputMethodManager)
                     getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-            inputMethodManager.hideSoftInputFromWindow(iBinder, inputMethodManager.HIDE_NOT_ALWAYS);
+            inputMethodManager.hideSoftInputFromWindow(iBinder, InputMethodManager.HIDE_NOT_ALWAYS);
         } catch (Exception e) {
             e.printStackTrace();
         }

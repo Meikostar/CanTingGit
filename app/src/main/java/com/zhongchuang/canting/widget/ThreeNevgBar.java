@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.presenter.OnChangeListener;
 
 
@@ -80,13 +80,13 @@ public class ThreeNevgBar extends LinearLayout implements View.OnClickListener {
     private void init() {
 
         view = LayoutInflater.from(context).inflate(R.layout.nevagbar_three,this);
-        imageViews[0] = (ImageView)view.findViewById(R.id.iv_checkbox_image1);
-        imageViews[1] = (ImageView)view.findViewById(R.id.iv_checkbox_image2);
-        imageViews[2] = (ImageView)view.findViewById(R.id.iv_checkbox_image3);
+        imageViews[0] = view.findViewById(R.id.iv_checkbox_image1);
+        imageViews[1] = view.findViewById(R.id.iv_checkbox_image2);
+        imageViews[2] = view.findViewById(R.id.iv_checkbox_image3);
 
-        textViews[0] = (TextView)view.findViewById(R.id.tv_checkbox_text1);
-        textViews[1]  = (TextView)view.findViewById(R.id.tv_checkbox_text2);
-        textViews[2]  = (TextView)view.findViewById(R.id.tv_checkbox_text3);
+        textViews[0] = view.findViewById(R.id.tv_checkbox_text1);
+        textViews[1]  = view.findViewById(R.id.tv_checkbox_text2);
+        textViews[2]  = view.findViewById(R.id.tv_checkbox_text3);
 
 
 

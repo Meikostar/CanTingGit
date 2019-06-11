@@ -1,0 +1,853 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/content_bg">
+    <LinearLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+        <ImageView
+            android:layout_marginLeft="7dp"
+            android:id="@+id/iv_back"
+            android:layout_width="22dp"
+            android:layout_height="36dp"
+            android:padding="5dp"
+            android:src="@drawable/fb_back" />
+        <LinearLayout
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:orientation="vertical"
+            android:gravity="center_vertical">
+            <TextView
+
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="编辑资料"
+                android:textColor="#222"
+                android:textSize="18sp" />
+            <TextView
+
+                android:layout_marginTop="3dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:id="@+id/tv_editor"
+                android:text="完成度60%"
+                android:textColor="#888"
+                android:textSize="11sp" />
+        </LinearLayout>
+        <Button
+            android:id="@+id/but_save"
+            android:layout_width="wrap_content"
+            android:minWidth="57.5dp"
+            android:layout_height="29dp"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="11.5dp"
+            android:background="@drawable/shape_bg_lin_cancel"
+            android:text="@string/bc"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+
+   <com.zhongchuang.canting.widget.StickyScrollView
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+       <LinearLayout
+           android:background="@color/content_bg"
+           android:orientation="vertical"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent">
+           <LinearLayout
+               android:background="@color/white"
+               android:orientation="vertical"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="85dp"
+                   android:layout_marginTop="10dp"
+                   android:background="@color/white"
+                   android:gravity="center_vertical"
+                   android:orientation="horizontal">
+
+                   <ImageView
+                       android:id="@+id/iv_img"
+                       android:layout_width="65dp"
+                       android:layout_height="65dp"
+                       android:layout_marginLeft="15dp" />
+                   <TextView
+                       android:id="@+id/tv_ava"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_marginLeft="15dp"
+                       android:text="头像编辑"
+                       android:textColor="@color/color3"
+                       android:textSize="15sp" />
+
+
+               </LinearLayout>
+               <FrameLayout
+                   android:background="@color/white"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   >
+                   <LinearLayout
+                       android:layout_width="match_parent"
+                       android:layout_height="98dp"
+                       android:layout_gravity="center_vertical"
+                       android:background="@color/white"
+                       android:orientation="vertical">
+
+                       <ImageView
+                           android:layout_marginLeft="15dp"
+                           android:id="@+id/iv_add_photo"
+                           android:layout_width="74dp"
+                           android:layout_height="74dp"
+                           android:layout_marginBottom="15dp"
+                           android:layout_marginTop="15dp"
+                           android:src="@drawable/addmoretp" />
+                   </LinearLayout>
+
+                   <com.zhongchuang.canting.widget.ImageUploadView
+                       android:id="@+id/piuv_remark_image"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:padding="5.7dp"
+                       android:visibility="gone" />
+               </FrameLayout>
+              <LinearLayout
+                  android:layout_marginBottom="6dp"
+                  android:layout_width="match_parent"
+                  android:layout_height="60dp"
+                  android:layout_marginLeft="15dp"
+                  android:layout_marginRight="15dp"
+                  android:background="@drawable/warn_bg"
+                  android:orientation="horizontal">
+                  <ImageView
+                      android:layout_marginLeft="15dp"
+                      android:layout_width="18dp"
+                      android:layout_height="18dp"
+                      android:layout_marginBottom="15dp"
+                      android:layout_marginTop="12dp"
+                      android:src="@drawable/warn" />
+                  <TextView
+                      android:layout_marginLeft="6dp"
+                      android:lines="2"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_marginTop="10dp"
+                      android:text=" 尊敬的用户，您上传的头像须遵守相关法律法规
+和社区规则，请严格遵守相关规定，以免违规。 "
+                      android:textColor="#888"
+                      android:textSize="13sp" /></LinearLayout>
+
+              
+           </LinearLayout>
+           <TextView
+               android:background="@color/content_bg"
+               android:gravity="center_vertical"
+               android:paddingLeft="14dp"
+               android:lines="2"
+               android:layout_width="match_parent"
+               android:layout_height="43dp"
+               android:layout_marginTop="2dp"
+               android:text="基本资料 "
+               android:textColor="#222"
+               android:textSize="14sp" />
+           <LinearLayout
+               android:background="@color/white"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:gravity="center"
+               android:orientation="vertical">
+               <LinearLayout
+                   android:id="@+id/ll_nc"
+                   android:gravity="center_vertical"
+                   android:layout_width="match_parent"
+                   android:layout_height="59dp"
+                   android:orientation="horizontal">
+                   <TextView
+                       android:layout_weight="1"
+                       android:layout_marginLeft="14dp"
+
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text=" 昵称"
+                       android:textColor="#555"
+                       android:textSize="15sp" />
+                   <TextView
+                       android:singleLine="true"
+                       android:maxWidth="280dp"
+                       android:id="@+id/tv_nc"
+                       android:layout_marginRight="15dp"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text=" 添加你的昵称"
+                       android:textColor="#222"
+                       android:textSize="15sp" />
+
+                   <ImageView
+                       android:layout_width="7dp"
+                       android:layout_height="wrap_content"
+                       android:layout_marginRight="15dp"
+                       android:src="@drawable/arrow_left" />
+               </LinearLayout>
+               <View
+                   android:layout_width="match_parent"
+                   android:layout_height="0.05dp"
+                   android:background="@color/linecolor"
+                   android:layout_marginLeft="15dp"
+                   android:layout_marginRight="15dp"/>
+               <LinearLayout
+                   android:id="@+id/ll_date"
+                   android:gravity="center_vertical"
+                   android:layout_width="match_parent"
+                   android:layout_height="59dp"
+                   android:orientation="horizontal">
+                   <TextView
+                       android:layout_weight="1"
+                       android:layout_marginLeft="14dp"
+
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text=" 出生日期"
+                       android:textColor="#555"
+                       android:textSize="15sp" />
+                   <TextView
+                       android:id="@+id/tv_date"
+                       android:layout_marginRight="15dp"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text=" 选择出生日期"
+                       android:singleLine="true"
+                       android:maxWidth="260dp"
+                       android:textColor="#222"
+                       android:textSize="15sp" />
+                   <ImageView
+                       android:layout_marginRight="15dp"
+                       android:layout_width="7dp"
+                       android:layout_height="13dp"
+                       android:src="@drawable/arrow_left"/>
+               </LinearLayout>
+               <View
+                   android:layout_width="match_parent"
+                   android:layout_height="0.05dp"
+                   android:background="@color/linecolor"
+                   android:layout_marginLeft="15dp"
+                   android:layout_marginRight="15dp"/>
+               <LinearLayout
+                   android:id="@+id/ll_yj"
+                   android:gravity="center_vertical"
+                   android:layout_width="match_parent"
+                   android:layout_height="59dp"
+                   android:orientation="horizontal">
+                   <TextView
+                       android:layout_weight="1"
+                       android:layout_marginLeft="14dp"
+
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text=" 印记"
+                       android:textColor="#555"
+                       android:textSize="15sp" />
+                   <TextView
+                       android:layout_marginRight="15dp"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text=" 设置你的印记隐私"
+                       android:singleLine="true"
+                       android:maxWidth="260dp"
+                       android:textColor="#222"
+                       android:textSize="15sp" />
+                   <ImageView
+                       android:layout_marginRight="15dp"
+                       android:layout_width="7dp"
+                       android:layout_height="13dp"
+                       android:src="@drawable/arrow_left"/>
+               </LinearLayout>
+
+           </LinearLayout>
+           <TextView
+               android:background="@color/content_bg"
+               android:gravity="center_vertical"
+               android:paddingLeft="14dp"
+               android:lines="2"
+               android:layout_width="match_parent"
+               android:layout_height="43dp"
+               android:layout_marginTop="2dp"
+               android:text="个人信息 "
+               android:textColor="#222"
+               android:textSize="14sp" />
+
+
+           <LinearLayout
+               android:background="@color/white"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:gravity="center"
+               android:orientation="vertical">
+               <LinearLayout
+                   android:id="@+id/ll_sh"
+                   android:gravity="center_vertical"
+                   android:layout_width="match_parent"
+                   android:layout_height="59dp"
+                   android:orientation="horizontal">
+                   <TextView
+                       android:layout_weight="1"
+                       android:layout_marginLeft="14dp"
+
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text=" 社会名片"
+                       android:textColor="#555"
+                       android:textSize="15sp" />
+                   <TextView
+                       android:id="@+id/tv_sh"
+                       android:layout_marginRight="15dp"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text=" 添加社会名片"
+                       android:singleLine="true"
+                       android:maxWidth="260dp"
+                       android:textColor="#222"
+                       android:textSize="15sp" />
+                   <ImageView
+                       android:layout_marginRight="15dp"
+                       android:layout_width="7dp"
+                       android:layout_height="13dp"
+                       android:src="@drawable/arrow_left"/>
+               </LinearLayout>
+               <View
+                   android:layout_width="match_parent"
+                   android:layout_height="0.05dp"
+                   android:background="@color/linecolor"
+                   android:layout_marginLeft="15dp"
+                   android:layout_marginRight="15dp"/>
+               <LinearLayout
+                   android:id="@+id/ll_zw"
+                   android:gravity="center_vertical"
+                   android:layout_width="match_parent"
+                   android:layout_height="59dp"
+                   android:orientation="horizontal">
+                   <TextView
+                       android:layout_weight="1"
+                       android:layout_marginLeft="14dp"
+
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text=" 自我个性"
+                       android:textColor="#555"
+                       android:textSize="15sp" />
+                   <TextView
+                       android:id="@+id/tv_zw"
+                       android:layout_marginRight="15dp"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text=" 选择你的个性"
+                       android:singleLine="true"
+                       android:maxWidth="260dp"
+                       android:textColor="#222"
+                       android:textSize="15sp" />
+                   <ImageView
+                       android:layout_marginRight="15dp"
+                       android:layout_width="7dp"
+                       android:layout_height="13dp"
+                       android:src="@drawable/arrow_left"/>
+               </LinearLayout>
+               <View
+                   android:layout_width="match_parent"
+                   android:layout_height="0.05dp"
+                   android:background="@color/linecolor"
+                   android:layout_marginLeft="15dp"
+                   android:layout_marginRight="15dp"/>
+               <LinearLayout
+                   android:id="@+id/ll_xz"
+                   android:gravity="center_vertical"
+                   android:layout_width="match_parent"
+                   android:layout_height="59dp"
+                   android:orientation="horizontal">
+                   <TextView
+                       android:layout_weight="1"
+                       android:layout_marginLeft="14dp"
+
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text=" 现在状态"
+                       android:textColor="#555"
+                       android:textSize="15sp" />
+                   <TextView
+                       android:id="@+id/tv_xz"
+                       android:layout_marginRight="15dp"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text=" 选择你的状态"
+                       android:singleLine="true"
+                       android:maxWidth="260dp"
+                       android:textColor="#222"
+                       android:textSize="15sp" />
+                   <ImageView
+                       android:layout_marginRight="15dp"
+                       android:layout_width="7dp"
+                       android:layout_height="13dp"
+                       android:src="@drawable/arrow_left"/>
+               </LinearLayout>
+               <View
+                   android:layout_width="match_parent"
+                   android:layout_height="0.05dp"
+                   android:background="@color/linecolor"
+                   android:layout_marginLeft="15dp"
+                   android:layout_marginRight="15dp"/>
+               <LinearLayout
+                   android:id="@+id/ll_cn"
+                   android:gravity="center_vertical"
+                   android:layout_width="match_parent"
+                   android:layout_height="59dp"
+                   android:orientation="horizontal">
+                   <TextView
+                       android:layout_weight="1"
+                       android:layout_marginLeft="14dp"
+
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text=" 超能力"
+                       android:textColor="#555"
+                       android:textSize="15sp" />
+                   <TextView
+                       android:id="@+id/tv_cn"
+                       android:layout_marginRight="15dp"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text=" 添加你的超能力"
+                       android:singleLine="true"
+                       android:maxWidth="260dp"
+                       android:textColor="#222"
+                       android:textSize="15sp" />
+                   <ImageView
+                       android:layout_marginRight="15dp"
+                       android:layout_width="7dp"
+                       android:layout_height="13dp"
+                       android:src="@drawable/arrow_left"/>
+               </LinearLayout>
+               <View
+                   android:layout_width="match_parent"
+                   android:layout_height="0.05dp"
+                   android:background="@color/linecolor"
+                   android:layout_marginLeft="15dp"
+                   android:layout_marginRight="15dp"/>
+               <LinearLayout
+                   android:id="@+id/ll_qm"
+                   android:gravity="center_vertical"
+                   android:layout_width="match_parent"
+                   android:layout_height="59dp"
+                   android:orientation="horizontal">
+                   <TextView
+                       android:layout_weight="1"
+                       android:layout_marginLeft="14dp"
+
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text=" 个人签名"
+                       android:textColor="#555"
+                       android:textSize="15sp" />
+                   <TextView
+                       android:id="@+id/tv_qm"
+                       android:layout_marginRight="15dp"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text=" 添加个性签名"
+                       android:singleLine="true"
+                       android:maxWidth="260dp"
+                       android:textColor="#222"
+                       android:textSize="15sp" />
+                   <ImageView
+                       android:layout_marginRight="15dp"
+                       android:layout_width="7dp"
+                       android:layout_height="13dp"
+                       android:src="@drawable/arrow_left"/>
+               </LinearLayout>
+               <View
+                   android:layout_width="match_parent"
+                   android:layout_height="0.05dp"
+                   android:background="@color/linecolor"
+                   android:layout_marginLeft="15dp"
+                   android:layout_marginRight="15dp"/>
+               <LinearLayout
+                   android:id="@+id/ll_jx"
+                   android:gravity="center_vertical"
+                   android:layout_width="match_parent"
+                   android:layout_height="59dp"
+                   android:orientation="horizontal">
+                   <TextView
+                       android:layout_weight="1"
+                       android:layout_marginLeft="14dp"
+
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text=" 家乡"
+                       android:textColor="#555"
+                       android:textSize="15sp" />
+                   <TextView
+                       android:id="@+id/tv_jx"
+                       android:layout_marginRight="15dp"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text=" 选择你的家乡"
+                       android:singleLine="true"
+                       android:maxWidth="260dp"
+                       android:textColor="#222"
+                       android:textSize="15sp" />
+                   <ImageView
+                       android:layout_marginRight="15dp"
+                       android:layout_width="7dp"
+                       android:layout_height="13dp"
+                       android:src="@drawable/arrow_left"/>
+               </LinearLayout>
+               <View
+                   android:layout_width="match_parent"
+                   android:layout_height="0.05dp"
+                   android:background="@color/linecolor"
+                   android:layout_marginLeft="15dp"
+                   android:layout_marginRight="15dp"/>
+               <LinearLayout
+                   android:id="@+id/ll_zy"
+                   android:gravity="center_vertical"
+                   android:layout_width="match_parent"
+                   android:layout_height="59dp"
+                   android:orientation="horizontal">
+                   <TextView
+                       android:layout_weight="1"
+                       android:layout_marginLeft="14dp"
+
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text=" 职业"
+                       android:textColor="#555"
+                       android:textSize="15sp" />
+                   <TextView
+                       android:id="@+id/tv_zy"
+                       android:layout_marginRight="15dp"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text=" 添加你的职业"
+                       android:singleLine="true"
+                       android:maxWidth="260dp"
+                       android:textColor="#222"
+                       android:textSize="15sp" />
+                   <ImageView
+                       android:layout_marginRight="15dp"
+                       android:layout_width="7dp"
+                       android:layout_height="13dp"
+                       android:src="@drawable/arrow_left"/>
+               </LinearLayout>
+               <View
+                   android:layout_width="match_parent"
+                   android:layout_height="0.05dp"
+                   android:background="@color/linecolor"
+                   android:layout_marginLeft="15dp"
+                   android:layout_marginRight="15dp"/>
+               <LinearLayout
+                   android:id="@+id/ll_xx"
+                   android:gravity="center_vertical"
+                   android:layout_width="match_parent"
+                   android:layout_height="59dp"
+                   android:orientation="horizontal">
+                   <TextView
+                       android:layout_weight="1"
+                       android:layout_marginLeft="14dp"
+
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text=" 学校"
+                       android:textColor="#555"
+                       android:textSize="15sp" />
+                   <TextView
+                       android:id="@+id/tv_xx"
+                       android:singleLine="true"
+                       android:maxWidth="260dp"
+                       android:layout_marginRight="15dp"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text=" 添加你的学校"
+                       android:textColor="#222"
+                       android:textSize="15sp" />
+                   <ImageView
+                       android:layout_marginRight="15dp"
+                       android:layout_width="7dp"
+                       android:layout_height="13dp"
+                       android:src="@drawable/arrow_left"/>
+               </LinearLayout>
+
+           </LinearLayout>
+           <TextView
+               android:background="@color/content_bg"
+               android:gravity="center_vertical"
+               android:paddingLeft="14dp"
+               android:lines="2"
+               android:layout_width="match_parent"
+               android:layout_height="43dp"
+               android:layout_marginTop="2dp"
+               android:text="其它资料 "
+               android:textColor="#222"
+               android:textSize="14sp" />
+           <LinearLayout
+               android:background="@color/white"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:gravity="center"
+               android:orientation="vertical">
+               <LinearLayout
+                   android:id="@+id/ll_bq"
+                   android:gravity="center_vertical"
+                   android:layout_width="match_parent"
+                   android:layout_height="59dp"
+                   android:orientation="horizontal">
+                   <TextView
+                       android:layout_weight="1"
+                       android:layout_marginLeft="14dp"
+
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text=" 标签"
+                       android:textColor="#555"
+                       android:textSize="15sp" />
+                   <TextView
+                       android:singleLine="true"
+                       android:maxWidth="260dp"
+                       android:id="@+id/tv_bq"
+                       android:layout_marginRight="15dp"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text=" 添加你的标签"
+                       android:textColor="#222"
+                       android:textSize="15sp" />
+                   <ImageView
+                       android:layout_marginRight="15dp"
+                       android:layout_width="7dp"
+                       android:layout_height="13dp"
+                       android:src="@drawable/arrow_left"/>
+               </LinearLayout>
+               <View
+                   android:layout_width="match_parent"
+                   android:layout_height="0.05dp"
+                   android:background="@color/linecolor"
+                   android:layout_marginLeft="15dp"
+                   android:layout_marginRight="15dp"/>
+               <LinearLayout
+                   android:id="@+id/ll_zj"
+                   android:gravity="center_vertical"
+                   android:layout_width="match_parent"
+                   android:layout_height="59dp"
+                   android:orientation="horizontal">
+                   <TextView
+                       android:layout_weight="1"
+                       android:layout_marginLeft="14dp"
+
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text=" 地点足迹"
+                       android:textColor="#555"
+                       android:textSize="15sp" />
+                   <TextView
+                       android:singleLine="true"
+                       android:maxWidth="260dp"
+                       android:layout_marginRight="15dp"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text=" 填写你的工作地和居住地"
+                       android:textColor="#222"
+                       android:textSize="15sp" />
+                   <ImageView
+                       android:layout_marginRight="15dp"
+                       android:layout_width="7dp"
+                       android:layout_height="13dp"
+                       android:src="@drawable/arrow_left"/>
+               </LinearLayout>
+               <View
+                   android:layout_width="match_parent"
+                   android:layout_height="0.05dp"
+                   android:background="@color/linecolor"
+                   android:layout_marginLeft="15dp"
+                   android:layout_marginRight="15dp"/>
+               <LinearLayout
+                   android:id="@+id/ll_sm"
+                   android:gravity="center_vertical"
+                   android:layout_width="match_parent"
+                   android:layout_height="59dp"
+                   android:orientation="horizontal">
+                   <TextView
+                       android:layout_weight="1"
+                       android:layout_marginLeft="14dp"
+
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text=" 个人说明"
+                       android:textColor="#555"
+                       android:textSize="15sp" />
+                   <TextView
+                       android:singleLine="true"
+                       android:maxWidth="260dp"
+                       android:id="@+id/tv_sm"
+                       android:layout_marginRight="15dp"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text=" 添加个人说明"
+                       android:textColor="#222"
+                       android:textSize="15sp" />
+                   <ImageView
+                       android:layout_marginRight="15dp"
+                       android:layout_width="7dp"
+                       android:layout_height="13dp"
+                       android:src="@drawable/arrow_left"/>
+               </LinearLayout>
+
+           </LinearLayout>
+           <TextView
+               android:background="@color/content_bg"
+               android:gravity="center_vertical"
+               android:paddingLeft="14dp"
+               android:lines="2"
+               android:layout_width="match_parent"
+               android:layout_height="43dp"
+               android:layout_marginTop="2dp"
+               android:text="兴趣爱好 "
+               android:textColor="#222"
+               android:textSize="14sp" />
+           <LinearLayout
+               android:background="@color/white"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:gravity="center"
+               android:orientation="vertical">
+               <LinearLayout
+                   android:id="@+id/ll_dy"
+                   android:gravity="center_vertical"
+                   android:layout_width="match_parent"
+                   android:layout_height="59dp"
+                   android:orientation="horizontal">
+                   <TextView
+                       android:layout_weight="1"
+                       android:layout_marginLeft="14dp"
+
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text=" 电影"
+                       android:textColor="#555"
+                       android:textSize="15sp" />
+                   <TextView
+                       android:singleLine="true"
+                       android:maxWidth="260dp"
+                       android:id="@+id/tv_dy"
+                       android:layout_marginRight="15dp"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text=" 添加你感兴趣的电影"
+                       android:textColor="#222"
+                       android:textSize="15sp" />
+                   <ImageView
+                       android:layout_marginRight="15dp"
+                       android:layout_width="7dp"
+                       android:layout_height="13dp"
+                       android:src="@drawable/arrow_left"/>
+               </LinearLayout>
+               <View
+                   android:layout_width="match_parent"
+                   android:layout_height="0.05dp"
+                   android:background="@color/linecolor"
+                   android:layout_marginLeft="15dp"
+                   android:layout_marginRight="15dp"/>
+               <LinearLayout
+                   android:id="@+id/ll_sj"
+                   android:gravity="center_vertical"
+                   android:layout_width="match_parent"
+                   android:layout_height="59dp"
+                   android:orientation="horizontal">
+                   <TextView
+                       android:layout_weight="1"
+                       android:layout_marginLeft="14dp"
+                       android:singleLine="true"
+                       android:maxWidth="260dp"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text=" 小说"
+                       android:textColor="#555"
+                       android:textSize="15sp" />
+                   <TextView
+                       android:id="@+id/tv_sj"
+                       android:layout_marginRight="15dp"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text=" 填写你感兴趣的小说"
+                       android:textColor="#222"
+                       android:textSize="15sp" />
+                   <ImageView
+                       android:layout_marginRight="15dp"
+                       android:layout_width="7dp"
+                       android:layout_height="13dp"
+                       android:src="@drawable/arrow_left"/>
+               </LinearLayout>
+               <View
+                   android:layout_width="match_parent"
+                   android:layout_height="0.05dp"
+                   android:background="@color/linecolor"
+                   android:layout_marginLeft="15dp"
+                   android:layout_marginRight="15dp"/>
+               <LinearLayout
+                   android:id="@+id/ll_song"
+                   android:gravity="center_vertical"
+                   android:layout_width="match_parent"
+                   android:layout_height="59dp"
+                   android:orientation="horizontal">
+                   <TextView
+                       android:layout_weight="1"
+                       android:layout_marginLeft="14dp"
+
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text=" 音乐"
+                       android:textColor="#555"
+                       android:textSize="15sp" />
+                   <TextView
+                       android:id="@+id/tv_song"
+                       android:layout_marginRight="15dp"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text=" 添加你喜欢的歌曲"
+                       android:textColor="#222"
+                       android:textSize="15sp" />
+                   <ImageView
+                       android:layout_marginRight="15dp"
+                       android:layout_width="7dp"
+                       android:layout_height="13dp"
+                       android:src="@drawable/arrow_left"/>
+               </LinearLayout>
+               <View
+                   android:layout_width="match_parent"
+                   android:layout_height="0.05dp"
+                   android:background="@color/linecolor"
+                   android:layout_marginLeft="15dp"
+                   android:layout_marginRight="15dp"/>
+
+           </LinearLayout>
+       </LinearLayout>
+   </com.zhongchuang.canting.widget.StickyScrollView>
+   
+
+
+
+
+
+    <View
+
+        android:layout_width="match_parent"
+        android:layout_height="0.01dp"
+        android:id="@+id/ll_bottom_button"/>
+</LinearLayout>

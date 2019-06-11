@@ -27,6 +27,8 @@ public class videobean extends BaseResponse{
     public String cover_image;
     public String user_info_id;
     public String type;
+    public int video_type;
+    public String new_type;
     public String request_id;
 
     public List<videobean> data;

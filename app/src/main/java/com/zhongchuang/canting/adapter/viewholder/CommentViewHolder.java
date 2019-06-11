@@ -6,7 +6,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.widget.StarBar;
 
 
@@ -24,9 +24,9 @@ public class CommentViewHolder extends RecyclerView.ViewHolder {
 
     public CommentViewHolder(View itemView) {
         super(itemView);
-        img = (ImageView) itemView.findViewById(R.id.iv_img);
-        tvName = (TextView) itemView.findViewById(R.id.tv_name);
-        tvMoney = (TextView) itemView.findViewById(R.id.tv_money);
+        img = itemView.findViewById(R.id.iv_img);
+        tvName = itemView.findViewById(R.id.tv_name);
+        tvMoney = itemView.findViewById(R.id.tv_money);
 
 
 

@@ -13,11 +13,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.PersonMessageActivity;
 import com.zhongchuang.canting.activity.live.CareLiveActivity;
 import com.zhongchuang.canting.activity.live.GiftHandActivity;
 import com.zhongchuang.canting.activity.live.LiveHandActivity;
+import com.zhongchuang.canting.activity.mine.NewPersonDetailActivity;
 import com.zhongchuang.canting.base.LazyFragment;
 import com.zhongchuang.canting.been.Host;
 import com.zhongchuang.canting.been.SubscriptionBean;
@@ -146,6 +147,9 @@ public class LiveMineFragment extends LazyFragment implements BaseContract.View 
         personPic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), NewPersonDetailActivity.class);
+                intent.putExtra("id", SpUtil.getUserInfoId(getActivity()) + "");
+                startActivity(intent);
                 startActivity(new Intent(getActivity(), PersonMessageActivity.class));
             }
         });
@@ -258,10 +262,10 @@ public class LiveMineFragment extends LazyFragment implements BaseContract.View 
         TextView title = null;
         EditText reson = null;
         View views = View.inflate(getActivity(), R.layout.live_popow_view, null);
-        title = (TextView) views.findViewById(R.id.txt_title);
-        content = (TextView) views.findViewById(R.id.txt_content);
-        desc = (TextView) views.findViewById(R.id.txt_desc);
-        iv_close = (ImageView) views.findViewById(R.id.iv_close);
+        title = views.findViewById(R.id.txt_title);
+        content = views.findViewById(R.id.txt_content);
+        desc = views.findViewById(R.id.txt_desc);
+        iv_close = views.findViewById(R.id.iv_close);
 
         title.setText(var1);
         content.setText(var2);

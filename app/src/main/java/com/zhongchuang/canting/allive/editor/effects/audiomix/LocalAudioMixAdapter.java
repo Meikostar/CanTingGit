@@ -45,11 +45,11 @@ public class LocalAudioMixAdapter extends RecyclerView.Adapter<RecyclerView.View
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.aliyun_svideo_music_item_view, parent, false);
         AudioMixViewHolder audioMixViewHolder = new AudioMixViewHolder(view);
-        audioMixViewHolder.musicName = (TextView) view.findViewById(R.id.music_name);
-        audioMixViewHolder.musicType = (TextView) view.findViewById(R.id.music_type);
+        audioMixViewHolder.musicName = view.findViewById(R.id.music_name);
+        audioMixViewHolder.musicType = view.findViewById(R.id.music_type);
         audioMixViewHolder.musicType.setVisibility(View.VISIBLE);
-        audioMixViewHolder.selectFlag = (ImageView) view.findViewById(R.id.selected_flag);
-        audioMixViewHolder.downloadBtn = (ImageView) view.findViewById(R.id.download_btn);
+        audioMixViewHolder.selectFlag = view.findViewById(R.id.selected_flag);
+        audioMixViewHolder.downloadBtn = view.findViewById(R.id.download_btn);
         audioMixViewHolder.downloadBtn.setVisibility(View.GONE);
         return audioMixViewHolder;
     }

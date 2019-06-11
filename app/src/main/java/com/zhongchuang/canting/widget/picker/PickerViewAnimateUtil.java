@@ -2,7 +2,7 @@ package com.zhongchuang.canting.widget.picker;
 
 import android.view.Gravity;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 
 
 /**

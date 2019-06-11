@@ -92,7 +92,7 @@ public class DownloadSection extends StatelessSection {
         } else if (status == Status.Start) {
             //start
             itemViewHolder.tvDownloadVideoStats.setText(context.get().getResources().getString(R.string.download_downloading));
-            itemViewHolder.ivVideoState.setBackgroundResource(R.drawable.alivc_download_downloading);
+//            itemViewHolder.ivVideoState.setBackgroundResource(R.drawable.alivc_download_downloading);
             itemViewHolder.ivVideoState.setVisibility(View.VISIBLE);
         } else if (status == Status.Stop) {
             //stop
@@ -156,7 +156,7 @@ public class DownloadSection extends StatelessSection {
 
         SectionItemViewHolder(View view){
             super(view);
-            tvSectionItemTitle = (TextView)view.findViewById(R.id.tv_section_item_title);
+            tvSectionItemTitle = view.findViewById(R.id.tv_section_item_title);
         }
     }
 
@@ -173,15 +173,15 @@ public class DownloadSection extends StatelessSection {
 
         DownloadInfoItemViewHolder(View view){
             super(view);
-            llDownloadItemRootView = (LinearLayout)view.findViewById(R.id.ll_download_item_root_view);
-            cbSelect = (CheckBox)view.findViewById(R.id.cb_select);
-            ivVideoCover = (ImageView)view.findViewById(R.id.iv_video_cover);
-            ivVideoState = (ImageView)view.findViewById(R.id.iv_video_state);
-            tvVideoTitle = (TextView)view.findViewById(R.id.tv_video_title);
-            tvDownloadVideoStats = (TextView)view.findViewById(R.id.tv_download_video_stats);
-            tvDownloadVideoCurrentSpeed = (TextView)view.findViewById(R.id.tv_download_video_current_speed);
-            tvDownloadVideoTotalSize = (TextView)view.findViewById(R.id.tv_video_total_size);
-            progressDownloadVideo = (ProgressBar)view.findViewById(R.id.progress_download_video);
+            llDownloadItemRootView = view.findViewById(R.id.ll_download_item_root_view);
+            cbSelect = view.findViewById(R.id.cb_select);
+            ivVideoCover = view.findViewById(R.id.iv_video_cover);
+            ivVideoState = view.findViewById(R.id.iv_video_state);
+            tvVideoTitle = view.findViewById(R.id.tv_video_title);
+            tvDownloadVideoStats = view.findViewById(R.id.tv_download_video_stats);
+            tvDownloadVideoCurrentSpeed = view.findViewById(R.id.tv_download_video_current_speed);
+            tvDownloadVideoTotalSize = view.findViewById(R.id.tv_video_total_size);
+            progressDownloadVideo = view.findViewById(R.id.progress_download_video);
         }
     }
 

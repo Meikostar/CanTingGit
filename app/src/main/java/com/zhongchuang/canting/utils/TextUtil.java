@@ -37,10 +37,7 @@ public class TextUtil {
      * @return true if str is null or zero length
      */
     public static boolean isEmpty(CharSequence str){
-        if (str == null || str.length() == 0)
-            return true;
-        else
-            return false;
+        return str == null || str.length() == 0;
     }
 
     /**
@@ -49,10 +46,7 @@ public class TextUtil {
      * @return false if str is null or zero length
      */
     public static boolean isNotEmpty(CharSequence str){
-        if (str == null || str.length() == 0)
-            return false;
-        else
-            return true;
+        return str != null && str.length() != 0;
     }
 
     /**
@@ -65,11 +59,7 @@ public class TextUtil {
            return true;
        }else {
            str=str.toString().trim();
-           if(isEmpty(str)){
-               return true;
-           }else {
-               return false;
-           }
+           return isEmpty(str);
        }
     }
 

@@ -132,10 +132,7 @@ public class Common {
 
                 @Override
                 public boolean accept(File file, String s) {
-                    if(s.endsWith(".mp3")) {
-                        return true;
-                    }
-                    return false;
+                    return s.endsWith(".mp3");
                 }
             });
             if(files != null && files.length > 0) {

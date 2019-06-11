@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.PersonMessageActivity;
 import com.zhongchuang.canting.activity.RegistActivity;
 import com.zhongchuang.canting.activity.HomeActivity;
@@ -47,8 +47,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-
-;
 
 /**
  * Created by Administrator on 2017/10/29.
@@ -109,9 +107,9 @@ public class Regist_PasswordFragment extends Fragment implements RegisterViewCal
         TextView title = null;
         EditText reson = null;
         View views = View.inflate(getActivity(), R.layout.base_dailog_view, null);
-        sure = (TextView) views.findViewById(R.id.txt_sure);
-        cancel = (TextView) views.findViewById(R.id.txt_cancel);
-        title = (TextView) views.findViewById(R.id.txt_title);
+        sure = views.findViewById(R.id.txt_sure);
+        cancel = views.findViewById(R.id.txt_cancel);
+        title = views.findViewById(R.id.txt_title);
 
         title.setText(R.string.qdqxgdd);
         final MarkaBaseDialog dialog = BaseDailogManager.getInstance().getBuilder(getActivity()).setMessageView(views).create();

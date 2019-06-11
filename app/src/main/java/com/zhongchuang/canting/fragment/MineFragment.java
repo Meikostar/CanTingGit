@@ -1,5 +1,7 @@
 package com.zhongchuang.canting.fragment;
 
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -9,20 +11,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.aliyun.common.utils.ToastUtil;
 import com.bumptech.glide.Glide;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.ChatActivity;
 import com.zhongchuang.canting.activity.MineCodeActivity;
 import com.zhongchuang.canting.activity.PersonMessageActivity;
-import com.zhongchuang.canting.activity.RechargeActivity;
 import com.zhongchuang.canting.activity.WebViewActivity;
 import com.zhongchuang.canting.activity.mall.AddressListActivity;
 import com.zhongchuang.canting.activity.mall.SettingActivity;
 import com.zhongchuang.canting.activity.mine.CodeUploadActivity;
+import com.zhongchuang.canting.activity.mine.NewPersonDetailActivity;
+import com.zhongchuang.canting.activity.mine.ProfitChargeActivity;
 import com.zhongchuang.canting.activity.mine.WpChargeActivity;
 import com.zhongchuang.canting.adapter.ProfileItemAdapter;
 import com.zhongchuang.canting.app.CanTingAppLication;
@@ -38,10 +43,13 @@ import com.zhongchuang.canting.utils.ShareUtils;
 import com.zhongchuang.canting.utils.SpUtil;
 import com.zhongchuang.canting.utils.StringUtil;
 import com.zhongchuang.canting.utils.TextUtil;
+import com.zhongchuang.canting.widget.BaseDailogManager;
 import com.zhongchuang.canting.widget.CircleTransform;
+import com.zhongchuang.canting.widget.MarkaBaseDialog;
 import com.zhongchuang.canting.widget.NoScrollGridView;
 import com.zhongchuang.canting.widget.RxBus;
 import com.zhongchuang.canting.widget.SharePopWindow;
+import com.zhongchuang.canting.widget.StickyScrollView;
 
 import java.util.ArrayList;
 
@@ -57,17 +65,22 @@ import rx.functions.Action1;
 public class MineFragment extends LazyFragment implements BaseContract.View, AdapterView.OnItemClickListener {
 
 
-    @BindView(R.id.grid_content)
-    NoScrollGridView gridView;
     @BindView(R.id.line)
     View line;
-
     @BindView(R.id.person_pic)
     ImageView personPic;
     @BindView(R.id.person_name)
     TextView personName;
-    @BindView(R.id.tv_phone)
-    TextView tvPhone;
+    @BindView(R.id.ll_bg)
+    LinearLayout llBg;
+    @BindView(R.id.tv_profit)
+    TextView tvProfit;
+    @BindView(R.id.tv_charge)
+    TextView tvCharge;
+    @BindView(R.id.tv_code)
+    TextView tvCode;
+    @BindView(R.id.tv_get)
+    TextView tvGet;
     @BindView(R.id.tv_cz)
     TextView tvCz;
     @BindView(R.id.ll_cz)
@@ -80,12 +93,18 @@ public class MineFragment extends LazyFragment implements BaseContract.View, Ada
     TextView tvJf;
     @BindView(R.id.ll_lt)
     LinearLayout llLt;
+    @BindView(R.id.ll_bgs)
+    LinearLayout llBgs;
     @BindView(R.id.tv_ye)
     TextView tvYe;
     @BindView(R.id.ll_zb)
     LinearLayout llZb;
-    @BindView(R.id.ll_bg)
-    LinearLayout llBg;
+    @BindView(R.id.grid_content)
+    NoScrollGridView gridView;
+    @BindView(R.id.scrollView)
+    StickyScrollView scrollView;
+    @BindView(R.id.ll_profit)
+    LinearLayout llProfit;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -102,12 +121,13 @@ public class MineFragment extends LazyFragment implements BaseContract.View, Ada
         ButterKnife.bind(this, viewRoot);
         initView();
         presenter = new BasesPresenter(this);
-
         presenter.getUserIntegral();
         setLoginMessage();
         showSelectType();
         setAdapter();
-
+        llBgs.setFocusable(true);
+        llBgs.setFocusableInTouchMode(true);
+        scrollView.setFocusable(false);
         return viewRoot;
     }
 
@@ -140,11 +160,11 @@ public class MineFragment extends LazyFragment implements BaseContract.View, Ada
         String avar = SpUtil.getString(getActivity(), "ava", "");
         if (TextUtils.isEmpty(token) || token.equals("") || TextUtils.isEmpty(token) || token.equals("")) {
             phone = getString(R.string.qdl);
-            tvPhone.setVisibility(View.GONE);
+
         } else {
-            tvPhone.setVisibility(View.VISIBLE);
+
             personName.setText(name);
-            tvPhone.setText(phone);
+
 
         }
         if (presenter != null) {
@@ -164,7 +184,7 @@ public class MineFragment extends LazyFragment implements BaseContract.View, Ada
     private String shopid;
 
     private ArrayList<PROFILE_ITEM> getGridData() {
-        String[] itemname2 = new String[]{getString(R.string.hygl),getString(R.string.skmsc), getString(R.string.wdewm), getString(R.string.appxzm),
+        String[] itemname2 = new String[]{getString(R.string.hygl), getString(R.string.skmsc), getString(R.string.wdewm), getString(R.string.appxzm),
                 getString(R.string.lxkf), getString(R.string.shdz), getString(R.string.wdxc), getString(R.string.shezhi)};
         ArrayList<PROFILE_ITEM> item_list = new ArrayList<PROFILE_ITEM>();
 
@@ -212,14 +232,17 @@ public class MineFragment extends LazyFragment implements BaseContract.View, Ada
         llBg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), PersonMessageActivity.class));
+                Intent intent = new Intent(getActivity(), NewPersonDetailActivity.class);
+                intent.putExtra("id", SpUtil.getUserInfoId(getActivity()) + "");
+                startActivity(intent);
+
             }
         });
 
         llCz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(bean==null){
+                if (bean == null) {
                     return;
                 }
                 Intent intent = new Intent(getActivity(), WpChargeActivity.class);
@@ -229,10 +252,11 @@ public class MineFragment extends LazyFragment implements BaseContract.View, Ada
                 startActivity(intent);
             }
         });
+
         llGj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(bean==null){
+                if (bean == null) {
                     return;
                 }
                 Intent intent = new Intent(getActivity(), WpChargeActivity.class);
@@ -245,7 +269,7 @@ public class MineFragment extends LazyFragment implements BaseContract.View, Ada
         llLt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(bean==null){
+                if (bean == null) {
                     return;
                 }
                 Intent intent = new Intent(getActivity(), WpChargeActivity.class);
@@ -258,7 +282,7 @@ public class MineFragment extends LazyFragment implements BaseContract.View, Ada
         llZb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(bean==null){
+                if (bean == null) {
                     return;
                 }
                 Intent intent = new Intent(getActivity(), WpChargeActivity.class);
@@ -268,8 +292,20 @@ public class MineFragment extends LazyFragment implements BaseContract.View, Ada
                 startActivity(intent);
             }
         });
+        tvGet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ClipboardManager cm = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+                // 将文本内容放到系统剪贴板里。
+                cm.setText(code);
+                ToastUtil.showToast(getActivity(), getString(R.string.fzcg));
+            }
+        });
+
 
     }
+
+    private String code = "888888";
 
     @Override
     public void onResume() {
@@ -311,7 +347,7 @@ public class MineFragment extends LazyFragment implements BaseContract.View, Ada
     public <T> void toEntity(T entity, int type) {
         if (type == 19) {
             bean = (Ingegebean) entity;
-            if(bean==null){
+            if (bean == null) {
                 return;
             }
             if (TextUtil.isNotEmpty(bean.money_buy_integral)) {
@@ -326,10 +362,33 @@ public class MineFragment extends LazyFragment implements BaseContract.View, Ada
             if (TextUtil.isNotEmpty(bean.direct_integral)) {
                 tvYe.setText(bean.direct_integral);
             }
+            if (TextUtil.isNotEmpty(bean.profit_count)) {
+                tvProfit.setText("￥"+bean.profit_count);
+            }
+            if (TextUtil.isNotEmpty(bean.invitation_code)) {
+                code = bean.invitation_code;
+                tvCode.setText(bean.invitation_code);
+            }
+            tvCharge.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), ProfitChargeActivity.class);
+                    intent.putExtra("profit", bean.profit_count);
+                    startActivity(intent);
+                }
+            });
+            llProfit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), ProfitChargeActivity.class);
+                    intent.putExtra("profit", bean.profit_count);
+                    startActivity(intent);
+                }
+            });
         } else {
             data = (Host) entity;
             if (TextUtil.isNotEmpty(data.integralTotal)) {
-                CanTingAppLication.totalintegral = Double.valueOf(data.integralTotal);
+//                CanTingAppLication.totalintegral = Double.valueOf(data.integralTotal);
             }
         }
 
@@ -353,6 +412,7 @@ public class MineFragment extends LazyFragment implements BaseContract.View, Ada
             case 0://会员管理
                 intent = new Intent(getActivity(), WebViewActivity.class);
 
+
                 intent.putExtra(WebViewActivity.WEBTITLE, R.string.huiyuan);
                 intent.putExtra(WebViewActivity.WEBURL, CanTingAppLication.url);
 
@@ -370,7 +430,7 @@ public class MineFragment extends LazyFragment implements BaseContract.View, Ada
                 break;
             case 4://APP下载码
                 Intent intentc = new Intent(getActivity(), ChatActivity.class);
-                intentc.putExtra("userId", "urio1087627518581669888");
+                intentc.putExtra("userId", "urio1116552863061901312");
                 startActivity(intentc);
                 break;
             case 5://联系客服

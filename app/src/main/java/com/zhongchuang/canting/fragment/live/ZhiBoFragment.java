@@ -17,7 +17,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.adapter.FragmentViewPagerAdapter;
 import com.zhongchuang.canting.been.GAME;
 import com.zhongchuang.canting.been.SubscriptionBean;
@@ -139,6 +139,7 @@ public class ZhiBoFragment extends Fragment {
 
     }
     private String cont="";
+    public List<GAME> data=new ArrayList<>();
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -146,29 +147,34 @@ public class ZhiBoFragment extends Fragment {
         if(gameinfo.data==null){
             return;
         }
-
+        int i=0;
+        int a=0;
         if(gameinfo==null){
             gameinfo=new GAME();
         }else {
-            int i=0;
-            for(GAME game:gameinfo.data){
-                if(game.isChoose){
+
+
+            for(int c=0;c<gameinfo.data.size();c++){
+                if(gameinfo.data.get(c).isChoose){
                     gameinfo.data.get(0).isChoose=false;
-                    game.isChoose=true;
+                    gameinfo.data.get(c).isChoose=true;
+                    a=c;
                     i=1;
                 }
 
             }
             if(i==0){
+                a=0;
                 gameinfo.data.get(0).isChoose=true;
             }
 
         }
-        initFragMents();
         bnbHome.setDatas(gameinfo.data);
+        initFragMents(a);
+
     }
 
-    private void initFragMents() {
+    private void initFragMents(int poistion) {
         list_zhibofragment = new ArrayList<>();
         if(gameinfo==null||gameinfo.data==null){
             return;
@@ -182,7 +188,7 @@ public class ZhiBoFragment extends Fragment {
         mainViewPagerAdapter = new FragmentViewPagerAdapter(getChildFragmentManager(), list_zhibofragment);
         viewpagerMain.setAdapter(mainViewPagerAdapter);
         viewpagerMain.setOffscreenPageLimit(gameinfo.data.size() - 1);//设置缓存view 的个数
-        viewpagerMain.setCurrentItem(current);
+        viewpagerMain.setCurrentItem(poistion);
 
     }
 
@@ -211,7 +217,7 @@ public class ZhiBoFragment extends Fragment {
             }
             if (permissions.size() != 0) {
                 ActivityCompat.requestPermissions(getActivity(),
-                        (String[]) permissions.toArray(new String[0]),
+                        permissions.toArray(new String[0]),
                         WRITE_PERMISSION_REQ_CODE);
                 return false;
             }

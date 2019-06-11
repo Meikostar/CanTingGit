@@ -9,6 +9,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -24,20 +25,27 @@ import com.aliyun.struct.snap.AliyunSnapVideoParam;
 import com.malinskiy.superrecyclerview.OnMoreListener;
 import com.malinskiy.superrecyclerview.SuperRecyclerView;
 import com.zhongchuang.canting.R;
+import com.zhongchuang.canting.activity.chat.PlayVideoActivity;
 import com.zhongchuang.canting.adapter.recycle.GiftReCycleAdapter;
 import com.zhongchuang.canting.adapter.recycle.VideoCycleAdapter;
 import com.zhongchuang.canting.allive.importer.MediaActivity;
 import com.zhongchuang.canting.allive.recorder.AliyunVideoRecorder;
 import com.zhongchuang.canting.allive.recorder.util.Common;
 import com.zhongchuang.canting.allive.vodplayerview.activity.AliyunPlayerSkinActivity;
+import com.zhongchuang.canting.allive.vodplayerview.activity.AliyunPlayerSkinActivityMin;
+import com.zhongchuang.canting.app.CanTingAppLication;
 import com.zhongchuang.canting.base.BaseActivity1;
 import com.zhongchuang.canting.been.Hand;
 import com.zhongchuang.canting.been.Hands;
+import com.zhongchuang.canting.been.SubscriptionBean;
 import com.zhongchuang.canting.been.videobean;
 import com.zhongchuang.canting.presenter.BaseContract;
 import com.zhongchuang.canting.presenter.BasesPresenter;
+import com.zhongchuang.canting.widget.BaseDailogManager;
 import com.zhongchuang.canting.widget.DivItemDecoration;
+import com.zhongchuang.canting.widget.MarkaBaseDialog;
 import com.zhongchuang.canting.widget.PhotoPopupWindow;
+import com.zhongchuang.canting.widget.RxBus;
 import com.zhongchuang.canting.widget.loadingView.LoadingPager;
 import com.zhongchuang.canting.widget.loadingView.OnNetworkRetryListener;
 
@@ -48,6 +56,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import rx.Subscription;
+import rx.functions.Action1;
 
 
 public class MineVideoActivity extends BaseActivity1 implements BaseContract.View {
@@ -96,16 +106,65 @@ public class MineVideoActivity extends BaseActivity1 implements BaseContract.Vie
         presenter = new BasesPresenter(this);
 
         adapter = new VideoCycleAdapter(this);
+        adapter.setType(1);
         adapter.setTakeListener(new VideoCycleAdapter.TakeawayListener() {
             @Override
-            public void listener(int poistion) {
-                Intent intent = new Intent(MineVideoActivity.this, AliyunPlayerSkinActivity.class);
-                intent.putExtra("url",datas.get(poistion).video_url);
-                intent.putExtra("name",datas.get(poistion).video_name);
-                intent.putExtra("room_info_id",datas.get(poistion).room_info_id);
-                intent.putExtra("id",datas.get(poistion).user_info_id);
-                startActivity(intent);
+            public void listener(int poistion, int type) {
+                if(type==0){
+                    if(!datas.get(poistion).new_type.equals("0")){
+                        CanTingAppLication.landType=0;
+                        Intent intent = new Intent(MineVideoActivity.this, AliyunPlayerSkinActivity.class);
+                        intent.putExtra("url",datas.get(poistion).video_url);
+                        intent.putExtra("name",datas.get(poistion).video_name);
+                        intent.putExtra("room_info_id",datas.get(poistion).room_info_id);
+                        intent.putExtra("id",datas.get(poistion).user_info_id);
+                        intent.putExtra("type",3);
+                        startActivity(intent);
+                    }else {
+                        if(datas.get(poistion).video_type==1){
+                            CanTingAppLication.landType=1;
+                            Intent intent = new Intent(MineVideoActivity.this, AliyunPlayerSkinActivityMin.class);
+                            intent.putExtra("url",datas.get(poistion).video_url);
+                            intent.putExtra("name",datas.get(poistion).video_name);
+                            intent.putExtra("room_info_id",datas.get(poistion).room_info_id);
+                            intent.putExtra("id",datas.get(poistion).user_info_id);
+                            startActivity(intent);
+                        }else if(datas.get(poistion).video_type==3){
+                            CanTingAppLication.landType=0;
+                            Intent intent = new Intent(MineVideoActivity.this, AliyunPlayerSkinActivity.class);
+                            intent.putExtra("url",datas.get(poistion).video_url);
+                            intent.putExtra("name",datas.get(poistion).video_name);
+                            intent.putExtra("room_info_id",datas.get(poistion).room_info_id);
+                            intent.putExtra("id",datas.get(poistion).user_info_id);
+                            intent.putExtra("type",3);
+                            startActivity(intent);
+                        }else{
+                            CanTingAppLication.landType=0;
+                            Intent intent = new Intent(MineVideoActivity.this, AliyunPlayerSkinActivity.class);
+                            intent.putExtra("url",datas.get(poistion).video_url);
+                            intent.putExtra("name",datas.get(poistion).video_name);
+                            intent.putExtra("room_info_id",datas.get(poistion).room_info_id);
+                            intent.putExtra("id",datas.get(poistion).user_info_id);
+                            startActivity(intent);
+                        }
+
+                    }
+
+                }else if(type==-2){
+                    if(datas.get(poistion).new_type.equals("0")){
+                        sta=3;
+                    }else {
+                        sta=0;
+                    }
+                presenter.updateVideoType(datas.get(poistion).id,sta+"");
+                    showProgress("修复中...");
+                }else {
+                    showPopwindow(datas.get(poistion).video_url,datas.get(poistion).id,datas.get(poistion).type);
+                }
             }
+
+
+
         });
         mSuperRecyclerView.setAdapter(adapter);
         refreshListener = new SwipeRefreshLayout.OnRefreshListener() {
@@ -134,10 +193,26 @@ public class MineVideoActivity extends BaseActivity1 implements BaseContract.Vie
 
         initAssetPath();
         copyAssets();
+        mSubscription = RxBus.getInstance().toObserverable(SubscriptionBean.RxBusSendBean.class).subscribe(new Action1<SubscriptionBean.RxBusSendBean>() {
+            @Override
+            public void call(SubscriptionBean.RxBusSendBean bean) {
+                if (bean == null) return;
+                if (bean.type == SubscriptionBean.LIVE_FINISH) {
+                    presenter.getVideoList(TYPE_PULL_REFRESH,currpage + "");
+                }
+
+            }
+        }, new Action1<Throwable>() {
+            @Override
+            public void call(Throwable throwable) {
+                throwable.printStackTrace();
+            }
+        });
+        RxBus.getInstance().addSubscription(mSubscription);
     }
-
+    private Subscription mSubscription;
     private String[] mEffDirs;
-
+    private int sta;
     private void initAssetPath() {
         String path = StorageUtils.getCacheDirectory(this).getAbsolutePath() + File.separator + Common.QU_NAME + File.separator;
         File filter = new File(new File(path), "filter");
@@ -153,7 +228,38 @@ public class MineVideoActivity extends BaseActivity1 implements BaseContract.Vie
         }
     }
 
+    private View views=null;
+    private TextView sure = null;
+    private TextView cancel = null;
+    private TextView title = null;
+    private EditText reson = null;
+    public void showPopwindow(final String name, final String id,final String type) {
 
+        views = View.inflate(MineVideoActivity.this, R.layout.del_friend, null);
+        sure = views.findViewById(R.id.txt_sure);
+        cancel = views.findViewById(R.id.txt_cancel);
+        title = views.findViewById(R.id.tv_title);
+        reson = views.findViewById(R.id.edit_reson);
+        title.setText(getString(R.string.qdsc)+"该视频文件吗");
+        final MarkaBaseDialog dialog = BaseDailogManager.getInstance().getBuilder(MineVideoActivity.this).setMessageView(views).create();
+        dialog.show();
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        final EditText finalReson = reson;
+        sure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.delVideo(id,name,type);
+                dialog.dismiss();
+            }
+        });
+
+
+    }
     private void copyAssets() {
         new AsyncTask() {
 
@@ -188,7 +294,7 @@ public class MineVideoActivity extends BaseActivity1 implements BaseContract.Vie
 
     private int mRatio;
     private VideoQuality videoQuality;
-    private ScaleMode scaleMode = CropKey.SCALE_CROP;
+    private ScaleMode scaleMode = CropKey.SCALE_FILL;
     private int mResolutionMode, mRatioMode;
     private VideoQuality mVideoQuality;
     private VideoCodecs mVideoCodec = VideoCodecs.H264_HARDWARE;
@@ -196,15 +302,15 @@ public class MineVideoActivity extends BaseActivity1 implements BaseContract.Vie
     private static final int DEFAULT_GOP = 125;
 
     public void showPopWindows() {
-        videoQuality = VideoQuality.HD;
-        mRatio = CropKey.RATIO_MODE_3_4;
-        mResolutionMode = AliyunSnapVideoParam.RESOLUTION_540P;
-        mVideoQuality = VideoQuality.HD;
-        mRatioMode = AliyunSnapVideoParam.RATIO_MODE_3_4;
+        videoQuality = VideoQuality.SSD;
+        mRatio = CropKey.RATIO_MODE_9_16;
+        mResolutionMode = AliyunSnapVideoParam.RESOLUTION_720P;
+        mVideoQuality = VideoQuality.SSD;
+        mRatioMode = AliyunSnapVideoParam.RATIO_MODE_9_16;
         View view = LayoutInflater.from(MineVideoActivity.this).inflate(R.layout.chat_phone_popwindow_view, null);
-        TextView tv_camera = (TextView) view.findViewById(R.id.tv_camera);
-        TextView tv_choose = (TextView) view.findViewById(R.id.tv_choose);
-        TextView tv_cancel = (TextView) view.findViewById(R.id.tv_cancel);
+        TextView tv_camera = view.findViewById(R.id.tv_camera);
+        TextView tv_choose = view.findViewById(R.id.tv_choose);
+        TextView tv_cancel = view.findViewById(R.id.tv_cancel);
         tv_choose.setText(R.string.ps);
         tv_camera.setText(R.string.csjzxz);
         tv_camera.setOnClickListener(new View.OnClickListener() {
@@ -352,21 +458,36 @@ public class MineVideoActivity extends BaseActivity1 implements BaseContract.Vie
     @Override
     public void onDestroy() {
         super.onDestroy();
-
+    if(mSubscription!=null){
+        mSubscription.unsubscribe();
+    }
     }
 
 
     @Override
     public <T> void toEntity(T entity, int type) {
-        List<videobean> data = (List<videobean>) entity;
-        if (data != null && data.size()>0) {
-            onDataLoaded(type, cout == data.size(),data);
+        dimessProgress();
+        if(type==66){
+            reflash();
+        }else  if(type==123){
+            if(sta==3){
+                showToasts("切换成功");
+            }else {
+                showToasts("还原成功");
+            }
+            reflash();
+        }else {
+            List<videobean> data = (List<videobean>) entity;
+            if (data != null && data.size()>0) {
+                onDataLoaded(type, cout == data.size(),data);
 
-        } else {
-            adapter.notifyDataSetChanged();
-            loadingView.setContent("您还没有录播视频");
-            loadingView.showPager(LoadingPager.STATE_EMPTY);
+            } else {
+                adapter.notifyDataSetChanged();
+                loadingView.setContent("您还没有录播视频");
+                loadingView.showPager(LoadingPager.STATE_EMPTY);
+            }
         }
+
     }
 
     private void reflash() {
@@ -389,7 +510,8 @@ public class MineVideoActivity extends BaseActivity1 implements BaseContract.Vie
 
     @Override
     public void showTomast(String msg) {
-
+        dimessProgress();
+        showTomast("操作失败");
     }
 
 

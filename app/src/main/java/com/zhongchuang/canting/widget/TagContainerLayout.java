@@ -15,7 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.utils.UIUtil;
 
 import java.util.ArrayList;
@@ -721,7 +721,7 @@ public class TagContainerLayout extends ViewGroup {
      * @return
      */
     public String getTagText(int position){
-        return ((TagView)mChildViews.get(position)).getText();
+        return mChildViews.get(position).getText();
     }
 
     /**
@@ -759,7 +759,7 @@ public class TagContainerLayout extends ViewGroup {
      * @param interval
      */
     public void setVerticalInterval(float interval){
-        mVerticalInterval = (int) UIUtil.dip2px(getContext(), interval);
+        mVerticalInterval = UIUtil.dip2px(getContext(), interval);
         postInvalidate();
     }
 
@@ -776,7 +776,7 @@ public class TagContainerLayout extends ViewGroup {
      * @param interval
      */
     public void setHorizontalInterval(float interval){
-        mHorizontalInterval = (int)UIUtil.dip2px(getContext(), interval);
+        mHorizontalInterval = UIUtil.dip2px(getContext(), interval);
         postInvalidate();
     }
 

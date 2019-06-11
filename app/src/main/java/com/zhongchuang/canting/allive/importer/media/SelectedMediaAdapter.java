@@ -35,9 +35,9 @@ public class SelectedMediaAdapter extends RecyclerView.Adapter<SelectedMediaView
     public SelectedMediaViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.aliyun_svideo_import_layout_selected_video_item
                 , parent, false);
-        ImageView ivPhoto = (ImageView) itemView.findViewById(R.id.iv_photo);
-        ImageView ivDelete = (ImageView) itemView.findViewById(R.id.iv_delete);
-        TextView tvDuration = (TextView) itemView.findViewById(R.id.tv_duration);
+        ImageView ivPhoto = itemView.findViewById(R.id.iv_photo);
+        ImageView ivDelete = itemView.findViewById(R.id.iv_delete);
+        TextView tvDuration = itemView.findViewById(R.id.tv_duration);
         SelectedMediaViewHolder holder = new SelectedMediaViewHolder(itemView,
                 ivPhoto,
                 ivDelete,

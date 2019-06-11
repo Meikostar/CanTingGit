@@ -13,7 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.adapter.GeguarAdapter;
 import com.zhongchuang.canting.been.ProductBuy;
 import com.zhongchuang.canting.been.Type;

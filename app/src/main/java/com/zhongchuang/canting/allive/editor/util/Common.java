@@ -403,10 +403,7 @@ public class Common {
         File[] files = new File(SD_DIR + QU_NAME).listFiles(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {
-                if(name != null && name.endsWith(".zip")) {
-                    return true;
-                }
-                return false;
+                return name != null && name.endsWith(".zip");
             }
         });
         length = files.length;

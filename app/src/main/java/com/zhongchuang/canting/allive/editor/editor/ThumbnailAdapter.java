@@ -55,7 +55,7 @@ public class ThumbnailAdapter extends RecyclerView.Adapter<ThumbnailAdapter.Thum
             default:
                 itemView = LayoutInflater.from(parent.getContext()).inflate( R.layout.aliyun_svideo_layout_item_timeline_thumbnail, parent, false);
                 holder = new ThumbnailViewHolder(itemView);
-                holder.mIvThumbnail = (ImageView) itemView.findViewById( R.id.iv_thumbnail);
+                holder.mIvThumbnail = itemView.findViewById( R.id.iv_thumbnail);
                 return holder;
         }
     }

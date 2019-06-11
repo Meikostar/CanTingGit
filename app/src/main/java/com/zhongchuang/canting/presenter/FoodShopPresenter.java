@@ -5,8 +5,8 @@ package com.zhongchuang.canting.presenter;
  */
 
 public interface FoodShopPresenter {
-    public void getCare(String userInfoId , String cateShopId , String type );
-    public void getShopInfo(String cateShopId , String userInfoId);
-    public void getShopCommentList(String cateShopId );
+    void getCare(String userInfoId, String cateShopId, String type);
+    void getShopInfo(String cateShopId, String userInfoId);
+    void getShopCommentList(String cateShopId);
 
 }

@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/content_bg"
+    android:orientation="vertical"
+
+    >
+        <com.zhongchuang.canting.widget.NavigationBar
+            android:id="@+id/navigationBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:navigationLeft_img="@drawable/back_white"
+            app:navigationRight_txt="利润明细"
+            app:navigationRight_type="txt"
+            app:navigationTitle="@string/xxzl" />
+
+   <com.zhongchuang.canting.widget.StickyScrollView
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+           <LinearLayout
+               android:orientation="vertical"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent">
+
+
+                   <LinearLayout
+                       android:orientation="vertical"
+                       android:layout_width="match_parent"
+                       android:background="@color/white"
+                       android:layout_height="270dp">
+
+                           <ImageView
+                               android:layout_marginTop="30dp"
+                               android:layout_gravity="center"
+                               android:padding="5dp"
+                               android:id="@+id/iv_back"
+                               android:layout_width="86dp"
+                               android:layout_height="86dp"
+                               android:layout_centerVertical="true"
+                               android:src="@drawable/profit" />
+                           <LinearLayout
+                               android:layout_marginTop="23dp"
+                               android:layout_width="match_parent"
+                               android:layout_height="wrap_content"
+                               android:gravity="center_horizontal"
+                               android:orientation="vertical"
+
+                               >
+
+
+                                   <TextView
+                                       android:layout_centerInParent="true"
+                                       android:layout_width="wrap_content"
+                                       android:layout_height="wrap_content"
+                                       android:gravity="center"
+                                       android:text="我的利润"
+                                       android:textColor="#333"
+                                       android:textSize="18sp" />
+
+                                   <TextView
+                                       android:layout_marginTop="3dp"
+                                       android:layout_marginLeft="13dp"
+                                       android:layout_marginRight="13dp"
+                                       android:layout_centerInParent="true"
+                                       android:id="@+id/tv_jf"
+                                       android:layout_width="wrap_content"
+                                       android:layout_height="wrap_content"
+                                       android:gravity="center"
+                                       android:text="￥ 0.0"
+                                       android:textColor="#333"
+                                       android:textSize="46sp" />
+                                   <TextView
+                                       android:layout_marginTop="10dp"
+                                       android:layout_centerInParent="true"
+                                       android:layout_width="wrap_content"
+                                       android:layout_height="wrap_content"
+                                       android:gravity="center"
+                                       android:text="注：利润超过500元才可提现 "
+                                       android:textColor="#FFAE00"
+                                       android:textSize="13sp" />
+
+                           </LinearLayout>
+
+
+                   </LinearLayout>
+                   <LinearLayout
+                       android:layout_marginTop="10dp"
+                       android:paddingRight="15dp"
+                       android:layout_width="match_parent"
+                       android:layout_height="50dp"
+                       android:background="@color/white"
+                       android:gravity="center_vertical">
+
+
+
+                           <TextView
+                               android:lines="1"
+                               android:layout_weight="1"
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:layout_marginLeft="14dp"
+                               android:text="银行卡"
+                               android:textColor="@color/color3"
+                               android:textSize="14sp" />
+
+                           <TextView
+
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:layout_marginLeft="8dp"
+                               android:minWidth="50dp"
+                               android:paddingTop="6dp"
+                               android:paddingBottom="6dp"
+                               android:paddingLeft="11dp"
+                               android:paddingRight="11dp"
+                               android:text="请选择卡号"
+                               android:textColor="@color/color3"
+                               android:textSize="13.5sp" />
+                           <ImageView
+                               android:layout_width="10dp"
+                               android:layout_height="15dp"
+                               android:layout_marginRight="13dp"
+                               android:src="@mipmap/arrow_right" />
+                   </LinearLayout>
+                   <LinearLayout
+                       android:layout_width="match_parent"
+                       android:layout_height="75dp"
+                       android:layout_marginTop="10dp"
+                       android:background="@color/white"
+                       android:orientation="vertical">
+
+                           <LinearLayout
+                               android:layout_width="match_parent"
+                               android:layout_height="48dp"
+                               android:background="@color/white"
+                               android:gravity="center_vertical"
+                               android:orientation="horizontal">
+
+
+
+                                   <TextView
+                                       android:layout_marginLeft="15dp"
+                                       android:layout_width="wrap_content"
+                                       android:layout_height="wrap_content"
+                                       android:singleLine="true"
+                                       android:text="提现金额"
+                                       android:textColor="#333"
+                                       android:textSize="15sp" />
+
+                                   <com.zhongchuang.canting.widget.ClearEditText
+                                       android:id="@+id/login_yanzhen_yanzhenma"
+                                       android:layout_width="fill_parent"
+                                       android:layout_height="35dp"
+                                       android:layout_marginLeft="22dp"
+                                       android:layout_marginRight="12dp"
+                                       android:background="@null"
+                                       android:gravity="center_vertical"
+                                       android:hint="请输入验提现金额"
+                                       android:maxLength="8"
+                                       android:text=""
+                                       android:textColor="@color/slow_black"
+                                       android:textColorHint="@color/bd"
+                                       android:textSize="15sp" />
+                           </LinearLayout>
+                           <View
+                               android:layout_width="match_parent"
+                               android:layout_height="0.5dp"
+                               android:background="@color/linecolor"
+                               android:layout_marginLeft="15dp"
+                               android:layout_marginRight="15dp"/>
+                           <LinearLayout
+                               android:gravity="center_vertical"
+                               android:orientation="horizontal"
+                               android:layout_width="match_parent"
+                               android:layout_height="match_parent">
+                                   <TextView
+                                       android:layout_marginLeft="8dp"
+                                       android:layout_weight="1"
+                                       android:layout_width="wrap_content"
+                                       android:layout_height="wrap_content"
+                                       />
+
+                                   <TextView
+                                       android:id="@+id/tv_detail"
+                                       android:layout_marginLeft="8dp"
+                                       android:layout_width="wrap_content"
+                                       android:layout_height="wrap_content"
+                                       android:singleLine="true"
+                                       android:text="当前可提现全额7"
+                                       android:textColor="#999"
+                                       android:textSize="12sp" />
+                                   <TextView
+
+                                       android:layout_marginRight="15dp"
+                                       android:layout_width="wrap_content"
+                                       android:layout_height="wrap_content"
+                                       android:singleLine="true"
+                                       android:text="全部提现"
+                                       android:textColor="@color/blue"
+                                       android:textSize="12sp" />
+                           </LinearLayout>
+
+
+                   </LinearLayout>
+
+                   <TextView
+                       android:layout_marginBottom="20dp"
+                       android:layout_marginTop="25dp"
+                       android:background="@drawable/login_selector"
+                       android:layout_width="match_parent"
+                       android:layout_height="40dp"
+                       android:layout_marginLeft="15dp"
+                       android:layout_marginRight="15dp"
+                       android:gravity="center"
+                       android:id="@+id/tv_submit"
+                       android:text="立即提现"
+                       android:textColor="@color/white"
+                       android:textSize="14sp" />
+
+           </LinearLayout>
+   </com.zhongchuang.canting.widget.StickyScrollView>
+
+</LinearLayout>

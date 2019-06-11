@@ -15,22 +15,25 @@ import android.view.WindowManager;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import com.alivc.live.pusher.WaterMarkInfo;
 import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.allive.pusher.utils.Common;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PushWaterMarkDialog extends DialogFragment {
 
 
     private Switch mSwitch1;
     private EditText mX1;
+    private TextView sure;
     private EditText mY1;
     private EditText mW1;
 
-    private ArrayList<WaterMarkInfo> mWaterMarkInfos;
+    private List<WaterMarkInfo> mWaterMarkInfos;
     private WaterMarkInfo mWaterMarkInfo = new WaterMarkInfo();
     private WaterMarkInfo mWaterMarkInfo1 = new WaterMarkInfo();
     private WaterMarkInfo mWaterMarkInfo2 = new WaterMarkInfo();
@@ -56,12 +59,19 @@ public class PushWaterMarkDialog extends DialogFragment {
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         View view = inflater.inflate(R.layout.push_watermark, container);
 
-        mX1 = (EditText) view.findViewById(R.id.x1);
-        mY1 = (EditText) view.findViewById(R.id.y1);
-        mW1 = (EditText) view.findViewById(R.id.w1);
+        mX1 = view.findViewById(R.id.x1);
+        sure = view.findViewById(R.id.sure);
+        mY1 = view.findViewById(R.id.y1);
+        mW1 = view.findViewById(R.id.w1);
 
-        mSwitch1 = (Switch) view.findViewById(R.id.watermark1);
+        mSwitch1 = view.findViewById(R.id.watermark1);
         mSwitch1.setOnCheckedChangeListener(onCheckedChangeListener);
+        sure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
         return view;
     }
 
@@ -75,10 +85,17 @@ public class PushWaterMarkDialog extends DialogFragment {
         WindowManager.LayoutParams p = getDialog().getWindow().getAttributes();
 
         p.width = dpMetrics.widthPixels;
-        p.height = dpMetrics.heightPixels * 2/3;
+        p.height = dpMetrics.heightPixels * 1/3;
         getDialog().getWindow().setAttributes(p);
     }
+   public interface OnDisMissListener{
+        void dismiss(List<WaterMarkInfo> mWaterMarkInfos);
+   }
+   public OnDisMissListener listener;
 
+    public void setDismissListener(OnDisMissListener listener){
+        this.listener=listener;
+    }
     @Override
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
@@ -115,18 +132,18 @@ public class PushWaterMarkDialog extends DialogFragment {
 
 
 
-        mWaterMarkInfo.mWaterMarkPath = Common.waterMark;
+
         mWaterMarkInfo1.mWaterMarkPath = Common.waterMark;
-        mWaterMarkInfo2.mWaterMarkPath = Common.waterMark;
+
         if(mWaterMarkInfos.size() > 0) {
             mWaterMarkInfos.clear();
         }
-        mWaterMarkInfos.add(mWaterMarkInfo);
+
         mWaterMarkInfos.add(mWaterMarkInfo1);
-        mWaterMarkInfos.add(mWaterMarkInfo2);
+        listener.dismiss(mWaterMarkInfos);
     }
 
-    public void setWaterMarkInfo(ArrayList<WaterMarkInfo> waterMarkInfos) {
+    public void setWaterMarkInfo(List<WaterMarkInfo> waterMarkInfos) {
         this.mWaterMarkInfos = waterMarkInfos;
     }
 

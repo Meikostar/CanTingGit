@@ -15,7 +15,7 @@ import com.paypal.android.sdk.payments.PayPalConfiguration;
 import com.paypal.android.sdk.payments.PayPalPayment;
 import com.paypal.android.sdk.payments.PayPalService;
 import com.paypal.android.sdk.payments.PaymentActivity;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.mall.AddressListActivity;
 import com.zhongchuang.canting.activity.mall.DbRecordActivity;
 import com.zhongchuang.canting.activity.mall.EditorOrderActivity;
@@ -132,7 +132,7 @@ public class RechargeActivity extends BaseActivity1 implements BaseContract.View
                 tvWx.setVisibility(View.INVISIBLE);
                 tvPp.setVisibility(View.VISIBLE);
                 if (TextUtil.isNotEmpty(etContent.getText().toString())) {
-                    tvPp.setText("(" + (rate * Double.valueOf(etContent.getText().toString())) + "￥" + ")");
+                    tvPp.setText("(" + "￥" +  (rate * Double.valueOf(etContent.getText().toString()))  + ")");
                 }
 
                 type = 3;
@@ -148,7 +148,7 @@ public class RechargeActivity extends BaseActivity1 implements BaseContract.View
                 tvWx.setVisibility(View.VISIBLE);
                 tvPp.setVisibility(View.INVISIBLE);
                 if (TextUtil.isNotEmpty(etContent.getText().toString())) {
-                    tvWx.setText("(" + (rate * Double.valueOf(etContent.getText().toString())) + "￥" + ")");
+                    tvWx.setText("(" +  "￥" + (rate * Double.valueOf(etContent.getText().toString())) +")");
                 }
 
                 cbPaypal.setChecked(false);
@@ -164,7 +164,7 @@ public class RechargeActivity extends BaseActivity1 implements BaseContract.View
                 tvWx.setVisibility(View.INVISIBLE);
                 tvPp.setVisibility(View.INVISIBLE);
                 if (TextUtil.isNotEmpty(etContent.getText().toString())) {
-                    tvZfb.setText("(" + (rate * Double.valueOf(etContent.getText().toString())) + "￥" + ")");
+                    tvZfb.setText("(" +  "￥" + (rate * Double.valueOf(etContent.getText().toString())) + ")");
                 }
 
                 type = 1;
@@ -181,17 +181,17 @@ public class RechargeActivity extends BaseActivity1 implements BaseContract.View
                         tvZfb.setVisibility(View.VISIBLE);
                         tvWx.setVisibility(View.INVISIBLE);
                         tvPp.setVisibility(View.INVISIBLE);
-                        tvZfb.setText("(" + (rate * Double.valueOf(s.toString())) + "￥" + ")");
+                        tvZfb.setText("(" + "￥" +  (rate * Double.valueOf(s.toString()))  + ")");
                     } else if (type == 2) {
                         tvZfb.setVisibility(View.INVISIBLE);
                         tvWx.setVisibility(View.VISIBLE);
                         tvPp.setVisibility(View.INVISIBLE);
-                        tvWx.setText("(" + (rate * Double.valueOf(s.toString())) + "￥" + ")");
+                        tvWx.setText("(" + "￥" +  (rate * Double.valueOf(s.toString()))  + ")");
                     } else if (type == 3) {
                         tvZfb.setVisibility(View.INVISIBLE);
                         tvWx.setVisibility(View.INVISIBLE);
                         tvPp.setVisibility(View.VISIBLE);
-                        tvPp.setText("(" + (rate * Double.valueOf(s.toString())) + "￥" + ")");
+                        tvPp.setText("(" +  "￥" + (rate * Double.valueOf(s.toString()))  + ")");
                     }
                 }else {
                     tvZfb.setVisibility(View.INVISIBLE);

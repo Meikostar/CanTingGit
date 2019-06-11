@@ -47,10 +47,12 @@ import com.zhongchuang.canting.allive.pusher.ui.myview.PushAnswerGameDialog;
 import com.zhongchuang.canting.allive.pusher.ui.myview.PushBeautyDialog;
 import com.zhongchuang.canting.allive.pusher.ui.myview.PushMoreDialog;
 import com.zhongchuang.canting.allive.pusher.utils.SharedPreferenceUtils;
+import com.zhongchuang.canting.allive.vodplayerview.activity.AliyunPlayerSkinActivity;
 import com.zhongchuang.canting.app.CanTingAppLication;
 import com.zhongchuang.canting.been.BEAN;
 import com.zhongchuang.canting.been.FriendInfo;
 import com.zhongchuang.canting.been.Gift;
+import com.zhongchuang.canting.been.ShareBean;
 import com.zhongchuang.canting.been.SubscriptionBean;
 import com.zhongchuang.canting.easeui.Constant;
 import com.zhongchuang.canting.easeui.EaseConstant;
@@ -60,6 +62,7 @@ import com.zhongchuang.canting.hud.ToastUtils;
 import com.zhongchuang.canting.net.BaseCallBack;
 import com.zhongchuang.canting.net.HttpUtil;
 import com.zhongchuang.canting.net.netService;
+import com.zhongchuang.canting.utils.ShareUtils;
 import com.zhongchuang.canting.utils.SpUtil;
 import com.zhongchuang.canting.utils.StringUtil;
 import com.zhongchuang.canting.utils.TextUtil;
@@ -115,6 +118,7 @@ public class LivePushFragment extends Fragment implements Runnable {
     private ImageView mExit;
     private ImageView mMusic;
     private ImageView mFlash;
+    private ImageView share;
     private ImageView mCamera;
     private HeartLayout heartLayout;
     private GiftItemView giftView;
@@ -240,9 +244,10 @@ public class LivePushFragment extends Fragment implements Runnable {
                             }
                         }
                         if (!gifts.contains(gift)) {
+                            giftView.addNum(1);
                             gifts.add(gift);
                             giftView.setGift(gift);
-                            giftView.addNum(1);
+
                         }
 
                     }else {
@@ -268,7 +273,12 @@ public class LivePushFragment extends Fragment implements Runnable {
     Handler handlers =new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
-            tv_count.setText("在线人数："+meber);
+            if(meber<=0){
+                tv_count.setText("在线人数："+0);
+            }else {
+                tv_count.setText("在线人数："+meber);
+            }
+
             return false;
         }
     });
@@ -339,15 +349,27 @@ public class LivePushFragment extends Fragment implements Runnable {
         api.getDirIndexInfo(map).enqueue(new BaseCallBack<BEAN>() {
             @Override
             public void onSuccess(BEAN bean) {
-                BEAN data = bean.data;
-                if(data==null){
-                    return;
-                }
-                if(TextUtil.isNotEmpty(data.user_info_nickname)){
-                    tvName.setText(data.user_info_nickname);
-                }
+                if(getActivity()!=null){
+                    BEAN data = bean.data;
+                    if(data==null){
+                        return;
+                    }
+                    ShareBean shareBean = new ShareBean();
+                    shareBean.img_ = data.room_image;
+                    shareBean.content_ = data.direct_see_name + getString(R.string.zzklgk);
+//                shareBean.content_ = data.direct_see_name + getString(R.string.zzgszbklgkb);
+                    shareBean.title_ = data.direct_see_name;
+                    shareBean.url_ = com.zhongchuang.canting.db.Constant.APP_LIVE_DOWN;
+                    CanTingAppLication.shareBean = shareBean;
 
-                Glide.with(getActivity()).load(data.room_image).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.drawable.dingdantouxiang).into(ivImg);
+
+                    if(TextUtil.isNotEmpty(data.user_info_nickname)){
+                        tvName.setText(data.user_info_nickname);
+                    }
+
+                    Glide.with(getActivity()).load(data.room_image).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.drawable.dingdantouxiang).into(ivImg);
+
+                }
             }
 
             @Override
@@ -383,36 +405,37 @@ public class LivePushFragment extends Fragment implements Runnable {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mExit = (ImageView) view.findViewById(R.id.exit);
-        mMusic = (ImageView) view.findViewById(R.id.music);
-        mFlash = (ImageView) view.findViewById(R.id.flash);
-        tv_count = (TextView) view.findViewById(R.id.tv_count);
-        tvName = (TextView) view.findViewById(R.id.tv_name);
-        ivImg = (CircleImageView) view.findViewById(R.id.iv_img);
-        heartLayout = (HeartLayout) view.findViewById(R.id.heart_layout);
-        giftView = (GiftItemView) view.findViewById(R.id.gift_item_first);
+        mExit = view.findViewById(R.id.exit);
+        mMusic = view.findViewById(R.id.music);
+        mFlash = view.findViewById(R.id.flash);
+        share = view.findViewById(R.id.share);
+        tv_count = view.findViewById(R.id.tv_count);
+        tvName = view.findViewById(R.id.tv_name);
+        ivImg = view.findViewById(R.id.iv_img);
+        heartLayout = view.findViewById(R.id.heart_layout);
+        giftView = view.findViewById(R.id.gift_item_first);
         mRandom=new Random();
         mFlash.setSelected(isFlash);
-        mCamera = (ImageView) view.findViewById(R.id.camera);
+        mCamera = view.findViewById(R.id.camera);
         mCamera.setSelected(true);
-        mPreviewButton = (Button) view.findViewById(R.id.preview_button);
+        mPreviewButton = view.findViewById(R.id.preview_button);
         mPreviewButton.setSelected(false);
-        mPushButton = (Button) view.findViewById(R.id.push_button);
+        mPushButton = view.findViewById(R.id.push_button);
         mPushButton.setSelected(true);
-        mOperaButton = (Button) view.findViewById(R.id.opera_button);
+        mOperaButton = view.findViewById(R.id.opera_button);
         mOperaButton.setSelected(false);
-        mMore = (Button) view.findViewById(R.id.more);
-        mBeautyButton = (ImageView) view.findViewById(R.id.beauty_button);
+        mMore = view.findViewById(R.id.more);
+        mBeautyButton = view.findViewById(R.id.beauty_button);
         mBeautyButton.setSelected(SharedPreferenceUtils.isBeautyOn(getActivity().getApplicationContext()));
-        mAnswer = (TextView) view.findViewById(R.id.answer_button);
-        mRestartButton = (Button) view.findViewById(R.id.restart_button);
+        mAnswer = view.findViewById(R.id.answer_button);
+        mRestartButton = view.findViewById(R.id.restart_button);
         mBottomMenu = view.findViewById(R.id.ll_bottom_menu);
-        mTopBar = (LinearLayout) view.findViewById(R.id.top_bar);
-        mUrl = (TextView) view.findViewById(R.id.push_url);
+        mTopBar = view.findViewById(R.id.top_bar);
+        mUrl = view.findViewById(R.id.push_url);
         mUrl.setText(mPushUrl);
-        mIsPushing = (TextView) view.findViewById(R.id.isPushing);
+        mIsPushing = view.findViewById(R.id.isPushing);
         mIsPushing.setText(String.valueOf(isPushing));
-        mGuide = (LinearLayout) view.findViewById(R.id.guide);
+        mGuide = view.findViewById(R.id.guide);
         mExit.setOnClickListener(onClickListener);
         mMusic.setOnClickListener(onClickListener);
         mFlash.setOnClickListener(onClickListener);
@@ -457,7 +480,13 @@ public class LivePushFragment extends Fragment implements Runnable {
         mBeautyButton.setVisibility(mAudio ? View.GONE : View.VISIBLE);
         mFlash.setVisibility(mAudio ? View.GONE : View.VISIBLE);
         mCamera.setVisibility(mAudio ? View.GONE : View.VISIBLE);
-        mFlash.setClickable(mCameraId == CAMERA_TYPE_FRONT.getCameraId() ? false : true);
+        mFlash.setClickable(mCameraId != CAMERA_TYPE_FRONT.getCameraId());
+        share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShareUtils.showMyShares(getActivity(), getString(R.string.jiguang), "http://www.gwlaser.tech");
+            }
+        });
     }
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -480,6 +509,7 @@ public class LivePushFragment extends Fragment implements Runnable {
                 public void run() {
                     try {
                         if (id == R.id.exit) {
+
                             getActivity().finish();
 
                         } else if (id == R.id.music) {
@@ -513,7 +543,7 @@ public class LivePushFragment extends Fragment implements Runnable {
                             mFlash.post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    mFlash.setClickable(mCameraId == CAMERA_TYPE_FRONT.getCameraId() ? false : true);
+                                    mFlash.setClickable(mCameraId != CAMERA_TYPE_FRONT.getCameraId());
                                     if (mCameraId == CAMERA_TYPE_FRONT.getCameraId()) {
                                         mFlash.setSelected(false);
                                     } else {

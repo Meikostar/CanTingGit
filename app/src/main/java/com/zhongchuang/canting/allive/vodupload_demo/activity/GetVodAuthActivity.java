@@ -61,7 +61,7 @@ public class GetVodAuthActivity extends AppCompatActivity implements View.OnClic
     String uploadAuth;
     String uploadAddress;
 
-    public void run() throws Exception {
+    public void run() {
             Request request = new Request.Builder()
                     .url("https://demo-vod.cn-shanghai.aliyuncs.com/voddemo/CreateUploadVideo?Title=testvod1&FileName=xxx.mp4&BusinessType=vodai&TerminalType=pc&DeviceModel=iPhone9,2&UUID=59ECA-4193-4695-94DD-7E1247288&AppVersion=1.0.0&VideoId=5bfcc7864fc14b96972842172207c9e6")
                     .build();

@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 
 
 /**
@@ -23,10 +23,10 @@ public class GiftViewHolder extends RecyclerView.ViewHolder {
 
     public GiftViewHolder(View itemView) {
         super(itemView);
-        img = (ImageView) itemView.findViewById(R.id.iv_img);
-        tvName = (TextView) itemView.findViewById(R.id.tv_name);
-        tvMoney = (TextView) itemView.findViewById(R.id.tv_money);
-        tvTime = (TextView) itemView.findViewById(R.id.tv_time);
+        img = itemView.findViewById(R.id.iv_img);
+        tvName = itemView.findViewById(R.id.tv_name);
+        tvMoney = itemView.findViewById(R.id.tv_money);
+        tvTime = itemView.findViewById(R.id.tv_time);
 
 
 

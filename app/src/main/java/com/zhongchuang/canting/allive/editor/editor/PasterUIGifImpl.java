@@ -19,7 +19,7 @@ public class PasterUIGifImpl extends PasterUISimpleImpl {
     public PasterUIGifImpl(AliyunPasterView pasterView, AliyunPasterController controller, TimelineBar timelineBar) {
         super(pasterView, controller, timelineBar);
 
-        mText = (AutoResizingTextView)pasterView.getContentView().findViewById( R.id.qupai_overlay_content_text);
+        mText = pasterView.getContentView().findViewById( R.id.qupai_overlay_content_text);
         int width = controller.getPasterWidth();
         int height = controller.getPasterHeight();
 

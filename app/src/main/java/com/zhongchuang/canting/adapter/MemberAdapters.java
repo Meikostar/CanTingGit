@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.been.BEAN;
 import com.zhongchuang.canting.utils.StringUtil;
 
@@ -26,7 +26,7 @@ public class MemberAdapters extends BaseListAdapter<BEAN> {
         if (convertView == null) {
             viewHolder = new ViewHolder();
             convertView = inflater.inflate(R.layout.item_menber, null, false);
-            viewHolder.avatar = (ImageView) convertView.findViewById(R.id.avatar);
+            viewHolder.avatar = convertView.findViewById(R.id.avatar);
             convertView.setTag(viewHolder);
         }else {
             viewHolder = (ViewHolder) convertView.getTag();

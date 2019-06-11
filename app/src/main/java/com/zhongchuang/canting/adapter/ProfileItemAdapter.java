@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.been.PROFILE_ITEM;
 
 import java.util.ArrayList;
@@ -53,9 +53,9 @@ public class ProfileItemAdapter extends BaseAdapter {
         if (view == null) {
             holder = new ViewHolder();
             view = inflater.inflate(R.layout.lp_griditem_profile_item, null);
-            holder.txt_name = (TextView) view.findViewById(R.id.txt_name);
+            holder.txt_name = view.findViewById(R.id.txt_name);
 
-            holder.img_icon = (ImageView) view.findViewById(R.id.img_icon);
+            holder.img_icon = view.findViewById(R.id.img_icon);
             view.setTag(holder);
         } else {
             holder = (ViewHolder) view.getTag();

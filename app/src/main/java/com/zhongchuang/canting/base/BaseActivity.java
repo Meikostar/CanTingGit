@@ -7,7 +7,8 @@ import android.support.annotation.LayoutRes;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 
-import com.zhongchuang.canting.activity.HomeActivity;
+
+import com.zhongchuang.canting.activity.HomeActivitys;
 import com.zhongchuang.canting.activity.MActivityManager;
 import com.zhongchuang.canting.app.CanTingAppLication;
 import com.zhongchuang.canting.hud.HudHelper;
@@ -56,7 +57,7 @@ public class BaseActivity extends AppCompatActivity {
         Configuration conf = res.getConfiguration();
         conf.locale = myLocale;
         res.updateConfiguration(conf, dm);
-        startActivity((new Intent(this, HomeActivity.class)));
+        startActivity((new Intent(this, HomeActivitys.class)));
 
     }
 

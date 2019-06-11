@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.easeui.domain.EaseEmojicon;
 import com.zhongchuang.canting.easeui.domain.EaseEmojiconGroupEntity;
 import com.zhongchuang.canting.easeui.model.EaseDefaultEmojiconDatas;
@@ -64,12 +64,12 @@ public class EaseChatInputMenu extends LinearLayout {
         this.context = context;
         layoutInflater = LayoutInflater.from(context);
         layoutInflater.inflate(R.layout.ease_widget_chat_input_menu, this);
-        primaryMenuContainer = (FrameLayout) findViewById(R.id.primary_menu_container);
-        emojiconMenuContainer = (FrameLayout) findViewById(R.id.emojicon_menu_container);
-        chatExtendMenuContainer = (FrameLayout) findViewById(R.id.extend_menu_container);
+        primaryMenuContainer = findViewById(R.id.primary_menu_container);
+        emojiconMenuContainer = findViewById(R.id.emojicon_menu_container);
+        chatExtendMenuContainer = findViewById(R.id.extend_menu_container);
 
          // extend menu
-         chatExtendMenu = (EaseChatExtendMenu) findViewById(R.id.extend_menu);
+         chatExtendMenu = findViewById(R.id.extend_menu);
 
 
     }

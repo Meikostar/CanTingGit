@@ -175,10 +175,10 @@ public class ProgressDialog extends Dialog {
                     com.zhongchuang.canting.R.layout.aliyun_svideo_progress_dialog), null);
         }
 
-        mProgressNumber = (TextView) view.findViewById(com.zhongchuang.canting.R.id.aliyun_progress_number);
-        mProgressPercent = (TextView) view.findViewById(com.zhongchuang.canting.R.id.aliyun_progress_percent);
-        mMessageView = (TextView) view.findViewById(android.R.id.message);
-        mProgress = (ProgressBar) view.findViewById(android.R.id.progress);
+        mProgressNumber = view.findViewById(com.zhongchuang.canting.R.id.aliyun_progress_number);
+        mProgressPercent = view.findViewById(com.zhongchuang.canting.R.id.aliyun_progress_percent);
+        mMessageView = view.findViewById(android.R.id.message);
+        mProgress = view.findViewById(android.R.id.progress);
         setContentView(view);
 
         a.recycle();

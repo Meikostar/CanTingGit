@@ -11,7 +11,7 @@ import com.paypal.android.sdk.payments.PayPalConfiguration;
 import com.paypal.android.sdk.payments.PayPalPayment;
 import com.paypal.android.sdk.payments.PayPalService;
 import com.paypal.android.sdk.payments.PaymentActivity;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.pay.ALiPayActivity;
 import com.zhongchuang.canting.adapter.OrderAdapter;
 import com.zhongchuang.canting.app.CanTingAppLication;

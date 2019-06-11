@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.been.OrderData;
 import com.zhongchuang.canting.utils.TextUtil;
 import com.zhongchuang.canting.widget.ClearEditText;
@@ -65,7 +65,7 @@ public class OrderAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return list != null ? (list.size() == 0 ? 0 : list.size()) : 0;
+        return list != null ? (list.size()) : 0;
     }
 
     @Override
@@ -85,19 +85,19 @@ public class OrderAdapter extends BaseAdapter {
         if (convertView == null) {
             holder = new ViewHolder();
             convertView = View.inflate(context,R.layout.item_recv_my_order,  null);
-            holder.tvStoreName = (TextView) convertView.findViewById(R.id.tv_store_name);
-            holder.tvStatus = (TextView) convertView.findViewById(R.id.tv_status);
-            holder.tvCont3 = (TextView) convertView.findViewById(R.id.tv_cont3);
-            holder.tvCont2 = (TextView) convertView.findViewById(R.id.tv_cont2);
-            holder.tvCont1 = (TextView) convertView.findViewById(R.id.tv_cont1);
+            holder.tvStoreName = convertView.findViewById(R.id.tv_store_name);
+            holder.tvStatus = convertView.findViewById(R.id.tv_status);
+            holder.tvCont3 = convertView.findViewById(R.id.tv_cont3);
+            holder.tvCont2 = convertView.findViewById(R.id.tv_cont2);
+            holder.tvCont1 = convertView.findViewById(R.id.tv_cont1);
 
-            holder.tvGoodsCount = (TextView) convertView.findViewById(R.id.tv_goods_count);
-            holder.etContent = (ClearEditText) convertView.findViewById(R.id.et_content);
-            holder.rlMenu = (RegularListView) convertView.findViewById(R.id.rl_menu);
+            holder.tvGoodsCount = convertView.findViewById(R.id.tv_goods_count);
+            holder.etContent = convertView.findViewById(R.id.et_content);
+            holder.rlMenu = convertView.findViewById(R.id.rl_menu);
 
 
-            holder.llHeadPurchases = (LinearLayout) convertView.findViewById(R.id.ll_head_purchases);
-            holder.llEdit = (LinearLayout) convertView.findViewById(R.id.ll_edit);
+            holder.llHeadPurchases = convertView.findViewById(R.id.ll_head_purchases);
+            holder.llEdit = convertView.findViewById(R.id.ll_edit);
 
             convertView.setTag(holder);
         } else {

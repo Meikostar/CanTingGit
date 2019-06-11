@@ -54,16 +54,16 @@ public class VideoPlayActivity extends Activity implements SurfaceHolder.Callbac
     }
 
     private void initView() {
-        textureView = (SurfaceView) findViewById(R.id.aliyun_play_view);
+        textureView = findViewById(R.id.aliyun_play_view);
         textureView.getHolder().addCallback(this);
         if(recordRotation == 90 || recordRotation == 270){
             FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) textureView.getLayoutParams();
             layoutParams.width = getResources().getDisplayMetrics().widthPixels;
             layoutParams.height = (int) (getResources().getDisplayMetrics().widthPixels / (float)getResources().getDisplayMetrics().heightPixels * layoutParams.width);
         }
-        next = (ImageView) findViewById(R.id.aliyun_next);
+        next = findViewById(R.id.aliyun_next);
         next.setOnClickListener(this);
-        back = (ImageView) findViewById(R.id.aliyun_back);
+        back = findViewById(R.id.aliyun_back);
         back.setOnClickListener(this);
     }
 
@@ -146,7 +146,7 @@ public class VideoPlayActivity extends Activity implements SurfaceHolder.Callbac
         }
     }
     private void scanFile(){
-        msc.scanFile(getApplicationContext(),
+        MediaScannerConnection.scanFile(getApplicationContext(),
                 new String[]{videoPath},new String[]{"video/mp4"},null);
     }
 

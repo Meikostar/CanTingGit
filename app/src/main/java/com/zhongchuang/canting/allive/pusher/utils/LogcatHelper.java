@@ -195,10 +195,7 @@ public class LogcatHelper {
                 @Override
                 public boolean accept(File file) {
                     //大于2天
-                    if((System.currentTimeMillis() - file.lastModified()) / 1000 > 24 * 60 * 60 * 2) {
-                        return true;
-                    }
-                    return false;
+                    return (System.currentTimeMillis() - file.lastModified()) / 1000 > 24 * 60 * 60 * 2;
                 }
             });
 

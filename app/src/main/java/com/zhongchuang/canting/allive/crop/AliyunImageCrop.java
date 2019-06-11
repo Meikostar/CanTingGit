@@ -23,7 +23,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.allive.quview.FanProgressBar;
 import com.zhongchuang.canting.allive.quview.HorizontalListView;
 import com.zhongchuang.canting.allive.quview.SizeChangedNotifier;
@@ -231,15 +231,15 @@ public class AliyunImageCrop extends Activity implements HorizontalListView.OnSc
 
     private void initView() {
         OUT_STROKE_WIDTH = DensityUtil.dip2px(this, 5);
-        transFormBtn = (ImageView) findViewById(R.id.aliyun_transform);
+        transFormBtn = findViewById(R.id.aliyun_transform);
         transFormBtn.setOnClickListener(this);
-        nextBtn = (ImageView) findViewById(R.id.aliyun_next);
+        nextBtn = findViewById(R.id.aliyun_next);
         nextBtn.setOnClickListener(this);
-        cancelBtn = (ImageView) findViewById(R.id.aliyun_back);
+        cancelBtn = findViewById(R.id.aliyun_back);
         cancelBtn.setOnClickListener(this);
-        mCropProgressBg = (FrameLayout) findViewById(R.id.aliyun_crop_progress_bg);
+        mCropProgressBg = findViewById(R.id.aliyun_crop_progress_bg);
         mCropProgressBg.setVisibility(View.GONE);
-        mCropProgress = (FanProgressBar) findViewById(R.id.aliyun_crop_progress);
+        mCropProgress = findViewById(R.id.aliyun_crop_progress);
         mCropProgress.setOutRadius(DensityUtil.dip2px(this, 40) / 2 - OUT_STROKE_WIDTH / 2);
         mCropProgress.setOffset(OUT_STROKE_WIDTH / 2, OUT_STROKE_WIDTH / 2);
         mCropProgress.setOutStrokeWidth(OUT_STROKE_WIDTH);
@@ -247,11 +247,11 @@ public class AliyunImageCrop extends Activity implements HorizontalListView.OnSc
 
 
     public void initSurface() {
-        frame = (VideoTrimFrameLayout) findViewById(R.id.aliyun_video_surfaceLayout);
+        frame = findViewById(R.id.aliyun_video_surfaceLayout);
         frame.setOnSizeChangedListener(this);
         frame.setOnScrollCallBack(this);
         resizeFrame();
-        mImageView = (ImageView) findViewById(R.id.aliyun_image_view);
+        mImageView = findViewById(R.id.aliyun_image_view);
     }
 
     private void resizeFrame() {

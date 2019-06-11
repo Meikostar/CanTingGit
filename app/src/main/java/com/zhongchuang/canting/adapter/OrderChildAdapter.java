@@ -10,7 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.been.OrderData;
 import com.zhongchuang.canting.utils.StringUtil;
 import com.zhongchuang.canting.utils.TextUtil;
@@ -74,12 +74,12 @@ public class OrderChildAdapter extends BaseAdapter {
         if (convertView == null) {
             holder = new ViewHolder();
             convertView = inflater.inflate(R.layout.orderchild_item, null);
-            holder.pLogo = (ImageView) convertView.findViewById(R.id.p_logo);
-            holder.pName = (TextView) convertView.findViewById(R.id.p_name);
-            holder.pDesc = (TextView) convertView.findViewById(R.id.p_desc);
-            holder.tvMoney = (TextView) convertView.findViewById(R.id.tv_money);
-            holder.tvCout = (TextView) convertView.findViewById(R.id.tv_cout);
-            holder.rlbg = (RelativeLayout) convertView.findViewById(R.id.rl_bg);
+            holder.pLogo = convertView.findViewById(R.id.p_logo);
+            holder.pName = convertView.findViewById(R.id.p_name);
+            holder.pDesc = convertView.findViewById(R.id.p_desc);
+            holder.tvMoney = convertView.findViewById(R.id.tv_money);
+            holder.tvCout = convertView.findViewById(R.id.tv_cout);
+            holder.rlbg = convertView.findViewById(R.id.rl_bg);
 
 
             convertView.setTag(holder);

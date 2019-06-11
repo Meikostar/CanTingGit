@@ -26,7 +26,7 @@ import java.nio.ByteBuffer;
 public class GeneratedTexture {
     //private static final String TAG = GlUtil.TAG;
 
-    public enum Image { COARSE, FINE };
+    public enum Image { COARSE, FINE }
 
     // Basic colors, in little-endian RGBA.
     private static final int BLACK = 0x00000000;

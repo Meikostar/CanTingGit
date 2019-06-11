@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.adapter.BannerAdaptes;
 import com.zhongchuang.canting.base.BaseActivity1;
 import com.zhongchuang.canting.been.Banner;

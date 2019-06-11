@@ -6,6 +6,7 @@ package com.zhongchuang.canting.easeui.adapter;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
+import com.zhongchuang.canting.activity.mine.NewPersonDetailActivity;
 import com.zhongchuang.canting.easeui.bean.USER_AVATAR;
 import com.zhongchuang.canting.easeui.widget.EaseImageView;
 import com.zhongchuang.canting.utils.StringUtil;
@@ -58,7 +60,7 @@ public class GroupMemberAdapter extends MyAdapter<USER_AVATAR> {
     }
 
     @Override
-    public void convert(MyViewHolder holder, USER_AVATAR group_user, int position) {
+    public void convert(MyViewHolder holder, final USER_AVATAR group_user,  int position) {
         EaseImageView imageView = holder.getView(R.id.avatar);
         TextView name = holder.getView(R.id.name);
         ImageView group_hat = holder.getView(R.id.group_hat);
@@ -73,6 +75,14 @@ public class GroupMemberAdapter extends MyAdapter<USER_AVATAR> {
             imageView.setImageResource(R.drawable.qunjian);
             return;
         }
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, NewPersonDetailActivity.class);
+                intent.putExtra("id", group_user.user_info_id);
+                mContext.startActivity(intent);
+            }
+        });
 //        USER byChatUserName = UserInfoCacheSvc.getByChatUserName(group_user.getName());
 //        if (byChatUserName==null||TextUtils.isEmpty(byChatUserName.friend_nickname)){
 //            if (TextUtils.isEmpty(group_user.getNickname())){

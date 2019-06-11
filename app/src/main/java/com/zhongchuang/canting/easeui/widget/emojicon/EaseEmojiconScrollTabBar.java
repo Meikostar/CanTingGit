@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.hyphenate.util.DensityUtil;
 
 import java.util.ArrayList;
@@ -42,8 +42,8 @@ public class EaseEmojiconScrollTabBar extends RelativeLayout{
         this.context = context;
         LayoutInflater.from(context).inflate(R.layout.ease_widget_emojicon_tab_bar, this);
         
-        scrollView = (HorizontalScrollView) findViewById(R.id.scroll_view);
-        tabContainer = (LinearLayout) findViewById(R.id.tab_container);
+        scrollView = findViewById(R.id.scroll_view);
+        tabContainer = findViewById(R.id.tab_container);
     }
     
     /**
@@ -52,7 +52,7 @@ public class EaseEmojiconScrollTabBar extends RelativeLayout{
      */
     public void addTab(int icon){
         View tabView = View.inflate(context, R.layout.ease_scroll_tab_item, null);
-        ImageView imageView = (ImageView) tabView.findViewById(R.id.iv_icon);
+        ImageView imageView = tabView.findViewById(R.id.iv_icon);
         imageView.setImageResource(icon);
         int tabWidth = 60;
         LinearLayout.LayoutParams imgParams = new LinearLayout.LayoutParams(DensityUtil.dip2px(context, tabWidth), LayoutParams.MATCH_PARENT);
@@ -105,7 +105,7 @@ public class EaseEmojiconScrollTabBar extends RelativeLayout{
                         return;
                     }
 
-                    int childWidth = (int)tabContainer.getChildAt(position).getWidth();
+                    int childWidth = tabContainer.getChildAt(position).getWidth();
                     int hsvWidth = scrollView.getWidth();
                     int childRight = childX + childWidth;
                     int scrollRight = mScrollX + hsvWidth;

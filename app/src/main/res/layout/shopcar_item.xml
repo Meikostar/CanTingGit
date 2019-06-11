@@ -107,7 +107,8 @@
                     android:textColor="#fff"
                     android:textSize="12sp" />
                 <com.zhongchuang.canting.widget.AddEditText
-
+                    android:focusable="false"
+                    android:clickable="false"
                     android:id="@+id/add"
                     android:layout_marginRight="8dp"
                     android:layout_width="100dp"

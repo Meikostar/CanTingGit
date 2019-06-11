@@ -1,26 +1,36 @@
 package com.zhongchuang.canting.easeui.widget.chatrow;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.media.MediaMetadataRetriever;
 import android.os.AsyncTask;
 import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMFileMessageBody;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMVideoMessageBody;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.hyphenate.util.DateUtils;
 import com.hyphenate.util.EMLog;
 import com.hyphenate.util.ImageUtils;
 import com.hyphenate.util.TextFormater;
+import com.zhongchuang.canting.activity.chat.PlayVideoActivity;
+import com.zhongchuang.canting.app.CanTingAppLication;
+import com.zhongchuang.canting.easeui.EaseConstant;
 import com.zhongchuang.canting.easeui.model.EaseImageCache;
 import com.zhongchuang.canting.easeui.utils.EaseCommonUtils;
+import com.zhongchuang.canting.utils.StringUtil;
+import com.zhongchuang.canting.utils.TextUtil;
+import com.zhongchuang.canting.widget.CircleTransform;
 
 import java.io.File;
+import java.util.HashMap;
 
 public class EaseChatRowVideo extends EaseChatRowFile {
     private static final String TAG = "EaseChatRowVideo";
@@ -29,90 +39,100 @@ public class EaseChatRowVideo extends EaseChatRowFile {
     private TextView sizeView;
     private TextView timeLengthView;
 
-    public EaseChatRowVideo(Context context,int chatType, EMMessage message, int position, BaseAdapter adapter) {
-        super(context,chatType, message, position, adapter);
+    public EaseChatRowVideo(Context context, int chatType, EMMessage message, int position, BaseAdapter adapter) {
+        super(context, chatType, message, position, adapter);
     }
 
-	@Override
-	protected void onInflateView(int chatType) {
-		inflater.inflate(message.direct() == EMMessage.Direct.RECEIVE ?
-				R.layout.ease_row_received_video : R.layout.ease_row_sent_video, this);
-	}
+    @Override
+    protected void onInflateView(int chatType) {
+        inflater.inflate(message.direct() == EMMessage.Direct.RECEIVE ?
+                R.layout.ease_row_received_video : R.layout.ease_row_sent_video, this);
+    }
 
-	@Override
-	protected void onFindViewById() {
-	    imageView = ((ImageView) findViewById(R.id.chatting_content_iv));
-        sizeView = (TextView) findViewById(R.id.chatting_size_iv);
-        timeLengthView = (TextView) findViewById(R.id.chatting_length_iv);
-        ImageView playView = (ImageView) findViewById(R.id.chatting_status_btn);
-        percentageView = (TextView) findViewById(R.id.percentage);
-	}
 
-	@Override
-	protected void onSetUpView() {
-	    EMVideoMessageBody videoBody = (EMVideoMessageBody) message.getBody();
-        String localThumb = videoBody.getLocalThumb();
+    @Override
+    protected void onFindViewById() {
+        imageView = findViewById(R.id.chatting_content_iv);
+        sizeView = findViewById(R.id.chatting_size_iv);
+        timeLengthView = findViewById(R.id.chatting_length_iv);
+        ImageView playView = findViewById(R.id.chatting_status_btn);
+        percentageView = findViewById(R.id.percentage);
+    }
+    public static Bitmap getNetVideoBitmap(String videoUrl) {
+        Bitmap bitmap = null;
 
-        if (localThumb != null) {
-
-            showVideoThumbView(localThumb, imageView, videoBody.getThumbnailUrl(), message);
+        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+        try {
+            //根据url获取缩略图
+            retriever.setDataSource(videoUrl, new HashMap());
+            //获得第一帧图片
+            bitmap = retriever.getFrameAtTime();
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        } finally {
+            retriever.release();
         }
-        if (videoBody.getDuration() > 0) {
-            String time = DateUtils.toTime(videoBody.getDuration());
-            timeLengthView.setText(time);
+        return bitmap;
+    }
+    @Override
+    protected void onSetUpView() {
+        String currentUser = EMClient.getInstance().getCurrentUser();
+        String video_url = message.getStringAttribute(EaseConstant.EXTRA_SEND, "");
+        String image_url = message.getStringAttribute(EaseConstant.EXTRA_NAME, "");
+        String video_size = message.getStringAttribute(EaseConstant.EXTRA_GRAPID, "");
+
+        long timelength=message.getIntAttribute(EaseConstant.EXTRA_RED_IS_ALL,0);
+        Glide.with(context).load(StringUtil.changeUrl(image_url)).asBitmap().placeholder(R.drawable.ease_default_image).into(imageView);
+        sizeView.setText(video_size+" M");
+        timeLengthView.setText(formatTimeS(timelength));
+        imageView.setImageResource(R.drawable.ease_default_image);
+        if(progressBar!=null){
+            progressBar.setVisibility(View.GONE);
+        }
+        if(percentageView!=null){
+            percentageView.setVisibility(View.GONE);
         }
 
-        if (message.direct() == EMMessage.Direct.RECEIVE) {
-            if (videoBody.getVideoFileLength() > 0) {
-                String size = TextFormater.getDataSize(videoBody.getVideoFileLength());
-                sizeView.setText(size);
-            }
-        } else {
-            if (videoBody.getLocalUrl() != null && new File(videoBody.getLocalUrl()).exists()) {
-                String size = TextFormater.getDataSize(new File(videoBody.getLocalUrl()).length());
-                sizeView.setText(size);
-            }
+    }
+    public static String formatTimeS(long duration) {
+        String time = "" ;
+        long minute = duration / 60000 ;
+        long seconds = duration % 60000 ;
+        long second = Math.round((float)seconds/1000) ;
+        if( minute < 10 ){
+            time += "0" ;
         }
-
-        EMLog.d(TAG,  "video thumbnailStatus:" + videoBody.thumbnailDownloadStatus());
-        if (message.direct() == EMMessage.Direct.RECEIVE) {
-            if (videoBody.thumbnailDownloadStatus() == EMFileMessageBody.EMDownloadStatus.DOWNLOADING ||
-                    videoBody.thumbnailDownloadStatus() == EMFileMessageBody.EMDownloadStatus.PENDING) {
-                imageView.setImageResource(R.drawable.ease_default_image);
-            } else {
-                // System.err.println("!!!! not back receive, show image directly");
-                imageView.setImageResource(R.drawable.ease_default_image);
-                if (localThumb != null) {
-                    showVideoThumbView(localThumb, imageView, videoBody.getThumbnailUrl(), message);
-                }
-            }
-            return;
-        }else{
-            if (videoBody.thumbnailDownloadStatus() == EMFileMessageBody.EMDownloadStatus.DOWNLOADING ||
-                    videoBody.thumbnailDownloadStatus() == EMFileMessageBody.EMDownloadStatus.PENDING ||
-                        videoBody.thumbnailDownloadStatus() == EMFileMessageBody.EMDownloadStatus.FAILED) {
-                progressBar.setVisibility(View.INVISIBLE);
-                percentageView.setVisibility(View.INVISIBLE);
-                imageView.setImageResource(R.drawable.ease_default_image);
-            } else {
-                progressBar.setVisibility(View.GONE);
-                percentageView.setVisibility(View.GONE);
-                imageView.setImageResource(R.drawable.ease_default_image);
-                showVideoThumbView(localThumb, imageView, videoBody.getThumbnailUrl(), message);
-            }
+        time += minute+":" ;
+        if( second < 10 ){
+            time += "0" ;
         }
-	}
+        time += second ;
+        return time ;
+
+    }
 
 
+    @Override
+    protected void onBubbleClick() {
+        if (message != null) {
+            String video_url = message.getStringAttribute(EaseConstant.EXTRA_SEND, "");
+            long timelength = message.getIntAttribute(EaseConstant.EXTRA_RED_IS_ALL, 0);
+            CanTingAppLication.landType = 2;
 
-	/**
+            Intent intent = new Intent(context, PlayVideoActivity.class);
+            intent.putExtra("video_length", timelength);
+            intent.putExtra("path", video_url);
+            context.startActivity(intent);
+
+
+        }
+    }
+    /**
      * show video thumbnails
-     * 
-     * @param localThumb
-     *            local path for thumbnail
+     *
+     * @param localThumb   local path for thumbnail
      * @param iv
-     * @param thumbnailUrl
-     *            Url on server for thumbnails
+     * @param thumbnailUrl Url on server for thumbnails
      * @param message
      */
     private void showVideoThumbView(final String localThumb, final ImageView iv, String thumbnailUrl, final EMMessage message) {
@@ -133,7 +153,7 @@ public class EaseChatRowVideo extends EaseChatRowFile {
                         return null;
                     }
                 }
-                
+
                 @Override
                 protected void onPostExecute(Bitmap result) {
                     super.onPostExecute(result);
@@ -152,7 +172,7 @@ public class EaseChatRowVideo extends EaseChatRowFile {
                 }
             }.execute();
         }
-        
+
     }
 
 }

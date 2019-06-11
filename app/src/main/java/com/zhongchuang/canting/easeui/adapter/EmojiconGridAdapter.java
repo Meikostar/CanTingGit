@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.easeui.domain.EaseEmojicon;
 import com.zhongchuang.canting.easeui.domain.EaseEmojicon.Type;
 import com.zhongchuang.canting.easeui.utils.EaseSmileUtils;
@@ -35,8 +35,8 @@ public class EmojiconGridAdapter extends ArrayAdapter<EaseEmojicon>{
             }
         }
 
-        ImageView imageView = (ImageView) convertView.findViewById(R.id.iv_expression);
-        TextView textView = (TextView) convertView.findViewById(R.id.tv_name);
+        ImageView imageView = convertView.findViewById(R.id.iv_expression);
+        TextView textView = convertView.findViewById(R.id.tv_name);
         EaseEmojicon emojicon = getItem(position);
         if(textView != null && emojicon.getName() != null){
             textView.setText(emojicon.getName());

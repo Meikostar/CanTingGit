@@ -83,14 +83,18 @@
                     android:textColor="#fff" />
 
                 <TextView
+                    android:paddingTop="6dp"
+                    android:paddingBottom="6dp"
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp"
+                    android:background="@drawable/shap_oval_gray"
                     android:id="@+id/tv_nick"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="张三"
                     android:textColor="@android:color/white"
-                    android:textSize="20sp"
-                    tools:ignore="HardcodedText" />
+                    android:textSize="22sp"
+                    android:text="张三"/>
 
             </LinearLayout>
             <RelativeLayout

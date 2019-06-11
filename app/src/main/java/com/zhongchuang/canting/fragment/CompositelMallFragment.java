@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.malinskiy.superrecyclerview.OnMoreListener;
 import com.malinskiy.superrecyclerview.SuperRecyclerView;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.mall.SearchGoodActivity;
 import com.zhongchuang.canting.activity.mall.ShopCompsiteMallActivity;
 import com.zhongchuang.canting.activity.mall.ShopMallDetailActivity;
@@ -161,7 +161,7 @@ public class CompositelMallFragment extends BaseFragment implements BaseContract
 //        showPress();
         presenter = new BasesPresenter(this);
 
-        presenter.getHomeBanner("1");
+        presenter.getHomeBanner("3");
         adapter.setHeaderView(view);
 
         refreshListener = new SwipeRefreshLayout.OnRefreshListener() {
@@ -169,7 +169,7 @@ public class CompositelMallFragment extends BaseFragment implements BaseContract
             @Override
             public void onRefresh() {
                 //  mSuperRecyclerView.showMoreProgress();
-                presenter.getProductList(TYPE_PULL_REFRESH, 1 + "", cout + "", "", "3", "0", "1");
+                presenter.getProductList(TYPE_PULL_REFRESH, 1 + "", cout + "", "", "1", "0", "1");
 
                         if (mSuperRecyclerView != null) {
                             mSuperRecyclerView.hideMoreProgress();
@@ -264,7 +264,7 @@ public class CompositelMallFragment extends BaseFragment implements BaseContract
                     currpage++;
                     mSuperRecyclerView.showMoreProgress();
                             if (haveNext)
-                                presenter.getProductList(TYPE_PULL_MORE, currpage + "", cout + "", "", "3", "0", "1");
+                                presenter.getProductList(TYPE_PULL_MORE, currpage + "", cout + "", "", "1", "0", "1");
                             if(mSuperRecyclerView!=null){
                                 mSuperRecyclerView.hideMoreProgress();
                             }

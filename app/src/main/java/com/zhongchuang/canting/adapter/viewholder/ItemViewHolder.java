@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.utils.DensityUtil;
 
 
@@ -27,11 +27,11 @@ public class ItemViewHolder extends RecyclerView.ViewHolder  {
     public ItemViewHolder(View itemView) {
         super(itemView);
 
-        img= (ImageView) itemView.findViewById(R.id.iv_img);
-        tvName= (TextView) itemView.findViewById(R.id.tv_name);
-        tvPrice= (TextView) itemView.findViewById(R.id.tv_price);
-        typeName= (TextView) itemView.findViewById(R.id.tv_type);
-        card= (CardView) itemView.findViewById(R.id.card);
+        img= itemView.findViewById(R.id.iv_img);
+        tvName= itemView.findViewById(R.id.tv_name);
+        tvPrice= itemView.findViewById(R.id.tv_price);
+        typeName= itemView.findViewById(R.id.tv_type);
+        card= itemView.findViewById(R.id.card);
 
     }
     public void messureHeight(Context mContext){

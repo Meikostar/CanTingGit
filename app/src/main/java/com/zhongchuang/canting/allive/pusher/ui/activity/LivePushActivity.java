@@ -46,11 +46,13 @@ import com.zhongchuang.canting.allive.pusher.ui.fragment.PushTextStatsFragment;
 import com.zhongchuang.canting.allive.pusher.utils.NetWorkUtils;
 import com.zhongchuang.canting.app.CanTingAppLication;
 import com.zhongchuang.canting.been.BEAN;
+import com.zhongchuang.canting.been.SubscriptionBean;
 import com.zhongchuang.canting.hud.ToastUtils;
 import com.zhongchuang.canting.net.BaseCallBack;
 import com.zhongchuang.canting.net.HttpUtil;
 import com.zhongchuang.canting.net.netService;
 import com.zhongchuang.canting.utils.SpUtil;
+import com.zhongchuang.canting.widget.RxBus;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -125,7 +127,6 @@ public class LivePushActivity extends AppCompatActivity {
     private String mAuthTime = "";
     private String mPrivacyKey = "";
 
-//    private ConnectivityChangedReceiver mChangedReceiver = new ConnectivityChangedReceiver();
     private boolean videoThreadOn = false;
     private boolean audioThreadOn = false;
 
@@ -489,6 +490,7 @@ public class LivePushActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        RxBus.getInstance().send(SubscriptionBean.createSendBean(SubscriptionBean.LIVE_FINISH_FRESH,""));
         videoThreadOn = false;
         audioThreadOn = false;
         if(mAlivcLivePusher != null) {

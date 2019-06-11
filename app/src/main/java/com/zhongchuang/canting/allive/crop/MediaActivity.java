@@ -113,11 +113,11 @@ public class MediaActivity extends Activity implements View.OnClickListener{
 
     }
     private void init(){
-        galleryView = (RecyclerView) findViewById(com.zhongchuang.canting.R.id.aliyun_gallery_media);
-        title = (TextView) findViewById(com.zhongchuang.canting.R.id.aliyun_gallery_title);
+        galleryView = findViewById(com.zhongchuang.canting.R.id.aliyun_gallery_media);
+        title = findViewById(com.zhongchuang.canting.R.id.aliyun_gallery_title);
         title.setText(com.zhongchuang.canting.R.string.aliyun_gallery_all_media);
-        back = (ImageButton) findViewById(com.zhongchuang.canting.R.id.aliyun_gallery_closeBtn);
-        mEtVideoPath = (EditText) findViewById(com.zhongchuang.canting.R.id.et_video_path);
+        back = findViewById(com.zhongchuang.canting.R.id.aliyun_gallery_closeBtn);
+        mEtVideoPath = findViewById(com.zhongchuang.canting.R.id.et_video_path);
         back.setOnClickListener(this);
         storage = new MediaStorage(this, new JSONSupportImpl());
         thumbnailGenerator = new ThumbnailGenerator(this);

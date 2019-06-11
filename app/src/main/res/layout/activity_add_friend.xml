@@ -9,6 +9,8 @@
         android:id="@+id/navigationBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:navigationRight_type="txt"
+        app:navigationRight_txt="个人信息"
         app:navigationLeft_img="@drawable/back_white"
         app:navigationTitle="@string/tjhy" />
     <LinearLayout

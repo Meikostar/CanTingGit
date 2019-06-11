@@ -50,7 +50,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.aliyun_svideo_category_item_view, parent, false);
         CategoryViewHolder filterViewHolder = new CategoryViewHolder(view);
-        filterViewHolder.frameLayout = (FrameLayout) view.findViewById(R.id.category_image);
+        filterViewHolder.frameLayout = view.findViewById(R.id.category_image);
         return filterViewHolder;
     }
 
@@ -99,7 +99,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         CircularImageView mImage;
         public CategoryViewHolder(View itemView) {
             super(itemView);
-            mImage = (CircularImageView) itemView.findViewById(R.id.category_image_source);
+            mImage = itemView.findViewById(R.id.category_image_source);
         }
     }
 

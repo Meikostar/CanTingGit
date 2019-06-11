@@ -9,7 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.easeui.bean.GROUP;
 import com.zhongchuang.canting.easeui.widget.NineGridImageView;
 import com.zhongchuang.canting.easeui.widget.NineGridImageViewAdapter;
@@ -64,8 +64,8 @@ public class GroupsListAdapter extends BaseAdapter {
         if (convertView == null) {
             viewholder = new Viewholder();
             convertView = inflater.inflate(layoutId, null);
-            viewholder.group_avatar = (NineGridImageView) convertView.findViewById(R.id.group_avatar);
-            viewholder.group_name = (TextView) convertView.findViewById(R.id.title);
+            viewholder.group_avatar = convertView.findViewById(R.id.group_avatar);
+            viewholder.group_name = convertView.findViewById(R.id.title);
             convertView.setTag(viewholder);
         } else viewholder = (Viewholder) convertView.getTag();
         viewholder.group_name.setText(mDatas.get(position).groupname+"("+mDatas.get(position).headimage.size()+")");

@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 
 /**
  * Created by Administrator on 2018/6/22.
@@ -43,9 +43,9 @@ public class Custom_ProfileOrderClickBtn extends RelativeLayout {
     }
 
     private void initView(View view) {
-        img_orderstatus_icon = (ImageView) view.findViewById(R.id.img_orderstatus_icon);
-        txt_unread = (TextView) view.findViewById(R.id.txt_unread);
-        txt_order_status = (TextView) view.findViewById(R.id.txt_order_status);
+        img_orderstatus_icon = view.findViewById(R.id.img_orderstatus_icon);
+        txt_unread = view.findViewById(R.id.txt_unread);
+        txt_order_status = view.findViewById(R.id.txt_order_status);
     }
 
     public void setUnReadNum(int num){

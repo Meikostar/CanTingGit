@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zhongchuang.canting.BuildConfig;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.adapter.BannerAdapters;
 import com.zhongchuang.canting.base.BaseActivity1;
 import com.zhongchuang.canting.been.Home;

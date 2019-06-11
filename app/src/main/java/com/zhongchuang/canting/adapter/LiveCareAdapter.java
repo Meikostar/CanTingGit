@@ -12,7 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.mall.OrderDetailActivity;
 import com.zhongchuang.canting.been.Care;
 import com.zhongchuang.canting.been.OrderData;
@@ -65,7 +65,7 @@ public class LiveCareAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return list!=null?(list.size()==0?0:list.size()):0;
+        return list!=null?(list.size()):0;
     }
 
     @Override
@@ -84,14 +84,14 @@ public class LiveCareAdapter extends BaseAdapter {
         ViewHolder holder;
         if (convertView == null) {
             holder=new ViewHolder();
-            convertView = convertView.inflate(context,R.layout.item_live_care, null);
-            holder.tv_state = (TextView) convertView.findViewById(R.id.tv_state);
-            holder.name = (TextView) convertView.findViewById(R.id.p_name);
-            holder.dese = (TextView) convertView.findViewById(R.id.p_desc);
-            holder.tvState1 = (TextView) convertView.findViewById(R.id.tv_state1);
-            holder.tvState2 = (TextView) convertView.findViewById(R.id.tv_state2);
-            holder.tvState3 = (TextView) convertView.findViewById(R.id.tv_state3);
-            holder.img = (ImageView) convertView.findViewById(R.id.p_logo);
+            convertView = View.inflate(context,R.layout.item_live_care, null);
+            holder.tv_state = convertView.findViewById(R.id.tv_state);
+            holder.name = convertView.findViewById(R.id.p_name);
+            holder.dese = convertView.findViewById(R.id.p_desc);
+            holder.tvState1 = convertView.findViewById(R.id.tv_state1);
+            holder.tvState2 = convertView.findViewById(R.id.tv_state2);
+            holder.tvState3 = convertView.findViewById(R.id.tv_state3);
+            holder.img = convertView.findViewById(R.id.p_logo);
 
 
             convertView.setTag(holder);

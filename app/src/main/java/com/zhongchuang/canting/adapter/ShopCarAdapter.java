@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.been.Product;
 import com.zhongchuang.canting.utils.StringUtil;
 import com.zhongchuang.canting.utils.TextUtil;
@@ -64,13 +64,13 @@ public class ShopCarAdapter extends BaseAdapter {
         if (view == null) {
             view = View.inflate(mContext, R.layout.shopcar_item, null);
             holder = new ShopCarHolder();
-            holder.ivchoose = (MCheckBox) view.findViewById(R.id.iv_choose);
-            holder.p_logo = (ImageView) view.findViewById(R.id.p_logo);
-            holder.p_name = (TextView) view.findViewById(R.id.p_name);
-            holder.p_desc = (TextView) view.findViewById(R.id.p_desc);
-            holder.p_price = (TextView) view.findViewById(R.id.p_price);
-            holder.card = (CardView) view.findViewById(R.id.card);
-            holder.add = (AddEditText) view.findViewById(R.id.add);
+            holder.ivchoose = view.findViewById(R.id.iv_choose);
+            holder.p_logo = view.findViewById(R.id.p_logo);
+            holder.p_name = view.findViewById(R.id.p_name);
+            holder.p_desc = view.findViewById(R.id.p_desc);
+            holder.p_price = view.findViewById(R.id.p_price);
+            holder.card = view.findViewById(R.id.card);
+            holder.add = view.findViewById(R.id.add);
             view.setTag(holder);
 
         } else {
@@ -83,7 +83,12 @@ public class ShopCarAdapter extends BaseAdapter {
                 checkListener.checks(null);
             }
         });
-        holder.add.setTexts(shopList.get(position).number);
+        if(TextUtil.isNotEmpty(shopList.get(position).number)){
+            holder.add.setTexts(shopList.get(position).number);
+        }else {
+            holder.add.setTexts(1+"");
+        }
+
         String[] splits = shopList.get(position).picture_url.split(",");
         Glide.with(mContext).load(StringUtil.changeUrl(shopList.get(position).product_sku_url)).asBitmap().placeholder(R.drawable.moren1).into(holder.p_logo);
         if (TextUtil.isNotEmpty(shopList.get(position).pro_name)) {

@@ -12,8 +12,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.ChatActivity;
+import com.zhongchuang.canting.activity.chat.AddFriendActivity;
+import com.zhongchuang.canting.activity.mine.NewPersonDetailActivity;
 import com.zhongchuang.canting.been.BaseResponse;
 import com.zhongchuang.canting.been.FriendSearchBean;
 
@@ -147,6 +149,17 @@ public class Liaotian_haoyouRecAdapter extends RecyclerView.Adapter<Liaotian_hao
                 });
             }else {
                 holder.friendItemTex.setText(R.string.tst);
+                holder.friendItemTex.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+
+                        Intent intentc = new Intent(mContext, ChatActivity.class);
+                        intentc.putExtra("userId",dataBean.getRingLetterName());
+                        mContext.startActivity(intentc);
+
+                    }
+                });
                 holder.llbg.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -160,7 +173,14 @@ public class Liaotian_haoyouRecAdapter extends RecyclerView.Adapter<Liaotian_hao
             }
         }
 
-
+       holder.friendItemPic.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               Intent intent = new Intent(mContext, NewPersonDetailActivity.class);
+               intent.putExtra("id", dataBean.getRingLetterName() + "");
+               mContext.startActivity(intent);
+           }
+       });
     //子条目点击事件
     //判断是否设置了监听器
         if(mOnItemClickListener !=null)

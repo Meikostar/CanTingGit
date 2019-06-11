@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.been.GAME;
 import com.zhongchuang.canting.utils.StringUtil;
 import com.zhongchuang.canting.widget.CircleTransform;

@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -242,7 +242,7 @@ public class MyHorizontalScrollView extends HorizontalScrollView implements
 //            imageViews.add(imageView);
 //        }
         iterator.hasNext();
-        ImageView imageView = (ImageView) iterator.next().findViewById(R.id.img_list_item);
+        ImageView imageView = iterator.next().findViewById(R.id.img_list_item);
         for (int i = 0; i < mAdapter.getCount(); i++) {
 //            ImageView imageView = (ImageView) mAdapter.getView(i,null,null).findViewById(R.id.img_list_item);
             imageViews.add(imageView);

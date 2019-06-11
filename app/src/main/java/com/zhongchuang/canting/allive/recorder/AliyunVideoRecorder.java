@@ -62,12 +62,17 @@ import com.aliyun.struct.recorder.MediaInfo;
 import com.aliyun.struct.snap.AliyunSnapVideoParam;
 import com.qu.preview.callback.OnFrameCallBack;
 import com.qu.preview.callback.OnTextureIdCallBack;
+import com.zhongchuang.canting.been.SubscriptionBean;
+import com.zhongchuang.canting.widget.RxBus;
 import com.zhongchuang.canting.widget.waitLoading.ShapeLoadingDialog;
 
 import java.io.File;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+
+import rx.Subscription;
+import rx.functions.Action1;
 
 /**
  * 视频拍摄界面
@@ -164,8 +169,24 @@ public class AliyunVideoRecorder extends Activity implements View.OnClickListene
         reSizePreview();
         msc = new MediaScannerConnection(this,null);
         msc.connect();
-    }
+        mSubscription = RxBus.getInstance().toObserverable(SubscriptionBean.RxBusSendBean.class).subscribe(new Action1<SubscriptionBean.RxBusSendBean>() {
+            @Override
+            public void call(SubscriptionBean.RxBusSendBean bean) {
+                if (bean == null) return;
+                if (bean.type == SubscriptionBean.LIVE_FINISH) {
+                    finish();
+                }
 
+            }
+        }, new Action1<Throwable>() {
+            @Override
+            public void call(Throwable throwable) {
+                throwable.printStackTrace();
+            }
+        });
+        RxBus.getInstance().addSubscription(mSubscription);
+    }
+    private Subscription mSubscription;
     public static void startRecordForResult(Activity activity,int requestCode,AliyunSnapVideoParam param){
         Intent intent = new Intent(activity, AliyunVideoRecorder.class);
         intent.putExtra(AliyunSnapVideoParam.VIDEO_RESOLUTION,param.getResolutionMode());
@@ -350,35 +371,35 @@ public class AliyunVideoRecorder extends Activity implements View.OnClickListene
     }
 
     private void initView() {
-        mGlSurfaceView = (AliyunSVideoGlSurfaceView) findViewById(R.id.aliyun_preview);
+        mGlSurfaceView = findViewById(R.id.aliyun_preview);
         mGlSurfaceView.setOnTouchListener(this);
-        mSwitchRatioBtn = (ImageView) findViewById(R.id.aliyun_switch_ratio);
+        mSwitchRatioBtn = findViewById(R.id.aliyun_switch_ratio);
         mSwitchRatioBtn.setOnClickListener(this);
-        mSwitchBeautyBtn = (ImageView) findViewById(R.id.aliyun_switch_beauty);
+        mSwitchBeautyBtn = findViewById(R.id.aliyun_switch_beauty);
         mSwitchBeautyBtn.setOnClickListener(this);
-        mSwitchCameraBtn = (ImageView) findViewById(R.id.aliyun_switch_camera);
+        mSwitchCameraBtn = findViewById(R.id.aliyun_switch_camera);
         mSwitchCameraBtn.setOnClickListener(this);
-        mSwitchLightBtn = (ImageView) findViewById(R.id.aliyun_switch_light);
+        mSwitchLightBtn = findViewById(R.id.aliyun_switch_light);
         mSwitchLightBtn.setImageResource(mLightDisableRes);
         mSwitchLightBtn.setOnClickListener(this);
-        mBackBtn = (ImageView) findViewById(R.id.aliyun_back);
+        mBackBtn = findViewById(R.id.aliyun_back);
         mBackBtn.setOnClickListener(this);
-        mRecordBtn = (ImageView) findViewById(R.id.aliyun_record_btn);
+        mRecordBtn = findViewById(R.id.aliyun_record_btn);
         mRecordBtn.setOnTouchListener(this);
-        mDeleteBtn = (ImageView) findViewById(R.id.aliyun_delete_btn);
+        mDeleteBtn = findViewById(R.id.aliyun_delete_btn);
         mDeleteBtn.setOnClickListener(this);
-        mCompleteBtn = (ImageView) findViewById(R.id.aliyun_complete_btn);
+        mCompleteBtn = findViewById(R.id.aliyun_complete_btn);
         mCompleteBtn.setOnClickListener(this);
-        mRecordTimelineView = (RecordTimelineView) findViewById(R.id.aliyun_record_timeline);
+        mRecordTimelineView = findViewById(R.id.aliyun_record_timeline);
         mRecordTimelineView.setColor(mTintColor, mTimelineDelBgColor, R.color.qupai_black_opacity_70pct, mTimelineBgColor);
-        mRecordTimeTxt = (TextView) findViewById(R.id.aliyun_record_time);
-        mGalleryBtn = (ImageView) findViewById(R.id.aliyun_icon_default);
+        mRecordTimeTxt = findViewById(R.id.aliyun_record_time);
+        mGalleryBtn = findViewById(R.id.aliyun_icon_default);
         if(!isNeedGallery){
             mGalleryBtn.setVisibility(View.GONE);
         }
-        mToolBar = (FrameLayout) findViewById(R.id.aliyun_tools_bar);
-        mRecorderBar = (FrameLayout) findViewById(R.id.aliyun_record_layout);
-        mFilterTxt = (TextView) findViewById(R.id.aliyun_filter_txt);
+        mToolBar = findViewById(R.id.aliyun_tools_bar);
+        mRecorderBar = findViewById(R.id.aliyun_record_layout);
+        mFilterTxt = findViewById(R.id.aliyun_filter_txt);
         mFilterTxt.setVisibility(View.GONE);
         mGalleryBtn.setOnClickListener(this);
         scaleGestureDetector = new ScaleGestureDetector(this, this);
@@ -606,6 +627,9 @@ public class AliyunVideoRecorder extends Activity implements View.OnClickListene
         if (mOrientationDetector != null && mOrientationDetector.canDetectOrientation()) {
             mOrientationDetector.enable();
         }
+        if(shapeLoadingDialog!=null){
+            shapeLoadingDialog.dismiss();
+        }
     }
 
     @Override
@@ -805,6 +829,10 @@ public class AliyunVideoRecorder extends Activity implements View.OnClickListene
         if (mOrientationDetector != null) {
             mOrientationDetector.setOrientationChangedListener(null);
         }
+        if (mSubscription != null) {
+            mSubscription.unsubscribe();
+        }
+
         AliyunRecorderCreator.destroyRecorderInstance();
     }
 
@@ -988,6 +1016,10 @@ public class AliyunVideoRecorder extends Activity implements View.OnClickListene
     }
 
     private void startRecording() {
+        mDeleteBtn.setVisibility(View.GONE);
+        mCompleteBtn.setVisibility(View.GONE);
+
+
         String videoPath = Environment.getExternalStorageDirectory() + File.separator + Environment.DIRECTORY_DCIM + File.separator + System.currentTimeMillis() + ".mp4";
         mRecorder.setOutputPath(videoPath);
         handleRecordStart();
@@ -1000,6 +1032,8 @@ public class AliyunVideoRecorder extends Activity implements View.OnClickListene
     }
 
     private void stopRecording() {
+        mDeleteBtn.setVisibility(View.VISIBLE);
+        mCompleteBtn.setVisibility(View.VISIBLE);
         mRecorder.stopRecording();
         handleRecordStop();
     }
@@ -1141,8 +1175,8 @@ public class AliyunVideoRecorder extends Activity implements View.OnClickListene
     private void handleRecordStart() {
         mRecordBtn.setActivated(true);
         mGalleryBtn.setVisibility(View.GONE);
-        mCompleteBtn.setVisibility(View.VISIBLE);
-        mDeleteBtn.setVisibility(View.VISIBLE);
+//        mCompleteBtn.setVisibility(View.VISIBLE);
+//        mDeleteBtn.setVisibility(View.VISIBLE);
         mSwitchRatioBtn.setEnabled(false);
         mSwitchBeautyBtn.setEnabled(false);
         mSwitchCameraBtn.setEnabled(false);

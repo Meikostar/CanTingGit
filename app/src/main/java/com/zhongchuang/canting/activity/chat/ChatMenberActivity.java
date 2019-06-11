@@ -18,7 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.ChatActivity;
 import com.zhongchuang.canting.adapter.ChatMenberBasedapter;
 import com.zhongchuang.canting.base.BaseActivity1;
@@ -143,9 +143,9 @@ public class ChatMenberActivity extends BaseActivity1 implements BaseContract.Vi
             @Override
             public void onClick(View v) {
                 View view = LayoutInflater.from(ChatMenberActivity.this).inflate(R.layout.chat_phone_popwindow_view, null);
-                TextView tv_camera = (TextView) view.findViewById(R.id.tv_camera);
-                TextView tv_choose = (TextView) view.findViewById(R.id.tv_choose);
-                TextView tv_cancel = (TextView) view.findViewById(R.id.tv_cancel);
+                TextView tv_camera = view.findViewById(R.id.tv_camera);
+                TextView tv_choose = view.findViewById(R.id.tv_choose);
+                TextView tv_cancel = view.findViewById(R.id.tv_cancel);
                 tv_camera.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

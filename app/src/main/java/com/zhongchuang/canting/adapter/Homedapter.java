@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 
 import com.bumptech.glide.Glide;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.been.Banner;
 import com.zhongchuang.canting.utils.StringUtil;
 import com.zhongchuang.canting.utils.TextUtil;
@@ -65,8 +65,8 @@ public class Homedapter extends BaseAdapter {
         if (view == null) {
             holder = new ViewHolder();
             view = inflater.inflate(R.layout.tools_item, null);
-            holder.txt_name = (TextView) view.findViewById(R.id.txt_name);
-            holder.img_icon = (ImageView) view.findViewById(R.id.img_icon);
+            holder.txt_name = view.findViewById(R.id.txt_name);
+            holder.img_icon = view.findViewById(R.id.img_icon);
             view.setTag(holder);
         } else {
             holder = (ViewHolder) view.getTag();

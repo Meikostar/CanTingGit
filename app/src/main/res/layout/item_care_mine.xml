@@ -111,7 +111,7 @@
 
                     android:textColor="#FF8400"
                     android:textSize="13sp"
-                    tools:text="  " />
+                    tools:text=" 0 " />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -130,7 +130,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="#FF8400"
                     android:textSize="13sp"
-                    android:text="   " />
+                    android:text="  0 " />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

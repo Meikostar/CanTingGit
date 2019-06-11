@@ -16,7 +16,7 @@ import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.sdk.modelmsg.WXWebpageObject;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.MActivityManager;
 import com.zhongchuang.canting.been.ShareBean;
 import com.zhongchuang.canting.hud.ToastUtils;
@@ -51,7 +51,7 @@ public class ThirdShareManager {
 
     // IWXAPI 是第三方app和微信通信的openapi接口
     private IWXAPI api;
-    private static final String WeChat_APP_ID = "wxed0453751545a174";//"wxdcb688d9027c6647";
+    private static final String WeChat_APP_ID = "wxff6ae6cbdc1a3817";//"wxdcb688d9027c6647";
 
     //QQ
 
@@ -194,10 +194,20 @@ public class ThirdShareManager {
                 msg.description = mShareBean.content_;
 
                 if(TextUtil.isNotEmpty(mShareBean.img_)){
+                    if(mShareBean.img_.equals("img")){
+                        Bitmap bmp = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.downloads);
+//                        Bitmap thumbBmp = Bitmap.createScaledBitmap(bmp, THUMB_SIZE, THUMB_SIZE, false);
+//
+//                        bmp.recycle();
 
-                    Bitmap thumb =Bitmap.createScaledBitmap(GetLocalOrNetBitmap(StringUtil.changeUrl(mShareBean.img_)), 120, 120, true);//压缩Bitmap
 
-                    msg.thumbData = BitmapUtil.bmpToByteArray(thumb, true);
+                        msg.thumbData = BitmapUtil.bmpToByteArray(bmp, true);
+                    }else {
+                        Bitmap thumb =Bitmap.createScaledBitmap(GetLocalOrNetBitmap(StringUtil.changeUrl(mShareBean.img_)), 120, 120, true);//压缩Bitmap
+
+                        msg.thumbData = BitmapUtil.bmpToByteArray(thumb, true);
+                    }
+
 
                 }else {
 
@@ -286,16 +296,26 @@ public class ThirdShareManager {
                 msg.description = mShareBean.content_;
 
                 if (TextUtil.isNotEmpty(mShareBean.img_)) {
+                    if(mShareBean.img_.equals("img")){
+                        Bitmap bmp = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.downloads);
 
-                    Bitmap thumb = Bitmap.createScaledBitmap(GetLocalOrNetBitmap(ImageUtil.getImageUrl_800(mShareBean.img_)), 120, 120, true);//压缩Bitmap
+//                        Bitmap thumbBmp = Bitmap.createScaledBitmap(bmp, THUMB_SIZE, THUMB_SIZE, false);
+//
+//                        bmp.recycle();
 
-                    msg.thumbData = BitmapUtil.bmpToByteArray(thumb, true);
+                        msg.thumbData = BitmapUtil.bmpToByteArray(bmp, true);
+                    }else {
+                        Bitmap thumb = Bitmap.createScaledBitmap(GetLocalOrNetBitmap(ImageUtil.getImageUrl_800(mShareBean.img_)), 120, 120, false);//压缩Bitmap
+
+                        msg.thumbData = BitmapUtil.bmpToByteArray(thumb, true);
+                    }
+
 
                 } else {
 
                     Bitmap bmp = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.downloads);
 
-                    Bitmap thumbBmp = Bitmap.createScaledBitmap(bmp, THUMB_SIZE, THUMB_SIZE, true);
+                    Bitmap thumbBmp = Bitmap.createScaledBitmap(bmp, THUMB_SIZE, THUMB_SIZE, false);
 
                     bmp.recycle();
 

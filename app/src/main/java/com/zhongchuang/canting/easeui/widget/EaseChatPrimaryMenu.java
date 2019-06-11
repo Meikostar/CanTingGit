@@ -18,7 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hyphenate.util.EMLog;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 
 /**
  * primary menu
@@ -53,16 +53,16 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
     private void init(final Context context, AttributeSet attrs) {
         Context context1 = context;
         LayoutInflater.from(context).inflate(R.layout.ease_widget_chat_primary_menu, this);
-        editText = (EditText) findViewById(R.id.et_sendmessage);
+        editText = findViewById(R.id.et_sendmessage);
         buttonSetModeKeyboard = findViewById(R.id.btn_set_mode_keyboard);
-        edittext_layout = (RelativeLayout) findViewById(R.id.edittext_layout);
+        edittext_layout = findViewById(R.id.edittext_layout);
         buttonSetModeVoice = findViewById(R.id.btn_set_mode_voice);
         buttonSend = findViewById(R.id.btn_send);
         buttonPressToSpeak = findViewById(R.id.btn_press_to_speak);
-        faceNormal = (ImageView) findViewById(R.id.iv_face_normal);
-        faceChecked = (ImageView) findViewById(R.id.iv_face_checked);
-        RelativeLayout faceLayout = (RelativeLayout) findViewById(R.id.rl_face);
-        buttonMore = (Button) findViewById(R.id.btn_more);
+        faceNormal = findViewById(R.id.iv_face_normal);
+        faceChecked = findViewById(R.id.iv_face_checked);
+        RelativeLayout faceLayout = findViewById(R.id.rl_face);
+        buttonMore = findViewById(R.id.btn_more);
         edittext_layout.setBackgroundResource(R.drawable.ease_input_bar_bg_normal);
         
         buttonSend.setOnClickListener(this);

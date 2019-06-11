@@ -60,11 +60,11 @@ public class MorePasterAdapter extends RecyclerView.Adapter<MorePasterAdapter.Pa
 
         public PasterViewHolder(final View itemView) {
             super(itemView);
-            mTvName = (TextView) itemView.findViewById(R.id.tv_name);
-            mTvDesc = (TextView) itemView.findViewById(R.id.tv_desc);
-            mTvRightButton = (TextView) itemView.findViewById(R.id.tv_right_button);
-            mIvIcon = (ImageView) itemView.findViewById(R.id.iv_icon);
-            downloadProgress = (CircleProgressBar) itemView.findViewById(R.id.download_progress);
+            mTvName = itemView.findViewById(R.id.tv_name);
+            mTvDesc = itemView.findViewById(R.id.tv_desc);
+            mTvRightButton = itemView.findViewById(R.id.tv_right_button);
+            mIvIcon = itemView.findViewById(R.id.iv_icon);
+            downloadProgress = itemView.findViewById(R.id.download_progress);
             int width = DensityUtil.dip2px(itemView.getContext(), 25);
             downloadProgress.setBackgroundWidth(width, width);
             downloadProgress.setProgressWidth(width);

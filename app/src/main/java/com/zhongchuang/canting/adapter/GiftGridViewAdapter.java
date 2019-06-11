@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.been.Gift;
 import com.zhongchuang.canting.utils.StringUtil;
 
@@ -65,9 +65,9 @@ public class GiftGridViewAdapter extends BaseAdapter {
             viewHolder = new ViewHolder();
             convertView = LayoutInflater.from(context).inflate(R.layout.item_gift, null);
             viewHolder.grid_fragment_home_item_img =
-                    (ImageView) convertView.findViewById(R.id.grid_fragment_home_item_img);
+                    convertView.findViewById(R.id.grid_fragment_home_item_img);
             viewHolder.grid_fragment_home_item_txt =
-                    (TextView) convertView.findViewById(R.id.grid_fragment_home_item_txt);
+                    convertView.findViewById(R.id.grid_fragment_home_item_txt);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();

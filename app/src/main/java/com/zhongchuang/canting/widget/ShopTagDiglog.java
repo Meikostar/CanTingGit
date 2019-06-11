@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 
 import com.bumptech.glide.Glide;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.utils.StringUtil;
 import com.zhongchuang.canting.utils.TextUtil;
 
@@ -215,11 +215,11 @@ public class ShopTagDiglog extends Dialog {
         setCanceledOnTouchOutside(true);
         getWindow().setGravity(Gravity.BOTTOM);
         getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-        priceTextView = (TextView) findViewById(R.id.price);
-        amountTextView = (TextView) findViewById(R.id.amount);
-        chooseTextView = (TextView) findViewById(R.id.choose);
-        add = (AddEditText) findViewById(R.id.add);
-        image = (ImageView) findViewById(R.id.image);
+        priceTextView = findViewById(R.id.price);
+        amountTextView = findViewById(R.id.amount);
+        chooseTextView = findViewById(R.id.choose);
+        add = findViewById(R.id.add);
+        image = findViewById(R.id.image);
 //        colorTagContainer = (TagContainerLayout) findViewById(R.id.color_tag_container);
 //        sizeTagContainer = (TagContainerLayout) findViewById(R.id.size_tag_container);
 //        sizeLabel = (TextView) findViewById(R.id.size_label);

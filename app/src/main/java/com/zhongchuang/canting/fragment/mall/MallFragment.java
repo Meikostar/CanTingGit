@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 import com.malinskiy.superrecyclerview.OnMoreListener;
 import com.malinskiy.superrecyclerview.SuperRecyclerView;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.mall.SearchGoodActivity;
 import com.zhongchuang.canting.activity.mall.ShopMallActivity;
 import com.zhongchuang.canting.activity.mall.ShopMallDetailActivity;
@@ -104,7 +104,7 @@ public class MallFragment extends BaseFragment implements BaseContract.View {
             @Override
             public void onRefresh() {
                 //  mSuperRecyclerView.showMoreProgress();
-                presenter.getProductList(TYPE_PULL_REFRESH, 1 + "", cout + "", "", "1", "0", "1");
+                presenter.getProductList(TYPE_PULL_REFRESH, 1 + "", cout + "", "", "3", "0", "1");
 
                 if (mSuperRecyclerView != null) {
                     mSuperRecyclerView.hideMoreProgress();
@@ -291,7 +291,7 @@ public class MallFragment extends BaseFragment implements BaseContract.View {
                     mSuperRecyclerView.showMoreProgress();
 
                     if (haveNext)
-                        presenter.getProductList(TYPE_PULL_MORE, currpage + "", cout + "", "", "1", "0", "1");
+                        presenter.getProductList(TYPE_PULL_MORE, currpage + "", cout + "", "", "3", "0", "1");
                     mSuperRecyclerView.hideMoreProgress();
 
                 }

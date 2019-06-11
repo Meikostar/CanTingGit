@@ -3,7 +3,7 @@ package com.zhongchuang.canting.adapter.viewholder;
 import android.view.View;
 import android.view.ViewStub;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.widget.MultiImageView;
 
 
@@ -30,7 +30,7 @@ public class ImageViewHolder extends TodayViewHolder {
         }
         viewStub.setLayoutResource(R.layout.view_stub_img);
         View subView = viewStub.inflate();
-        MultiImageView multiImageView = (MultiImageView) subView.findViewById(R.id.multiImagView);
+        MultiImageView multiImageView = subView.findViewById(R.id.multiImagView);
         if(multiImageView != null){
             this.multiImageView = multiImageView;
         }

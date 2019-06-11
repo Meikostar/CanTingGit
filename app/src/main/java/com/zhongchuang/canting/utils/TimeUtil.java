@@ -6,7 +6,7 @@ import android.text.SpannableStringBuilder;
 import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -36,6 +36,11 @@ public class TimeUtil {
             timeStr = forMatString(days) + "," + forMatString(hours) + "," + forMatString(minutes) + "," + forMatString(seconds);
         }
         return timeStr;
+    }
+
+    public static String formatToFileName(long time){
+        SimpleDateFormat format = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss_SSS");
+        return format.format(new Date(time));
     }
     private static String forMatString(long days) {
         String str;
@@ -227,6 +232,10 @@ public class TimeUtil {
         }
 
          return leftTime;
+    }
+    public static String formatTtimes(long time){
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        return format.format(new Date(time));
     }
     public static String formatTtimeName(long time){
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd  HH:mm");

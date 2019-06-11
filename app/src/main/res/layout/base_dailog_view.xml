@@ -12,6 +12,10 @@
         android:background="@drawable/op_circular_bg">
 
         <TextView
+            android:letterSpacing="0.05"
+            android:lineSpacingExtra="3dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:id="@+id/txt_title"
             android:layout_width="fill_parent"
             android:layout_height="0dp"

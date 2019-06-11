@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.PopupWindow;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.app.CanTingAppLication;
 import com.zhongchuang.canting.been.CityModel;
 import com.zhongchuang.canting.been.DistrictModel;
@@ -105,13 +105,13 @@ public class RegionSelectBindDialog {
     private void initView(){
 
         mView = View.inflate(mContext, R.layout.view_region_select_bind_dialog,null);
-        mViewGroup = (ViewGroup) ((Activity)mContext).getWindow().getDecorView().findViewById(android.R.id.content);
-        mCycleWheelViewProvince = (CycleWheelView)mView.findViewById(R.id.cwv_province);
-        mCycleWheelViewCity = (CycleWheelView)mView.findViewById(R.id.cwv_city);
-        mCycleWheelViewDistrict = (CycleWheelView)mView.findViewById(R.id.cwv_district);
-        mButtonCancel = (Button)mView.findViewById(R.id.but_cancel);
-        mButtonConfirm = (Button)mView.findViewById(R.id.but_confirm);
-        mFrameLayout = (FrameLayout)mView.findViewById(R.id.fl_rsbd_region);
+        mViewGroup = ((Activity)mContext).getWindow().getDecorView().findViewById(android.R.id.content);
+        mCycleWheelViewProvince = mView.findViewById(R.id.cwv_province);
+        mCycleWheelViewCity = mView.findViewById(R.id.cwv_city);
+        mCycleWheelViewDistrict = mView.findViewById(R.id.cwv_district);
+        mButtonCancel = mView.findViewById(R.id.but_cancel);
+        mButtonConfirm = mView.findViewById(R.id.but_confirm);
+        mFrameLayout = mView.findViewById(R.id.fl_rsbd_region);
         initNetDatas();
         setProvince();
         setCity();

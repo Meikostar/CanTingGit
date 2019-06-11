@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.been.Product;
 import com.zhongchuang.canting.been.RedInfo;
 import com.zhongchuang.canting.utils.StringUtil;
@@ -67,11 +67,11 @@ public class RedDetailAdapter extends BaseAdapter {
             view = View.inflate(mContext, R.layout.red_detail_item, null);
             holder = new ShopCarHolder();
 
-            holder.iv_img = (ImageView) view.findViewById(R.id.iv_img);
-            holder.tv_name = (TextView) view.findViewById(R.id.tv_name);
-            holder.tv_time = (TextView) view.findViewById(R.id.tv_time);
-            holder.tv_amount = (TextView) view.findViewById(R.id.tv_amount);
-            holder.tv_best = (TextView) view.findViewById(R.id.tv_best);
+            holder.iv_img = view.findViewById(R.id.iv_img);
+            holder.tv_name = view.findViewById(R.id.tv_name);
+            holder.tv_time = view.findViewById(R.id.tv_time);
+            holder.tv_amount = view.findViewById(R.id.tv_amount);
+            holder.tv_best = view.findViewById(R.id.tv_best);
             view.setTag(holder);
 
         } else {

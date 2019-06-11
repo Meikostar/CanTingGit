@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.app.CanTingAppLication;
 
 
@@ -47,8 +47,8 @@ public class ShareAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.share_item, null);
         }
-        ImageView shareIcon = (ImageView) convertView.findViewById(R.id.share_icon1);
-        TextView shareTitle = (TextView) convertView.findViewById(R.id.share_title1);
+        ImageView shareIcon = convertView.findViewById(R.id.share_icon1);
+        TextView shareTitle = convertView.findViewById(R.id.share_title1);
         shareIcon.setImageResource(shareIcons[position]);
         shareTitle.setText(shareNames[position]);
 

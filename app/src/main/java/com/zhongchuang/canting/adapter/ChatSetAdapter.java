@@ -9,7 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.been.GAME;
 import com.zhongchuang.canting.been.INTEGRALIST;
 import com.zhongchuang.canting.utils.TextUtil;

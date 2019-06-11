@@ -13,7 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.mall.OrderDetailActivity;
 import com.zhongchuang.canting.app.CanTingAppLication;
 import com.zhongchuang.canting.been.Care;
@@ -68,7 +68,7 @@ public class LiveHandAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return list!=null?(list.size()==0?0:list.size()):0;
+        return list!=null?(list.size()):0;
     }
 
     @Override
@@ -87,16 +87,16 @@ public class LiveHandAdapter extends BaseAdapter {
         ViewHolder holder;
         if (convertView == null) {
             holder=new ViewHolder();
-            convertView = convertView.inflate(context,R.layout.item_live_hand, null);
-            holder.tv_care_cout = (TextView) convertView.findViewById(R.id.tv_care_cout);
-            holder.tv_care = (TextView) convertView.findViewById(R.id.tv_care);
-            holder.name = (TextView) convertView.findViewById(R.id.p_name);
-            holder.tv_count = (TextView) convertView.findViewById(R.id.tv_count);
-            holder.img = (ImageView) convertView.findViewById(R.id.p_logo);
-            holder.img_bg = (ImageView) convertView.findViewById(R.id.p_logo1);
+            convertView = View.inflate(context,R.layout.item_live_hand, null);
+            holder.tv_care_cout = convertView.findViewById(R.id.tv_care_cout);
+            holder.tv_care = convertView.findViewById(R.id.tv_care);
+            holder.name = convertView.findViewById(R.id.p_name);
+            holder.tv_count = convertView.findViewById(R.id.tv_count);
+            holder.img = convertView.findViewById(R.id.p_logo);
+            holder.img_bg = convertView.findViewById(R.id.p_logo1);
 
 
-            holder.llBg = (RelativeLayout) convertView.findViewById(R.id.rl_bg);
+            holder.llBg = convertView.findViewById(R.id.rl_bg);
 
 
 

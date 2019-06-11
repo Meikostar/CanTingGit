@@ -26,7 +26,7 @@ import com.hyphenate.EMError;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.been.TabEntity;
 import com.zhongchuang.canting.easeui.widget.EaseConversationList;
 import com.zhongchuang.canting.utils.TextUtil;
@@ -81,11 +81,11 @@ public class EaseConversationListFragment extends EaseBaseFragment {
     @Override
     protected void initView() {
         inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        conversationListView = (EaseConversationList) getView().findViewById(R.id.list);
-        query = (EditText) getView().findViewById(R.id.query);
+        conversationListView = getView().findViewById(R.id.list);
+        query = getView().findViewById(R.id.query);
         // button to clear content in search bar
-        clearSearch = (ImageButton) getView().findViewById(R.id.search_clear);
-        errorItemContainer = (FrameLayout) getView().findViewById(R.id.fl_error_item);
+        clearSearch = getView().findViewById(R.id.search_clear);
+        errorItemContainer = getView().findViewById(R.id.fl_error_item);
     }
 
     @Override

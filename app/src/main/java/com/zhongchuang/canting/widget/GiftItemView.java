@@ -17,7 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.been.Gift;
 
 
@@ -35,7 +35,7 @@ public class GiftItemView extends LinearLayout {
     private ImageView giftIv ;
     private Gift gift ;
 
-    private int giftNum = 1 ;
+    private int giftNum = 0 ;
     private boolean isShow = false ;
 
     public GiftItemView(Context context) {
@@ -57,11 +57,11 @@ public class GiftItemView extends LinearLayout {
         LayoutParams lp = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         setLayoutParams(lp);
         View convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_gift_message,null,false);
-        avatar = (ImageView) convertView.findViewById(R.id.avatar);
-        giftIv = (ImageView) convertView.findViewById(R.id.gift_type);
-        name = (TextView) convertView.findViewById(R.id.name);
-        giftName = (TextView) convertView.findViewById(R.id.gift_name);
-        giftNumTv = (TextView) convertView.findViewById(R.id.gift_num);
+        avatar = convertView.findViewById(R.id.avatar);
+        giftIv = convertView.findViewById(R.id.gift_type);
+        name = convertView.findViewById(R.id.name);
+        giftName = convertView.findViewById(R.id.gift_name);
+        giftNumTv = convertView.findViewById(R.id.gift_num);
         addView(convertView);
     }
 
@@ -109,7 +109,7 @@ public class GiftItemView extends LinearLayout {
         if (gift==null){
             return;
         }
-        giftNum = gift.num ;
+//        giftNum = gift.num ;
         if (!TextUtils.isEmpty(gift.send_img)){
             Glide.with(getContext()).load(gift.send_img).into(avatar);
         }
@@ -118,7 +118,7 @@ public class GiftItemView extends LinearLayout {
         }
 
 //        giftName.setText(gift.giftname);
-        giftNumTv.setText("x"+gift.num);
+        giftNumTv.setText("x"+giftNum);
         Glide.with(getContext()).load(gift.gift_image).into(giftIv);
 //        giftIv.setImageResource(gift.giftType);
         scaleView(giftNumTv,200);
@@ -168,7 +168,7 @@ public class GiftItemView extends LinearLayout {
     }
 
     public interface OnAnimatorListener{
-        public void onAnimationEnd(Gift gift);
-        public void onAnimationStart(Animator animation);
+        void onAnimationEnd(Gift gift);
+        void onAnimationStart(Animator animation);
     }
 }

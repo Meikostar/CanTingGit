@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 
 
 /**
@@ -182,12 +182,12 @@ public class NavigationBar extends LinearLayout implements View.OnClickListener 
         layout_left = naviView.findViewById(R.id.topview_left_layout);
         layout_right = naviView.findViewById(R.id.topview_right_layout);
 
-        img_left = (ImageView) naviView.findViewById(R.id.top_view_back);
-        right_img = (ImageView) naviView.findViewById(R.id.right_img);
-        img_right = (ImageView) naviView.findViewById(R.id.top_view_right);
+        img_left = naviView.findViewById(R.id.top_view_back);
+        right_img = naviView.findViewById(R.id.right_img);
+        img_right = naviView.findViewById(R.id.top_view_right);
 
-        txt_middle = (TextView) naviView.findViewById(R.id.navigationbar_title);
-        txt_right = (TextView) naviView.findViewById(R.id.delete_text);
+        txt_middle = naviView.findViewById(R.id.navigationbar_title);
+        txt_right = naviView.findViewById(R.id.delete_text);
         line=findViewById(R.id.line);
         //
         layout_left.setOnClickListener(this);

@@ -151,6 +151,7 @@
                 android:background="@color/linecolor"/>
         </LinearLayout>
         <LinearLayout
+            android:visibility="gone"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:layout_marginLeft="20dp"

@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.hyphenate.chat.EMFileMessageBody;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMVoiceMessageBody;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.hyphenate.util.EMLog;
 
 public class EaseChatRowVoice extends EaseChatRowFile {
@@ -31,9 +31,9 @@ public class EaseChatRowVoice extends EaseChatRowFile {
 
     @Override
     protected void onFindViewById() {
-        voiceImageView = ((ImageView) findViewById(R.id.iv_voice));
-        voiceLengthView = (TextView) findViewById(R.id.tv_length);
-        readStatusView = (ImageView) findViewById(R.id.iv_unread_voice);
+        voiceImageView = findViewById(R.id.iv_voice);
+        voiceLengthView = findViewById(R.id.tv_length);
+        readStatusView = findViewById(R.id.iv_unread_voice);
     }
 
     @Override

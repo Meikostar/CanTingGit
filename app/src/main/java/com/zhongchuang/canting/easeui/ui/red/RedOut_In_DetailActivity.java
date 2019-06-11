@@ -20,7 +20,7 @@ import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;
 import com.malinskiy.superrecyclerview.OnMoreListener;
 import com.malinskiy.superrecyclerview.SuperRecyclerView;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.chat.ChatMenberActivity;
 import com.zhongchuang.canting.base.BaseAllActivity;
 import com.zhongchuang.canting.been.GrapRed;
@@ -169,6 +169,7 @@ public class RedOut_In_DetailActivity extends BaseAllActivity implements BaseCon
         } else {
             ll_out.setVisibility(View.GONE);
             ll_in.setVisibility(View.VISIBLE);
+
             tv_content.setText(entity.count);
             tv_amount_for_show.setText(entity.number);
             tv_best_cout.setText(entity.bestNumber);
@@ -328,16 +329,16 @@ public class RedOut_In_DetailActivity extends BaseAllActivity implements BaseCon
 
         if(views==null){
             views = View.inflate(this, R.layout.red_year_type, null);
-            tvLel=(TextView)views.findViewById(R.id.tv_lel);
-            tvZb=(TextView)views.findViewById(R.id.tv_zb);
+            tvLel= views.findViewById(R.id.tv_lel);
+            tvZb= views.findViewById(R.id.tv_zb);
             tvLel.setText(time1);
             tvZb.setText(time0);
-            ivType1=(MCheckBox) views.findViewById(R.id.iv_type1);
-            ivType2=(MCheckBox) views.findViewById(R.id.iv_type2);
+            ivType1= views.findViewById(R.id.iv_type1);
+            ivType2= views.findViewById(R.id.iv_type2);
 
-            llLel=(LinearLayout)views.findViewById(R.id.ll_lel);
+            llLel= views.findViewById(R.id.ll_lel);
 
-            llZb=(LinearLayout)views.findViewById(R.id.ll_zb);
+            llZb= views.findViewById(R.id.ll_zb);
 
 
             dialog = BaseDailogManager.getInstance().getBuilder(this).setMessageView(views).create();

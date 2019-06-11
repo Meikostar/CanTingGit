@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blue">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:background="@color/blue"
+            android:orientation="horizontal">
+            <TextView
+                android:paddingLeft="11.5dp"
+                android:paddingRight="11.5dp"
+                android:id="@+id/tv_abandon"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="放弃"
+                android:textSize="15.3sp"
+                android:textColor="@color/white"/>
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="图片裁剪"
+                android:textSize="17sp"
+                android:textColor="@color/white"/>
+            <TextView
+                android:id="@+id/tv_clip"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="裁剪"
+                android:paddingLeft="11.5dp"
+                android:paddingRight="11.5dp"
+                android:textSize="15.3sp"
+                android:textColor="@color/white"/>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/ll_content"
+                    android:padding="2dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="@color/transparent">
+                    <!--<com.yunshl.cjp.common.upload.ClipView-->
+                    <!--android:id="@+id/clip_view"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent" /> -->
+                </LinearLayout>
+            </ScrollView>
+
+            <!--<ImageView-->
+            <!--android:id="@+id/iv_display"-->
+            <!--android:layout_width="200dp"-->
+            <!--android:layout_height="200dp"-->
+            <!--android:scaleType="fitXY"/>-->
+
+
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -14,7 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.MineCodeActivity;
 import com.zhongchuang.canting.activity.PersonMessageActivity;
 import com.zhongchuang.canting.activity.WebViewActivity;
@@ -23,6 +23,7 @@ import com.zhongchuang.canting.activity.chat.QfriendActivity;
 import com.zhongchuang.canting.activity.chat.RecordDetailActivity;
 import com.zhongchuang.canting.activity.chat.SumbitJfActivity;
 import com.zhongchuang.canting.activity.mall.SettingActivity;
+import com.zhongchuang.canting.activity.mine.NewPersonDetailActivity;
 import com.zhongchuang.canting.base.LazyFragment;
 import com.zhongchuang.canting.been.Ingegebean;
 import com.zhongchuang.canting.presenter.BaseContract;
@@ -170,7 +171,8 @@ public class MessageMineFragment extends LazyFragment implements BaseContract.Vi
         personPic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent gotoPersonMessIntent = new Intent(getActivity(), PersonMessageActivity.class);
+                Intent gotoPersonMessIntent = new Intent(getActivity(), NewPersonDetailActivity.class);
+                gotoPersonMessIntent.putExtra("id", SpUtil.getUserInfoId(getActivity()) + "");
                 startActivity(gotoPersonMessIntent);
             }
         });

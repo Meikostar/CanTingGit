@@ -36,7 +36,7 @@
                             android:layout_alignParentLeft="true"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentTop="true"
-                            android:scaleType="fitXY"
+                            android:scaleType="fitCenter"
                             android:src="@drawable/alivc_itme_bg"
                             />
 
@@ -58,8 +58,9 @@
                     android:layout_marginLeft="10dp"
                     android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
+                    android:maxLines="2"
                     android:gravity="center_vertical"
-                    android:text="带你去马尔代夫"
+                    android:text="带你去马尔代夫带你去马尔代夫带你去马尔代夫带你去马尔代夫带你去马尔代夫"
                     android:textColor="#333"
                     android:textSize="15sp"
 
@@ -79,6 +80,36 @@
                     android:textSize="11sp"
 
                     />
+                <LinearLayout
+                    android:layout_alignParentRight="true"
+
+                    android:layout_marginTop="72dp"
+                    android:id="@+id/ll_bgs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/tv_change"
+                            android:text="@string/swmr"
+                            android:textColor="@color/color9"
+                            android:textSize="11sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <com.zhongchuang.canting.widget.MCheckBox
+                            android:id="@+id/iv_choose"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center_vertical"
+                            android:clickable="false"
+                            android:padding="8dp"
+                            app:isCheckeds="true"
+                            app:canNoClick="true"
+                            app:drawablechoose="@drawable/address_check"
+                            app:drawables="@drawable/address_checks" />
+
+                </LinearLayout>
+
                 />
         </RelativeLayout>
 

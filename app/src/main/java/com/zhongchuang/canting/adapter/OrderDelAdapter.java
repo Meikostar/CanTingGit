@@ -11,7 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.zhongchuang.canting.R;;
+import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.been.OrderData;
 import com.zhongchuang.canting.utils.StringUtil;
 import com.zhongchuang.canting.utils.TextUtil;
@@ -76,11 +76,11 @@ public class OrderDelAdapter extends BaseAdapter {
         if (convertView == null) {
             holder = new ViewHolder();
             convertView = inflater.inflate(R.layout.choose_del_item_view, null);
-            holder.pLogo = (ImageView) convertView.findViewById(R.id.img);
-            holder.pName = (TextView) convertView.findViewById(R.id.tv_name);
-            holder.checkBox = (MCheckBox) convertView.findViewById(R.id.iv_choose);
-            holder.llbg = (LinearLayout) convertView.findViewById(R.id.ll_bg);
-            holder.line = (View) convertView.findViewById(R.id.line);
+            holder.pLogo = convertView.findViewById(R.id.img);
+            holder.pName = convertView.findViewById(R.id.tv_name);
+            holder.checkBox = convertView.findViewById(R.id.iv_choose);
+            holder.llbg = convertView.findViewById(R.id.ll_bg);
+            holder.line = convertView.findViewById(R.id.line);
 
 
             convertView.setTag(holder);

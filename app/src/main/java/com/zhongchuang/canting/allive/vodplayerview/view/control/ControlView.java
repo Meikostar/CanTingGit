@@ -177,27 +177,27 @@ public class ControlView extends RelativeLayout implements ViewAction, ITheme {
         mTitleBar = findViewById(R.id.titlebar);
         mControlBar = findViewById(R.id.controlbar);
 
-        mTitlebarBackBtn = (ImageView) findViewById(R.id.alivc_title_back);
-        mTitlebarText = (TextView) findViewById(R.id.alivc_title_title);
-        mTitleDownload = (ImageView)findViewById(R.id.alivc_title_download);
+        mTitlebarBackBtn = findViewById(R.id.alivc_title_back);
+        mTitlebarText = findViewById(R.id.alivc_title_title);
+        mTitleDownload = findViewById(R.id.alivc_title_download);
         mTitleMore = findViewById(R.id.alivc_title_more);
-        mScreenModeBtn = (ImageView) findViewById(R.id.alivc_screen_mode);
-        mScreenLockBtn = (ImageView) findViewById(R.id.alivc_screen_lock);
-        mPlayStateBtn = (ImageView) findViewById(R.id.alivc_player_state);
+        mScreenModeBtn = findViewById(R.id.alivc_screen_mode);
+        mScreenLockBtn = findViewById(R.id.alivc_screen_lock);
+        mPlayStateBtn = findViewById(R.id.alivc_player_state);
         mScreenShot = findViewById(R.id.alivc_screen_shot);
         mScreenRecorder = findViewById(R.id.alivc_screen_recoder);
 
         mLargeInfoBar = findViewById(R.id.alivc_info_large_bar);
-        mLargePositionText = (TextView) findViewById(R.id.alivc_info_large_position);
-        mLargeDurationText = (TextView) findViewById(R.id.alivc_info_large_duration);
-        mLargeSeekbar = (SeekBar) findViewById(R.id.alivc_info_large_seekbar);
-        mLargeChangeQualityBtn = (Button) findViewById(R.id.alivc_info_large_rate_btn);
+        mLargePositionText = findViewById(R.id.alivc_info_large_position);
+        mLargeDurationText = findViewById(R.id.alivc_info_large_duration);
+        mLargeSeekbar = findViewById(R.id.alivc_info_large_seekbar);
+        mLargeChangeQualityBtn = findViewById(R.id.alivc_info_large_rate_btn);
 
 
         mSmallInfoBar = findViewById(R.id.alivc_info_small_bar);
-        mSmallPositionText = (TextView) findViewById(R.id.alivc_info_small_position);
-        mSmallDurationText = (TextView) findViewById(R.id.alivc_info_small_duration);
-        mSmallSeekbar = (SeekBar) findViewById(R.id.alivc_info_small_seekbar);
+        mSmallPositionText = findViewById(R.id.alivc_info_small_position);
+        mSmallDurationText = findViewById(R.id.alivc_info_small_duration);
+        mSmallSeekbar = findViewById(R.id.alivc_info_small_seekbar);
     }
 
     private void setViewListener() {
@@ -944,7 +944,7 @@ public class ControlView extends RelativeLayout implements ViewAction, ITheme {
     /**
      * 播放状态
      */
-    public static enum PlayState {
+    public enum PlayState {
         /**
          * Playing:正在播放
          * NotPlaying: 停止播放

@@ -23,10 +23,10 @@ public interface HXRequestService {
 
 
     //添加好友
-    public static final String ADDFRIEND_URL = "web/chatDirectories/addFriends";
+    String ADDFRIEND_URL = "web/chatDirectories/addFriends";
 
     //获取好友列表
-    public static final String GETFRIENDList_URL = "web/chatDirectories/getChatDirectoriesList";
+    String GETFRIENDList_URL = "web/chatDirectories/getChatDirectoriesList";
 
 
 
