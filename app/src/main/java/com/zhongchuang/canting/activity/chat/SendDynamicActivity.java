@@ -1,7 +1,9 @@
 package com.zhongchuang.canting.activity.chat;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.Editable;
@@ -10,17 +12,25 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.zhongchuang.canting.R;
+import com.zhongchuang.canting.app.CanTingAppLication;
 import com.zhongchuang.canting.base.BaseActivity1;
 import com.zhongchuang.canting.been.SubscriptionBean;
 import com.zhongchuang.canting.been.TOKEN;
 import com.zhongchuang.canting.been.UploadFileBean;
+import com.zhongchuang.canting.easeui.bean.RedPacketInfo;
 import com.zhongchuang.canting.net.HXRequestService;
 import com.zhongchuang.canting.net.netService;
 import com.zhongchuang.canting.permission.PermissionConst;
@@ -29,7 +39,9 @@ import com.zhongchuang.canting.permission.PermissionGen;
 import com.zhongchuang.canting.permission.PermissionSuccess;
 import com.zhongchuang.canting.presenter.BaseContract;
 import com.zhongchuang.canting.presenter.BasesPresenter;
+import com.zhongchuang.canting.utils.DensityUtil;
 import com.zhongchuang.canting.utils.QiniuUtils;
+import com.zhongchuang.canting.utils.StringUtil;
 import com.zhongchuang.canting.utils.TextUtil;
 import com.zhongchuang.canting.widget.BaseDailogManager;
 import com.zhongchuang.canting.widget.ClearEditText;
@@ -76,6 +88,12 @@ public class SendDynamicActivity extends BaseActivity1 implements BaseContract.V
     LinearLayout llBg;
     @BindView(R.id.iv_video_cover)
     ImageView ivVideoCover;
+    @BindView(R.id.chatting_status_btn)
+    ImageView chattingStatusBtn;
+    @BindView(R.id.iv_close)
+    ImageView ivClose;
+    @BindView(R.id.rl_bg)
+    RelativeLayout rlBg;
 
     private int upload_position;
 
@@ -98,15 +116,24 @@ public class SendDynamicActivity extends BaseActivity1 implements BaseContract.V
         navigationBar.setNavigationBarListener(this);
         haveFous(false);
     }
-
+    private String video_url;
     @Override
     public void bindEvents() {
+        ivClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                video_url="";
+                rlBg.setVisibility(View.GONE);
+                llBg.setVisibility(View.VISIBLE);
+            }
+        });
         piuvRemarkImage.setOnActionListener(new ImageUploadView.OnActionListener() {
             @Override
             public void onItemDelete(int position) {
                 img_path.remove(position);
                 if (img_path.size() == 0 && TextUtil.isEmpty(etContent.getText().toString())) {
                     haveFous(false);
+
                 }
                 notifyImageDataChange();
             }
@@ -158,13 +185,19 @@ public class SendDynamicActivity extends BaseActivity1 implements BaseContract.V
 
                     getUpToken(img_path.get(0).getForderPath());
                 } else {
-                    if (TextUtil.isEmpty(etContent.getText().toString())) {
-                        dimessProgress();
+                    if(TextUtil.isNotEmpty(video_url)){
+                          presenter.addInfo(etContent.getText().toString(), video_url);
+                    }else {
+                        if (TextUtil.isEmpty(etContent.getText().toString())) {
+                            dimessProgress();
 
-                        return;
-                    } else {
-                        presenter.addInfo(etContent.getText().toString(), "");
+                            return;
+                        } else {
+                            presenter.addInfo(etContent.getText().toString(), "");
+                        }
                     }
+
+
 
                 }
 
@@ -226,6 +259,51 @@ public class SendDynamicActivity extends BaseActivity1 implements BaseContract.V
         if (resultCode == 101) {
             Log.i("CJT", "picture");
             String path = data.getStringExtra("path");
+            if (TextUtil.isNotEmpty(CanTingAppLication.video_path)) {
+                String[] split = CanTingAppLication.video_path.split("%#%");
+                if (split.length == 2) {
+                    if (split[1].equals("1")) {
+                        rlBg.setVisibility(View.GONE);
+                        llBg.setVisibility(View.VISIBLE);
+                        UploadFileBean bean = new UploadFileBean(1);
+                        bean.setForderPath(split[0]);
+                        img_path.add(bean);
+                        haveFous(true);
+                        notifyImageDataChange();
+                        upload_position = 0;
+                    }
+                } else {
+                    llBg.setVisibility(View.GONE);
+                    rlBg.setVisibility(View.VISIBLE);
+                    String videoPath = split[0];
+                    File file = new File(path);
+                    Glide.with(SendDynamicActivity.this).load(StringUtil.changeUrl(split[2])).asBitmap().into(new SimpleTarget<Bitmap>() {
+                        @Override
+                        public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                            WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+                            int width = wm.getDefaultDisplay().getWidth();
+                            double w=(resource.getWidth())*1.0;
+                            int h=resource.getHeight();
+                            double fx=width/w;
+                            int height= (int) (h*fx);
+
+
+                            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams( DensityUtil.dip2px(SendDynamicActivity.this, 150),height);
+                            rlBg.setLayoutParams(params);
+                            RelativeLayout.LayoutParams params1=new RelativeLayout.LayoutParams(DensityUtil.dip2px(SendDynamicActivity.this, 150),height);
+                            ivVideoCover.setLayoutParams(params1);
+                            ivVideoCover.setImageBitmap(resource);
+                        }
+                    });
+
+                    if (split.length == 5) {
+                        video_url=split[0]+"!@##@!"+split[2]+"!@##@!"+split[4];
+
+                    }
+                }
+            }
+
+
             ivVideoCover.setVisibility(View.VISIBLE);
             llBg.setVisibility(View.GONE);
             ivVideoCover.setImageBitmap(BitmapFactory.decodeFile(path));
@@ -242,7 +320,8 @@ public class SendDynamicActivity extends BaseActivity1 implements BaseContract.V
                 //上传照片
                 case 66:
                     List<String> imgs = data.getStringArrayListExtra(ImageSelectActivity.EXTRA_RESULT_SELECTION);
-
+                    rlBg.setVisibility(View.GONE);
+                    llBg.setVisibility(View.VISIBLE);
                     for (String imgPath : imgs) {
                         if (imgPath != null) {
                             UploadFileBean bean = new UploadFileBean(1);
@@ -343,8 +422,13 @@ public class SendDynamicActivity extends BaseActivity1 implements BaseContract.V
                 getPhotos();
             }
         });
-        view.findViewById(R.id.tv_video).setVisibility(View.GONE);
-        view.findViewById(R.id.line).setVisibility(View.GONE);
+        view.findViewById(R.id.tv_video).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivityForResult(new Intent(SendDynamicActivity.this, CameraActivity.class), 100);
+            }
+        });
+
         view.findViewById(R.id.tv_cancel).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -448,4 +532,10 @@ public class SendDynamicActivity extends BaseActivity1 implements BaseContract.V
     }
 
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }

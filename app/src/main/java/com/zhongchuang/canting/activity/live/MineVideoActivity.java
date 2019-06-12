@@ -112,7 +112,7 @@ public class MineVideoActivity extends BaseActivity1 implements BaseContract.Vie
             public void listener(int poistion, int type) {
                 if(type==0){
                     if(!datas.get(poistion).new_type.equals("0")){
-                        CanTingAppLication.landType=0;
+                        CanTingAppLication.landType=6;
                         Intent intent = new Intent(MineVideoActivity.this, AliyunPlayerSkinActivity.class);
                         intent.putExtra("url",datas.get(poistion).video_url);
                         intent.putExtra("name",datas.get(poistion).video_name);
@@ -122,7 +122,7 @@ public class MineVideoActivity extends BaseActivity1 implements BaseContract.Vie
                         startActivity(intent);
                     }else {
                         if(datas.get(poistion).video_type==1){
-                            CanTingAppLication.landType=1;
+                            CanTingAppLication.landType=8;
                             Intent intent = new Intent(MineVideoActivity.this, AliyunPlayerSkinActivityMin.class);
                             intent.putExtra("url",datas.get(poistion).video_url);
                             intent.putExtra("name",datas.get(poistion).video_name);
@@ -130,7 +130,7 @@ public class MineVideoActivity extends BaseActivity1 implements BaseContract.Vie
                             intent.putExtra("id",datas.get(poistion).user_info_id);
                             startActivity(intent);
                         }else if(datas.get(poistion).video_type==3){
-                            CanTingAppLication.landType=0;
+                            CanTingAppLication.landType=6;
                             Intent intent = new Intent(MineVideoActivity.this, AliyunPlayerSkinActivity.class);
                             intent.putExtra("url",datas.get(poistion).video_url);
                             intent.putExtra("name",datas.get(poistion).video_name);
@@ -139,7 +139,7 @@ public class MineVideoActivity extends BaseActivity1 implements BaseContract.Vie
                             intent.putExtra("type",3);
                             startActivity(intent);
                         }else{
-                            CanTingAppLication.landType=0;
+                            CanTingAppLication.landType=6;
                             Intent intent = new Intent(MineVideoActivity.this, AliyunPlayerSkinActivity.class);
                             intent.putExtra("url",datas.get(poistion).video_url);
                             intent.putExtra("name",datas.get(poistion).video_name);

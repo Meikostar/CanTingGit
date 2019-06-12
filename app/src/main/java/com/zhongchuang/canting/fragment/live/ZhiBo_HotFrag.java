@@ -308,7 +308,7 @@ public class ZhiBo_HotFrag extends LazyFragment implements GetLiveViewCallBack {
                 }
                 if(id.equals("-1")){
                     if(!dataBean.new_type.equals("0")){
-                        CanTingAppLication.landType=0;
+                        CanTingAppLication.landType=6;
                         Intent intent = new Intent(getActivity(), AliyunPlayerSkinActivity.class);
                         intent.putExtra("type", 3);
                         intent.putExtra("url",dataBean.video_url);
@@ -318,7 +318,7 @@ public class ZhiBo_HotFrag extends LazyFragment implements GetLiveViewCallBack {
                         startActivity(intent);
                     }else {
                         if(dataBean.video_type.equals("2")){
-                            CanTingAppLication.landType=0;
+                            CanTingAppLication.landType=6;
                             Intent intent = new Intent(getActivity(), AliyunPlayerSkinActivity.class);
                             intent.putExtra("url",dataBean.video_url);
                             intent.putExtra("name",dataBean.video_name);
@@ -326,7 +326,7 @@ public class ZhiBo_HotFrag extends LazyFragment implements GetLiveViewCallBack {
                             intent.putExtra("id",dataBean.user_info_id);
                             startActivity(intent);
                         }else if(dataBean.video_type.equals("3")) {
-                            CanTingAppLication.landType=1;
+                            CanTingAppLication.landType=8;
                             Intent intent = new Intent(getActivity(), AliyunPlayerSkinActivity.class);
                             intent.putExtra("url",dataBean.video_url);
                             intent.putExtra("type",3);
@@ -336,7 +336,7 @@ public class ZhiBo_HotFrag extends LazyFragment implements GetLiveViewCallBack {
                             startActivity(intent);
 
                         }else  {
-                            CanTingAppLication.landType=1;
+                            CanTingAppLication.landType=8;
                             Intent intent = new Intent(getActivity(), AliyunPlayerSkinActivityMin.class);
                             intent.putExtra("url",dataBean.video_url);
                             intent.putExtra("name",dataBean.video_name);

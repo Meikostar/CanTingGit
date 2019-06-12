@@ -31,6 +31,11 @@
             android:layout_marginTop="13dp"
             android:padding="5dp"
             android:src="@drawable/zbs_5" />
+        <com.zhongchuang.canting.allive.vodplayerview.view.download.DownloadView
+            android:visibility="gone"
+            android:id="@+id/download_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
     </FrameLayout>
 
 </LinearLayout>

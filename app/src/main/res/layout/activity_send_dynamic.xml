@@ -77,15 +77,44 @@
                       android:layout_marginTop="15dp"
                       android:src="@drawable/addmoretp" />
               </LinearLayout>
-              <ImageView
-
+              <RelativeLayout
+                  android:visibility="gone"
                   android:layout_marginLeft="15dp"
-                  android:id="@+id/iv_video_cover"
-                  android:layout_width="80dp"
+                  android:id="@+id/rl_bg"
+                  android:layout_width="150dp"
                   android:layout_height="wrap_content"
-                  android:layout_marginBottom="15dp"
-                  android:layout_marginTop="15dp"
-                  />
+                  android:layout_marginRight="@dimen/margin_chat_activity"
+
+                  android:background="@drawable/wite_rectangle3"
+                  >
+
+                  <ImageView
+                      android:id="@+id/iv_video_cover"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:scaleType="fitXY" />
+
+
+                  <ImageView
+                      android:id="@+id/chatting_status_btn"
+                      android:clickable="false"
+                      android:layout_width="40dp"
+                      android:layout_height="40dp"
+                      android:layout_centerInParent="true"
+                      android:background="@drawable/ease_video_play_btn_small_nor" />
+                  <ImageView
+                      android:src="@mipmap/close"
+                      android:padding="6dp"
+                      android:layout_alignParentRight="true"
+                      android:layout_marginTop="3dp"
+                      android:layout_marginRight="3dp"
+                      android:id="@id/iv_close"
+
+                      android:layout_width="28dp"
+                      android:layout_height="28dp"
+
+                      />
+              </RelativeLayout>
               <com.zhongchuang.canting.widget.ImageUploadView
                   android:id="@+id/piuv_remark_image"
                   android:layout_width="match_parent"

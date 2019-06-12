@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.alivc.player.VcPlayerLog;
@@ -21,10 +22,12 @@ import com.aliyun.vodplayer.media.AliyunMediaInfo;
 import com.bumptech.glide.Glide;
 import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.allive.vodplayerview.theme.ITheme;
+import com.zhongchuang.canting.allive.vodplayerview.utils.TimeFormater;
 import com.zhongchuang.canting.allive.vodplayerview.view.interfaces.ViewAction;
 import com.zhongchuang.canting.allive.vodplayerview.view.quality.QualityItem;
 import com.zhongchuang.canting.allive.vodplayerview.widget.AliyunScreenMode;
 import com.zhongchuang.canting.allive.vodplayerview.widget.AliyunVodPlayerView;
+import com.zhongchuang.canting.app.CanTingAppLication;
 import com.zhongchuang.canting.utils.StringUtil;
 import com.zhongchuang.canting.utils.TextUtil;
 import com.zhongchuang.canting.widget.CircleTransform;
@@ -189,7 +192,9 @@ public class ControlLiveViewLands extends RelativeLayout implements ViewAction, 
         updateAllViews(); //更新view的显示
     }
 
-
+    private View mControlBar;
+    //时长文字
+    private TextView mSmallDurationText;
 
     private void findAllViews() {
 
@@ -204,7 +209,6 @@ public class ControlLiveViewLands extends RelativeLayout implements ViewAction, 
 
 
         mTitleMore = findViewById(R.id.iv_share);
-        mScreenModeBtn = findViewById(R.id.iv_sale);
         ll_care = findViewById(R.id.ll_care);
 
 
@@ -214,15 +218,106 @@ public class ControlLiveViewLands extends RelativeLayout implements ViewAction, 
         tv_name = findViewById(R.id.tv_name);
 
 
-        mLargeChangeQualityBtn = findViewById(R.id.alivc_info_large_rate_btn);
+
         et_comment.setVisibility(GONE);
         iv_gift.setVisibility(GONE);
         iv_love.setVisibility(GONE);
         mTitleMore.setVisibility(GONE);
 
-    }
 
+
+        if(CanTingAppLication.landType==8){
+            mControlBar = findViewById(R.id.controlbars);
+            mPlayStateBtn = (ImageView) findViewById(R.id.alivc_player_states);
+            mLargeChangeQualityBtn = findViewById(R.id.alivc_info_large_rate_btn);
+            mSmallInfoBar = findViewById(R.id.alivc_info_small_bars);
+            fl_bg = findViewById(R.id.alivc_info_large_bars);
+            mScreenModeBtn = findViewById(R.id.iv_sales);
+
+            mControlBar.setVisibility(VISIBLE);
+
+        }else {
+            mScreenModeBtn = findViewById(R.id.iv_sale);
+
+            mLargeChangeQualityBtn = findViewById(R.id.alivc_info_large_rate_btn);
+            llBottom = findViewById(R.id.ll_bottom);
+            llBottom.setVisibility(VISIBLE);
+        }
+        mSmallPositionText = (TextView) findViewById(R.id.alivc_info_small_position);
+        mLargePositionText = (TextView) findViewById(R.id.alivc_info_large_position);
+        mLargeDurationText = (TextView) findViewById(R.id.alivc_info_large_duration);
+        mSmallDurationText = (TextView) findViewById(R.id.alivc_info_small_duration);
+        mLargeSeekbar = (SeekBar) findViewById(R.id.alivc_info_large_seekbar);
+        mSmallSeekbar = (SeekBar) findViewById(R.id.alivc_info_small_seekbar);
+    }
+    //seek进度条
+    private SeekBar mSmallSeekbar;
+    //进度条
+    private SeekBar mLargeSeekbar;
+    //时长文字
+    private TextView mLargeDurationText;
+    //当前位置文字
+    private TextView mLargePositionText;
+    private LinearLayout llBottom;
+
+    //播放按钮
+    private ImageView mPlayStateBtn;
+
+    //底部控制栏
+    private View mSmallInfoBar;
+    private LinearLayout fl_bg;
     private void setViewListener() {
+
+
+        //seekbar的滑动监听
+        SeekBar.OnSeekBarChangeListener seekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (fromUser) {
+                    //这里是用户拖动，直接设置文字进度就行，
+                    // 无需去updateAllViews() ， 因为不影响其他的界面。
+                    if (mAliyunScreenMode == AliyunScreenMode.Full) {
+                        //全屏状态.
+                        mLargePositionText.setText(TimeFormater.formatMs(progress));
+                    } else if (mAliyunScreenMode == AliyunScreenMode.Small) {
+                        //小屏状态
+                        mSmallPositionText.setText(TimeFormater.formatMs(progress));
+                    }
+
+                    if (mOnSeekListener != null) {
+                        mOnSeekListener.onSeekEnd(seekBar.getProgress());
+                    }
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                isSeekbarTouching = true;
+                if (mOnSeekListener != null) {
+                    mOnSeekListener.onSeekStart();
+                }
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+                if (mOnSeekListener != null) {
+                    mOnSeekListener.onSeekEnd(seekBar.getProgress());
+                }
+
+                isSeekbarTouching = false;
+            }
+        };
+        mLargeSeekbar.setOnSeekBarChangeListener(seekBarChangeListener);
+        mSmallSeekbar.setOnSeekBarChangeListener(seekBarChangeListener);
+        mPlayStateBtn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mOnPlayStateClickListener != null) {
+                    mOnPlayStateClickListener.onPlayStateClick();
+                }
+            }
+        });
         ll_care.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -477,14 +572,17 @@ public class ControlLiveViewLands extends RelativeLayout implements ViewAction, 
 
         //这个很有意思。。哈哈。不同的seekbar不能用同一个drawable，不然会出问题。
         // https://stackoverflow.com/questions/12579910/seekbar-thumb-position-not-equals-progress
-
         //设置到对应控件中
         Resources resources = getResources();
         Drawable smallProgressDrawable = resources.getDrawable(progressDrawableResId);
         Drawable smallThumb = resources.getDrawable(thumbResId);
-
+        mSmallSeekbar.setProgressDrawable(smallProgressDrawable);
+        mSmallSeekbar.setThumb(smallThumb);
         Drawable largeProgressDrawable = resources.getDrawable(progressDrawableResId);
         Drawable largeThumb = resources.getDrawable(thumbResId);
+        mLargeSeekbar.setProgressDrawable(largeProgressDrawable);
+        mLargeSeekbar.setThumb(largeThumb);
+
     }
 
     /**
@@ -609,48 +707,114 @@ public class ControlLiveViewLands extends RelativeLayout implements ViewAction, 
     }
 
     /**
+     * 更新标题栏的标题文字
+     */
+    /**
      * 更新小屏下的控制条信息
      */
     private void updateSmallInfoBar() {
         if (mAliyunScreenMode == AliyunScreenMode.Full) {
-
+            mSmallInfoBar.setVisibility(INVISIBLE);
         } else if (mAliyunScreenMode == AliyunScreenMode.Small) {
             //先设置小屏的info数据
-
+            if (mAliyunMediaInfo != null) {
+                mSmallDurationText.setText("/" + TimeFormater.formatMs(mAliyunMediaInfo.getDuration()));
+                mSmallSeekbar.setMax((int) mAliyunMediaInfo.getDuration());
+            } else {
+                mSmallDurationText.setText("/" + TimeFormater.formatMs(0));
+                mSmallSeekbar.setMax(0);
+            }
 
             if (isSeekbarTouching) {
                 //用户拖动的时候，不去更新进度值，防止跳动。
             } else {
-
+                mSmallSeekbar.setSecondaryProgress(mVideoBufferPosition);
+                mSmallSeekbar.setProgress(mVideoPosition);
+                mSmallPositionText.setText(TimeFormater.formatMs(mVideoPosition));
             }
             //然后再显示出来。
-
+            mSmallInfoBar.setVisibility(VISIBLE);
         }
     }
-
+    //当前位置文字
+    private TextView mSmallPositionText;
     /**
      * 更新大屏下的控制条信息
      */
     private void updateLargeInfoBar() {
         if (mAliyunScreenMode == AliyunScreenMode.Small) {
             //里面包含了很多按钮，比如切换清晰度的按钮之类的
-
+            fl_bg.setVisibility(INVISIBLE);
         } else if (mAliyunScreenMode == AliyunScreenMode.Full) {
 
+            //先更新大屏的info数据
+            if (mAliyunMediaInfo != null) {
+                mLargeDurationText.setText("/" + TimeFormater.formatMs(mAliyunMediaInfo.getDuration()));
+                mLargeSeekbar.setMax((int) mAliyunMediaInfo.getDuration());
+            } else {
+                mLargeDurationText.setText("/" + TimeFormater.formatMs(0));
+                mLargeSeekbar.setMax(0);
+            }
 
             if (isSeekbarTouching) {
                 //用户拖动的时候，不去更新进度值，防止跳动。
             } else {
-
+                mLargeSeekbar.setSecondaryProgress(mVideoBufferPosition);
+                mLargeSeekbar.setProgress(mVideoPosition);
+                mLargePositionText.setText(TimeFormater.formatMs(mVideoPosition));
             }
-            mLargeChangeQualityBtn.setText(QualityItem.getItem(getContext(), mCurrentQuality, isMtsSource).getName());
+
 
             //然后再显示出来。
-
+            fl_bg.setVisibility(VISIBLE);
         }
 
 
     }
+
+//    /**
+//     * 更新小屏下的控制条信息
+//     */
+//    private void updateSmallInfoBar() {
+//        if (mAliyunScreenMode == AliyunScreenMode.Full) {
+//
+//        } else if (mAliyunScreenMode == AliyunScreenMode.Small) {
+//            //先设置小屏的info数据
+//
+//
+//            if (isSeekbarTouching) {
+//                //用户拖动的时候，不去更新进度值，防止跳动。
+//            } else {
+//
+//            }
+//            //然后再显示出来。
+//
+//        }
+//    }
+//
+//    /**
+//     * 更新大屏下的控制条信息
+//     */
+//    private void updateLargeInfoBar() {
+//        if (mAliyunScreenMode == AliyunScreenMode.Small) {
+//            //里面包含了很多按钮，比如切换清晰度的按钮之类的
+//
+//        } else if (mAliyunScreenMode == AliyunScreenMode.Full) {
+//
+//
+//            if (isSeekbarTouching) {
+//                //用户拖动的时候，不去更新进度值，防止跳动。
+//            } else {
+//
+//            }
+//            mLargeChangeQualityBtn.setText(QualityItem.getItem(getContext(), mCurrentQuality, isMtsSource).getName());
+//
+//            //然后再显示出来。
+//
+//        }
+//
+//
+//    }
 
     /**
      * 更新切换大小屏按钮的信息
@@ -677,10 +841,12 @@ public class ControlLiveViewLands extends RelativeLayout implements ViewAction, 
     private void updatePlayStateBtn() {
 
         if (mPlayState == PlayState.NotPlaying) {
+            mPlayStateBtn.setImageResource(R.drawable.alivc_playstate_play);
 
         } else if (mPlayState == PlayState.Playing) {
-
+            mPlayStateBtn.setImageResource(R.drawable.alivc_playstate_pause);
         }
+
     }
 
     /**

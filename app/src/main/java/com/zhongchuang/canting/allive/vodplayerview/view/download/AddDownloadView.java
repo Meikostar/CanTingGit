@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zhongchuang.canting.R;
+import com.zhongchuang.canting.activity.chat.PlayVideoActivity;
 import com.zhongchuang.canting.allive.vodplayerview.activity.AliyunPlayerSkinActivity;
 import com.zhongchuang.canting.allive.vodplayerview.utils.DensityUtil;
 import com.zhongchuang.canting.allive.vodplayerview.utils.ImageLoader;
@@ -61,7 +62,7 @@ public class AddDownloadView extends LinearLayout {
         init();
     }
 
-    public AddDownloadView(AliyunPlayerSkinActivity context, AliyunScreenMode screenMode) {
+    public AddDownloadView(PlayVideoActivity context, AliyunScreenMode screenMode) {
         super(context);
         this.screenMode = screenMode;
         init();

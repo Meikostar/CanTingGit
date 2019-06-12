@@ -574,7 +574,7 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity implements Other
                     title=dat.get(poistion).video_name;
                 }
                 if(!dat.get(poistion).new_type.equals("0")){
-                    CanTingAppLication.landType=0;
+                    CanTingAppLication.landType=6;
                     Intent intent = new Intent(AliyunPlayerSkinActivity.this, AliyunPlayerSkinActivity.class);
                     intent.putExtra("url",dat.get(poistion).video_url);
                     intent.putExtra("name",dat.get(poistion).video_name);
@@ -587,7 +587,7 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity implements Other
                 }else {
                     if(dat.get(poistion).video_type==2){
 
-                        CanTingAppLication.landType=0;
+                        CanTingAppLication.landType=6;
                         Intent intent = new Intent(AliyunPlayerSkinActivity.this, AliyunPlayerSkinActivity.class);
                         intent.putExtra("url",dat.get(poistion).video_url);
                         intent.putExtra("name",dat.get(poistion).video_name);
@@ -597,7 +597,7 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity implements Other
                         finish();
 //                    changePlayLocalSource( PlayParameter.PLAY_PARAM_URL, title);
                     }else if(dat.get(poistion).video_type==3){
-                        CanTingAppLication.landType=0;
+                        CanTingAppLication.landType=6;
                         Intent intent = new Intent(AliyunPlayerSkinActivity.this, AliyunPlayerSkinActivity.class);
                         intent.putExtra("url",dat.get(poistion).video_url);
                         intent.putExtra("name",dat.get(poistion).video_name);
@@ -608,7 +608,7 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity implements Other
                         finish();
 
                     }else {
-                        CanTingAppLication.landType=1;
+                        CanTingAppLication.landType=8;
                         Intent intent = new Intent(AliyunPlayerSkinActivity.this, AliyunPlayerSkinActivityMin.class);
                         intent.putExtra("url",dat.get(poistion).video_url);
                         intent.putExtra("name",dat.get(poistion).video_name);

@@ -27,6 +27,7 @@ import com.alivc.player.AliyunErrorCode;
 import com.alivc.player.MediaPlayer;
 import com.alivc.player.MediaPlayer.VideoRotate;
 import com.alivc.player.VcPlayerLog;
+import com.aliyun.vodplayer.downloader.AliyunDownloadManager;
 import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.allive.vodplayerview.constants.PlayParameter;
 import com.zhongchuang.canting.allive.vodplayerview.theme.ITheme;
@@ -304,7 +305,7 @@ public class AliyunVodPlayerView extends RelativeLayout implements ITheme {
      * 隐藏手势和控制栏
      */
     private void hideGestureAndControlViews() {
-        if(state==1){
+        if(state==1||state==8){
 
             if (mControlViewLand != null) {
                 mControlViewLand.hide(ViewAction.HideType.Normal);
@@ -354,7 +355,7 @@ public class AliyunVodPlayerView extends RelativeLayout implements ITheme {
 
         //隐藏其他的动作,防止点击界面去进行其他操作
         mGestureView.hide(ControlLiveView.HideType.Normal);
-        if(state==1){
+        if(state==1||state==8){
 
             mControlViewLand.hide(ControlLiveView.HideType.Normal);
         }else {
@@ -491,7 +492,7 @@ public class AliyunVodPlayerView extends RelativeLayout implements ITheme {
         if (mCurrentScreenMode == AliyunScreenMode.Full) {
             //全屏情况转到了横屏
         } else if (mCurrentScreenMode == AliyunScreenMode.Small) {
-            if(state==0){
+            if(state==0||state==6){
                 changeScreenMode(AliyunScreenMode.Full);
             }
 
@@ -518,7 +519,7 @@ public class AliyunVodPlayerView extends RelativeLayout implements ITheme {
             if (getLockPortraitMode() == null) {
                 //没有固定竖屏，就变化mode
                 if (fromLand) {
-                    if(state==0){
+                    if(state==0||state==6){
                         changeScreenMode(AliyunScreenMode.Small);
                     }
 
@@ -612,7 +613,7 @@ public class AliyunVodPlayerView extends RelativeLayout implements ITheme {
         isCompleted = false;
         inSeek = false;
         int currentPosition;
-         if(state==1){
+         if(state==1||state==8){
               currentPosition = mControlViewLand.getVideoPosition();
          }else {
              if(mControlView!=null){
@@ -628,7 +629,7 @@ public class AliyunVodPlayerView extends RelativeLayout implements ITheme {
         if (mTipsView != null) {
             mTipsView.hideAll();
         }
-        if(state==1){
+        if(state==1||state==8){
 
             if (mControlViewLand != null) {
                 mControlViewLand.reset();
@@ -672,7 +673,7 @@ public class AliyunVodPlayerView extends RelativeLayout implements ITheme {
         if (mTipsView != null) {
             mTipsView.hideAll();
         }
-        if(state==1){
+        if(state==1||state==8){
 
             if (mControlViewLand != null) {
                 mControlViewLand.reset();
@@ -753,7 +754,7 @@ public class AliyunVodPlayerView extends RelativeLayout implements ITheme {
      * 初始化控制栏view
      */
     private void initControlView() {
-        if(state==0){
+        if(state==0||state==6){
             mControlView = new ControlLiveView(getContext());
 
             addSubView(mControlView);
@@ -919,7 +920,7 @@ public class AliyunVodPlayerView extends RelativeLayout implements ITheme {
                     }
                 }
             });
-        }else if(state==1) {
+        }else if(state==1||state==8) {
             mControlViewLand = new ControlLiveViewLands(getContext());
 
             addSubView(mControlViewLand);
@@ -1062,6 +1063,13 @@ public class AliyunVodPlayerView extends RelativeLayout implements ITheme {
             mControlViewVeideo = new ControlLiveVideo(getContext());
 
             addSubView(mControlViewVeideo);
+
+            mControlViewVeideo.setOnDownloadClickListener(new ControlLiveVideo.OnDownloadClickListener() {
+                @Override
+                public void onDownloadClick() {
+                    listener.click(8,8);
+                }
+            });
             //点击了标题栏的返回按钮
             mControlViewVeideo.setOnBackClickListener(new ControlLiveVideo.OnBackClickListener() {
                 @Override
@@ -1155,7 +1163,7 @@ public class AliyunVodPlayerView extends RelativeLayout implements ITheme {
         }
 
         if (mCurrentScreenMode == AliyunScreenMode.Small) {
-            if(state==1){
+            if(state==1||state==8){
 
                 mControlViewLand.hideMoreButton();
             }else {
@@ -1375,13 +1383,13 @@ public class AliyunVodPlayerView extends RelativeLayout implements ITheme {
             public void onSingleTap() {
                 //单击事件，显示控制栏
 
-                if(state==1){
+                if(state==1||state==8){
                     if (mControlViewLand.getVisibility() != VISIBLE) {
                         mControlViewLand.show();
                     } else {
                         mControlViewLand.hide(ControlLiveView.HideType.Normal);
                     }
-                }else {
+                }else  {
                     if(mControlView!=null){
                         if (mControlView.getVisibility() != VISIBLE) {
                             mControlView.show();
@@ -1463,7 +1471,7 @@ public class AliyunVodPlayerView extends RelativeLayout implements ITheme {
                 //使用用户设置的标题
                 mAliyunMediaInfo.setTitle(getTitle(mAliyunMediaInfo.getTitle()));
                 mAliyunMediaInfo.setPostUrl(getPostUrl(mAliyunMediaInfo.getPostUrl()));
-                if(state==1){
+                if(state==1||state==8){
                     mControlViewLand.setMediaInfo(mAliyunMediaInfo, mAliyunVodPlayer.getCurrentQuality());
                     mControlViewLand.show();
                 }else {
@@ -1574,7 +1582,7 @@ public class AliyunVodPlayerView extends RelativeLayout implements ITheme {
                 if (mTipsView != null && !"http".equals(scheme)) {
                     //隐藏其他的动作,防止点击界面去进行其他操作
                     mGestureView.hide(ViewAction.HideType.End);
-                    if(state==1){
+                    if(state==1||state==8){
 
                         mControlViewLand.hide(ViewAction.HideType.End);
                     }else {
@@ -1617,7 +1625,7 @@ public class AliyunVodPlayerView extends RelativeLayout implements ITheme {
             @Override
             public void onChangeQualitySuccess(String finalQuality) {
                 //切换成功后就开始播放
-                if(state==1){
+                if(state==1||state==8){
                     mControlViewLand.setCurrentQuality(finalQuality);
 
                 }else {
@@ -1670,7 +1678,7 @@ public class AliyunVodPlayerView extends RelativeLayout implements ITheme {
                 //重播、重试成功
                 mTipsView.hideAll();
                 mGestureView.show();
-                if(state==1){
+                if(state==1||state==8){
 
                     mControlViewLand.show();
                     mControlViewLand.setMediaInfo(mAliyunMediaInfo, mAliyunVodPlayer.getCurrentQuality());
@@ -1706,10 +1714,10 @@ public class AliyunVodPlayerView extends RelativeLayout implements ITheme {
             @Override
             public void onAutoPlayStarted() {
                 //自动播放开始,需要设置播放状态
-                if(state==1){
+                if(state==1||state==8){
 
                     mControlViewLand.setPlayState(ControlLiveViewLands.PlayState.Playing);
-                }else {
+                }else  {
                     if(mControlView!=null){
                         mControlView.setPlayState(ControlLiveView.PlayState.Playing);
 
@@ -1869,7 +1877,7 @@ public class AliyunVodPlayerView extends RelativeLayout implements ITheme {
     public void showErrorTipView(int errorCode, int errorEvent, String errorMsg) {
         pause();
         stop();
-        if(state==1){
+        if(state==1||state==8){
 
             mControlViewLand.setPlayState(ControlLiveViewLands.PlayState.NotPlaying);
         }else {
@@ -1887,10 +1895,10 @@ public class AliyunVodPlayerView extends RelativeLayout implements ITheme {
         if (mTipsView != null) {
             //隐藏其他的动作,防止点击界面去进行其他操作
             mGestureView.hide(ViewAction.HideType.End);
-            if(state==1){
+            if(state==1||state==8){
                 mControlViewLand.hide(ViewAction.HideType.End);
 
-            }else {
+            }else{
                if(mControlView!=null){
                    mControlView.hide(ViewAction.HideType.End);
                }else {
@@ -2439,11 +2447,11 @@ public class AliyunVodPlayerView extends RelativeLayout implements ITheme {
     private void handleProgressUpdateMessage(Message msg) {
         if (mAliyunVodPlayer != null && !inSeek) {
 
-            if(state==1){
+            if(state==1||state==8){
 
                 mControlViewLand.setVideoBufferPosition(mAliyunVodPlayer.getBufferingPosition());
                 mControlViewLand.setVideoPosition((int) mAliyunVodPlayer.getCurrentPosition());
-            }else {
+            }else  {
                 if(mControlView!=null){
                     mControlView.setVideoBufferPosition(mAliyunVodPlayer.getBufferingPosition());
                     mControlView.setVideoPosition((int) mAliyunVodPlayer.getCurrentPosition());
@@ -2472,11 +2480,11 @@ public class AliyunVodPlayerView extends RelativeLayout implements ITheme {
             int orientation = getResources().getConfiguration().orientation;
             if (orientation == Configuration.ORIENTATION_PORTRAIT) {
 
-                if(state==0){
+                if(state==0||state==6){
                     changeScreenMode(AliyunScreenMode.Small);
                 }
             } else if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                if(state==0){
+                if(state==0||state==6){
                     changeScreenMode(AliyunScreenMode.Full);
                 }
 
@@ -2623,7 +2631,7 @@ public class AliyunVodPlayerView extends RelativeLayout implements ITheme {
      * 开始播放
      */
     public void start() {
-        if(state==1){
+        if(state==1||state==8){
 
             mControlViewLand.setPlayState(ControlLiveViewLands.PlayState.Playing);
             mControlViewLand.show();
@@ -2655,7 +2663,7 @@ public class AliyunVodPlayerView extends RelativeLayout implements ITheme {
 
     }
     public void updateTitleViews(String title){
-        if(state==1){
+        if(state==1||state==8){
             mControlViewLand.updateTitleView(title);
         }else {
             mControlView.updateTitleView(title);
@@ -2667,7 +2675,7 @@ public class AliyunVodPlayerView extends RelativeLayout implements ITheme {
      */
     public void pause() {
 
-        if(state==1){
+        if(state==1||state==8){
 
             mControlViewLand.setPlayState(ControlLiveViewLands.PlayState.NotPlaying);
         }else {
@@ -2694,7 +2702,7 @@ public class AliyunVodPlayerView extends RelativeLayout implements ITheme {
     private void stop() {
         if (mAliyunVodPlayer != null) {
             mAliyunVodPlayer.stop();
-            if(state==1){
+            if(state==1||state==8){
 
                 mControlViewLand.setPlayState(ControlLiveViewLands.PlayState.NotPlaying);
             }else {

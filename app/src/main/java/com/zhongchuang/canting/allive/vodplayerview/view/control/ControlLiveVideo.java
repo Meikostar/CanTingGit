@@ -656,7 +656,8 @@ public class ControlLiveVideo extends RelativeLayout implements ViewAction, IThe
     private void updatePlayStateBtn() {
 
         if (mPlayState == PlayState.NotPlaying) {
-            mPlayStateBtn.setImageResource(R.drawable.ease_video_play_btn_small_nor);
+            mPlayStateBtn.setImageResource(R.drawable.alivc_playstate_play);
+
         } else if (mPlayState == PlayState.Playing) {
             mPlayStateBtn.setImageResource(R.drawable.alivc_playstate_pause);
         }

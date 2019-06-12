@@ -1813,7 +1813,11 @@ public class BasesPresenter implements BaseContract.Presenter {
     public void addInfo(String postInfo, String postImage) {
 
         Map<String, String> params = new TreeMap<>();
-        params.put("postInfo", postInfo);
+        if (TextUtil.isNotEmpty(postInfo)) {
+            params.put("postInfo", postInfo);
+        } else {
+            params.put("postInfo", "");
+        }
         if (TextUtil.isNotEmpty(postImage)) {
             params.put("postImage", postImage);
         } else {

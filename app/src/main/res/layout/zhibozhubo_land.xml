@@ -13,7 +13,7 @@
         android:id="@+id/alivc_title_download"
         android:layout_width="38dp"
         android:layout_height="38dp"
-        android:padding="@dimen/alivc_titlebar_title_right_margin"
+        android:visibility="gone"
         android:src="@drawable/icon_donwload" />
 
 
