@@ -26,6 +26,7 @@ import com.zhongchuang.canting.been.Home;
 import com.zhongchuang.canting.been.Host;
 import com.zhongchuang.canting.been.INTEGRALIST;
 import com.zhongchuang.canting.been.Ingegebean;
+import com.zhongchuang.canting.been.LiveItemBean;
 import com.zhongchuang.canting.been.MessageGroup;
 import com.zhongchuang.canting.been.OrderData;
 import com.zhongchuang.canting.been.OrderParam;

@@ -58,6 +58,7 @@ public class ListPopupWindow extends PopupWindow{
         adapter.setClickListener(new ListPopAdapter.ItemCliks() {
             @Override
             public void getItem(GAME menu, int poistion) {
+
                 listener.clickListener(menu,poistion);
                 dismiss();
             }

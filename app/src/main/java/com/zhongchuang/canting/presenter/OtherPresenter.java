@@ -3,7 +3,10 @@ package com.zhongchuang.canting.presenter;
 
         import com.zhongchuang.canting.app.CanTingAppLication;
         import com.zhongchuang.canting.been.BaseResponse;
+        import com.zhongchuang.canting.been.LiveItemBean;
         import com.zhongchuang.canting.been.RedInfo;
+        import com.zhongchuang.canting.been.VideoData;
+        import com.zhongchuang.canting.been.VideoMoreData;
         import com.zhongchuang.canting.been.aliLive;
         import com.zhongchuang.canting.been.videobean;
         import com.zhongchuang.canting.net.BaseCallBack;
@@ -33,6 +36,71 @@ public class OtherPresenter implements OtherContract.Presenter {
 
         api = HttpUtil.getInstance().create(netService.class);
     }
+
+    @Override
+    public void getDefaultVideoAndCategory(String id) {
+
+        Map<String, String> map = new HashMap<>();
+        map.put("liveFirstId", id);
+        map.put("userInfoId",  TextUtil.isEmpty(SpUtil.getUserInfoId(CanTingAppLication.getInstance())) ? "" : SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
+        api.getDefaultVideoAndCategory(map).enqueue(new BaseCallBack<VideoData>() {
+            @Override
+            public void onSuccess(VideoData userLoginBean) {
+
+                mView.toEntity(userLoginBean.data, 2);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+//                callBack.onFail(code,t);
+            }
+        });
+    }
+
+    @Override
+    public void getHotDirect() {
+
+        Map<String, String> map = new HashMap<>();
+
+        map.put("userInfoId",  TextUtil.isEmpty(SpUtil.getUserInfoId(CanTingAppLication.getInstance())) ? "" : SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
+        api.getHotDirect(map).enqueue(new BaseCallBack<VideoData>() {
+            @Override
+            public void onSuccess(VideoData userLoginBean) {
+
+                mView.toEntity(userLoginBean.data.videoList, 2);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+//                callBack.onFail(code,t);
+            }
+        });
+    }
+
+    @Override
+    public void getDefaultLiveAndCategory(String id) {
+
+        Map<String, String> map = new HashMap<>();
+        map.put("liveFirstId", id);
+        map.put("userInfoId",  TextUtil.isEmpty(SpUtil.getUserInfoId(CanTingAppLication.getInstance())) ? "" : SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
+        api.getDefaultLiveAndCategory(map).enqueue(new BaseCallBack<VideoData>() {
+            @Override
+            public void onSuccess(VideoData userLoginBean) {
+
+                mView.toEntity(userLoginBean.data, 2);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+//                callBack.onFail(code,t);
+            }
+        });
+    }
+
+
     @Override
     public void alterPaymentPassword(String oldPassword, String paymentPassword,String confirmPassword) {
 
@@ -49,6 +117,182 @@ public class OtherPresenter implements OtherContract.Presenter {
             @Override
             public void onSuccess(BaseResponse userLoginBean) {
                 mView.toEntity(userLoginBean, 13);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                mView.showTomast(t);
+            }
+        });
+    }
+    @Override
+    public void getSecondLists(String liveFirstId) {
+
+        Map<String, String> map = new HashMap<>();
+        map.put("userInfoId", SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
+        map.put("liveFirstId", liveFirstId);
+
+        api.getSecondLists(map).enqueue(new BaseCallBack<LiveItemBean>() {
+
+            @Override
+            public void onSuccess(LiveItemBean userLoginBean) {
+                mView.toEntity(userLoginBean.data, 2);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                mView.showTomast(t);
+            }
+        });
+    }
+    @Override
+    public void getFirstCategoryList() {
+
+        Map<String, String> map = new HashMap<>();
+        map.put("userInfoId", SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
+
+
+        api.getFirstCategoryList(map).enqueue(new BaseCallBack<LiveItemBean>() {
+
+            @Override
+            public void onSuccess(LiveItemBean userLoginBean) {
+                mView.toEntity(userLoginBean.data, 1);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                mView.showTomast(t);
+            }
+        });
+    }
+    @Override
+    public void getDirectListByThirdid(String liveThirdId) {
+
+        Map<String, String> map = new HashMap<>();
+        map.put("userInfoId", SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
+        map.put("liveThirdId",liveThirdId);
+
+
+        api.getDirectListByThirdid(map).enqueue(new BaseCallBack<VideoMoreData>() {
+
+            @Override
+            public void onSuccess(VideoMoreData userLoginBean) {
+                mView.toEntity(userLoginBean.data, 1);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                mView.showTomast(t);
+            }
+        });
+    }
+    @Override
+    public void getVideoListByThirdid(String liveThirdId) {
+
+        Map<String, String> map = new HashMap<>();
+        map.put("userInfoId", SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
+        map.put("liveThirdId",liveThirdId);
+
+
+        api.getVideoListByThirdid(map).enqueue(new BaseCallBack<VideoMoreData>() {
+
+            @Override
+            public void onSuccess(VideoMoreData userLoginBean) {
+                mView.toEntity(userLoginBean.data, 1);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                mView.showTomast(t);
+            }
+        });
+    }
+    @Override
+    public void searchVideoByNameOrCategory(String videoName,String liveFirstId,String livesecondId	,String liveThirdId ) {
+
+        Map<String, String> map = new HashMap<>();
+        map.put("userInfoId", SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
+        if(TextUtil.isNotEmpty(videoName)){
+            map.put("videoName",videoName);
+        }  if(TextUtil.isNotEmpty(liveFirstId)){
+            map.put("liveFirstId",liveFirstId);
+        }  if(TextUtil.isNotEmpty(livesecondId)){
+            map.put("livesecondId",livesecondId);
+        }  if(TextUtil.isNotEmpty(liveThirdId)){
+            map.put("liveThirdId",liveThirdId);
+        }
+
+
+
+
+
+
+        api.searchVideoByNameOrCategory(map).enqueue(new BaseCallBack<VideoMoreData>() {
+
+            @Override
+            public void onSuccess(VideoMoreData userLoginBean) {
+                mView.toEntity(userLoginBean.data, 1);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                mView.showTomast(t);
+            }
+        });
+    }
+    @Override
+    public void searchDirectByNameOrCategory(String directSeeName,String liveFirstId,String livesecondId	,String liveThirdId ) {
+
+        Map<String, String> map = new HashMap<>();
+        map.put("userInfoId", SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
+        if(TextUtil.isNotEmpty(directSeeName)){
+            map.put("directSeeName",directSeeName);
+        }  if(TextUtil.isNotEmpty(liveFirstId)){
+            map.put("liveFirstId",liveFirstId);
+        }  if(TextUtil.isNotEmpty(livesecondId)){
+            map.put("livesecondId",livesecondId);
+        }  if(TextUtil.isNotEmpty(liveThirdId)){
+            map.put("liveThirdId",liveThirdId);
+        }
+
+
+
+
+
+
+        api.searchDirectByNameOrCategory(map).enqueue(new BaseCallBack<VideoMoreData>() {
+
+            @Override
+            public void onSuccess(VideoMoreData userLoginBean) {
+                mView.toEntity(userLoginBean.data, 1);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                mView.showTomast(t);
+            }
+        });
+    }
+
+    @Override
+    public void getThirdList(String liveFirstId) {
+
+        Map<String, String> map = new HashMap<>();
+        map.put("userInfoId", SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
+        map.put("secondCategoryId", liveFirstId);
+
+        api.getThirdList(map).enqueue(new BaseCallBack<LiveItemBean>() {
+
+            @Override
+            public void onSuccess(LiveItemBean userLoginBean) {
+                mView.toEntity(userLoginBean.data, 3);
             }
 
             @Override
@@ -219,7 +463,7 @@ public class OtherPresenter implements OtherContract.Presenter {
 
 
     @Override
-    public void uploadVideo(String coverImage,String videoName,String videoUrl,int type) {
+    public void uploadVideo(String coverImage,String videoName,String videoUrl,int type,String liveThirdId) {
 
 
         Map<String, String> map = new HashMap<>();
@@ -227,6 +471,7 @@ public class OtherPresenter implements OtherContract.Presenter {
         map.put("coverImage", coverImage);
         map.put("videoName", videoName);
         map.put("videoUrl", videoUrl);
+        map.put("liveThirdId", liveThirdId);
         map.put("type", type+"");
 
         api.uploadVideo(map).enqueue(new BaseCallBack<BaseResponse>() {

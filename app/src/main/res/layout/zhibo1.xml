@@ -69,12 +69,27 @@
     </LinearLayout>
 
 
-
-
-    <com.zhongchuang.canting.widget.BaseNevgTitle
-        android:id="@+id/base_bars"
+    <io.valuesfeng.picker.tablayout.SlidingScaleTabLayout
+        android:paddingBottom="6dp"
+        android:background="@color/white"
+        android:id="@+id/tablayout"
         android:layout_width="match_parent"
-        android:layout_height="50dp"/>
+        android:layout_height="50dp"
+        app:tl_indicator_color="#2A93FF"
+        app:tl_indicator_corner_radius="3dp"
+        app:tl_indicator_gravity="BOTTOM"
+        app:tl_indicator_height="3dp"
+        app:tl_indicator_width="12dp"
+        app:tl_textBold="SELECT"
+        app:tl_tab_gravity="Bottom"
+
+        app:tl_tab_marginBottom="6dp"
+        app:tl_tab_padding="15dp"
+        app:tl_textSelectColor="#2A93FF"
+        app:tl_textSelectSize="16sp"
+        app:tl_textUnSelectColor="#333"
+        app:tl_textUnSelectSize="16sp" />
+
 
     <com.zhongchuang.canting.widget.NoScrollViewPager
         android:id="@+id/viewpager_main"

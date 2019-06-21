@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.zhongchuang.canting.R;
+import com.zhongchuang.canting.activity.mine.NewPersonDetailActivity;
 import com.zhongchuang.canting.adapter.FragmentViewPagerAdapter;
 import com.zhongchuang.canting.been.GAME;
 import com.zhongchuang.canting.been.SubscriptionBean;
@@ -33,6 +34,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import io.valuesfeng.picker.tablayout.SlidingScaleTabLayout;
 
 /**
  * Created by Administrator on 2017/10/25.
@@ -41,8 +43,8 @@ import butterknife.Unbinder;
 public class ZhiBoFragment extends Fragment {
 
 
-    @BindView(R.id.base_bars)
-    BaseNevgTitle bnbHome;
+    @BindView(R.id.tablayout)
+    SlidingScaleTabLayout tablayout;
     @BindView(R.id.viewpager_main)
     NoScrollViewPager viewpagerMain;
     @BindView(R.id.back)
@@ -94,21 +96,16 @@ public class ZhiBoFragment extends Fragment {
 
             @Override
             public void onPageSelected(int position) {
-                bnbHome.setSelect(position);
+
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
             }
         });
-        bnbHome.setOnChangeListener(new BaseNevgTitle.OnChangeListener() {
-            @Override
-            public void onChagne(int currentIndex) {
-                current = currentIndex;
-                bnbHome.setSelect(currentIndex);
-                viewpagerMain.setCurrentItem(currentIndex, false);
-            }
-        });
+
+
+
 
         ivSearchBoxSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,6 +137,7 @@ public class ZhiBoFragment extends Fragment {
     }
     private String cont="";
     public List<GAME> data=new ArrayList<>();
+    private List<String> title=new ArrayList<>();
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -161,7 +159,7 @@ public class ZhiBoFragment extends Fragment {
                     a=c;
                     i=1;
                 }
-
+                title.add(gameinfo.data.get(c).directTypeName);
             }
             if(i==0){
                 a=0;
@@ -169,16 +167,17 @@ public class ZhiBoFragment extends Fragment {
             }
 
         }
-        bnbHome.setDatas(gameinfo.data);
+//        bnbHome.setDatas(gameinfo.data);
         initFragMents(a);
 
     }
-
+   private String[] titles;
     private void initFragMents(int poistion) {
         list_zhibofragment = new ArrayList<>();
         if(gameinfo==null||gameinfo.data==null){
             return;
         }
+
         for (int i = 0; i < gameinfo.data.size(); i++) {
             ZhiBo_HotFrag gameFragment = new ZhiBo_HotFrag(getActivity());
             gameFragment.setType(gameinfo.data.get(i).id,i);
@@ -189,7 +188,15 @@ public class ZhiBoFragment extends Fragment {
         viewpagerMain.setAdapter(mainViewPagerAdapter);
         viewpagerMain.setOffscreenPageLimit(gameinfo.data.size() - 1);//设置缓存view 的个数
         viewpagerMain.setCurrentItem(poistion);
-
+        titles=title.toArray(new String[title.size()]);
+        tablayout.setViewPager(viewpagerMain, titles);
+        tablayout.setmTabsContainer(new SlidingScaleTabLayout.TabSelectionListener() {
+            @Override
+            public void selection(int currentIndex) {
+                current = currentIndex;
+                viewpagerMain.setCurrentItem(currentIndex, false);
+            }
+        });
     }
 
 

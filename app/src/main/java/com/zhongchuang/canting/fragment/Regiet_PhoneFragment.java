@@ -165,11 +165,11 @@ public class Regiet_PhoneFragment extends Fragment implements RegisterViewCallba
                     Toast.makeText(getActivity(), R.string.yzmbnwk, Toast.LENGTH_SHORT).show();
                     return;
                 }
-//                if (TextUtil.isEmpty(invitationCode)) {
-//
-//                    Toast.makeText(getActivity(), "请输入邀请码", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
+                if (TextUtil.isEmpty(invitationCode)) {
+
+                    Toast.makeText(getActivity(), "请输入邀请码", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if (TextUtil.isNotEmpty(invitationCode) && invitationCode.length()!=6) {
                     ctInvitation.setText("");
                     Toast.makeText(getActivity(), "邀请码错误", Toast.LENGTH_SHORT).show();

@@ -59,6 +59,7 @@
         android:layout_gravity="center"
         android:visibility="invisible"/>
     <TextView
+        android:visibility="gone"
         android:text=""
         android:layout_marginBottom="148dp"
         android:layout_gravity="bottom|center_horizontal"

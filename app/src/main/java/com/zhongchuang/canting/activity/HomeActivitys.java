@@ -761,7 +761,7 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
                             if (messageGroup == null) {
                                 return;
                             }
-                            intent2.putExtra("data", data);
+//                            intent2.putExtra("data", data);
                             intent2.putExtra("type", 1);
                             startActivity(intent2);
                         } else {
@@ -819,7 +819,7 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
 
 //        showPress();
         adapter.setHeaderView(view);
-        presenter = new BasesPresenter(this);
+
         adapter.setItemCikcListener(new ItemRecycleAdapter.ItemClikcListener() {
             @Override
             public void itemClick(String data, int poition) {
@@ -923,7 +923,7 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
 
 
            shareBean=new ShareBean();
-            shareBean.title_ = SpUtil.getName(this) + "邀请你下载对了APP";
+            shareBean.title_ = SpUtil.getName(this) + "邀请你下载信联APP";
             shareBean.content_ = "让你有不一样的购物体验不一样的直播平台不一样的社交！";
             shareBean.url_ = Constant.APP_SHARE;
             shareBean.img_ = "img";
@@ -1167,7 +1167,7 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
 
 
         if (presenter != null) {
-            presenter.getDirRoomClassify();
+
             presenter.verifyPassword("");
             if (!TextUtils.isEmpty(CanTingAppLication.userId)) {
                 presenter.getChatGroupList();
@@ -1373,7 +1373,7 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
             }
             if (TextUtil.isNotEmpty(bean.invitation_code)) {
                 CanTingAppLication.invitation_code=bean.invitation_code;
-                shareBean.title_ = SpUtil.getName(this) + "邀请你下载对了APP";
+                shareBean.title_ = SpUtil.getName(this) + "邀请你下载信联APP";
                 shareBean.content_ = "让你有不一样的购物体验不一样的直播平台不一样的社交！";
                 shareBean.url_ = Constant.APP_SHARE + SpUtil.getName(this)+","+bean.invitation_code;
                 shareBean.img_ = "img";

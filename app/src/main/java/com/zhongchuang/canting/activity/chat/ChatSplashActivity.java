@@ -85,7 +85,7 @@ public class ChatSplashActivity extends AppCompatActivity implements BaseContrac
             public void run() {
                 if (ChatSplashActivity.this.type == 1) {
                     Intent intent2 = new Intent(ChatSplashActivity.this, LiveActivity.class);
-                    intent2.putExtra("data", messageGroup);
+//                    intent2.putExtra("data", messageGroup);
                     startActivity(intent2);
                     finish();
                 } else {
@@ -116,7 +116,7 @@ public class ChatSplashActivity extends AppCompatActivity implements BaseContrac
             public void run() {
                 if (ChatSplashActivity.this.type == 1) {
                     Intent intent2 = new Intent(ChatSplashActivity.this, LiveActivity.class);
-                    intent2.putExtra("data", messageGroup);
+//                    intent2.putExtra("data", messageGroup);
                     startActivity(intent2);
                     finish();
                 } else {

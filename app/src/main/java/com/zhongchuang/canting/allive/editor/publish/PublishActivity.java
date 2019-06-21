@@ -28,6 +28,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -47,6 +48,7 @@ import com.aliyun.qupai.editor.AliyunICompose;
 import com.aliyun.qupai.editor.AliyunIComposeCallBack;
 import com.zhongchuang.canting.allive.vodupload_demo.data.ItemInfo;
 import com.zhongchuang.canting.app.CanTingAppLication;
+import com.zhongchuang.canting.been.LiveItemBean;
 import com.zhongchuang.canting.been.SubscriptionBean;
 import com.zhongchuang.canting.been.TOKEN;
 import com.zhongchuang.canting.been.aliLive;
@@ -62,6 +64,7 @@ import com.zhongchuang.canting.utils.SpUtil;
 import com.zhongchuang.canting.utils.TextUtil;
 import com.zhongchuang.canting.utils.TimeUtil;
 import com.zhongchuang.canting.widget.BaseDailogManager;
+import com.zhongchuang.canting.widget.ListVideoWindow;
 import com.zhongchuang.canting.widget.MarkaBaseDialog;
 import com.zhongchuang.canting.widget.PhotoPopupWindow;
 import com.zhongchuang.canting.widget.RxBus;
@@ -94,6 +97,7 @@ public class PublishActivity extends Activity implements View.OnClickListener , 
     public static final String KEY_PARAM_THUMBNAIL = "svideo_thumbnail";
 
     private View mActionBar;
+    private LinearLayout ll_choose;
     private ImageView mIvLeft;
     private ProgressBar mProgress;
     private ImageView mCoverImage, mCoverBlur;
@@ -105,6 +109,7 @@ public class PublishActivity extends Activity implements View.OnClickListener , 
     private TextView mComposeStatusText, mComposeStatusTip;
     //    private TextView mDescCount;
     private TextView mPublish;
+    private TextView tvType;
 
     private String mConfig;
     private String mOutputPath = Environment.getExternalStorageDirectory() + File.separator + "output_compose_video.mp4";
@@ -124,6 +129,7 @@ public class PublishActivity extends Activity implements View.OnClickListener , 
         mCompose.init(this);
         presenter=new OtherPresenter(this);
         presenter.getLiveToken();
+        presenter.getFirstCategoryList();
         type=getIntent().getIntExtra("type",1);
         uploader = new VODUploadClientImpl(getApplicationContext());
         shapeLoadingDialog = new ShapeLoadingDialog.Builder(this)
@@ -155,10 +161,42 @@ public class PublishActivity extends Activity implements View.OnClickListener , 
             }
         });
         new MyAsyncTask(this).execute(mThumbnailPath);
+        ll_choose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(datas!=null){
+                    showPopupWindow(true,"请选择一级分类",datas,1);
+                }
 
+            }
+        });
 
     }
-
+   private ListVideoWindow popupWindow;
+    private String liveThirdId;
+    public void showPopupWindow(boolean isShow,String title,List<LiveItemBean> data,final int type){//1代表一及 类推
+        if(popupWindow!=null){
+            popupWindow=null;
+        }
+        popupWindow = new ListVideoWindow(this,data,title);
+        popupWindow.setSureListener(new ListVideoWindow.ClickListener() {
+            @Override
+            public void clickListener(LiveItemBean menu, int poistion) {
+                 if(type==1){
+                     presenter.getSecondLists(menu.id);
+                 }else if(type==2){
+                     presenter.getThirdList(menu.id);
+                 }else if(type==3){
+                     liveThirdId=menu.id;
+                     tvType.setText(menu.sec_category_name);
+                 }
+                 popupWindow.dismiss();
+            }
+        });
+        if(isShow){
+            popupWindow.showAsDropDown(mPublish);
+        }
+    }
     private Handler handler =new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
@@ -190,7 +228,7 @@ public class PublishActivity extends Activity implements View.OnClickListener , 
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.uploadVideo(imgUrl,mVideoDesc.getText().toString(),url,3);
+                presenter.uploadVideo(imgUrl,mVideoDesc.getText().toString(),url,3,liveThirdId);
                 dialogs.dismiss();
 
             }
@@ -199,7 +237,7 @@ public class PublishActivity extends Activity implements View.OnClickListener , 
         sure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.uploadVideo(imgUrl,mVideoDesc.getText().toString(),url,type);
+                presenter.uploadVideo(imgUrl,mVideoDesc.getText().toString(),url,type,liveThirdId);
                 dialogs.dismiss();
 
             }
@@ -281,18 +319,31 @@ public class PublishActivity extends Activity implements View.OnClickListener , 
 
     }
     private OtherPresenter presenter;
+    private List<LiveItemBean> datas;
+    private LiveItemBean firstData;
+    private LiveItemBean secondtData;
+    private LiveItemBean thirdData;
     @Override
     public <T> void toEntity(T entity, int type) {
         if(type==12){
 
             RxBus.getInstance().send(SubscriptionBean.createSendBean(SubscriptionBean.LIVE_FINISH,""));
             finish();
-        }else {
+        }else if(type==19) {
             aliLive aliLive= (aliLive) entity;
             if(aliLive!=null&& TextUtil.isNotEmpty(aliLive.token)){
                 type=1;
                 uploader.init(aliLive.accessKeyId, aliLive.accesskeysecret, aliLive.token, aliLive.expiration, callback);
             }
+        }else if(type==1) {
+             datas= (List<LiveItemBean>) entity;
+
+        }else if(type==2) {
+            List<LiveItemBean> secondtData= (List<LiveItemBean>) entity;
+            showPopupWindow(true,"请选择二级分类",secondtData,2);
+        }else if(type==3) {
+            List<LiveItemBean> thirdData= (List<LiveItemBean>) entity;
+            showPopupWindow(true,"请选择三级分类",thirdData,3);
         }
 
     }
@@ -351,7 +402,10 @@ public class PublishActivity extends Activity implements View.OnClickListener , 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){
                  if(sta==1){
-                     presenter.uploadVideo(imgUrl,mVideoDesc.getText().toString(),url,type);
+                     if(TextUtil.isNotEmpty(liveThirdId)){
+                         presenter.uploadVideo(imgUrl,mVideoDesc.getText().toString(),url,type,liveThirdId);
+                     }
+
                  }else {
                      finish();
 
@@ -427,10 +481,13 @@ public class PublishActivity extends Activity implements View.OnClickListener , 
 
     private void initView() {
         mActionBar = findViewById(R.id.action_bar);
+        ll_choose = findViewById(R.id.ll_choose);
+        mActionBar = findViewById(R.id.action_bar);
         mActionBar.setBackgroundColor(
                 getResources().getColor(R.color.white));
 //        mPublish = (TextView) findViewById(R.id.tv_right);
         mPublish = findViewById(R.id.tv_rights);
+        tvType = findViewById(R.id.tv_type);
         mIvLeft = findViewById(R.id.iv_left);
         mIvLeft.setOnClickListener(this);
 //        mIvLeft.setImageResource(R.mipmap.aliyun_svideo_icon_back);
@@ -617,6 +674,11 @@ public class PublishActivity extends Activity implements View.OnClickListener , 
             }
             if(TextUtils.isEmpty(mVideoDesc.getText().toString())){
                 ToastUtil.showToast(PublishActivity.this,"请输入视频标题");
+                return;
+
+            }
+            if(TextUtils.isEmpty(liveThirdId)){
+                ToastUtil.showToast(PublishActivity.this,"请选择视频分类");
                 return;
 
             }

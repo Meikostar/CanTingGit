@@ -11,4 +11,5 @@ public interface LiveStreamPresenter {
     void getLiveRoomData(Map<String,String> map,int type);
     void getLatestVideoList(Map<String, String> map, int loadtype);
 
+
 }

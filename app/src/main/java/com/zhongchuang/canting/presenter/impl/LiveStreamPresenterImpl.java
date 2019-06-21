@@ -1,10 +1,15 @@
 package com.zhongchuang.canting.presenter.impl;
 
+import com.zhongchuang.canting.app.CanTingAppLication;
+import com.zhongchuang.canting.been.VideoData;
 import com.zhongchuang.canting.been.ZhiBo_GuanZhongBean;
 import com.zhongchuang.canting.net.BaseCallBack;
 import com.zhongchuang.canting.presenter.LiveStreamPresenter;
+import com.zhongchuang.canting.utils.SpUtil;
+import com.zhongchuang.canting.utils.TextUtil;
 import com.zhongchuang.canting.viewcallback.GetLiveViewCallBack;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -35,6 +40,7 @@ public class LiveStreamPresenterImpl extends BasePresenterImpl implements LiveSt
             }
         });
     }
+
 
     @Override
     public void getLatestVideoList(Map<String, String> map, final int loadtype) {

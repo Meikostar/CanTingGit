@@ -8,18 +8,24 @@ import android.os.AsyncTask;
 import android.support.v4.os.AsyncTaskCompat;
 import android.view.View;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMFileMessageBody;
 import com.hyphenate.chat.EMImageMessageBody;
 import com.hyphenate.chat.EMMessage;
 import com.zhongchuang.canting.R;
+import com.zhongchuang.canting.activity.chat.SendDynamicActivity;
 import com.zhongchuang.canting.easeui.model.EaseImageCache;
 import com.zhongchuang.canting.easeui.ui.EaseShowBigImageActivity;
 import com.zhongchuang.canting.easeui.utils.EaseImageUtils;
+import com.zhongchuang.canting.utils.DensityUtil;
 import com.zhongchuang.canting.utils.StringUtil;
 import com.zhongchuang.canting.utils.TextUtil;
 import com.zhongchuang.canting.widget.CircleTransform;
@@ -28,6 +34,7 @@ import java.io.File;
 public class EaseChatRowImage extends EaseChatRowFile {
 
     protected ImageView imageView;
+    protected RelativeLayout bubble;
     private EMImageMessageBody imgBody;
 
     public EaseChatRowImage(Context context, int chatType,EMMessage message, int position, BaseAdapter adapter) {
@@ -43,12 +50,14 @@ public class EaseChatRowImage extends EaseChatRowFile {
     protected void onFindViewById() {
         percentageView = findViewById(R.id.percentage);
         imageView = findViewById(R.id.image);
+        bubble = findViewById(R.id.bubble);
     }
-
+   private String path;
 
     @Override
     protected void onSetUpView() {
         imgBody = (EMImageMessageBody) message.getBody();
+
         // received messages
         if (message.direct() == EMMessage.Direct.RECEIVE) {
             if (imgBody.thumbnailDownloadStatus() == EMFileMessageBody.EMDownloadStatus.DOWNLOADING ||
@@ -57,11 +66,12 @@ public class EaseChatRowImage extends EaseChatRowFile {
                 String thumbPath = imgBody.getThumbnailUrl();
                 String remoteUrl = imgBody.getRemoteUrl();
                 if(TextUtil.isNotEmpty(remoteUrl)){
-                    Glide.with(context).load(StringUtil.changeUrl(remoteUrl)).asBitmap().placeholder(R.drawable.ease_default_image).into(imageView);
+//                    Glide.with(context).load(StringUtil.changeUrl(remoteUrl)).asBitmap().placeholder(R.drawable.ease_default_image).into(imageView);
 
+                    path=remoteUrl;
                 }else {
-
-                    showImageView(thumbPath, imgBody.getLocalUrl(), message);
+                    path= imgBody.getLocalUrl();
+//                    showImageView(thumbPath, imgBody.getLocalUrl(), message);
                     //set the receive message callback
                     setMessageReceiveCallback();
                 }
@@ -72,25 +82,71 @@ public class EaseChatRowImage extends EaseChatRowFile {
                 imageView.setImageResource(R.drawable.ease_default_image);
                 String remoteUrl = imgBody.getRemoteUrl();
                 if(TextUtil.isNotEmpty(remoteUrl)){
-                    Glide.with(context).load(StringUtil.changeUrl(remoteUrl)).asBitmap().placeholder(R.drawable.ease_default_image).into(imageView);
+//                    Glide.with(context).load(StringUtil.changeUrl(remoteUrl)).asBitmap().placeholder(R.drawable.ease_default_image).into(imageView);
 
+                    path=remoteUrl;
                 }else {
-                    String thumbPath = imgBody.getRemoteUrl();
-                    if (!new File(thumbPath).exists()) {
-                        // to make it compatible with thumbnail received in previous version
-                        thumbPath = EaseImageUtils.getThumbnailImagePath(imgBody.getLocalUrl());
-                    }
-                    showImageView(thumbPath, imgBody.getLocalUrl(), message);
+                    path= imgBody.getLocalUrl();
+//                    showImageView(thumbPath, imgBody.getLocalUrl(), message);
+                    //set the receive message callback
+                    setMessageReceiveCallback();
                 }
+//                if(TextUtil.isNotEmpty(remoteUrl)){
+//                    Glide.with(context).load(StringUtil.changeUrl(remoteUrl)).asBitmap().placeholder(R.drawable.ease_default_image).into(imageView);
+//
+//                }else {
+//                    String thumbPath = imgBody.getRemoteUrl();
+//                    if (!new File(thumbPath).exists()) {
+//                        // to make it compatible with thumbnail received in previous version
+//                        thumbPath = EaseImageUtils.getThumbnailImagePath(imgBody.getLocalUrl());
+//                    }
+//                    showImageView(thumbPath, imgBody.getLocalUrl(), message);
+//                }
 
             }
-            return;
-        }
 
-        String filePath = imgBody.getLocalUrl();
-        String thumbPath = EaseImageUtils.getThumbnailImagePath(imgBody.getLocalUrl());
-        showImageView(thumbPath, filePath, message);
-        handleSendMessage();
+        }else {
+            String remoteUrl = imgBody.getRemoteUrl();
+            if(TextUtil.isNotEmpty(remoteUrl)){
+//                    Glide.with(context).load(StringUtil.changeUrl(remoteUrl)).asBitmap().placeholder(R.drawable.ease_default_image).into(imageView);
+
+                path=remoteUrl;
+            }else {
+                path= imgBody.getLocalUrl();
+//                    showImageView(thumbPath, imgBody.getLocalUrl(), message);
+                //set the receive message callback
+                setMessageReceiveCallback();
+            }
+            handleSendMessage();
+//            if(TextUtil.isNotEmpty(remoteUrl)){
+//
+//
+//            }else {
+//                String thumbPath = imgBody.getRemoteUrl();
+//                if (!new File(thumbPath).exists()) {
+//                    // to make it compatible with thumbnail received in previous version
+//                    thumbPath = EaseImageUtils.getThumbnailImagePath(imgBody.getLocalUrl());
+//                }
+//                showImageView(thumbPath, imgBody.getLocalUrl(), message);
+//            }
+
+
+        }
+        Glide.with(context).load(StringUtil.changeUrl(path)).asBitmap().into(new SimpleTarget<Bitmap>() {
+            @Override
+            public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                int width = DensityUtil.dip2px(context, 150);
+                double w=(resource.getWidth())*1.0;
+                int h=resource.getHeight();
+                double fx=width/w;
+                int height= (int) (h*fx);
+
+                RelativeLayout.LayoutParams params1=new RelativeLayout.LayoutParams(DensityUtil.dip2px(context, 150),height>DensityUtil.dip2px(context, 150)?height-15:height);
+                imageView.setLayoutParams(params1);
+                imageView.setImageBitmap(resource);
+            }
+        });
+
     }
 
     @Override

@@ -375,15 +375,18 @@ public class ControlLiveView extends RelativeLayout implements ViewAction, IThem
         });
 
 //全屏下的切换分辨率按钮监听
-        mLargeChangeQualityBtn.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //点击切换分辨率 显示分辨率的对话框
-                if (mOnQualityBtnClickListener != null) {
-                    mOnQualityBtnClickListener.onQualityBtnClick(v, mAliyunMediaInfo.getQualities(), mCurrentQuality);
+        if(mLargeChangeQualityBtn!=null){
+            mLargeChangeQualityBtn.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //点击切换分辨率 显示分辨率的对话框
+                    if (mOnQualityBtnClickListener != null) {
+                        mOnQualityBtnClickListener.onQualityBtnClick(v, mAliyunMediaInfo.getQualities(), mCurrentQuality);
+                    }
                 }
-            }
-        });
+            });
+        }
+
 
         // 更多按钮点击监听
         mTitleMore.setOnClickListener(new OnClickListener() {

@@ -392,7 +392,7 @@ public class ShopMallDetailActivity extends BaseAllActivity implements View.OnCl
                 } else {
 
                     if (TextUtil.isNotEmpty(product.integral_price)) {
-                        shareBean.content_= shareBean.content_+"   商城价:"+product.pro_price+"积分";
+                        shareBean.content_ = product.pro_name+"  "+product.integral_price+"积分";
                         tvPrice.setText(getString(R.string.jf) + product.integral_price);
                     }
                 }

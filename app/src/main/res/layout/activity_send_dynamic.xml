@@ -104,10 +104,9 @@
                       android:background="@drawable/ease_video_play_btn_small_nor" />
                   <ImageView
                       android:src="@mipmap/close"
-                      android:padding="6dp"
+
                       android:layout_alignParentRight="true"
-                      android:layout_marginTop="3dp"
-                      android:layout_marginRight="3dp"
+
                       android:id="@id/iv_close"
 
                       android:layout_width="28dp"

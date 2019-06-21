@@ -220,7 +220,7 @@ public class RoomInfoActivity extends BaseActivity1 implements BaseContract.View
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        int output_X = 280, output_Y = 280;
+        int output_X = 356, output_Y = 200;
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case CODE_CAMERA_REQUEST://拍照完成回调

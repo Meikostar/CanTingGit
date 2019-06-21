@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:orientation="vertical">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="23dp"
+            android:background="@color/blue"/>
+        <LinearLayout
+            android:id="@+id/ll_title"
+            android:background="@color/colorPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:gravity="center_vertical"
+            android:paddingRight="0dp"
+            android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="24dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:background="@drawable/shape_search_box_bgs">
+
+
+                        <TextView
+                            android:gravity="center_vertical"
+                            android:layout_marginLeft="12dp"
+                            android:id="@+id/edt_search_box"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:focusable="true"
+                            android:singleLine="true"
+                            android:textColor="@color/color3"
+                            android:background="@color/transparent"
+                            android:layout_height="match_parent"
+                            android:textSize="13.5sp"
+                            android:textColorHint="#a0666666"
+                            android:hint="请输入视频标题"/>
+
+                        <ImageView
+                            android:padding="5.5dp"
+                            android:layout_marginRight="11dp"
+                            android:id="@+id/iv_search_box_search"
+                            android:layout_width="29dp"
+                            android:layout_height="29dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="12dp"
+                            android:src="@drawable/top_icon_search"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="18dp"
+                    android:layout_gravity="center_vertical"
+
+                    android:src="@drawable/dingweilive" />
+                <TextView
+                    android:layout_marginRight="10dp"
+                    android:gravity="center"
+                    android:id="@+id/tv_city"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="4dp"
+                    android:maxWidth="75dp"
+                    android:maxLines="2"
+                    android:background="@null"
+                    android:text="深圳"
+                    android:textColor="#fff"
+                    android:textSize="12sp" />
+        </LinearLayout>
+
+
+        <io.valuesfeng.picker.tablayout.SlidingScaleTabLayout
+            android:paddingBottom="6dp"
+            android:background="@color/white"
+            android:id="@+id/tablayout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:tl_indicator_color="#2A93FF"
+            app:tl_indicator_corner_radius="3dp"
+            app:tl_indicator_gravity="BOTTOM"
+            app:tl_indicator_height="3.3dp"
+            app:tl_indicator_width="18dp"
+            app:tl_textBold="SELECT"
+            app:tl_tab_gravity="Bottom"
+            app:tl_tab_marginBottom="6dp"
+            app:tl_tab_padding="15dp"
+            app:tl_textSelectColor="#2A93FF"
+            app:tl_textSelectSize="16sp"
+            app:tl_textUnSelectColor="#333"
+            app:tl_textUnSelectSize="16sp" />
+
+
+        <com.zhongchuang.canting.widget.NoScrollViewPager
+            android:layout_marginTop="15dp"
+            android:id="@+id/viewpager_main"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+
+
+</LinearLayout>

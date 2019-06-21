@@ -84,7 +84,7 @@ public class OtherContract {
         /**
          * 获取token接口
          */
-        void uploadVideo(String coverImage,String videoName,String videoUrl,int type);
+        void uploadVideo(String coverImage,String videoName,String videoUrl,int type,String liveThirdId);
         /**
          * 设置推流断流回调地址接口
          */
@@ -94,5 +94,67 @@ public class OtherContract {
          * 视频类型
          */
         void updateType(String id,String type);
+
+        /**
+         * 获取二级分类
+         */
+        void getSecondLists(String liveFirstId);
+
+        /**
+         * 获取一级分类
+         */
+        void getFirstCategoryList();
+
+
+        /**
+         * 获取三级分类
+         */
+        void getThirdList(String liveFirstId);
+
+
+        /**
+         * .录制视频首页接口
+         */
+        void getDefaultVideoAndCategory(String id);
+
+        /**
+         *根据三级类别id获取直播列表接口
+         */
+        void getDirectListByThirdid(String liveThirdId);
+
+
+        /**
+         *根据三级类别id获取视频列表接口
+         */
+        void getVideoListByThirdid(String liveThirdId);
+
+        /**
+         *根直播列表首页接口
+         */
+        void getDefaultLiveAndCategory(String id);
+
+        /**
+         *24.不分类别获取热门直播列表接口
+
+         */
+        void getHotDirect();
+
+
+
+        /**
+         *22.视频搜索接口
+
+         */
+
+
+        void searchVideoByNameOrCategory(String videoName,String liveFirstId,String livesecondId	,String liveThirdId );
+
+
+        /**
+         *25.直播搜索接口
+
+
+         */
+        void searchDirectByNameOrCategory(String videoName,String liveFirstId,String livesecondId	,String liveThirdId );
     }
 }

@@ -36,6 +36,7 @@ import com.zhongchuang.canting.been.INTEGRAL;
 import com.zhongchuang.canting.been.INTEGRALIST;
 import com.zhongchuang.canting.been.Ingegebean;
 import com.zhongchuang.canting.been.LIVEBEAN;
+import com.zhongchuang.canting.been.LiveItemBean;
 import com.zhongchuang.canting.been.MainPageBean;
 import com.zhongchuang.canting.been.MessageGroup;
 import com.zhongchuang.canting.been.OrderData;
@@ -63,6 +64,8 @@ import com.zhongchuang.canting.been.UserInfoBean;
 import com.zhongchuang.canting.been.UserLoginBean;
 import com.zhongchuang.canting.been.TencentSing;
 import com.zhongchuang.canting.been.Version;
+import com.zhongchuang.canting.been.VideoData;
+import com.zhongchuang.canting.been.VideoMoreData;
 import com.zhongchuang.canting.been.WEIXINREQ;
 import com.zhongchuang.canting.been.ZhiBo_GuanZhongBean;
 import com.zhongchuang.canting.been.ZhiBo_ZhuboBean;
@@ -122,8 +125,8 @@ public interface netService {
 //    public static final String TOM_BASE_URL = "http://111.230.248.224:8780/ifun/";
 //    public static final String TOM_BASE_URL = "http://47.74.189.52:8080/ifun/";
 //      public static final String TOM_BASE_URL = "http://119.23.235.1:8080/ifun/";
-    String TOM_BASE_URL = "http://120.77.222.116:8080/ifun/";
-//    public static final String TOM_BASE_URL = "http://120.78.148.31:8080/ifun/";//替换对了服务器
+//    String TOM_BASE_URL = "http://120.77.222.116:8080/ifun/";
+//    public static final String TOM_BASE_URL = "http://120.78.148.31:8080/ifun/";//替换信联服务器
 
 
 
@@ -141,7 +144,7 @@ public interface netService {
 //    public static final String TOM_BASE_URL = "http://119.23.235.1:8089/ifun/";
 //    public static final String TOM_BASE_URL = "http://119.23.235.1:8080/ifun/";
 
-//        public static final String TOM_BASE_URL = "http://192.168.50.145:8080/ifun/";
+        public static final String TOM_BASE_URL = "http://192.168.0.104:8080/ifun/";
 
 //    public static final String TOM_BASE_URL = "http://192.168.50.193:8780/ifun/";
 //    public static final String TOM_BASE_URL = "http://192.168.50.79:8780/ifun/";
@@ -268,6 +271,16 @@ public interface netService {
     @FormUrlEncoded
     @POST("wap/dirRoomInfo/getDirectRoomList")
     Call<ZhiBo_GuanZhongBean> getDirectRoomList(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST("wap/liveCategory/getDefaultVideoAndCategory")
+    Call<VideoData> getDefaultVideoAndCategory(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST("wap/directCategory/getDirectAndCategory")
+    Call<VideoData> getDefaultLiveAndCategory(@FieldMap Map<String, String> map);
+
+
     @FormUrlEncoded
     @POST("wap/video/getLatestVideoList")
     Call<ZhiBo_GuanZhongBean> getLatestVideoList(@FieldMap Map<String, String> map);
@@ -1095,4 +1108,40 @@ public interface netService {
     @FormUrlEncoded
     @POST("wap/chatrooms/create")
     Call<aliLive> create(@FieldMap Map<String, String> opt);
+
+
+    @FormUrlEncoded
+    @POST("wap/liveCategory/getFirstCategoryList")
+    Call<LiveItemBean> getFirstCategoryList(@FieldMap Map<String, String> opt);
+
+    @FormUrlEncoded
+    @POST("wap/directCategory/getDirectListByThirdid")
+    Call<VideoMoreData> getDirectListByThirdid(@FieldMap Map<String, String> opt);
+
+    @FormUrlEncoded
+    @POST("wap/liveCategory/getVideoListByThirdid")
+    Call<VideoMoreData> getVideoListByThirdid(@FieldMap Map<String, String> opt);
+
+    @FormUrlEncoded
+    @POST("wap/liveCategory/searchVideoByNameOrCategory")
+    Call<VideoMoreData> searchVideoByNameOrCategory(@FieldMap Map<String, String> opt);
+
+
+
+    @FormUrlEncoded
+    @POST("wap/directCategory/searchDirectByNameOrCategory")
+    Call<VideoMoreData> searchDirectByNameOrCategory(@FieldMap Map<String, String> opt);
+
+    @FormUrlEncoded
+    @POST("wap/directCategory/getHotDirect")
+    Call<VideoData> getHotDirect(@FieldMap Map<String, String> opt);
+
+    @FormUrlEncoded
+    @POST("wap/liveCategory/getSecondList")
+    Call<LiveItemBean> getSecondLists(@FieldMap Map<String, String> opt);
+
+
+    @FormUrlEncoded
+    @POST("wap/liveCategory/getThirdList")
+    Call<LiveItemBean> getThirdList(@FieldMap Map<String, String> opt);
 }

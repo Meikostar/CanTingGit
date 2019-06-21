@@ -1,6 +1,7 @@
 package com.zhongchuang.canting.activity.live;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.util.Log;
@@ -19,6 +20,8 @@ import com.zhongchuang.canting.base.LazyFragment;
 import com.zhongchuang.canting.been.GAME;
 import com.zhongchuang.canting.been.SubscriptionBean;
 import com.zhongchuang.canting.been.aliLive;
+import com.zhongchuang.canting.fragment.live.UpdateVideoFragment;
+import com.zhongchuang.canting.fragment.live.VideoLiveFragment;
 import com.zhongchuang.canting.fragment.live.ZhiBoFragment;
 import com.zhongchuang.canting.fragment.mall.LiveMineFragment;
 import com.zhongchuang.canting.fragment.mall.LiveMineFragments;
@@ -36,7 +39,7 @@ import rx.functions.Action1;
 
 import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
 
-public class LiveActivity extends BaseAllActivity implements View.OnClickListener , OtherContract.View{
+public class LiveActivity extends BaseAllActivity implements View.OnClickListener, OtherContract.View {
 
 
     @BindView(R.id.fragment_container)
@@ -52,7 +55,10 @@ public class LiveActivity extends BaseAllActivity implements View.OnClickListene
     RadioButton rdHome;
     @BindView(R.id.rd_group)
     RadioGroup rdGroup;
-    private ZhiBoFragment fragment;
+    @BindView(R.id.rd_video)
+    RadioButton rdVideo;
+    private VideoLiveFragment fragment;
+    private UpdateVideoFragment videofragment;
 
 
     private LazyFragment fragment3;
@@ -69,24 +75,11 @@ public class LiveActivity extends BaseAllActivity implements View.OnClickListene
     public void initViews() {
         setContentView(R.layout.activity_live);
         ButterKnife.bind(this);
-        data = (GAME) getIntent().getSerializableExtra("data");
-        presenter=new OtherPresenter(this);
+
+        presenter = new OtherPresenter(this);
         mTransaction = getSupportFragmentManager().beginTransaction();
-        rdGroup.check(R.id.rd_menu_zhuye);
-        fragment = new ZhiBoFragment();
-        if (data == null) {
-            data = new GAME();
-        }
-        getIntent().putExtra("data", data);
-
-        //pass parameters to chat fragment
-        fragment.setArguments(getIntent().getExtras());
-        mTransaction.replace(R.id.fragment_container, fragment);
-        mTransaction.commit();
 
 
-
-//        setEvents();
         setSelect(1);
     }
 
@@ -231,12 +224,12 @@ public class LiveActivity extends BaseAllActivity implements View.OnClickListene
 
     }
 
-    @OnClick({R.id.rd_mall, R.id.rd_mine, R.id.rd_home})
+    @OnClick({R.id.rd_mall, R.id.rd_mine, R.id.rd_home,R.id.rd_video})
     public void onViewClicked(View view) {
 
         switch (view.getId()) {
             case R.id.rd_mall:
-                toMainPage(0);
+                toMainPage(1);
                 break;
 
             case R.id.rd_mine:
@@ -249,6 +242,9 @@ public class LiveActivity extends BaseAllActivity implements View.OnClickListene
                 break;
             case R.id.rd_home:
                 toMainPage(4);
+                break;
+            case R.id.rd_video:
+                toMainPage(0);
                 break;
 
         }
@@ -269,16 +265,25 @@ public class LiveActivity extends BaseAllActivity implements View.OnClickListene
     public void toMainPage(int p) {
 
         mTransaction = getSupportFragmentManager().beginTransaction();
-        removeAllFragment(mTransaction);
+//        removeAllFragment(mTransaction);
         switch (p) {
             case 0:
-                rdGroup.check(R.id.rd_mall);
+                rdGroup.check(R.id.rd_video);
                 pos = 0;
-                fragment = new ZhiBoFragment();
+
+                videofragment = new UpdateVideoFragment();
                 getIntent().putExtra("data", data);
 
                 //pass parameters to chat fragment
-                fragment.setArguments(getIntent().getExtras());
+                videofragment.setArguments(getIntent().getExtras());
+                mTransaction.replace(R.id.fragment_container, videofragment);
+                mTransaction.commit();
+                break;
+            case 1:
+                rdGroup.check(R.id.rd_mall);
+                pos = 0;
+                fragment = new VideoLiveFragment();
+
                 mTransaction.replace(R.id.fragment_container, fragment);
                 mTransaction.commit();
                 break;
@@ -310,9 +315,9 @@ public class LiveActivity extends BaseAllActivity implements View.OnClickListene
 
     @Override
     public <T> void toEntity(T entity, int type) {
-        aliLive aliLive= (aliLive) entity;
-        if(aliLive!=null&&TextUtil.isNotEmpty(aliLive.pushurl)){
-            SpUtil.putString(this,"live_url",aliLive.pushurl);
+        aliLive aliLive = (aliLive) entity;
+        if (aliLive != null && TextUtil.isNotEmpty(aliLive.pushurl)) {
+            SpUtil.putString(this, "live_url", aliLive.pushurl);
         }
 
     }
@@ -325,8 +330,10 @@ public class LiveActivity extends BaseAllActivity implements View.OnClickListene
     @Override
     public void showTomast(String msg) {
 
-         showToasts(msg);
+        showToasts(msg);
     }
+
+
 }
 
 

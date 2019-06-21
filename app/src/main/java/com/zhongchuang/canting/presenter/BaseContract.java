@@ -380,5 +380,8 @@ public class BaseContract {
          * 视频类型修复
          */
         void updateVideoType(String id, String newType);
+
+
+
     }
 }

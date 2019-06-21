@@ -123,6 +123,16 @@ public class PlayVideoActivity extends AppCompatActivity {
         }
     };
 
+    @Override
+    protected void onDestroy() {
+        if (mAliyunVodPlayerView != null) {
+            mAliyunVodPlayerView.onDestroy();
+            mAliyunVodPlayerView = null;
+        }
+
+
+        super.onDestroy();
+    }
     private void addNewInfo(AliyunDownloadMediaInfo info) {
         downloadManager.addDownloadMedia(info);
         downloadManager.startDownloadMedia(info);

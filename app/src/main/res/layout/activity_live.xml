@@ -42,7 +42,12 @@
             android:background="#FFFFFF"
             android:gravity="center"
             android:orientation="horizontal">
+            <RadioButton
 
+                android:id="@+id/rd_video"
+                style="@style/group_button_item"
+                android:drawableTop="@drawable/menu_picture_video"
+                android:text="视频"/>
             <RadioButton
                 android:id="@+id/rd_mall"
                 style="@style/group_button_item"

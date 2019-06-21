@@ -20,11 +20,13 @@ public class Constant extends EaseConstant {
 	public static final String GROUP_USERNAME = "item_groups";
 	public static final String CHAT_ROOM = "item_chatroom";
 	public static final String CHAT_ROBOT = "item_robots";
-    public static final String APP_LIVE_DOWN = "http://120.77.222.116:8088/yslive/index.html";
-    public static final String APP_PRODUCT = "http://120.77.222.116:8088/ysdetail/index.html#/app/";
-    public static final String APP_FILE_NAME = "https://video-xingls.oss-cn-shenzhen.aliyuncs.com/";
-    public static final String FILE_NAME = "video-xingls";
-    public static final String APP_SHARE = "http://120.77.222.116:8088/share/index.html#/app/";
+
+
+    public static final String APP_LIVE_DOWN = "http://120.78.148.31:8089/xlx/index.html";
+    public static final String APP_PRODUCT = "http://120.78.148.31:8089/xlDetail/index.html#/app/";
+    public static final String APP_FILE_NAME = "https://video-xl.oss-cn-shenzhen.aliyuncs.com/";
+    public static final String FILE_NAME = "video-xl";
+    public static final String APP_SHARE = "http://120.78.148.31:8089/xls/index.html#/app/";
 
 
 }

@@ -130,7 +130,12 @@ public class SendDynamicActivity extends BaseActivity1 implements BaseContract.V
         piuvRemarkImage.setOnActionListener(new ImageUploadView.OnActionListener() {
             @Override
             public void onItemDelete(int position) {
+
                 img_path.remove(position);
+                if(img_path.size()==0){
+                    rlBg.setVisibility(View.GONE);
+                    llBg.setVisibility(View.VISIBLE);
+                }
                 if (img_path.size() == 0 && TextUtil.isEmpty(etContent.getText().toString())) {
                     haveFous(false);
 
@@ -265,6 +270,7 @@ public class SendDynamicActivity extends BaseActivity1 implements BaseContract.V
                     if (split[1].equals("1")) {
                         rlBg.setVisibility(View.GONE);
                         llBg.setVisibility(View.VISIBLE);
+                        piuvRemarkImage.setVisibility(View.VISIBLE);
                         UploadFileBean bean = new UploadFileBean(1);
                         bean.setForderPath(split[0]);
                         img_path.add(bean);
@@ -274,23 +280,28 @@ public class SendDynamicActivity extends BaseActivity1 implements BaseContract.V
                     }
                 } else {
                     llBg.setVisibility(View.GONE);
+                    piuvRemarkImage.setVisibility(View.GONE);
                     rlBg.setVisibility(View.VISIBLE);
                     String videoPath = split[0];
                     File file = new File(path);
                     Glide.with(SendDynamicActivity.this).load(StringUtil.changeUrl(split[2])).asBitmap().into(new SimpleTarget<Bitmap>() {
                         @Override
                         public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                            WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
-                            int width = wm.getDefaultDisplay().getWidth();
+                            int width = DensityUtil.dip2px(SendDynamicActivity.this, 150);
                             double w=(resource.getWidth())*1.0;
                             int h=resource.getHeight();
                             double fx=width/w;
                             int height= (int) (h*fx);
 
 
-                            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams( DensityUtil.dip2px(SendDynamicActivity.this, 150),height);
+                            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams( DensityUtil.dip2px(SendDynamicActivity.this, 150),height>DensityUtil.dip2px(SendDynamicActivity.this, 150)?height-25:height);
+                             params.leftMargin=DensityUtil.dip2px(SendDynamicActivity.this, 16);
+                             params.topMargin=DensityUtil.dip2px(SendDynamicActivity.this, 15);
+                             params.bottomMargin=DensityUtil.dip2px(SendDynamicActivity.this, 15);
+
                             rlBg.setLayoutParams(params);
-                            RelativeLayout.LayoutParams params1=new RelativeLayout.LayoutParams(DensityUtil.dip2px(SendDynamicActivity.this, 150),height);
+                            RelativeLayout.LayoutParams params1=new RelativeLayout.LayoutParams(DensityUtil.dip2px(SendDynamicActivity.this, 150),height>DensityUtil.dip2px(SendDynamicActivity.this, 150)?height-25:height);
+                            params1.setMargins(12,12,12,12);
                             ivVideoCover.setLayoutParams(params1);
                             ivVideoCover.setImageBitmap(resource);
                         }
@@ -322,6 +333,7 @@ public class SendDynamicActivity extends BaseActivity1 implements BaseContract.V
                     List<String> imgs = data.getStringArrayListExtra(ImageSelectActivity.EXTRA_RESULT_SELECTION);
                     rlBg.setVisibility(View.GONE);
                     llBg.setVisibility(View.VISIBLE);
+                    piuvRemarkImage.setVisibility(View.VISIBLE);
                     for (String imgPath : imgs) {
                         if (imgPath != null) {
                             UploadFileBean bean = new UploadFileBean(1);
@@ -426,6 +438,7 @@ public class SendDynamicActivity extends BaseActivity1 implements BaseContract.V
             @Override
             public void onClick(View v) {
                 startActivityForResult(new Intent(SendDynamicActivity.this, CameraActivity.class), 100);
+                mWindowAddPhoto.dismiss();
             }
         });
 
@@ -532,10 +545,5 @@ public class SendDynamicActivity extends BaseActivity1 implements BaseContract.V
     }
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
+
 }

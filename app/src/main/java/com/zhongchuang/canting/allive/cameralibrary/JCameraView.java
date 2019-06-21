@@ -237,6 +237,7 @@ public class JCameraView extends FrameLayout implements CameraInterface.CameraOp
                 mFlashLamp.setVisibility(INVISIBLE);
                 machine.record(mVideoView.getHolder().getSurface(), screenProp);
                 alivc_time.setText("00:00");
+                alivc_time.setVisibility(VISIBLE);
                 initTimer();
             }
 

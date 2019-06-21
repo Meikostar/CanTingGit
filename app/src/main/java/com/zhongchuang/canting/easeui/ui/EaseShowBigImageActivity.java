@@ -58,7 +58,7 @@ public class EaseShowBigImageActivity extends EaseBaseActivity {
 
 		image = findViewById(R.id.images);
 		ProgressBar loadLocalPb = findViewById(R.id.pb_load_local);
-		default_res = getIntent().getIntExtra("default_image", R.drawable.ease_default_avatar);
+		default_res = getIntent().getIntExtra("default_image", R.drawable.ease_default_image);
 		Uri uri = getIntent().getParcelableExtra("uri");
 		localFilePath = getIntent().getExtras().getString("localUrl");
 		String msgId = getIntent().getExtras().getString("messageId");

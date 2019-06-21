@@ -19,7 +19,7 @@
             android:layout_height="50dp"
             android:textSize="17.5sp"
             android:textColor="@color/slow_black"
-            android:text="上传视频"
+            android:text="拍摄视频"
             android:gravity="center"/>
          <View
              android:id="@+id/line"

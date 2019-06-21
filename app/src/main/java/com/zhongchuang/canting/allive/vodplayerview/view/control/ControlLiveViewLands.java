@@ -236,6 +236,15 @@ public class ControlLiveViewLands extends RelativeLayout implements ViewAction, 
 
             mControlBar.setVisibility(VISIBLE);
 
+            mPlayStateBtn.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mOnPlayStateClickListener != null) {
+                        mOnPlayStateClickListener.onPlayStateClick();
+                    }
+                }
+            });
+
         }else {
             mScreenModeBtn = findViewById(R.id.iv_sale);
 
@@ -310,14 +319,8 @@ public class ControlLiveViewLands extends RelativeLayout implements ViewAction, 
         };
         mLargeSeekbar.setOnSeekBarChangeListener(seekBarChangeListener);
         mSmallSeekbar.setOnSeekBarChangeListener(seekBarChangeListener);
-        mPlayStateBtn.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mOnPlayStateClickListener != null) {
-                    mOnPlayStateClickListener.onPlayStateClick();
-                }
-            }
-        });
+
+
         ll_care.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -714,7 +717,10 @@ public class ControlLiveViewLands extends RelativeLayout implements ViewAction, 
      */
     private void updateSmallInfoBar() {
         if (mAliyunScreenMode == AliyunScreenMode.Full) {
-            mSmallInfoBar.setVisibility(INVISIBLE);
+            if(mSmallInfoBar!=null){
+                mSmallInfoBar.setVisibility(INVISIBLE);
+            }
+
         } else if (mAliyunScreenMode == AliyunScreenMode.Small) {
             //先设置小屏的info数据
             if (mAliyunMediaInfo != null) {
@@ -733,7 +739,10 @@ public class ControlLiveViewLands extends RelativeLayout implements ViewAction, 
                 mSmallPositionText.setText(TimeFormater.formatMs(mVideoPosition));
             }
             //然后再显示出来。
-            mSmallInfoBar.setVisibility(VISIBLE);
+            if(mSmallInfoBar!=null){
+                mSmallInfoBar.setVisibility(VISIBLE);
+            }
+
         }
     }
     //当前位置文字
@@ -744,7 +753,10 @@ public class ControlLiveViewLands extends RelativeLayout implements ViewAction, 
     private void updateLargeInfoBar() {
         if (mAliyunScreenMode == AliyunScreenMode.Small) {
             //里面包含了很多按钮，比如切换清晰度的按钮之类的
-            fl_bg.setVisibility(INVISIBLE);
+            if(fl_bg!=null){
+                fl_bg.setVisibility(INVISIBLE);
+            }
+
         } else if (mAliyunScreenMode == AliyunScreenMode.Full) {
 
             //先更新大屏的info数据
@@ -766,7 +778,10 @@ public class ControlLiveViewLands extends RelativeLayout implements ViewAction, 
 
 
             //然后再显示出来。
-            fl_bg.setVisibility(VISIBLE);
+
+            if(fl_bg!=null){
+                fl_bg.setVisibility(VISIBLE);
+            }
         }
 
 
@@ -839,13 +854,15 @@ public class ControlLiveViewLands extends RelativeLayout implements ViewAction, 
      * 更新播放按钮的状态
      */
     private void updatePlayStateBtn() {
+        if(mPlayStateBtn!=null){
+            if (mPlayState == PlayState.NotPlaying) {
+                mPlayStateBtn.setImageResource(R.drawable.alivc_playstate_play);
 
-        if (mPlayState == PlayState.NotPlaying) {
-            mPlayStateBtn.setImageResource(R.drawable.alivc_playstate_play);
-
-        } else if (mPlayState == PlayState.Playing) {
-            mPlayStateBtn.setImageResource(R.drawable.alivc_playstate_pause);
+            } else if (mPlayState == PlayState.Playing) {
+                mPlayStateBtn.setImageResource(R.drawable.alivc_playstate_pause);
+            }
         }
+
 
     }
 

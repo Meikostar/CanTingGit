@@ -3,24 +3,34 @@ package com.zhongchuang.canting.adapter.recycle;
 import android.accounts.AccountManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.zhongchuang.canting.R;
+import com.zhongchuang.canting.activity.chat.PlayVideoActivity;
+import com.zhongchuang.canting.activity.chat.SendDynamicActivity;
 import com.zhongchuang.canting.activity.mine.ImageListWitesActivity;
 import com.zhongchuang.canting.activity.mine.NewPersonDetailActivity;
 import com.zhongchuang.canting.adapter.viewholder.ImageViewHolder;
+import com.zhongchuang.canting.app.CanTingAppLication;
 import com.zhongchuang.canting.been.CommetLikeBean;
 import com.zhongchuang.canting.been.GoodsComentBean;
 import com.zhongchuang.canting.been.GoodsImageBean;
 import com.zhongchuang.canting.been.IMG;
 import com.zhongchuang.canting.been.QfriendBean;
 import com.zhongchuang.canting.bigimage.BigImageActivity;
+import com.zhongchuang.canting.utils.DensityUtil;
 import com.zhongchuang.canting.utils.QiniuUtils;
 import com.zhongchuang.canting.utils.SpUtil;
 import com.zhongchuang.canting.utils.StringUtil;
@@ -88,7 +98,7 @@ public class QFriendRecyleAdapter extends BaseRecycleViewAdapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolders, final int position) {
 
-        ImageViewHolder viewHolder = (ImageViewHolder) viewHolders;
+       final ImageViewHolder viewHolder = (ImageViewHolder) viewHolders;
         final QfriendBean infos = (QfriendBean) datas.get(position);
         final List<CommetLikeBean> comment = infos.commentList;
         boolean hasComment = comment.size() > 0;
@@ -160,60 +170,95 @@ public class QFriendRecyleAdapter extends BaseRecycleViewAdapter {
         // viewHolder.tv_count.setText(infos.getPraise_num());
 
         if (TextUtil.isNotEmpty(images)) {
-            String[] split = images.split(",");
-            if (split != null && split.length > 0) {
-                viewHolder.multiImageView.setVisibility(View.VISIBLE);
-                List<GoodsImageBean> lists = new ArrayList<>();
-                for (String imgs : split) {
-                    GoodsImageBean imageBean = new GoodsImageBean();
-                    if(imgs.contains("http://")){
-                        imageBean.url_ = imgs;
-                    }else {
-                        imageBean.url_ = QiniuUtils.baseurl+imgs;
-                    }
+            if(images.contains("!@##@!")){
+                viewHolder.multiImageView.setVisibility(View.GONE);
+                final String[] split = images.split("!@##@!");
+                viewHolder.rlbg.setVisibility(View.VISIBLE);
+                Glide.with(context).load(StringUtil.changeUrl(split[1])).asBitmap().into(new SimpleTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                        int width = DensityUtil.dip2px(context, 150);
+                        double w=(resource.getWidth())*1.0;
+                        int h=resource.getHeight();
+                        double fx=width/w;
+                        int height= (int) (h*fx);
 
-                    lists.add(imageBean);
+
+                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams( DensityUtil.dip2px(context, 170),height);
+                        params.leftMargin=16;
+                        viewHolder.rlbg.setLayoutParams(params);
+                        RelativeLayout.LayoutParams params1=new RelativeLayout.LayoutParams(DensityUtil.dip2px(context, 170),height);
+                        viewHolder.iv_video.setLayoutParams(params1);
+                        viewHolder.iv_video.setImageBitmap(resource);
+                    }
+                });
+                viewHolder.rlbg.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        CanTingAppLication.landType=2;
+                        context.startActivity(new Intent(context, PlayVideoActivity.class).putExtra("path", split[0]));
+                    }
+                });
+            }else {
+
+                String[] split = images.split(",");
+                if (split != null && split.length > 0) {
+                    viewHolder.rlbg.setVisibility(View.GONE);
+                    viewHolder.multiImageView.setVisibility(View.VISIBLE);
+                    List<GoodsImageBean> lists = new ArrayList<>();
+                    for (String imgs : split) {
+                        GoodsImageBean imageBean = new GoodsImageBean();
+                        if(imgs.contains("http://")){
+                            imageBean.url_ = imgs;
+                        }else {
+                            imageBean.url_ = QiniuUtils.baseurl+imgs;
+                        }
+
+                        lists.add(imageBean);
+                    }
+                    viewHolder.multiImageView.setList(lists);
                 }
-                viewHolder.multiImageView.setList(lists);
-            }
 
 
-            viewHolder.multiImageView.setOnItemClickListener(new MultiImageView.OnItemClickListener() {
-                @Override
-                public void onItemClick(View view, int position) {
-                    imgs.clear();
-                    if (guide_img.child_list.size() > 0) {
-                        guide_img.child_list.clear();
-                    }
-                    if (TextUtil.isNotEmpty(infos.post_image)) {
-                        String[] split = infos.post_image.split(",");
-                        if (split != null && split.length > 0) {
-                            for (String img_url : split) {
-                                IMG tem_img = new IMG();
-                                tem_img.type = IMG.IMG_URL;
-                                if(img_url.contains("http://")){
-                                    tem_img.img_url = img_url;
-                                }else {
-                                    tem_img.img_url = QiniuUtils.baseurl+img_url;
+                viewHolder.multiImageView.setOnItemClickListener(new MultiImageView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        imgs.clear();
+                        if (guide_img.child_list.size() > 0) {
+                            guide_img.child_list.clear();
+                        }
+                        if (TextUtil.isNotEmpty(infos.post_image)) {
+                            String[] split = infos.post_image.split(",");
+                            if (split != null && split.length > 0) {
+                                for (String img_url : split) {
+                                    IMG tem_img = new IMG();
+                                    tem_img.type = IMG.IMG_URL;
+                                    if(img_url.contains("http://")){
+                                        tem_img.img_url = img_url;
+                                    }else {
+                                        tem_img.img_url = QiniuUtils.baseurl+img_url;
+                                    }
+                                    imgs.add(tem_img.img_url);
+                                    guide_img.child_list.add(tem_img);
                                 }
-                                imgs.add(tem_img.img_url);
-                                guide_img.child_list.add(tem_img);
                             }
                         }
-                    }
 
-                    String[] toBeStored = imgs.toArray(new String[imgs.size()]);
-                    Intent intent = new Intent(context, BigImageActivity.class);
-                    intent.putExtra("images", toBeStored);
-                    intent.putExtra("page", position);
-                    context.startActivity(intent);
+                        String[] toBeStored = imgs.toArray(new String[imgs.size()]);
+                        Intent intent = new Intent(context, BigImageActivity.class);
+                        intent.putExtra("images", toBeStored);
+                        intent.putExtra("page", position);
+                        context.startActivity(intent);
 //                        Intent intent = new Intent(context, ImageListWitesActivity.class);
 //                        intent.putExtra("img", guide_img);
 //                        intent.putExtra("position", position);
 //                        context.startActivity(intent);
-                }
-            });
+                    }
+                });
+            }
+
         } else {
+            viewHolder.rlbg.setVisibility(View.GONE);
             viewHolder.multiImageView.setVisibility(View.GONE);
         }
         viewHolder.iv_down_show.setOnClickListener(new View.OnClickListener() {
