@@ -116,6 +116,7 @@ public class CallActivity extends BaseActivity {
                 });
                 // send messages
                 EMClient.getInstance().chatManager().sendMessage(message);
+
             }
         };
 

@@ -27,6 +27,7 @@ import com.zhongchuang.canting.been.Host;
 import com.zhongchuang.canting.been.INTEGRALIST;
 import com.zhongchuang.canting.been.Ingegebean;
 import com.zhongchuang.canting.been.LiveItemBean;
+import com.zhongchuang.canting.been.LiveTypeBean;
 import com.zhongchuang.canting.been.MessageGroup;
 import com.zhongchuang.canting.been.OrderData;
 import com.zhongchuang.canting.been.OrderParam;
@@ -49,6 +50,7 @@ import com.zhongchuang.canting.been.aliLive;
 import com.zhongchuang.canting.been.apply;
 import com.zhongchuang.canting.been.pay.alipay;
 import com.zhongchuang.canting.been.videobean;
+import com.zhongchuang.canting.fragment.mall.LiveMineFragments;
 import com.zhongchuang.canting.hud.ToastUtils;
 import com.zhongchuang.canting.net.BaseCallBack;
 import com.zhongchuang.canting.net.HttpUtil;
@@ -665,13 +667,14 @@ public class BasesPresenter implements BaseContract.Presenter {
         });
     }
 
-    public void addConfig(String coverImage, String videoName) {
+    public void addConfig(String coverImage, String videoName,String liveThirdId) {
 
 
         Map<String, String> map = new HashMap<>();
         map.put("userInfoId", SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
         map.put("coverImage", coverImage);
         map.put("videoName", videoName);
+        map.put("liveThirdId", liveThirdId);
 
         api.addConfig(map).enqueue(new BaseCallBack<aliLive>() {
 
@@ -721,6 +724,30 @@ public class BasesPresenter implements BaseContract.Presenter {
             @Override
             public void onSuccess(BaseResponse userLoginBean) {
                 mView.toEntity(userLoginBean, 5);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                mView.showTomast(t);
+            }
+        });
+    }
+
+    public void updateCategory(String liveFirstId,String livesecondId,String liveThirdId) {
+
+
+        Map<String, String> map = new HashMap<>();
+        map.put("userInfoId", SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
+        map.put("liveFirstId", liveFirstId);
+        map.put("liveSecondId", livesecondId);
+        map.put("liveThirdId", liveThirdId);
+
+        api.updateCategory(map).enqueue(new BaseCallBack<BaseResponse>() {
+
+            @Override
+            public void onSuccess(BaseResponse userLoginBean) {
+//                mView.toEntity(userLoginBean, 5);
             }
 
             @Override
@@ -1736,6 +1763,31 @@ public class BasesPresenter implements BaseContract.Presenter {
     }
 
     @Override
+    public void getLiveCategory() {
+
+
+        Map<String, String> params = new TreeMap<>();
+
+        params.put("userInfoId", TextUtil.isEmpty(SpUtil.getUserInfoId(CanTingAppLication.getInstance())) ? "" : SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
+
+
+        api.getLiveCategory(params).enqueue(new BaseCallBack<LiveTypeBean>() {
+
+            @Override
+            public void onSuccess(LiveTypeBean userLoginBean) {
+                LiveMineFragments.datas=userLoginBean.data;
+                mView.toEntity(userLoginBean.data, 998);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                mView.showTomast(t);
+            }
+        });
+    }
+
+    @Override
     public void focusList(String roomInfoId, String favoriteType) {
 
 
@@ -1996,7 +2048,26 @@ public class BasesPresenter implements BaseContract.Presenter {
             }
         });
     }
+    public void getGroupInfo(String groupId) {
 
+
+        Map<String, String> map = new HashMap<>();
+        map.put("groupId", groupId);
+
+        api.selectGroupsInfo(map).enqueue(new BaseCallBack<FriendInfo>() {
+
+            @Override
+            public void onSuccess(FriendInfo userLoginBean) {
+                mView.toEntity(userLoginBean.data, 55);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                mView.showTomast(t);
+            }
+        });
+    }
     @Override
     public void changeFriendLike(String topicId, String type) {
 

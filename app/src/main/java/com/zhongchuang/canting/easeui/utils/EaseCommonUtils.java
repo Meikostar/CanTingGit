@@ -31,6 +31,7 @@ import com.zhongchuang.canting.app.CanTingAppLication;
 import com.zhongchuang.canting.easeui.EaseConstant;
 import com.zhongchuang.canting.easeui.bean.RedPacketInfo;
 import com.zhongchuang.canting.easeui.domain.EaseUser;
+import com.zhongchuang.canting.utils.HxMessageUtils;
 import com.zhongchuang.canting.utils.SpUtil;
 import com.zhongchuang.canting.utils.TextUtil;
 
@@ -141,7 +142,7 @@ public class EaseCommonUtils {
         case LOCATION:
             if (message.direct() == EMMessage.Direct.RECEIVE) {
                 digest = getString(context, R.string.location_recv);
-                digest = String.format(digest, message.getFrom());
+                digest = String.format(digest, HxMessageUtils.getFName(message)==null?message.getFrom():HxMessageUtils.getFName(message));
                 return digest;
             } else {
                 digest = getString(context, R.string.location_prefix);

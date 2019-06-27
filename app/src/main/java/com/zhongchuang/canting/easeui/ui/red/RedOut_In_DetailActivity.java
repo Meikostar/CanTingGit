@@ -25,6 +25,7 @@ import com.zhongchuang.canting.activity.chat.ChatMenberActivity;
 import com.zhongchuang.canting.base.BaseAllActivity;
 import com.zhongchuang.canting.been.GrapRed;
 import com.zhongchuang.canting.been.GrapRedDetail;
+import com.zhongchuang.canting.been.RedInfo;
 import com.zhongchuang.canting.easeui.adapter.RedItemRecycleAdapter;
 import com.zhongchuang.canting.presenter.BaseContract;
 import com.zhongchuang.canting.presenter.BasesPresenter;
@@ -78,7 +79,7 @@ public class RedOut_In_DetailActivity extends BaseAllActivity implements BaseCon
         mWindowAddPhoto = new RedPopupWindow(RedOut_In_DetailActivity.this);
         layoutManager = new LinearLayoutManager(this);
         mSuperRecyclerView.setLayoutManager(layoutManager);
-        mSuperRecyclerView.addItemDecoration(new DivItemDecoration(2, true));
+//        mSuperRecyclerView.addItemDecoration(new DivItemDecoration(2, true));
 
         mSuperRecyclerView.getMoreProgressView().getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
 
@@ -99,11 +100,11 @@ public class RedOut_In_DetailActivity extends BaseAllActivity implements BaseCon
 
             }
         };
-       time0 = TimeUtil.formatToYear(System.currentTimeMillis());
+        time0 = TimeUtil.formatToYear(System.currentTimeMillis());
         time1=(Integer.valueOf(time0)-1)+"";
         time=time0;
         mSuperRecyclerView.setRefreshListener(refreshListener);
-
+        initView();
         mSuperRecyclerView.setRefreshing(false);
 
 
@@ -134,7 +135,7 @@ public class RedOut_In_DetailActivity extends BaseAllActivity implements BaseCon
     private void initView() {
         View  view = View.inflate(this, R.layout.red_head_view, null);
         tv_name = view.findViewById(R.id.tv_name);
-        tv_content = view.findViewById(R.id.tv_contents);
+        tv_content = view.findViewById(R.id.tv_content);
         tv_time = view.findViewById(R.id.tv_time);
         tv_red_cout = view.findViewById(R.id.tv_red_cout);
         tv_best_cout = view.findViewById(R.id.tv_best_cout);
@@ -144,13 +145,13 @@ public class RedOut_In_DetailActivity extends BaseAllActivity implements BaseCon
         ll_out = view.findViewById(R.id.ll_out);
 
         iv_img = view.findViewById(R.id.iv_img);
-        tv_content.setText("900");
-      ll_time.setOnClickListener(new View.OnClickListener() {
-          @Override
-          public void onClick(View v) {
-              showPopwindow();
-          }
-      });
+
+        ll_time.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPopwindow();
+            }
+        });
 //        showPress();
         adapter.setHeaderView(view);
 
@@ -158,7 +159,7 @@ public class RedOut_In_DetailActivity extends BaseAllActivity implements BaseCon
     }
 
     public void setData(GrapRedDetail entity, int type) {
-        initView();
+
         if (type == 1) {
 
             ll_out.setVisibility(View.VISIBLE);
@@ -294,12 +295,17 @@ public class RedOut_In_DetailActivity extends BaseAllActivity implements BaseCon
 
     @Override
     public <T> void toEntity(T entity, int type) {
-        GrapRedDetail info = (GrapRedDetail) entity;
-        setData(info, state);
-        if (info.redEnvelopeList == null) {
-            return;
+        if(type==69){
+            RedInfo redInfo= (RedInfo) entity;
+        }else {
+            GrapRedDetail info = (GrapRedDetail) entity;
+            setData(info, state);
+            if (info.redEnvelopeList == null) {
+                return;
+            }
+            onDataLoaded(type, info.redEnvelopeList.size() == 12, info.redEnvelopeList);
         }
-        onDataLoaded(type, info.redEnvelopeList.size() == 12, info.redEnvelopeList);
+
 
     }
 
@@ -321,7 +327,7 @@ public class RedOut_In_DetailActivity extends BaseAllActivity implements BaseCon
     TextView tvZb;
     MCheckBox ivType2;
     LinearLayout llZb;
-     private String time;
+    private String time;
 
     LinearLayout llCz;
     private MarkaBaseDialog dialog;

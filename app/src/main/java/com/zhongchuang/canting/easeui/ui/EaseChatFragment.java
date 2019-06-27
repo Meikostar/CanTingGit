@@ -320,13 +320,19 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
             if (chatType == EaseConstant.CHATTYPE_GROUP) {
                 //group chat
                 EMGroup group = EMClient.getInstance().groupManager().getGroup(toChatUsername);
-                if (group != null)
+                if (group != null){
+                    titleBar.setTitle(group.getGroupName()+ "(" + getMenber(memberCount + "") + ")");
+                }else {
+                    titleBar.setTitle(toChatUsername+ "(" + getMenber(memberCount + "") + ")");
+
+                }
 //                    CanTingAppLication.GroupName = group.getGroupName();
-                    if (group == null || TextUtil.isEmpty(group.getGroupName())) {
-                        getActivity().finish();
-                        return;
-                    }
-                titleBar.setTitle(group.getGroupName());
+//                    if (group == null || TextUtil.isEmpty(group.getGroupName())) {
+//                        getActivity().finish();
+//                        return;
+//                    }
+
+
                 // listen the event that user moved out group or group is dismissed
                 groupListener = new GroupListener();
                 EMClient.getInstance().groupManager().addGroupChangeListener(groupListener);
@@ -837,7 +843,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
                 } else {
                     EMTextMessageBody body = (EMTextMessageBody) message.getBody();
                     String contents = body.getMessage();
-                    if (contents.equals("*&@@&*")) {
+                    if (contents.equals("*&@@&*")||contents.equals("@@@###!!")) {
                         return;
                     } else if (contents.contains("&!&&!&")) {
                         String[] split = contents.split("&!&&!&");

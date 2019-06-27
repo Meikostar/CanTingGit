@@ -117,8 +117,8 @@ public class WaitRedDetailActivity extends BaseAllActivity implements BaseContra
         tvRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(WaitRedDetailActivity.this, RedOut_In_DetailActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(WaitRedDetailActivity.this, RedOut_In_DetailActivity.class);
+//                startActivity(intent);
             }
         });
     }

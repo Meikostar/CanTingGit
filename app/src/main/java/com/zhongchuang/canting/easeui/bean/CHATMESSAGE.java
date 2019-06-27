@@ -114,6 +114,18 @@ public class CHATMESSAGE implements Serializable {
         chatmessage.group.setGroupname(item.groupname);
         return chatmessage;
     }
+    public static CHATMESSAGE transGroup(FriendInfo item) {
+        if(item == null){
+            return null;
+        }
+        CHATMESSAGE chatmessage = new CHATMESSAGE();
+        chatmessage.group = new GROUPS();
+        chatmessage.admin = item.admin;
+        chatmessage.group.setGroup_id(item.groupid+"");
+        chatmessage.group.setGroup_img_str(Utils.getGroupImgStr((ArrayList<String>) item.headimage));
+        chatmessage.group.setGroupname(item.groupname);
+        return chatmessage;
+    }
     public static CHATMESSAGE fromGroup(EMGroup item) {
         if(item == null){
             return null;

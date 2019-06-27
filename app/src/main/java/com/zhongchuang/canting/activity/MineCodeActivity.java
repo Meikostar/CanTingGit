@@ -27,6 +27,8 @@ public class MineCodeActivity extends BaseTitle_Activity {
 
     @BindView(R.id.iv_back)
     ImageView ivBack;
+    @BindView(R.id.iv_imgs)
+    ImageView iv_imgs;
     @BindView(R.id.tv_search)
     TextView tvSearch;
     @BindView(R.id.iv_code)
@@ -77,6 +79,10 @@ public class MineCodeActivity extends BaseTitle_Activity {
                  }
              });
              groupAvatar.setImagesData(CanTingAppLication.headimage);
+         }else {
+             groupAvatar.setVisibility(View.GONE);
+             Glide.with(this).load(SpUtil.getAvar(this)).asBitmap().placeholder(R.drawable.dingdantouxiang).into(iv_imgs);
+
          }
 
     }

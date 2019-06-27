@@ -26,6 +26,8 @@ public class Host extends BaseResponse{
         public String room_image;
         public String dir_type_id;
         public String is_direct;
+        public String live_third_id;
+        public String third_category_name;
         public String is_enabled;
         public String play_type;
         public String room_number;

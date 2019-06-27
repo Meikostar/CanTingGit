@@ -20,11 +20,13 @@ import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMFileMessageBody;
 import com.hyphenate.chat.EMImageMessageBody;
 import com.hyphenate.chat.EMMessage;
+import com.hyphenate.chat.EMMessageBody;
 import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.chat.SendDynamicActivity;
 import com.zhongchuang.canting.easeui.model.EaseImageCache;
 import com.zhongchuang.canting.easeui.ui.EaseShowBigImageActivity;
 import com.zhongchuang.canting.easeui.utils.EaseImageUtils;
+import com.zhongchuang.canting.easeui.widget.EaseImageView;
 import com.zhongchuang.canting.utils.DensityUtil;
 import com.zhongchuang.canting.utils.StringUtil;
 import com.zhongchuang.canting.utils.TextUtil;
@@ -34,7 +36,11 @@ import java.io.File;
 public class EaseChatRowImage extends EaseChatRowFile {
 
     protected ImageView imageView;
+
     protected RelativeLayout bubble;
+    protected RelativeLayout rl_bbg;
+    protected TextView tv_reback;
+    protected TextView tv_userid;
     private EMImageMessageBody imgBody;
 
     public EaseChatRowImage(Context context, int chatType,EMMessage message, int position, BaseAdapter adapter) {
@@ -51,46 +57,68 @@ public class EaseChatRowImage extends EaseChatRowFile {
         percentageView = findViewById(R.id.percentage);
         imageView = findViewById(R.id.image);
         bubble = findViewById(R.id.bubble);
+        tv_reback = findViewById(R.id.tv_reback);
+        tv_userid = findViewById(R.id.tv_userid);
+        rl_bbg = findViewById(R.id.rl_bbg);
     }
    private String path;
 
     @Override
     protected void onSetUpView() {
-        imgBody = (EMImageMessageBody) message.getBody();
-
-        // received messages
-        if (message.direct() == EMMessage.Direct.RECEIVE) {
-            if (imgBody.thumbnailDownloadStatus() == EMFileMessageBody.EMDownloadStatus.DOWNLOADING ||
-                    imgBody.thumbnailDownloadStatus() == EMFileMessageBody.EMDownloadStatus.PENDING) {
-                imageView.setImageResource(R.drawable.ease_default_image);
-                String thumbPath = imgBody.getThumbnailUrl();
-                String remoteUrl = imgBody.getRemoteUrl();
-                if(TextUtil.isNotEmpty(remoteUrl)){
-//                    Glide.with(context).load(StringUtil.changeUrl(remoteUrl)).asBitmap().placeholder(R.drawable.ease_default_image).into(imageView);
-
-                    path=remoteUrl;
+        EMMessageBody body = message.getBody();
+        String content = message.getStringAttribute(EXETEND, "");
+        if(TextUtil.isEmpty(content)){
+            if(tv_userid!=null){
+                if(message.getChatType()== EMMessage.ChatType.GroupChat){
+                    tv_userid.setVisibility(VISIBLE);
                 }else {
-                    path= imgBody.getLocalUrl();
-//                    showImageView(thumbPath, imgBody.getLocalUrl(), message);
-                    //set the receive message callback
-                    setMessageReceiveCallback();
+                    tv_userid.setVisibility(GONE);
                 }
 
-            } else {
-                progressBar.setVisibility(View.GONE);
-                percentageView.setVisibility(View.GONE);
-                imageView.setImageResource(R.drawable.ease_default_image);
-                String remoteUrl = imgBody.getRemoteUrl();
-                if(TextUtil.isNotEmpty(remoteUrl)){
+            }
+
+        }else {
+            if(tv_userid!=null){
+                tv_userid.setVisibility(GONE);
+            }
+
+        }
+        if(body instanceof EMImageMessageBody){
+            imgBody= (EMImageMessageBody) body;
+
+
+            // received messages
+            if (message.direct() == EMMessage.Direct.RECEIVE) {
+                if (imgBody.thumbnailDownloadStatus() == EMFileMessageBody.EMDownloadStatus.DOWNLOADING ||
+                        imgBody.thumbnailDownloadStatus() == EMFileMessageBody.EMDownloadStatus.PENDING) {
+                    imageView.setImageResource(R.drawable.ease_default_image);
+                    String thumbPath = imgBody.getThumbnailUrl();
+                    String remoteUrl = imgBody.getRemoteUrl();
+                    if(TextUtil.isNotEmpty(remoteUrl)){
+//                    Glide.with(context).load(StringUtil.changeUrl(remoteUrl)).asBitmap().placeholder(R.drawable.ease_default_image).into(imageView);
+                        path=remoteUrl;
+                    }else {
+                        path= imgBody.getLocalUrl();
+//                    showImageView(thumbPath, imgBody.getLocalUrl(), message);
+                        //set the receive message callback
+                        setMessageReceiveCallback();
+                    }
+
+                } else {
+                    progressBar.setVisibility(View.GONE);
+                    percentageView.setVisibility(View.GONE);
+                    imageView.setImageResource(R.drawable.ease_default_image);
+                    String remoteUrl = imgBody.getRemoteUrl();
+                    if(TextUtil.isNotEmpty(remoteUrl)){
 //                    Glide.with(context).load(StringUtil.changeUrl(remoteUrl)).asBitmap().placeholder(R.drawable.ease_default_image).into(imageView);
 
-                    path=remoteUrl;
-                }else {
-                    path= imgBody.getLocalUrl();
+                        path=remoteUrl;
+                    }else {
+                        path= imgBody.getLocalUrl();
 //                    showImageView(thumbPath, imgBody.getLocalUrl(), message);
-                    //set the receive message callback
-                    setMessageReceiveCallback();
-                }
+                        //set the receive message callback
+                        setMessageReceiveCallback();
+                    }
 //                if(TextUtil.isNotEmpty(remoteUrl)){
 //                    Glide.with(context).load(StringUtil.changeUrl(remoteUrl)).asBitmap().placeholder(R.drawable.ease_default_image).into(imageView);
 //
@@ -103,21 +131,21 @@ public class EaseChatRowImage extends EaseChatRowFile {
 //                    showImageView(thumbPath, imgBody.getLocalUrl(), message);
 //                }
 
-            }
+                }
 
-        }else {
-            String remoteUrl = imgBody.getRemoteUrl();
-            if(TextUtil.isNotEmpty(remoteUrl)){
+            }else {
+                String remoteUrl = imgBody.getRemoteUrl();
+                if(TextUtil.isNotEmpty(remoteUrl)){
 //                    Glide.with(context).load(StringUtil.changeUrl(remoteUrl)).asBitmap().placeholder(R.drawable.ease_default_image).into(imageView);
 
-                path=remoteUrl;
-            }else {
-                path= imgBody.getLocalUrl();
+                    path=remoteUrl;
+                }else {
+                    path= imgBody.getLocalUrl();
 //                    showImageView(thumbPath, imgBody.getLocalUrl(), message);
-                //set the receive message callback
-                setMessageReceiveCallback();
-            }
-            handleSendMessage();
+                    //set the receive message callback
+                    setMessageReceiveCallback();
+                }
+                handleSendMessage();
 //            if(TextUtil.isNotEmpty(remoteUrl)){
 //
 //
@@ -131,24 +159,33 @@ public class EaseChatRowImage extends EaseChatRowFile {
 //            }
 
 
-        }
-        Glide.with(context).load(StringUtil.changeUrl(path)).asBitmap().into(new SimpleTarget<Bitmap>() {
-            @Override
-            public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                int width = DensityUtil.dip2px(context, 150);
-                double w=(resource.getWidth())*1.0;
-                int h=resource.getHeight();
-                double fx=width/w;
-                int height= (int) (h*fx);
-
-                RelativeLayout.LayoutParams params1=new RelativeLayout.LayoutParams(DensityUtil.dip2px(context, 150),height>DensityUtil.dip2px(context, 150)?height-15:height);
-                imageView.setLayoutParams(params1);
-                imageView.setImageBitmap(resource);
             }
-        });
+            Glide.with(context).load(StringUtil.changeUrl(path)).asBitmap().into(new SimpleTarget<Bitmap>() {
+                @Override
+                public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                    int width = DensityUtil.dip2px(context, 150);
+                    double w=(resource.getWidth())*1.0;
+                    int h=resource.getHeight();
+                    double fx=width/w;
+                    int height= (int) (h*fx);
+
+                    RelativeLayout.LayoutParams params1=new RelativeLayout.LayoutParams(DensityUtil.dip2px(context, 150),height>DensityUtil.dip2px(context, 150)?height-15:height);
+                    imageView.setLayoutParams(params1);
+                    imageView.setImageBitmap(resource);
+                }
+            });
+            tv_reback.setVisibility(GONE);
+            rl_bbg.setVisibility(VISIBLE);
+        }else {
+            tv_reback.setVisibility(VISIBLE);
+            rl_bbg.setVisibility(GONE);
+            tv_reback.setText(content);
+
+        }
+
 
     }
-
+    public static final String EXETEND = "rb_extend";
     @Override
     protected void onUpdateView() {
         super.onUpdateView();

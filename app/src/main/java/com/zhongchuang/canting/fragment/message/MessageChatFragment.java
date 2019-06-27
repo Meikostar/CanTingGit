@@ -401,7 +401,7 @@ public class MessageChatFragment extends Fragment implements BaseContract.View {
    public Handler handler =new Handler(new Handler.Callback() {
        @Override
        public boolean handleMessage(Message msg) {
-           RxBus.getInstance().send(SubscriptionBean.createSendBean(SubscriptionBean.MESSAGENOTIFI,""));
+
            if(msgListener!=null){
                msgListener.getReadCout();
            }

@@ -328,7 +328,7 @@ public class BaseContract {
         /**
          * 增加直播录制配置接口
          */
-        void addConfig(String coverImage	,String videoName);
+        void addConfig(String coverImage	,String videoName,String liveThirdId);
 
         /**
          * 获取视频列表接口
@@ -381,7 +381,14 @@ public class BaseContract {
          */
         void updateVideoType(String id, String newType);
 
+        /**
+         * 26.三级分类对应查询接口
+         */
+        void getLiveCategory();
 
-
+        /**
+         * 群信息
+         */
+        void getGroupInfo(String groupId);
     }
 }

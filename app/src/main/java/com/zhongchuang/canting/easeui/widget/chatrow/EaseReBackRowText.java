@@ -10,35 +10,37 @@ import android.widget.TextView;
 import android.widget.TextView.BufferType;
 
 import com.hyphenate.chat.EMClient;
-import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;
+import com.hyphenate.chat.EMMessageBody;
 import com.hyphenate.chat.EMTextMessageBody;
 import com.hyphenate.exceptions.HyphenateException;
 import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.easeui.Constant;
 import com.zhongchuang.canting.easeui.utils.EaseSmileUtils;
+import com.zhongchuang.canting.easeui.widget.EaseImageView;
 import com.zhongchuang.canting.utils.TextUtil;
 
-public class EaseChatRowText extends EaseChatRow {
+public class EaseReBackRowText extends EaseChatRow {
 
     private TextView contentView;
-    private TextView tv_userid;
+    private TextView tv_ack;
     private TextView tvTime;
+    private TextView tv_userid;
+    private TextView tv_delivered;
     private ImageView img;
+    private EaseImageView iv_userhead;
     private LinearLayout ll_bg;
 
-    public EaseChatRowText(Context context,int chatType, EMMessage message, int position, BaseAdapter adapter) {
+    public EaseReBackRowText(Context context, int chatType, EMMessage message, int position, BaseAdapter adapter) {
         super(context,chatType, message, position, adapter);
     }
 
     @Override
     protected void onInflateView(int chatType) {
-          if(chatType== Constant.CHATTYPE_CHATROOM){
-              inflater.inflate(R.layout.chat_room_received , this);
-          }else {
-              inflater.inflate(message.direct() == EMMessage.Direct.RECEIVE ?
-                      R.layout.ease_row_received_message : R.layout.ease_row_sent_message, this);
-          }
+
+              inflater.inflate(
+                      R.layout.ease_row_sent_reback_message , this);
+
 
 
     }
@@ -46,55 +48,45 @@ public class EaseChatRowText extends EaseChatRow {
     @Override
     protected void onFindViewById() {
         contentView = findViewById(R.id.tv_chatcontent);
+        tv_ack = findViewById(R.id.tv_ack);
         tv_userid = findViewById(R.id.tv_userid);
+        tv_delivered = findViewById(R.id.tv_delivered);
         img = findViewById(R.id.iv_img);
+        iv_userhead = findViewById(R.id.iv_userhead);
         ll_bg = findViewById(R.id.ll_bg);
     }
     public static final String EXETEND = "rb_extend";
     @Override
     public void onSetUpView() {
-        EMTextMessageBody txtBody = (EMTextMessageBody) message.getBody();
-        String contents  = txtBody.getMessage();
+        EMMessageBody body = message.getBody();
+        String content = message.getStringAttribute(EXETEND, "");
+        if(body instanceof EMTextMessageBody){
+            if(TextUtil.isNotEmpty(content)){
+                contentView.setText(content);
+            }else {
+                EMTextMessageBody txtBody = (EMTextMessageBody) message.getBody();
+                String contents  = txtBody.getMessage();
 //        if(contents.equals("*&@@&*")||contents.contains("&!&&!&")){
 //            ll_bg.setVisibility(GONE);
 //        }else {
 //            ll_bg.setVisibility(VISIBLE);
-            Spannable span = EaseSmileUtils.getSmiledText(context, txtBody.getMessage());
-            // 设置内容
-            contentView.setText(span, BufferType.SPANNABLE);
-        String text = contentView.getText().toString();
-
-        String content = message.getStringAttribute(EXETEND, "");
-
-        if(TextUtil.isEmpty(content)){
-            if(message.getChatType()== EMMessage.ChatType.GroupChat){
-                tv_userid.setVisibility(VISIBLE);
-            }else {
-                tv_userid.setVisibility(GONE);
-            }
-        }else {
-            tv_userid.setVisibility(GONE);
-        }
-        if(message.getBooleanAttribute(Constant.MESSAGE_ATTR_IS_VIDEO_CALL, false)||message.getBooleanAttribute(Constant.MESSAGE_ATTR_IS_VOICE_CALL, false)){
-            img.setVisibility(VISIBLE);
-          if(message.getBooleanAttribute(Constant.MESSAGE_ATTR_IS_VOICE_CALL, false)){
-
-             img.setImageDrawable(getResources().getDrawable(R.drawable.chat_voice));
-          }else {
-              if(message.direct() == EMMessage.Direct.SEND){
-                  img.setImageDrawable(getResources().getDrawable(R.drawable.chat_videos));
-              }else {
-                  img.setImageDrawable(getResources().getDrawable(R.drawable.chat_video));
-              }
-          }
-        }else {
-            if(img!=null){
-                img.setVisibility(GONE);
+                Spannable span = EaseSmileUtils.getSmiledText(context, txtBody.getMessage());
+                // 设置内容
+                contentView.setText(span, BufferType.SPANNABLE);
             }
 
+        }else {
+
+            contentView.setText(content);
         }
+
+
 
         handleTextMessage();
+        tv_ack.setVisibility(GONE);
+        tv_userid.setVisibility(GONE);
+        tv_delivered.setVisibility(GONE);
+        iv_userhead.setVisibility(GONE);
 //        }
 
     }

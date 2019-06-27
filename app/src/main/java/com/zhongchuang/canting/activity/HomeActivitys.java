@@ -831,7 +831,6 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
         });
 
         setData(cots);
-        EMClient.getInstance().chatManager().addMessageListener(msgListener);//收到消息弹框
         if (CanTingAppLication.data == null) {
 
             Observable.create(new Observable.OnSubscribe<JSONObject>() {
@@ -906,6 +905,9 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
                 } else if (bean.type == SubscriptionBean.LOGIN_FINISH) {
                     exitApp();
 
+                }else if(bean.type == SubscriptionBean.MESSAGENOTIFI){
+                    List<EMMessage> messages = (List<EMMessage>) bean.content;
+                    notifyMessage(messages);
                 }
 
             }
@@ -1216,7 +1218,7 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
     public void onDestroy() {
         super.onDestroy();
         isShow = false;
-        EMClient.getInstance().chatManager().removeMessageListener(msgListener);
+
     }
 
     @Override
@@ -1416,33 +1418,36 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
     public void toNextStep(int type) {
 
     }
+   public void notifyMessage(List<EMMessage> messages){
 
+       for (EMMessage message : messages) {
+           EMLog.d(TAG, "onMessageReceived id : " + message.getMsgId());
+           // in background, do not refresh UI, notify it in notification bar
+           String name = HxMessageUtils.getFName(message);
+           if (name.contains("!@#$$#@!")) {
+               return;
+           }
+       }
+       cout = 0;
+       Map<String, EMConversation> conversations = EMClient.getInstance().chatManager().getAllConversations();
+       for (EMConversation conversation : conversations.values()) {
+           if (conversation.getAllMessages().size() != 0) {
+               EMConversation emConversation = EMClient.getInstance().chatManager().getConversation(conversation.conversationId());
+               if (emConversation != null) {
+                   int unreadMsgCount = emConversation.getUnreadMsgCount();
+                   cout = cout + unreadMsgCount;
+               }
+
+           }
+       }
+       RxBus.getInstance().send(SubscriptionBean.createSendBean(SubscriptionBean.MESSAGENOTIFIS, cout));
+       setData(cout);
+   }
     EMMessageListener msgListener = new EMMessageListener() {
 
         @Override
         public void onMessageReceived(List<EMMessage> messages) {
-            for (EMMessage message : messages) {
-                EMLog.d(TAG, "onMessageReceived id : " + message.getMsgId());
-                // in background, do not refresh UI, notify it in notification bar
-                String name = HxMessageUtils.getFName(message);
-                if (name.contains("!@#$$#@!")) {
-                    return;
-                }
-            }
-            cout = 0;
-            Map<String, EMConversation> conversations = EMClient.getInstance().chatManager().getAllConversations();
-            for (EMConversation conversation : conversations.values()) {
-                if (conversation.getAllMessages().size() != 0) {
-                    EMConversation emConversation = EMClient.getInstance().chatManager().getConversation(conversation.conversationId());
-                    if (emConversation != null) {
-                        int unreadMsgCount = emConversation.getUnreadMsgCount();
-                        cout = cout + unreadMsgCount;
-                    }
 
-                }
-            }
-            RxBus.getInstance().send(SubscriptionBean.createSendBean(SubscriptionBean.MESSAGENOTIFIS, cout));
-            setData(cout);
 //            showCount(cout);
         }
 

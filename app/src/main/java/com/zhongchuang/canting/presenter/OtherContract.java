@@ -156,5 +156,8 @@ public class OtherContract {
 
          */
         void searchDirectByNameOrCategory(String videoName,String liveFirstId,String livesecondId	,String liveThirdId );
+
+
+        void getLiveCategory();
     }
 }

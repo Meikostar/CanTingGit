@@ -43,6 +43,7 @@ import com.zhongchuang.canting.been.RedInfo;
 import com.zhongchuang.canting.easeui.Constant;
 import com.zhongchuang.canting.easeui.DemoHelper;
 import com.zhongchuang.canting.easeui.EaseConstant;
+import com.zhongchuang.canting.easeui.bean.GROUPS;
 import com.zhongchuang.canting.easeui.bean.RedPacketInfo;
 import com.zhongchuang.canting.easeui.bean.RobotUser;
 import com.zhongchuang.canting.easeui.ui.red.GabRedDetailActivity;
@@ -397,14 +398,23 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragment.E
         tv_ch = views.findViewById(R.id.tv_ch);
         tv_fz = views.findViewById(R.id.tv_fz);
         tv_delete = views.findViewById(R.id.tv_delete);
-
+       if(message.direct() == EMMessage.Direct.RECEIVE ){
+           tv_ch.setVisibility(View.GONE);
+       }
+      String  type = message.getStringAttribute(EaseConstant.EXTRA_RED_TYPE, null);
+       if(TextUtil.isNotEmpty(type)&&type.equals("2")){
+           tv_ch.setVisibility(View.GONE);
+       }
+        if(message.getBooleanAttribute(Constant.MESSAGE_ATTR_IS_VIDEO_CALL, false)||message.getBooleanAttribute(Constant.MESSAGE_ATTR_IS_VOICE_CALL, false)){
+            tv_ch.setVisibility(View.GONE);
+        }
         final MarkaBaseDialog dialog = BaseDailogManager.getInstance().getBuilder(getActivity()).setMessageView(views).create();
         dialog.show();
         tv_ch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtil.showToast(getActivity(), "开发中");
-
+//                ToastUtil.showToast(getActivity(), "开发中");
+                setRebackMessage(message);
                 dialog.dismiss();
             }
         });
@@ -434,6 +444,72 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragment.E
             }
         });
 
+
+    }
+
+    public static final String NAME = "hx_name";
+    public static final String CONTENT = "re_content";
+    public static final String MSID = "re_msid";
+    public static final String UID = "hx_uid";
+    public static final String FUID = "hx_fuid";
+    public static final String AVATER = "hx_avater";
+    public static final String EXETEND = "rb_extend";
+    public static final String GNAME = "hx_gname";
+    public static final String GNICK= "hx_gnick";
+    public static final String GID = "hx_gid";
+    public static final String GAVATER = "hx_gavater";
+    public void setRebackMessage(EMMessage msg){
+
+        msg.setAttribute(EaseConstant.EXTRA_RED,true);
+        msg.setAttribute(EaseConstant.EXTRA_RED_TYPE,"4");
+        msg.setAttribute(EXETEND,"你撤回了一条消息");
+
+        EMTextMessageBody var4 = new EMTextMessageBody("你撤回了一条消息");
+        msg.addBody(var4);
+        DemoHelper.getInstance().upDateMessage(msg);
+        final EMMessage message = EMMessage.createTxtSendMessage("@@@###!!", toChatUsername);
+        message.setAttribute("em_robot_message", true);
+        if (chatType == EaseConstant.CHATTYPE_GROUP) {
+            message.setChatType(EMMessage.ChatType.GroupChat);
+            GROUPS groups = mChatmsg.getGroup();
+            message.setAttribute(GAVATER, groups.getGavatar());
+            message.setAttribute(GNAME, groups.getGroupname());
+            message.setAttribute(GNICK, SpUtil.getNick(CanTingAppLication.getInstance()));
+            message.setAttribute(GID, toChatUsername);
+        } else if (chatType == EaseConstant.CHATTYPE_CHATROOM) {
+            message.setChatType(EMMessage.ChatType.ChatRoom);
+        }
+        message.setAttribute(CONTENT, "\""+SpUtil.getName(getActivity())+"\""+"撤回了消息");
+        message.setAttribute(MSID, msg.getMsgId());
+        message.setAttribute(FUID, message.getTo());
+        message.setAttribute(EaseConstant.EXTRA_RED,true);
+        message.setAttribute(EaseConstant.EXTRA_RED_TYPE,"4");
+        //用户信息\
+        String avar = SpUtil.getAvar(CanTingAppLication.getInstance());
+        message.setAttribute(AVATER, avar);
+        message.setAttribute(NAME,TextUtil.isEmpty( SpUtil.getName(CanTingAppLication.getInstance()))?SpUtil.getNick(CanTingAppLication.getInstance()): SpUtil.getName(CanTingAppLication.getInstance()));
+        message.setAttribute(UID, SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
+
+        EMClient.getInstance().chatManager().sendMessage(message);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                EMConversation conv = EMClient.getInstance().chatManager().getConversation(message.getTo());
+                if (conv == null) {
+                    return;
+                }
+                conv.removeMessage(message.getMsgId());
+                if (isMessageListInited) {
+                    messageList.refresh();
+                }
+
+            }
+        }).start();
 
     }
 

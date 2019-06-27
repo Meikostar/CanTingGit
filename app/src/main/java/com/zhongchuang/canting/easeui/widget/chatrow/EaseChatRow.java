@@ -128,7 +128,9 @@ public abstract class EaseChatRow extends LinearLayout {
         }
 
         //set nickname and avatar
+        String msgId = message.getMsgId();
         if(message.direct() == Direct.SEND){
+
             //用户是否设置头像
             if (TextUtils.isEmpty(HxMessageUtils.getMyAvater(message))) {
                 userAvatarView.setImageDrawable(getResources().getDrawable(R.drawable.ease_default_avatar));

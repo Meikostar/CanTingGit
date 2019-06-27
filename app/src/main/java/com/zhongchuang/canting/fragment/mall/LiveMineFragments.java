@@ -57,6 +57,7 @@ import com.zhongchuang.canting.base.LazyFragment;
 import com.zhongchuang.canting.been.Host;
 import com.zhongchuang.canting.been.Ingegebean;
 import com.zhongchuang.canting.been.LIVEBEAN;
+import com.zhongchuang.canting.been.LiveTypeBean;
 import com.zhongchuang.canting.been.SubscriptionBean;
 import com.zhongchuang.canting.been.TOKEN;
 import com.zhongchuang.canting.been.UploadFileBean;
@@ -82,6 +83,7 @@ import com.zhongchuang.canting.widget.CircleImageView;
 import com.zhongchuang.canting.widget.CircleTransform;
 import com.zhongchuang.canting.widget.ClearEditText;
 import com.zhongchuang.canting.widget.Custom_ProfileOrderClickBtn;
+import com.zhongchuang.canting.widget.LiveItemSelectBindDialog;
 import com.zhongchuang.canting.widget.MarkaBaseDialog;
 import com.zhongchuang.canting.widget.PhotoPopupWindow;
 import com.zhongchuang.canting.widget.RxBus;
@@ -173,6 +175,7 @@ public class LiveMineFragments extends LazyFragment implements BaseContract.View
         ButterKnife.bind(this, viewRoot);
         presenter = new BasesPresenter(this);
         presenter.getUserIntegral();
+        presenter.getLiveCategory();
         initView();
         setListener();
         initAssetPath();
@@ -358,7 +361,8 @@ public class LiveMineFragments extends LazyFragment implements BaseContract.View
                     return;
                 }
                 playTypes=2;
-                showChooseAddPhotoWindow();
+                showHints(1);
+
 
 
 
@@ -372,7 +376,8 @@ public class LiveMineFragments extends LazyFragment implements BaseContract.View
                     return;
                 }
                 playTypes=1;
-                presenter.deleteConfig();
+                showHints(2);
+
 //                isAnchor();
             }
         });
@@ -383,6 +388,7 @@ public class LiveMineFragments extends LazyFragment implements BaseContract.View
                     return;
                 }
                 playTypes=1;
+                views=null;
                 showPopwind();
                 state=2;
 //                isAnchor();
@@ -536,7 +542,7 @@ public class LiveMineFragments extends LazyFragment implements BaseContract.View
     public void lazyView() {
 
     }
-
+     private String live_third_id;
     public void initData() {
         if (getActivity() == null) {
             return;
@@ -556,69 +562,100 @@ public class LiveMineFragments extends LazyFragment implements BaseContract.View
     }
 
     private TextView sure = null;
+    private TextView tv_type = null;
+    private View views = null;
+    private LinearLayout ll_type = null;
     private TextView tv_select = null;
     private ClearEditText content = null;
     private ImageView iv_photo = null;
     private ImageView iv_close = null;
     private   MarkaBaseDialog dialog;
+    public  static List<LiveTypeBean> datas;
     public void showPopwind() {
+        if(TextUtil.isNotEmpty(live_third_id)&&live_third_id.equals("0")){
+            showHint();
+            return;
+        }
 
         EditText reson = null;
-        View views = View.inflate(getActivity(), R.layout.zb_upload_dailog, null);
-        sure = views.findViewById(R.id.tv_send);
-        tv_select = views.findViewById(R.id.tv_select);
-        content = views.findViewById(R.id.et_content);
-        iv_photo = views.findViewById(R.id.iv_photo);
-        iv_close = views.findViewById(R.id.iv_close);
-
-        dialog = BaseDailogManager.getInstance().getBuilder(getActivity()).setMessageView(views).create();
-        dialog.show();
-        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                img_path="";
+        if(views==null){
+            views = View.inflate(getActivity(), R.layout.zb_upload_dailog, null);
+            sure = views.findViewById(R.id.tv_send);
+            tv_type = views.findViewById(R.id.tv_type);
+            ll_type = views.findViewById(R.id.ll_type);
+            tv_select = views.findViewById(R.id.tv_select);
+            content = views.findViewById(R.id.et_content);
+            iv_photo = views.findViewById(R.id.iv_photo);
+            iv_close = views.findViewById(R.id.iv_close);
+            if(TextUtil.isNotEmpty(third_category_name)){
+                tv_type.setText(third_category_name);
             }
-        });
-        sure.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (TextUtil.isEmpty(img_path)) {
-                    showTomast("请上传封面");
-                    return;
+            dialog = BaseDailogManager.getInstance().getBuilder(getActivity()).setMessageView(views).create();
+            dialog.show();
+            dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialog) {
+                    img_path="";
                 }
-                if (TextUtil.isEmpty(content.getText().toString())) {
-                    showTomast("请输入标题");
-                    return;
-                }
+            });
+            sure.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-                getUpToken(img_path);
-                dialog.dismiss();
-            }
-        });
-        iv_close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                closeKeyBoard(v);
-                dialog.dismiss();
-            }
-        });
-        tv_select.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                closeKeyBoard(v);
-                showAddPhotoWindow();
-                dialog.dismiss();
-            }
-        });
-        iv_photo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                closeKeyBoard(v);
-                showAddPhotoWindow();
-                dialog.dismiss();
-            }
-        });
+                    if (TextUtil.isEmpty(img_path)) {
+                        showTomast("请上传封面");
+                        return;
+                    }
+                    if (TextUtil.isEmpty(content.getText().toString())) {
+                        showTomast("请输入标题");
+                        return;
+                    }
+
+                    getUpToken(img_path);
+                    dialog.dismiss();
+                }
+            });
+            iv_close.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    closeKeyBoard(v);
+                    dialog.dismiss();
+                }
+            });
+            tv_select.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    closeKeyBoard(v);
+                    showAddPhotoWindow();
+                    dialog.dismiss();
+                }
+            });
+            iv_photo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    closeKeyBoard(v);
+                    showAddPhotoWindow();
+                    dialog.dismiss();
+                }
+            });
+            ll_type.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(datas==null){
+                        presenter.getLiveCategory();
+                        states=1;
+                        return;
+                    }
+                    showLiveItemSelector();
+                    dialog.dismiss();
+                }
+            });
+        }else {
+            dialog.show();
+        }
+
+
+
     }
 
 
@@ -662,6 +699,7 @@ public class LiveMineFragments extends LazyFragment implements BaseContract.View
         lives.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                views=null;
                 showPopwind();
                 state=1;
                 mWindowAddPhotos.dismiss();
@@ -762,7 +800,8 @@ public class LiveMineFragments extends LazyFragment implements BaseContract.View
             @Override
             public void completeListener(String urls) {
                 imgUrl = QiniuUtils.baseurl + urls;
-                presenter.addConfig(imgUrl,content.getText().toString());
+                presenter.addConfig(imgUrl,content.getText().toString(),liveThirdId);
+
                 presenter.addLiveRecordVod();
             }
         });
@@ -774,16 +813,126 @@ public class LiveMineFragments extends LazyFragment implements BaseContract.View
      */
     public void closeKeyBoard(View v) {
 
-
             InputMethodManager imm = ( InputMethodManager ) v.getContext( ).getSystemService( Context.INPUT_METHOD_SERVICE );
             if ( imm.isActive( ) ) {
                 imm.hideSoftInputFromWindow( v.getApplicationWindowToken( ) , 0 );
 
             }
         }
+    public void showHint() {
+        View views = View.inflate(getActivity(), R.layout.base_dailog_view, null);
+        TextView sure = views.findViewById(R.id.txt_sure);
+        TextView cancel = views.findViewById(R.id.txt_cancel);
+        TextView title = views.findViewById(R.id.txt_title);
 
+        title.setText("为了直播模块有更好的体验，现加入直播分类，第一次需选直播分类。后面直播可根据需要是否更该直播分类！");
+        sure.setText("选择分类");
+        cancel.setVisibility(View.GONE);
+        views.findViewById(R.id.line_center).setVisibility(View.GONE);
+        cancel.setTextColor(getResources().getColor(R.color.color6));
+        final MarkaBaseDialog dialog = BaseDailogManager.getInstance().getBuilder(getActivity()).setMessageView(views).create();
+        dialog.show();
+        sure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showLiveItemSelector();
+                dialog.dismiss();
+            }
+        });
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+    }
+    public void showHints(final int type) {
+        View views = View.inflate(getActivity(), R.layout.base_dailog_view, null);
+        TextView sure = views.findViewById(R.id.txt_sure);
+        TextView cancel = views.findViewById(R.id.txt_cancel);
+        TextView title = views.findViewById(R.id.txt_title);
+        title.setText("为了用户更好的体验，您每次直播可以根据您内容选择合适的分类");
+        cancel.setText("选择分类");
+        sure.setText("不更换");
+        cancel.setTextColor(getResources().getColor(R.color.color6));
+        final MarkaBaseDialog dialog = BaseDailogManager.getInstance().getBuilder(getActivity()).setMessageView(views).create();
+        dialog.show();
+        sure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(type==1){
+                    showChooseAddPhotoWindow();
+                }else {
+                    presenter.deleteConfig();
+                }
+                dialog.dismiss();
+            }
+        });
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                if(type==1){
+                    sta=3;
+                }else {
+                    sta=4;
+                }
 
+                showLiveItemSelector();
+                dialog.dismiss();
+            }
+        });
+    }
+    private LiveItemSelectBindDialog mSelectBindDialog;
+    private String mCurrentProviceName = "广东";
+    private String third_category_name = "广东";
+    private String mCurrentCityName = "中山";
+    private String mCurrentDistrictName = "古镇镇";
+    public void showLiveItemSelector() {
+        if (CanTingAppLication.province == null) {
+            return;
+        }
+        if (mSelectBindDialog == null) {
+            mSelectBindDialog = new LiveItemSelectBindDialog(getActivity(), mCurrentProviceName, mCurrentCityName, mCurrentDistrictName);
+            mSelectBindDialog.setBindClickListener(new LiveItemSelectBindDialog.BindClickListener() {
+                @Override
+                public void site(int provinces, int citys, int districts) {
+
+                    String area = "";
+                    if(provinces!=-1){
+                        if(tv_type!=null){
+                            tv_type.setText(datas.get(provinces).secondList.get(citys).thirdList.get(districts).sec_category_name);
+                        }
+
+                        liveFirstId=datas.get(provinces).firstid;
+                        livesecondId=datas.get(provinces).secondList.get(citys).secondid;
+                        liveThirdId=datas.get(provinces).secondList.get(citys).thirdList.get(districts).id;
+                        live_third_id=datas.get(provinces).secondList.get(citys).thirdList.get(districts).id;
+                        third_category_name=datas.get(provinces).secondList.get(citys).thirdList.get(districts).sec_category_name;
+                        presenter.updateCategory(liveFirstId,livesecondId,liveThirdId);
+                    }
+                    if(sta==0){
+                        showPopwind();
+                    }else if(sta==3||sta==4) {
+                        if(sta==3){
+                            showChooseAddPhotoWindow();
+                        }else {
+                            presenter.deleteConfig();
+                        }
+                        sta=0;
+                    }else {
+                        sta=0;
+                    }
+
+                }
+            });
+        }
+        mSelectBindDialog.show();
+    }
+
+   private String liveFirstId;
+   private String livesecondId;
+   private String liveThirdId;
     public void showPopwindows(final String var1, final String var2, final String var3) {
         TextView content = null;
         TextView desc = null;
@@ -812,7 +961,8 @@ public class LiveMineFragments extends LazyFragment implements BaseContract.View
     }
 
     private Host data;
-
+    private int states;
+    private int sta;
 
     @Override
     public <T> void toEntity(T entity, int type) {
@@ -858,9 +1008,23 @@ public class LiveMineFragments extends LazyFragment implements BaseContract.View
 
                 }
 
+        }else if (type == 998) {
+        datas= (List<LiveTypeBean>) entity;
+        if(states!=0){
+            states=0;
+            showLiveItemSelector();
+        }
         } else if (type == 5||type == 7||type == 299) {
         } else {
             data = (Host) entity;
+
+            live_third_id=data.live_third_id;
+            liveThirdId=data.live_third_id;
+            if(TextUtil.isNotEmpty(live_third_id)&&live_third_id.equals("0")){
+                sta=1;
+                showHint();
+            }
+            third_category_name=data.third_category_name;
             if (data != null && TextUtil.isNotEmpty(data.play_type)) {
                 if (data.play_type.equals("0")) {
                     playType=1;

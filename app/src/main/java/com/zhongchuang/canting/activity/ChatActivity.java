@@ -18,6 +18,7 @@ import com.zhongchuang.canting.been.SubscriptionBean;
 import com.zhongchuang.canting.been.UserInfo;
 import com.zhongchuang.canting.easeui.EaseConstant;
 import com.zhongchuang.canting.easeui.bean.CHATMESSAGE;
+import com.zhongchuang.canting.easeui.bean.GROUPS;
 import com.zhongchuang.canting.easeui.ui.ChatFragment;
 import com.zhongchuang.canting.easeui.ui.EaseChatFragment;
 import com.zhongchuang.canting.permission.PermissionConst;
@@ -100,7 +101,18 @@ public class ChatActivity extends FragmentActivity implements BaseContract.View 
         group_id = getIntent().getExtras().getString("group_id");
         CHATMESSAGE chatmessage = (CHATMESSAGE) getIntent().getSerializableExtra(EaseConstant.EXTRA_CHATMSG);
         if (chatmessage != null) {
-            go2Chat(chatmessage);
+            if(chatType==EaseConstant.CHATTYPE_GROUP){
+                GROUPS group = chatmessage.getGroup();
+                if(group!=null&&TextUtil.isNotEmpty(group.getGroup_id())){
+                    go2Chat(chatmessage);
+                }else {
+                    presenter.getGroupInfo(toChatUsername);
+                }
+            }else {
+                go2Chat(chatmessage);
+            }
+
+
         } else {
 
             Map<String, String> map = new HashMap<>();
@@ -185,10 +197,18 @@ public class ChatActivity extends FragmentActivity implements BaseContract.View 
 
     @Override
     public <T> void toEntity(T entity, int type) {
-        FriendInfo info= (FriendInfo) entity;
-        info.friendsId=username;
-        CHATMESSAGE chatmessage = CHATMESSAGE.fromLogin(info);
-        go2Chat(chatmessage);
+        if(type==55){
+            FriendInfo info= (FriendInfo) entity;
+            info.friendsId=username;
+            CHATMESSAGE chatmessage = CHATMESSAGE.transGroup(info);
+            go2Chat(chatmessage);
+        }else {
+            FriendInfo info= (FriendInfo) entity;
+            info.friendsId=username;
+            CHATMESSAGE chatmessage = CHATMESSAGE.fromLogin(info);
+            go2Chat(chatmessage);
+        }
+
     }
 
     @Override

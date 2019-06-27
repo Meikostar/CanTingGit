@@ -77,6 +77,7 @@
                    android:layout_height="200dp"
                    android:scaleType="fitXY" />
                <ImageView
+                   android:id="@+id/iv_imgs"
                    android:src="@drawable/white_rectange_bg"
                    android:layout_width="42dp"
                    android:layout_height="42dp"

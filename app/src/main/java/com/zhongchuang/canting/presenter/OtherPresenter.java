@@ -4,11 +4,13 @@ package com.zhongchuang.canting.presenter;
         import com.zhongchuang.canting.app.CanTingAppLication;
         import com.zhongchuang.canting.been.BaseResponse;
         import com.zhongchuang.canting.been.LiveItemBean;
+        import com.zhongchuang.canting.been.LiveTypeBean;
         import com.zhongchuang.canting.been.RedInfo;
         import com.zhongchuang.canting.been.VideoData;
         import com.zhongchuang.canting.been.VideoMoreData;
         import com.zhongchuang.canting.been.aliLive;
         import com.zhongchuang.canting.been.videobean;
+        import com.zhongchuang.canting.fragment.mall.LiveMineFragments;
         import com.zhongchuang.canting.net.BaseCallBack;
         import com.zhongchuang.canting.net.HttpUtil;
         import com.zhongchuang.canting.net.netService;
@@ -57,7 +59,30 @@ public class OtherPresenter implements OtherContract.Presenter {
             }
         });
     }
+    @Override
+    public void getLiveCategory() {
 
+
+        Map<String, String> params = new TreeMap<>();
+
+        params.put("userInfoId", TextUtil.isEmpty(SpUtil.getUserInfoId(CanTingAppLication.getInstance())) ? "" : SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
+
+
+        api.getLiveCategory(params).enqueue(new BaseCallBack<LiveTypeBean>() {
+
+            @Override
+            public void onSuccess(LiveTypeBean userLoginBean) {
+                LiveMineFragments.datas=userLoginBean.data;
+                mView.toEntity(userLoginBean.data, 998);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                mView.showTomast(t);
+            }
+        });
+    }
     @Override
     public void getHotDirect() {
 

@@ -37,6 +37,7 @@ import com.zhongchuang.canting.been.INTEGRALIST;
 import com.zhongchuang.canting.been.Ingegebean;
 import com.zhongchuang.canting.been.LIVEBEAN;
 import com.zhongchuang.canting.been.LiveItemBean;
+import com.zhongchuang.canting.been.LiveTypeBean;
 import com.zhongchuang.canting.been.MainPageBean;
 import com.zhongchuang.canting.been.MessageGroup;
 import com.zhongchuang.canting.been.OrderData;
@@ -125,10 +126,8 @@ public interface netService {
 //    public static final String TOM_BASE_URL = "http://111.230.248.224:8780/ifun/";
 //    public static final String TOM_BASE_URL = "http://47.74.189.52:8080/ifun/";
 //      public static final String TOM_BASE_URL = "http://119.23.235.1:8080/ifun/";
-//    String TOM_BASE_URL = "http://120.77.222.116:8080/ifun/";
-//    public static final String TOM_BASE_URL = "http://120.78.148.31:8080/ifun/";//替换信联服务器
-
-
+//    public static final String TOM_BASE_URL = "http://120.77.222.116:8080/ifun/";
+    public static final String TOM_BASE_URL = "http://120.78.148.31:8080/ifun/";//替换信联服务器
 
 
 //    public static final String TOM_BASE_URL = "http://119.23.212.8:8080/ifun/";
@@ -144,7 +143,7 @@ public interface netService {
 //    public static final String TOM_BASE_URL = "http://119.23.235.1:8089/ifun/";
 //    public static final String TOM_BASE_URL = "http://119.23.235.1:8080/ifun/";
 
-        public static final String TOM_BASE_URL = "http://192.168.0.104:8080/ifun/";
+//        public static final String TOM_BASE_URL = "http://192.168.0.104:8080/ifun/";
 
 //    public static final String TOM_BASE_URL = "http://192.168.50.193:8780/ifun/";
 //    public static final String TOM_BASE_URL = "http://192.168.50.79:8780/ifun/";
@@ -543,6 +542,7 @@ public interface netService {
     @FormUrlEncoded
     @POST("wap/chatGroupsDeleteGroupsDirectories/deleteGroupsMenber")
     Call<BaseResponse> deleteGroup(@FieldMap Map<String, String> map);
+
     @FormUrlEncoded
     @POST("wap/userIntegral/deposit")
     Call<BaseResponse> deposit(@FieldMap Map<String, String> map);
@@ -654,6 +654,7 @@ public interface netService {
     @FormUrlEncoded
     @POST("web/integral/integralAttorn")
     Call<BaseResponse> integralAttorn(@FieldMap Map<String, String> map);
+
     @FormUrlEncoded
     @POST("web/chatDetail/addChatDetail")
     Call<BaseResponse> addChatDetail(@FieldMap Map<String, String> map);
@@ -700,6 +701,7 @@ public interface netService {
     @FormUrlEncoded
     @POST("wap/homePage/getProductList")
     Call<Product> getProductList(@FieldMap Map<String, String> map);
+
     @FormUrlEncoded
     @POST("wap/homePage/getActivityProductList")
     Call<Product> getActivityProductList(@FieldMap Map<String, String> map);
@@ -840,6 +842,7 @@ public interface netService {
     @FormUrlEncoded
     @POST("wap/orderManage/deleteOrder")
     Call<BaseResponse> deleteOrder(@FieldMap Map<String, String> map);
+
     @FormUrlEncoded
     @POST("wap/orderManage/cancelOrder")
     Call<BaseResponse> cancelOrder(@FieldMap Map<String, String> map);
@@ -874,6 +877,7 @@ public interface netService {
     @FormUrlEncoded
     @POST("wap/chatGroup/alterGroupImage")
     Call<BaseResponse> alterGroupImage(@FieldMap Map<String, String> map);
+
     @FormUrlEncoded
     @POST("wap/chatGroup/deleteGroup")
     Call<BaseResponse> deleteGroups(@FieldMap Map<String, String> map);
@@ -937,6 +941,7 @@ public interface netService {
     @FormUrlEncoded
     @POST("wap/chatBanner/banner")
     Call<Banner> getBanners(@FieldMap Map<String, String> opt);
+
     @GET("wap/qiNiu/getUpToken")
     Call<TOKEN> getUpToken();
 
@@ -952,6 +957,7 @@ public interface netService {
     @FormUrlEncoded
     @POST("wap/app/uploadCode")
     Call<BaseResponse> uploadCode(@FieldMap Map<String, String> opt);
+
     @FormUrlEncoded
     @POST("wap/focus/getGiftDetailedList")
     Call<Hands> getGiftDetailedList(@FieldMap Map<String, String> opt);
@@ -1011,6 +1017,11 @@ public interface netService {
     Call<FriendInfo> friendInfo(@FieldMap Map<String, String> opt);
 
     @FormUrlEncoded
+    @POST("wap/chatGroupsListDirectories/selectGroupsInfo")
+    Call<FriendInfo> selectGroupsInfo(@FieldMap Map<String, String> opt);
+
+
+    @FormUrlEncoded
     @POST("wap/chatRemark/addRemark")
     Call<BaseResponse> addRemark(@FieldMap Map<String, String> opt);
 
@@ -1063,13 +1074,20 @@ public interface netService {
     @FormUrlEncoded
     @POST("wap/liveRecord/setLiveNotifyUrl")
     Call<aliLive> setLiveNotifyUrl(@FieldMap Map<String, String> opt);
+
+
     @FormUrlEncoded
     @POST("wap/liveRecord/updateType")
     Call<BaseResponse> updateType(@FieldMap Map<String, String> opt);
 
+    @FormUrlEncoded
+    @POST("wap/directCategory/updateCategory")
+    Call<BaseResponse> updateCategory(@FieldMap Map<String, String> opt);
+
 
     @FormUrlEncoded
     @POST("wap/liveRecordVod/addLiveRecordVod")
+
     Call<aliLive> addLiveRecordVod(@FieldMap Map<String, String> opt);
 
     @FormUrlEncoded
@@ -1127,7 +1145,6 @@ public interface netService {
     Call<VideoMoreData> searchVideoByNameOrCategory(@FieldMap Map<String, String> opt);
 
 
-
     @FormUrlEncoded
     @POST("wap/directCategory/searchDirectByNameOrCategory")
     Call<VideoMoreData> searchDirectByNameOrCategory(@FieldMap Map<String, String> opt);
@@ -1144,4 +1161,9 @@ public interface netService {
     @FormUrlEncoded
     @POST("wap/liveCategory/getThirdList")
     Call<LiveItemBean> getThirdList(@FieldMap Map<String, String> opt);
+
+    @FormUrlEncoded
+    @POST("wap/directCategory/getLiveCategory")
+    Call<LiveTypeBean> getLiveCategory(@FieldMap Map<String, String> opt);
+
 }

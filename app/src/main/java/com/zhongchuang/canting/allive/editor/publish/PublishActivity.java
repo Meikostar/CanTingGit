@@ -49,10 +49,12 @@ import com.aliyun.qupai.editor.AliyunIComposeCallBack;
 import com.zhongchuang.canting.allive.vodupload_demo.data.ItemInfo;
 import com.zhongchuang.canting.app.CanTingAppLication;
 import com.zhongchuang.canting.been.LiveItemBean;
+import com.zhongchuang.canting.been.LiveTypeBean;
 import com.zhongchuang.canting.been.SubscriptionBean;
 import com.zhongchuang.canting.been.TOKEN;
 import com.zhongchuang.canting.been.aliLive;
 import com.zhongchuang.canting.db.Constant;
+import com.zhongchuang.canting.fragment.mall.LiveMineFragments;
 import com.zhongchuang.canting.hud.ToastUtils;
 import com.zhongchuang.canting.net.HXRequestService;
 import com.zhongchuang.canting.net.netService;
@@ -65,6 +67,7 @@ import com.zhongchuang.canting.utils.TextUtil;
 import com.zhongchuang.canting.utils.TimeUtil;
 import com.zhongchuang.canting.widget.BaseDailogManager;
 import com.zhongchuang.canting.widget.ListVideoWindow;
+import com.zhongchuang.canting.widget.LiveItemSelectBindDialog;
 import com.zhongchuang.canting.widget.MarkaBaseDialog;
 import com.zhongchuang.canting.widget.PhotoPopupWindow;
 import com.zhongchuang.canting.widget.RxBus;
@@ -125,6 +128,7 @@ public class PublishActivity extends Activity implements View.OnClickListener , 
         initView();
         mConfig = getIntent().getStringExtra(KEY_PARAM_CONFIG);
         mThumbnailPath = getIntent().getStringExtra(KEY_PARAM_THUMBNAIL);
+        datas= LiveMineFragments.datas;
         mCompose = ComposeFactory.INSTANCE.getInstance();
         mCompose.init(this);
         presenter=new OtherPresenter(this);
@@ -165,38 +169,49 @@ public class PublishActivity extends Activity implements View.OnClickListener , 
             @Override
             public void onClick(View v) {
                 if(datas!=null){
-                    showPopupWindow(true,"请选择一级分类",datas,1);
+                    if(datas==null){
+                        presenter.getLiveCategory();
+
+                        return;
+                    }
+                    showLiveItemSelector();
+
                 }
 
             }
         });
 
     }
-   private ListVideoWindow popupWindow;
-    private String liveThirdId;
-    public void showPopupWindow(boolean isShow,String title,List<LiveItemBean> data,final int type){//1代表一及 类推
-        if(popupWindow!=null){
-            popupWindow=null;
+
+    private LiveItemSelectBindDialog mSelectBindDialog;
+    private String mCurrentProviceName = "广东";
+    private String third_category_name = "广东";
+    private String mCurrentCityName = "中山";
+    private String mCurrentDistrictName = "古镇镇";
+    public void showLiveItemSelector() {
+
+        if (CanTingAppLication.province == null) {
+            return;
         }
-        popupWindow = new ListVideoWindow(this,data,title);
-        popupWindow.setSureListener(new ListVideoWindow.ClickListener() {
-            @Override
-            public void clickListener(LiveItemBean menu, int poistion) {
-                 if(type==1){
-                     presenter.getSecondLists(menu.id);
-                 }else if(type==2){
-                     presenter.getThirdList(menu.id);
-                 }else if(type==3){
-                     liveThirdId=menu.id;
-                     tvType.setText(menu.sec_category_name);
-                 }
-                 popupWindow.dismiss();
-            }
-        });
-        if(isShow){
-            popupWindow.showAsDropDown(mPublish);
+        if (mSelectBindDialog == null) {
+            mSelectBindDialog = new LiveItemSelectBindDialog(this, mCurrentProviceName, mCurrentCityName, mCurrentDistrictName);
+            mSelectBindDialog.setBindClickListener(new LiveItemSelectBindDialog.BindClickListener() {
+                @Override
+                public void site(int provinces, int citys, int districts) {
+
+                    String area = "";
+
+
+                    liveThirdId=datas.get(provinces).secondList.get(citys).thirdList.get(districts).id;
+                    tvType.setText(datas.get(provinces).secondList.get(citys).thirdList.get(districts).sec_category_name);
+                }
+            });
         }
+        mSelectBindDialog.show();
     }
+
+    private String liveThirdId;
+
     private Handler handler =new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
@@ -319,10 +334,8 @@ public class PublishActivity extends Activity implements View.OnClickListener , 
 
     }
     private OtherPresenter presenter;
-    private List<LiveItemBean> datas;
-    private LiveItemBean firstData;
-    private LiveItemBean secondtData;
-    private LiveItemBean thirdData;
+    private List<LiveTypeBean> datas;
+
     @Override
     public <T> void toEntity(T entity, int type) {
         if(type==12){
@@ -335,15 +348,9 @@ public class PublishActivity extends Activity implements View.OnClickListener , 
                 type=1;
                 uploader.init(aliLive.accessKeyId, aliLive.accesskeysecret, aliLive.token, aliLive.expiration, callback);
             }
-        }else if(type==1) {
-             datas= (List<LiveItemBean>) entity;
-
-        }else if(type==2) {
-            List<LiveItemBean> secondtData= (List<LiveItemBean>) entity;
-            showPopupWindow(true,"请选择二级分类",secondtData,2);
-        }else if(type==3) {
-            List<LiveItemBean> thirdData= (List<LiveItemBean>) entity;
-            showPopupWindow(true,"请选择三级分类",thirdData,3);
+        }else if(type==998) {
+             datas= (List<LiveTypeBean>) entity;
+            showLiveItemSelector();
         }
 
     }

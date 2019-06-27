@@ -8,9 +8,11 @@ import java.util.List;
 
 public class GrapRed extends BaseResponse {
     public GrapRed data;
+    public GrapRedDetail info;
     public int redEnvelope;
     public int content;
     public int isAll;
+    public int state;
     public int grab_envelope_count;
     public int red_envelope_count;
     public String send_user_id;

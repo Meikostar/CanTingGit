@@ -8,12 +8,15 @@ import android.os.AsyncTask;
 import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMFileMessageBody;
+import com.hyphenate.chat.EMImageMessageBody;
 import com.hyphenate.chat.EMMessage;
+import com.hyphenate.chat.EMMessageBody;
 import com.hyphenate.chat.EMVideoMessageBody;
 import com.zhongchuang.canting.R;
 import com.hyphenate.util.DateUtils;
@@ -49,7 +52,10 @@ public class EaseChatRowVideo extends EaseChatRowFile {
                 R.layout.ease_row_received_video : R.layout.ease_row_sent_video, this);
     }
 
-
+    protected RelativeLayout rl_bbg;
+    protected TextView tv_reback;
+    protected TextView tv_userid;
+    public static final String EXETEND = "rb_extend";
     @Override
     protected void onFindViewById() {
         imageView = findViewById(R.id.chatting_content_iv);
@@ -57,6 +63,9 @@ public class EaseChatRowVideo extends EaseChatRowFile {
         timeLengthView = findViewById(R.id.chatting_length_iv);
         ImageView playView = findViewById(R.id.chatting_status_btn);
         percentageView = findViewById(R.id.percentage);
+        tv_reback = findViewById(R.id.tv_reback);
+        tv_userid = findViewById(R.id.tv_userid);
+        rl_bbg = findViewById(R.id.rl_bbg);
     }
     public static Bitmap getNetVideoBitmap(String videoUrl) {
         Bitmap bitmap = null;
@@ -80,18 +89,36 @@ public class EaseChatRowVideo extends EaseChatRowFile {
         String video_url = message.getStringAttribute(EaseConstant.EXTRA_SEND, "");
         String image_url = message.getStringAttribute(EaseConstant.EXTRA_NAME, "");
         String video_size = message.getStringAttribute(EaseConstant.EXTRA_GRAPID, "");
+        String content = message.getStringAttribute(EXETEND, "");
 
-        long timelength=message.getIntAttribute(EaseConstant.EXTRA_RED_IS_ALL,0);
-        Glide.with(context).load(StringUtil.changeUrl(image_url)).asBitmap().placeholder(R.drawable.ease_default_image).into(imageView);
-        sizeView.setText(video_size+" M");
-        timeLengthView.setText(formatTimeS(timelength));
-        imageView.setImageResource(R.drawable.ease_default_image);
-        if(progressBar!=null){
-            progressBar.setVisibility(View.GONE);
+        if(TextUtil.isEmpty(content)){
+            long timelength=message.getIntAttribute(EaseConstant.EXTRA_RED_IS_ALL,0);
+            Glide.with(context).load(StringUtil.changeUrl(image_url)).asBitmap().placeholder(R.drawable.ease_default_image).into(imageView);
+            sizeView.setText(video_size+" M");
+            timeLengthView.setText(formatTimeS(timelength));
+            imageView.setImageResource(R.drawable.ease_default_image);
+            if(progressBar!=null){
+                progressBar.setVisibility(View.GONE);
+            }
+            if(percentageView!=null){
+                percentageView.setVisibility(View.GONE);
+            }
+            if(message.getChatType()== EMMessage.ChatType.GroupChat){
+                tv_userid.setVisibility(VISIBLE);
+            }else {
+                tv_userid.setVisibility(GONE);
+            }
+            tv_reback.setVisibility(GONE);
+            rl_bbg.setVisibility(VISIBLE);
+        }else {
+            tv_reback.setVisibility(VISIBLE);
+            tv_userid.setVisibility(GONE);
+            rl_bbg.setVisibility(GONE);
+
+            tv_reback.setText(content);
+
         }
-        if(percentageView!=null){
-            percentageView.setVisibility(View.GONE);
-        }
+
 
     }
     public static String formatTimeS(long duration) {

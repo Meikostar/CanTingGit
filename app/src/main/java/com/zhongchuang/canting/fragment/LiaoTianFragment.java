@@ -79,7 +79,7 @@ public class LiaoTianFragment extends EaseConversationListFragment implements Vi
 
         @Override
         public void onMessageReceived(List<EMMessage> messages) {
-            RxBus.getInstance().send(SubscriptionBean.createSendBean(SubscriptionBean.MESSAGENOTIFI,""));
+
 
         }
 

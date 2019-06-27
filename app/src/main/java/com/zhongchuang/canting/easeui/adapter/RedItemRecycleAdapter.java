@@ -70,7 +70,7 @@ public class RedItemRecycleAdapter extends BaseRecycleViewAdapter {
 
     //内容长度
     public int getContentItemCount() {
-        return datas != null ? datas.size() + 1 : 0;
+        return datas != null ? (datas.size() % 2 == 0 ? datas.size() / 2 : datas.size() / 2 + 1) + 1 : 1;
     }
 
     //判断当前item是否是HeadView
@@ -97,7 +97,7 @@ public class RedItemRecycleAdapter extends BaseRecycleViewAdapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
         ItemViewHolder holders = (ItemViewHolder) holder;
-        if(position>0){
+        if(position>0&&datas.size()!=0){
             holders.ivImg.setVisibility(View.GONE);
             GrapRed red= (GrapRed) datas.get(position-1);
             holders.tvBest.setVisibility(View.GONE);

@@ -96,7 +96,8 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
     public long getItemId(int position) {
         return position;
     }
-
+    public static final String EXETEND = "rb_extend";
+    public static final String CONTENT = "re_content";
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
@@ -195,8 +196,17 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
                     content = cvsListHelper.onSetItemSecondaryText(lastMessage);
                 }
                 String type=lastMessage.getStringAttribute(EaseConstant.EXTRA_RED_TYPE,null);
+                String contents=lastMessage.getStringAttribute(EXETEND,null);
+                String cont=lastMessage.getStringAttribute(CONTENT,null);
                 if(TextUtil.isNotEmpty(type)&&type.equals("3")){
                     content="[视频]";
+                }else if(TextUtil.isNotEmpty(type)&&type.equals("4")){
+                    if(TextUtil.isNotEmpty(contents)){
+                        content=contents;
+                    }else {
+                        content=cont;
+                    }
+
                 }
                 holder.message.setText(EaseSmileUtils.getSmiledText(getContext(), EaseCommonUtils.getMessageDigest(lastMessage, (this.getContext()))),
                         BufferType.SPANNABLE);

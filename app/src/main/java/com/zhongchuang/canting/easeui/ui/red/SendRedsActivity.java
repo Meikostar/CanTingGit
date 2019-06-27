@@ -93,8 +93,8 @@ public class SendRedsActivity extends BaseAllActivity implements OtherContract.V
         tvRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SendRedsActivity.this, RedOut_In_DetailActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(SendRedsActivity.this, RedOut_In_DetailActivity.class);
+//                startActivity(intent);
             }
         });
     }

@@ -68,6 +68,7 @@ public class DemoHelper {
     public interface DataSyncListener {
         /**
          * sync complete
+         *
          * @param success true：data sync successful，false: failed to sync data
          */
         void onSyncComplete(boolean success);
@@ -141,8 +142,7 @@ public class DemoHelper {
     /**
      * init helper
      *
-     * @param context
-     *            application context
+     * @param context application context
      */
     public void init(Context context) {
         demoModel = new DemoModel(context);
@@ -230,7 +230,7 @@ public class DemoHelper {
     }
 
 
-    private EMOptions initChatOptions(){
+    private EMOptions initChatOptions() {
         Log.d(TAG, "init HuanXin Options");
 
         EMOptions options = new EMOptions();
@@ -249,10 +249,10 @@ public class DemoHelper {
 
 
         //set custom servers, commonly used in private deployment
-        if(demoModel.isCustomServerEnable() && demoModel.getRestServer() != null && demoModel.getIMServer() != null) {
+        if (demoModel.isCustomServerEnable() && demoModel.getRestServer() != null && demoModel.getIMServer() != null) {
             options.setRestServer(demoModel.getRestServer());
             options.setIMServer(demoModel.getIMServer());
-            if(demoModel.getIMServer().contains(":")) {
+            if (demoModel.getIMServer().contains(":")) {
                 options.setIMServer(demoModel.getIMServer().split(":")[0]);
                 options.setImPort(Integer.valueOf(demoModel.getIMServer().split(":")[1]));
             }
@@ -360,12 +360,12 @@ public class DemoHelper {
 
             @Override
             public boolean isMsgNotifyAllowed(EMMessage message) {
-                if(message == null){
+                if (message == null) {
                     return demoModel.getSettingMsgNotification();
                 }
-                if(!demoModel.getSettingMsgNotification()){
+                if (!demoModel.getSettingMsgNotification()) {
                     return false;
-                }else{
+                } else {
                     String chatUsename = null;
                     List<String> notNotifyIds = null;
                     // get user or group id which was blocked to show message notifications
@@ -420,17 +420,17 @@ public class DemoHelper {
             public String getDisplayedText(EMMessage message) {
                 // be used on notification bar, different text according the message type.
                 String ticker = EaseCommonUtils.getMessageDigest(message, appContext);
-                if(message.getType() == Type.TXT){
+                if (message.getType() == Type.TXT) {
                     ticker = ticker.replaceAll("\\[.{2,3}\\]", "[表情]");
                 }
                 EaseUser user = getUserInfo(message.getFrom());
-                if(user != null){
-                    if(EaseAtMessageHelper.get().isAtMeMsg(message)){
+                if (user != null) {
+                    if (EaseAtMessageHelper.get().isAtMeMsg(message)) {
                         return String.format("%s @ you in group chat", user.getNick());
                     }
                     return user.getNick() + ": " + ticker;
-                }else{
-                    if(EaseAtMessageHelper.get().isAtMeMsg(message)){
+                } else {
+                    if (EaseAtMessageHelper.get().isAtMeMsg(message)) {
                         return String.format("%s @ you in group chat", message.getFrom());
                     }
                     return message.getFrom() + ": " + ticker;
@@ -449,11 +449,11 @@ public class DemoHelper {
                 // you can set what activity you want display when user click the notification
                 Intent intent = new Intent(appContext, ChatActivity.class);
                 // open calling activity if there is call
-                if(isVideoCalling){
+                if (isVideoCalling) {
                     intent = new Intent(appContext, VideoCallActivity.class);
-                }else if(isVoiceCalling){
+                } else if (isVoiceCalling) {
                     intent = new Intent(appContext, VoiceCallActivity.class);
-                }else{
+                } else {
                     ChatType chatType = message.getChatType();
                     if (chatType == ChatType.Chat) { // single chat message
                         intent.putExtra("userId", message.getFrom());
@@ -461,9 +461,9 @@ public class DemoHelper {
                     } else { // group chat message
                         // message.getTo() is the group id
                         intent.putExtra("userId", message.getTo());
-                        if(chatType == ChatType.GroupChat){
+                        if (chatType == ChatType.GroupChat) {
                             intent.putExtra("chatType", Constant.CHATTYPE_GROUP);
-                        }else{
+                        } else {
                             intent.putExtra("chatType", Constant.CHATTYPE_CHATROOM);
                         }
 
@@ -475,10 +475,11 @@ public class DemoHelper {
     }
 
     EMConnectionListener connectionListener;
+
     /**
      * set global listener
      */
-    protected void setGlobalListeners(){
+    protected void setGlobalListeners() {
         syncGroupsListeners = new ArrayList<DataSyncListener>();
         syncContactsListeners = new ArrayList<DataSyncListener>();
         syncBlackListListeners = new ArrayList<DataSyncListener>();
@@ -523,7 +524,7 @@ public class DemoHelper {
         };
 
         IntentFilter callFilter = new IntentFilter(EMClient.getInstance().callManager().getIncomingCallBroadcastAction());
-        if(callReceiver == null){
+        if (callReceiver == null) {
             callReceiver = new CallReceiver();
         }
 
@@ -546,8 +547,8 @@ public class DemoHelper {
     /**
      * register group and contact listener, you need register when login
      */
-    public void registerGroupAndContactListener(){
-        if(!isGroupAndContactListenerRegisted){
+    public void registerGroupAndContactListener() {
+        if (!isGroupAndContactListenerRegisted) {
             EMClient.getInstance().groupManager().addGroupChangeListener(new MyGroupChangeListener());
             EMClient.getInstance().contactManager().setContactListener(new MyContactListener());
             isGroupAndContactListenerRegisted = true;
@@ -786,7 +787,7 @@ public class DemoHelper {
     protected android.os.Handler handler = new android.os.Handler() {
         @Override
         public void handleMessage(Message msg) {
-            String str = (String)msg.obj;
+            String str = (String) msg.obj;
             Toast.makeText(appContext, str, Toast.LENGTH_LONG).show();
         }
     };
@@ -873,10 +874,11 @@ public class DemoHelper {
 
     /**
      * save and notify invitation message
+     *
      * @param msg
      */
-    private void notifyNewInviteMessage(InviteMessage msg){
-        if(inviteMessgeDao == null){
+    private void notifyNewInviteMessage(InviteMessage msg) {
+        if (inviteMessgeDao == null) {
             inviteMessgeDao = new InviteMessgeDao(appContext);
         }
         inviteMessgeDao.saveMessage(msg);
@@ -889,28 +891,28 @@ public class DemoHelper {
     /**
      * user met some exception: conflict, removed or forbidden
      */
-    protected void onUserException(String exception){
+    protected void onUserException(String exception) {
         EMLog.e(TAG, "onUserException: " + exception);
 //            Intent intent = new Intent(appContext, LoginActivity.class);
 //            appContext.startActivity(intent);
-        RxBus.getInstance().send(SubscriptionBean.createSendBean(SubscriptionBean.OUTLOGIN,""));
+        RxBus.getInstance().send(SubscriptionBean.createSendBean(SubscriptionBean.OUTLOGIN, ""));
 
 
     }
 
-    private EaseUser getUserInfo(String username){
+    private EaseUser getUserInfo(String username) {
         // To get instance of EaseUser, here we get it from the user list in memory
         // You'd better cache it if you get it from your server
         EaseUser user = null;
-        if(username.equals(EMClient.getInstance().getCurrentUser()))
+        if (username.equals(EMClient.getInstance().getCurrentUser()))
             return getUserProfileManager().getCurrentUserInfo();
         user = getContactList().get(username);
-        if(user == null && getRobotList() != null){
+        if (user == null && getRobotList() != null) {
             user = getRobotList().get(username);
         }
 
         // if user is not in your contacts, set inital letter for him/her
-        if(user == null){
+        if (user == null) {
             user = new EaseUser(username);
             EaseCommonUtils.setUserInitialLetter(user);
         }
@@ -922,30 +924,48 @@ public class DemoHelper {
      * If this event already handled by an activity, you don't need handle it again
      * activityList.size() <= 0 means all activities already in background or not in Activity Stack
      */
+    public static final String NAME = "hx_name";
+    public static final String UID = "hx_uid";
+    public static final String FUID = "hx_fuid";
+    public static final String MSID = "re_msid";
+    public static final String CONTENT = "re_content";
+    public static final String EXETEND = "rb_extend";
+    public static final String GID = "hx_gid";
     protected void registerMessageListener() {
         messageListener = new EMMessageListener() {
             private BroadcastReceiver broadCastReceiver = null;
 
             @Override
             public void onMessageReceived(List<EMMessage> messages) {
+                RxBus.getInstance().send(SubscriptionBean.createSendBean(SubscriptionBean.MESSAGENOTIFI,messages));
                 for (EMMessage message : messages) {
                     EMLog.d(TAG, "onMessageReceived id : " + message.getMsgId());
                     // in background, do not refresh UI, notify it in notification bar
                     String avatar = HxMessageUtils.getFAvater(message);
                     String name = HxMessageUtils.getFName(message);
-                    if(!easeUI.hasForegroundActivies()){
+                    final String conts = message.getStringAttribute(CONTENT, "");
+                    final String msid = message.getStringAttribute(MSID, "");
+                    final String userId ;
+                    if(message.getChatType() == EMMessage.ChatType.GroupChat){
+                        userId = message.getStringAttribute(GID, "");
+                    }else {
+                        userId = message.getFrom();
 
-                        if(name.contains("!@#$$#@!")){
+                    }
+
+                    if (!easeUI.hasForegroundActivies()) {
+
+                        if (name.contains("!@#$$#@!")) {
 
                             String[] split = name.split(",");
-                            if(split!=null&&split.length==2){
-                                RxBus.getInstance().send(SubscriptionBean.createSendBean(SubscriptionBean.QFRIED_SEND_FRESH,split[1]));
+                            if (split != null && split.length == 2) {
+                                RxBus.getInstance().send(SubscriptionBean.createSendBean(SubscriptionBean.QFRIED_SEND_FRESH, split[1]));
                                 String qfriend = SpUtil.getString(appContext, "qfriend", "");
-                                if(TextUtil.isNotEmpty(qfriend)){
-                                        qfriend=qfriend+","+split[1]+"#"+avatar;
-                                        SpUtil.putString(appContext,"qfriend",qfriend);
-                                }else {
-                                    SpUtil.putString(appContext,"qfriend",split[1]+"#"+avatar);
+                                if (TextUtil.isNotEmpty(qfriend)) {
+                                    qfriend = qfriend + "," + split[1] + "#" + avatar;
+                                    SpUtil.putString(appContext, "qfriend", qfriend);
+                                } else {
+                                    SpUtil.putString(appContext, "qfriend", split[1] + "#" + avatar);
                                 }
 
                             }
@@ -954,38 +974,70 @@ public class DemoHelper {
                             return;
                         }
 
-                            EMTextMessageBody body = (EMTextMessageBody) message.getBody();
-                            String contents  = body.getMessage();
-                        if(contents.equals("*&@@&*")){
-                            RxBus.getInstance().send(SubscriptionBean.createSendBean(SubscriptionBean.LIVE_SEND_FRESH,""));
+                        EMTextMessageBody body = (EMTextMessageBody) message.getBody();
+                        final String contents = body.getMessage();
+                        if (contents.equals("*&@@&*")) {
+                            RxBus.getInstance().send(SubscriptionBean.createSendBean(SubscriptionBean.LIVE_SEND_FRESH, ""));
 
                             return;
-                        }else  if(contents.contains("&!&&!&")){
+                        } else if (contents.contains("&!&&!&")) {
                             String[] split = contents.split("&!&&!&");
-                            if(split!=null&&split.length==2){
-                                RxBus.getInstance().send(SubscriptionBean.createSendBean(SubscriptionBean.LIVE_SEND_FRESH,split[0]+","+split[1]));
+                            if (split != null && split.length == 2) {
+                                RxBus.getInstance().send(SubscriptionBean.createSendBean(SubscriptionBean.LIVE_SEND_FRESH, split[0] + "," + split[1]));
                             }
-
                             return;
-                        }else {
-                                getNotifier().onNewMsg(message);
-                            }
+                        } else if (contents.contains("@@@###!!")) {
 
 
-                    }else {
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
 
-                        if(name.contains("!@#$$#@!")){
+                                    EMConversation conversation = EMClient.getInstance().chatManager().getConversation(userId, EaseCommonUtils.getConversationType(Constant.CHATTYPE_SINGLE), true);
+                                    if(conversation==null){
+                                        return;
+                                    }
+                                    java.util.List<EMMessage> var = conversation.getAllMessages();
+
+                                    if(var==null){
+                                        return;
+                                    }
+                                    for (EMMessage msg : var) {
+                                        if (msg.getMsgId().equals(msid)) {
+
+                                            msg.setAttribute(EaseConstant.EXTRA_RED, true);
+                                            msg.setAttribute(EaseConstant.EXTRA_RED_TYPE, "4");
+                                            msg.setAttribute(EXETEND, conts);
+
+                                            EMTextMessageBody var4 = new EMTextMessageBody(conts);
+                                            msg.addBody(var4);
+                                            DemoHelper.getInstance().upDateMessage(msg);
+                                        }
+
+
+                                    }
+                                }
+                            }).start();
+                            return;
+                        } else {
+                            getNotifier().onNewMsg(message);
+                        }
+
+
+                    } else {
+
+                        if (name.contains("!@#$$#@!")) {
 
                             String[] split = name.split(",");
-                            if(split!=null&&split.length==2){
-                                RxBus.getInstance().send(SubscriptionBean.createSendBean(SubscriptionBean.QFRIED_SEND_FRESH,split[1]));
+                            if (split != null && split.length == 2) {
+                                RxBus.getInstance().send(SubscriptionBean.createSendBean(SubscriptionBean.QFRIED_SEND_FRESH, split[1]));
 
                                 String qfriend = SpUtil.getString(appContext, "qfriend", "");
-                                if(TextUtil.isNotEmpty(qfriend)){
-                                    qfriend=qfriend+","+split[1]+"#"+avatar;
-                                    SpUtil.putString(appContext,"qfriend",qfriend);
-                                }else {
-                                    SpUtil.putString(appContext,"qfriend",split[1]+"#"+avatar);
+                                if (TextUtil.isNotEmpty(qfriend)) {
+                                    qfriend = qfriend + "," + split[1] + "#" + avatar;
+                                    SpUtil.putString(appContext, "qfriend", qfriend);
+                                } else {
+                                    SpUtil.putString(appContext, "qfriend", split[1] + "#" + avatar);
                                 }
 
                             }
@@ -994,17 +1046,56 @@ public class DemoHelper {
                             return;
                         }
                         EMTextMessageBody body = (EMTextMessageBody) message.getBody();
-                        String contents  = body.getMessage();
-                        if(contents.equals("*&@@&*")){
-                            RxBus.getInstance().send(SubscriptionBean.createSendBean(SubscriptionBean.LIVE_SEND_FRESH,""));
+                        String contents = body.getMessage();
+                        if (contents.equals("*&@@&*")) {
+                            RxBus.getInstance().send(SubscriptionBean.createSendBean(SubscriptionBean.LIVE_SEND_FRESH, ""));
 
                             return;
-                        }else  if(contents.contains("&!&&!&")){
+                        } else if (contents.contains("&!&&!&")) {
                             String[] split = contents.split("&!&&!&");
-                            if(split!=null&&split.length==2){
-                                RxBus.getInstance().send(SubscriptionBean.createSendBean(SubscriptionBean.LIVE_SEND_FRESH,split[0]+","+split[1]));
+                            if (split != null && split.length == 2) {
+                                RxBus.getInstance().send(SubscriptionBean.createSendBean(SubscriptionBean.LIVE_SEND_FRESH, split[0] + "," + split[1]));
                                 return;
                             }
+                        } else if (contents.contains("&!&&!&")) {
+                            String[] split = contents.split("&!&&!&");
+                            if (split != null && split.length == 2) {
+                                RxBus.getInstance().send(SubscriptionBean.createSendBean(SubscriptionBean.LIVE_SEND_FRESH, split[0] + "," + split[1]));
+                                return;
+                            }
+                        }else if (contents.contains("@@@###!!")) {
+
+
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+
+                                    EMConversation conversation = EMClient.getInstance().chatManager().getConversation(userId, EaseCommonUtils.getConversationType(Constant.CHATTYPE_SINGLE), true);
+
+                                    if(conversation==null){
+                                        return;
+                                    }
+                                    java.util.List<EMMessage> var = conversation.getAllMessages();
+
+                                    if(var==null){
+                                        return;
+                                    }
+                                    for (EMMessage msg : var) {
+                                        if (msg.getMsgId().equals(msid)) {
+
+                                            msg.setAttribute(EaseConstant.EXTRA_RED, true);
+                                            msg.setAttribute(EaseConstant.EXTRA_RED_TYPE, "4");
+                                            msg.setAttribute(EXETEND, conts);
+                                            EMTextMessageBody var4 = new EMTextMessageBody(conts);
+                                            msg.addBody(var4);
+                                            DemoHelper.getInstance().upDateMessage(msg);
+                                        }
+
+
+                                    }
+                                }
+                            }).start();
+                            return;
                         }
 
                     }
@@ -1034,7 +1125,7 @@ public class DemoHelper {
                     //获取扩展属性 此处省略
                     //maybe you need get extension of your message
                     //message.getStringAttribute("");
-                    EMLog.d(TAG, String.format("Command：action:%s,message:%s", action,message.toString()));
+                    EMLog.d(TAG, String.format("Command：action:%s,message:%s", action, message.toString()));
                 }
             }
 
@@ -1045,7 +1136,6 @@ public class DemoHelper {
             @Override
             public void onMessageDelivered(List<EMMessage> message) {
             }
-
 
 
             @Override
@@ -1070,10 +1160,8 @@ public class DemoHelper {
     /**
      * logout
      *
-     * @param unbindDeviceToken
-     *            whether you need unbind your device token
-     * @param callback
-     *            callback
+     * @param unbindDeviceToken whether you need unbind your device token
+     * @param callback          callback
      */
     public void logout(boolean unbindDeviceToken, final EMCallBack callback) {
         endCall();
@@ -1110,13 +1198,14 @@ public class DemoHelper {
 
     /**
      * get instance of EaseNotifier
+     *
      * @return
      */
-    public EaseNotifier getNotifier(){
+    public EaseNotifier getNotifier() {
         return easeUI.getNotifier();
     }
 
-    public DemoModel getModel(){
+    public DemoModel getModel() {
         return demoModel;
     }
 
@@ -1126,7 +1215,7 @@ public class DemoHelper {
      * @param aContactList
      */
     public void setContactList(Map<String, EaseUser> aContactList) {
-        if(aContactList == null){
+        if (aContactList == null) {
             if (contactList != null) {
                 contactList.clear();
             }
@@ -1139,18 +1228,22 @@ public class DemoHelper {
     /**
      * save single contact
      */
-    public void saveContact(EaseUser user){
+    public void saveContact(EaseUser user) {
         contactList.put(user.getUsername(), user);
         demoModel.saveContact(user);
     }
 
-    public void upDateName(String name ,String id){
+    public void upDateName(String name, String id) {
         EMConversation conversation = EMClient.getInstance().chatManager().getConversation(id); //获取此会话的所有消息
         List<EMMessage> messages = conversation.getAllMessages(); //SDK初始化加载的聊天记录为20条，到顶时需要去DB里获取更多 //获取startMsgId之前的pagesize条消息，此方法获取的messages SDK会自动存入到此会话中，APP中无需再次把获取到的messages添加到会话中
-        for(EMMessage message:messages){
+        for (EMMessage message : messages) {
             EMMessage message1 = HxMessageUtils.updateName(message, name);
             EMClient.getInstance().chatManager().updateMessage(message1);
         }
+    }
+
+    public void upDateMessage(EMMessage message1) {
+        EMClient.getInstance().chatManager().updateMessage(message1);
     }
 
     /**
@@ -1164,7 +1257,7 @@ public class DemoHelper {
         }
 
         // return a empty non-null object to avoid app crash
-        if(contactList == null){
+        if (contactList == null) {
             return new Hashtable<String, EaseUser>();
         }
 
@@ -1173,9 +1266,10 @@ public class DemoHelper {
 
     /**
      * set current username
+     *
      * @param username
      */
-    public void setCurrentUserName(String username){
+    public void setCurrentUserName(String username) {
         this.username = username;
         demoModel.setCurrentUserName(username);
     }
@@ -1183,8 +1277,8 @@ public class DemoHelper {
     /**
      * get current user's id
      */
-    public String getCurrentUsernName(){
-        if(username == null){
+    public String getCurrentUsernName() {
+        if (username == null) {
             username = demoModel.getCurrentUsernName();
         }
         return username;
@@ -1287,23 +1381,24 @@ public class DemoHelper {
     /**
      * Get group list from server
      * This method will save the sync state
+     *
      * @throws HyphenateException
      */
-    public synchronized void asyncFetchGroupsFromServer(final EMCallBack callback){
-        if(isSyncingGroupsWithServer){
+    public synchronized void asyncFetchGroupsFromServer(final EMCallBack callback) {
+        if (isSyncingGroupsWithServer) {
             return;
         }
 
         isSyncingGroupsWithServer = true;
 
-        new Thread(){
+        new Thread() {
             @Override
-            public void run(){
+            public void run() {
                 try {
                     EMClient.getInstance().groupManager().getJoinedGroupsFromServer();
 
                     // in case that logout already before server returns, we should return immediately
-                    if(!isLoggedIn()){
+                    if (!isLoggedIn()) {
                         isGroupsSyncedWithServer = false;
                         isSyncingGroupsWithServer = false;
                         noitifyGroupSyncListeners(false);
@@ -1318,7 +1413,7 @@ public class DemoHelper {
                     //notify sync group list success
                     noitifyGroupSyncListeners(true);
 
-                    if(callback != null){
+                    if (callback != null) {
                         callback.onSuccess();
                     }
                 } catch (HyphenateException e) {
@@ -1326,7 +1421,7 @@ public class DemoHelper {
                     isGroupsSyncedWithServer = false;
                     isSyncingGroupsWithServer = false;
                     noitifyGroupSyncListeners(false);
-                    if(callback != null){
+                    if (callback != null) {
                         callback.onError(e.getErrorCode(), e.toString());
                     }
                 }
@@ -1335,27 +1430,27 @@ public class DemoHelper {
         }.start();
     }
 
-    public void noitifyGroupSyncListeners(boolean success){
+    public void noitifyGroupSyncListeners(boolean success) {
         for (DataSyncListener listener : syncGroupsListeners) {
             listener.onSyncComplete(success);
         }
     }
 
-    public void asyncFetchContactsFromServer(final EMValueCallBack<List<String>> callback){
-        if(isSyncingContactsWithServer){
+    public void asyncFetchContactsFromServer(final EMValueCallBack<List<String>> callback) {
+        if (isSyncingContactsWithServer) {
             return;
         }
 
         isSyncingContactsWithServer = true;
 
-        new Thread(){
+        new Thread() {
             @Override
-            public void run(){
+            public void run() {
                 List<String> usernames = null;
                 try {
                     usernames = EMClient.getInstance().contactManager().getAllContactsFromServer();
                     // in case that logout already before server returns, we should return immediately
-                    if(!isLoggedIn()){
+                    if (!isLoggedIn()) {
                         isContactsSyncedWithServer = false;
                         isSyncingContactsWithServer = false;
                         notifyContactsSyncListener(false);
@@ -1385,7 +1480,7 @@ public class DemoHelper {
                     //notify sync success
                     notifyContactsSyncListener(true);
 
-                    getUserProfileManager().asyncFetchContactInfosFromServer(usernames,new EMValueCallBack<List<EaseUser>>() {
+                    getUserProfileManager().asyncFetchContactInfosFromServer(usernames, new EMValueCallBack<List<EaseUser>>() {
 
                         @Override
                         public void onSuccess(List<EaseUser> uList) {
@@ -1397,7 +1492,7 @@ public class DemoHelper {
                         public void onError(int error, String errorMsg) {
                         }
                     });
-                    if(callback != null){
+                    if (callback != null) {
                         callback.onSuccess(usernames);
                     }
                 } catch (HyphenateException e) {
@@ -1406,7 +1501,7 @@ public class DemoHelper {
                     isSyncingContactsWithServer = false;
                     notifyContactsSyncListener(false);
                     e.printStackTrace();
-                    if(callback != null){
+                    if (callback != null) {
                         callback.onError(e.getErrorCode(), e.toString());
                     }
                 }
@@ -1415,28 +1510,28 @@ public class DemoHelper {
         }.start();
     }
 
-    public void notifyContactsSyncListener(boolean success){
+    public void notifyContactsSyncListener(boolean success) {
         for (DataSyncListener listener : syncContactsListeners) {
             listener.onSyncComplete(success);
         }
     }
 
-    public void asyncFetchBlackListFromServer(final EMValueCallBack<List<String>> callback){
+    public void asyncFetchBlackListFromServer(final EMValueCallBack<List<String>> callback) {
 
-        if(isSyncingBlackListWithServer){
+        if (isSyncingBlackListWithServer) {
             return;
         }
 
         isSyncingBlackListWithServer = true;
 
-        new Thread(){
+        new Thread() {
             @Override
-            public void run(){
+            public void run() {
                 try {
                     List<String> usernames = EMClient.getInstance().contactManager().getBlackListFromServer();
 
                     // in case that logout already before server returns, we should return immediately
-                    if(!isLoggedIn()){
+                    if (!isLoggedIn()) {
                         isBlackListSyncedWithServer = false;
                         isSyncingBlackListWithServer = false;
                         notifyBlackListSyncListener(false);
@@ -1449,7 +1544,7 @@ public class DemoHelper {
                     isSyncingBlackListWithServer = false;
 
                     notifyBlackListSyncListener(true);
-                    if(callback != null){
+                    if (callback != null) {
                         callback.onSuccess(usernames);
                     }
                 } catch (HyphenateException e) {
@@ -1459,7 +1554,7 @@ public class DemoHelper {
                     isSyncingBlackListWithServer = true;
                     e.printStackTrace();
 
-                    if(callback != null){
+                    if (callback != null) {
                         callback.onError(e.getErrorCode(), e.toString());
                     }
                 }
@@ -1468,7 +1563,7 @@ public class DemoHelper {
         }.start();
     }
 
-    public void notifyBlackListSyncListener(boolean success){
+    public void notifyBlackListSyncListener(boolean success) {
         for (DataSyncListener listener : syncBlackListListeners) {
             listener.onSyncComplete(success);
         }
@@ -1498,7 +1593,7 @@ public class DemoHelper {
         return isBlackListSyncedWithServer;
     }
 
-    synchronized void reset(){
+    synchronized void reset() {
         isSyncingGroupsWithServer = false;
         isSyncingContactsWithServer = false;
         isSyncingBlackListWithServer = false;
