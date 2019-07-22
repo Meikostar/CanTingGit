@@ -132,7 +132,7 @@ public class ChangPaySmsPActivity extends BaseAllActivity implements OtherContra
         map.put("mobileNumber", mobile);
         map.put("smsType",  6+"");
         map.put("type", 1+"");
-
+        map.put("companyType", CanTingAppLication.CompanyType);
         netService api = HttpUtil.getInstance().create(netService.class);
         api.getCall(map).enqueue(new BaseCallBack<BaseResponse>() {
             @Override

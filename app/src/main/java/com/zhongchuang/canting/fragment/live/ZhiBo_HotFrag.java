@@ -194,7 +194,7 @@ public class ZhiBo_HotFrag extends LazyFragment implements GetLiveViewCallBack {
         map.put("pageNum", currpage+"");
         map.put("pageSize", "12");
         map.put("userInfoId", CanTingAppLication.userId);
-
+        map.put("companyType", CanTingAppLication.CompanyType);
         presenter.getLatestVideoList(map,type);
     }
 

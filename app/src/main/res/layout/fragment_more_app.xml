@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+        <android.support.v7.widget.CardView
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:id="@+id/card"
+            tools:targetApi="lollipop"
+            android:layout_width="match_parent"
+            android:layout_height="190dp"
+            android:stateListAnimator="@drawable/lift_on_touch"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:cardCornerRadius="5dp"
+            app:cardUseCompatPadding="true"
+            app:cardPreventCornerOverlap="false">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                        <com.zhongchuang.canting.widget.NoScrollGridView
+
+                            android:id="@+id/grid_content1"
+                            android:layout_width="match_parent"
+                            android:layout_height="190dp"
+                            android:background="@color/white"
+                            android:listSelector="@color/transparent"
+                            android:numColumns="4"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp" />
+
+
+                </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+</LinearLayout>

@@ -99,6 +99,7 @@ public class Regist_ChecknumFragment extends Fragment implements RegisterViewCal
                 Map<String, String> map = new HashMap<>();
                 map.put("mobileNumber", (CanTingAppLication.code.equals("86")?"": CanTingAppLication.code)+mobileNumber);
                 map.put("code", checkNum);
+                map.put("companyType", CanTingAppLication.CompanyType);
                 presenter.checkCode(map);
                 mDialog = new ProgressDialog(getActivity());
                 mDialog.setMessage(getString(R.string.jyz));

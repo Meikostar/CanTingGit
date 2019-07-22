@@ -61,7 +61,7 @@ public final class BadgeUtil {
 
     /**
      * 设置MIUI的Badge
-     *builder.setContentTitle("信联").setContentText("你的好友发来一条消息").setSmallIcon(R.drawable.logo).setAutoCancel(true);
+     *builder.setContentTitle("生活吧").setContentText("你的好友发来一条消息").setSmallIcon(R.drawable.logo).setAutoCancel(true);
      * @param context context
      * @param count   count
      */
@@ -70,7 +70,7 @@ public final class BadgeUtil {
         NotificationManager mNotificationManager = (NotificationManager) context
                 .getSystemService(Context.NOTIFICATION_SERVICE);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
-        builder.setContentTitle("信联").setContentText("你的好友发来一条消息").setSmallIcon(iconResId);
+        builder.setContentTitle("生活吧").setContentText("你的好友发来一条消息").setSmallIcon(iconResId);
         Notification notification = builder.build();
         try {
             Field field = notification.getClass().getDeclaredField("extraNotification");

@@ -1,8 +1,9 @@
 apply plugin: 'com.android.application'
 //apply plugin: 'com.jakewharton.butterknife'
-apply plugin: 'com.neenbedankt.android-apt'
+//apply plugin: 'com.neenbedankt.android-apt'
 
-
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 26
     buildToolsVersion '26.0.2'
@@ -25,7 +26,7 @@ android {
         minSdkVersion MIN_SDK_VERSION as int
         targetSdkVersion TARGET_SDK_VERSION as int
         versionCode 1
-        versionName "2.8.0"
+        versionName "1.5.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         ndk {
@@ -33,7 +34,9 @@ android {
         }
         //方法超出65536 解决方法
         multiDexEnabled true
-
+//        jackOptions {
+//            enabled true
+//        }
     }
     sourceSets {
         main {
@@ -70,7 +73,10 @@ android {
         checkReleaseBuilds false
         abortOnError false
     }
-
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 
 }
 
@@ -84,12 +90,12 @@ repositories {
         dirs 'src/main/libs' //就是你放aar的目录地址
     }
 
-    maven {
-        url "https://raw.githubusercontent.com/HyphenateInc/Hyphenate-SDK-Android/master/repository"
-    }
-    /* //GLIDE 4.0.0配置
+//    maven {
+//        url "https://raw.githubusercontent.com/HyphenateInc/Hyphenate-SDK-Android/master/repository"
+//    }
+     //GLIDE 4.0.0配置
     mavenCentral()
-    maven { url 'https://maven.google.com' }*/
+    maven { url 'https://maven.google.com' }
 
     //方法超出65536 解决方法
 
@@ -146,5 +152,6 @@ dependencies {
     compile 'com.malinskiy:superrecyclerview:1.1.4'
     compile 'tyrant:heartlayout:1.0.1'
     testCompile 'junit:junit:4.12'
-    apt 'com.jakewharton:butterknife-compiler:8.8.1'
+    compile"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 }

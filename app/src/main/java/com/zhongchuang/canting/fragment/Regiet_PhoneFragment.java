@@ -158,6 +158,7 @@ public class Regiet_PhoneFragment extends Fragment implements RegisterViewCallba
                 presenter.getYzm("1", (CanTingAppLication.code.equals("86") ? "" : CanTingAppLication.code) + mobileNumber, CanTingAppLication.code);
                 break;
             case R.id.login_yanzhen_login:
+                mobileNumber = loginYanzhenPhone.getText().toString().trim();
                 checkNum = loginYanzhenYanzhenma.getText().toString().trim();
                 invitationCode = ctInvitation.getText().toString().trim();
                 // SMSSDK.submitVerificationCode("86", Regiet_PhoneFragment.mobileNumber, registCheckPhoneyanzhen.getText().toString());
@@ -165,11 +166,11 @@ public class Regiet_PhoneFragment extends Fragment implements RegisterViewCallba
                     Toast.makeText(getActivity(), R.string.yzmbnwk, Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (TextUtil.isEmpty(invitationCode)) {
-
-                    Toast.makeText(getActivity(), "请输入邀请码", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+//                if (TextUtil.isEmpty(invitationCode)) {
+//
+//                    Toast.makeText(getActivity(), "请输入邀请码", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
                 if (TextUtil.isNotEmpty(invitationCode) && invitationCode.length()!=6) {
                     ctInvitation.setText("");
                     Toast.makeText(getActivity(), "邀请码错误", Toast.LENGTH_SHORT).show();
@@ -178,10 +179,11 @@ public class Regiet_PhoneFragment extends Fragment implements RegisterViewCallba
                 Map<String, String> map = new HashMap<>();
                 map.put("mobileNumber", (CanTingAppLication.code.equals("86") ? "" : CanTingAppLication.code) + mobileNumber);
                 map.put("code", checkNum);
+                map.put("companyType", CanTingAppLication.CompanyType);
                 if(TextUtil.isNotEmpty(invitationCode)){
                     map.put("invitationCode", invitationCode);
                 }
-
+                map.put("companyType", CanTingAppLication.CompanyType);
                 presenter.checkCode(map);
                 mDialog = new ProgressDialog(getActivity());
                 mDialog.setMessage(getString(R.string.jxz));

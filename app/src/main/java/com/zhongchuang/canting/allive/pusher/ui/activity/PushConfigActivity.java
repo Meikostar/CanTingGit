@@ -179,7 +179,7 @@ public class PushConfigActivity extends BaseActivity1 implements OtherContract.V
 
     private List<WaterMarkInfo> waterMarkInfos = new ArrayList<>();
 
-    private int mCameraId = Camera.CameraInfo.CAMERA_FACING_FRONT;
+    private int mCameraId = Camera.CameraInfo.CAMERA_FACING_BACK;
     private boolean isFlash = false;
 
     private String mAuthTimeStr = "";
@@ -971,16 +971,27 @@ public class PushConfigActivity extends BaseActivity1 implements OtherContract.V
 
 
     private PhotoPopupWindow mWindowAddPhoto;
-
+    private int state;
     public void showAddPhotoWindow() {
         View view = LayoutInflater.from(this).inflate(R.layout.view_add_photo_windows, null);
+       TextView tvType1= view.findViewById(R.id.tv_type);
+       TextView tvType2= view.findViewById(R.id.tv_type2);
+       View line= view.findViewById(R.id.line1);
+       View line2= view.findViewById(R.id.line2);
+       tvType1.setVisibility(View.VISIBLE);
+        line.setVisibility(View.VISIBLE);
+       tvType2.setVisibility(View.VISIBLE);
+        line2.setVisibility(View.VISIBLE);
        TextView name= view.findViewById(R.id.tv_video);
        TextView names= view.findViewById(R.id.tv_photo);
-       name.setText("横屏直播");
-        names.setText("竖屏直播");
-        view.findViewById(R.id.tv_photo).setOnClickListener(new View.OnClickListener() {
+       name.setText("横屏直播(前置拍摄)");
+        tvType1.setText("横屏直播(后置拍摄)");
+        names.setText("竖屏直播(前置拍摄)");
+        tvType2.setText("竖屏直播(后置拍摄)");
+        view.findViewById(R.id.tv_type2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                state=1;
                 if (mAlivcLivePushConfig != null) {
                     mAlivcLivePushConfig.setPreviewOrientation(ORIENTATION_PORTRAIT);
                     mOrientationEnum = ORIENTATION_PORTRAIT;
@@ -1003,9 +1014,62 @@ public class PushConfigActivity extends BaseActivity1 implements OtherContract.V
                 mWindowAddPhoto.dismiss();
             }
         });
+        view.findViewById(R.id.tv_photo).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                state=2;
+                if (mAlivcLivePushConfig != null) {
+                    mAlivcLivePushConfig.setPreviewOrientation(ORIENTATION_PORTRAIT);
+                    mOrientationEnum = ORIENTATION_PORTRAIT;
+                    if (mAlivcLivePushConfig.getPausePushImage() != null && !mAlivcLivePushConfig.getPausePushImage().equals("")) {
+                        mAlivcLivePushConfig.setPausePushImage(Environment.getExternalStorageDirectory().getPath() + File.separator + "alivc_resource/background_push.png");
+                    }
+                    if (mAlivcLivePushConfig.getNetworkPoorPushImage() != null && !mAlivcLivePushConfig.getNetworkPoorPushImage().equals("")) {
+                        mAlivcLivePushConfig.setNetworkPoorPushImage(Environment.getExternalStorageDirectory().getPath() + File.separator + "alivc_resource/poor_network.png");
+                    }
+                }
+                String chatRoomId = SpUtil.getChatRoomId(PushConfigActivity.this);
+                if(TextUtil.isEmpty(chatRoomId)){
+                    return;
+                }
+                presenter.setLiveNotifyUrl(1);
+                if(TextUtil.isNotEmpty(id)){
+                    presenter.updateType(id,1+"");
+                }
+
+                mWindowAddPhoto.dismiss();
+            }
+        });
+        view.findViewById(R.id.tv_type).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                state=1;
+                if (mAlivcLivePushConfig != null) {
+                    mAlivcLivePushConfig.setPreviewOrientation(ORIENTATION_LANDSCAPE_HOME_RIGHT);
+                    mOrientationEnum = ORIENTATION_LANDSCAPE_HOME_RIGHT;
+                    if (mAlivcLivePushConfig.getPausePushImage() != null && !mAlivcLivePushConfig.getPausePushImage().equals("")) {
+                        mAlivcLivePushConfig.setPausePushImage(Environment.getExternalStorageDirectory().getPath() + File.separator + "alivc_resource/background_push_land.png");
+                    }
+                    if (mAlivcLivePushConfig.getNetworkPoorPushImage() != null && !mAlivcLivePushConfig.getNetworkPoorPushImage().equals("")) {
+                        mAlivcLivePushConfig.setNetworkPoorPushImage(Environment.getExternalStorageDirectory().getPath() + File.separator + "alivc_resource/poor_network_land.png");
+                    }
+                }
+                String chatRoomId = SpUtil.getChatRoomId(PushConfigActivity.this);
+                if(TextUtil.isEmpty(chatRoomId)){
+                    return;
+                }
+                presenter.setLiveNotifyUrl(2);
+                if(TextUtil.isNotEmpty(id)){
+                    presenter.updateType(id,2+"");
+                }
+
+                mWindowAddPhoto.dismiss();
+            }
+        });
         view.findViewById(R.id.tv_video).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                state=2;
                 if (mAlivcLivePushConfig != null) {
                     mAlivcLivePushConfig.setPreviewOrientation(ORIENTATION_LANDSCAPE_HOME_RIGHT);
                     mOrientationEnum = ORIENTATION_LANDSCAPE_HOME_RIGHT;
@@ -1422,7 +1486,12 @@ public class PushConfigActivity extends BaseActivity1 implements OtherContract.V
 
         String chatRoomId = SpUtil.getChatRoomId(PushConfigActivity.this);
         if (getPushConfig() != null) {
-            LivePushActivity.startActivity(PushConfigActivity.this,chatRoomId, mAlivcLivePushConfig, SpUtil.getLiveUrl(PushConfigActivity.this), mAsyncValue, mAudioOnlyPush, mVideoOnlyPush, mOrientationEnum, mCameraId, isFlash, mAuthTimeStr, mPrivacyKeyStr, mMixStream, mAlivcLivePushConfig.isExternMainStream());
+            if(state==1){
+                mCameraId = Camera.CameraInfo.CAMERA_FACING_BACK;
+            }else {
+                mCameraId = Camera.CameraInfo.CAMERA_FACING_FRONT;
+            }
+            LivePushActivity.startActivity(PushConfigActivity.this,chatRoomId, mAlivcLivePushConfig, SpUtil.getLiveUrl(PushConfigActivity.this), mAsyncValue, mAudioOnlyPush, mVideoOnlyPush, mOrientationEnum, mCameraId, isFlash, mAuthTimeStr, mPrivacyKeyStr, mMixStream, mAlivcLivePushConfig.isExternMainStream(),state);
             finish();
 //                    LivePushActivity.startActivity(PushConfigActivity.this, mAlivcLivePushConfig, SpUtil.getUrl(PushConfigActivity.this), mAsyncValue, mAudioOnlyPush, mVideoOnlyPush, mOrientationEnum, mCameraId, isFlash, mAuthTimeStr, mPrivacyKeyStr, mMixStream, mAlivcLivePushConfig.isExternMainStream());
         }

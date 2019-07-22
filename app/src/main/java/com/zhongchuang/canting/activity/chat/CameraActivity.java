@@ -23,6 +23,7 @@ import com.alibaba.sdk.android.vod.upload.VODUploadClientImpl;
 import com.alibaba.sdk.android.vod.upload.model.UploadFileInfo;
 import com.alibaba.sdk.android.vod.upload.model.VodInfo;
 import com.zhongchuang.canting.R;
+import com.zhongchuang.canting.allive.cameralibrary.CaptureButton;
 import com.zhongchuang.canting.allive.cameralibrary.JCameraView;
 import com.zhongchuang.canting.allive.cameralibrary.listener.ClickListener;
 import com.zhongchuang.canting.allive.cameralibrary.listener.ErrorListener;
@@ -139,7 +140,12 @@ public class CameraActivity extends AppCompatActivity implements   OtherContract
         jCameraView.setLeftClickListener(new ClickListener() {
             @Override
             public void onClick() {
-                CameraActivity.this.finish();
+                if(CaptureButton.state==CaptureButton.STATE_RECORDERING){
+
+                }else {
+                    CameraActivity.this.finish();
+                }
+
             }
         });
         jCameraView.setRightClickListener(new ClickListener() {

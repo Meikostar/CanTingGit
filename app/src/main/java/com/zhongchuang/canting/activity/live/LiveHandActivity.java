@@ -123,6 +123,9 @@ public class LiveHandActivity extends BaseActivity1 implements BaseContract.View
         if (type == 1||type==2) {
             showToasts(getString(R.string.czcg));
             presenter.getHostdirHostList();
+        } if (type == 3||type==4) {
+            showToasts(getString(R.string.czcg));
+            presenter.getHostdirHostList();
         } else {
             dimessProgress();
             List<Hand> hand = (List<Hand>) entity;

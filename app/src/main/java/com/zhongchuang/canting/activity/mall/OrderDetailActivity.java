@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.ChatActivity;
 import com.zhongchuang.canting.adapter.OrderItemAdapter;
+import com.zhongchuang.canting.app.CanTingAppLication;
 import com.zhongchuang.canting.base.BaseActivity1;
 import com.zhongchuang.canting.been.Oparam;
 import com.zhongchuang.canting.been.OrderData;
@@ -86,6 +87,7 @@ public class OrderDetailActivity extends BaseActivity1 implements BaseContract.V
 
 
     private String id;
+    private String companyType;
     private String transaction_id;
 
     private ArrayList<UploadFileBean> img_path = new ArrayList<>();
@@ -123,9 +125,13 @@ public class OrderDetailActivity extends BaseActivity1 implements BaseContract.V
             }
         });
         id = getIntent().getStringExtra("id");
+        companyType = getIntent().getStringExtra("companyType");
         transaction_id = getIntent().getStringExtra("transaction_id");
         presenter = new BasesPresenter(this);
-        presenter.orderDetails(id);
+        if(TextUtil.isEmpty(companyType)){
+            companyType= CanTingAppLication.CompanyType;
+        }
+        presenter.orderDetails(id,companyType);
         adapter = new OrderItemAdapter(this);
         rlMenu.setAdapter(adapter);
 
@@ -137,7 +143,7 @@ public class OrderDetailActivity extends BaseActivity1 implements BaseContract.V
         tvCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showPopwind(id);
+                showPopwind(transaction_id);
             }
         });
         tvCopy.setOnClickListener(new View.OnClickListener() {
@@ -174,6 +180,7 @@ public class OrderDetailActivity extends BaseActivity1 implements BaseContract.V
                 order.transaction_id=transaction_id;
                 Intent intent = new Intent(OrderDetailActivity.this, EditorOrderActivity.class);
                 intent.putExtra("data", order);
+                intent.putExtra("companyType", companyType);
                 intent.putExtra("type", data.proSite.equals("1")?1:2);
                 startActivity(intent);
             }
@@ -211,7 +218,7 @@ public class OrderDetailActivity extends BaseActivity1 implements BaseContract.V
             @Override
             public void onClick(View v) {
                 showProgress(getString(R.string.qxzs));
-                presenter.receiptGoods( "",id);
+                presenter.deleteOrder( id);
                 dialog.dismiss();
             }
         });
@@ -306,7 +313,7 @@ public class OrderDetailActivity extends BaseActivity1 implements BaseContract.V
             }
 
         }else {
-            presenter.orderDetails(id);
+            presenter.orderDetails(id,companyType);
         }
 
     }

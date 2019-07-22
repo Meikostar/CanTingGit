@@ -99,6 +99,11 @@ public class LiaoTianFragment extends EaseConversationListFragment implements Vi
         }
 
         @Override
+        public void onMessageRecalled(List<EMMessage> list) {
+
+        }
+
+        @Override
         public void onMessageChanged(EMMessage message, Object change) {
             //消息状态变动
         }

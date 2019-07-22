@@ -44,6 +44,7 @@ public class OtherPresenter implements OtherContract.Presenter {
 
         Map<String, String> map = new HashMap<>();
         map.put("liveFirstId", id);
+        map.put("companyType", CanTingAppLication.CompanyType);
         map.put("userInfoId",  TextUtil.isEmpty(SpUtil.getUserInfoId(CanTingAppLication.getInstance())) ? "" : SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
         api.getDefaultVideoAndCategory(map).enqueue(new BaseCallBack<VideoData>() {
             @Override
@@ -66,7 +67,7 @@ public class OtherPresenter implements OtherContract.Presenter {
         Map<String, String> params = new TreeMap<>();
 
         params.put("userInfoId", TextUtil.isEmpty(SpUtil.getUserInfoId(CanTingAppLication.getInstance())) ? "" : SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
-
+        params.put("companyType", CanTingAppLication.CompanyType);
 
         api.getLiveCategory(params).enqueue(new BaseCallBack<LiveTypeBean>() {
 
@@ -89,6 +90,8 @@ public class OtherPresenter implements OtherContract.Presenter {
         Map<String, String> map = new HashMap<>();
 
         map.put("userInfoId",  TextUtil.isEmpty(SpUtil.getUserInfoId(CanTingAppLication.getInstance())) ? "" : SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
+        map.put("companyType", CanTingAppLication.CompanyType);
+
         api.getHotDirect(map).enqueue(new BaseCallBack<VideoData>() {
             @Override
             public void onSuccess(VideoData userLoginBean) {
@@ -109,6 +112,7 @@ public class OtherPresenter implements OtherContract.Presenter {
 
         Map<String, String> map = new HashMap<>();
         map.put("liveFirstId", id);
+        map.put("companyType", CanTingAppLication.CompanyType);
         map.put("userInfoId",  TextUtil.isEmpty(SpUtil.getUserInfoId(CanTingAppLication.getInstance())) ? "" : SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
         api.getDefaultLiveAndCategory(map).enqueue(new BaseCallBack<VideoData>() {
             @Override
@@ -177,7 +181,7 @@ public class OtherPresenter implements OtherContract.Presenter {
 
         Map<String, String> map = new HashMap<>();
         map.put("userInfoId", SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
-
+        map.put("companyType", CanTingAppLication.CompanyType);
 
         api.getFirstCategoryList(map).enqueue(new BaseCallBack<LiveItemBean>() {
 
@@ -221,7 +225,7 @@ public class OtherPresenter implements OtherContract.Presenter {
         Map<String, String> map = new HashMap<>();
         map.put("userInfoId", SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
         map.put("liveThirdId",liveThirdId);
-
+        map.put("companyType", CanTingAppLication.CompanyType);
 
         api.getVideoListByThirdid(map).enqueue(new BaseCallBack<VideoMoreData>() {
 
@@ -252,7 +256,7 @@ public class OtherPresenter implements OtherContract.Presenter {
             map.put("liveThirdId",liveThirdId);
         }
 
-
+        map.put("companyType", CanTingAppLication.CompanyType);
 
 
 
@@ -288,7 +292,7 @@ public class OtherPresenter implements OtherContract.Presenter {
 
 
 
-
+        map.put("companyType", CanTingAppLication.CompanyType);
 
 
         api.searchDirectByNameOrCategory(map).enqueue(new BaseCallBack<VideoMoreData>() {
@@ -312,7 +316,7 @@ public class OtherPresenter implements OtherContract.Presenter {
         Map<String, String> map = new HashMap<>();
         map.put("userInfoId", SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
         map.put("secondCategoryId", liveFirstId);
-
+        map.put("companyType", CanTingAppLication.CompanyType);
         api.getThirdList(map).enqueue(new BaseCallBack<LiveItemBean>() {
 
             @Override
@@ -426,7 +430,7 @@ public class OtherPresenter implements OtherContract.Presenter {
 
         Map<String, String> map = new HashMap<>();
         map.put("userInfoId", SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
-
+        map.put("companyType", CanTingAppLication.CompanyType);
         api.getPushUrl(map).enqueue(new BaseCallBack<aliLive>() {
 
             @Override
@@ -498,7 +502,7 @@ public class OtherPresenter implements OtherContract.Presenter {
         map.put("videoUrl", videoUrl);
         map.put("liveThirdId", liveThirdId);
         map.put("type", type+"");
-
+        map.put("companyType", CanTingAppLication.CompanyType);
         api.uploadVideo(map).enqueue(new BaseCallBack<BaseResponse>() {
 
             @Override
@@ -520,7 +524,7 @@ public class OtherPresenter implements OtherContract.Presenter {
 
         Map<String, String> map = new HashMap<>();
         map.put("userInfoId", SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
-
+        map.put("companyType", CanTingAppLication.CompanyType);
         api.addLiveRecordVod(map).enqueue(new BaseCallBack<aliLive>() {
 
             @Override
@@ -575,7 +579,7 @@ public class OtherPresenter implements OtherContract.Presenter {
         map.put("userInfoId", SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
         map.put("mobileNumber", mobileNumber);
         map.put("code", code);
-
+        map.put("companyType", CanTingAppLication.CompanyType);
         api.payCheckCode(map).enqueue(new BaseCallBack<BaseResponse>() {
 
             @Override

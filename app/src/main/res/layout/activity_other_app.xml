@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhongchuang.canting.widget.StickyScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:background="@color/white"
+        android:orientation="vertical"
+
+        >
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="0.0000dp" />
+
+        <ImageView
+            android:scaleType="fitXY"
+            android:src="@drawable/app_new_1"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="24dp"
+            android:layout_height="34dp"
+            android:padding="6dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="35dp"
+            android:src="@drawable/arrow_left_white" />
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_marginTop="158dp"
+            android:layout_centerHorizontal="true"
+            android:layout_width="84dp"
+            android:layout_height="84dp"
+            android:src="@drawable/editor_ava" />
+
+
+        <LinearLayout
+            android:id="@+id/ll_bg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/logo"
+            android:layout_marginBottom="25dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:orientation="vertical"
+
+            >
+
+
+
+            <TextView
+                android:id="@+id/app_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:gravity="center"
+
+                android:text="智信"
+                android:textColor="#333"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+
+
+
+
+        <LinearLayout
+            android:layout_below="@+id/ll_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="116dp"
+                android:layout_marginTop="0.8dp"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.CardView
+
+                    android:id="@+id/card1"
+                    tools:targetApi="lollipop"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:stateListAnimator="@drawable/lift_on_touch"
+                    android:layout_weight="1"
+                    android:layout_marginBottom="8dp"
+                    android:clickable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardCornerRadius="@dimen/dp_4"
+                    app:cardUseCompatPadding="true"
+                    app:cardPreventCornerOverlap="false">
+
+                    <LinearLayout
+                        android:background="@drawable/app_new_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_marginLeft="29dp"
+                            android:layout_marginTop="24dp"
+
+                            android:maxLines="1"
+                            android:textSize="15sp"
+                            android:textColor="@color/white"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="企业专供"/>
+                        <TextView
+                            android:layout_marginLeft="29dp"
+                            android:gravity="center"
+                            android:layout_marginTop="15dp"
+                            android:background="@drawable/white_rectanges"
+                            android:maxLines="1"
+                            android:textSize="13sp"
+                            android:textColor="#60B4EB"
+                            android:layout_width="69dp"
+                            android:layout_height="26dp"
+                            android:text="进入"/>
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+                <android.support.v7.widget.CardView
+                    android:id="@+id/card2"
+                    tools:targetApi="lollipop"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:stateListAnimator="@drawable/lift_on_touch"
+                    android:layout_weight="1"
+                    android:layout_marginBottom="8dp"
+                    android:clickable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardCornerRadius="@dimen/dp_4"
+                    app:cardUseCompatPadding="true"
+                    app:cardPreventCornerOverlap="false">
+
+                    <LinearLayout
+                        android:background="@drawable/app_new_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_marginLeft="29dp"
+                            android:layout_marginTop="24dp"
+
+                            android:maxLines="1"
+                            android:textSize="15sp"
+                            android:textColor="@color/white"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="厂家直供"/>
+                        <TextView
+                            android:layout_marginLeft="29dp"
+                            android:gravity="center"
+                            android:layout_marginTop="15dp"
+                            android:background="@drawable/white_rectanges"
+                            android:maxLines="1"
+                            android:textSize="13sp"
+                            android:textColor="#FB9278"
+                            android:layout_width="69dp"
+                            android:layout_height="26dp"
+                            android:text="进入"/>
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="116dp"
+                android:layout_marginTop="0.8dp"
+                android:background="@color/white"
+                android:orientation="horizontal">
+                <android.support.v7.widget.CardView
+                    android:id="@+id/card3"
+                    tools:targetApi="lollipop"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:stateListAnimator="@drawable/lift_on_touch"
+                    android:layout_weight="1"
+                    android:layout_marginBottom="8dp"
+                    android:clickable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardCornerRadius="@dimen/dp_4"
+                    app:cardUseCompatPadding="true"
+                    app:cardPreventCornerOverlap="false">
+
+                    <LinearLayout
+                        android:background="@drawable/app_new_4"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_marginLeft="29dp"
+                            android:layout_marginTop="24dp"
+
+                            android:maxLines="1"
+                            android:textSize="15sp"
+                            android:textColor="@color/white"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="企业专供"/>
+                        <TextView
+                            android:layout_marginLeft="29dp"
+                            android:gravity="center"
+                            android:layout_marginTop="15dp"
+                            android:background="@drawable/white_rectanges"
+                            android:maxLines="1"
+                            android:textSize="13sp"
+                            android:textColor="#E18DE0"
+                            android:layout_width="69dp"
+                            android:layout_height="26dp"
+                            android:text="进入"/>
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+                <android.support.v7.widget.CardView
+                    android:id="@+id/card4"
+                    tools:targetApi="lollipop"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:stateListAnimator="@drawable/lift_on_touch"
+                    android:layout_weight="1"
+                    android:layout_marginBottom="8dp"
+                    android:clickable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardCornerRadius="@dimen/dp_4"
+                    app:cardUseCompatPadding="true"
+                    app:cardPreventCornerOverlap="false">
+
+                    <LinearLayout
+                        android:background="@drawable/app_new_5"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_marginLeft="29dp"
+                            android:layout_marginTop="24dp"
+
+                            android:maxLines="1"
+                            android:textSize="15sp"
+                            android:textColor="@color/white"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="直播录屏"/>
+                        <TextView
+                            android:layout_marginLeft="29dp"
+                            android:gravity="center"
+                            android:layout_marginTop="15dp"
+                            android:background="@drawable/white_rectanges"
+                            android:maxLines="1"
+                            android:textSize="13sp"
+                            android:textColor="#FCCE73"
+                            android:layout_width="69dp"
+                            android:layout_height="26dp"
+                            android:text="进入"/>
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</com.zhongchuang.canting.widget.StickyScrollView>
+

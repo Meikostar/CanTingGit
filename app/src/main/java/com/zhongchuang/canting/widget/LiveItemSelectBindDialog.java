@@ -186,6 +186,7 @@ public class LiveItemSelectBindDialog {
      * 市
      */
     private void setCity(){
+        
         List<String> city = mCitisDatasMap.get(mProvinceDatas.get(0));
         //if (city!=null && city.size()>0){
         mCycleWheelViewCity.setLabels(city);
@@ -254,12 +255,27 @@ public class LiveItemSelectBindDialog {
             }
         });
     }
-
+  public interface DisMissListener{
+        void dismissListener();
+  }
+  private DisMissListener listener;
+    public void  setDisMissListener(DisMissListener listener){
+        this.listener=listener;
+    }
     public void show(){
         mPopupWindow = new PopupWindow(mView, ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT);
         mPopupWindow.setBackgroundDrawable(new BitmapDrawable());
         mPopupWindow.setFocusable(true);
+        mPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                if(listener!=null){
+                    listener.dismissListener();
+                }
+
+            }
+        });
         if(mPopupWindow.isShowing()){
             mPopupWindow.dismiss();
         }else {

@@ -36,6 +36,7 @@ import com.zhongchuang.canting.been.FriendListBean;
 import com.zhongchuang.canting.been.GAME;
 import com.zhongchuang.canting.been.IMG;
 import com.zhongchuang.canting.been.SubscriptionBean;
+import com.zhongchuang.canting.easeui.conference.ConferenceActivity;
 import com.zhongchuang.canting.easeui.domain.EaseUser;
 import com.zhongchuang.canting.easeui.ui.AddFriendActivity;
 import com.zhongchuang.canting.easeui.ui.EaseContactListFragment;
@@ -85,6 +86,7 @@ public class TongXunLuFragment extends EaseContactListFragment implements View.O
     GridView gridView;
     ContactItemView add_friend;
     ContactItemView ct_mine;
+    ContactItemView conference_item;
     EditText tongxunluIpt;
     ImageView tongxunluBacbut;
     ImageView tongxunluFind;
@@ -113,6 +115,7 @@ public class TongXunLuFragment extends EaseContactListFragment implements View.O
         gridView = super.getView().findViewById(R.id.grid);
         add_friend = super.getView().findViewById(R.id.add_friend);
         ct_mine = super.getView().findViewById(R.id.ct_mine);
+        conference_item = super.getView().findViewById(R.id.conference_item);//音视频会议
         tongxunluIpt = super.getView().findViewById(R.id.query);
         tongxunluBacbut = super.getView().findViewById(R.id.tongxunlu_bacbut);
         tongxunluFind = super.getView().findViewById(R.id.tongxunlu_find);
@@ -150,6 +153,12 @@ public class TongXunLuFragment extends EaseContactListFragment implements View.O
             }
         });
         ct_mine.setValues(SpUtil.getName(getActivity())+"  (自己)",SpUtil.getAvar(getActivity()));
+        conference_item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                ConferenceActivity.startConferenceCall(getActivity(), null);
+            }
+        });
     }
 
 
@@ -459,7 +468,7 @@ public class TongXunLuFragment extends EaseContactListFragment implements View.O
     @Override
     public void onLongListItemClicked(EaseUser user) {
         EaseUser user1 = map.get(user.userid);
-        showPopwindow(user1.getNick()==null?(user1.getUsername()==null?user1.userid:user1.getUsername()):user1.getNick(),user.userid);
+        showPopwindow(user1.getNickname()==null?(user1.getUsername()==null?user1.userid:user1.getUsername()):user1.getNickname(),user.userid);
     }
 
     @Override

@@ -15,11 +15,13 @@ import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.LoginActivity;
+import com.zhongchuang.canting.app.CanTingAppLication;
 import com.zhongchuang.canting.base.BaseAllActivity;
 import com.zhongchuang.canting.base.LazyFragment;
 import com.zhongchuang.canting.been.GAME;
 import com.zhongchuang.canting.been.SubscriptionBean;
 import com.zhongchuang.canting.been.aliLive;
+import com.zhongchuang.canting.db.Constant;
 import com.zhongchuang.canting.fragment.live.UpdateVideoFragment;
 import com.zhongchuang.canting.fragment.live.VideoLiveFragment;
 import com.zhongchuang.canting.fragment.live.ZhiBoFragment;
@@ -81,6 +83,11 @@ public class LiveActivity extends BaseAllActivity implements View.OnClickListene
 
 
         setSelect(1);
+        if(!CanTingAppLication.CompanyType.equals(Constant.CompanyType)){
+
+            rdMine.setVisibility(View.GONE);
+            rdHome.setText("返回");
+        }
     }
 
     @Override

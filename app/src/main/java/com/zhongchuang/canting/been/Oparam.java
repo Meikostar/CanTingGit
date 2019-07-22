@@ -11,6 +11,7 @@ public class Oparam implements Serializable{
     public String productSkuId;
     public String number;
     public String integralPrice;
+    public String company_type;
     public String phoneMessage;
 
     @Override

@@ -126,7 +126,7 @@ public class ShopCarAdapter extends BaseAdapter {
          holder.card.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
-                 checkListener.checks(shopList.get(position).product_sku_id);
+                 checkListener.checks(shopList.get(position));
              }
          });
 
@@ -149,7 +149,7 @@ public class ShopCarAdapter extends BaseAdapter {
 
 
     public interface onCheckAllListener {
-        void checks(String data);
+        void checks(Product data);
     }
 
     private onCheckAllListener checkListener;

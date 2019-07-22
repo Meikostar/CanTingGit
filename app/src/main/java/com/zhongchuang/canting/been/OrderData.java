@@ -52,6 +52,7 @@ public class OrderData extends BaseResponse{
     public String mId;
     public String proSite;
     public String merName;
+    public String company_type;
     public String proSku;
     public String picture_sku_url;
     public String pro_site;

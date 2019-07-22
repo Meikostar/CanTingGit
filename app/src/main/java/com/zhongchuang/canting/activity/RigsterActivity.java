@@ -194,7 +194,7 @@ public class RigsterActivity extends BaseTitle_Activity {
         map.put("mobileNumber", mobile);
         map.put("smsType",  2+"");
         map.put("type", CanTingAppLication.code.equals("86")?1+"":2+"");
-
+        map.put("companyType", CanTingAppLication.CompanyType);
         netService api = HttpUtil.getInstance().create(netService.class);
         api.getCall(map).enqueue(new BaseCallBack<BaseResponse>() {
             @Override
@@ -221,7 +221,7 @@ public class RigsterActivity extends BaseTitle_Activity {
         map.put("code",  code);
         map.put("pwd", password);
         map.put("password", password);
-
+        map.put("companyType", CanTingAppLication.CompanyType);
         netService api = HttpUtil.getInstance().create(netService.class);
         api.updatePwd(map).enqueue(new BaseCallBack<BaseResponse>() {
             @Override

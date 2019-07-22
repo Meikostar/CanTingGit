@@ -285,6 +285,7 @@ public class JCameraView extends FrameLayout implements CameraInterface.CameraOp
         mCaptureLayout.setTypeLisenter(new TypeListener() {
             @Override
             public void cancel() {
+                alivc_time.setText("轻触拍照，长按2秒摄像");
                 machine.cancle(mVideoView.getHolder(), screenProp);
             }
 
@@ -475,7 +476,7 @@ public class JCameraView extends FrameLayout implements CameraInterface.CameraOp
 
     @Override
     public void resetState(int type) {
-        alivc_time.setText("00:00");
+//        alivc_time.setText("00:00");
         switch (type) {
             case TYPE_VIDEO:
                 stopVideo();    //停止播放

@@ -899,6 +899,11 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
     }
 
     @Override
+    public void onMessageRecalled(List<EMMessage> list) {
+
+    }
+
+    @Override
     public void onMessageChanged(EMMessage emMessage, Object change) {
         if (isMessageListInited) {
             messageList.refresh();
@@ -954,7 +959,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
         EaseAtMessageHelper.get().addAtUser(username);
         EaseUser user = EaseUserUtils.getUserInfo(username);
         if (user != null) {
-            username = user.getNick();
+            username = user.getNickname();
         }
         if (autoAddAtSymbol)
             inputMenu.insertText("@" + username + " ");
@@ -1340,20 +1345,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
             });
         }
 
-        @Override
-        public void onRemovedFromChatRoom(final String roomId, final String roomName, final String participant) {
-            getActivity().runOnUiThread(new Runnable() {
-                public void run() {
-                    if (roomId.equals(toChatUsername)) {
-                        Toast.makeText(getActivity(), R.string.quiting_the_chat_room, Toast.LENGTH_LONG).show();
-                        Activity activity = getActivity();
-                        if (activity != null && !activity.isFinishing()) {
-                            activity.finish();
-                        }
-                    }
-                }
-            });
-        }
+
 
         @Override
         public void onMemberJoined(final String roomId, final String participant) {
@@ -1375,6 +1367,21 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
                     }
                 });
             }
+        }
+
+        @Override
+        public void onRemovedFromChatRoom(int i, final String roomId, String s1, String s2) {
+            getActivity().runOnUiThread(new Runnable() {
+                public void run() {
+                    if (roomId.equals(toChatUsername)) {
+                        Toast.makeText(getActivity(), R.string.quiting_the_chat_room, Toast.LENGTH_LONG).show();
+                        Activity activity = getActivity();
+                        if (activity != null && !activity.isFinishing()) {
+                            activity.finish();
+                        }
+                    }
+                }
+            });
         }
 
 

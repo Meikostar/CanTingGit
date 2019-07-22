@@ -76,6 +76,7 @@ public class LivePushActivity extends AppCompatActivity {
     private static final int FLING_MIN_VELOCITY = 0;
     private final long REFRESH_INTERVAL = 1000;
     private static final String URL_KEY = "url_key";
+    private static final String STATE = "state";
     private static final String ROOM_ID = "room_id";
     private static final String ASYNC_KEY = "async_key";
     private static final String AUDIO_ONLY_KEY = "audio_only_key";
@@ -131,6 +132,7 @@ public class LivePushActivity extends AppCompatActivity {
     private boolean audioThreadOn = false;
 
     private int mNetWork = 0;
+    private int state = 1;
     private String room_id;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -145,6 +147,7 @@ public class LivePushActivity extends AppCompatActivity {
         mVideoOnly = getIntent().getBooleanExtra(VIDEO_ONLY_KEY, false);
         mOrientation = getIntent().getIntExtra(ORIENTATION_KEY, ORIENTATION_PORTRAIT.ordinal());
         mCameraId = getIntent().getIntExtra(CAMERA_ID, Camera.CameraInfo.CAMERA_FACING_FRONT);
+        state = getIntent().getIntExtra(STATE, 1);
         mFlash = getIntent().getBooleanExtra(FLASH_ON, false);
         mAuthTime = getIntent().getStringExtra(AUTH_TIME);
         mPrivacyKey = getIntent().getStringExtra(PRIVACY_KEY);
@@ -227,7 +230,7 @@ public class LivePushActivity extends AppCompatActivity {
             }
         });
 
-        mLivePushFragment = new LivePushFragment().newInstance(room_id,mPushUrl, mAsync, mAudioOnly, mVideoOnly, mCameraId, mFlash, mAlivcLivePushConfig.getQualityMode().getQualityMode(), mAuthTime, mPrivacyKey, mMixExtern, mMixMain);
+        mLivePushFragment = new LivePushFragment().newInstance(room_id,mPushUrl, mAsync, mAudioOnly, mVideoOnly, mCameraId, mFlash, mAlivcLivePushConfig.getQualityMode().getQualityMode(), mAuthTime, mPrivacyKey, mMixExtern, mMixMain,state);
         mLivePushFragment.setAlivcLivePusher(mAlivcLivePusher);
         mLivePushFragment.setStateListener(mStateListener);
         mPushTextStatsFragment = new PushTextStatsFragment();
@@ -427,11 +430,12 @@ public class LivePushActivity extends AppCompatActivity {
         }
     };
 
-    public static void startActivity(Activity activity,String id, AlivcLivePushConfig alivcLivePushConfig, String url, boolean async, boolean audioOnly, boolean videoOnly, AlivcPreviewOrientationEnum orientation, int cameraId, boolean isFlash, String authTime, String privacyKey, boolean mixExtern, boolean mixMain) {
+    public static void startActivity(Activity activity,String id, AlivcLivePushConfig alivcLivePushConfig, String url, boolean async, boolean audioOnly, boolean videoOnly, AlivcPreviewOrientationEnum orientation, int cameraId, boolean isFlash, String authTime, String privacyKey, boolean mixExtern, boolean mixMain,int state) {
         Intent intent = new Intent(activity, LivePushActivity.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable(AlivcLivePushConfig.CONFIG, alivcLivePushConfig);
         bundle.putString(URL_KEY, url);
+        bundle.putInt(STATE, state);
         bundle.putString(ROOM_ID, id);
         bundle.putBoolean(ASYNC_KEY, async);
         bundle.putBoolean(AUDIO_ONLY_KEY, audioOnly);

@@ -14,6 +14,7 @@ public class OrderParam implements Serializable{
     public String addressId;
     public String payType;
     public String integralPayType;
+    public String companyType;
     public String transaction_id;
     public List<Oparam> productList;
     public List<OrderParam> data;

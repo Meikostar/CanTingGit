@@ -86,7 +86,7 @@ public class DemoModel {
         if (userInfo != null) {
             user = new EaseUser(username);
             user.setAvatar(userInfo.user_avatar);
-            user.setNick(userInfo.user_name);
+            user.setNickname(userInfo.user_name);
             EaseCommonUtils.setUserInitialLetter(user);
         }
         return user;

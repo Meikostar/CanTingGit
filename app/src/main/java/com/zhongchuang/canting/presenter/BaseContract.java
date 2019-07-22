@@ -28,8 +28,8 @@ public class BaseContract {
          */
 
         void getDetails(String pageNum	,String startime,String type,final  int state);
-
-
+        void getHotDirect();
+        void getRecomdVideoList();
         void redGrab(String redEnvelopeId	,String sendType);
 
         /**
@@ -98,28 +98,28 @@ public class BaseContract {
          *
          * @param
          */
-        void getProDetail(String id);
+        void getProDetail(String id,String companyType);
 
         /**
          * 击加入购物车按钮获取产品的sku-接口
          *
          * @param
          */
-        void getProudctSku(String productPlatformId);
+        void getProudctSku(String productPlatformId,String companyType);
 
         /**
          * 获取产品的参数
          *
          * @param
          */
-        void getProParameter(String productSkuId);
+        void getProParameter(String productSkuId,String companyType);
 
         /**
          * 添加商品进购物车确定按钮-接口
          *
          * @param
          */
-        void addToCart(String shopId, String productPlatformId, String number, String proSite, String productSkuId);
+        void addToCart(String shopId, String productPlatformId, String number, String proSite, String productSkuId,String companyType);
 
 
         /**
@@ -211,7 +211,7 @@ public class BaseContract {
          *
          * @param
          */
-        void orderDetails(String orderId);
+        void orderDetails(String orderId,String companyType);
 
         /**
          * 获取我的收藏列表-接口

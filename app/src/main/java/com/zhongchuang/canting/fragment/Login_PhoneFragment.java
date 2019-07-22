@@ -218,7 +218,7 @@ public class Login_PhoneFragment extends BaseFragment implements RegisterViewCal
         mDialog.setMessage(getString(R.string.dlzqsh));
         mDialog.show();
        netService api = HttpUtil.getInstance().create(netService.class);
-       api.getCodeLogin("5",(CanTingAppLication.code.equals("86")?"":CanTingAppLication.code)+ phoneEt.getText().toString(), codeEt.getText().toString()).enqueue(new BaseCallBack<UserLoginBean>() {
+       api.getCodeLogin("5",(CanTingAppLication.code.equals("86")?"":CanTingAppLication.code)+ phoneEt.getText().toString(), codeEt.getText().toString(),CanTingAppLication.CompanyType).enqueue(new BaseCallBack<UserLoginBean>() {
            @Override
            public void onSuccess(UserLoginBean db) {
                try {

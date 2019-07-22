@@ -69,6 +69,8 @@ public class EaseChatRowText extends EaseChatRow {
         if(TextUtil.isEmpty(content)){
             if(message.getChatType()== EMMessage.ChatType.GroupChat){
                 tv_userid.setVisibility(VISIBLE);
+            }else  if(message.getChatType()== EMMessage.ChatType.ChatRoom){
+                tv_userid.setVisibility(VISIBLE);
             }else {
                 tv_userid.setVisibility(GONE);
             }

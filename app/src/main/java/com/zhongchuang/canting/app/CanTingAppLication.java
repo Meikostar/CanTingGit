@@ -22,6 +22,7 @@ import com.zhongchuang.canting.been.Contury;
 import com.zhongchuang.canting.been.INTEGRAL;
 import com.zhongchuang.canting.been.ProvinceModel;
 import com.zhongchuang.canting.been.ShareBean;
+import com.zhongchuang.canting.db.Constant;
 import com.zhongchuang.canting.easeui.DemoHelper;
 import com.zhongchuang.canting.easeui.EaseUI;
 import com.zhongchuang.canting.easeui.domain.EaseUser;
@@ -88,6 +89,7 @@ public class CanTingAppLication extends Application {
     public static  String stcry="xivcP4sGTIH7qz5TZjFMFe9Dyo3sz0";
     public static  String url="http://ychc.9913seo.com";
     public static  String code="86";
+    public static  String CompanyType= Constant.CompanyType;
     public static  String GroupName="";
     public static  List<String> headimage;
     public static  boolean isSetting=false;

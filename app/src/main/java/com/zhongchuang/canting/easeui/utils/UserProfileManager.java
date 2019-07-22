@@ -116,7 +116,7 @@ public class UserProfileManager {
 			String username = EMClient.getInstance().getCurrentUser();
 			currentUser = new EaseUser(username);
 			String nick = getCurrentUserNick();
-			currentUser.setNick((nick != null) ? nick : username);
+			currentUser.setNickname((nick != null) ? nick : username);
 			currentUser.setAvatar(getCurrentUserAvatar());
 		}
 		return currentUser;
@@ -144,7 +144,7 @@ public class UserProfileManager {
 			@Override
 			public void onSuccess(EaseUser value) {
 			    if(value != null){
-    				setCurrentUserNick(value.getNick());
+    				setCurrentUserNick(value.getNickname());
     				setCurrentUserAvatar(value.getAvatar());
 			    }
 			}
@@ -160,7 +160,7 @@ public class UserProfileManager {
 		ParseManager.getInstance().asyncGetUserInfo(username, callback);
 	}
 	private void setCurrentUserNick(String nickname) {
-		getCurrentUserInfo().setNick(nickname);
+		getCurrentUserInfo().setNickname(nickname);
 		PreferenceManager.getInstance().setCurrentUserNick(nickname);
 	}
 

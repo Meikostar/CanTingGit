@@ -47,8 +47,8 @@ public class DemoDBManager {
             for (EaseUser user : contactList) {
                 ContentValues values = new ContentValues();
                 values.put(UserDao.COLUMN_NAME_ID, user.getUsername());
-                if(user.getNick() != null)
-                    values.put(UserDao.COLUMN_NAME_NICK, user.getNick());
+                if(user.getNickname() != null)
+                    values.put(UserDao.COLUMN_NAME_NICK, user.getNickname());
                 if(user.getAvatar() != null)
                     values.put(UserDao.COLUMN_NAME_AVATAR, user.getAvatar());
                 db.replace(UserDao.TABLE_NAME, null, values);
@@ -74,7 +74,7 @@ public class DemoDBManager {
                 String nick = cursor.getString(cursor.getColumnIndex(UserDao.COLUMN_NAME_NICK));
                 String avatar = cursor.getString(cursor.getColumnIndex(UserDao.COLUMN_NAME_AVATAR));
                 EaseUser user = new EaseUser(username);
-                user.setNick(nick);
+                user.setNickname(nick);
                 user.setAvatar(avatar);
 //                LogUtil.d("查询的数据是name="+username+",,nick="+nick+",,,avatar="+avatar);
                 if (username.equals(Constant.NEW_FRIENDS_USERNAME) || username.equals(Constant.GROUP_USERNAME)
@@ -110,8 +110,8 @@ public class DemoDBManager {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(UserDao.COLUMN_NAME_ID, user.getUsername());
-        if(user.getNick() != null)
-            values.put(UserDao.COLUMN_NAME_NICK, user.getNick());
+        if(user.getNickname() != null)
+            values.put(UserDao.COLUMN_NAME_NICK, user.getNickname());
         if(user.getAvatar() != null)
             values.put(UserDao.COLUMN_NAME_AVATAR, user.getAvatar());
         if(db.isOpen()){

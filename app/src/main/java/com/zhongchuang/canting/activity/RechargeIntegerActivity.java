@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zhongchuang.canting.R;
+import com.zhongchuang.canting.app.CanTingAppLication;
 import com.zhongchuang.canting.base.BaseTitle_Activity;
 import com.zhongchuang.canting.been.BEAN;
 import com.zhongchuang.canting.been.BaseResponse;
@@ -155,7 +156,7 @@ public class RechargeIntegerActivity extends BaseTitle_Activity {
         map.put("mobileNumber", SpUtil.getMobileNumber(this));
         map.put("num", "-" + num);
         map.put("type", status + "");
-
+        map.put("companyType", CanTingAppLication.CompanyType);
 
         netService api = HttpUtil.getInstance().create(netService.class);
         api.updateIntegral(map).enqueue(new BaseCallBack<BaseResponse>() {

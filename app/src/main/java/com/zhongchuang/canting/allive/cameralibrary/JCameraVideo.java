@@ -238,6 +238,7 @@ public class JCameraVideo extends FrameLayout implements CameraInterface.CameraO
         mCaptureLayout.setTypeLisenter(new TypeListener() {
             @Override
             public void cancel() {
+
                 machine.cancle(mVideoView.getHolder(), screenProp);
             }
 

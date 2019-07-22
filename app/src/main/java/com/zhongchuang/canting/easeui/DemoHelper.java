@@ -242,9 +242,9 @@ public class DemoHelper {
         options.setRequireDeliveryAck(false);
 
         //you need apply & set your own id if you want to use google cloud messaging.
-        options.setGCMNumber("324169311137");
-        //you need apply & set your own id if you want to use Mi push notification
-        options.setMipushConfig("2882303761517426801", "5381742660801");
+//        options.setGCMNumber("324169311137");
+//        //you need apply & set your own id if you want to use Mi push notification
+//        options.setMipushConfig("2882303761517426801", "5381742660801");
         //you need apply & set your own id if you want to use Huawei push notification
 
 
@@ -426,9 +426,9 @@ public class DemoHelper {
                 EaseUser user = getUserInfo(message.getFrom());
                 if (user != null) {
                     if (EaseAtMessageHelper.get().isAtMeMsg(message)) {
-                        return String.format("%s @ you in group chat", user.getNick());
+                        return String.format("%s @ you in group chat", user.getNickname());
                     }
-                    return user.getNick() + ": " + ticker;
+                    return user.getNickname() + ": " + ticker;
                 } else {
                     if (EaseAtMessageHelper.get().isAtMeMsg(message)) {
                         return String.format("%s @ you in group chat", message.getFrom());
@@ -1135,6 +1135,11 @@ public class DemoHelper {
 
             @Override
             public void onMessageDelivered(List<EMMessage> message) {
+            }
+
+            @Override
+            public void onMessageRecalled(List<EMMessage> list) {
+
             }
 
 

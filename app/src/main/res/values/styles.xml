@@ -141,7 +141,15 @@
         <item name="android:indeterminateDrawable">@drawable/alivc_info_seekbar_bg_blue</item>
         <item name="android:thumb">@drawable/alivc_dialog_seek_thumb</item>
     </style>
-
+    <style name="style_debug_detail">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">10dip</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:textSize">15sp</item>
+    </style>
     <style name="edit_line_style" parent="@android:style/Widget.EditText">
         <item name="android:padding">5dp</item>
         <item name="android:maxLines">2</item>
@@ -151,7 +159,19 @@
         <item name="android:layout_margin">5dp</item>
         <item name="android:textSize">14sp</item>
     </style>
+    <style name="style_call_tools_panel_button_wrapper">
+        <item name="android:layout_width">0dip</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+    </style>
 
+    <style name="style_call_tools_panel_button">
+        <item name="android:layout_width">42dp</item>
+        <item name="android:layout_height">42dp</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:background">@drawable/em_call_btn_bg</item>
+    </style>
     <style name="edit_5line_style" parent="edit_line_style">
         <item name="android:maxLines">5</item>
     </style>

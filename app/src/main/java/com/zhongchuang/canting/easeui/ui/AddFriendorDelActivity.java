@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMGroup;
 import com.hyphenate.chat.EMGroupManager;
+import com.hyphenate.chat.EMGroupOptions;
 import com.hyphenate.exceptions.HyphenateException;
 import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.ChatActivity;
@@ -181,8 +182,8 @@ public class AddFriendorDelActivity extends BaseActivity {
 
         new Thread(){
             public void run() {
-                EMGroupManager.EMGroupOptions option = new EMGroupManager.EMGroupOptions();
-                option.maxUsers = 200;
+                EMGroupOptions option = new EMGroupOptions();
+                option.maxUsers = 500;
 //                option.style = EMGroupManager.EMGroupStyle.EMGroupStylePrivateMemberCanInvite;
 
                 try {

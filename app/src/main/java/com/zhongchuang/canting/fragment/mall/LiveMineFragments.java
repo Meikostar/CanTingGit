@@ -595,7 +595,7 @@ public class LiveMineFragments extends LazyFragment implements BaseContract.View
             dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                 @Override
                 public void onDismiss(DialogInterface dialog) {
-                    img_path="";
+
                 }
             });
             sure.setOnClickListener(new View.OnClickListener() {
@@ -799,6 +799,7 @@ public class LiveMineFragments extends LazyFragment implements BaseContract.View
         QiniuUtils.getInstance().upFile(path, token, new QiniuUtils.CompleteListener() {
             @Override
             public void completeListener(String urls) {
+                img_path="";
                 imgUrl = QiniuUtils.baseurl + urls;
                 presenter.addConfig(imgUrl,content.getText().toString(),liveThirdId);
 
@@ -912,7 +913,7 @@ public class LiveMineFragments extends LazyFragment implements BaseContract.View
                         presenter.updateCategory(liveFirstId,livesecondId,liveThirdId);
                     }
                     if(sta==0){
-                        showPopwind();
+//                        showPopwind();
                     }else if(sta==3||sta==4) {
                         if(sta==3){
                             showChooseAddPhotoWindow();
@@ -924,6 +925,14 @@ public class LiveMineFragments extends LazyFragment implements BaseContract.View
                         sta=0;
                     }
 
+                }
+            });
+            mSelectBindDialog.setDisMissListener(new LiveItemSelectBindDialog.DisMissListener() {
+                @Override
+                public void dismissListener() {
+                    if(sta==0){
+                        showPopwind();
+                    }
                 }
             });
         }

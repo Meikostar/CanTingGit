@@ -31,6 +31,7 @@ public class RegisterPresenterImpl extends BasePresenterImpl implements Register
         map.put("mobileNumber",phone);
         map.put("smsType",type);
         map.put("type", CanTingAppLication.code.equals("86")?"1":"2");
+        map.put("companyType", CanTingAppLication.CompanyType);
         api.getCall(map).enqueue(new BaseCallBack<BaseResponse>(){
             @Override
             public void onSuccess(BaseResponse baseResponse) {

@@ -66,6 +66,7 @@ public class EditorOrderActivity extends BaseActivity1 implements BaseContract.V
     private BasesPresenter presenter;
     private OrderParam param;
     private int type;
+    private String companyType;
     private String cont;
 
 
@@ -86,6 +87,8 @@ public class EditorOrderActivity extends BaseActivity1 implements BaseContract.V
         param = (OrderParam) getIntent().getSerializableExtra("data");
         type = getIntent().getIntExtra("type", 1);
         cont = getIntent().getStringExtra("cont");
+        companyType = getIntent().getStringExtra("companyType");
+
         Intent intent = new Intent(this, PayPalService.class);
 
         intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
@@ -95,6 +98,11 @@ public class EditorOrderActivity extends BaseActivity1 implements BaseContract.V
         presenter.getUserAddress("0");
         showSelectType();
         adapter.setType(type);
+        if(TextUtil.isNotEmpty(companyType)){
+            param.companyType=companyType;
+        }else {
+            param.companyType=CanTingAppLication.CompanyType;
+        }
         presenter.accountMoney(param);
         showProgress(getString(R.string.jzz));
     }
@@ -154,7 +162,11 @@ public class EditorOrderActivity extends BaseActivity1 implements BaseContract.V
                 }
                 actual_amount=totalPrice+"";
                 if(TextUtil.isEmpty(param.proSite)){
-                    return;
+                    if(type==0){
+                        return;
+                    }else {
+                        param.proSite=type+"";
+                    }
                 }
                 if(param.proSite.equals("1")){
                     shopBuyWindow.setData("￥ "+totalPrice+"");
@@ -169,6 +181,12 @@ public class EditorOrderActivity extends BaseActivity1 implements BaseContract.V
                     }
                     param.payType="0";
                     param.integralPayType="1";
+
+                    if(TextUtil.isNotEmpty(companyType)){
+                        param.companyType=companyType;
+                    }else {
+                        param.companyType=CanTingAppLication.CompanyType;
+                    }
                     presenter.submitOrder(param);
                     showProgress(getString(R.string.tjz));
                 }
@@ -231,14 +249,29 @@ public class EditorOrderActivity extends BaseActivity1 implements BaseContract.V
                     if(state==1){
                         param.payType="2";
                         param.integralPayType="2";
+                        if(TextUtil.isNotEmpty(companyType)){
+                            param.companyType=companyType;
+                        }else {
+                            param.companyType=CanTingAppLication.CompanyType;
+                        }
                         presenter.submitOrders(param);
                     }else if(state==2){
                         param.payType="1";
                         param.integralPayType="1";
+                        if(TextUtil.isNotEmpty(companyType)){
+                            param.companyType=companyType;
+                        }else {
+                            param.companyType=CanTingAppLication.CompanyType;
+                        }
                         presenter.submitOrder(param);
                     }else if(state==3) {
                         param.payType = "3";
                         param.integralPayType = "3";
+                        if(TextUtil.isNotEmpty(companyType)){
+                            param.companyType=companyType;
+                        }else {
+                            param.companyType=CanTingAppLication.CompanyType;
+                        }
                         presenter.submitOrderpal(param);
                     }
                     showProgress(getString(R.string.tjz));

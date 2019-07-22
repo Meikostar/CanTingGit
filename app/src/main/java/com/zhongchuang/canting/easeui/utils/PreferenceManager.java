@@ -32,10 +32,15 @@ public class PreferenceManager {
 	private String SHARED_KEY_SETTING_SPEAKER = "shared_key_setting_speaker";
 
 	private static String SHARED_KEY_SETTING_CHATROOM_OWNER_LEAVE = "shared_key_setting_chatroom_owner_leave";
-    private static String SHARED_KEY_SETTING_DELETE_MESSAGES_WHEN_EXIT_GROUP = "shared_key_setting_delete_messages_when_exit_group";
-    private static String SHARED_KEY_SETTING_AUTO_ACCEPT_GROUP_INVITATION = "shared_key_setting_auto_accept_group_invitation";
-    private static String SHARED_KEY_SETTING_ADAPTIVE_VIDEO_ENCODE = "shared_key_setting_adaptive_video_encode";
+	private static String SHARED_KEY_SETTING_DELETE_MESSAGES_WHEN_EXIT_GROUP = "shared_key_setting_delete_messages_when_exit_group";
+	private static String SHARED_KEY_SETTING_TRANSFER_FILE_BY_USER = "shared_key_setting_transfer_file_by_user";
+	private static String SHARED_KEY_SETTING_AUTODOWNLOAD_THUMBNAIL = "shared_key_setting_autodownload_thumbnail";
+	private static String SHARED_KEY_SETTING_AUTO_ACCEPT_GROUP_INVITATION = "shared_key_setting_auto_accept_group_invitation";
+	private static String SHARED_KEY_SETTING_ADAPTIVE_VIDEO_ENCODE = "shared_key_setting_adaptive_video_encode";
 	private static String SHARED_KEY_SETTING_OFFLINE_PUSH_CALL = "shared_key_setting_offline_push_call";
+	private static String SHARED_KEY_SETTING_RECORD_ON_SERVER = "shared_key_setting_record_on_server";
+	private static String SHARED_KEY_SETTING_MERGE_STREAM = "shared_key_setting_merge_stream";
+	private static String SHARED_KEY_SETTING_OFFLINE_LARGE_CONFERENCE_MODE = "shared_key_setting_offline_large_conference_mode";
 
 	private static String SHARED_KEY_SETTING_GROUPS_SYNCED = "SHARED_KEY_SETTING_GROUPS_SYNCED";
 	private static String SHARED_KEY_SETTING_CONTACT_SYNCED = "SHARED_KEY_SETTING_CONTACT_SYNCED";
@@ -50,6 +55,8 @@ public class PreferenceManager {
 	private static String SHARED_KEY_ENABLE_CUSTOM_SERVER = "SHARED_KEY_ENABLE_CUSTOM_SERVER";
 	private static String SHARED_KEY_ENABLE_CUSTOM_APPKEY = "SHARED_KEY_ENABLE_CUSTOM_APPKEY";
 	private static String SHARED_KEY_CUSTOM_APPKEY = "SHARED_KEY_CUSTOM_APPKEY";
+	private static String SHARED_KEY_MSG_ROAMING = "SHARED_KEY_MSG_ROAMING";
+	private static String SHARED_KEY_SHOW_MSG_TYPING = "SHARED_KEY_SHOW_MSG_TYPING";
 
 	private static String SHARED_KEY_CALL_MIN_VIDEO_KBPS = "SHARED_KEY_CALL_MIN_VIDEO_KBPS";
 	private static String SHARED_KEY_CALL_MAX_VIDEO_KBPS = "SHARED_KEY_CALL_Max_VIDEO_KBPS";
@@ -58,6 +65,84 @@ public class PreferenceManager {
 	private static String SHARED_KEY_CALL_BACK_CAMERA_RESOLUTION = "SHARED_KEY_CALL_BACK_CAMERA_RESOLUTION";
 	private static String SHARED_KEY_CALL_FRONT_CAMERA_RESOLUTION = "SHARED_KEY_FRONT_CAMERA_RESOLUTIOIN";
 	private static String SHARED_KEY_CALL_FIX_SAMPLE_RATE = "SHARED_KEY_CALL_FIX_SAMPLE_RATE";
+
+	private static String SHARED_KEY_PUSH_USE_FCM = "shared_key_push_use_fcm";
+
+
+
+	public void setTransferFileByUser(boolean value) {
+		editor.putBoolean(SHARED_KEY_SETTING_TRANSFER_FILE_BY_USER, value);
+		editor.apply();
+	}
+
+	public boolean isSetTransferFileByUser() {
+		return mSharedPreferences.getBoolean(SHARED_KEY_SETTING_TRANSFER_FILE_BY_USER, true);
+	}
+	public void setAudodownloadThumbnail(boolean autodownload) {
+		editor.putBoolean(SHARED_KEY_SETTING_AUTODOWNLOAD_THUMBNAIL, autodownload);
+		editor.apply();
+	}
+
+	public boolean isSetAutodownloadThumbnail() {
+		return mSharedPreferences.getBoolean(SHARED_KEY_SETTING_AUTODOWNLOAD_THUMBNAIL, true);
+	}
+
+
+	public void setRecordOnServer(boolean value) {
+		editor.putBoolean(SHARED_KEY_SETTING_RECORD_ON_SERVER, value);
+		editor.apply();
+	}
+
+	public boolean isRecordOnServer() {
+		return mSharedPreferences.getBoolean(SHARED_KEY_SETTING_RECORD_ON_SERVER, false);
+	}
+
+	public void setMergeStream(boolean value) {
+		editor.putBoolean(SHARED_KEY_SETTING_MERGE_STREAM, value);
+		editor.apply();
+	}
+
+	public boolean isMergeStream() {
+		return mSharedPreferences.getBoolean(SHARED_KEY_SETTING_MERGE_STREAM, false);
+	}
+
+
+	public boolean isMsgRoaming() {
+		return mSharedPreferences.getBoolean(SHARED_KEY_MSG_ROAMING, false);
+	}
+
+	public void setMsgRoaming(boolean isRoaming) {
+		editor.putBoolean(SHARED_KEY_MSG_ROAMING, isRoaming);
+		editor.apply();
+	}
+
+	public boolean isShowMsgTyping() {
+		return mSharedPreferences.getBoolean(SHARED_KEY_SHOW_MSG_TYPING, false);
+	}
+
+	public void showMsgTyping(boolean show) {
+		editor.putBoolean(SHARED_KEY_SHOW_MSG_TYPING, show);
+		editor.apply();
+	}
+
+	/**
+	 * ----------------------------------------- Call Option -----------------------------------------
+	 */
+
+
+
+
+
+	public void setUseFCM(boolean useFCM) {
+		editor.putBoolean(SHARED_KEY_PUSH_USE_FCM, useFCM);
+		editor.apply();
+	}
+
+	public boolean isUseFCM() {
+		return mSharedPreferences.getBoolean(SHARED_KEY_PUSH_USE_FCM, true);
+	}
+
+
 
 	@SuppressLint("CommitPrefEdits")
 	private PreferenceManager(Context cxt) {

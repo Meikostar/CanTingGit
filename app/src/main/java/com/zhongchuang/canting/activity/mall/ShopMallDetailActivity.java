@@ -103,6 +103,7 @@ public class ShopMallDetailActivity extends BaseAllActivity implements View.OnCl
     private int type = 1;
     private BasesPresenter presenter;
     private String id;
+    private String companyType;
     private BannerAdapter bannerAdapter;
     private ListImageAdapter imgadapter;
 
@@ -116,8 +117,14 @@ public class ShopMallDetailActivity extends BaseAllActivity implements View.OnCl
         scrollView.setFocusable(false);
         presenter = new BasesPresenter(this);
         id = getIntent().getStringExtra("id");
+        companyType = getIntent().getStringExtra("companyType");
         type = getIntent().getIntExtra("type", 1);
-        presenter.getProDetail(id);
+        if(TextUtil.isNotEmpty(companyType)){
+            presenter.getProDetail(id,companyType);
+        }else {
+            presenter.getProDetail(id,null);
+        }
+
         bannerAdapter = new BannerAdapter(this);
         imgadapter = new ListImageAdapter(this);
         rlMenu.setAdapter(imgadapter);
@@ -258,6 +265,10 @@ public class ShopMallDetailActivity extends BaseAllActivity implements View.OnCl
                 (TextUtil.isNotEmpty(bug.fiveSpeciValue) ? "," + bug.fiveSpeciValue : "")
         );
         intent.putExtra("type", type);
+        if(TextUtil.isNotEmpty(companyType)){
+            intent.putExtra("companyType", companyType);
+        }
+
         startActivity(intent);
     }
 
@@ -281,9 +292,16 @@ public class ShopMallDetailActivity extends BaseAllActivity implements View.OnCl
                     if (select == 1) {
                         goBuy();
                     } else {
-                        presenter.addToCart(shopId, product_platform_id, cout, type + "", types);
+
                         showProgress(getString(R.string.tjz));
-                        presenter.getProParameter(types);
+                        if(TextUtil.isNotEmpty(companyType)){
+                            presenter.addToCart(shopId, product_platform_id, cout, type + "", types,companyType);
+                            presenter.getProParameter(types,companyType);
+                        }else {
+                            presenter.getProParameter(types,null);
+                            presenter.addToCart(shopId, product_platform_id, cout, type + "", types,null);
+                        }
+
                     }
 
                 }
@@ -356,8 +374,17 @@ public class ShopMallDetailActivity extends BaseAllActivity implements View.OnCl
                 }
                 product_platform_id = product.product_platform_id;
                 shopId = product.shop_id;
-                presenter.getProudctSku(product.product_platform_id);
-                presenter.getProParameter(product.product_sku_id);
+                if(TextUtil.isNotEmpty(companyType)){
+                    presenter.getProudctSku(product.product_platform_id,companyType);
+                }else {
+                    presenter.getProudctSku(product.product_platform_id,null);
+                }
+                if(TextUtil.isNotEmpty(companyType)){
+                    presenter.getProParameter(product.product_sku_id,companyType);
+                }else {
+                    presenter.getProParameter(product.product_sku_id,null);
+                }
+
                 if (TextUtil.isNotEmpty(product.market_price)) {
                     shareBean.content_= shareBean.content_+"   市场价：￥"+product.market_price;
                     tvPriceMark.setText("￥" + product.market_price);

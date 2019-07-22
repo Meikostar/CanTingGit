@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="#ededed"
-    >
+    android:background="#ededed">
 
 
     <RelativeLayout
@@ -106,11 +106,17 @@
 
     </RelativeLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/find_frdRecy"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <com.malinskiy.superrecyclerview.SuperRecyclerView
 
-    </android.support.v7.widget.RecyclerView>
+        android:background="@color/content_bg"
+        android:id="@+id/find_frdRecy"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        app:mainLayoutId="@layout/layout_recyclerview_verticalscroll"
+        app:layout_moreProgress="@layout/view_more_progress"
+        app:recyclerClipToPadding="true"
+        app:scrollbarStyle="outsideOverlay" />
 
 </LinearLayout>

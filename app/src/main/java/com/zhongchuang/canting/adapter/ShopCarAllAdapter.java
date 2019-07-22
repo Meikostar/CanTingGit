@@ -72,8 +72,8 @@ public class ShopCarAllAdapter extends BaseAdapter {
         adapter.setData(shopList.get(position).protList);
         adapter.setOnCheckAllListener(new ShopCarAdapter.onCheckAllListener() {
             @Override
-            public void checks(String data) {
-                if(TextUtil.isNotEmpty(data)){
+            public void checks(Product data) {
+                if(data!=null){
                     checkListener.checks(data);
                 }else {
                     shopList.get(position).protList=adapter.getData();
@@ -99,7 +99,7 @@ public class ShopCarAllAdapter extends BaseAdapter {
 
 
     public interface onCheckAllListener {
-        void checks(String data);
+        void checks(Product data);
     }
 
     private onCheckAllListener checkListener;

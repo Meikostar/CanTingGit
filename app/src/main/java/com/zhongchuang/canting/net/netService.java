@@ -66,6 +66,7 @@ import com.zhongchuang.canting.been.UserLoginBean;
 import com.zhongchuang.canting.been.TencentSing;
 import com.zhongchuang.canting.been.Version;
 import com.zhongchuang.canting.been.VideoData;
+import com.zhongchuang.canting.been.VideoDatas;
 import com.zhongchuang.canting.been.VideoMoreData;
 import com.zhongchuang.canting.been.WEIXINREQ;
 import com.zhongchuang.canting.been.ZhiBo_GuanZhongBean;
@@ -127,7 +128,7 @@ public interface netService {
 //    public static final String TOM_BASE_URL = "http://47.74.189.52:8080/ifun/";
 //      public static final String TOM_BASE_URL = "http://119.23.235.1:8080/ifun/";
 //    public static final String TOM_BASE_URL = "http://120.77.222.116:8080/ifun/";
-    public static final String TOM_BASE_URL = "http://120.78.148.31:8080/ifun/";//替换信联服务器
+//    public static final String TOM_BASE_URL = "http://120.78.148.31:8080/ifun/";//替换生活吧服务器
 
 
 //    public static final String TOM_BASE_URL = "http://119.23.212.8:8080/ifun/";
@@ -143,7 +144,7 @@ public interface netService {
 //    public static final String TOM_BASE_URL = "http://119.23.235.1:8089/ifun/";
 //    public static final String TOM_BASE_URL = "http://119.23.235.1:8080/ifun/";
 
-//        public static final String TOM_BASE_URL = "http://192.168.0.104:8080/ifun/";
+     public static final String TOM_BASE_URL = "http://192.168.0.102:8080/ifun/";
 
 //    public static final String TOM_BASE_URL = "http://192.168.50.193:8780/ifun/";
 //    public static final String TOM_BASE_URL = "http://192.168.50.79:8780/ifun/";
@@ -274,6 +275,9 @@ public interface netService {
     @FormUrlEncoded
     @POST("wap/liveCategory/getDefaultVideoAndCategory")
     Call<VideoData> getDefaultVideoAndCategory(@FieldMap Map<String, String> map);
+    @FormUrlEncoded
+    @POST("wap/video/getRecomdVideoList")
+    Call<VideoDatas> getRecomdVideoList(@FieldMap Map<String, String> map);
 
     @FormUrlEncoded
     @POST("wap/directCategory/getDirectAndCategory")
@@ -296,11 +300,11 @@ public interface netService {
 
     @FormUrlEncoded
     @POST("wap/userLogin/login")
-    Call<UserLoginBean> getLoginMess(@Field("loginType") String type, @Field("loginIdentifier") String phone, @Field("loginCredential") String password);
+    Call<UserLoginBean> getLoginMess(@Field("loginType") String type, @Field("loginIdentifier") String phone, @Field("loginCredential") String password, @Field("companyType") String companyType);
 
     @FormUrlEncoded
     @POST(CODE_LOGIN)
-    Call<UserLoginBean> getCodeLogin(@Field("loginType") String type, @Field("loginIdentifier") String phone, @Field("loginCredential") String password);
+    Call<UserLoginBean> getCodeLogin(@Field("loginType") String type, @Field("loginIdentifier") String phone, @Field("loginCredential") String password, @Field("companyType") String companyType);
 
 
     @FormUrlEncoded
@@ -1165,5 +1169,7 @@ public interface netService {
     @FormUrlEncoded
     @POST("wap/directCategory/getLiveCategory")
     Call<LiveTypeBean> getLiveCategory(@FieldMap Map<String, String> opt);
+
+
 
 }

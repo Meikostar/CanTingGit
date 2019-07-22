@@ -44,6 +44,8 @@ import com.zhongchuang.canting.been.ShopBean;
 import com.zhongchuang.canting.been.TabEntity;
 import com.zhongchuang.canting.been.UserInfoBean;
 import com.zhongchuang.canting.been.Version;
+import com.zhongchuang.canting.been.VideoData;
+import com.zhongchuang.canting.been.VideoDatas;
 import com.zhongchuang.canting.been.WEIXINREQ;
 import com.zhongchuang.canting.been.ZhiBo_GuanZhongBean;
 import com.zhongchuang.canting.been.aliLive;
@@ -80,12 +82,35 @@ public class BasesPresenter implements BaseContract.Presenter {
 
         api = HttpUtil.getInstance().create(netService.class);
     }
+    @Override
+    public void getHotDirect() {
+
+        Map<String, String> map = new HashMap<>();
+
+        map.put("userInfoId",  TextUtil.isEmpty(SpUtil.getUserInfoId(CanTingAppLication.getInstance())) ? "" : SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
+        map.put("companyType", CanTingAppLication.CompanyType);
+
+        api.getHotDirect(map).enqueue(new BaseCallBack<VideoData>() {
+            @Override
+            public void onSuccess(VideoData userLoginBean) {
+
+                mView.toEntity(userLoginBean.data.videoList, 444);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+//                callBack.onFail(code,t);
+            }
+        });
+    }
 
     @Override
     public void getHomeBanner(String type) {
         Map<String, String> params = new TreeMap<>();
         params.put("imageSite", type);
         params.put("bannerSite", 0 + "");
+        params.put("companyType", CanTingAppLication.CompanyType);
         api.getBanner(params).enqueue(new BaseCallBack<Home>() {
 
             @Override
@@ -250,7 +275,7 @@ public class BasesPresenter implements BaseContract.Presenter {
         params.put("id", id);
         params.put("objectName", name);
         params.put("type", type);
-
+        params.put("companyType", CanTingAppLication.CompanyType);
         api.delVideo(params).enqueue(new BaseCallBack<BaseResponse>() {
 
             @Override
@@ -345,6 +370,7 @@ public class BasesPresenter implements BaseContract.Presenter {
         Map<String, String> params = new TreeMap<>();
         params.put("imageSite", type);
         params.put("bannerSite", 3 + "");
+        params.put("companyType", CanTingAppLication.CompanyType);
         api.getBanner(params).enqueue(new BaseCallBack<Home>() {
 
             @Override
@@ -481,7 +507,7 @@ public class BasesPresenter implements BaseContract.Presenter {
         if (!TextUtil.isEmpty(Id)) {
             params.put("Id", Id);
         }
-
+        params.put("companyType", CanTingAppLication.CompanyType);
         params.put("userInfoId", TextUtil.isEmpty(SpUtil.getUserInfoId(CanTingAppLication.getInstance())) ? "" : SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
         api.getFriendCirclesList(params).enqueue(new BaseCallBack<QfriendBean>() {
             @Override
@@ -620,7 +646,7 @@ public class BasesPresenter implements BaseContract.Presenter {
         if (!TextUtil.isEmpty(Id)) {
             params.put("Id", Id);
         }
-
+        params.put("companyType", CanTingAppLication.CompanyType);
         params.put("userInfoId", TextUtil.isEmpty(SpUtil.getUserInfoId(CanTingAppLication.getInstance())) ? "" : SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
         api.getFriendCirclesList(params).enqueue(new BaseCallBack<QfriendBean>() {
             @Override
@@ -675,7 +701,7 @@ public class BasesPresenter implements BaseContract.Presenter {
         map.put("coverImage", coverImage);
         map.put("videoName", videoName);
         map.put("liveThirdId", liveThirdId);
-
+        map.put("companyType", CanTingAppLication.CompanyType);
         api.addConfig(map).enqueue(new BaseCallBack<aliLive>() {
 
             @Override
@@ -742,7 +768,7 @@ public class BasesPresenter implements BaseContract.Presenter {
         map.put("liveFirstId", liveFirstId);
         map.put("liveSecondId", livesecondId);
         map.put("liveThirdId", liveThirdId);
-
+        map.put("companyType", CanTingAppLication.CompanyType);
         api.updateCategory(map).enqueue(new BaseCallBack<BaseResponse>() {
 
             @Override
@@ -763,7 +789,7 @@ public class BasesPresenter implements BaseContract.Presenter {
 
         Map<String, String> map = new HashMap<>();
         map.put("userInfoId", SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
-
+        map.put("companyType", CanTingAppLication.CompanyType);
         api.addLiveRecordVod(map).enqueue(new BaseCallBack<aliLive>() {
 
             @Override
@@ -784,7 +810,7 @@ public class BasesPresenter implements BaseContract.Presenter {
 
         Map<String, String> map = new HashMap<>();
         map.put("userInfoId", SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
-
+        map.put("companyType", CanTingAppLication.CompanyType);
         api.deleteConfig(map).enqueue(new BaseCallBack<BaseResponse>() {
 
             @Override
@@ -831,6 +857,7 @@ public class BasesPresenter implements BaseContract.Presenter {
         params.put("proSite", proSite);
         params.put("searchType", searchType);
         params.put("sortType", sortType);
+        params.put("companyType", CanTingAppLication.CompanyType);
         params.put("userInfoId", TextUtil.isEmpty(SpUtil.getUserInfoId(CanTingAppLication.getInstance())) ? "" : SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
         api.getProductList(params).enqueue(new BaseCallBack<Product>() {
 
@@ -846,7 +873,27 @@ public class BasesPresenter implements BaseContract.Presenter {
             }
         });
     }
+    @Override
+    public void getRecomdVideoList() {
 
+        Map<String, String> map = new HashMap<>();
+
+        map.put("companyType", CanTingAppLication.CompanyType);
+        map.put("userInfoId",  TextUtil.isEmpty(SpUtil.getUserInfoId(CanTingAppLication.getInstance())) ? "" : SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
+        api.getRecomdVideoList(map).enqueue(new BaseCallBack<VideoDatas>() {
+            @Override
+            public void onSuccess(VideoDatas userLoginBean) {
+
+                mView.toEntity(userLoginBean.data, 443);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+//                callBack.onFail(code,t);
+            }
+        });
+    }
     @Override
     public void getActivityProductList(final int type, String pageNum, String pageSize, String searchInfo, String proSite, String productType) {
         Map<String, String> params = new TreeMap<>();
@@ -855,6 +902,7 @@ public class BasesPresenter implements BaseContract.Presenter {
         params.put("searchInfo", searchInfo);
         params.put("proSite", proSite);
         params.put("productType", productType);
+        params.put("companyType", CanTingAppLication.CompanyType);
         params.put("userInfoId", TextUtil.isEmpty(SpUtil.getUserInfoId(CanTingAppLication.getInstance())) ? "" : SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
         api.getActivityProductList(params).enqueue(new BaseCallBack<Product>() {
 
@@ -902,6 +950,7 @@ public class BasesPresenter implements BaseContract.Presenter {
         params.put("pageSize", pageSize);
         params.put("secondCategoryName", secondCategoryName);
         params.put("proSite", proSite);
+        params.put("companyType", CanTingAppLication.CompanyType);
         api.getProductBySecondName(params).enqueue(new BaseCallBack<Product>() {
 
             @Override
@@ -960,6 +1009,7 @@ public class BasesPresenter implements BaseContract.Presenter {
     @Override
     public void getAllCateList() {
         Map<String, String> params = new TreeMap<>();
+        params.put("companyType", CanTingAppLication.CompanyType);
         api.getAllCateList(params).enqueue(new BaseCallBack<Catage>() {
 
             @Override
@@ -982,7 +1032,7 @@ public class BasesPresenter implements BaseContract.Presenter {
             params.put("id", id);
         }
 
-
+        params.put("companyType", CanTingAppLication.CompanyType);
         api.getSecondList(params).enqueue(new BaseCallBack<Catage>() {
 
             @Override
@@ -999,9 +1049,14 @@ public class BasesPresenter implements BaseContract.Presenter {
     }
 
     @Override
-    public void getProDetail(String id) {
+    public void getProDetail(String id,String companyType) {
         Map<String, String> params = new TreeMap<>();
         params.put("productSkuId", id);
+        if(TextUtil.isNotEmpty(companyType)){
+            params.put("companyType", companyType);
+        }else {
+            params.put("companyType", CanTingAppLication.CompanyType);
+        }
 
         api.getProDetail(params).enqueue(new BaseCallBack<ProductDel>() {
 
@@ -1020,13 +1075,16 @@ public class BasesPresenter implements BaseContract.Presenter {
 
 
     @Override
-    public void getProudctSku(String productPlatformId) {
+    public void getProudctSku(String productPlatformId,String companyType) {
         Map<String, String> params = new TreeMap<>();
         if (TextUtil.isNotEmpty(productPlatformId)) {
             params.put("productPlatformId", productPlatformId);
         }
-
-
+        if(TextUtil.isNotEmpty(companyType)){
+            params.put("companyType", companyType);
+        }else {
+            params.put("companyType", CanTingAppLication.CompanyType);
+        }
         api.getProudctSku(params).enqueue(new BaseCallBack<ProductBuy>() {
 
             @Override
@@ -1043,12 +1101,16 @@ public class BasesPresenter implements BaseContract.Presenter {
     }
 
     @Override
-    public void getProParameter(String productSkuId) {
+    public void getProParameter(String productSkuId,String companyType ) {
         Map<String, String> params = new TreeMap<>();
         if (TextUtil.isNotEmpty(productSkuId)) {
             params.put("productSkuId", productSkuId);
         }
-
+        if(TextUtil.isNotEmpty(companyType)){
+            params.put("companyType", companyType);
+        }else {
+            params.put("companyType", CanTingAppLication.CompanyType);
+        }
 
         api.getProParameter(params).enqueue(new BaseCallBack<Param>() {
 
@@ -1066,8 +1128,13 @@ public class BasesPresenter implements BaseContract.Presenter {
     }
 
     @Override
-    public void addToCart(String shopId, String productPlatformId, String number, String proSite, String productSkuId) {
+    public void addToCart(String shopId, String productPlatformId, String number, String proSite, String productSkuId,String companyType) {
         Map<String, String> params = new TreeMap<>();
+        if(TextUtil.isNotEmpty(companyType)){
+            params.put("companyType", companyType);
+        }else {
+            params.put("companyType", CanTingAppLication.CompanyType);
+        }
 
         params.put("userInfoId", TextUtil.isEmpty(SpUtil.getUserInfoId(CanTingAppLication.getInstance())) ? "" : SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
         params.put("shopId", shopId);
@@ -1377,7 +1444,7 @@ public class BasesPresenter implements BaseContract.Presenter {
         params.put("proSite", cancelList.proSite);
 
         params.put("payType", cancelList.payType);
-
+        params.put("companyType", CanTingAppLication.CompanyType);
         api.cancelOrder(params).enqueue(new BaseCallBack<BaseResponse>() {
 
             @Override
@@ -1620,6 +1687,7 @@ public class BasesPresenter implements BaseContract.Presenter {
         Map<String, String> params = new TreeMap<>();
 //        params.put("paymentId", paymentId);
         params.put("orderCode", orderCode);
+        params.put("companyType", CanTingAppLication.CompanyType);
         api.success(params).enqueue(new BaseCallBack<BaseResponse>() {
 
             @Override
@@ -1743,7 +1811,7 @@ public class BasesPresenter implements BaseContract.Presenter {
 
 
         Map<String, String> params = new TreeMap<>();
-
+        params.put("companyType", CanTingAppLication.CompanyType);
         params.put("userInfoId", TextUtil.isEmpty(SpUtil.getUserInfoId(CanTingAppLication.getInstance())) ? "" : SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
 
 
@@ -1769,7 +1837,7 @@ public class BasesPresenter implements BaseContract.Presenter {
         Map<String, String> params = new TreeMap<>();
 
         params.put("userInfoId", TextUtil.isEmpty(SpUtil.getUserInfoId(CanTingAppLication.getInstance())) ? "" : SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
-
+        params.put("companyType", CanTingAppLication.CompanyType);
 
         api.getLiveCategory(params).enqueue(new BaseCallBack<LiveTypeBean>() {
 
@@ -1878,7 +1946,7 @@ public class BasesPresenter implements BaseContract.Presenter {
         }
 
         params.put("userInfoId", TextUtil.isEmpty(SpUtil.getUserInfoId(CanTingAppLication.getInstance())) ? "" : SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
-
+        params.put("companyType", CanTingAppLication.CompanyType);
 
         api.addInfo(params).enqueue(new BaseCallBack<BaseResponse>() {
 
@@ -2265,7 +2333,7 @@ public class BasesPresenter implements BaseContract.Presenter {
         params.put("pageSize", "12");
         params.put("pageNum", pageNum);
 
-
+        params.put("companyType", CanTingAppLication.CompanyType);
         api.getLatestVideoList(params).enqueue(new BaseCallBack<ZhiBo_GuanZhongBean>() {
 
             @Override
@@ -2401,7 +2469,7 @@ public class BasesPresenter implements BaseContract.Presenter {
         params.put("phoneNumber", SpUtil.getMobileNumber(CanTingAppLication.getInstance()));
         params.put("type", type);
         params.put("codeUrl", codeUrl);
-
+        params.put("companyType", CanTingAppLication.CompanyType);
 
         api.uploadCode(params).enqueue(new BaseCallBack<BaseResponse>() {
 
@@ -2527,7 +2595,7 @@ public class BasesPresenter implements BaseContract.Presenter {
         params.put("userInfoId", TextUtil.isEmpty(SpUtil.getUserInfoId(CanTingAppLication.getInstance())) ? "" : SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
         params.put("payType", payType);
         params.put("integralNumber", integralNumber);
-
+        params.put("companyType", CanTingAppLication.CompanyType);
         api.rechargeInteger(params).enqueue(new BaseCallBack<alipay>() {
 
             @Override
@@ -2552,7 +2620,7 @@ public class BasesPresenter implements BaseContract.Presenter {
         params.put("userInfoId", TextUtil.isEmpty(SpUtil.getUserInfoId(CanTingAppLication.getInstance())) ? "" : SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
         params.put("payType", payType);
         params.put("integralNumber", integralNumber);
-
+        params.put("companyType", CanTingAppLication.CompanyType);
         api.rechargeIntegers(params).enqueue(new BaseCallBack<WEIXINREQ>() {
 
             @Override
@@ -2577,7 +2645,7 @@ public class BasesPresenter implements BaseContract.Presenter {
         params.put("userInfoId", TextUtil.isEmpty(SpUtil.getUserInfoId(CanTingAppLication.getInstance())) ? "" : SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
         params.put("payType", payType);
         params.put("integralNumber", integralNumber);
-
+        params.put("companyType", CanTingAppLication.CompanyType);
         api.rechargeIntegerss(params).enqueue(new BaseCallBack<BaseBean>() {
 
             @Override
@@ -2639,14 +2707,14 @@ public class BasesPresenter implements BaseContract.Presenter {
     }
 
     @Override
-    public void orderDetails(String orderId) {
+    public void orderDetails(String orderId,String companyType) {
 
 
         Map<String, String> params = new TreeMap<>();
 
         params.put("userInfoId", TextUtil.isEmpty(SpUtil.getUserInfoId(CanTingAppLication.getInstance())) ? "" : SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
         params.put("orderId", orderId);
-
+        params.put("companyType", companyType);
         api.orderDetails(params).enqueue(new BaseCallBack<OrderData>() {
 
             @Override

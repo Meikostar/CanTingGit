@@ -155,6 +155,7 @@ public class Regist_PasswordFragment extends Fragment implements RegisterViewCal
         map.put("token", token);
         map.put("userInfoId", userInfoId);
         map.put("password", loginPass.getText().toString().trim());
+        map.put("companyType", CanTingAppLication.CompanyType);
         mDialog = new ProgressDialog(getActivity());
         mDialog.setMessage("登录中，请稍后...");
         mDialog.show();
@@ -297,7 +298,7 @@ public class Regist_PasswordFragment extends Fragment implements RegisterViewCal
 
 
         netService api = HttpUtil.getInstance().create(netService.class);
-        api.getLoginMess("1", (CanTingAppLication.code.equals("86")?"": CanTingAppLication.code)+CanTingAppLication.mobileNumber, loginPass.getText().toString()).enqueue(new BaseCallBack<UserLoginBean>() {
+        api.getLoginMess("1", (CanTingAppLication.code.equals("86")?"": CanTingAppLication.code)+CanTingAppLication.mobileNumber, loginPass.getText().toString(),CanTingAppLication.CompanyType).enqueue(new BaseCallBack<UserLoginBean>() {
             @Override
             public void onSuccess(UserLoginBean db) {
                 try {

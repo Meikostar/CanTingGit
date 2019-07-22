@@ -37,6 +37,7 @@ public class Product extends BaseResponse{
     public String express_content;
     public String product_sku_id;
     public String id;
+    public String company_type;
 
     public String pro_site;
     public String product_platform_id;

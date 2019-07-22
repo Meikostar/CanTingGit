@@ -44,6 +44,7 @@ import com.hyphenate.chat.EMCallManager;
 import com.hyphenate.chat.EMCallManager.EMCameraDataProcessor;
 import com.hyphenate.chat.EMCallStateChangeListener;
 import com.hyphenate.chat.EMClient;
+import com.hyphenate.chat.EMVideoCallHelper;
 import com.hyphenate.exceptions.HyphenateException;
 import com.hyphenate.media.EMCallSurfaceView;
 import com.hyphenate.util.EMLog;
@@ -107,7 +108,7 @@ public class VideoCallActivity extends CallActivity implements OnClickListener, 
 
     boolean isRecording = false;
     //    private Button recordBtn;
-    private EMCallManager.EMVideoCallHelper callHelper;
+    private EMVideoCallHelper callHelper;
     private Button toggleVideoBtn;
 
     private BrightnessDataProcess dataProcessor = new BrightnessDataProcess();
@@ -666,7 +667,7 @@ public class VideoCallActivity extends CallActivity implements OnClickListener, 
                     endCallTriggerByMe = true;
                     callStateTextView.setText(getResources().getString(R.string.hanging_up));
                     if (isRecording) {
-                        callHelper.stopVideoRecord();
+//                        callHelper.stopVideoRecord();
                     }
                     EMLog.d(TAG, "btn_hangup_call");
                     handler.sendEmptyMessage(MSG_CALL_END);
@@ -768,7 +769,7 @@ public class VideoCallActivity extends CallActivity implements OnClickListener, 
                 Date d = new Date();
                 File storage = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
                 final String filename = storage.getAbsolutePath() + "/" + DateFormat.format("MM-dd-yy--h-mm-ss", d) + ".jpg";
-                EMClient.getInstance().callManager().getVideoCallHelper().takePicture(filename);
+//                EMClient.getInstance().callManager().getVideoCallHelper().takePicture(filename);
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -786,7 +787,7 @@ public class VideoCallActivity extends CallActivity implements OnClickListener, 
         DemoHelper.getInstance().isVideoCalling = false;
         stopMonitor();
         if (isRecording) {
-            callHelper.stopVideoRecord();
+//            callHelper.stopVideoRecord();
             isRecording = false;
         }
         localSurface.getRenderer().dispose();

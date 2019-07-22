@@ -12,8 +12,17 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.FileProvider;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -24,8 +33,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.aliyun.vod.common.utils.StorageUtils;
@@ -42,12 +53,14 @@ import com.hyphenate.util.EMLog;
 import com.malinskiy.superrecyclerview.OnMoreListener;
 import com.malinskiy.superrecyclerview.SuperRecyclerView;
 import com.youth.banner.BannerConfig;
+import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
 import com.zhongchuang.canting.BuildConfig;
 import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.chat.AddFriendActivity;
 import com.zhongchuang.canting.activity.chat.ChatSplashActivity;
 import com.zhongchuang.canting.activity.chat.FaceCreatActivity;
+import com.zhongchuang.canting.activity.mall.BanDetailActivity;
 import com.zhongchuang.canting.activity.mall.SearchGoodActivity;
 import com.zhongchuang.canting.activity.mall.ShopCompsiteMallActivity;
 import com.zhongchuang.canting.activity.mall.ShopMallActivity;
@@ -58,11 +71,14 @@ import com.zhongchuang.canting.activity.mine.ProfitChargeActivity;
 import com.zhongchuang.canting.activity.shop.AppStoreActivity;
 import com.zhongchuang.canting.adapter.AppBasedapter;
 import com.zhongchuang.canting.adapter.BannerAdapters;
+import com.zhongchuang.canting.adapter.BannerMineAdapter;
 import com.zhongchuang.canting.adapter.Basedapter1;
+import com.zhongchuang.canting.adapter.FragmentViewPagerAdapter;
 import com.zhongchuang.canting.adapter.HomeBannerAdapter;
 import com.zhongchuang.canting.adapter.HomeBasedapter;
 import com.zhongchuang.canting.adapter.HomeItemdapter;
 import com.zhongchuang.canting.adapter.HomeProductdapter;
+import com.zhongchuang.canting.adapter.VideoItemItemdapter;
 import com.zhongchuang.canting.adapter.recycle.ItemRecycleAdapter;
 import com.zhongchuang.canting.allive.recorder.util.Common;
 import com.zhongchuang.canting.app.CanTingAppLication;
@@ -80,10 +96,14 @@ import com.zhongchuang.canting.been.ProvinceModel;
 import com.zhongchuang.canting.been.ShareBean;
 import com.zhongchuang.canting.been.SubscriptionBean;
 import com.zhongchuang.canting.been.Version;
+import com.zhongchuang.canting.been.VideoData;
 import com.zhongchuang.canting.been.ZhiBo_GuanZhongBean;
 import com.zhongchuang.canting.been.apply;
 import com.zhongchuang.canting.db.Constant;
 import com.zhongchuang.canting.easeui.ui.MessageActivity;
+import com.zhongchuang.canting.fragment.Fragment_more_app;
+import com.zhongchuang.canting.fragment.Fragment_more_app1;
+import com.zhongchuang.canting.fragment.message.QFriendCircleFragment;
 import com.zhongchuang.canting.hud.ToastUtils;
 import com.zhongchuang.canting.net.BaseCallBack;
 import com.zhongchuang.canting.net.HttpUtil;
@@ -108,6 +128,7 @@ import com.zhongchuang.canting.widget.DivItemDecoration;
 import com.zhongchuang.canting.widget.MCheckBox;
 import com.zhongchuang.canting.widget.MarkaBaseDialog;
 import com.zhongchuang.canting.widget.NoScrollGridView;
+import com.zhongchuang.canting.widget.NoScrollViewPager;
 import com.zhongchuang.canting.widget.RegularListView;
 import com.zhongchuang.canting.widget.RxBus;
 import com.zhongchuang.canting.widget.SharePopWindow;
@@ -136,6 +157,7 @@ import java.util.zip.ZipFile;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.valuesfeng.picker.tablayout.SlidingScaleTabLayout;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -150,6 +172,7 @@ import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
 
 
 
+@RequiresApi(api = Build.VERSION_CODES.CUPCAKE)
 public class HomeActivitys extends BaseTitle_Activity implements BaseContract.View {
 
 
@@ -195,6 +218,7 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
         presenter = new BasesPresenter(this);
+
         PermissionGen.with(HomeActivitys.this)
                 .addRequestCode(PermissionConst.REQUECT_CODE_CAMERA)
                 .permissions(Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -217,7 +241,7 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
             @Override
             public void onRefresh() {
                 //  mSuperRecyclerView.showMoreProgress();
-                presenter.getProductList(TYPE_PULL_REFRESH, 1 + "", cout + "", "", "1", "0", "1");
+                presenter.getProductList(TYPE_PULL_REFRESH, 1 + "", 12 + "", "", "1", "0", "1");
 
                 if (mSuperRecyclerView != null) {
                     mSuperRecyclerView.hideMoreProgress();
@@ -229,7 +253,7 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
 
         mSuperRecyclerView.setRefreshListener(refreshListener);
         presenter.getHomeBanner("3");
-        presenter.getProductList(TYPE_PULL_REFRESH, 1 + "", cout + "", "", "1", "0", "1");
+        presenter.getProductList(TYPE_PULL_REFRESH, 1 + "", 12 + "", "", "1", "0", "1");
 
         initView();
 //        presenter.getDirRoomClassify();
@@ -306,7 +330,7 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
     @PermissionSuccess(requestCode = PermissionConst.REQUECT_CODE_CAMERA)
     public void requestSdcardSuccess() {
         File file = new File(StorageUtils.getCacheDirectory(CanTingAppLication.getInstance()).getAbsolutePath() + File.separator + "live.zip");
-        if (file != null && file.length() < 31755920) {
+        if (file != null && file.length() < 27755920) {
             CanTingAppLication.isComplete = false;
             new Thread(new DownloadApk("http://119.23.212.8:8080/live.zip", 2)).start();
         } else if (file == null || !file.exists()) {
@@ -528,19 +552,19 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
         conf.locale = myLocale;
         res.updateConfiguration(conf, dm);
         startActivity((new Intent(this, HomeActivitys.class)));
-        cout = 0;
+        cots = 0;
         Map<String, EMConversation> conversations = EMClient.getInstance().chatManager().getAllConversations();
         for (EMConversation conversation : conversations.values()) {
             if (conversation.getAllMessages().size() != 0) {
                 EMConversation emConversation = EMClient.getInstance().chatManager().getConversation(conversation.conversationId());
                 if (emConversation != null) {
                     int unreadMsgCount = emConversation.getUnreadMsgCount();
-                    cout = cout + unreadMsgCount;
+                    cots = cots + unreadMsgCount;
                 }
 
             }
         }
-       setData(cout);
+       setData(cots);
     }
 
     public String getLangue(String lan) {
@@ -629,42 +653,55 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
     }
 
 
-    public boolean isLogin;
-
-    private int[] homeimg1 = {R.drawable.homes_1, R.drawable.homes_2, R.drawable.homes_3,
-            R.drawable.homes_4, R.drawable.homes_5, R.drawable.homes_6, R.drawable.homes_7, R.drawable.homes_8};
+    public static boolean isLogin;
 
 
+   public Handler handler=new Handler(new Handler.Callback() {
+       @Override
+       public boolean handleMessage(Message msg) {
+           setData(cots);
+           return false;
+       }
+   });
     private int cont;
+    public interface  MessageNotifyListener{
+        void messageNotify(int cout);
+    }
+    public MessageNotifyListener listener;
 
+    public void setListener(MessageNotifyListener listener){
+        this.listener=listener;
+    }
     public void setData(int cout) {
-        String[] indepent1 = {getString(R.string.qyzg), getString(R.string.cjzg), getString(R.string.szds), getString(R.string.zb),
-                getString(R.string.ll), getString(R.string.grzx), getString(R.string.appfx), getString(R.string.yy), getString(R.string.appfx)};
-        datas.clear();
-        cont = 0;
-        for (int url : homeimg1) {
-            HOMES homes = new HOMES();
-            homes.name = indepent1[cont];
-            homes.url = url;
-            if (cont == 4) {
-                homes.cout = cout;
-            }
-            cont++;
-            datas.add(homes);
-        }
-        if(adapter!=null){
-            homedapter.setData(datas);
-            homedapter.notifyDataSetChanged();
-        }else {
-            homedapter = new HomeItemdapter(this);
-            homedapter.setData(datas);
-            homedapter.notifyDataSetChanged();
-        }
-
-
-
-
-        cont = 0;
+           listener.messageNotify(cout);
+//        fragment_more_app.setData(cout);
+//        String[] indepent1 = {getString(R.string.qyzg), getString(R.string.cjzg), getString(R.string.szds), getString(R.string.zb),
+//                getString(R.string.ll), getString(R.string.grzx), getString(R.string.appfx), getString(R.string.yy), getString(R.string.appfx)};
+//        datas.clear();
+//        cont = 0;
+//        for (int url : homeimg1) {
+//            HOMES homes = new HOMES();
+//            homes.name = indepent1[cont];
+//            homes.url = url;
+//            if (cont == 4) {
+//                homes.cout = cout;
+//            }
+//            cont++;
+//            datas.add(homes);
+//        }
+//        if(homedapter!=null){
+//            homedapter.setData(datas);
+//            homedapter.notifyDataSetChanged();
+//        }else {
+//            homedapter = new HomeItemdapter(this);
+//            homedapter.setData(datas);
+//            homedapter.notifyDataSetChanged();
+//        }
+//
+//
+//
+//
+//        cont = 0;
 
 
 
@@ -686,27 +723,98 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
     private CountDownTimer countDownTimer1;
     private int states;
 
-
+    private List<Fragment> mFragments;
     private com.youth.banner.Banner banner;
     private NoScrollGridView gridContent;
-    private NoScrollGridView gridContent1;
-    private LinearLayout ll_special;
+    private ListView gridContentLb;
+    private ListView gridContentLive;
+    private CardView card_lb;
+    private CardView card_live;
 
+    private LinearLayout ll_special;
     private HomeItemdapter homedapter;
     private HomeProductdapter homeProductdapter;
+    private VideoItemItemdapter lbapter;
+    private VideoItemItemdapter liveapter;
+    private NoScrollViewPager viewpagerMain;
+    private FragmentViewPagerAdapter mainViewPagerAdapter;
 
+    private void addFragment() {
+        mFragments = new ArrayList<>();
+
+        fragment_more_app = new Fragment_more_app();
+        fragment_more_app1 = new Fragment_more_app1();
+
+        mFragments.add(fragment_more_app);
+        mFragments.add(fragment_more_app1);
+
+    }
+
+    public void choosePoition(int position){
+        if(position==0){
+            line1.setImageDrawable(getResources().getDrawable(R.drawable.blue_lines_choose));
+            line1.setVisibility(View.VISIBLE);
+            line2.setVisibility(View.INVISIBLE);
+        }else {
+            line2.setImageDrawable(getResources().getDrawable(R.drawable.blue_lines_right));
+            line2.setVisibility(View.VISIBLE);
+            line1.setVisibility(View.INVISIBLE);
+        }
+    }
+    private ImageView line1;
+    private ImageView line2;
     private void initView() {
+
         View view = View.inflate(this, R.layout.home_head_view, null);
         banner = view.findViewById(R.id.banner);
 
         gridContent = view.findViewById(R.id.grid_content);
-        gridContent1 = view.findViewById(R.id.grid_content1);
+        gridContentLb = view.findViewById(R.id.grid_content_lb);
+        gridContentLive = view.findViewById(R.id.grid_content_live);
+        card_lb = view.findViewById(R.id.card_lb);
+        card_live = view.findViewById(R.id.cards_live);
+        line1 = view.findViewById(R.id.iv_line1);
+        line2 = view.findViewById(R.id.iv_line2);
+
+        viewpagerMain = view.findViewById(R.id.viewpager_main);
 
         ll_special = view.findViewById(R.id.ll_special);
 
         homedapter = new HomeItemdapter(this);
         homeProductdapter = new HomeProductdapter(this);
+        lbapter = new VideoItemItemdapter(this);
+        liveapter = new VideoItemItemdapter(this);
+        addFragment();
+        mainViewPagerAdapter = new FragmentViewPagerAdapter(getSupportFragmentManager(), mFragments);
+        viewpagerMain.setAdapter(mainViewPagerAdapter);
+        viewpagerMain.setOffscreenPageLimit(1);//设置缓存view 的个数
+        viewpagerMain.setCurrentItem(0);
+        choosePoition(0);
+        banner.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(int position) {
 
+//                Intent intent = new Intent(HomeActivitys.this, BanDetailActivity.class);
+//                intent.putExtra("url", "");
+//                startActivity(intent);
+            }
+        });
+        viewpagerMain.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                choosePoition(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 
         ll_special.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -719,100 +827,37 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
         });
 
 
-        gridContent1.setAdapter(homedapter);
         gridContent.setAdapter(homeProductdapter);
+        gridContentLive.setAdapter(liveapter);
+        gridContentLb.setAdapter(lbapter);
+        lbapter.setOnItemClickListener(new VideoItemItemdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position, VideoData data) {
+
+            }
+        });
         try {
             Thread.sleep(80);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        presenter.getActivityProductList(222, 1 + "", cout + "", "", "" + "1", "" + "2");
-
-        gridContent1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                switch (position) {
-                    case 0: //商城
-//                        Intent intentsss = new Intent(HomeActivitys.this, FaceCreatActivity.class);
-                        Intent intentsss = new Intent(HomeActivitys.this, ShopCompsiteMallActivity.class);
-                        intentsss.putExtra("type", 1);
-                        startActivity(intentsss);
-
-                        break;
-                    case 1://乐聊
-
-                        Intent intent = new Intent(HomeActivitys.this, ShopMallActivity.class);
-                        intent.putExtra("type", 1);
-                        startActivity(intent);
-
-                        break;
-                    case 2://乐聊
-                        Intent intentss = new Intent(HomeActivitys.this, ShopMallActivity.class);
-                        intentss.putExtra("type", 2);
-                        startActivity(intentss);
+        presenter.getHotDirect();
+        presenter.getRecomdVideoList();
+        presenter.getActivityProductList(222, 1 + "", 12 + "", "", "" + "1", "" + "2");
 
 
-                        break;
-                    case 3://直播
-
-                        if (isLogin) {
-                            Intent intent2 = new Intent(HomeActivitys.this, ChatSplashActivity.class);
-                            if (messageGroup == null) {
-                                return;
-                            }
-//                            intent2.putExtra("data", data);
-                            intent2.putExtra("type", 1);
-                            startActivity(intent2);
-                        } else {
-                            startActivity(new Intent(HomeActivitys.this, LoginActivity.class));
-                        }
-                        break;
-                    case 4://我的
-
-                        if (isLogin) {
-                            Intent intents = new Intent(HomeActivitys.this, ChatSplashActivity.class);
-                            if (messageGroup == null) {
-                                return;
-                            }
-                            intents.putExtra("data", messageGroup);
-                            startActivity(intents);
-                        } else {
-                            startActivity(new Intent(HomeActivitys.this, LoginActivity.class));
-                        }
-                        break;
-                    case 5://同城
-
-                        if (isLogin) {
-                            Intent intent3 = new Intent(HomeActivitys.this, MainActivity.class);
-                            intent3.putExtra("type", 3);
-                            startActivity(intent3);
-                        } else {
-                            startActivity(new Intent(HomeActivitys.this, LoginActivity.class));
-                        }
-                        break;
-                    case 6: //应用
-                        ShareUtils.showMyShareApp(HomeActivitys.this, "", "");
-
-
-                        break;
-                    case 7: //应用
-                        Intent intent4 = new Intent(HomeActivitys.this, AppStoreActivity.class);
-                        intent4.putExtra("type", 1);
-                        startActivity(intent4);
-                        break;
-
-                }
-
-            }
-        });
         homeProductdapter.setOnItemClickListener(new HomeProductdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Product data) {
-                Intent intent = new Intent(HomeActivitys.this, ShopMallDetailActivity.class);
-                intent.putExtra("id", data.product_sku_id);
-                intent.putExtra("type", 1);
-                startActivity(intent);
+
+
+                    Intent intent = new Intent(HomeActivitys.this, ShopMallDetailActivity.class);
+                    intent.putExtra("id", data.product_sku_id);
+                    intent.putExtra("type", 1);
+                    startActivity(intent);
+
+
+
             }
         });
 
@@ -830,7 +875,7 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
             }
         });
 
-        setData(cots);
+
         if (CanTingAppLication.data == null) {
 
             Observable.create(new Observable.OnSubscribe<JSONObject>() {
@@ -925,7 +970,7 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
 
 
            shareBean=new ShareBean();
-            shareBean.title_ = SpUtil.getName(this) + "邀请你下载信联APP";
+            shareBean.title_ = SpUtil.getName(this) + "邀请你下载生活吧APP";
             shareBean.content_ = "让你有不一样的购物体验不一样的直播平台不一样的社交！";
             shareBean.url_ = Constant.APP_SHARE;
             shareBean.img_ = "img";
@@ -962,7 +1007,7 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
         }
     }
     private List<Product> dats = new ArrayList<>();
-    private int cout = 12;
+    private int cout = 0;
     public void onDataLoaded(int loadType, final boolean haveNext, List<Product> list) {
 
         if (loadType == TYPE_PULL_REFRESH) {
@@ -993,7 +1038,7 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
                     mSuperRecyclerView.showMoreProgress();
 
                     if (haveNext)
-                        presenter.getProductList(TYPE_PULL_MORE, currpage + "", cout + "", "", "1", "0", "1");
+                        presenter.getProductList(TYPE_PULL_MORE, currpage + "", 12 + "", "", "1", "0", "1");
                     mSuperRecyclerView.hideMoreProgress();
 
                 }
@@ -1011,7 +1056,8 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
     }
     private SharePopWindow shopBuyWindow;
     private int state = 1;
-
+     private Fragment_more_app fragment_more_app;
+     private Fragment_more_app1 fragment_more_app1;
     private MarkaBaseDialog dialg;
 
     public void showPopwindow(final String url) {
@@ -1152,6 +1198,12 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
         super.onResume();
         isShow = true;
         cots = 0;
+       CanTingAppLication.CompanyType=Constant.CompanyType;
+//        Constant.APP_LIVE_DOWN = Constant.URL_TYPE1[Integer.valueOf(Constant.CompanyType)];
+//        Constant.APP_PRODUCT = Constant.URL_TYPE2[Integer.valueOf(Constant.CompanyType)];
+//        Constant.APP_FILE_NAME = Constant.URL_TYPE3[Integer.valueOf(Constant.CompanyType)];
+//        Constant.FILE_NAME = Constant.URL_TYPE4[Integer.valueOf(Constant.CompanyType)];
+//        Constant.APP_SHARE = Constant.URL_TYPE5[Integer.valueOf(Constant.CompanyType)];
         Map<String, EMConversation> conversations = EMClient.getInstance().chatManager().getAllConversations();
         for (EMConversation conversation : conversations.values()) {
             if (conversation.getAllMessages().size() != 0) {
@@ -1164,17 +1216,17 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
             }
         }
 
-        setData(cots);
-        showCount(cots);
+        handler.sendEmptyMessageDelayed(1,150);
 
 
         if (presenter != null) {
 
-            presenter.verifyPassword("");
+
             if (!TextUtils.isEmpty(CanTingAppLication.userId)) {
                 presenter.getChatGroupList();
                 presenter.hostInfo();
                 presenter.getUserIntegral();
+                presenter.verifyPassword("");
             }
 
         }
@@ -1312,12 +1364,26 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
 
             }
         } else if (type == 22) {
+
             messageGroup = (GAME) entity;
+        }else if (type == 444) {
+            List<VideoData>  lists= (List<VideoData>) entity;
+            if(lists==null||lists.size()==0){
+                card_lb.setVisibility(View.GONE);
+            }
+            lbapter.setData(lists);
+
+        }else if (type == 443) {
+            List<VideoData>  lists= (List<VideoData>) entity;
+            if(lists==null||lists.size()==0){
+                card_live.setVisibility(View.GONE);
+            }
+            liveapter.setData(lists);
 
         }else if (type == 888|| type==889) {
             productData = (List<Product>) entity;
             if(productData!=null){
-                onDataLoaded(type, cout == productData.size(), productData);
+                onDataLoaded(type, 12 == productData.size(), productData);
             }else {
                 adapter.notifyDataSetChanged();
             }
@@ -1375,7 +1441,7 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
             }
             if (TextUtil.isNotEmpty(bean.invitation_code)) {
                 CanTingAppLication.invitation_code=bean.invitation_code;
-                shareBean.title_ = SpUtil.getName(this) + "邀请你下载信联APP";
+                shareBean.title_ = SpUtil.getName(this) + "邀请你下载生活吧APP";
                 shareBean.content_ = "让你有不一样的购物体验不一样的直播平台不一样的社交！";
                 shareBean.url_ = Constant.APP_SHARE + SpUtil.getName(this)+","+bean.invitation_code;
                 shareBean.img_ = "img";
@@ -1428,20 +1494,20 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
                return;
            }
        }
-       cout = 0;
+       cots = 0;
        Map<String, EMConversation> conversations = EMClient.getInstance().chatManager().getAllConversations();
        for (EMConversation conversation : conversations.values()) {
            if (conversation.getAllMessages().size() != 0) {
                EMConversation emConversation = EMClient.getInstance().chatManager().getConversation(conversation.conversationId());
                if (emConversation != null) {
                    int unreadMsgCount = emConversation.getUnreadMsgCount();
-                   cout = cout + unreadMsgCount;
+                   cots = cots + unreadMsgCount;
                }
 
            }
        }
-       RxBus.getInstance().send(SubscriptionBean.createSendBean(SubscriptionBean.MESSAGENOTIFIS, cout));
-       setData(cout);
+       RxBus.getInstance().send(SubscriptionBean.createSendBean(SubscriptionBean.MESSAGENOTIFIS, cots));
+       setData(cots);
    }
     EMMessageListener msgListener = new EMMessageListener() {
 
@@ -1464,6 +1530,11 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
         @Override
         public void onMessageDelivered(List<EMMessage> message) {
             //收到已送达回执
+        }
+
+        @Override
+        public void onMessageRecalled(List<EMMessage> list) {
+
         }
 
         @Override

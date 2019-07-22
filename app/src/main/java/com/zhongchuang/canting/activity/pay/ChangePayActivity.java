@@ -167,7 +167,7 @@ public class ChangePayActivity extends BaseAllActivity implements OtherContract.
         map.put("code", code);
         map.put("pwd", password);
         map.put("password", password);
-
+        map.put("companyType", CanTingAppLication.CompanyType);
         netService api = HttpUtil.getInstance().create(netService.class);
         api.updatePwd(map).enqueue(new BaseCallBack<BaseResponse>() {
             @Override

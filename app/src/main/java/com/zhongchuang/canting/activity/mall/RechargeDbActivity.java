@@ -165,7 +165,7 @@ public class RechargeDbActivity extends BaseActivity1 {
         map.put("payPrice", totaFee);
         map.put("payType", 1 + "");
         map.put("equipmentStatus", "1");
-
+        map.put("companyType", CanTingAppLication.CompanyType);
         netService api = HttpUtil.getInstance().create(netService.class);
         api.recharge(map).enqueue(new BaseCallBack<WEIXINREQ>() {
             @Override
@@ -226,7 +226,7 @@ public class RechargeDbActivity extends BaseActivity1 {
         map.put("payPrice", Amount);
         map.put("payType", 1 + "");
         map.put("equipmentStatus", "1");
-
+        map.put("companyType", CanTingAppLication.CompanyType);
         netService api = HttpUtil.getInstance().create(netService.class);
         api.exchangeWx(map).enqueue(new BaseCallBack<WEIXINREQ>() {
             @Override

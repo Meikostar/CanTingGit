@@ -108,6 +108,7 @@ public class LivePushFragment extends Fragment implements Runnable {
     private static final String VIDEO_ONLY_KEY = "video_only_key";
     private static final String QUALITY_MODE_KEY = "quality_mode_key";
     private static final String CAMERA_ID = "camera_id";
+    private static final String STATE = "state";
     private static final String FLASH_ON = "flash_on";
     private static final String AUTH_TIME = "auth_time";
     private static final String PRIVACY_KEY = "privacy_key";
@@ -148,7 +149,7 @@ public class LivePushFragment extends Fragment implements Runnable {
     private Handler mHandler = new Handler();
 
     private LivePushActivity.PauseState mStateListener = null;
-    private int mCameraId = Camera.CameraInfo.CAMERA_FACING_FRONT;
+    private int mCameraId = Camera.CameraInfo.CAMERA_FACING_BACK;
     private boolean isFlash = false;
     private boolean mMixExtern = false;
     private boolean mMixMain = false;
@@ -173,7 +174,7 @@ public class LivePushFragment extends Fragment implements Runnable {
     Vector<Integer> mDynamicals = new Vector<>();
     private LinearLayout mBottomMenu;
     private String room_id;
-    public static LivePushFragment newInstance(String id,String url, boolean async, boolean mAudio, boolean mVideoOnly , int cameraId, boolean isFlash, int mode, String authTime, String privacyKey, boolean mixExtern, boolean mixMain) {
+    public static LivePushFragment newInstance(String id,String url, boolean async, boolean mAudio, boolean mVideoOnly , int cameraId, boolean isFlash, int mode, String authTime, String privacyKey, boolean mixExtern, boolean mixMain,int state) {
         LivePushFragment livePushFragment = new LivePushFragment();
         Bundle bundle = new Bundle();
         bundle.putString(URL_KEY, url);
@@ -183,6 +184,7 @@ public class LivePushFragment extends Fragment implements Runnable {
         bundle.putBoolean(VIDEO_ONLY_KEY, mVideoOnly);
         bundle.putInt(QUALITY_MODE_KEY,mode);
         bundle.putInt(CAMERA_ID, cameraId);
+        bundle.putInt(STATE, state);
         bundle.putBoolean(FLASH_ON, isFlash);
         bundle.putString(AUTH_TIME, authTime);
         bundle.putString(PRIVACY_KEY, privacyKey);
@@ -191,7 +193,7 @@ public class LivePushFragment extends Fragment implements Runnable {
         livePushFragment.setArguments(bundle);
         return livePushFragment;
     }
-
+   private int state;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -204,6 +206,7 @@ public class LivePushFragment extends Fragment implements Runnable {
             mAudio = getArguments().getBoolean(AUDIO_ONLY_KEY, false);
             mVideoOnly = getArguments().getBoolean(VIDEO_ONLY_KEY, false);
             mCameraId = getArguments().getInt(CAMERA_ID);
+            state = getArguments().getInt(STATE);
             isFlash = getArguments().getBoolean(FLASH_ON, false);
             mMixExtern = getArguments().getBoolean(MIX_EXTERN,false);
             mMixMain = getArguments().getBoolean(MIX_MAIN,false);
@@ -212,6 +215,7 @@ public class LivePushFragment extends Fragment implements Runnable {
             mPrivacyKey = getArguments().getString(PRIVACY_KEY);
             flashState = isFlash;
         }
+
         if(mAlivcLivePusher != null) {
             mAlivcLivePusher.setLivePushInfoListener(mPushInfoListener);
             mAlivcLivePusher.setLivePushErrorListener(mPushErrorListener);
@@ -305,7 +309,7 @@ public class LivePushFragment extends Fragment implements Runnable {
          }
 
          @Override
-         public void onRemovedFromChatRoom(String s, String s1, String s2) {
+         public void onRemovedFromChatRoom(int i, String s, String s1, String s2) {
 
          }
 
@@ -339,6 +343,7 @@ public class LivePushFragment extends Fragment implements Runnable {
 
          }
      };
+     private boolean isShow;
     public void getDirIndexInfo() {
 
 
@@ -366,8 +371,12 @@ public class LivePushFragment extends Fragment implements Runnable {
                     if(TextUtil.isNotEmpty(data.user_info_nickname)){
                         tvName.setText(data.user_info_nickname);
                     }
+                    if(TextUtil.isNotEmpty(data.room_image)){
+                        if(!isShow){
+                            Glide.with(getActivity()).load(data.room_image).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.drawable.dingdantouxiang).into(ivImg);
+                        }
+                    }
 
-                    Glide.with(getActivity()).load(data.room_image).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.drawable.dingdantouxiang).into(ivImg);
 
                 }
             }
@@ -417,6 +426,8 @@ public class LivePushFragment extends Fragment implements Runnable {
         mRandom=new Random();
         mFlash.setSelected(isFlash);
         mCamera = view.findViewById(R.id.camera);
+
+
         mCamera.setSelected(true);
         mPreviewButton = view.findViewById(R.id.preview_button);
         mPreviewButton.setSelected(false);
@@ -447,6 +458,7 @@ public class LivePushFragment extends Fragment implements Runnable {
         mAnswer.setOnClickListener(onClickListener);
         mRestartButton.setOnClickListener(onClickListener);
         mMore.setOnClickListener(onClickListener);
+
 //        if(SharedPreferenceUtils.isGuide(getActivity().getApplicationContext())) {
 //            mGuide.setVisibility(View.VISIBLE);
 //            mGuide.setOnTouchListener(new View.OnTouchListener() {
@@ -488,7 +500,6 @@ public class LivePushFragment extends Fragment implements Runnable {
             }
         });
     }
-
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -731,6 +742,7 @@ public class LivePushFragment extends Fragment implements Runnable {
     AlivcLivePushInfoListener mPushInfoListener = new AlivcLivePushInfoListener() {
         @Override
         public void onPreviewStarted(AlivcLivePusher pusher) {
+            handler.sendEmptyMessage(2);
             showToast(getString(R.string.start_preview));
         }
 
@@ -742,6 +754,9 @@ public class LivePushFragment extends Fragment implements Runnable {
         @Override
         public void onPushStarted(AlivcLivePusher pusher) {
             showToast(getString(R.string.start_push));
+//            if(state==1){
+//                mCamera.performClick();
+//            }
         }
 
         @Override
@@ -1139,17 +1154,44 @@ public class LivePushFragment extends Fragment implements Runnable {
     private Handler handler=new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
-            mPushButton.performClick();
+            if(msg.what==1){
+                mPushButton.performClick();
+            }else {
+                if(state==1){
+                    if (mCameraId == CAMERA_TYPE_FRONT.getCameraId()) {
+                        mCameraId = CAMERA_TYPE_BACK.getCameraId();
+                    } else {
+                        mCameraId = CAMERA_TYPE_FRONT.getCameraId();
+                    }
+                    mAlivcLivePusher.switchCamera();
+                    mFlash.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            mFlash.setClickable(mCameraId != CAMERA_TYPE_FRONT.getCameraId());
+                            if (mCameraId == CAMERA_TYPE_FRONT.getCameraId()) {
+                                mFlash.setSelected(false);
+                            } else {
+                                mFlash.setSelected(flashState);
+                            }
+                        }
+                    });
+                }
+            }
+
             return false;
         }
     });
 
     public void startYUV(final Context context) {
+
+
+
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    Thread.sleep(1000);
+
+                    Thread.sleep(600);
                     handler.sendEmptyMessage(1);
                 } catch (InterruptedException e) {
                     e.printStackTrace();

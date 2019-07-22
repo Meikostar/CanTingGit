@@ -21,6 +21,7 @@ import com.zhongchuang.canting.base.BaseAllActivity;
 import com.zhongchuang.canting.been.ProvinceModel;
 import com.zhongchuang.canting.been.SubscriptionBean;
 
+import com.zhongchuang.canting.db.Constant;
 import com.zhongchuang.canting.fragment.CompositelMallFragment;
 import com.zhongchuang.canting.fragment.mall.IntegralMallFragment;
 import com.zhongchuang.canting.fragment.mall.Minefagment;
@@ -89,7 +90,12 @@ public class ShopCompsiteMallActivity extends BaseAllActivity implements View.On
         mTransaction.replace(R.id.fragment_container, fragment);
         mTransaction.commit();
 
-
+       if(!CanTingAppLication.CompanyType.equals(Constant.CompanyType)){
+           rdMall.setVisibility(View.GONE);
+           rdShop.setVisibility(View.GONE);
+           rdMine.setVisibility(View.GONE);
+           rdHome.setText("返回");
+       }
 //        setEvents();
         setSelect(type);
     }

@@ -162,11 +162,12 @@ public class Carfagment extends BaseFragment implements BaseContract.View {
 
         adapter.setOnCheckAllListener(new ShopCarAllAdapter.onCheckAllListener() {
             @Override
-            public void checks(String content) {
-                if (TextUtil.isNotEmpty(content)) {
+            public void checks(Product content) {
+                if (content!=null) {
                     Intent intent = new Intent(getActivity(), ShopMallDetailActivity.class);
-                    intent.putExtra("id", content);
+                    intent.putExtra("id", content.product_sku_id);
                     intent.putExtra("type", status);
+                    intent.putExtra("companyType", content.company_type);
                     startActivity(intent);
                 } else {
                     cout = 0;
@@ -250,6 +251,7 @@ public class Carfagment extends BaseFragment implements BaseContract.View {
                             Oparam oparam = new Oparam();
                             oparam.productSkuId = data.product_sku_id;
                             oparam.number = data.number;
+                            oparam.company_type = data.company_type;
                             if (data.pro_site.equals("1")||data.pro_site.equals("3")) {
                                 oparam.integralPrice = "0";
                             } else {
@@ -266,6 +268,7 @@ public class Carfagment extends BaseFragment implements BaseContract.View {
                     Intent intent = new Intent(getActivity(), EditorOrderActivity.class);
                     intent.putExtra("data", order);
                     intent.putExtra("type", status);
+                    intent.putExtra("companyType", dat.get(0).company_type);
                     startActivity(intent);
                 } else {
                     ToastUtils.showNormalToast(getString(R.string.nhwxsp));

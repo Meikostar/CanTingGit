@@ -31,7 +31,7 @@ import static com.zhongchuang.canting.allive.cameralibrary.JCameraView.BUTTON_ST
  */
 public class CaptureButton extends View {
 
-    private int state;              //当前按钮状态
+    public static int state;              //当前按钮状态
     private int button_state;       //按钮可执行的功能状态（拍照,录制,两者）
 
     public static final int STATE_IDLE = 0x001;        //空闲状态
@@ -141,20 +141,27 @@ public class CaptureButton extends View {
         }
     }
 
-
+   private int playType;
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                LogUtil.i("state = " + state);
-                if (event.getPointerCount() > 1 || state != STATE_IDLE)
-                    break;
-                event_Y = event.getY();     //记录Y值
-                state = STATE_PRESS;        //修改当前状态为点击按下
+                if(state==STATE_RECORDERING){
+                    playType=1;
+                    handlerUnpressByState();
+                }else {
+                    LogUtil.i("state = " + state);
+                    if (event.getPointerCount() > 1 || state != STATE_IDLE)
+                        break;
+                    event_Y = event.getY();     //记录Y值
+                    state = STATE_PRESS;        //修改当前状态为点击按下
 
-                //判断按钮状态是否为可录制状态
-                if ((button_state == BUTTON_STATE_ONLY_RECORDER || button_state == BUTTON_STATE_BOTH))
-                    postDelayed(longPressRunnable, 500);    //同时延长500启动长按后处理的逻辑Runnable
+                    //判断按钮状态是否为可录制状态
+                    if ((button_state == BUTTON_STATE_ONLY_RECORDER || button_state == BUTTON_STATE_BOTH))
+                        postDelayed(longPressRunnable, 1500);    //同时延长500启动长按后处理的逻辑Runnable
+                }
+
+
                 break;
             case MotionEvent.ACTION_MOVE:
                 if (captureLisenter != null
@@ -188,8 +195,12 @@ public class CaptureButton extends View {
                 break;
             //当前是长按状态
             case STATE_RECORDERING:
-                timer.cancel(); //停止计时器
-                recordEnd();    //录制结束
+                if(playType==1){
+                    timer.cancel(); //停止计时器
+                    recordEnd();    //录制结束
+                    playType=0;
+                }
+
                 break;
         }
     }

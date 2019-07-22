@@ -339,7 +339,6 @@ public class PublishActivity extends Activity implements View.OnClickListener , 
     @Override
     public <T> void toEntity(T entity, int type) {
         if(type==12){
-
             RxBus.getInstance().send(SubscriptionBean.createSendBean(SubscriptionBean.LIVE_FINISH,""));
             finish();
         }else if(type==19) {

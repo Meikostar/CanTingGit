@@ -61,7 +61,7 @@
     <color name="original">#ECA237</color>
     <color name="coofeColor">#FF2A93FF</color>
     <color name="white" >#ffffff</color>
-
+    <color name="color_transparent">#00000000</color>
     <color name="jrmf_rp_title_bar">#E54141</color>
     <color name="jrmf_rp_red">#fe5c5c</color>
     <color name="jrmf_rp_red_trans">#88fe5c5c</color>

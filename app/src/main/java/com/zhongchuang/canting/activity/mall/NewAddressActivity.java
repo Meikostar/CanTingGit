@@ -159,6 +159,11 @@ public class NewAddressActivity extends BaseActivity1 implements BaseContract.Vi
     @Override
     public void initData() {
         if (addressBase != null) {
+            if(addressBase.is_default.equals("true")){
+                checkSetDefault.setChecked(true);
+            }else {
+                checkSetDefault.setChecked(false);
+            }
             addressId = addressBase.address_id;
             String[] split = addressBase.detailed_address.split(",");
             if (split != null && split.length == 3) {

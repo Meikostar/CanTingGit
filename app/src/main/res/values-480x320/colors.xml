@@ -423,6 +423,7 @@
     <color name="color2">#222</color>
     <color name="color57">#576b9c</color>
     <color name="background">#f0f0f0</color>
+    <color name="bg_tools_panel">#2F2F2F</color>
     <color name="divider">#E5E5E5</color>
     <color name="color_primary_e3">#e3e3e3</color>
     <color name="title">#bfbfbf</color>

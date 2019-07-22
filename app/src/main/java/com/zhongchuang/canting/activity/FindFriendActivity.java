@@ -4,7 +4,9 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -12,6 +14,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -22,12 +25,16 @@ import android.widget.Toast;
 import com.google.zxing.client.android.activity.CaptureActivity;
 import com.hyphenate.EMContactListener;
 import com.hyphenate.chat.EMClient;
+import com.malinskiy.superrecyclerview.OnMoreListener;
+import com.malinskiy.superrecyclerview.SuperRecyclerView;
 import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.chat.AddFriendActivity;
 import com.zhongchuang.canting.adapter.Liaotian_haoyouRecAdapter;
+import com.zhongchuang.canting.adapter.recycle.RecommendDetailRecycleAdapter;
 import com.zhongchuang.canting.been.BaseResponse;
 import com.zhongchuang.canting.been.FriendSearchBean;
 import com.zhongchuang.canting.been.GAME;
+import com.zhongchuang.canting.been.Profit;
 import com.zhongchuang.canting.been.SubscriptionBean;
 import com.zhongchuang.canting.easeui.ui.BaseActivity;
 import com.zhongchuang.canting.hud.ToastUtils;
@@ -43,6 +50,7 @@ import com.zhongchuang.canting.utils.LogUtil;
 import com.zhongchuang.canting.utils.SpUtil;
 import com.zhongchuang.canting.utils.StatusBarUtils;
 import com.zhongchuang.canting.widget.BaseDailogManager;
+import com.zhongchuang.canting.widget.DivItemDecoration;
 import com.zhongchuang.canting.widget.MarkaBaseDialog;
 import com.zhongchuang.canting.widget.RxBus;
 
@@ -72,7 +80,7 @@ public class FindFriendActivity extends BaseActivity {
     @BindView(R.id.query)
     EditText findFriendsearch;//搜索
     @BindView(R.id.find_frdRecy)
-    RecyclerView findFrdRecy;//清单列表
+    SuperRecyclerView mSuperRecyclerView;//清单列表
     @BindView(R.id.iv_scan)
     ImageView iv_scan;
     @BindView(R.id.search_clear)
@@ -99,6 +107,12 @@ public class FindFriendActivity extends BaseActivity {
     private GAME game;
 //    private TongXunLuFragment tongXunLuFragment;
 
+    private SwipeRefreshLayout.OnRefreshListener refreshListener;
+    private LinearLayoutManager mLinearLayoutManager;
+
+    private final int TYPE_PULL_REFRESH = 1;
+    private final int TYPE_PULL_MORE = 2;
+    private final int TYPE_REMOVE = 3;
     public FindFriendActivity() {
     }
 
@@ -113,10 +127,39 @@ public class FindFriendActivity extends BaseActivity {
         StatusBarUtils.setWindowStatusBarColor(this, getResources().getColor(R.color.wordColor));
         setContentView(R.layout.liaotian_findfriend);
         ButterKnife.bind(this);
+        mLinearLayoutManager = new LinearLayoutManager(this);
 
+        mSuperRecyclerView.setLayoutManager(mLinearLayoutManager);
+        mSuperRecyclerView.addItemDecoration(new DivItemDecoration(2, true));
+        mSuperRecyclerView.getMoreProgressView().getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
+                mLiaotian_haoyouRecAdapter = new Liaotian_haoyouRecAdapter(FindFriendActivity.this, new ArrayList<FriendSearchBean.DataBean>());
+        mSuperRecyclerView.setAdapter(mLiaotian_haoyouRecAdapter);
         initView();
         mPhone="1";
-        SearchNet();
+
+        reflash();
+        // mSuperRecyclerView.setRefreshing(false);
+        refreshListener = new SwipeRefreshLayout.OnRefreshListener() {
+
+            @Override
+            public void onRefresh() {
+                mSuperRecyclerView.showMoreProgress();
+
+                SearchNet(currpage,TYPE_PULL_REFRESH);
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (mSuperRecyclerView != null) {
+                            mSuperRecyclerView.hideMoreProgress();
+
+                        }
+
+                    }
+                }, 2000);
+            }
+        };
+        mSuperRecyclerView.setRefreshListener(refreshListener);
 //        tongXunLuFragment = new TongXunLuFragment();
         EMClient.getInstance().contactManager().setContactListener(new EMContactListener() {
 
@@ -180,16 +223,61 @@ public class FindFriendActivity extends BaseActivity {
         setEvents();
 
     }
-
+    private void reflash() {
+        if (mSuperRecyclerView != null) {
+            //实现自动下拉刷新功能
+            mSuperRecyclerView.getSwipeToRefresh().post(new Runnable() {
+                @Override
+                public void run() {
+                    mSuperRecyclerView.setRefreshing(true);//执行下拉刷新的动画
+                    refreshListener.onRefresh();//执行数据加载操作
+                }
+            });
+        }
+    }
     private void initView() {
         findFriendsearch.setHint(R.string.sjhnc);
-        findFrdRecy.setLayoutManager(new LinearLayoutManager(FindFriendActivity.this));
-        mLiaotian_haoyouRecAdapter = new Liaotian_haoyouRecAdapter(FindFriendActivity.this, new ArrayList<FriendSearchBean.DataBean>());
-        findFrdRecy.setAdapter(mLiaotian_haoyouRecAdapter);
+//        findFrdRecy.setLayoutManager(new LinearLayoutManager(FindFriendActivity.this));
+
 
     }
 
     private void setEvents() {
+        mLiaotian_haoyouRecAdapter.setOnAddClickListener(new Liaotian_haoyouRecAdapter.OnItemAddListener() {
+            @Override
+            public void onItemClick(FriendSearchBean.DataBean dataBean) {
+                Intent intent = new Intent(FindFriendActivity.this, AddFriendActivity.class);
+                intent.putExtra("data", game);
+                intent.putExtra("datas", dataBean);
+                startActivityForResult(intent, 2);
+            }
+        });
+        //子条目点击事件处理
+        mLiaotian_haoyouRecAdapter.setOnItemClickListener(new Liaotian_haoyouRecAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                            /*
+                            String img=imgUrlList.get(position);
+                            String name=nicNameList.get(position);
+                            String qianmin=qianMinList.get(position);*/
+
+
+//                            Intent mIntent=new Intent(FindFriendActivity.this,ChatMessageActivity.class);
+//                            startActivity(mIntent);
+
+//                            Toast.makeText(FindFriendActivity.this, "click " + position, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        mLiaotian_haoyouRecAdapter.setOnItemLongClickListener(new Liaotian_haoyouRecAdapter.OnItemLongClickListener() {
+            @Override
+            public void onItemLongClick(View view, int position) {
+                Toast.makeText(FindFriendActivity.this, "long click " + position, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
         findFriendsearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
@@ -197,7 +285,8 @@ public class FindFriendActivity extends BaseActivity {
                 mPhone = findFriendsearch.getText().toString().trim();
                 LogUtil.d("键盘搜索相应====" + mPhone);
                 if (!TextUtils.isEmpty(mPhone)) {
-                    SearchNet();
+                    currpage=1;
+                    SearchNet(currpage,TYPE_PULL_REFRESH);
                 }
 
                 return true;
@@ -221,7 +310,8 @@ public class FindFriendActivity extends BaseActivity {
                 mPhone = findFriendsearch.getText().toString().trim();
                 LogUtil.d("键盘搜索相应====" + mPhone);
                 if (!TextUtils.isEmpty(mPhone)) {
-                    SearchNet();
+                    currpage=1;
+                    SearchNet(currpage,TYPE_PULL_REFRESH);
                 }
             }
         });
@@ -422,7 +512,7 @@ public class FindFriendActivity extends BaseActivity {
         });
     }
 
-    private void SearchNet() {
+    private void SearchNet(int currpage,final int loadType) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(netService.TOM_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -432,8 +522,8 @@ public class FindFriendActivity extends BaseActivity {
 
         String userInfoId = SpUtil.getString(this, "userInfoId", "");
         String token = SpUtil.getString(this, "token", "");
-        String pageNum = "1";
-        String pageSize = "1000";
+        String pageNum = currpage+"";
+        String pageSize = "30";
         String findStr = mPhone;
 
         if (userInfoId.equals("") || TextUtils.isEmpty(userInfoId)
@@ -464,43 +554,9 @@ public class FindFriendActivity extends BaseActivity {
                 final List<FriendSearchBean.DataBean> mListBean = mFriendBean.getData();
 
                 if (code == 301) {
-
+                    onDataLoaded(loadType,mListBean.size()>=30,mListBean);
 //                    findFrdRecy.setLayoutManager(new LinearLayoutManager(FindFriendActivity.this));
 //                    mLiaotian_haoyouRecAdapter = new Liaotian_haoyouRecAdapter(FindFriendActivity.this, mListBean);
-                    mLiaotian_haoyouRecAdapter.setData(mListBean);
-                    mLiaotian_haoyouRecAdapter.setOnAddClickListener(new Liaotian_haoyouRecAdapter.OnItemAddListener() {
-                        @Override
-                        public void onItemClick(FriendSearchBean.DataBean dataBean) {
-                            Intent intent = new Intent(FindFriendActivity.this, AddFriendActivity.class);
-                            intent.putExtra("data", game);
-                            intent.putExtra("datas", dataBean);
-                            startActivityForResult(intent, 2);
-                        }
-                    });
-                    //子条目点击事件处理
-                    mLiaotian_haoyouRecAdapter.setOnItemClickListener(new Liaotian_haoyouRecAdapter.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(View view, int position) {
-                            /*
-                            String img=imgUrlList.get(position);
-                            String name=nicNameList.get(position);
-                            String qianmin=qianMinList.get(position);*/
-
-
-//                            Intent mIntent=new Intent(FindFriendActivity.this,ChatMessageActivity.class);
-//                            startActivity(mIntent);
-
-//                            Toast.makeText(FindFriendActivity.this, "click " + position, Toast.LENGTH_SHORT).show();
-                        }
-                    });
-
-
-                    mLiaotian_haoyouRecAdapter.setOnItemLongClickListener(new Liaotian_haoyouRecAdapter.OnItemLongClickListener() {
-                        @Override
-                        public void onItemLongClick(View view, int position) {
-                            Toast.makeText(FindFriendActivity.this, "long click " + position, Toast.LENGTH_SHORT).show();
-                        }
-                    });
 
 
                     call.cancel();
@@ -528,5 +584,54 @@ public class FindFriendActivity extends BaseActivity {
         });
     }
 
+    public List<FriendSearchBean.DataBean> list = new ArrayList<>();
+    public List<FriendSearchBean.DataBean> data = new ArrayList<>();
+    public int currpage = 1;
+
+    public void onDataLoaded(int loadtype, final boolean haveNext, List<FriendSearchBean.DataBean> datas) {
+
+        if (loadtype == TYPE_PULL_REFRESH) {
+            currpage = 1;
+            list.clear();
+            for (FriendSearchBean.DataBean info : datas) {
+                list.add(info);
+            }
+        } else {
+            for (FriendSearchBean.DataBean info : datas) {
+                list.add(info);
+            }
+        }
+        mLiaotian_haoyouRecAdapter.setData(list);
+        mLiaotian_haoyouRecAdapter.notifyDataSetChanged();
+        mSuperRecyclerView.setLoadingMore(false);
+        mSuperRecyclerView.hideMoreProgress();
+        /**
+         * 判断是否需要加载更多，与服务器的总条数比
+         */
+        if (haveNext) {
+            mSuperRecyclerView.setupMoreListener(new OnMoreListener() {
+                @Override
+                public void onMoreAsked(int overallItemsCount, int itemsBeforeMore, int maxLastVisiblePosition) {
+                    currpage++;
+                    mSuperRecyclerView.showMoreProgress();
+                    SearchNet(currpage,TYPE_PULL_MORE);
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (haveNext)
+                                mSuperRecyclerView.hideMoreProgress();
+
+
+                        }
+                    }, 2000);
+                }
+            }, 1);
+        } else {
+            mSuperRecyclerView.removeMoreListener();
+            mSuperRecyclerView.hideMoreProgress();
+
+        }
+    }
 
 }

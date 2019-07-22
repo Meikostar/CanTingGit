@@ -1,5 +1,6 @@
 package com.zhongchuang.canting.presenter.impl;
 
+import com.zhongchuang.canting.app.CanTingAppLication;
 import com.zhongchuang.canting.been.UserLoginBean;
 import com.zhongchuang.canting.net.BaseCallBack;
 import com.zhongchuang.canting.net.BaseViewCallBack;
@@ -22,7 +23,7 @@ public class LoginPresenterImpl extends BasePresenterImpl implements LoginPresen
 
     @Override
     public void login(String type, String name, String paw) {
-        api.getLoginMess(type,name,paw).enqueue(new BaseCallBack<UserLoginBean>(){
+        api.getLoginMess(type,name,paw, CanTingAppLication.CompanyType).enqueue(new BaseCallBack<UserLoginBean>(){
 
             @Override
             public void onSuccess(UserLoginBean userLoginBean) {

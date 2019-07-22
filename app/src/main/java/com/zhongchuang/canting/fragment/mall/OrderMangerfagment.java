@@ -95,6 +95,7 @@ public class OrderMangerfagment extends BaseFragment implements BaseContract.Vie
                 if (poistion == -1) {
                     Intent intent = new Intent(getActivity(), OrderDetailActivity.class);
                     intent.putExtra("id", data.protList.get(0).order_id);
+                    intent.putExtra("companyType", data.protList.get(0).company_type);
                     intent.putExtra("transaction_id", data.protList.get(0).transaction_id);
                     startActivity(intent);
                 } else if (poistion == -2){
@@ -135,6 +136,7 @@ public class OrderMangerfagment extends BaseFragment implements BaseContract.Vie
                             Intent intent = new Intent(getActivity(), EditorOrderActivity.class);
                             intent.putExtra("data", order);
                             intent.putExtra("type", data.proSite.equals("1")?1:2);
+                            intent.putExtra("companyType", data.protList.get(0).company_type);
                             startActivity(intent);
                         }else {
                             showPopwind(data.protList.get(0).transaction_id);
