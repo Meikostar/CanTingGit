@@ -12,8 +12,6 @@
         android:layout_marginLeft="15dp"
         android:layout_marginTop="13dp"
         android:background="@drawable/zhibo_comnection">
-
-
         <ImageView
             android:id="@+id/iv_img"
             android:layout_width="33dp"
@@ -285,7 +283,16 @@
         android:layout_marginTop="13dp"
         android:padding="5dp"
         android:src="@drawable/zbs_5" />
-
+    <ImageView
+        android:visibility="gone"
+        android:layout_gravity="right|bottom"
+        android:layout_marginRight="5dp"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:id="@+id/iv_gifts"
+        android:layout_marginBottom="65dp"
+        android:padding="5dp"
+        android:src="@drawable/gifts" />
     <Button
 
         android:id="@+id/alivc_info_large_rate_btn"

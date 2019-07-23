@@ -27,6 +27,7 @@ import com.zhongchuang.canting.adapter.Homedapter;
 import com.zhongchuang.canting.adapter.recycle.ItemRecycleAdapter;
 import com.zhongchuang.canting.base.BaseFragment;
 import com.zhongchuang.canting.been.Banner;
+import com.zhongchuang.canting.been.DATA;
 import com.zhongchuang.canting.been.Home;
 import com.zhongchuang.canting.been.Product;
 import com.zhongchuang.canting.been.Shops;

@@ -93,8 +93,10 @@ public class BasesPresenter implements BaseContract.Presenter {
         api.getHotDirect(map).enqueue(new BaseCallBack<VideoData>() {
             @Override
             public void onSuccess(VideoData userLoginBean) {
+               if(userLoginBean.data!=null&&userLoginBean.data.videoList!=null){
+                   mView.toEntity(userLoginBean.data.videoList, 444);
+               }
 
-                mView.toEntity(userLoginBean.data.videoList, 444);
             }
 
             @Override

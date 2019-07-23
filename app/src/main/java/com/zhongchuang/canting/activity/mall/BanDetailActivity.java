@@ -1,11 +1,13 @@
 package com.zhongchuang.canting.activity.mall;
 
 import android.os.Bundle;
+import android.widget.ListView;
 
 import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.adapter.ListImageAdapter;
 import com.zhongchuang.canting.base.BaseActivity1;
 import com.zhongchuang.canting.presenter.BaseContract;
+import com.zhongchuang.canting.utils.QiniuUtils;
 import com.zhongchuang.canting.utils.TextUtil;
 import com.zhongchuang.canting.widget.NavigationBar;
 import com.zhongchuang.canting.widget.RegularListView;
@@ -30,12 +32,13 @@ public class BanDetailActivity extends BaseActivity1 implements BaseContract.Vie
     @BindView(R.id.navigationBar)
     NavigationBar navigationBar;
     @BindView(R.id.rl_menu)
-    RegularListView rlMenu;
+    ListView rlMenu;
     private ListImageAdapter imgadapter;
     @Override
     public void initViews() {
         setContentView(R.layout.activity_ban_detail);
         ButterKnife.bind(this);
+        url=getIntent().getStringExtra("url");
         imgadapter = new ListImageAdapter(this);
         rlMenu.setAdapter(imgadapter);
     }
@@ -72,7 +75,12 @@ public class BanDetailActivity extends BaseActivity1 implements BaseContract.Vie
             String[] split = url.split(",");
             List<String> dat = new ArrayList<>();
             for (String url : split) {
-                dat.add(url);
+                if(url.contains("http")){
+                    dat.add(url);
+                }else {
+                    dat.add(QiniuUtils.baseurl+url);
+                }
+
             }
             imgadapter.setData(dat);
 

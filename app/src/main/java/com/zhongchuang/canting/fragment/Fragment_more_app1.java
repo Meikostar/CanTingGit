@@ -192,7 +192,10 @@ public class Fragment_more_app1 extends BaseFragment {
 
         super.onDestroyView();
         unbinder.unbind();
-        timeCount.cancel();
+        if(timeCount!=null){
+            timeCount.cancel();
+        }
+
 
     }
 

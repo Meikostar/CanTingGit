@@ -81,6 +81,8 @@ import com.zhongchuang.canting.adapter.HomeProductdapter;
 import com.zhongchuang.canting.adapter.VideoItemItemdapter;
 import com.zhongchuang.canting.adapter.recycle.ItemRecycleAdapter;
 import com.zhongchuang.canting.allive.recorder.util.Common;
+import com.zhongchuang.canting.allive.vodplayerview.activity.AliyunPlayerSkinActivity;
+import com.zhongchuang.canting.allive.vodplayerview.activity.AliyunPlayerSkinActivityMin;
 import com.zhongchuang.canting.app.CanTingAppLication;
 import com.zhongchuang.canting.base.BaseTitle_Activity;
 import com.zhongchuang.canting.been.Banner;
@@ -241,6 +243,10 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
             @Override
             public void onRefresh() {
                 //  mSuperRecyclerView.showMoreProgress();
+                if(isLoad){
+                    presenter.getHotDirect();
+                    presenter.getRecomdVideoList();
+                }
                 presenter.getProductList(TYPE_PULL_REFRESH, 1 + "", 12 + "", "", "1", "0", "1");
 
                 if (mSuperRecyclerView != null) {
@@ -319,7 +325,7 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
 //            }
 //        });
     }
-
+   private boolean isLoad;
   private ShapeLoadingDialog shapeLoadingDialog;
 //   private HomeBasedapter adapter;
     @PermissionFail(requestCode = PermissionConst.REQUECT_CODE_CAMERA)
@@ -726,8 +732,8 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
     private List<Fragment> mFragments;
     private com.youth.banner.Banner banner;
     private NoScrollGridView gridContent;
-    private ListView gridContentLb;
-    private ListView gridContentLive;
+    private RegularListView gridContentLb;
+    private RegularListView gridContentLive;
     private CardView card_lb;
     private CardView card_live;
 
@@ -784,6 +790,81 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
         homeProductdapter = new HomeProductdapter(this);
         lbapter = new VideoItemItemdapter(this);
         liveapter = new VideoItemItemdapter(this);
+        lbapter.setOnItemClickListener(new VideoItemItemdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position, VideoData dataBean) {
+                String token = SpUtil.getString(HomeActivitys.this, "token", "");
+                if (token == null || token.equals("")) {
+                    ToastUtils.showNormalToast("你还没有登录，快去登录吧!");
+                    Intent gotoLogin = new Intent(HomeActivitys.this, LoginActivity.class);
+                    startActivity(gotoLogin);
+                    return;
+                }
+                if (!dataBean.new_type.equals("0")) {
+                    CanTingAppLication.landType = 6;
+                    Intent intent = new Intent(HomeActivitys.this, AliyunPlayerSkinActivity.class);
+                    intent.putExtra("type", 3);
+                    intent.putExtra("url", dataBean.video_url);
+                    intent.putExtra("name", dataBean.video_name);
+                    intent.putExtra("room_info_id", dataBean.room_info_id);
+                    intent.putExtra("id", dataBean.user_info_id);
+                    startActivity(intent);
+                } else {
+                    if (dataBean.video_type.equals("2")) {
+                        CanTingAppLication.landType = 6;
+                        Intent intent = new Intent(HomeActivitys.this, AliyunPlayerSkinActivity.class);
+                        intent.putExtra("url", dataBean.video_url);
+                        intent.putExtra("name", dataBean.video_name);
+                        intent.putExtra("room_info_id", dataBean.room_info_id);
+                        intent.putExtra("id", dataBean.user_info_id);
+                        startActivity(intent);
+                    } else if (dataBean.video_type.equals("3")) {
+                        CanTingAppLication.landType = 8;
+                        Intent intent = new Intent(HomeActivitys.this, AliyunPlayerSkinActivity.class);
+                        intent.putExtra("url", dataBean.video_url);
+                        intent.putExtra("type", 3);
+                        intent.putExtra("name", dataBean.video_name);
+                        intent.putExtra("room_info_id", dataBean.room_info_id);
+                        intent.putExtra("id", dataBean.user_info_id);
+                        startActivity(intent);
+
+                    } else {
+                        CanTingAppLication.landType = 8;
+                        Intent intent = new Intent(HomeActivitys.this, AliyunPlayerSkinActivityMin.class);
+                        intent.putExtra("url", dataBean.video_url);
+                        intent.putExtra("name", dataBean.video_name);
+                        intent.putExtra("room_info_id", dataBean.room_info_id);
+                        intent.putExtra("id", dataBean.user_info_id);
+                        startActivity(intent);
+                    }
+                }
+            }
+        });
+        liveapter.setOnItemClickListener(new VideoItemItemdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position, VideoData dataBean) {
+                String token = SpUtil.getString(HomeActivitys.this, "token", "");
+                if (token == null || token.equals("")) {
+                    ToastUtils.showNormalToast("你还没有登录，快去登录吧!");
+                    Intent gotoLogin = new Intent(HomeActivitys.this, LoginActivity.class);
+                    startActivity(gotoLogin);
+                    return;
+                }
+                if (dataBean.type.equals("2")) {
+                    CanTingAppLication.landType = 0;
+                    Intent intent = new Intent(HomeActivitys.this, AliyunPlayerSkinActivity.class);
+                    intent.putExtra("id", dataBean.user_info_id);
+                    intent.putExtra("room_info_id", dataBean.room_info_id);
+                    startActivity(intent);
+                } else {
+                    CanTingAppLication.landType = 1;
+                    Intent intent = new Intent(HomeActivitys.this, AliyunPlayerSkinActivityMin.class);
+                    intent.putExtra("id", dataBean.user_info_id);
+                    intent.putExtra("room_info_id", dataBean.room_info_id);
+                    startActivity(intent);
+                }
+            }
+        });
         addFragment();
         mainViewPagerAdapter = new FragmentViewPagerAdapter(getSupportFragmentManager(), mFragments);
         viewpagerMain.setAdapter(mainViewPagerAdapter);
@@ -793,10 +874,12 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
         banner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
+                if(banners!=null&&TextUtil.isNotEmpty( banners.get(position).linkName)&&(banners.get(position).linkName.contains("156")||banners.get(position).linkName.contains("jpg")||banners.get(position).linkName.contains("png")) ){
+                    Intent intent = new Intent(HomeActivitys.this, BanDetailActivity.class);
+                    intent.putExtra("url", banners.get(position).linkName);
+                    startActivity(intent);
+                }
 
-//                Intent intent = new Intent(HomeActivitys.this, BanDetailActivity.class);
-//                intent.putExtra("url", "");
-//                startActivity(intent);
             }
         });
         viewpagerMain.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -830,17 +913,12 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
         gridContent.setAdapter(homeProductdapter);
         gridContentLive.setAdapter(liveapter);
         gridContentLb.setAdapter(lbapter);
-        lbapter.setOnItemClickListener(new VideoItemItemdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position, VideoData data) {
 
-            }
-        });
         try {
             Thread.sleep(80);
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }
+         }
         presenter.getHotDirect();
         presenter.getRecomdVideoList();
         presenter.getActivityProductList(222, 1 + "", 12 + "", "", "" + "1", "" + "2");
@@ -1367,18 +1445,24 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
 
             messageGroup = (GAME) entity;
         }else if (type == 444) {
-            List<VideoData>  lists= (List<VideoData>) entity;
-            if(lists==null||lists.size()==0){
-                card_lb.setVisibility(View.GONE);
-            }
-            lbapter.setData(lists);
-
-        }else if (type == 443) {
+            isLoad=true;
             List<VideoData>  lists= (List<VideoData>) entity;
             if(lists==null||lists.size()==0){
                 card_live.setVisibility(View.GONE);
+            }else {
+                liveapter.setData(lists);
             }
-            liveapter.setData(lists);
+
+
+        }else if (type == 443) {
+            isLoad=true;
+            List<VideoData>  lists= (List<VideoData>) entity;
+            if(lists==null||lists.size()==0){
+                card_lb.setVisibility(View.GONE);
+            }else {
+                lbapter.setData(lists);
+            }
+
 
         }else if (type == 888|| type==889) {
             productData = (List<Product>) entity;
@@ -1429,6 +1513,7 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
             }
             if (TextUtil.isNotEmpty(bean.money_buy_integral)) {
                 CanTingAppLication.totalintegral =  CanTingAppLication.totalintegral +Double.valueOf(bean.money_buy_integral);
+                CanTingAppLication.Chargeintegral =  Double.valueOf(bean.money_buy_integral);
             }
             if (TextUtil.isNotEmpty(bean.chat_integral)) {
                 CanTingAppLication.totalintegral =  CanTingAppLication.totalintegral +Double.valueOf(bean.chat_integral);

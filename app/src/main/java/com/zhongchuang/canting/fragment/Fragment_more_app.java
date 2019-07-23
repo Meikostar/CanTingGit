@@ -56,8 +56,8 @@ public class Fragment_more_app extends BaseFragment {
     private TimeCount timeCount;
     private HomeItemdapter homedapter;
 
-    private int[] homeimg1 = {R.drawable.homes_1, R.drawable.homes_2, R.drawable.homes_3,
-            R.drawable.homes_4, R.drawable.homes_5, R.drawable.homes_6, R.drawable.homes_7, R.drawable.homes_8};
+    private int[] homeimg1 = {R.drawable.homes_4, R.drawable.homes_1, R.drawable.homes_2,
+            R.drawable.homes_3, R.drawable.homes_5, R.drawable.homes_6, R.drawable.homes_7, R.drawable.homes_8};
     private GAME messageGroup=HomeActivitys.messageGroup;
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -71,28 +71,28 @@ public class Fragment_more_app extends BaseFragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 switch (position) {
-                    case 0: //商城
+                    case 1: //商城
 //                        Intent intentsss = new Intent(HomeActivitys.this, FaceCreatActivity.class);
                         Intent intentsss = new Intent(getActivity(), ShopCompsiteMallActivity.class);
                         intentsss.putExtra("type", 1);
                         startActivity(intentsss);
 
                         break;
-                    case 1://乐聊
+                    case 2://乐聊
 
                         Intent intent = new Intent(getActivity(), ShopMallActivity.class);
                         intent.putExtra("type", 1);
                         startActivity(intent);
 
                         break;
-                    case 2://乐聊
+                    case 3://乐聊
                         Intent intentss = new Intent(getActivity(), ShopMallActivity.class);
                         intentss.putExtra("type", 2);
                         startActivity(intentss);
 
 
                         break;
-                    case 3://直播
+                    case 0://直播
 
                         if (HomeActivitys.isLogin) {
                             Intent intent2 = new Intent(getActivity(), ChatSplashActivity.class);
@@ -166,7 +166,7 @@ public class Fragment_more_app extends BaseFragment {
     private int cont;
     private List<HOMES> datas = new ArrayList<>();
     public void setData(int cout) {
-        String[] indepent1 = {getString(R.string.qyzg), getString(R.string.cjzg), getString(R.string.szds), getString(R.string.zb),
+        String[] indepent1 = { getString(R.string.zb),getString(R.string.qyzg), getString(R.string.cjzg), getString(R.string.szds),
                 getString(R.string.ll), getString(R.string.grzx), getString(R.string.appfx), getString(R.string.yy), getString(R.string.appfx)};
         datas.clear();
         cont = 0;

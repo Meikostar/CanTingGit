@@ -377,7 +377,7 @@ public final class ToastUtils {
     /**
      * 安全地显示长时自定义吐司
      */
-    public static void showCustomLongSafe(@NonNull final View view) {
+    public static void showCustomLongSafe(String msg, @NonNull final View view) {
         sHandler.post(new Runnable() {
             @Override
             public void run() {

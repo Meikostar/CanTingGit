@@ -732,6 +732,8 @@ public class AliyunPlayerSkinActivityMin extends AppCompatActivity implements Ot
         if (tab_type == TAB_ONE) {
             tvVideo.setBackground(getResources().getDrawable(R.drawable.alivc_choose));
             tvVideo.setTextColor(getResources().getColor(R.color.white));
+            tvVideo.setTextSize(12);
+            tvDetail.setTextSize(12);
             tvDetail.setTextColor(getResources().getColor(R.color.color9));
             tvDetail.setBackground(null);
             presenter.getVideoList(id);
@@ -741,6 +743,8 @@ public class AliyunPlayerSkinActivityMin extends AppCompatActivity implements Ot
             tvDetail.setTextColor(getResources().getColor(R.color.white));
             tvVideo.setTextColor(getResources().getColor(R.color.color9));
             tvVideo.setBackground(null);
+            tvVideo.setTextSize(12);
+            tvDetail.setTextSize(12);
             loadingViewZb.showPager(LoadingPager.STATE_LOADING);
             presenters.getFriendCirclesList(1, -1 + "", id);
         }

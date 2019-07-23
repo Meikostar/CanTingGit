@@ -14,12 +14,11 @@
             app:navigationLeft_img="@drawable/back_white"
             app:navigationTitle="" />
 
-        <com.zhongchuang.canting.widget.RegularListView
+        <ListView
             android:id="@+id/rl_menu"
             style="@style/lv_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
             android:background="@color/white"
             android:visibility="visible" />
 

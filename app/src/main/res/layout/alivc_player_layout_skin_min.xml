@@ -232,7 +232,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:gravity="center"
-                            android:text="1.2万粉丝"
+                            android:text="2粉丝"
                             android:textColor="@color/color9"
                             android:textSize="11sp" />
                     </LinearLayout>
@@ -303,7 +303,7 @@
                             android:gravity="center"
                             android:text="视频"
                             android:textColor="@color/white"
-                            android:textSize="14sp" />
+                            android:textSize="12sp" />
 
                         <TextView
                             android:id="@+id/tv_detail"
@@ -346,11 +346,11 @@
     <ImageView
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="68dp"
+        android:layout_marginBottom="118dp"
         android:layout_marginLeft="6dp"
         android:src="@drawable/alive_share"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
         android:id="@+id/iv_shares"/>
     <tyrantgit.widget.HeartLayout
         android:id="@+id/heart_layout"

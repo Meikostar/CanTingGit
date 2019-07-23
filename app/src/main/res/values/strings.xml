@@ -920,7 +920,7 @@
     <string name="zzklgk">正在生活吧直播，快来观看吧！</string>
     <string name="fensis">粉丝:</string>
     <string name="zxrs">在线人数：</string>
-    <string name="jfyywqcz">你的积分已用完，快去充值吧!</string>
+    <string name="jfyywqcz">打赏给主播的积分必须是充值积分！你的充值积分已用完，快去充值吧!</string>
     <string name="mscz">马上充值</string>
     <string name="gzcg">关注成功</string>
     <string name="schjqkjl">删除后，将清空该聊天的消息记录</string>
@@ -1098,7 +1098,7 @@
     <string name="wcr">无此人</string>
     <string name="shcs">请稍后重试</string>
     <string name="wlbgl">网络不给力</string>
-    <string name="qyzg">企业专供</string>
+    <string name="qyzg">赞助商品</string>
     <string name="cjzg">厂家直供</string>
     <string name="szds">数字电商</string>
     <string name="sp">视频</string>

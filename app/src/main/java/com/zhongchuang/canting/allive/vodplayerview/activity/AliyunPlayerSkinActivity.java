@@ -373,7 +373,7 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity implements Other
         tvChats = (TextView) findViewById(R.id.tv_chat);
         tvLiveContent = (TextView) findViewById(R.id.tv_live_content);
         tvFee = (TextView) findViewById(R.id.tv_fee);
-        tvName = (TextView) findViewById(R.id.tv_name);
+        tvName = (TextView) findViewById(R.id.tv_namess);
         tvChat = (TextView) findViewById(R.id.tv_tab_chat);
         tv_care = (TextView) findViewById(R.id.tv_care);
         iv_care = (ImageView) findViewById(R.id.iv_care);

@@ -78,8 +78,9 @@ public class CanTingAppLication extends Application {
 
     // 上下文菜单
     private static Context mContext;
-    public static double totalGlod=0;
+
     public static double totalintegral=0;
+    public static double Chargeintegral=0;
     private UserInfo userInfo;
     public static  String userId="";
     public static  int choosType=0;

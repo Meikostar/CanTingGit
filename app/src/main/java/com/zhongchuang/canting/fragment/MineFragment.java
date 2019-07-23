@@ -179,16 +179,16 @@ public class MineFragment extends LazyFragment implements BaseContract.View, Ada
 
 
     private static final int[] itemimg2 = new int[]{R.drawable.mines1, R.drawable.mines2,
-            R.drawable.mines4, R.drawable.mines5, R.drawable.mines6, R.drawable.mines7, R.drawable.mines8, R.drawable.mines9};
+            R.drawable.mines5, R.drawable.mines6, R.drawable.mines7, R.drawable.mines8, R.drawable.mines9};
     protected Bundle fragmentArgs;
     private String shopid;
 
     private ArrayList<PROFILE_ITEM> getGridData() {
-        String[] itemname2 = new String[]{getString(R.string.hygl), getString(R.string.skmsc), getString(R.string.wdewm), getString(R.string.appxzm),
+        String[] itemname2 = new String[]{getString(R.string.hygl), getString(R.string.skmsc), getString(R.string.appxzm),
                 getString(R.string.lxkf), getString(R.string.shdz), getString(R.string.wdxc), getString(R.string.shezhi)};
         ArrayList<PROFILE_ITEM> item_list = new ArrayList<PROFILE_ITEM>();
 
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 7; i++) {
             PROFILE_ITEM item = new PROFILE_ITEM();
             item.item_name = itemname2[i];
             item.item_resource = itemimg2[i];
@@ -425,19 +425,19 @@ public class MineFragment extends LazyFragment implements BaseContract.View, Ada
                 startActivity(new Intent(getActivity(), MineCodeActivity.class));
 
                 break;
-            case 3://我的二维码
-                shopBuyWindow.showPopView(line);
-                break;
-            case 4://APP下载码
+//            case 3://我的二维码
+//                shopBuyWindow.showPopView(line);
+//                break;
+            case 3://APP下载码
                 Intent intentc = new Intent(getActivity(), ChatActivity.class);
 //                intentc.putExtra("userId", "urio1116552863061901312");//
                 intentc.putExtra("userId", "urio1087627518581669888");//生活吧
                 startActivity(intentc);
                 break;
-            case 5://联系客服
+            case 4://联系客服
                 startActivity(new Intent(getActivity(), AddressListActivity.class));
                 break;
-            case 6://收货地址
+            case 5://收货地址
                 //打开本地相册
                 Intent i = new Intent(
                         Intent.ACTION_PICK,
@@ -446,7 +446,7 @@ public class MineFragment extends LazyFragment implements BaseContract.View, Ada
                 startActivityForResult(i, 0);
                 break;
 
-            case 7://我的相册
+            case 6://我的相册
                 startActivity(new Intent(getActivity(), SettingActivity.class));
                 break;
         }

@@ -68,6 +68,7 @@ public class ControlLiveViewLands extends RelativeLayout implements ViewAction, 
     //播放按钮
 
     private ImageView iv_gift;
+    private ImageView iv_gifts;
     private ImageView iv_love;
 
 
@@ -203,6 +204,7 @@ public class ControlLiveViewLands extends RelativeLayout implements ViewAction, 
         iv_img = findViewById(R.id.iv_img);
         iv_care = findViewById(R.id.iv_care);
         iv_gift = findViewById(R.id.iv_gift);
+        iv_gifts = findViewById(R.id.iv_gifts);
         iv_love = findViewById(R.id.iv_love);
 
 
@@ -220,7 +222,7 @@ public class ControlLiveViewLands extends RelativeLayout implements ViewAction, 
 
 
         et_comment.setVisibility(GONE);
-        iv_gift.setVisibility(GONE);
+//        iv_gift.setVisibility(GONE);
         iv_love.setVisibility(GONE);
         mTitleMore.setVisibility(GONE);
 
@@ -235,6 +237,7 @@ public class ControlLiveViewLands extends RelativeLayout implements ViewAction, 
             mScreenModeBtn = findViewById(R.id.iv_sales);
 
             mControlBar.setVisibility(VISIBLE);
+            iv_gifts.setVisibility(VISIBLE);
 
             mPlayStateBtn.setOnClickListener(new OnClickListener() {
                 @Override
@@ -355,6 +358,15 @@ public class ControlLiveViewLands extends RelativeLayout implements ViewAction, 
                 }
             }
         });
+        iv_gifts.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mOngiftMessageListener != null) {
+                    mOngiftMessageListener.onClick(1,state);
+                }
+            }
+        });
+
         //标题的返回按钮监听
         et_comment.setOnClickListener(new OnClickListener() {
             @Override

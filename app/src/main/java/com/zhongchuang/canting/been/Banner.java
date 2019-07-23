@@ -13,6 +13,7 @@ public class Banner extends BaseResponse{
     public String activityImage;
     public String ads_name;
     public String image_url;
+    public String linkName;
     public String id;
     public String image_site;
     public String product_sku_id;

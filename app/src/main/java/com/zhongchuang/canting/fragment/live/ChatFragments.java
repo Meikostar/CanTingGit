@@ -158,7 +158,7 @@ public class ChatFragments extends Fragment implements View.OnClickListener, Vie
                     public void click(Gift gift) {
                         gifs = gift;
                         listener.setGift(gifs);
-                        if(gift.gift_intege<=CanTingAppLication.totalintegral){
+                        if(gift.gift_intege<=CanTingAppLication.Chargeintegral){
                             sendGiftForGirl(gift.gift_info_id,gift.gift_name,1);
                         }else {
                             showPopwindow();
@@ -210,7 +210,7 @@ public class ChatFragments extends Fragment implements View.OnClickListener, Vie
                         public void click(Gift gift) {
                             gifs = gift;
 
-                        if(gift.gift_intege<=CanTingAppLication.totalintegral){
+                        if(gift.gift_intege<=CanTingAppLication.Chargeintegral){
                             sendGiftForGirl(gift.gift_info_id,gift.gift_name,1);
                         }else {
                             showPopwindow();
@@ -606,7 +606,7 @@ public class ChatFragments extends Fragment implements View.OnClickListener, Vie
             cancel = views.findViewById(R.id.txt_cancel);
             title = views.findViewById(R.id.tv_title);
             reson = views.findViewById(R.id.edit_reson);
-            title.setText(R.string.jfyywqcz);
+            title.setText("打赏给主播的积分必须是充值积分！你的充值积分已用完，快去充值吧!");
             sure.setText(R.string.mscz);
 
             dialogs = BaseDailogManager.getInstance().getBuilder(getActivity()).setMessageView(views).create();
@@ -647,6 +647,7 @@ public class ChatFragments extends Fragment implements View.OnClickListener, Vie
             }
             if (TextUtil.isNotEmpty(bean.money_buy_integral)) {
                 CanTingAppLication.totalintegral =  CanTingAppLication.totalintegral +Double.valueOf(bean.money_buy_integral);
+                CanTingAppLication.Chargeintegral = Double.valueOf(bean.money_buy_integral);
             }
             if (TextUtil.isNotEmpty(bean.chat_integral)) {
                 CanTingAppLication.totalintegral =  CanTingAppLication.totalintegral +Double.valueOf(bean.chat_integral);

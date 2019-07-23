@@ -22,6 +22,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
+import com.aliyun.common.utils.ToastUtil;
 import com.google.zxing.client.android.activity.CaptureActivity;
 import com.hyphenate.chat.EMClient;
 import com.zhongchuang.canting.activity.chat.AddGroupActivity;
@@ -156,6 +157,7 @@ public class TongXunLuFragment extends EaseContactListFragment implements View.O
         conference_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ToastUtil.showToast(getActivity(),"功能开发中,敬请期待...");
 //                ConferenceActivity.startConferenceCall(getActivity(), null);
             }
         });
