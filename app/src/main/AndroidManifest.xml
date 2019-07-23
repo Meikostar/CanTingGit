@@ -93,6 +93,14 @@
             android:name=".activity.mall.BanDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
+        <activity
+            android:name=".easeui.ui.AddSomeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".easeui.ui.PickAtUserActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
 
         <activity
             android:name=".activity.chat.SumbitJfActivity"
