@@ -153,11 +153,16 @@ public class BasesPresenter implements BaseContract.Presenter {
     }
 
     @Override
-    public void create() {
+    public void create(final String userId) {
 
 
         Map<String, String> map = new HashMap<>();
-        map.put("userInfoId", SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
+        if(TextUtil.isNotEmpty(userId)){
+            map.put("userInfoId", userId);
+        }else {
+            map.put("userInfoId", SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
+        }
+
         map.put("chatroomsName", SpUtil.getName(CanTingAppLication.getInstance()));
         map.put("description", "live_" + SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
         map.put("maxUsers", "5000");
@@ -166,9 +171,45 @@ public class BasesPresenter implements BaseContract.Presenter {
 
             @Override
             public void onSuccess(aliLive userLoginBean) {
-                if (userLoginBean.data != null && TextUtil.isNotEmpty(userLoginBean.data.chatroomsId)) {
-                    SpUtil.putString(CanTingAppLication.getInstance(), "chatroomsId", userLoginBean.data.chatroomsId);
+                if(TextUtil.isEmpty(userId)){
+                    if (userLoginBean.data != null && TextUtil.isNotEmpty(userLoginBean.data.chatroomsId)) {
+                        SpUtil.putString(CanTingAppLication.getInstance(), "chatroomsId", userLoginBean.data.chatroomsId);
+                    }
+                }else {
+                    mView.toEntity(userLoginBean,121);
                 }
+
+
+
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                mView.showTomast(t);
+            }
+        });
+    }
+    @Override
+    public void getChatRoomInfo(final String userId) {
+
+
+        Map<String, String> map = new HashMap<>();
+        if(TextUtil.isNotEmpty(userId)){
+            map.put("userInfoId", userId);
+        }else {
+            map.put("userInfoId", SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
+        }
+
+
+        api.getChatRoomInfo(map).enqueue(new BaseCallBack<aliLive>() {
+
+            @Override
+            public void onSuccess(aliLive userLoginBean) {
+
+                    mView.toEntity(userLoginBean.data,122);
+
+
 
 
             }
@@ -1393,11 +1434,17 @@ public class BasesPresenter implements BaseContract.Presenter {
     public void getVersionAndUrl() {
 
 
+        Map<String, String> map = new HashMap<>();
+
+        map.put("type",  CanTingAppLication.CompanyType);
+
+
         api.getVersionAndUrl().enqueue(new BaseCallBack<Version>() {
 
             @Override
             public void onSuccess(Version userLoginBean) {
                 mView.toEntity(userLoginBean.data, 14);
+
             }
 
             @Override

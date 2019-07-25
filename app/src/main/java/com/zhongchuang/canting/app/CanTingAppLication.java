@@ -74,6 +74,7 @@ public class CanTingAppLication extends Application {
     public static INTEGRAL integral;
     public Handler mHandler = new Handler();
     public static Map<String ,String > list=new Hashtable<>();
+    public static Map<String ,String > easeDatas;
 
 
     // 上下文菜单

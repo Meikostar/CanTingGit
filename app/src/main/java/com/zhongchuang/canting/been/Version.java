@@ -26,5 +26,6 @@ public class Version extends BaseResponse{
         public String description;
         public String version;
         public String url;
+        public String type;
 
 }

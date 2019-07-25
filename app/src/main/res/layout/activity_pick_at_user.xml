@@ -4,38 +4,62 @@
     android:layout_height="match_parent"
     android:background="#eee"
     android:orientation="vertical" >
-
-    <RelativeLayout
+    <LinearLayout
+        android:background="#FF2A93FF"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/height_top_bar"
-       android:background="@color/top_bar_normal_bg"
-        android:gravity="center_vertical" >
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <RelativeLayout
+            android:id="@+id/rl_bg"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-         <LinearLayout
-            android:layout_width="45dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/ease_common_tab_bg"
-            android:onClick="back" >
+
+
+
+            <TextView
+                android:layout_weight="0.6"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:text="选择提醒的人"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+            <TextView
+                android:padding="5dp"
+                android:id="@+id/tv_sure"
+                android:text="@string/qd"
+                android:textColor="#fff"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="16dp"
+                android:layout_marginLeft="9dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="9dp"
-                android:layout_marginStart="9dp"
-                android:scaleType="centerInside"
-                />
-        </LinearLayout>
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:padding="5dp"
+                android:id="@+id/back"
+                android:layout_width="22dp"
+                android:layout_height="29dp"
+                android:src="@drawable/back_white" />
+        </RelativeLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/Select_the_contact"
-            android:textColor="#ffffff"
-            android:textSize="20sp" />
 
-    </RelativeLayout>
+
+
+    </LinearLayout>
+
 
     <RelativeLayout
         android:layout_width="match_parent"

@@ -31,7 +31,7 @@ public class BaseContract {
         void getHotDirect();
         void getRecomdVideoList();
         void redGrab(String redEnvelopeId	,String sendType);
-
+        void getChatRoomInfo(final String userId);
         /**
          * 查看领取详情接口
          * @param redEnvelopeId
@@ -346,7 +346,7 @@ public class BaseContract {
         /**
          *1.创建聊天室
          */
-        void create();
+        void create(String userid);
         /**
          *1.获取首页最新的视频列表接口
          */

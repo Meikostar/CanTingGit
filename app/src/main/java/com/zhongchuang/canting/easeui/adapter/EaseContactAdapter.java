@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
+import com.hyphenate.chat.EMClient;
 import com.hyphenate.util.EMLog;
 import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.ChatActivity;
@@ -62,6 +63,7 @@ public class EaseContactAdapter extends ArrayAdapter<EaseUser> implements Sectio
 
         TextView address;
         LinearLayout ll_bg;
+        LinearLayout ll_bgs;
         TextView judge;
         ImageView member_select;
     }
@@ -77,6 +79,7 @@ public class EaseContactAdapter extends ArrayAdapter<EaseUser> implements Sectio
             holder.avatar = convertView.findViewById(R.id.avatar);
             holder.address = convertView.findViewById(R.id.address);
             holder.ll_bg = convertView.findViewById(R.id.ll_bg);
+            holder.ll_bgs = convertView.findViewById(R.id.ll_bgs);
             holder.iv_choose = convertView.findViewById(R.id.iv_choose);
             holder.judge = convertView.findViewById(R.id.judge);
             holder.headerView = convertView.findViewById(R.id.header);
@@ -86,6 +89,7 @@ public class EaseContactAdapter extends ArrayAdapter<EaseUser> implements Sectio
             holder = (ViewHolder) convertView.getTag();
         }
         final EaseUser user = getItem(position);
+
         if(status==1){
             holder.iv_choose.setVisibility(View.VISIBLE);
             if(user.state==1){

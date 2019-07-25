@@ -213,7 +213,7 @@
                             android:textColor="@color/white"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="企业专供"/>
+                            android:text="数字电商"/>
                         <TextView
                             android:layout_marginLeft="29dp"
                             android:gravity="center"
@@ -256,7 +256,7 @@
                             android:textColor="@color/white"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="直播录屏"/>
+                            android:text="直播@录播"/>
                         <TextView
                             android:layout_marginLeft="29dp"
                             android:gravity="center"

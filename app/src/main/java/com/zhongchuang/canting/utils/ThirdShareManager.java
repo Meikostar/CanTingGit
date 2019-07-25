@@ -185,7 +185,7 @@ public class ThirdShareManager {
 
                 WXWebpageObject webpage = new WXWebpageObject();
 
-                webpage.webpageUrl = "https://www.huya.com/";
+                webpage.webpageUrl = mShareBean.url_;
 
                 WXMediaMessage msg = new WXMediaMessage(webpage);
 

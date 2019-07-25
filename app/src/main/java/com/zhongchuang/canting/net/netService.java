@@ -128,7 +128,7 @@ public interface netService {
 //    public static final String TOM_BASE_URL = "http://47.74.189.52:8080/ifun/";
 //      public static final String TOM_BASE_URL = "http://119.23.235.1:8080/ifun/";
 //    public static final String TOM_BASE_URL = "http://120.77.222.116:8080/ifun/";
-//    public static final String TOM_BASE_URL = "http://120.78.148.31:8080/ifun/";//替换生活吧服务器
+//    public static final String TOM_BASE_URL = "http://120.78.148.31:8080/ifun/";//替换信联服务器
 
 
     public static final String TOM_BASE_URL = "http://119.23.212.8:8080/ifun/";
@@ -1130,7 +1130,9 @@ public interface netService {
     @FormUrlEncoded
     @POST("wap/chatrooms/create")
     Call<aliLive> create(@FieldMap Map<String, String> opt);
-
+    @FormUrlEncoded
+    @POST("wap/chatrooms/getChatRoomInfo")
+    Call<aliLive> getChatRoomInfo(@FieldMap Map<String, String> opt);
 
     @FormUrlEncoded
     @POST("wap/liveCategory/getFirstCategoryList")

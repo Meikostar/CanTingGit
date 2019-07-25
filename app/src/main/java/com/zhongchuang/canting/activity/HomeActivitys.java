@@ -1048,7 +1048,7 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
 
 
            shareBean=new ShareBean();
-            shareBean.title_ = SpUtil.getName(this) + "邀请你下载生活吧APP";
+            shareBean.title_ = SpUtil.getName(this) + "邀请你下载信联APP";
             shareBean.content_ = "让你有不一样的购物体验不一样的直播平台不一样的社交！";
             shareBean.url_ = Constant.APP_SHARE;
             shareBean.img_ = "img";
@@ -1429,7 +1429,9 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
             data.data = dat;
         } else if (type == 14) {
             List<Version> datas = (  List<Version>) entity;
+
             Version data=datas.get(0);
+
             String oldVersion = StringUtil.getVersion(CanTingAppLication.getInstance());//"0.17"
             description = data.description;
             if (TextUtil.isNotEmpty(data.name)) {
@@ -1526,7 +1528,7 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
             }
             if (TextUtil.isNotEmpty(bean.invitation_code)) {
                 CanTingAppLication.invitation_code=bean.invitation_code;
-                shareBean.title_ = SpUtil.getName(this) + "邀请你下载生活吧APP";
+                shareBean.title_ = SpUtil.getName(this) + "邀请你下载信联APP";
                 shareBean.content_ = "让你有不一样的购物体验不一样的直播平台不一样的社交！";
                 shareBean.url_ = Constant.APP_SHARE + SpUtil.getName(this)+","+bean.invitation_code;
                 shareBean.img_ = "img";

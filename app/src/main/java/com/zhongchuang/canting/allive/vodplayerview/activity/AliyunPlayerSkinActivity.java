@@ -298,14 +298,14 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity implements Other
             }
         }
         String title="";
-        if(TextUtil.isNotEmpty(data.live_address)){
+
             status=1;
             title=(TextUtil.isNotEmpty(ben.room_image)?ben.room_image:"#")+","+ (TextUtil.isNotEmpty(ben.user_info_nickname)?ben.user_info_nickname:"#")+","+ben.fans_num+","+ ben.type+","+(TextUtil.isNotEmpty(ben.live_address)?ben.live_address:"#")+","+(TextUtil.isNotEmpty(name)?name:"#");
 
             mAliyunVodPlayerView.updateTitleViews(title);
 
 
-        }
+
 //        if(TextUtil.isNotEmpty(data.live_address)&&status==0){
 //            status=1;
 //            if(TextUtil.isNotEmpty(name)){
@@ -348,6 +348,7 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity implements Other
     private ImageView iv_imgs;
     private ImageView ivRank;
     private ImageView iv_share;
+    private ImageView iv_gift;
 
     private TextView tvName;
     private TextView tvFee;
@@ -375,8 +376,8 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity implements Other
         tvFee = (TextView) findViewById(R.id.tv_fee);
         tvName = (TextView) findViewById(R.id.tv_namess);
         tvChat = (TextView) findViewById(R.id.tv_tab_chat);
-        tv_care = (TextView) findViewById(R.id.tv_care);
-        iv_care = (ImageView) findViewById(R.id.iv_care);
+        tv_care = (TextView) findViewById(R.id.tv_caress);
+        iv_care = (ImageView) findViewById(R.id.iv_caress);
         tvZb = (TextView) findViewById(R.id.tv_tab_zb);
         tvCout = (TextView) findViewById(R.id.tv_cout);
         tvRank = (TextView) findViewById(R.id.tv_tab_rank);
@@ -385,10 +386,23 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity implements Other
         iv_imgs = (ImageView) findViewById(R.id.iv_imgs);
         ivRank = (ImageView) findViewById(R.id.iv_rank);
         iv_share = (ImageView) findViewById(R.id.iv_share);
+        iv_gift = (ImageView) findViewById(R.id.iv_gifts);
         stub_chat = (NoScrollViewPager) findViewById(R.id.viewpager_main);
         stub_zb = (ViewStub) findViewById(R.id.stub_zb);
         stub_hand = (ViewStub) findViewById(R.id.stub_hand);
+        iv_gift.setVisibility(View.VISIBLE);
+        iv_gift.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(giftMessageListener!=null){
+                    if(poi!=0){
+                        selectPosition(0);
+                    }
+                    giftMessageListener.click(1);
+                }
 
+            }
+        });
         tvChat.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -759,6 +773,7 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity implements Other
     public void selectPosition(int position) {
         switch (position) {
             case 0:
+                poi=0;
                 updateUI(1);
                 tvChat.setActivated(true);
                 tvZb.setActivated(false);
@@ -768,6 +783,7 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity implements Other
                 ivRank.setActivated(false);
                 break;
             case 1:
+                poi=1;
                 updateUI(2);
                 tvChat.setActivated(false);
                 tvZb.setActivated(true);
@@ -777,6 +793,7 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity implements Other
                 ivRank.setActivated(false);
                 break;
             case 2:
+                poi=2;
                 updateUI(3);
                 tvChat.setActivated(false);
                 tvZb.setActivated(false);
@@ -795,7 +812,7 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity implements Other
     private View view_stub_zb;//主播排行
     private View view_stub_hand;//主播排行
 
-
+    private int poi;
 
     public void getDirIndexInfo() {
 
@@ -873,7 +890,10 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity implements Other
             @Override
             public void click(int poistion,int state) {
                 if(poistion==1){
-                    giftMessageListener.click(1);
+                    if(giftMessageListener!=null){
+                        giftMessageListener.click(1);
+                    }
+
                 }else if(poistion==2) {
 //                    if(type==1){
                         mAliyunVodPlayerView.setChangeModel();
@@ -895,8 +915,10 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity implements Other
             public void change(AliyunScreenMode mode) {
                 if (mode == AliyunScreenMode.Small) {
                     iv_share.setVisibility(View.VISIBLE);
+                    iv_gift.setVisibility(View.VISIBLE);
                 }else {
                     iv_share.setVisibility(View.GONE);
+                    iv_gift.setVisibility(View.GONE);
                 }
             }
         });
@@ -1022,6 +1044,7 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity implements Other
                 }
 
             }else {
+                presenters.getChatRoomInfo(id);
                 getDirIndexInfo();
             }
         } else if (type == 111) {
@@ -1039,7 +1062,32 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity implements Other
                 loadingViewZb.setContent("主播还没有录播视频");
                 loadingViewZb.showPager(LoadingPager.STATE_EMPTY);
             }
-        } else if (type == 79) {
+        } else if (type == 122) {
+            aliLive aliLive = (aliLive) entity;
+
+            if(aliLive==null||TextUtil.isEmpty(aliLive.chatrooms_id)){
+                presenters.create(id);
+                return;
+            }
+//                DEFAULT_URL = "rtmp://alive.chushenduojin.cn/zhixing/stream_urio1098110334129930240?auth_key=1553756190-0-0-da7b83d44eced17ea0b878c1d89aedbb";
+            room_id = aliLive.chatrooms_id;
+
+            initViewPager();
+            if (TextUtil.isNotEmpty(url)) {
+                selectPosition(0);
+                handler.sendEmptyMessageDelayed(1,200);
+//                    selectPosition(1);
+
+            }else {
+                selectPosition(0);
+            }
+
+
+        } else if (type == 121) {
+
+
+            presenters.getChatRoomInfo(id);
+        }else if (type == 79) {
             FriendInfo info= (FriendInfo) entity;
             if (!TextUtils.isEmpty(info.nickname)) {
                 tvName.setText(info.nickname);
@@ -1669,8 +1717,10 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity implements Other
             activity.hideShowMoreDialog(from, currentMode);
             if (currentMode == AliyunScreenMode.Small) {
                 iv_share.setVisibility(View.VISIBLE);
+                iv_gift.setVisibility(View.VISIBLE);
             }else {
                 iv_share.setVisibility(View.GONE);
+                iv_gift.setVisibility(View.GONE);
             }
         }
     }

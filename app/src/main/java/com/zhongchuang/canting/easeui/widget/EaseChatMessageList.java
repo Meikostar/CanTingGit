@@ -146,7 +146,7 @@ public class EaseChatMessageList extends RelativeLayout{
         boolean onBubbleClick(EMMessage message);
         void onBubbleLongClick(EMMessage message);
         void onUserAvatarClick(String id);
-        void onUserAvatarLongClick(String username);
+        void onUserAvatarLongClick(EMMessage username);
     }
 
     /**

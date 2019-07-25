@@ -10,17 +10,29 @@ import android.text.TextUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import com.hyphenate.chat.EMClient;
+import com.hyphenate.chat.EMConversation;
+import com.hyphenate.chat.EMMessage;
+import com.hyphenate.exceptions.HyphenateException;
 import com.hyphenate.util.EasyUtils;
 import com.zhongchuang.canting.R;
+import com.zhongchuang.canting.app.CanTingAppLication;
 import com.zhongchuang.canting.been.BaseResponse;
 import com.zhongchuang.canting.been.FriendInfo;
 import com.zhongchuang.canting.been.SubscriptionBean;
+import com.zhongchuang.canting.been.USER;
 import com.zhongchuang.canting.been.UserInfo;
 import com.zhongchuang.canting.easeui.EaseConstant;
 import com.zhongchuang.canting.easeui.bean.CHATMESSAGE;
 import com.zhongchuang.canting.easeui.bean.GROUPS;
+import com.zhongchuang.canting.easeui.bean.PLACE;
+import com.zhongchuang.canting.easeui.bean.USER_AVATAR;
 import com.zhongchuang.canting.easeui.ui.ChatFragment;
 import com.zhongchuang.canting.easeui.ui.EaseChatFragment;
+import com.zhongchuang.canting.hud.ToastUtils;
+import com.zhongchuang.canting.net.BaseCallBack;
+import com.zhongchuang.canting.net.HttpUtil;
+import com.zhongchuang.canting.net.netService;
 import com.zhongchuang.canting.permission.PermissionConst;
 import com.zhongchuang.canting.permission.PermissionGen;
 import com.zhongchuang.canting.presenter.BaseContract;
@@ -33,7 +45,9 @@ import com.zhongchuang.canting.utils.TextUtil;
 import com.zhongchuang.canting.viewcallback.GetUserInfoViewCallback;
 import com.zhongchuang.canting.widget.RxBus;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -102,12 +116,34 @@ public class ChatActivity extends FragmentActivity implements BaseContract.View 
         CHATMESSAGE chatmessage = (CHATMESSAGE) getIntent().getSerializableExtra(EaseConstant.EXTRA_CHATMSG);
         if (chatmessage != null) {
             if(chatType==EaseConstant.CHATTYPE_GROUP){
+
                 GROUPS group = chatmessage.getGroup();
                 if(group!=null&&TextUtil.isNotEmpty(group.getGroup_id())){
+                    getGroupInfo(group.getGroup_id());
                     go2Chat(chatmessage);
                 }else {
                     presenter.getGroupInfo(toChatUsername);
+                    getGroupInfo(toChatUsername);
                 }
+                EMConversation conversation = EMClient.getInstance().chatManager().getConversation(toChatUsername);
+//获取此会话的所有消息
+//                List<EMMessage> messages = conversation.getAllMessages();
+//SDK初始化加载的聊天记录为20条，到顶时需要去DB里获取更多
+//获取startMsgId之前的pagesize条消息，此方法获取的messages SDK会自动存入到此会话中，APP中无需再次把获取到的messages添加到会话中
+                if(conversation!=null){
+                    EMMessage lastMessage = conversation.getLastMessage();
+                    String content="";
+                    try {
+                        content = lastMessage.getStringAttribute(EaseConstant.MESSAGE_ATTR_AT_MSG);
+                    } catch (HyphenateException e) {
+                        e.printStackTrace();
+                    }
+                    if(TextUtil.isNotEmpty(content)){
+                        lastMessage.setAttribute(EaseConstant.MESSAGE_ATTR_AT_MSG,"");
+                    }
+                }
+
+
             }else {
                 go2Chat(chatmessage);
             }
@@ -154,7 +190,50 @@ public class ChatActivity extends FragmentActivity implements BaseContract.View 
         super.onDestroy();
         activityInstance = null;
     }
+    public void getGroupInfo(final String groupId) {
+        if(CanTingAppLication.easeDatas==null){
+            CanTingAppLication.easeDatas=new HashMap<>();
+        }else {
+            CanTingAppLication.easeDatas.clear();
+        }
+        Map<String, String> map = new HashMap<>();
+//        map.put("userInfoId", CanTingAppLication.userId);
+        map.put("groupsId", groupId);
 
+        netService api = HttpUtil.getInstance().create(netService.class);
+        api.getGroupInfo(map).enqueue(new BaseCallBack<USER>() {
+            @Override
+            public void onSuccess(USER group) {
+
+
+                for (USER user : group.data) {
+                    USER_AVATAR avatar = new USER_AVATAR();
+                    if (!TextUtils.isEmpty(user.getNickname())) {
+                        avatar.setName(user.getNickname());
+                    }
+                    if (!TextUtils.isEmpty(user.head_image)) {
+                        avatar.setUser_avatar(user.head_image);
+                    }
+                    if (!TextUtils.isEmpty(user.user_group_name)) {
+                        avatar.user_group_name = user.user_group_name;
+                    }
+                    if (!TextUtils.isEmpty(user.user_info_id)) {
+                        avatar.user_info_id = user.user_info_id;
+                    }
+                    if(CanTingAppLication.easeDatas!=null){
+                        CanTingAppLication.easeDatas.put(user.user_info_id,user.getNickname()+","+user.head_image);
+                    }
+
+                }
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                ToastUtils.showNormalToast(t);
+            }
+        });
+    }
     @Override
     protected void onNewIntent(Intent intent) {
         String username = intent.getStringExtra("userId");

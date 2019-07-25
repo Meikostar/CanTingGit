@@ -1042,7 +1042,7 @@ public class LiveMineFragments extends LazyFragment implements BaseContract.View
                         playType=2;
                         String chatRoomId = SpUtil.getChatRoomId(getActivity());
                         if(TextUtil.isEmpty(chatRoomId)){
-                            presenter.create();
+                            presenter.create("");
                         }else {
                             presenter.getLiveUrl(SpUtil.getUserInfoId(getActivity()));
                         }

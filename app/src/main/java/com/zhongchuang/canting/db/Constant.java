@@ -30,29 +30,29 @@ public class Constant extends EaseConstant {
     public static String[] URL_TYPE5 = {"http://120.78.148.31:8089/xls/index.html#/app/", "http://120.77.222.116:8088/share/index.html#/app/", "http://47.107.249.69:8088/shbs/index.html#/app/", "http://120.77.222.116:8088/share/index.html#/app/"};
 
 
-//
-//    public static final String CompanyType = "1";//信联
-//    public static int[] homeimg = {R.drawable.logo2, R.drawable.logo3, R.drawable.logo4};
-//    public static String[] indepent = {"对了", "生活吧", "智信"};
-//    public static String[] type = {"2", "3", "4"};
-    //    public static final String APP_LIVE_DOWN = "http://120.78.148.31:8089/xlx/index.html";
-//    public static final String APP_PRODUCT = "http://120.78.148.31:8089/xlDetail/index.html#/app/";
-//    public static final String APP_FILE_NAME = "https://video-xl.oss-cn-shenzhen.aliyuncs.com/";
-//    public static final String FILE_NAME = "video-xl";
-//    public static final String APP_SHARE = "http://120.78.148.31:8089/xls/index.html#/app/";
 
-
-
-
-    public static final String CompanyType = "1";//对了
-    public static int[] homeimg = {R.drawable.logo1, R.drawable.logo3, R.drawable.logo4};
-    public static String[] indepent = {"信联", "生活吧", "智信"};
+    public static final String CompanyType = "1";//信联
+    public static int[] homeimg = {R.drawable.logo2, R.drawable.logo3, R.drawable.logo4};
+    public static String[] indepent = {"对了", "生活吧", "智信"};
     public static String[] type = {"2", "3", "4"};
-    public static String APP_LIVE_DOWN = "http://47.107.249.69:8088/shbx/index.html";
-    public static String APP_PRODUCT = "http://47.107.249.69:8088/shbDetail/index.html#/app/";
-//    public static String APP_FILE_NAME = "https://videos-hz.oss-cn-shenzhen.aliyuncs.com/";
-    public static String FILE_NAME = "videos-hz";
-    public static String APP_SHARE = "http://47.107.249.69:8088/shbs/index.html#/app/";
+    public static final String APP_LIVE_DOWN = "http://120.78.148.31:8089/xlx/index.html";
+    public static final String APP_PRODUCT = "http://120.78.148.31:8089/xlDetail/index.html#/app/";
+    //    public static final String APP_FILE_NAME = "https://video-xl.oss-cn-shenzhen.aliyuncs.com/";
+    public static final String FILE_NAME = "video-xl";
+    public static final String APP_SHARE = "http://120.78.148.31:8089/xls/index.html#/app/";
+
+
+
+//
+//    public static final String CompanyType = "2";//对了
+//    public static int[] homeimg = {R.drawable.logo1, R.drawable.logo3, R.drawable.logo4};
+//    public static String[] indepent = {"信联", "生活吧", "智信"};
+//    public static String[] type = {"2", "3", "4"};
+//    public static String APP_LIVE_DOWN = "http://47.107.249.69:8088/shbx/index.html";
+//    public static String APP_PRODUCT = "http://47.107.249.69:8088/shbDetail/index.html#/app/";
+////    public static String APP_FILE_NAME = "https://videos-hz.oss-cn-shenzhen.aliyuncs.com/";
+//    public static String FILE_NAME = "videos-hz";
+//    public static String APP_SHARE = "http://47.107.249.69:8088/shbs/index.html#/app/";
 
 
     //    public static final String CompanyType = "3";//生活吧

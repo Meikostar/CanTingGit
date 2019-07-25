@@ -130,9 +130,11 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
         if(lastMessage!=null){
             if (conversation.getType() == EMConversationType.GroupChat) {
                 String groupId = conversation.conversationId();
-                if(EaseAtMessageHelper.get().hasAtMeMsg(groupId)){
+
+                if (EaseAtMessageHelper.get().isAtMeMsg(lastMessage)) {
                     holder.motioned.setVisibility(View.VISIBLE);
-                }else{
+//                    lastMessage.setAttribute(EaseConstant.MESSAGE_ATTR_AT_MSG,"");
+                } else {
                     holder.motioned.setVisibility(View.GONE);
                 }
                 // group message, show group avatar
@@ -213,6 +215,7 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
                 if(content != null){
                     holder.message.setText(content);
                 }
+
                 holder.time.setText(DateUtils.getTimestampString(new Date(lastMessage.getMsgTime())));
                 if (lastMessage.direct() == EMMessage.Direct.SEND && lastMessage.status() == EMMessage.Status.FAIL) {
                     holder.msgState.setVisibility(View.VISIBLE);

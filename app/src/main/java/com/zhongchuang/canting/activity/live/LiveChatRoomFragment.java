@@ -165,8 +165,11 @@ public class LiveChatRoomFragment extends EaseChatFragment implements EaseChatFr
     }
 
     @Override
-    public void onAvatarLongClick(String username) {
-        inputAtUsername(username);
+    public void onAvatarLongClick( EMMessage username) {
+        if(username!=null){
+            inputAtUsername(username.getFrom());
+        }
+
     }
 
     private String user_id;

@@ -130,13 +130,13 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:id="@+id/iv_care"
+                        android:id="@+id/iv_caress"
                         android:layout_width="15dp"
                         android:layout_height="16dp"
                         android:src="@drawable/live_gzs" />
 
                     <TextView
-                        android:id="@+id/tv_care"
+                        android:id="@+id/tv_caress"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"

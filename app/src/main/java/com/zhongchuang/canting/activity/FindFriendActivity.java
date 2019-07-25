@@ -554,7 +554,7 @@ public class FindFriendActivity extends BaseActivity {
                 final List<FriendSearchBean.DataBean> mListBean = mFriendBean.getData();
 
                 if (code == 301) {
-                    onDataLoaded(loadType,mListBean.size()>=30,mListBean);
+                    onDataLoaded(loadType,mListBean.size()!=0,mListBean);
 //                    findFrdRecy.setLayoutManager(new LinearLayoutManager(FindFriendActivity.this));
 //                    mLiaotian_haoyouRecAdapter = new Liaotian_haoyouRecAdapter(FindFriendActivity.this, mListBean);
 

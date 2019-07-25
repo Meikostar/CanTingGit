@@ -183,20 +183,19 @@ public class EaseAtMessageHelper {
         EaseUser user = EaseUserUtils.getUserInfo(message.getFrom());
         if(user != null){
             try {
-                JSONArray jsonArray = message.getJSONArrayAttribute(EaseConstant.MESSAGE_ATTR_AT_MSG);
-                
-                for(int i = 0; i < jsonArray.length(); i++){
-                    String username = jsonArray.getString(i);
-                    if(username.equals(EMClient.getInstance().getCurrentUser())){
-                        return true;
-                    }
+                String username = message.getStringAttribute(EaseConstant.MESSAGE_ATTR_AT_MSG);
+                String currentUser = EMClient.getInstance().getCurrentUser();
+                if(username.contains(EMClient.getInstance().getCurrentUser())||username.equals("ALL")){
+                    return true;
                 }
+
             } catch (Exception e) {
                 //perhaps is a @ all message
-                String atUsername = message.getStringAttribute(EaseConstant.MESSAGE_ATTR_AT_MSG, null);
-                if(atUsername != null){
-                    return atUsername.toUpperCase().equals(EaseConstant.MESSAGE_ATTR_VALUE_AT_MSG_ALL);
-                }
+//                String atUsername = message.getStringAttribute(EaseConstant.MESSAGE_ATTR_AT_MSG, null);
+//                if(atUsername.contains(EMClient.getInstance().getCurrentUser())){
+//                    return true;
+//                }
+
                 return  false;
             }
             

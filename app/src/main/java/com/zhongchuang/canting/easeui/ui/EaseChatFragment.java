@@ -447,7 +447,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
             }
 
             @Override
-            public void onUserAvatarLongClick(String username) {
+            public void onUserAvatarLongClick(EMMessage username) {
                 if (chatFragmentHelper != null) {
                     chatFragmentHelper.onAvatarLongClick(username);
                 }
@@ -952,6 +952,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
      * @param username
      */
     protected void inputAtUsername(String username, boolean autoAddAtSymbol) {
+        String content="";
         if (EMClient.getInstance().getCurrentUser().equals(username) ||
                 chatType != EaseConstant.CHATTYPE_GROUP) {
             return;
@@ -961,13 +962,65 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
         if (user != null) {
             username = user.getNickname();
         }
-        if (autoAddAtSymbol)
-            inputMenu.insertText("@" + username + " ");
-        else
-            inputMenu.insertText(username + " ");
+        username=getNick(username);
+
+        String cont = inputMenu.getPrimaryMenu().getEditText().getText().toString();
+
+
+
+        if (autoAddAtSymbol){
+            if(!cont.contains(username)){
+                inputMenu.insertText("@" + username + " ");
+            }
+
+        }
+        else{
+            String[] split = username.split("@");
+            int i=0;
+            if(split!=null&&split.length>0){
+                for(String name:split){
+                    if(!cont.contains(name)){
+                        if(i==0){
+                            content=name;
+                        }else {
+                            content=content+"@"+name;
+                        }
+                        i++;
+
+                    }
+
+                }
+                if(TextUtil.isNotEmpty(content)){
+                    inputMenu.insertText(content + " ");
+                }else {
+                    inputMenu.insertText(username + " ");
+                }
+            }
+
+        }
+
     }
 
+    public String getNick(String id){
+        if(CanTingAppLication.easeDatas!=null){
+            String nick = CanTingAppLication.easeDatas.get(id);
 
+
+            if(TextUtil.isNotEmpty(nick)){
+
+                String[] split = nick.split(",");
+
+                nick=split[0];
+                return nick;
+            }else {
+                return id;
+            }
+        }else {
+            return id;
+        }
+
+
+    }
     /**
      * input @
      *
@@ -1005,12 +1058,13 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
             message.setAttribute(EaseConstant.MESSAGE_ATTR_AT_MSG, EaseConstant.MESSAGE_ATTR_VALUE_AT_MSG_ALL);
         } else {
             message.setAttribute(EaseConstant.MESSAGE_ATTR_AT_MSG,
-                    EaseAtMessageHelper.get().atListToJsonArray(EaseAtMessageHelper.get().getAtMessageUsernames(content)));
+                    userIds);
         }
+        userIds="";
         sendMessage(message);
 
     }
-
+    public String userIds;
 
     protected void sendBigExpressionMessage(String name, String identityCode) {
         EMMessage message = EaseCommonUtils.createExpressionMessage(toChatUsername, name, identityCode);
@@ -1416,7 +1470,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
          *
          * @param username
          */
-        void onAvatarLongClick(String username);
+        void onAvatarLongClick(EMMessage username);
 
         /**
          * on message bubble clicked

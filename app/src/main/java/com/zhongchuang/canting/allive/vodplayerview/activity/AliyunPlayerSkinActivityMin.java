@@ -366,8 +366,8 @@ public class AliyunPlayerSkinActivityMin extends AppCompatActivity implements Ot
         tvFee = (TextView) findViewById(R.id.tv_fee);
         tvName = (TextView) findViewById(R.id.tv_names);
         tvChat = (TextView) findViewById(R.id.tv_tab_chat);
-        tv_care = (TextView) findViewById(R.id.tv_care);
-        iv_care = (ImageView) findViewById(R.id.iv_care);
+        tv_care = (TextView) findViewById(R.id.tv_caress);
+        iv_care = (ImageView) findViewById(R.id.iv_caress);
         tvZb = (TextView) findViewById(R.id.tv_tab_zb);
         tvCout = (TextView) findViewById(R.id.tv_cout);
         tvRank = (TextView) findViewById(R.id.tv_tab_rank);
@@ -1042,6 +1042,7 @@ public class AliyunPlayerSkinActivityMin extends AppCompatActivity implements Ot
     public static final String FNAME = "hx_fname";
     private List<QfriendBean> data = new ArrayList<>();
     private List<videobean> dat;
+    private int cout=0;
     @Override
     public <T> void toEntity(T entity, int type) {
         if (type == 19) {
@@ -1066,6 +1067,8 @@ public class AliyunPlayerSkinActivityMin extends AppCompatActivity implements Ot
                 }
 
             }else {
+                presenters.getChatRoomInfo(id);
+
                 getDirIndexInfo();
             }
         } else if (type == 111) {
@@ -1092,6 +1095,37 @@ public class AliyunPlayerSkinActivityMin extends AppCompatActivity implements Ot
 
         } else if (type == 3||type ==4) {
             getDirIndexInfo();
+
+
+        }else if (type == 122) {
+            aliLive aliLive = (aliLive) entity;
+
+              if(aliLive==null||TextUtil.isEmpty(aliLive.chatrooms_id)){
+                  if(cout==0){
+                      presenters.create(id);
+                      cout=1;
+                  }
+
+                  return;
+              }
+//                DEFAULT_URL = "rtmp://alive.chushenduojin.cn/zhixing/stream_urio1098110334129930240?auth_key=1553756190-0-0-da7b83d44eced17ea0b878c1d89aedbb";
+                room_id = aliLive.chatrooms_id;
+
+                initViewPager();
+                if (TextUtil.isNotEmpty(url)) {
+                    selectPosition(0);
+                    handler.sendEmptyMessageDelayed(1,200);
+//                    selectPosition(1);
+
+                }else {
+                    selectPosition(0);
+                }
+
+
+        } else if (type == 121) {
+
+
+            presenters.getChatRoomInfo(id);
         }else if (type == 66) {//评论
 
             if (TextUtil.isNotEmpty(userid) && TextUtil.isNotEmpty(sendId)) {

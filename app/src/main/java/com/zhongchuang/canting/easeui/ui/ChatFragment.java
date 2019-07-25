@@ -268,6 +268,21 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragment.E
                 case REQUEST_CODE_SELECT_AT_USER:
                     if (data != null) {
                         String username = data.getStringExtra("username");
+                       String   ids = data.getStringExtra("userid");
+
+                        if(TextUtil.isNotEmpty(userIds)){
+                            String[] split = ids.split(",");
+                            if(split!=null&&split.length>0){
+                                for(String id:split){
+                                    if(!userIds.contains(id)){
+                                        userIds=userIds+","+id;
+                                    }
+                                }
+                            }
+                        }else {
+                            userIds=ids;
+                        }
+
                         inputAtUsername(username, false);
                     }
                     break;
@@ -317,8 +332,19 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragment.E
     }
 
     @Override
-    public void onAvatarLongClick(String username) {
-        inputAtUsername(username);
+    public void onAvatarLongClick(EMMessage  username) {
+        if(username!=null){
+            String userName = username.getUserName();
+            if(TextUtil.isNotEmpty(userIds)){
+                if(userIds.contains(username.getFrom())){
+                    userIds=userIds+","+username.getFrom();
+                }
+            }else {
+                userIds=username.getFrom();
+            }
+            inputAtUsername(username.getFrom());
+        }
+
     }
 
     private String user_id;
