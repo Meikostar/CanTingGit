@@ -179,7 +179,7 @@ public class MessageChatFragment extends Fragment implements BaseContract.View {
 
     private void iniGridView(final List<GAME> list) {
 
-        int length = 69;  //定义一个长度
+        int length = 82;  //定义一个长度
         int size = 0;  //得到集合长度
         //获得屏幕分辨路
         DisplayMetrics dm = new DisplayMetrics();

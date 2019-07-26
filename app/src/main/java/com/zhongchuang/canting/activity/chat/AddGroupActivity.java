@@ -81,7 +81,7 @@ public class AddGroupActivity extends BaseActivity1 implements BaseContract.View
         tvSure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (TextUtil.isNotEmpty(etComment.getText().toString().trim()) && etComment.getText().toString().trim().length() < 5) {
+                if (TextUtil.isNotEmpty(etComment.getText().toString().trim()) && etComment.getText().toString().trim().length() < 9) {
                     if (name != null) {
                         if (TextUtil.isNotEmpty(paths)) {
                             presenter.alterGroupImage(name.id, paths);
@@ -95,7 +95,7 @@ public class AddGroupActivity extends BaseActivity1 implements BaseContract.View
 
                     }
 
-                } else if (TextUtil.isNotEmpty(etComment.getText().toString().trim()) && etComment.getText().toString().trim().length() > 4) {
+                } else if (TextUtil.isNotEmpty(etComment.getText().toString().trim()) && etComment.getText().toString().trim().length() > 8) {
                     showToasts(getString(R.string.fzmccd));
                 } else {
                     showToasts(getString(R.string.fzmcbnwk));

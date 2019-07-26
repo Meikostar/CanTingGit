@@ -96,6 +96,8 @@ public class ChatMenberAdapter extends BaseAdapter {
                     }
                 }
 
+
+
                 holder.txt_text.setText(foodlist.get(i).chatGroupName);
             }
 

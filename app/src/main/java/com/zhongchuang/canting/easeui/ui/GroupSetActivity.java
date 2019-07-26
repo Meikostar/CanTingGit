@@ -298,8 +298,8 @@ public class GroupSetActivity extends BaseActivity implements View.OnClickListen
                 if (admin) {
                     delGroup();
                 } else {
-                    delGroup();
-//                    delFriendList(CanTingAppLication.userId);
+//                    delGroup();
+                    delFriendList(CanTingAppLication.userId);
                 }
 //                model.deleteGroup(id,GroupSetActivity.this);
             }
@@ -343,7 +343,7 @@ public class GroupSetActivity extends BaseActivity implements View.OnClickListen
     public void getGroupInfo(final String groupId) {
 
         Map<String, String> map = new HashMap<>();
-//        map.put("userInfoId", CanTingAppLication.userId);
+        map.put("userInfoId", CanTingAppLication.userId);
         map.put("groupsId", groupId);
 
         netService api = HttpUtil.getInstance().create(netService.class);
@@ -429,6 +429,30 @@ public class GroupSetActivity extends BaseActivity implements View.OnClickListen
     }
 
 
+    public void delFriendList(String menbers) {
+
+
+        Map<String, String> map = new HashMap<>();
+        map.put("groupId", id);
+        map.put("menbers", menbers);
+
+        netService api = HttpUtil.getInstance().create(netService.class);
+        api.delFriendList(map).enqueue(new BaseCallBack<BaseResponse>() {
+            @Override
+            public void onSuccess(BaseResponse group) {
+                RxBus.getInstance().send(SubscriptionBean.createSendBean(SubscriptionBean.REFRESSH, ""));
+                RxBus.getInstance().send(SubscriptionBean.createSendBean(SubscriptionBean.FINISH, ""));
+                finish();
+
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                ToastUtils.showNormalToast(t);
+            }
+        });
+    }
 
     public void delGroup() {
 

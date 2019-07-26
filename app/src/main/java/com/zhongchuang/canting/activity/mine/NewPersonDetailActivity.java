@@ -60,6 +60,7 @@ import com.zhongchuang.canting.presenter.BasesPresenter;
 import com.zhongchuang.canting.presenter.PersonInfoPresenter;
 import com.zhongchuang.canting.presenter.impl.PersonInfoPresenterImpl;
 import com.zhongchuang.canting.utils.DensityUtil;
+import com.zhongchuang.canting.utils.GlideCacheUtil;
 import com.zhongchuang.canting.utils.QiniuUtils;
 import com.zhongchuang.canting.utils.SpUtil;
 import com.zhongchuang.canting.utils.StringUtil;
@@ -391,6 +392,7 @@ public class NewPersonDetailActivity extends BaseAllActivity implements BaseCont
                 return;
             }
             if (Util.isOnMainThread()) {
+                GlideCacheUtil.getInstance().deleteFolderFile(url.image_url,true);
                 Glide.with(context).load(url.image_url).asBitmap().placeholder(R.drawable.moren).into(imageView);
             }
             //Glide 加载图片简单用法

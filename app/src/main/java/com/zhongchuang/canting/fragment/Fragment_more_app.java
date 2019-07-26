@@ -166,7 +166,7 @@ public class Fragment_more_app extends BaseFragment {
     private int cont;
     private List<HOMES> datas = new ArrayList<>();
     public void setData(int cout) {
-        String[] indepent1 = { getString(R.string.zb),getString(R.string.qyzg), getString(R.string.cjzg), getString(R.string.szds),
+        String[] indepent1 = { getString(R.string.zb),"赞助商品", getString(R.string.cjzg), getString(R.string.szds),
                 getString(R.string.ll), getString(R.string.grzx), getString(R.string.appfx), getString(R.string.yy), getString(R.string.appfx)};
         datas.clear();
         cont = 0;

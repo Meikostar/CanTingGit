@@ -320,6 +320,10 @@ public class ChatFragments extends Fragment implements View.OnClickListener, Vie
     public void onResume() {
         super.onResume();
 
+        if(presenter!=null){
+            presenter.getUserIntegral();
+        }
+
     }
 
     private int randomColor() {

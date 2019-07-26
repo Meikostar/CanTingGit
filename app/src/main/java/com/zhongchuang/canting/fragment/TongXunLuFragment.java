@@ -167,7 +167,7 @@ public class TongXunLuFragment extends EaseContactListFragment implements View.O
     private IMG guide_img = new IMG();
     private void iniGridView(final List<GAME> list) {
 
-        int length = 69;  //定义一个长度
+        int length = 82;  //定义一个长度
         int size = 0;  //得到集合长度
         //获得屏幕分辨路
         DisplayMetrics dm = new DisplayMetrics();
