@@ -12,6 +12,7 @@ public class VideoData extends BaseResponse{
     public int poition;
     public String category_image;
     public String category_name;
+    public boolean is_live;
     public String stort_id;
     public String id;
     public String video_name;

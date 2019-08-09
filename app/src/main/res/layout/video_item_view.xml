@@ -20,7 +20,7 @@
             android:stateListAnimator="@drawable/lift_on_touch"
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"
-            app:cardCornerRadius="@dimen/dp_4"
+            app:cardCornerRadius="4dp"
             app:cardUseCompatPadding="true"
             app:cardPreventCornerOverlap="false">
 
@@ -92,7 +92,7 @@
                         <TextView
                             android:id="@+id/tv_change"
                             android:text="@string/swmr"
-                            android:textColor="@color/color9"
+                            android:textColor="#999"
                             android:textSize="11sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />

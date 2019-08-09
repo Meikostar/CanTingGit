@@ -5,6 +5,7 @@ import android.content.Intent;
 
 import com.zhongchuang.canting.app.CanTingAppLication;
 import com.zhongchuang.canting.been.AddressBase;
+import com.zhongchuang.canting.been.AppInfo;
 import com.zhongchuang.canting.been.Banner;
 import com.zhongchuang.canting.been.BaseBe;
 import com.zhongchuang.canting.been.BaseBean;
@@ -82,6 +83,31 @@ public class BasesPresenter implements BaseContract.Presenter {
 
         api = HttpUtil.getInstance().create(netService.class);
     }
+
+    @Override
+    public void getAppInfo() {
+
+        Map<String, String> map = new HashMap<>();
+
+//        map.put("userInfoId",  TextUtil.isEmpty(SpUtil.getUserInfoId(CanTingAppLication.getInstance())) ? "" : SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
+        map.put("type", CanTingAppLication.CompanyType);
+
+        api.getAppInfo(map).enqueue(new BaseCallBack<AppInfo>() {
+            @Override
+            public void onSuccess(AppInfo userLoginBean) {
+                if(userLoginBean.data!=null){
+                    mView.toEntity(userLoginBean.data, 16);
+                }
+
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+//                callBack.onFail(code,t);
+            }
+        });
+    }
     @Override
     public void getHotDirect() {
 
@@ -127,7 +153,26 @@ public class BasesPresenter implements BaseContract.Presenter {
             }
         });
     }
+    @Override
+    public void getHomeSpecie() {
+        Map<String, String> params = new TreeMap<>();
+        params.put("imageSite", "1");
+        params.put("bannerSite", 0 + "");
+        params.put("companyType", "0");
+        api.getBanner(params).enqueue(new BaseCallBack<Home>() {
 
+            @Override
+            public void onSuccess(Home userLoginBean) {
+                mView.toEntity(userLoginBean.data, 6);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                mView.showTomast(t);
+            }
+        });
+    }
 
     @Override
     public void getLiveUrl(String id) {
@@ -2659,7 +2704,54 @@ public class BasesPresenter implements BaseContract.Presenter {
             }
         });
     }
+    @Override
+    public void appPay(String integralNumber, String payType) {
 
+
+        Map<String, String> params = new TreeMap<>();
+
+        params.put("userInfoId", TextUtil.isEmpty(SpUtil.getUserInfoId(CanTingAppLication.getInstance())) ? "" : SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
+        params.put("payType", payType);
+        params.put("price", integralNumber);
+        params.put("companyType", CanTingAppLication.CompanyType);
+        api.appPay(params).enqueue(new BaseCallBack<alipay>() {
+
+            @Override
+            public void onSuccess(alipay userLoginBean) {
+                mView.toEntity(userLoginBean.data, 9);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                mView.showTomast(t);
+            }
+        });
+    }
+    @Override
+    public void appPays(String integralNumber, String payType) {
+
+
+        Map<String, String> params = new TreeMap<>();
+
+        params.put("userInfoId", TextUtil.isEmpty(SpUtil.getUserInfoId(CanTingAppLication.getInstance())) ? "" : SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
+        params.put("payType", payType);
+        params.put("price", integralNumber);
+        params.put("companyType", CanTingAppLication.CompanyType);
+        api.appPays(params).enqueue(new BaseCallBack<WEIXINREQ>() {
+
+            @Override
+            public void onSuccess(WEIXINREQ userLoginBean) {
+                mView.toEntity(userLoginBean.data, 8);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                mView.showTomast(t);
+            }
+        });
+    }
     @Override
     public void rechargeIntegers(String integralNumber, String payType) {
 

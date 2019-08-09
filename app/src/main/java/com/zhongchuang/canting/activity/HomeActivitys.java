@@ -786,7 +786,6 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
 
         ll_special = view.findViewById(R.id.ll_special);
 
-        homedapter = new HomeItemdapter(this);
         homeProductdapter = new HomeProductdapter(this);
         lbapter = new VideoItemItemdapter(this);
         liveapter = new VideoItemItemdapter(this);
@@ -843,6 +842,10 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
         liveapter.setOnItemClickListener(new VideoItemItemdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, VideoData dataBean) {
+                if(dataBean.is_live){
+                    ToastUtils.showNormalToast("主播还未上线，请稍后观看直播!");
+                    return;
+                }
                 String token = SpUtil.getString(HomeActivitys.this, "token", "");
                 if (token == null || token.equals("")) {
                     ToastUtils.showNormalToast("你还没有登录，快去登录吧!");
@@ -1048,7 +1051,7 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
 
 
            shareBean=new ShareBean();
-            shareBean.title_ = SpUtil.getName(this) + "邀请你下载信联APP";
+            shareBean.title_ = SpUtil.getName(this) + "邀请你下载对了APP";
             shareBean.content_ = "让你有不一样的购物体验不一样的直播平台不一样的社交！";
             shareBean.url_ = Constant.APP_SHARE;
             shareBean.img_ = "img";
@@ -1430,7 +1433,7 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
         } else if (type == 14) {
             List<Version> datas = (  List<Version>) entity;
 
-            Version data=datas.get(0);
+            Version data=datas.get(1);
 
             String oldVersion = StringUtil.getVersion(CanTingAppLication.getInstance());//"0.17"
             description = data.description;
@@ -1450,7 +1453,37 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
             isLoad=true;
             List<VideoData>  lists= (List<VideoData>) entity;
             if(lists==null||lists.size()==0){
-                card_live.setVisibility(View.GONE);
+                List<VideoData> datas=new ArrayList<>();
+                VideoData videoData = new VideoData();
+                videoData.cover_image="http://chushenduojin.cn/1551762862320chatbg";
+                videoData.user_info_nickname="刘阳";
+                videoData.third_category_name="劳力士";
+                videoData.direct_overview="快乐分享";
+                videoData.is_live=true;
+                VideoData videoData1 = new VideoData();
+                videoData1.cover_image="http://chushenduojin.cn/1561083068034chatbg";
+                videoData1.user_info_nickname="Meiko";
+                videoData1.third_category_name="劳力士";
+                videoData1.direct_overview="明天会更好";
+                videoData1.is_live=true;
+                VideoData videoData2 = new VideoData();
+                videoData2.cover_image="http://chushenduojin.cn/1551991923437chatbg";
+                videoData2.user_info_nickname="薷翌";
+                videoData2.third_category_name="劳力士";
+                videoData2.direct_overview="生活的便利";
+                videoData2.is_live=true;
+                VideoData videoData3 = new VideoData();
+                videoData3.cover_image="http://chushenduojin.cn/1552408559951chatbg";
+                videoData3.user_info_nickname="子游";
+                videoData3.third_category_name="劳力士";
+                videoData3.direct_overview="上山打老虎";
+                videoData3.is_live=true;
+                datas.add(videoData);
+                datas.add(videoData1);
+                datas.add(videoData2);
+                datas.add(videoData3);
+                liveapter.setData(datas);
+//                card_live.setVisibility(View.GONE);
             }else {
                 liveapter.setData(lists);
             }
@@ -1513,6 +1546,12 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
             if(bean==null){
                 return;
             }
+
+            if(bean.pay_type==1){
+                CanTingAppLication.isPay=true;
+            }else {
+                CanTingAppLication.isPay=false;
+            }
             if (TextUtil.isNotEmpty(bean.money_buy_integral)) {
                 CanTingAppLication.totalintegral =  CanTingAppLication.totalintegral +Double.valueOf(bean.money_buy_integral);
                 CanTingAppLication.Chargeintegral =  Double.valueOf(bean.money_buy_integral);
@@ -1528,7 +1567,7 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
             }
             if (TextUtil.isNotEmpty(bean.invitation_code)) {
                 CanTingAppLication.invitation_code=bean.invitation_code;
-                shareBean.title_ = SpUtil.getName(this) + "邀请你下载信联APP";
+                shareBean.title_ = SpUtil.getName(this) + "邀请你下载对了APP";
                 shareBean.content_ = "让你有不一样的购物体验不一样的直播平台不一样的社交！";
                 shareBean.url_ = Constant.APP_SHARE + SpUtil.getName(this)+","+bean.invitation_code;
                 shareBean.img_ = "img";

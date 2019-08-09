@@ -46,7 +46,7 @@ class ConferenceInviteActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_conference_invite)
-
+        startBtn = this.findViewById(R.id.btn_start) as TextView?
         initViews()
         initData()
     }
@@ -103,14 +103,14 @@ class ConferenceInviteActivity : BaseActivity() {
             hideSoftKeyboard()
         })
 
-        startBtn = findViewById(R.id.btn_start) as TextView?
-        startBtn!!.text = String.format(getString(R.string.button_start_video_conference), 0)
+
+        startBtn!!.text = String.format("开始视频会议 ", 0)
 
         contactAdapter = ContactsAdapter(this, contacts)
         contactAdapter!!.checkItemChangeCallback = object : ContactsAdapter.ICheckItemChangeCallback {
             override fun onCheckedItemChanged(v: View, username: String, state: Int) {
                 val count = getSelectMembers().size
-                startBtn!!.text = String.format(getString(R.string.button_start_video_conference), count)
+                startBtn!!.text = String.format("开始视频会议 ", count)
             }
         }
 

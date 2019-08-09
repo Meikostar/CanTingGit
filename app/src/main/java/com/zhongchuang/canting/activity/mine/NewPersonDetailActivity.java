@@ -146,8 +146,7 @@ public class NewPersonDetailActivity extends BaseAllActivity implements BaseCont
         presenters = new BasesPresenter(this);
         presenters.getUserInformation(id);
 
-        footer_view = LayoutInflater.from(this).inflate(R.layout.lp_footer_refresh, null);//底部加载view
-
+        footer_view = LayoutInflater.from(this).inflate(R.layout.lp_footer_refresh, null);//底部加载vie
         viewPager.setAdapter(new MyViewPagerAdapter());
         viewPager.setOffscreenPageLimit(2);
         tablayout.setViewPager(viewPager, titles);

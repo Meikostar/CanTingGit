@@ -11,6 +11,7 @@ public class HOMES extends BaseResponse {
     public List<HOMES> list;
     public String name;
     public int url;
+    public String urls;
     public int poistion;
     public int cout;
     public boolean isread;

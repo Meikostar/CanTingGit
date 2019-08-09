@@ -89,6 +89,12 @@ public class VideoItemItemdapter extends BaseAdapter {
             }else {
                 holder.tvContent1.setVisibility(View.VISIBLE);
                 final VideoData dataBean = datas.get(2*i+1);
+                if(dataBean.is_live){
+                    holder.iv_cover.setImageResource(R.drawable.alivc_lives_bg);
+                    holder.iv_cover.setVisibility(View.VISIBLE);
+                }else {
+                    holder.iv_cover.setVisibility(View.GONE);
+                }
                 if(TextUtil.isNotEmpty(dataBean.cover_image)){
                     Glide.with(context).load(StringUtil.changeUrl(dataBean.cover_image)).asBitmap().placeholder(R.drawable.moren).into(holder.ivVideo1);
 
@@ -123,6 +129,12 @@ public class VideoItemItemdapter extends BaseAdapter {
                 });
             }
           final   VideoData dataBean = datas.get(2*i);
+        if(dataBean.is_live){
+            holder.iv_cover1.setImageResource(R.drawable.alivc_lives_bg);
+            holder.iv_cover1.setVisibility(View.VISIBLE);
+        }else {
+            holder.iv_cover1.setVisibility(View.GONE);
+        }
         if(TextUtil.isNotEmpty(dataBean.cover_image)){
             Glide.with(context).load(StringUtil.changeUrl(dataBean.cover_image)).asBitmap().placeholder(R.drawable.moren).into(holder.ivVideo);
 
@@ -194,6 +206,10 @@ public class VideoItemItemdapter extends BaseAdapter {
         TextView tvContent;
         @BindView(R.id.iv_video1)
         ImageView ivVideo1;
+        @BindView(R.id.iv_cover)
+        ImageView iv_cover;
+        @BindView(R.id.iv_cover1)
+        ImageView iv_cover1;
         @BindView(R.id.tv_type1)
         TextView tvType1;
         @BindView(R.id.tv_name1)

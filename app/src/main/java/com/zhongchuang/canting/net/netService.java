@@ -1,6 +1,7 @@
 package com.zhongchuang.canting.net;
 
 import com.zhongchuang.canting.been.AddressBase;
+import com.zhongchuang.canting.been.AppInfo;
 import com.zhongchuang.canting.been.BEAN;
 import com.zhongchuang.canting.been.Banner;
 import com.zhongchuang.canting.been.BaseBe;
@@ -128,7 +129,7 @@ public interface netService {
 //    public static final String TOM_BASE_URL = "http://47.74.189.52:8080/ifun/";
 //      public static final String TOM_BASE_URL = "http://119.23.235.1:8080/ifun/";
 //    public static final String TOM_BASE_URL = "http://120.77.222.116:8080/ifun/";
-//    public static final String TOM_BASE_URL = "http://120.78.148.31:8080/ifun/";//替换信联服务器
+//    public static final String TOM_BASE_URL = "http://120.78.148.31:8080/ifun/";//替换对了服务器
 
 
     public static final String TOM_BASE_URL = "http://119.23.212.8:8080/ifun/";
@@ -810,9 +811,15 @@ public interface netService {
     Call<OrderType> userInfo(@FieldMap Map<String, String> map);
 
     @FormUrlEncoded
+    @POST("wap/userLogin/appPay")
+    Call<alipay> appPay(@FieldMap Map<String, String> map);
+    @FormUrlEncoded
+    @POST("wap/userLogin/appPay")
+    Call<WEIXINREQ> appPays(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
     @POST("wap/userIntegral/alipayIntegral")
     Call<alipay> rechargeInteger(@FieldMap Map<String, String> map);
-
     @FormUrlEncoded
     @POST("wap/userIntegral/alipayIntegral")
     Call<WEIXINREQ> rechargeIntegers(@FieldMap Map<String, String> map);
@@ -1158,6 +1165,9 @@ public interface netService {
     @FormUrlEncoded
     @POST("wap/directCategory/getHotDirect")
     Call<VideoData> getHotDirect(@FieldMap Map<String, String> opt);
+    @FormUrlEncoded
+    @POST("wap/sysHomeInfo/getAppInfo")
+    Call<AppInfo> getAppInfo(@FieldMap Map<String, String> opt);
 
     @FormUrlEncoded
     @POST("wap/liveCategory/getSecondList")

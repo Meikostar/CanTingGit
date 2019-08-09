@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">信联</string>
+    <string name="app_name">对了</string>
     <string name="wozhidol">我知道了</string>
     <string name="downloaded">&#160;%s %%</string>
     <string name="str_exit">退出登录</string>
@@ -917,7 +917,7 @@
     <string name="qsrrq">请输入日期</string>
     <string name="myssdxgnr">没有搜索到相关内容</string>
     <string name="jiguang">激光</string>
-    <string name="zzklgk">正在信联直播，快来观看吧！</string>
+    <string name="zzklgk">正在对了直播，快来观看吧！</string>
     <string name="fensis">粉丝:</string>
     <string name="zxrs">在线人数：</string>
     <string name="jfyywqcz">打赏给主播的积分必须是充值积分！你的充值积分已用完，快去充值吧!</string>
@@ -958,7 +958,7 @@
     <string name="qrscgpl">确认删除该评论？</string>
     <string name="hf">回复</string>
     <string name="pl">评论</string>
-    <string name="zzgszbklgkb">正在信联直播，快来观看吧！</string>
+    <string name="zzgszbklgkb">正在对了直播，快来观看吧！</string>
     <string name="yzmbnwk">验证码不能为空</string>
     <string name="jyz">校验中...</string>
     <string name="mmbnwk">密码不能为空</string>
@@ -1105,9 +1105,9 @@
     <string name="ll">乐聊</string>
     <string name="grzx">个人中心</string>
     <string name="appfx">App分享</string>
-    <string name="gsgj">信联国际</string>
+    <string name="gsgj">对了国际</string>
     <string name="zx">注销</string>
-    <string name="gs">信联</string>
+    <string name="gs">对了</string>
     <string name="yxdbbo">有新的版本哦，快去更新吧！</string>
     <string name="zhdl">账号密码登录</string>
     <string name="sjkjdl">手机快捷登录</string>
@@ -1764,5 +1764,62 @@
     <string name="zbzdb">直播**录播</string>
     <string name="zbsz">直播设置</string>
 
+    <string name="multi_device_contact_accept">接受%s的好友邀请[remote]</string>
+    <string name="multi_device_contact_decline">拒绝%s的好友邀请[remote]</string>
+    <string name="multi_device_contact_add">发送好友邀请给%s[remote]</string>
+    <string name="multi_device_contact_ban">加%s到黑名单[remote]</string>
+    <string name="multi_device_contact_allow">移除%s从黑名单[remote]</string>
 
+    <string name="multi_device_group_create">创建群组[remote]</string>
+    <string name="multi_device_group_destroy">销毁群组[remote]</string>
+    <string name="multi_device_group_join">加入群组[remote]</string>
+    <string name="multi_device_group_leave">离开群组[remote]</string>
+    <string name="multi_device_group_apply">申请加入群组[remote]</string>
+    <string name="multi_device_group_apply_accept">接受%s入群申请[remote]</string>
+    <string name="multi_device_group_apply_decline">拒绝%s入群申请[remote]</string>
+    <string name="multi_device_group_invite">邀请%s加入群组[remote]</string>
+    <string name="multi_device_group_invite_accept">接受%s入群邀请[remote]</string>
+    <string name="multi_device_group_invite_decline">拒绝%s入群邀请[remote]</string>
+    <string name="multi_device_group_kick">将%s从群组移除[remote]</string>
+    <string name="multi_device_group_ban">将%s加入群组的黑名单[remote]</string>
+    <string name="multi_device_group_allow">将%s从群组的黑名单移除[remote]</string>
+    <string name="multi_device_group_block">停止接受群组消息[remote]</string>
+    <string name="multi_device_group_unblock">可以接受群组的消息[remote]</string>
+    <string name="multi_device_group_assign_owner">将群组所有者权限转移给%1$s[remote]</string>
+    <string name="multi_device_group_add_admin">添加%s作为群组的管理员[remote]</string>
+    <string name="multi_device_group_remove_admin">移除%s在群组的管理员身份[remote]</string>
+    <string name="multi_device_group_add_mute">将%s在群组中禁言[remote]</string>
+    <string name="multi_device_group_remove_mute">将%s在群组中解除禁言[remote]</string>
+
+    <string name="multi_device_logged_in_device_kick_item">将设备移除</string>
+
+    <string name="sdk_service_check">SDK接口诊断</string>
+    <string name="btn_service_check">诊断</string>
+    <string name="check_service_start">开始诊断\n</string>
+    <string name="check_result_account_validate_fail">账号合法性验证失败%1$s%2$s</string>
+    <string name="check_result_get_dns_list_fail">DNS列表获取失败%1$s%2$s</string>
+    <string name="check_result_get_token_fail">Token获取失败%1$s%2$s</string>
+    <string name="check_result_login_fail">登录失败%1$s%2$s</string>
+    <string name="check_result_msg_send_fail">消息发送失败%1$s%2$s</string>
+    <string name="check_result_logout_fail">退出登录失败%1$s%2$s</string>
+    <string name="check_result_get_dns_list_success">DNS列表获取成功</string>
+    <string name="check_result_get_token_success">Token获取成功</string>
+    <string name="check_result_login_success">登录成功</string>
+    <string name="check_result_msg_send_success">消息发送成功</string>
+    <string name="check_result_logout_success">退出登录成功</string>
+
+    <string name="title_verification_information">填写验证信息</string>
+
+    <string name="button_start_video_conference">开始视频会议 (%1$d)</string>
+    <string name="tips_invite_to_join">%1$s 邀请您加入视频 …</string>
+    <string name="tips_select_contacts_first">请先选择联系人 ~</string>
+
+    <string name="tips_desk_share">你正在共享当前桌面</string>
+
+    <string name="alert_window_permission_denied" toolsignore="ExtraTranslation">当前App未被授予悬浮窗权限 :(</string>
+
+    <string name="title_live">互动视频</string>:
+    <string name="msg_live_invite">%1$s 邀请你参与互动视频 - %2$s</string>
+    <string name="alert_request_tobe_talker">请求连麦 &#8230;</string>
+    <string name="alert_request_tobe_audience">请求下麦 &#8230;</string>
 </resources>

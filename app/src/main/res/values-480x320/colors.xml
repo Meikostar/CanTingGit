@@ -54,7 +54,8 @@
     <color name="alivc_barrage_switch_background">#80D8D8D8</color>
     <color name="alivc_color_pusher_colorPrimary">#1e222d</color>
     <color name="alivc_color_pusher_colorAccent">#ff00c1de</color>
-
+    <color name="em_blue">#1E88E5</color>
+    <color name="em_blue_pressed">#0000aF</color>
     <color name="colorPrimary_alpha_five">#1affffff</color>
     <color name="colorPrimary_noalpha_five">#292d37</color>
     <color name="colorPrimary_alpha_ten">#0cffffff</color>

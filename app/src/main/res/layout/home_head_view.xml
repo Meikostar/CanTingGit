@@ -44,111 +44,117 @@
                android:layout_width="19dp"
                android:layout_height="3dp" />
        </LinearLayout>
-    <android.support.v7.widget.CardView
 
-        android:id="@+id/card_lb"
+    <LinearLayout
         android:layout_marginTop="382dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        tools:targetApi="lollipop"
+       android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:stateListAnimator="@drawable/lift_on_touch"
-        android:clickable="true"
-        android:foreground="?android:attr/selectableItemBackground"
-        app:cardCornerRadius="5dp"
-        app:cardUseCompatPadding="true"
-        app:cardPreventCornerOverlap="false">
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.CardView
 
-        <LinearLayout
-            android:orientation="vertical"
+            android:id="@+id/card_lb"
+
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            tools:targetApi="lollipop"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:stateListAnimator="@drawable/lift_on_touch"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:cardCornerRadius="5dp"
+            app:cardUseCompatPadding="true"
+            app:cardPreventCornerOverlap="false">
+
             <LinearLayout
-                android:id="@+id/ll_special_lb"
-                android:gravity="center_vertical"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="42dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_weight="1"
-                    android:id="@+id/tv_type_lb"
-                    android:textColor="#222"
-                    android:textSize="17sp"
-                    android:layout_marginLeft="16dp"
-                    android:text="视频推荐"
-                    android:layout_width="match_parent"
-                    android:scaleType="fitXY"
-                    android:layout_height="wrap_content"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:id="@+id/ll_special_lb"
                     android:gravity="center_vertical"
-                    />
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_weight="1"
+                        android:id="@+id/tv_type_lb"
+                        android:textColor="#222"
+                        android:textSize="17sp"
+                        android:layout_marginLeft="16dp"
+                        android:text="视频推荐"
+                        android:layout_width="match_parent"
+                        android:scaleType="fitXY"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        />
 
+                </LinearLayout>
+                <com.zhongchuang.canting.widget.RegularListView
+                    android:clickable="true"
+                    android:id="@+id/grid_content_lb"
+                    style="@style/lv_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:background="@color/white"
+                    android:visibility="visible" />
             </LinearLayout>
-            <com.zhongchuang.canting.widget.RegularListView
-                android:clickable="true"
-                android:id="@+id/grid_content_lb"
-                style="@style/lv_content"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
-                android:background="@color/white"
-                android:visibility="visible" />
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
-    <android.support.v7.widget.CardView
-        android:layout_below="@+id/card_lb"
-        android:id="@+id/cards_live"
-        android:layout_marginTop="22dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        tools:targetApi="lollipop"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:stateListAnimator="@drawable/lift_on_touch"
-        android:clickable="true"
-        android:foreground="?android:attr/selectableItemBackground"
-        app:cardCornerRadius="5dp"
-        app:cardUseCompatPadding="true"
-        app:cardPreventCornerOverlap="false">
-
-        <LinearLayout
-            android:orientation="vertical"
+        </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            android:layout_below="@+id/card_lb"
+            android:id="@+id/cards_live"
+            android:layout_marginTop="22dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            tools:targetApi="lollipop"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:id="@+id/ll_special_live"
-                android:gravity="center_vertical"
-                android:layout_width="match_parent"
-                android:layout_height="42dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_weight="1"
-                    android:id="@+id/tv_type_live"
-                    android:textColor="#222"
-                    android:textSize="17sp"
-                    android:layout_marginLeft="16dp"
-                    android:text="直播推荐"
-                    android:layout_width="match_parent"
-                    android:scaleType="fitXY"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    />
+            android:layout_height="wrap_content"
+            android:stateListAnimator="@drawable/lift_on_touch"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:cardCornerRadius="5dp"
+            app:cardUseCompatPadding="true"
+            app:cardPreventCornerOverlap="false">
 
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:id="@+id/ll_special_live"
+                    android:gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_weight="1"
+                        android:id="@+id/tv_type_live"
+                        android:textColor="#222"
+                        android:textSize="17sp"
+                        android:layout_marginLeft="16dp"
+                        android:text="直播推荐"
+                        android:layout_width="match_parent"
+                        android:scaleType="fitXY"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        />
+
+                </LinearLayout>
+
+                <com.zhongchuang.canting.widget.RegularListView
+                    android:clickable="true"
+                    android:id="@+id/grid_content_live"
+                    style="@style/lv_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:background="@color/white"
+                    android:visibility="visible" />
             </LinearLayout>
 
-            <com.zhongchuang.canting.widget.RegularListView
-                android:clickable="true"
-                android:id="@+id/grid_content_live"
-                style="@style/lv_content"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
-                android:background="@color/white"
-                android:visibility="visible" />
-        </LinearLayout>
 
-
-    </android.support.v7.widget.CardView>
+        </android.support.v7.widget.CardView>
         <android.support.v7.widget.CardView
             android:layout_below="@+id/cards_live"
             android:id="@+id/cards"
@@ -165,46 +171,46 @@
             app:cardUseCompatPadding="true"
             app:cardPreventCornerOverlap="false">
 
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
                 <LinearLayout
-                    android:orientation="vertical"
+                    android:id="@+id/ll_special"
+                    android:gravity="center_vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                        <LinearLayout
-                            android:id="@+id/ll_special"
-                            android:gravity="center_vertical"
-                            android:layout_width="match_parent"
-                            android:layout_height="42dp"
-                            android:orientation="horizontal">
-                                <TextView
-                                    android:layout_weight="1"
-                                    android:id="@+id/tv_type"
-                                    android:textColor="#222"
-                                    android:textSize="17sp"
-                                    android:layout_marginLeft="16dp"
-                                    android:text="活动专区"
-                                    android:layout_width="match_parent"
-                                    android:scaleType="fitXY"
-                                    android:layout_height="wrap_content"
-                                    android:gravity="center_vertical"
-                                    />
-                                <ImageView
-                                    android:layout_marginRight="12dp"
-                                    android:layout_width="8dp"
-                                    android:layout_height="16dp"
-                                    android:src="@mipmap/arrow_right"/>
-                        </LinearLayout>
-                        <com.zhongchuang.canting.widget.NoScrollGridView
-                            android:paddingLeft="5dp"
-                            android:paddingRight="5dp"
-                            android:id="@+id/grid_content"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/white"
-                            android:listSelector="@color/transparent"
-                            android:numColumns="3"
-                            />
-
+                    android:layout_height="42dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_weight="1"
+                        android:id="@+id/tv_type"
+                        android:textColor="#222"
+                        android:textSize="17sp"
+                        android:layout_marginLeft="16dp"
+                        android:text="活动专区"
+                        android:layout_width="match_parent"
+                        android:scaleType="fitXY"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        />
+                    <ImageView
+                        android:layout_marginRight="12dp"
+                        android:layout_width="8dp"
+                        android:layout_height="16dp"
+                        android:src="@mipmap/arrow_right"/>
                 </LinearLayout>
+                <com.zhongchuang.canting.widget.NoScrollGridView
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:id="@+id/grid_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:listSelector="@color/transparent"
+                    android:numColumns="3"
+                    />
+
+            </LinearLayout>
 
 
         </android.support.v7.widget.CardView>
@@ -217,31 +223,33 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginLeft="31dp"
-                    android:layout_weight="1"
-                    android:background="#FFD2D2D2" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="31dp"
+                android:layout_weight="1"
+                android:background="#FFD2D2D2" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="31dp"
-                    android:layout_marginRight="31dp"
-                    android:gravity="center"
-                    android:text="@string/zxsp"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="31dp"
+                android:layout_marginRight="31dp"
+                android:gravity="center"
+                android:text="@string/zxsp"
 
-                    android:textColor="@color/slow_black"
-                    android:textSize="15sp" />
+                android:textColor="@color/slow_black"
+                android:textSize="15sp" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginRight="31dp"
-                    android:layout_weight="1"
-                    android:background="#FFD2D2D2" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginRight="31dp"
+                android:layout_weight="1"
+                android:background="#FFD2D2D2" />
 
         </LinearLayout>
+    </LinearLayout>
+
 
 </RelativeLayout>

@@ -96,6 +96,7 @@ public class CanTingAppLication extends Application {
     public static  List<String> headimage;
     public static  boolean isSetting=false;
     public static  boolean isLogin;
+    public static  boolean isPay;
     public static  boolean isComplete;
     public static  String signStr="";
     // 记录是否已经初始化

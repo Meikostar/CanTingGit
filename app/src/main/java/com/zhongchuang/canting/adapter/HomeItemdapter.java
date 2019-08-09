@@ -88,12 +88,17 @@ public class HomeItemdapter extends BaseAdapter {
         }
 
         holder.txt_name.setText(datas.get(i).name);
-        holder.img_icon.setImageResource(datas.get(i).url);
+        if(datas.get(i).url==0){
+            Glide.with(context).load(StringUtil.changeUrl(datas.get(i).urls)).asBitmap().placeholder(R.drawable.mall1).into(holder.img_icon);
+
+        }else {
+            holder.img_icon.setImageResource(datas.get(i).url);
+        }
+
 
 //            if(TextUtil.isNotEmpty(list.get(i).category_name)){
 //                holder.txt_name.setText(list.get(i).category_name);
 //            }
-//        Glide.with(context).load(StringUtil.changeUrl(list.get(i).category_image)).asBitmap().placeholder(R.drawable.mall1).into(holder.img_icon);
 ////            holder.img_icon.setImageResource(imgs[i]);
 
 

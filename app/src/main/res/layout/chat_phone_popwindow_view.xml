@@ -23,7 +23,7 @@
             android:layout_marginBottom="8dp"
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"
-            app:cardCornerRadius="@dimen/dp_4"
+            app:cardCornerRadius="4dp"
             app:cardUseCompatPadding="true"
             app:cardPreventCornerOverlap="false">
             <LinearLayout
@@ -71,7 +71,7 @@
             android:layout_marginBottom="8dp"
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"
-            app:cardCornerRadius="@dimen/dp_4"
+            app:cardCornerRadius="4dp"
             app:cardUseCompatPadding="true"
             app:cardPreventCornerOverlap="false">
 

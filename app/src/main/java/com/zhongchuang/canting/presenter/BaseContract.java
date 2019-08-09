@@ -28,10 +28,14 @@ public class BaseContract {
          */
 
         void getDetails(String pageNum	,String startime,String type,final  int state);
+        void appPay(String integralNumber, String payType);
+        void appPays(String integralNumber, String payType);
         void getHotDirect();
         void getRecomdVideoList();
+        void getHomeSpecie();
         void redGrab(String redEnvelopeId	,String sendType);
         void getChatRoomInfo(final String userId);
+        void getAppInfo();
         /**
          * 查看领取详情接口
          * @param redEnvelopeId
