@@ -1051,7 +1051,7 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
 
 
            shareBean=new ShareBean();
-            shareBean.title_ = SpUtil.getName(this) + "邀请你下载对了APP";
+            shareBean.title_ = SpUtil.getName(this) + "邀请你下载智信APP";
             shareBean.content_ = "让你有不一样的购物体验不一样的直播平台不一样的社交！";
             shareBean.url_ = Constant.APP_SHARE;
             shareBean.img_ = "img";
@@ -1432,15 +1432,21 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
             data.data = dat;
         } else if (type == 14) {
             List<Version> datas = (  List<Version>) entity;
+            Version data=null;
+            if(datas.size()>=3){
+                 data=datas.get(2);
+            }
 
-            Version data=datas.get(1);
-
+           if(data==null){
+               CanTingAppLication.url = "http://vip1.runchunqiu.com/";
+               return;
+           }
             String oldVersion = StringUtil.getVersion(CanTingAppLication.getInstance());//"0.17"
             description = data.description;
             if (TextUtil.isNotEmpty(data.name)) {
                 CanTingAppLication.url = data.name;
             } else {
-                CanTingAppLication.url = "http://ychc.9913seo.com";
+                CanTingAppLication.url = "http://vip1.runchunqiu.com/";
             }
             if (data.version.compareTo(oldVersion) > 0) {
                 showPopwindow(data.url);
@@ -1567,7 +1573,7 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
             }
             if (TextUtil.isNotEmpty(bean.invitation_code)) {
                 CanTingAppLication.invitation_code=bean.invitation_code;
-                shareBean.title_ = SpUtil.getName(this) + "邀请你下载对了APP";
+                shareBean.title_ = SpUtil.getName(this) + "邀请你下载智信APP";
                 shareBean.content_ = "让你有不一样的购物体验不一样的直播平台不一样的社交！";
                 shareBean.url_ = Constant.APP_SHARE + SpUtil.getName(this)+","+bean.invitation_code;
                 shareBean.img_ = "img";
