@@ -410,13 +410,13 @@ public class MineFragment extends LazyFragment implements BaseContract.View, Ada
         Intent intent = null;
         switch (position) {
             case 0://会员管理
-                intent = new Intent(getActivity(), WebViewActivity.class);
-
-
-                intent.putExtra(WebViewActivity.WEBTITLE, R.string.huiyuan);
-                intent.putExtra(WebViewActivity.WEBURL, CanTingAppLication.url);
-
-                startActivity(intent);
+//                intent = new Intent(getActivity(), WebViewActivity.class);
+//
+//
+//                intent.putExtra(WebViewActivity.WEBTITLE, R.string.huiyuan);
+//                intent.putExtra(WebViewActivity.WEBURL, CanTingAppLication.url);
+//
+//                startActivity(intent);
                 break;
             case 1://积分充值
                 startActivity(new Intent(getActivity(), CodeUploadActivity.class));
@@ -431,8 +431,8 @@ public class MineFragment extends LazyFragment implements BaseContract.View, Ada
             case 3://APP下载码
                 Intent intentc = new Intent(getActivity(), ChatActivity.class);
 //                intentc.putExtra("userId", "urio1116552863061901312");//信联
-//                intentc.putExtra("userId", "urio1087627518581669888");//智信
-                intentc.putExtra("userId", "urio1098110334129930240");//智信
+//                intentc.putExtra("userId", "urio1087627518581669888");//生活吧
+                intentc.putExtra("userId", "urio1098110334129930240");//生活吧
                 startActivity(intentc);
                 break;
             case 4://联系客服

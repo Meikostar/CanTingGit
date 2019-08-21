@@ -46,7 +46,7 @@ public class HomeItemdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return datas!=null?datas.size():0;
+        return datas!=null?2:0;
     }
 
     @Override

@@ -61,7 +61,7 @@
                 android:layout_marginTop="18dp"
                 android:gravity="center"
 
-                android:text="智信"
+                android:text="生活吧"
                 android:textColor="#333"
                 android:textSize="16sp" />
 

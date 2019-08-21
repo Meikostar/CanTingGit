@@ -259,7 +259,7 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
 
         mSuperRecyclerView.setRefreshListener(refreshListener);
         presenter.getHomeBanner("3");
-        presenter.getProductList(TYPE_PULL_REFRESH, 1 + "", 12 + "", "", "1", "0", "1");
+        presenter.getProductList(TYPE_PULL_REFRESH, 1 + "", 12 + "", "", "3", "0", "1");
 
         initView();
 //        presenter.getDirRoomClassify();
@@ -1051,7 +1051,7 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
 
 
            shareBean=new ShareBean();
-            shareBean.title_ = SpUtil.getName(this) + "邀请你下载智信APP";
+            shareBean.title_ = SpUtil.getName(this) + "邀请你下载生活吧APP";
             shareBean.content_ = "让你有不一样的购物体验不一样的直播平台不一样的社交！";
             shareBean.url_ = Constant.APP_SHARE;
             shareBean.img_ = "img";
@@ -1119,7 +1119,7 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
                     mSuperRecyclerView.showMoreProgress();
 
                     if (haveNext)
-                        presenter.getProductList(TYPE_PULL_MORE, currpage + "", 12 + "", "", "1", "0", "1");
+                        presenter.getProductList(TYPE_PULL_MORE, currpage + "", 12 + "", "", "3", "0", "1");
                     mSuperRecyclerView.hideMoreProgress();
 
                 }
@@ -1573,7 +1573,7 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
             }
             if (TextUtil.isNotEmpty(bean.invitation_code)) {
                 CanTingAppLication.invitation_code=bean.invitation_code;
-                shareBean.title_ = SpUtil.getName(this) + "邀请你下载智信APP";
+                shareBean.title_ = SpUtil.getName(this) + "邀请你下载生活吧APP";
                 shareBean.content_ = "让你有不一样的购物体验不一样的直播平台不一样的社交！";
                 shareBean.url_ = Constant.APP_SHARE + SpUtil.getName(this)+","+bean.invitation_code;
                 shareBean.img_ = "img";
