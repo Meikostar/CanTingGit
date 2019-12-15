@@ -51,10 +51,14 @@ public class StringUtil {
             urls="";
         }else {
             if(url.contains("http://pa7efx2i6.bkt.clouddn.com")){
-                urls=url.replace("http://pa7efx2i6.bkt.clouddn.com","http://chushenduojin.cn");
-            } else  if(url.contains("http://pifb36x2h.bkt.clouddn.com")){
-                urls=url.replace("http://pifb36x2h.bkt.clouddn.com","http://chushenduojin.cn");
-            }else {
+                urls=url.replace("http://pa7efx2i6.bkt.clouddn.com","http://xjxlsy.cn");
+            } else  if(url.contains("http://chushenduojin.cn")){
+                urls=url.replace("http://chushenduojin.cn","http://xjxlsy.cn");
+            }else  if(url.contains("http://pifb36x2h.bkt.clouddn.com")){
+                urls=url.replace("http://pifb36x2h.bkt.clouddn.com","http://xjxlsy.cn");
+            }else  if(url.contains("http://120.77.222.116:8080")){
+                urls=url.replace("http://120.77.222.116:8080","http://119.23.212.8:8080");
+            }else {//http://120.77.222.116:8080/
                 urls=url;
             }
         }

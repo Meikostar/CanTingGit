@@ -36,6 +36,7 @@ import com.zhongchuang.canting.presenter.BaseContract;
 import com.zhongchuang.canting.presenter.BasesPresenter;
 import com.zhongchuang.canting.utils.HxMessageUtils;
 import com.zhongchuang.canting.utils.QiniuUtils;
+import com.zhongchuang.canting.utils.StringUtil;
 import com.zhongchuang.canting.utils.TextUtil;
 import com.zhongchuang.canting.widget.BaseDailogManager;
 import com.zhongchuang.canting.widget.CircleTransform;
@@ -295,7 +296,7 @@ public class PersonManActivity extends BaseLoginActivity implements BaseContract
             info = (FriendInfo) entity;
             if (info == null)
                 return;
-            Glide.with(this).load(info.head_image).asBitmap().transform(new CircleTransform(this)).placeholder(R.drawable.editor_ava).into(ivImg);
+            Glide.with(this).load(StringUtil.changeUrl(info.head_image)).asBitmap().transform(new CircleTransform(this)).placeholder(R.drawable.editor_ava).into(ivImg);
             if (TextUtil.isNotEmpty(info.remark_name)) {
                 tvBei.setText(info.remark_name);
                 tvFir.setText(info.remark_name+getString(R.string.dllq));

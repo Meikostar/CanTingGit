@@ -60,7 +60,8 @@ public class VideoLiveFragment extends Fragment implements   OtherContract.View 
     LinearLayout llTitle;
     @BindView(R.id.tv_city)
     TextView tvCity;
-
+    @BindView(R.id.back)
+    ImageView back;
 
     private List<Fragment> list_zhibofragment;   //定义要装fragment的列表
     private FragmentViewPagerAdapter mainViewPagerAdapter;
@@ -129,7 +130,12 @@ public class VideoLiveFragment extends Fragment implements   OtherContract.View 
                 startActivity(intent);
             }
         });
-
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().finish();
+            }
+        });
         return view;
 
     }

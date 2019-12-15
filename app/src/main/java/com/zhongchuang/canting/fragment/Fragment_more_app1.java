@@ -139,6 +139,7 @@ public class Fragment_more_app1 extends BaseFragment {
             cont++;
             datas.add(homes);
         }
+
         if(homedapter!=null){
             homedapter.setData(datas);
             homedapter.notifyDataSetChanged();

@@ -733,14 +733,17 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
     private com.youth.banner.Banner banner;
     private NoScrollGridView gridContent;
     private RegularListView gridContentLb;
+    private RegularListView gridContentLbs;
     private RegularListView gridContentLive;
     private CardView card_lb;
+    private CardView card_lbs;
     private CardView card_live;
 
     private LinearLayout ll_special;
     private HomeItemdapter homedapter;
     private HomeProductdapter homeProductdapter;
     private VideoItemItemdapter lbapter;
+    private VideoItemItemdapter lbapters;
     private VideoItemItemdapter liveapter;
     private NoScrollViewPager viewpagerMain;
     private FragmentViewPagerAdapter mainViewPagerAdapter;
@@ -776,8 +779,10 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
 
         gridContent = view.findViewById(R.id.grid_content);
         gridContentLb = view.findViewById(R.id.grid_content_lb);
+        gridContentLbs = view.findViewById(R.id.grid_content_lbs);
         gridContentLive = view.findViewById(R.id.grid_content_live);
         card_lb = view.findViewById(R.id.card_lb);
+        card_lbs = view.findViewById(R.id.card_lbs);
         card_live = view.findViewById(R.id.cards_live);
         line1 = view.findViewById(R.id.iv_line1);
         line2 = view.findViewById(R.id.iv_line2);
@@ -788,8 +793,59 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
 
         homeProductdapter = new HomeProductdapter(this);
         lbapter = new VideoItemItemdapter(this);
+        lbapters = new VideoItemItemdapter(this);
         liveapter = new VideoItemItemdapter(this);
         lbapter.setOnItemClickListener(new VideoItemItemdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position, VideoData dataBean) {
+                String token = SpUtil.getString(HomeActivitys.this, "token", "");
+                if (token == null || token.equals("")) {
+                    ToastUtils.showNormalToast("你还没有登录，快去登录吧!");
+                    Intent gotoLogin = new Intent(HomeActivitys.this, LoginActivity.class);
+                    startActivity(gotoLogin);
+                    return;
+                }
+                if (!dataBean.new_type.equals("0")) {
+                    CanTingAppLication.landType = 6;
+                    Intent intent = new Intent(HomeActivitys.this, AliyunPlayerSkinActivity.class);
+                    intent.putExtra("type", 3);
+                    intent.putExtra("url", dataBean.video_url);
+                    intent.putExtra("name", dataBean.video_name);
+                    intent.putExtra("room_info_id", dataBean.room_info_id);
+                    intent.putExtra("id", dataBean.user_info_id);
+                    startActivity(intent);
+                } else {
+                    if (dataBean.video_type.equals("2")) {
+                        CanTingAppLication.landType = 6;
+                        Intent intent = new Intent(HomeActivitys.this, AliyunPlayerSkinActivity.class);
+                        intent.putExtra("url", dataBean.video_url);
+                        intent.putExtra("name", dataBean.video_name);
+                        intent.putExtra("room_info_id", dataBean.room_info_id);
+                        intent.putExtra("id", dataBean.user_info_id);
+                        startActivity(intent);
+                    } else if (dataBean.video_type.equals("3")) {
+                        CanTingAppLication.landType = 8;
+                        Intent intent = new Intent(HomeActivitys.this, AliyunPlayerSkinActivity.class);
+                        intent.putExtra("url", dataBean.video_url);
+                        intent.putExtra("type", 3);
+                        intent.putExtra("name", dataBean.video_name);
+                        intent.putExtra("room_info_id", dataBean.room_info_id);
+                        intent.putExtra("id", dataBean.user_info_id);
+                        startActivity(intent);
+
+                    } else {
+                        CanTingAppLication.landType = 8;
+                        Intent intent = new Intent(HomeActivitys.this, AliyunPlayerSkinActivityMin.class);
+                        intent.putExtra("url", dataBean.video_url);
+                        intent.putExtra("name", dataBean.video_name);
+                        intent.putExtra("room_info_id", dataBean.room_info_id);
+                        intent.putExtra("id", dataBean.user_info_id);
+                        startActivity(intent);
+                    }
+                }
+            }
+        });
+        lbapters.setOnItemClickListener(new VideoItemItemdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, VideoData dataBean) {
                 String token = SpUtil.getString(HomeActivitys.this, "token", "");
@@ -916,6 +972,7 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
         gridContent.setAdapter(homeProductdapter);
         gridContentLive.setAdapter(liveapter);
         gridContentLb.setAdapter(lbapter);
+        gridContentLbs.setAdapter(lbapters);
 
         try {
             Thread.sleep(80);
@@ -1051,7 +1108,7 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
 
 
            shareBean=new ShareBean();
-            shareBean.title_ = SpUtil.getName(this) + "邀请你下载生活吧APP";
+            shareBean.title_ = SpUtil.getName(this) + "邀请你下载百极胜APP";
             shareBean.content_ = "让你有不一样的购物体验不一样的直播平台不一样的社交！";
             shareBean.url_ = Constant.APP_SHARE;
             shareBean.img_ = "img";
@@ -1377,7 +1434,7 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
         public void displayImage(Context context, Object path, ImageView imageView) {
             Banner url= (Banner) path;
             if(HomeActivitys.this!=null){
-                Glide.with(context).load(url.image_url).asBitmap().placeholder(R.drawable.moren).into(imageView);
+                Glide.with(context).load(StringUtil.changeUrl(url.image_url)).asBitmap().placeholder(R.drawable.moren).into(imageView);
             }
             //Glide 加载图片简单用法
 
@@ -1500,8 +1557,10 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
             List<VideoData>  lists= (List<VideoData>) entity;
             if(lists==null||lists.size()==0){
                 card_lb.setVisibility(View.GONE);
+                card_lbs.setVisibility(View.GONE);
             }else {
                 lbapter.setData(lists);
+                lbapters.setData(lists);
             }
 
 
@@ -1573,7 +1632,7 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
             }
             if (TextUtil.isNotEmpty(bean.invitation_code)) {
                 CanTingAppLication.invitation_code=bean.invitation_code;
-                shareBean.title_ = SpUtil.getName(this) + "邀请你下载生活吧APP";
+                shareBean.title_ = SpUtil.getName(this) + "邀请你下载百极胜APP";
                 shareBean.content_ = "让你有不一样的购物体验不一样的直播平台不一样的社交！";
                 shareBean.url_ = Constant.APP_SHARE + SpUtil.getName(this)+","+bean.invitation_code;
                 shareBean.img_ = "img";

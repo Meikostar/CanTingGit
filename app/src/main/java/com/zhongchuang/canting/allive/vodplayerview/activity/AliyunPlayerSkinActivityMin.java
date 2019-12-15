@@ -93,6 +93,7 @@ import com.zhongchuang.canting.presenter.OtherPresenter;
 import com.zhongchuang.canting.utils.AdapterUtility;
 import com.zhongchuang.canting.utils.ShareUtils;
 import com.zhongchuang.canting.utils.SpUtil;
+import com.zhongchuang.canting.utils.StringUtil;
 import com.zhongchuang.canting.utils.TextUtil;
 import com.zhongchuang.canting.viewcallback.CareListener;
 import com.zhongchuang.canting.widget.CircleTransform;
@@ -319,7 +320,7 @@ public class AliyunPlayerSkinActivityMin extends AppCompatActivity implements Ot
         if (!TextUtils.isEmpty(data.user_info_nickname)) {
             tvName.setText(data.user_info_nickname);
         }
-        Glide.with(AliyunPlayerSkinActivityMin.this).load(ben.room_image).asBitmap().transform(new CircleTransform(AliyunPlayerSkinActivityMin.this)).placeholder(R.drawable.editor_ava).into(iv_imgs);
+        Glide.with(AliyunPlayerSkinActivityMin.this).load(StringUtil.changeUrl(ben.room_image)).asBitmap().transform(new CircleTransform(AliyunPlayerSkinActivityMin.this)).placeholder(R.drawable.editor_ava).into(iv_imgs);
 
         tvCout.setText(data.fans_num);
 
@@ -1091,7 +1092,7 @@ public class AliyunPlayerSkinActivityMin extends AppCompatActivity implements Ot
             if (!TextUtils.isEmpty(info.nickname)) {
                 tvName.setText(info.nickname);
             }
-            Glide.with(AliyunPlayerSkinActivityMin.this).load(info.head_image).asBitmap().transform(new CircleTransform(AliyunPlayerSkinActivityMin.this)).placeholder(R.drawable.editor_ava).into(iv_imgs);
+            Glide.with(AliyunPlayerSkinActivityMin.this).load(StringUtil.changeUrl(info.head_image)).asBitmap().transform(new CircleTransform(AliyunPlayerSkinActivityMin.this)).placeholder(R.drawable.editor_ava).into(iv_imgs);
 
         } else if (type == 3||type ==4) {
             getDirIndexInfo();

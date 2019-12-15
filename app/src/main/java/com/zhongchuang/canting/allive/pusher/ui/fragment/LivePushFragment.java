@@ -373,7 +373,7 @@ public class LivePushFragment extends Fragment implements Runnable {
                     }
                     if(TextUtil.isNotEmpty(data.room_image)){
                         if(!isShow){
-                            Glide.with(getActivity()).load(data.room_image).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.drawable.dingdantouxiang).into(ivImg);
+                            Glide.with(getActivity()).load(StringUtil.changeUrl(data.room_image)).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.drawable.dingdantouxiang).into(ivImg);
                         }
                     }
 

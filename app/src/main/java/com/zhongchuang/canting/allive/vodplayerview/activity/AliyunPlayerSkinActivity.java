@@ -93,6 +93,7 @@ import com.zhongchuang.canting.presenter.OtherPresenter;
 import com.zhongchuang.canting.utils.AdapterUtility;
 import com.zhongchuang.canting.utils.ShareUtils;
 import com.zhongchuang.canting.utils.SpUtil;
+import com.zhongchuang.canting.utils.StringUtil;
 import com.zhongchuang.canting.utils.TextUtil;
 import com.zhongchuang.canting.viewcallback.CareListener;
 import com.zhongchuang.canting.widget.CircleTransform;
@@ -327,7 +328,7 @@ public class AliyunPlayerSkinActivity extends AppCompatActivity implements Other
         if (!TextUtils.isEmpty(ben.user_info_nickname)) {
             tvName.setText(ben.user_info_nickname);
         }
-        Glide.with(AliyunPlayerSkinActivity.this).load(ben.room_image).asBitmap().transform(new CircleTransform(AliyunPlayerSkinActivity.this)).placeholder(R.drawable.editor_ava).into(iv_imgs);
+        Glide.with(AliyunPlayerSkinActivity.this).load(StringUtil.changeUrl(ben.room_image)).asBitmap().transform(new CircleTransform(AliyunPlayerSkinActivity.this)).placeholder(R.drawable.editor_ava).into(iv_imgs);
 
         tvCout.setText(ben.fans_num);
 

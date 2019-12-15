@@ -24,7 +24,8 @@ public class QiniuUtils {
     private QiniuUtils(){
     }
     private static QiniuUtils qiniu;
-    public static String baseurl="http://chushenduojin.cn/";
+    public static String baseurl="http://xjxlsy.cn/";
+//    public static String baseurl="http://chushenduojin.cn/";
     public static QiniuUtils getInstance(){
         if(qiniu==null){
             qiniu=new QiniuUtils();

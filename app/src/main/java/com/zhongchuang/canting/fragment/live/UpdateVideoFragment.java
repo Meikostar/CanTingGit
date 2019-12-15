@@ -60,6 +60,8 @@ public class UpdateVideoFragment extends Fragment implements   OtherContract.Vie
     LinearLayout llTitle;
     @BindView(R.id.tv_city)
     TextView tvCity;
+    @BindView(R.id.back)
+    ImageView back;
 
 
     private List<Fragment> list_zhibofragment;   //定义要装fragment的列表
@@ -70,7 +72,6 @@ public class UpdateVideoFragment extends Fragment implements   OtherContract.Vie
 
     public static String pushURL;
     public static String roomID;
-    public static String liveId;
     public static String roomPic;
     private OtherPresenter presenter;
 
@@ -126,7 +127,12 @@ public class UpdateVideoFragment extends Fragment implements   OtherContract.Vie
                 startActivity(new Intent(getActivity(),SearchLiveActivity.class));
             }
         });
-
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().finish();
+            }
+        });
         return view;
 
     }
