@@ -96,10 +96,10 @@ public class VideoItemItemdapter extends BaseAdapter {
                     holder.iv_cover.setVisibility(View.GONE);
                 }
                 if(TextUtil.isNotEmpty(dataBean.cover_image)){
-                    Glide.with(context).load(StringUtil.changeUrl(dataBean.cover_image)).asBitmap().placeholder(R.drawable.moren).into(holder.ivVideo1);
+                    Glide.with(context).load(StringUtil.changeUrl(dataBean.cover_image)).asBitmap().placeholder(R.drawable.moren).thumbnail(0.1f).into(holder.ivVideo1);
 
                 }else {
-                    Glide.with(context).load(StringUtil.changeUrl(dataBean.room_image)).asBitmap().placeholder(R.drawable.moren).into(holder.ivVideo1);
+                    Glide.with(context).load(StringUtil.changeUrl(dataBean.room_image)).asBitmap().placeholder(R.drawable.moren).thumbnail(0.1f).into(holder.ivVideo1);
 
                 }
                 //直播昵称
@@ -136,10 +136,10 @@ public class VideoItemItemdapter extends BaseAdapter {
             holder.iv_cover1.setVisibility(View.GONE);
         }
         if(TextUtil.isNotEmpty(dataBean.cover_image)){
-            Glide.with(context).load(StringUtil.changeUrl(dataBean.cover_image)).asBitmap().placeholder(R.drawable.moren).into(holder.ivVideo);
+            Glide.with(context).load(StringUtil.changeUrl(dataBean.cover_image)).asBitmap().placeholder(R.drawable.moren).thumbnail(0.1f).into(holder.ivVideo);
 
         }else {
-            Glide.with(context).load(StringUtil.changeUrl(dataBean.room_image)).asBitmap().placeholder(R.drawable.moren).into(holder.ivVideo);
+            Glide.with(context).load(StringUtil.changeUrl(dataBean.room_image)).asBitmap().placeholder(R.drawable.moren).thumbnail(0.1f).into(holder.ivVideo);
 
         }
         //直播昵称

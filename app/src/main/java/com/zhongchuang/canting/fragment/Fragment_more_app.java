@@ -158,9 +158,9 @@ public class Fragment_more_app extends BaseFragment implements BaseContract.View
                             }
                             break;
                         case 6: //应用
-                            ShareUtils.showMyShareApp(getActivity(), "", "");
+//                            ShareUtils.showMyShareApp(getActivity(), "", "");
 
-
+                            ShareUtils.showMyShare(getActivity(), "", "http://www.gwlaser.tech");
                             break;
                         case 7: //应用
                             Intent intent4 = new Intent(getActivity(), AppStoreActivity.class);
@@ -396,7 +396,8 @@ public class Fragment_more_app extends BaseFragment implements BaseContract.View
                                 startActivity(new Intent(getActivity(), LoginActivity.class));
                             }
                         }else if(content.contains("APP分享")){
-                            ShareUtils.showMyShareApp(getActivity(), "", "");
+                            ShareUtils.showMyShare(getActivity(), "", "http://www.gwlaser.tech");
+//                            ShareUtils.showMyShareApp(getActivity(), "", "");
                         }else if(content.contains("应用")){
                             if(CanTingAppLication.CompanyType.equals("2")){
                                 if (!HomeActivitys.isLogin) {

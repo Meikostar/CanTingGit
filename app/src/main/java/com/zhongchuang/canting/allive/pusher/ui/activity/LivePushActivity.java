@@ -580,16 +580,31 @@ public class LivePushActivity extends AppCompatActivity {
     }
 
     private void showDialog(Context context, String message) {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(context);
-        dialog.setTitle(getString(R.string.dialog_title));
-        dialog.setMessage(message);
-        dialog.setNegativeButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                finish();
-            }
-        });
-        dialog.show();
+        if(message.equals("start push aysnc error")){
+            ToastUtils.showNormalToast("第一次直播需要重新初始化");
+            finish();
+        }else if(message.contains("start")){
+            ToastUtils.showNormalToast("第一次直播需要重新初始化");
+            finish();
+        }else if(message.contains("aysnc")){
+            ToastUtils.showNormalToast("第一次直播需要重新初始化");
+            finish();
+        }else if(message.contains("push")){
+            ToastUtils.showNormalToast("第一次直播需要重新初始化");
+            finish();
+        }else {
+            AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+            dialog.setTitle(getString(R.string.dialog_title));
+            dialog.setMessage(message);
+            dialog.setNegativeButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    finish();
+                }
+            });
+            dialog.show();
+        }
+
     }
 
     private Runnable mRunnable = new Runnable() {

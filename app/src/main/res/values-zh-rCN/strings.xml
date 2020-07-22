@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-	<string name="app_name">百极胜</string>
+	<string name="app_name">生活吧</string>
 	<string name="wozhidol">我知道了</string>
 	<string name="downloaded">&#160;%s %%</string>
 	<string name="str_exit">退出登录</string>
@@ -916,7 +916,7 @@
 	<string name="qsrrq">请输入日期</string>
 	<string name="myssdxgnr">没有搜索到相关内容</string>
 	<string name="jiguang">激光</string>
-	<string name="zzklgk">正在百极胜直播，快来观看吧！</string>
+	<string name="zzklgk">正在生活吧直播，快来观看吧！</string>
 	<string name="fensis">粉丝:</string>
 	<string name="zxrs">在线人数：</string>
 	<string name="jfyywqcz">你的积分已用完，快去充值吧!</string>
@@ -957,7 +957,7 @@
 	<string name="qrscgpl">确认删除该评论？</string>
 	<string name="hf">回复</string>
 	<string name="pl">评论</string>
-	<string name="zzgszbklgkb">正在百极胜直播，快来观看吧！</string>
+	<string name="zzgszbklgkb">正在生活吧直播，快来观看吧！</string>
 	<string name="yzmbnwk">验证码不能为空</string>
 	<string name="jyz">校验中...</string>
 	<string name="mmbnwk">密码不能为空</string>
@@ -1105,9 +1105,9 @@
 	<string name="ll">乐聊</string>
 	<string name="grzx">个人中心</string>
 	<string name="appfx">App分享</string>
-	<string name="gsgj">百极胜国际</string>
+	<string name="gsgj">生活吧国际</string>
 	<string name="zx">注销</string>
-	<string name="gs">百极胜</string>
+	<string name="gs">生活吧</string>
 	<string name="yxdbbo">有新的版本哦，快去更新吧！</string>
 	<string name="zhdl">账号密码登录</string>
 	<string name="sjkjdl">手机快捷登录</string>

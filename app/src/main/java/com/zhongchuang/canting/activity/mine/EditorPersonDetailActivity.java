@@ -1108,6 +1108,11 @@ public class EditorPersonDetailActivity extends BaseActivity1 implements BaseCon
                         if (userInfo == null) {
                             userInfo = new UserInfo();
                         }
+
+                        if(info.data.get(0).path.contains("http://119.23.212.8:8080")){
+                            String imgs = info.data.get(0).path.replace("http://119.23.212.8:8080", "http://120.78.148.31:8080");
+                            info.data.get(0).path=imgs;
+                        }
                         SpUtil.putString(EditorPersonDetailActivity.this, "ava", info.data.get(0).path);
                         userInfo.headImage = info.data.get(0).path;
                         Glide.with(EditorPersonDetailActivity.this).load(userInfo.headImage).asBitmap().transform(new CircleTransform(EditorPersonDetailActivity.this)).placeholder(R.drawable.editor_ava).into(img);

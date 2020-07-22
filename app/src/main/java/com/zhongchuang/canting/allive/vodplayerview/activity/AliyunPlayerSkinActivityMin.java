@@ -320,7 +320,9 @@ public class AliyunPlayerSkinActivityMin extends AppCompatActivity implements Ot
         if (!TextUtils.isEmpty(data.user_info_nickname)) {
             tvName.setText(data.user_info_nickname);
         }
-        Glide.with(AliyunPlayerSkinActivityMin.this).load(StringUtil.changeUrl(ben.room_image)).asBitmap().transform(new CircleTransform(AliyunPlayerSkinActivityMin.this)).placeholder(R.drawable.editor_ava).into(iv_imgs);
+        Glide.with(AliyunPlayerSkinActivityMin.this).load(StringUtil.changeUrl(ben.room_image)).thumbnail(0.5f).transform(new CircleTransform(AliyunPlayerSkinActivityMin.this)).placeholder(R.drawable.editor_ava).into(iv_imgs);
+
+//        Glide.with(AliyunPlayerSkinActivityMin.this).load(StringUtil.changeUrl(ben.room_image)).asBitmap().transform(new CircleTransform(AliyunPlayerSkinActivityMin.this)).placeholder(R.drawable.editor_ava).into(iv_imgs);
 
         tvCout.setText(data.fans_num);
 
@@ -1092,7 +1094,9 @@ public class AliyunPlayerSkinActivityMin extends AppCompatActivity implements Ot
             if (!TextUtils.isEmpty(info.nickname)) {
                 tvName.setText(info.nickname);
             }
-            Glide.with(AliyunPlayerSkinActivityMin.this).load(StringUtil.changeUrl(info.head_image)).asBitmap().transform(new CircleTransform(AliyunPlayerSkinActivityMin.this)).placeholder(R.drawable.editor_ava).into(iv_imgs);
+            Glide.with(AliyunPlayerSkinActivityMin.this).load(StringUtil.changeUrl(info.head_image)).thumbnail(0.5f).transform(new CircleTransform(AliyunPlayerSkinActivityMin.this)).placeholder(R.drawable.editor_ava).into(iv_imgs);
+
+//            Glide.with(AliyunPlayerSkinActivityMin.this).load(StringUtil.changeUrl(info.head_image)).asBitmap().transform(new CircleTransform(AliyunPlayerSkinActivityMin.this)).placeholder(R.drawable.editor_ava).into(iv_imgs);
 
         } else if (type == 3||type ==4) {
             getDirIndexInfo();

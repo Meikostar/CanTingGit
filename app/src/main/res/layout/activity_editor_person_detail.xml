@@ -18,29 +18,33 @@
             android:layout_height="36dp"
             android:padding="5dp"
             android:src="@drawable/fb_back" />
+
         <LinearLayout
-            android:layout_marginLeft="20dp"
-            android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="70dp"
-            android:orientation="vertical"
-            android:gravity="center_vertical">
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
             <TextView
 
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:baselineAligned="false"
                 android:gravity="center"
                 android:text="编辑资料"
                 android:textColor="#222"
                 android:textSize="18sp" />
+
             <TextView
 
-                android:layout_marginTop="3dp"
+                android:id="@+id/tv_editor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
                 android:gravity="center"
-                android:id="@+id/tv_editor"
                 android:text="完成度60%"
                 android:textColor="#888"
                 android:textSize="11sp" />

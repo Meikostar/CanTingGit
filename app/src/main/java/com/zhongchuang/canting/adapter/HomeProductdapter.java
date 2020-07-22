@@ -106,6 +106,7 @@ public class HomeProductdapter extends BaseAdapter {
                 .placeholder(R.drawable.moren1)
                 .error(R.drawable.moren1)
                 .transform(new CornerTransform(context, DensityUtil.dip2px(8)))
+                .thumbnail(0.1f)
                 .into(holder.img);
 
         holder.llbg.setOnClickListener(new View.OnClickListener() {

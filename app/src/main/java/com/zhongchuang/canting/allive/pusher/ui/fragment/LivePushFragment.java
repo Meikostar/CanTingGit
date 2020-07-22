@@ -372,9 +372,7 @@ public class LivePushFragment extends Fragment implements Runnable {
                         tvName.setText(data.user_info_nickname);
                     }
                     if(TextUtil.isNotEmpty(data.room_image)){
-                        if(!isShow){
-                            Glide.with(getActivity()).load(StringUtil.changeUrl(data.room_image)).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.drawable.dingdantouxiang).into(ivImg);
-                        }
+                        Glide.with(getActivity()).load(StringUtil.changeUrl(data.room_image)).thumbnail(0.5f).into(ivImg);
                     }
 
 
@@ -976,6 +974,19 @@ public class LivePushFragment extends Fragment implements Runnable {
     }
 
     private void showDialog(final String message) {
+        if(message.equals("start push aysnc error")){
+            ToastUtils.showNormalToast("第一次直播需要重新初始化");
+            getActivity().finish();
+        }else if(message.contains("start")){
+            ToastUtils.showNormalToast("第一次直播需要重新初始化");
+            getActivity().finish();
+        }else if(message.contains("aysnc")){
+            ToastUtils.showNormalToast("第一次直播需要重新初始化");
+            getActivity().finish();
+        }else if(message.contains("push")){
+            ToastUtils.showNormalToast("第一次直播需要重新初始化");
+            getActivity().finish();
+        }
         if(getActivity() == null || message == null) {
             return;
         }

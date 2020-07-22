@@ -114,19 +114,21 @@ public class Common {
                 return name != null && name.endsWith(".zip");
             }
         });
+        if(files!=null&&files.length>0){
+            for(final File file : files) {
+                int len = file.getAbsolutePath().length();
+                insertDB(file.getAbsolutePath().substring(0, len - 4));
+                if (!new File(file.getAbsolutePath().substring(0, len - 4)).exists()) {
+                    try {
+                        UnZipFolder(file.getAbsolutePath(), Common.SD_DIR + QU_NAME);
 
-        for(final File file : files) {
-            int len = file.getAbsolutePath().length();
-            insertDB(file.getAbsolutePath().substring(0, len - 4));
-            if (!new File(file.getAbsolutePath().substring(0, len - 4)).exists()) {
-                try {
-                    UnZipFolder(file.getAbsolutePath(), Common.SD_DIR + QU_NAME);
-
-                } catch (Exception e) {
-                    e.printStackTrace();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
+
     }
 
     public final static String QU_MV = "aliyun_svideo_mv";

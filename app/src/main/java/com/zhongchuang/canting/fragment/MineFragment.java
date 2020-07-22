@@ -431,8 +431,8 @@ public class MineFragment extends LazyFragment implements BaseContract.View, Ada
             case 3://APP下载码
                 Intent intentc = new Intent(getActivity(), ChatActivity.class);
 //                intentc.putExtra("userId", "urio1116552863061901312");//信联
-//                intentc.putExtra("userId", "urio1087627518581669888");//百极胜
-                intentc.putExtra("userId", "urio1098110334129930240");//百极胜
+//                intentc.putExtra("userId", "urio1087627518581669888");//生活吧
+                intentc.putExtra("userId", "urio1098110334129930240");//生活吧
                 startActivity(intentc);
                 break;
             case 4://联系客服

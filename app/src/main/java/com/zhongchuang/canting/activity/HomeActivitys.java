@@ -230,6 +230,8 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
                 )
                 .request();
         showPress();
+        presenter.getHomeBanner("3");
+
         layoutManager = new LinearLayoutManager(this);
         mSuperRecyclerView.setLayoutManager(layoutManager);
         mSuperRecyclerView.addItemDecoration(new DivItemDecoration(2, true));
@@ -247,7 +249,7 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
                     presenter.getHotDirect();
                     presenter.getRecomdVideoList();
                 }
-                presenter.getProductList(TYPE_PULL_REFRESH, 1 + "", 12 + "", "", "1", "0", "1");
+                presenter.getProductList(TYPE_PULL_REFRESH, 1 + "", 12 + "", "", "3", "0", "1");
 
                 if (mSuperRecyclerView != null) {
                     mSuperRecyclerView.hideMoreProgress();
@@ -258,8 +260,6 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
         };
 
         mSuperRecyclerView.setRefreshListener(refreshListener);
-        presenter.getHomeBanner("3");
-        presenter.getProductList(TYPE_PULL_REFRESH, 1 + "", 12 + "", "", "3", "0", "1");
 
         initView();
 //        presenter.getDirRoomClassify();
@@ -338,10 +338,10 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
         File file = new File(StorageUtils.getCacheDirectory(CanTingAppLication.getInstance()).getAbsolutePath() + File.separator + "live.zip");
         if (file != null && file.length() < 27755920) {
             CanTingAppLication.isComplete = false;
-            new Thread(new DownloadApk("http://119.23.212.8:8080/live.zip", 2)).start();
+            new Thread(new DownloadApk("http://120.78.148.31:8080/live.zip", 2)).start();
         } else if (file == null || !file.exists()) {
             CanTingAppLication.isComplete = false;
-            new Thread(new DownloadApk("http://119.23.212.8:8080/live.zip", 2)).start();
+            new Thread(new DownloadApk("http://120.78.148.31:8080/live.zip", 2)).start();
         } else {
             new Thread(new Runnable() {
                 @Override
@@ -666,6 +666,18 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
        @Override
        public boolean handleMessage(Message msg) {
            setData(cots);
+           if (presenter != null) {
+
+
+               if (!TextUtils.isEmpty(CanTingAppLication.userId)) {
+                   presenter.getProductList(TYPE_PULL_REFRESH, 1 + "", 12 + "", "", "3", "0", "1");
+                   presenter.getChatGroupList();
+                   presenter.hostInfo();
+                   presenter.getUserIntegral();
+                   presenter.verifyPassword("");
+               }
+
+           }
            return false;
        }
    });
@@ -680,34 +692,7 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
     }
     public void setData(int cout) {
            listener.messageNotify(cout);
-//        fragment_more_app.setData(cout);
-//        String[] indepent1 = {getString(R.string.qyzg), getString(R.string.cjzg), getString(R.string.szds), getString(R.string.zb),
-//                getString(R.string.ll), getString(R.string.grzx), getString(R.string.appfx), getString(R.string.yy), getString(R.string.appfx)};
-//        datas.clear();
-//        cont = 0;
-//        for (int url : homeimg1) {
-//            HOMES homes = new HOMES();
-//            homes.name = indepent1[cont];
-//            homes.url = url;
-//            if (cont == 4) {
-//                homes.cout = cout;
-//            }
-//            cont++;
-//            datas.add(homes);
-//        }
-//        if(homedapter!=null){
-//            homedapter.setData(datas);
-//            homedapter.notifyDataSetChanged();
-//        }else {
-//            homedapter = new HomeItemdapter(this);
-//            homedapter.setData(datas);
-//            homedapter.notifyDataSetChanged();
-//        }
-//
-//
-//
-//
-//        cont = 0;
+
 
 
 
@@ -756,6 +741,12 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
 
         mFragments.add(fragment_more_app);
         mFragments.add(fragment_more_app1);
+
+    }
+    public void afterLoad(){
+        presenter.getHotDirect();
+        presenter.getRecomdVideoList();
+        presenter.getActivityProductList(222, 1 + "", 12 + "", "", "" + "1", "" + "2");
 
     }
 
@@ -974,14 +965,6 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
         gridContentLb.setAdapter(lbapter);
         gridContentLbs.setAdapter(lbapters);
 
-        try {
-            Thread.sleep(80);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-         }
-        presenter.getHotDirect();
-        presenter.getRecomdVideoList();
-        presenter.getActivityProductList(222, 1 + "", 12 + "", "", "" + "1", "" + "2");
 
 
         homeProductdapter.setOnItemClickListener(new HomeProductdapter.OnItemClickListener() {
@@ -1108,7 +1091,7 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
 
 
            shareBean=new ShareBean();
-            shareBean.title_ = SpUtil.getName(this) + "邀请你下载百极胜APP";
+            shareBean.title_ = SpUtil.getName(this) + "邀请你下载生活吧APP";
             shareBean.content_ = "让你有不一样的购物体验不一样的直播平台不一样的社交！";
             shareBean.url_ = Constant.APP_SHARE;
             shareBean.img_ = "img";
@@ -1354,20 +1337,10 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
             }
         }
 
-        handler.sendEmptyMessageDelayed(1,150);
+        handler.sendEmptyMessageDelayed(1,350);
 
 
-        if (presenter != null) {
 
-
-            if (!TextUtils.isEmpty(CanTingAppLication.userId)) {
-                presenter.getChatGroupList();
-                presenter.hostInfo();
-                presenter.getUserIntegral();
-                presenter.verifyPassword("");
-            }
-
-        }
 
         if (state == 0) {
 
@@ -1434,7 +1407,7 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
         public void displayImage(Context context, Object path, ImageView imageView) {
             Banner url= (Banner) path;
             if(HomeActivitys.this!=null){
-                Glide.with(context).load(StringUtil.changeUrl(url.image_url)).asBitmap().placeholder(R.drawable.moren).into(imageView);
+                Glide.with(context).load(StringUtil.changeUrl(url.image_url)).thumbnail(0.1f).placeholder(R.drawable.moren).into(imageView);
             }
             //Glide 加载图片简单用法
 
@@ -1489,26 +1462,29 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
             data.data = dat;
         } else if (type == 14) {
             List<Version> datas = (  List<Version>) entity;
-            Version data=null;
-            if(datas.size()>=3){
-                 data=datas.get(2);
+
+            for(Version version:datas){
+                if(version.url.contains("bjs.apk")){
+                    String oldVersion = StringUtil.getVersion(CanTingAppLication.getInstance());//"0.17"
+                    description = version.description;
+                    if (TextUtil.isNotEmpty(version.name)) {
+                        CanTingAppLication.url = version.name;
+                    } else {
+                        CanTingAppLication.url = "http://vip1.runchunqiu.com/";
+                    }
+                    if (version.version.compareTo(oldVersion) > 0) {
+                        showPopwindow(version.url);
+
+                    }
+                }
             }
 
-           if(data==null){
+
+           if(datas==null){
                CanTingAppLication.url = "http://vip1.runchunqiu.com/";
                return;
            }
-            String oldVersion = StringUtil.getVersion(CanTingAppLication.getInstance());//"0.17"
-            description = data.description;
-            if (TextUtil.isNotEmpty(data.name)) {
-                CanTingAppLication.url = data.name;
-            } else {
-                CanTingAppLication.url = "http://vip1.runchunqiu.com/";
-            }
-            if (data.version.compareTo(oldVersion) > 0) {
-                showPopwindow(data.url);
 
-            }
         } else if (type == 22) {
 
             messageGroup = (GAME) entity;
@@ -1518,28 +1494,28 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
             if(lists==null||lists.size()==0){
                 List<VideoData> datas=new ArrayList<>();
                 VideoData videoData = new VideoData();
-                videoData.cover_image="http://chushenduojin.cn/1551762862320chatbg";
-                videoData.user_info_nickname="刘阳";
-                videoData.third_category_name="劳力士";
-                videoData.direct_overview="快乐分享";
+                videoData.cover_image="http://xjxlsy.cn/1576585590225chatbg";
+                videoData.user_info_nickname="直播间1";
+                videoData.third_category_name="广东赛区";
+                videoData.direct_overview="生活吧直播专区";
                 videoData.is_live=true;
                 VideoData videoData1 = new VideoData();
-                videoData1.cover_image="http://chushenduojin.cn/1561083068034chatbg";
-                videoData1.user_info_nickname="Meiko";
-                videoData1.third_category_name="劳力士";
-                videoData1.direct_overview="明天会更好";
+                videoData1.cover_image="http://xjxlsy.cn/1576586712269chatbg";
+                videoData1.user_info_nickname="直播间2";
+                videoData1.third_category_name="禅舞";
+                videoData1.direct_overview="大道至简!返璞归真!";
                 videoData1.is_live=true;
                 VideoData videoData2 = new VideoData();
-                videoData2.cover_image="http://chushenduojin.cn/1551991923437chatbg";
-                videoData2.user_info_nickname="薷翌";
-                videoData2.third_category_name="劳力士";
-                videoData2.direct_overview="生活的便利";
+                videoData2.cover_image="http://xjxlsy.cn/1576587045886chatbg";
+                videoData2.user_info_nickname="直播间3";
+                videoData2.third_category_name="车载冰箱";
+                videoData2.direct_overview="颤覆传统销售   让消费回归理性";
                 videoData2.is_live=true;
                 VideoData videoData3 = new VideoData();
-                videoData3.cover_image="http://chushenduojin.cn/1552408559951chatbg";
-                videoData3.user_info_nickname="子游";
-                videoData3.third_category_name="劳力士";
-                videoData3.direct_overview="上山打老虎";
+                videoData3.cover_image="http://xjxlsy.cn/1576588233735chatbg";
+                videoData3.user_info_nickname="直播间4";
+                videoData3.third_category_name="政府公共管理服务";
+                videoData3.direct_overview="益业联盟，现场展示盟友实力!";
                 videoData3.is_live=true;
                 datas.add(videoData);
                 datas.add(videoData1);
@@ -1556,10 +1532,48 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
             isLoad=true;
             List<VideoData>  lists= (List<VideoData>) entity;
             if(lists==null||lists.size()==0){
-                card_lb.setVisibility(View.GONE);
-                card_lbs.setVisibility(View.GONE);
+                lbapter.setData(lists);
+                lbapters.setData(lists);
             }else {
                 lbapter.setData(lists);
+//                intent.putExtra("type", 3);
+//                intent.putExtra("url", dataBean.video_url);
+//                intent.putExtra("name", dataBean.video_name);
+//                intent.putExtra("room_info_id", dataBean.room_info_id);
+//                intent.putExtra("id", dataBean.user_info_id);
+//                List<VideoData> datas=new ArrayList<>();
+//                VideoData videoData = new VideoData();
+//                videoData.video_url="";
+//                videoData.video_name="";
+//                videoData.room_info_id="";
+//                videoData.user_info_id="";
+//                videoData.cover_image="";
+//                videoData.user_info_nickname="直播间1";
+//                videoData.third_category_name="广东赛区";
+//                videoData.direct_overview="生活吧直播专区";
+//                videoData.is_live=true;
+//                VideoData videoData1 = new VideoData();
+//                videoData1.cover_image="http://xjxlsy.cn/1576586712269chatbg";
+//                videoData1.user_info_nickname="直播间2";
+//                videoData1.third_category_name="禅舞";
+//                videoData1.direct_overview="大道至简!返璞归真!";
+//                videoData1.is_live=true;
+//                VideoData videoData2 = new VideoData();
+//                videoData2.cover_image="http://xjxlsy.cn/1576587045886chatbg";
+//                videoData2.user_info_nickname="直播间3";
+//                videoData2.third_category_name="车载冰箱";
+//                videoData2.direct_overview="颤覆传统销售   让消费回归理性";
+//                videoData2.is_live=true;
+//                VideoData videoData3 = new VideoData();
+//                videoData3.cover_image="http://xjxlsy.cn/1576588233735chatbg";
+//                videoData3.user_info_nickname="直播间4";
+//                videoData3.third_category_name="政府公共管理服务";
+//                videoData3.direct_overview="益业联盟，现场展示盟友实力!";
+//                videoData3.is_live=true;
+//                datas.add(videoData);
+//                datas.add(videoData1);
+//                datas.add(videoData2);
+//                datas.add(videoData3);
                 lbapters.setData(lists);
             }
 
@@ -1582,6 +1596,7 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
 //
 //        }
         else if (type == 6) {
+            afterLoad();
             Home home = (Home) entity;
             category = home.category;
             banners = home.banner;
@@ -1632,7 +1647,7 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
             }
             if (TextUtil.isNotEmpty(bean.invitation_code)) {
                 CanTingAppLication.invitation_code=bean.invitation_code;
-                shareBean.title_ = SpUtil.getName(this) + "邀请你下载百极胜APP";
+                shareBean.title_ = SpUtil.getName(this) + "邀请你下载生活吧APP";
                 shareBean.content_ = "让你有不一样的购物体验不一样的直播平台不一样的社交！";
                 shareBean.url_ = Constant.APP_SHARE + SpUtil.getName(this)+","+bean.invitation_code;
                 shareBean.img_ = "img";

@@ -1485,7 +1485,7 @@ public class PushConfigActivity extends BaseActivity1 implements OtherContract.V
     public <T> void toEntity(T entity, int type) {
 
         String chatRoomId = SpUtil.getChatRoomId(PushConfigActivity.this);
-        if (getPushConfig() != null) {
+        if (getPushConfig() != null&&type==7) {
             if(state==1){
                 mCameraId = Camera.CameraInfo.CAMERA_FACING_BACK;
             }else {
