@@ -336,12 +336,12 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
     @PermissionSuccess(requestCode = PermissionConst.REQUECT_CODE_CAMERA)
     public void requestSdcardSuccess() {
         File file = new File(StorageUtils.getCacheDirectory(CanTingAppLication.getInstance()).getAbsolutePath() + File.separator + "live.zip");
-        if (file != null && file.length() < 27755920) {
+        if (file != null && file.length() < 20755920) {
             CanTingAppLication.isComplete = false;
-            new Thread(new DownloadApk("http://120.78.148.31:8080/live.zip", 2)).start();
+            new Thread(new DownloadApk("https://ifun.xjxlsy.cn/resource/live.zip", 2)).start();
         } else if (file == null || !file.exists()) {
             CanTingAppLication.isComplete = false;
-            new Thread(new DownloadApk("http://120.78.148.31:8080/live.zip", 2)).start();
+            new Thread(new DownloadApk("https://ifun.xjxlsy.cn/resource/live.zip", 2)).start();
         } else {
             new Thread(new Runnable() {
                 @Override

@@ -133,7 +133,7 @@ public class BaseContract {
          */
         void getMyShopCart(final int type, String pageNum, String pageSize, String proSite);
 
-
+        void appSmgList();
         /**
          * 删除购物车商品-接口
          *

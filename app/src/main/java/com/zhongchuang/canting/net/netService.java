@@ -58,6 +58,7 @@ import com.zhongchuang.canting.been.ShopChildBean;
 import com.zhongchuang.canting.been.ShopFirstBean;
 import com.zhongchuang.canting.been.ShopHeaderBean;
 import com.zhongchuang.canting.been.ShopTypeBean;
+import com.zhongchuang.canting.been.Smgapply;
 import com.zhongchuang.canting.been.SureOrder;
 import com.zhongchuang.canting.been.TOKEN;
 import com.zhongchuang.canting.been.USER;
@@ -81,6 +82,7 @@ import com.zhongchuang.canting.been.videobean;
 import com.zhongchuang.canting.easeui.bean.GROUP;
 
 
+import java.util.List;
 import java.util.Map;
 
 import internal.org.apache.http.entity.mime.content.ContentBody;
@@ -129,8 +131,14 @@ public interface netService {
 //    public static final String TOM_BASE_URL = "http://47.74.189.52:8080/ifun/";
 //      public static final String TOM_BASE_URL = "http://119.23.235.1:8080/ifun/";
 //    public static final String TOM_BASE_URL = "http://120.77.222.116:8080/ifun/";
-    public static final String TOM_BASE_URL = "http://120.78.148.31:8080/ifun/";//替换生活吧服务器
-    public static final String BASE_URL = "http://120.78.148.31:8080";//替换生活吧服务器
+
+
+//    public static final String TOM_BASE_URL = "http://120.78.148.31:8080/ifun/";//替换生活吧服务器
+//    public static final String BASE_URL = "http://120.78.148.31:8080";//替换生活吧服务器
+
+    public static final String TOM_BASE_URL = "https://ifun.xjxlsy.cn/portal/";//替换生活吧服务器
+    public static final String BASE_URL = "https://ifun.xjxlsy.cn/portal";//替换生活吧服务器
+
 
 
 //    public static final String TOM_BASE_URL = "http://119.23.212.8:8080/ifun/";
@@ -278,6 +286,7 @@ public interface netService {
     @FormUrlEncoded
     @POST("wap/liveCategory/getDefaultVideoAndCategory")
     Call<VideoData> getDefaultVideoAndCategory(@FieldMap Map<String, String> map);
+
     @FormUrlEncoded
     @POST("wap/video/getRecomdVideoList")
     Call<VideoDatas> getRecomdVideoList(@FieldMap Map<String, String> map);
@@ -815,6 +824,7 @@ public interface netService {
     @FormUrlEncoded
     @POST("wap/userLogin/appPay")
     Call<alipay> appPay(@FieldMap Map<String, String> map);
+
     @FormUrlEncoded
     @POST("wap/userLogin/appPay")
     Call<WEIXINREQ> appPays(@FieldMap Map<String, String> map);
@@ -822,6 +832,7 @@ public interface netService {
     @FormUrlEncoded
     @POST("wap/userIntegral/alipayIntegral")
     Call<alipay> rechargeInteger(@FieldMap Map<String, String> map);
+
     @FormUrlEncoded
     @POST("wap/userIntegral/alipayIntegral")
     Call<WEIXINREQ> rechargeIntegers(@FieldMap Map<String, String> map);
@@ -866,6 +877,10 @@ public interface netService {
     @FormUrlEncoded
     @POST("wap/application/appList")
     Call<apply> appList(@FieldMap Map<String, String> map);
+
+
+    @GET("https://bbsc.2aa6.com/api/data/apps")
+    Call<List<Smgapply>> appSmgList();
 
     @FormUrlEncoded
     @POST("wap/chatGroup/getFrendList")
@@ -1100,7 +1115,6 @@ public interface netService {
 
     @FormUrlEncoded
     @POST("wap/liveRecordVod/addLiveRecordVod")
-
     Call<aliLive> addLiveRecordVod(@FieldMap Map<String, String> opt);
 
     @FormUrlEncoded
@@ -1139,6 +1153,7 @@ public interface netService {
     @FormUrlEncoded
     @POST("wap/chatrooms/create")
     Call<aliLive> create(@FieldMap Map<String, String> opt);
+
     @FormUrlEncoded
     @POST("wap/chatrooms/getChatRoomInfo")
     Call<aliLive> getChatRoomInfo(@FieldMap Map<String, String> opt);
@@ -1167,6 +1182,7 @@ public interface netService {
     @FormUrlEncoded
     @POST("wap/directCategory/getHotDirect")
     Call<VideoData> getHotDirect(@FieldMap Map<String, String> opt);
+
     @FormUrlEncoded
     @POST("wap/sysHomeInfo/getAppInfo")
     Call<AppInfo> getAppInfo(@FieldMap Map<String, String> opt);
@@ -1183,7 +1199,6 @@ public interface netService {
     @FormUrlEncoded
     @POST("wap/directCategory/getLiveCategory")
     Call<LiveTypeBean> getLiveCategory(@FieldMap Map<String, String> opt);
-
 
 
 }

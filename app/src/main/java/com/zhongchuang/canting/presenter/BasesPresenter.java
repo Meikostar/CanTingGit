@@ -1,8 +1,6 @@
 package com.zhongchuang.canting.presenter;
 
 
-import android.content.Intent;
-
 import com.zhongchuang.canting.app.CanTingAppLication;
 import com.zhongchuang.canting.been.AddressBase;
 import com.zhongchuang.canting.been.AppInfo;
@@ -10,7 +8,6 @@ import com.zhongchuang.canting.been.Banner;
 import com.zhongchuang.canting.been.BaseBe;
 import com.zhongchuang.canting.been.BaseBean;
 import com.zhongchuang.canting.been.BaseResponse;
-import com.zhongchuang.canting.been.CancelParam;
 import com.zhongchuang.canting.been.Care;
 import com.zhongchuang.canting.been.Cares;
 import com.zhongchuang.canting.been.Catage;
@@ -27,9 +24,7 @@ import com.zhongchuang.canting.been.Home;
 import com.zhongchuang.canting.been.Host;
 import com.zhongchuang.canting.been.INTEGRALIST;
 import com.zhongchuang.canting.been.Ingegebean;
-import com.zhongchuang.canting.been.LiveItemBean;
 import com.zhongchuang.canting.been.LiveTypeBean;
-import com.zhongchuang.canting.been.MessageGroup;
 import com.zhongchuang.canting.been.OrderData;
 import com.zhongchuang.canting.been.OrderParam;
 import com.zhongchuang.canting.been.OrderType;
@@ -42,7 +37,7 @@ import com.zhongchuang.canting.been.Profit;
 import com.zhongchuang.canting.been.QfriendBean;
 import com.zhongchuang.canting.been.RedInfo;
 import com.zhongchuang.canting.been.ShopBean;
-import com.zhongchuang.canting.been.TabEntity;
+import com.zhongchuang.canting.been.Smgapply;
 import com.zhongchuang.canting.been.UserInfoBean;
 import com.zhongchuang.canting.been.Version;
 import com.zhongchuang.canting.been.VideoData;
@@ -54,8 +49,8 @@ import com.zhongchuang.canting.been.apply;
 import com.zhongchuang.canting.been.pay.alipay;
 import com.zhongchuang.canting.been.videobean;
 import com.zhongchuang.canting.fragment.mall.LiveMineFragments;
-import com.zhongchuang.canting.hud.ToastUtils;
 import com.zhongchuang.canting.net.BaseCallBack;
+import com.zhongchuang.canting.net.BaseCallBackSmg;
 import com.zhongchuang.canting.net.HttpUtil;
 import com.zhongchuang.canting.net.netService;
 import com.zhongchuang.canting.utils.SpUtil;
@@ -1592,7 +1587,25 @@ public class BasesPresenter implements BaseContract.Presenter {
             }
         });
     }
+    @Override
+    public void appSmgList() {
 
+
+
+        api.appSmgList().enqueue(new BaseCallBackSmg<List<Smgapply>>() {
+
+            @Override
+            public void onSuccess(List<Smgapply> userLoginBean) {
+                mView.toEntity(userLoginBean, 8);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                mView.showTomast(t);
+            }
+        });
+    }
     @Override
     public void getFrendList(String groupId) {
 
