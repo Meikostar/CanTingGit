@@ -187,13 +187,13 @@ public class EditorPersonDetailActivity extends BaseActivity1 implements BaseCon
     private int count = 9;
     private UserInfoBean bean;
 
-
+    private int status=0;
     @Override
     public void initViews() {
         setContentView(R.layout.activity_editor_person_detail);
         ButterKnife.bind(this);
         presenter = new BasesPresenter(this);
-
+        getUpToken();
         bean = (UserInfoBean) getIntent().getSerializableExtra("bean");
         if (bean == null) {
             return;
@@ -1045,7 +1045,8 @@ public class EditorPersonDetailActivity extends BaseActivity1 implements BaseCon
                     Bitmap bitmap = PhotoUtils.getBitmapFromUri(cropImageUri, this);
 //                    upPhotos(Environment.getExternalStorageDirectory().getPath() + "/crop_photo.jpg" );
                     path = Environment.getExternalStorageDirectory().getPath() + "/crop_photo.jpg";
-                    upPhotos(path);
+                    status=1;
+                    handler.sendEmptyMessage(2);
                     Glide.with(this).load(path).asBitmap().transform(new CircleTransform(this)).placeholder(R.drawable.editor_ava).into(img);
                 default:
             }
@@ -1180,9 +1181,18 @@ public class EditorPersonDetailActivity extends BaseActivity1 implements BaseCon
     private Handler handler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
-            if(img_path.size()!=0){
-                upFlile(img_path.get(0).getForderPath());
+            if(msg.what==1){
+                if(img_path.size()!=0){
+                    upFlile(img_path.get(0).getForderPath());
+                }
+            }else {
+                if (TextUtil.isNotEmpty(path)&&TextUtil.isNotEmpty(token)) {
+                    upFlile(path);
+                } else {
+                    getUpToken();
+                }
             }
+
 
             return false;
 
@@ -1224,8 +1234,17 @@ public class EditorPersonDetailActivity extends BaseActivity1 implements BaseCon
             QiniuUtils.getInstance().upFile(path, token, new QiniuUtils.CompleteListener() {
                 @Override
                 public void completeListener(String urls) {
+                    if(status==1){
+                        status=0;
+                        SpUtil.putString(EditorPersonDetailActivity.this, "ava", QiniuUtils.baseurl+urls);
+                        if (userInfo == null) {
+                            userInfo = new UserInfo();
+                        }
+                        bean.head_image = QiniuUtils.baseurl+urls;
+                    }else {
+                        getUpImgSuccdess(urls);
+                    }
 
-                    getUpImgSuccdess(urls);
 
 
                 }

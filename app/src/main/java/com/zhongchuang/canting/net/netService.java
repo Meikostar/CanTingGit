@@ -133,13 +133,19 @@ public interface netService {
 //    public static final String TOM_BASE_URL = "http://120.77.222.116:8080/ifun/";
 
 
-//    public static final String TOM_BASE_URL = "http://120.78.148.31:8080/ifun/";//替换生活吧服务器
-//    public static final String BASE_URL = "http://120.78.148.31:8080";//替换生活吧服务器
 
-    public static final String TOM_BASE_URL = "https://ifun.xjxlsy.cn/portal/";//替换生活吧服务器
-    public static final String BASE_URL = "https://ifun.xjxlsy.cn/portal";//替换生活吧服务器
+//    public static final String TOM_BASE_URL = "http://120.78.148.31:8080/ifun/";//替换数字时代服务器
+//    public static final String BASE_URL = "http://120.78.148.31:8080";//替换数字时代服务器
+
+//    public static final String TOM_BASE_URL = "https://ifun.xjxlsy.cn/portal/";//替换数字时代服务器
+//    public static final String BASE_URL = "https://ifun.xjxlsy.cn/portal";//替换数字时代服务器
 
 
+//    public static final String TOM_BASE_URL = "http://120.78.148.31:8080/ifun/";//替换数字时代服务器
+//    public static final String BASE_URL = "http://120.78.148.31:8080";//替换数字时代服务器
+    public static final String TOM_BASE_URL = "https://ifun.xjxlsy.cn/portal/";//替换数字时代服务器
+    public static final String BASE_URL = "https://ifun.xjxlsy.cn/portal/";//替换数字时代服务器
+//
 
 //    public static final String TOM_BASE_URL = "http://119.23.212.8:8080/ifun/";
 //    public static final String TOM_BASE_URL = "http://119.23.212.8:8080/ifun/";

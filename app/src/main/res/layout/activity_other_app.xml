@@ -61,7 +61,7 @@
                 android:layout_marginTop="18dp"
                 android:gravity="center"
 
-                android:text="生活吧"
+                android:text="数字时代"
                 android:textColor="#333"
                 android:textSize="16sp" />
 

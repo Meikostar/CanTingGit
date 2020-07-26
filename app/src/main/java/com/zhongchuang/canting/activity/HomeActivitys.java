@@ -338,10 +338,10 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
         File file = new File(StorageUtils.getCacheDirectory(CanTingAppLication.getInstance()).getAbsolutePath() + File.separator + "live.zip");
         if (file != null && file.length() < 20755920) {
             CanTingAppLication.isComplete = false;
-            new Thread(new DownloadApk("https://ifun.xjxlsy.cn/resource/live.zip", 2)).start();
+            new Thread(new DownloadApk("https://video-zx.oss-cn-shenzhen.aliyuncs.com/app/live.zip", 2)).start();
         } else if (file == null || !file.exists()) {
             CanTingAppLication.isComplete = false;
-            new Thread(new DownloadApk("https://ifun.xjxlsy.cn/resource/live.zip", 2)).start();
+            new Thread(new DownloadApk("https://video-zx.oss-cn-shenzhen.aliyuncs.com/app/live.zip", 2)).start();
         } else {
             new Thread(new Runnable() {
                 @Override
@@ -1091,7 +1091,7 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
 
 
            shareBean=new ShareBean();
-            shareBean.title_ = SpUtil.getName(this) + "邀请你下载生活吧APP";
+            shareBean.title_ = SpUtil.getName(this) + "邀请你下载数字时代APP";
             shareBean.content_ = "让你有不一样的购物体验不一样的直播平台不一样的社交！";
             shareBean.url_ = Constant.APP_SHARE;
             shareBean.img_ = "img";
@@ -1464,7 +1464,7 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
             List<Version> datas = (  List<Version>) entity;
 
             for(Version version:datas){
-                if(version.url.contains("bjs.apk")){
+                if(version.url.contains("szds.apk")){
                     String oldVersion = StringUtil.getVersion(CanTingAppLication.getInstance());//"0.17"
                     description = version.description;
                     if (TextUtil.isNotEmpty(version.name)) {
@@ -1497,7 +1497,7 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
                 videoData.cover_image="http://xjxlsy.cn/1576585590225chatbg";
                 videoData.user_info_nickname="直播间1";
                 videoData.third_category_name="广东赛区";
-                videoData.direct_overview="生活吧直播专区";
+                videoData.direct_overview="数字时代直播专区";
                 videoData.is_live=true;
                 VideoData videoData1 = new VideoData();
                 videoData1.cover_image="http://xjxlsy.cn/1576586712269chatbg";
@@ -1550,7 +1550,7 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
 //                videoData.cover_image="";
 //                videoData.user_info_nickname="直播间1";
 //                videoData.third_category_name="广东赛区";
-//                videoData.direct_overview="生活吧直播专区";
+//                videoData.direct_overview="数字时代直播专区";
 //                videoData.is_live=true;
 //                VideoData videoData1 = new VideoData();
 //                videoData1.cover_image="http://xjxlsy.cn/1576586712269chatbg";
@@ -1647,7 +1647,7 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
             }
             if (TextUtil.isNotEmpty(bean.invitation_code)) {
                 CanTingAppLication.invitation_code=bean.invitation_code;
-                shareBean.title_ = SpUtil.getName(this) + "邀请你下载生活吧APP";
+                shareBean.title_ = SpUtil.getName(this) + "邀请你下载数字时代APP";
                 shareBean.content_ = "让你有不一样的购物体验不一样的直播平台不一样的社交！";
                 shareBean.url_ = Constant.APP_SHARE + SpUtil.getName(this)+","+bean.invitation_code;
                 shareBean.img_ = "img";

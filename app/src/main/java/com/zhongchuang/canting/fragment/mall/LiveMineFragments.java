@@ -175,7 +175,6 @@ public class LiveMineFragments extends LazyFragment implements BaseContract.View
         ButterKnife.bind(this, viewRoot);
         presenter = new BasesPresenter(this);
         presenter.getUserIntegral();
-        presenter.getLiveCategory();
         initView();
         setListener();
         initAssetPath();
@@ -517,7 +516,7 @@ public class LiveMineFragments extends LazyFragment implements BaseContract.View
         if (null != presenter) {
             presenter.hostInfo();
             presenter.getUserIntegral();
-
+            presenter.getLiveCategory();
         }
     }
 
@@ -836,6 +835,10 @@ public class LiveMineFragments extends LazyFragment implements BaseContract.View
         sure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(datas==null){
+                    presenter.getLiveCategory();
+                    return;
+                }
                 showLiveItemSelector();
                 dialog.dismiss();
             }
@@ -878,7 +881,10 @@ public class LiveMineFragments extends LazyFragment implements BaseContract.View
                 }else {
                     sta=4;
                 }
-
+                if(datas==null){
+                    presenter.getLiveCategory();
+                    return;
+                }
                 showLiveItemSelector();
                 dialog.dismiss();
             }
@@ -1021,6 +1027,10 @@ public class LiveMineFragments extends LazyFragment implements BaseContract.View
         datas= (List<LiveTypeBean>) entity;
         if(states!=0){
             states=0;
+            if(datas==null){
+                presenter.getLiveCategory();
+                return;
+            }
             showLiveItemSelector();
         }
         } else if (type == 5||type == 7||type == 299) {

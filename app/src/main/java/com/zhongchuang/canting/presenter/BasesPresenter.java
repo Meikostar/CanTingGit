@@ -705,6 +705,10 @@ public class BasesPresenter implements BaseContract.Presenter {
             params.put("superpower", bean.superpower);
 
         }
+        if (TextUtil.isNotEmpty(bean.head_image)) {
+            params.put("headImage", bean.head_image);
+
+        }
 
         params.put("userInfoId", TextUtil.isEmpty(SpUtil.getUserInfoId(CanTingAppLication.getInstance())) ? "" : SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
         api.saveInformation(params).enqueue(new BaseCallBack<BaseResponse>() {

@@ -64,7 +64,7 @@ public class Fragment_more_app1 extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_more_app, container, false);
         unbinder = ButterKnife.bind(this, view);
         homedapter = new HomeItemdapter(getActivity());
-        gridContent1.setAdapter(homedapter);
+//        gridContent1.setAdapter(homedapter);
         gridContent1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -116,7 +116,7 @@ public class Fragment_more_app1 extends BaseFragment {
             }
         });
 
-        setData(0);
+//        setData(0);
 
         return view;
     }

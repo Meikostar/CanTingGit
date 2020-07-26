@@ -8,6 +8,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
@@ -26,14 +28,18 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.zhongchuang.canting.R;
+import com.zhongchuang.canting.activity.mine.EditorPersonDetailActivity;
 import com.zhongchuang.canting.activity.mine.NewPersonDetailActivity;
 import com.zhongchuang.canting.activity.mine.PersonManActivity;
 import com.zhongchuang.canting.app.CanTingAppLication;
 import com.zhongchuang.canting.base.BaseLoginActivity;
 import com.zhongchuang.canting.been.BaseResponse;
+import com.zhongchuang.canting.been.TOKEN;
 import com.zhongchuang.canting.been.UpPhotoBean;
 import com.zhongchuang.canting.been.UserInfo;
 import com.zhongchuang.canting.hud.ToastUtils;
+import com.zhongchuang.canting.net.HXRequestService;
+import com.zhongchuang.canting.net.netService;
 import com.zhongchuang.canting.permission.PermissionConst;
 import com.zhongchuang.canting.permission.PermissionFail;
 import com.zhongchuang.canting.permission.PermissionGen;
@@ -43,6 +49,7 @@ import com.zhongchuang.canting.presenter.impl.PersonInfoPresenterImpl;
 import com.zhongchuang.canting.utils.DateUtils;
 import com.zhongchuang.canting.utils.LogUtil;
 import com.zhongchuang.canting.utils.PhotoUtils;
+import com.zhongchuang.canting.utils.QiniuUtils;
 import com.zhongchuang.canting.utils.SpUtil;
 import com.zhongchuang.canting.utils.StringUtil;
 import com.zhongchuang.canting.utils.TextUtil;
@@ -63,6 +70,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observable;
 import rx.Observer;
 import rx.Subscriber;
@@ -157,7 +169,7 @@ public class PersonMessageActivity extends BaseLoginActivity implements GetUserI
             llFirst.setVisibility(View.VISIBLE);
             saveBtn.setVisibility(View.GONE);
         }
-
+        getUpToken();
         setBridthDayTv(null);
     }
 
@@ -408,7 +420,8 @@ public class PersonMessageActivity extends BaseLoginActivity implements GetUserI
                     Bitmap bitmap = PhotoUtils.getBitmapFromUri(cropImageUri, this);
 //                    upPhotos(Environment.getExternalStorageDirectory().getPath() + "/crop_photo.jpg" );
                     path = Environment.getExternalStorageDirectory().getPath() + "/crop_photo.jpg";
-                    upPhotos(path);
+//                    upPhotos(path);
+                    handler.sendEmptyMessage(1);
                     Glide.with(this).load(path).asBitmap().transform(new CircleTransform(this)).placeholder(R.drawable.editor_ava).into(personPhoto);
                 default:
 
@@ -454,6 +467,71 @@ public class PersonMessageActivity extends BaseLoginActivity implements GetUserI
 
             }
         }, 600);
+    }
+
+    private String token;
+    private Handler handler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(Message msg) {
+
+                if (TextUtil.isNotEmpty(path)&&TextUtil.isNotEmpty(token)) {
+                    upFlile(path);
+                } else {
+                    getUpToken();
+                }
+
+
+
+            return false;
+
+        }
+    });
+    public void upFlile(String path) {
+
+
+            QiniuUtils.getInstance().upFile(path, token, new QiniuUtils.CompleteListener() {
+                @Override
+                public void completeListener(String urls) {
+
+                        SpUtil.putString(PersonMessageActivity.this, "ava", QiniuUtils.baseurl+urls);
+                        if (userInfo == null) {
+                            userInfo = new UserInfo();
+                        }
+                        userInfo.headImage = QiniuUtils.baseurl+urls;
+
+
+
+
+                }
+            });
+
+
+
+    }
+    private void getUpToken() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(netService.TOM_BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+
+        HXRequestService api = retrofit.create(HXRequestService.class);
+
+
+        Call<TOKEN> call = api.getUpToken();
+        call.enqueue(new Callback<TOKEN>() {
+            @Override
+            public void onResponse(Call<TOKEN> call, Response<TOKEN> response) {
+                token = response.body().data.upToken;
+                handler.sendEmptyMessage(1);
+
+            }
+
+            @Override
+            public void onFailure(Call<TOKEN> call, Throwable t) {
+
+            }
+        });
     }
 
     private void upPhotos(final String path) {
