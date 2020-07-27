@@ -6,14 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.zhongchuang.canting.R;
-import com.zhongchuang.canting.been.Banner;
 import com.zhongchuang.canting.been.HOMES;
 import com.zhongchuang.canting.utils.StringUtil;
-import com.zhongchuang.canting.utils.TextUtil;
 
 import java.util.List;
 
@@ -21,7 +20,7 @@ import java.util.List;
  * Created by mykar on 161/4/13.
  */
 
-public class HomeItemdapter extends BaseAdapter {
+public class HomeItemdapters extends BaseAdapter {
     private Context context;
     private LayoutInflater inflater;
     private List<HOMES> datas;
@@ -34,7 +33,7 @@ public class HomeItemdapter extends BaseAdapter {
 
     private String[] names;
 
-    public HomeItemdapter(Context context) {
+    public HomeItemdapters(Context context) {
         this.context = context;
         inflater = LayoutInflater.from(context);
     }
@@ -68,6 +67,7 @@ public class HomeItemdapter extends BaseAdapter {
             holder.txt_name = view.findViewById(R.id.txt_name);
             holder.txt_unread = view.findViewById(R.id.txt_unread);
             holder.img_icon = view.findViewById(R.id.img_icon);
+            holder.ll_bg = view.findViewById(R.id.ll_bg);
             view.setTag(holder);
         } else {
             holder = (ViewHolder) view.getTag();
@@ -94,7 +94,14 @@ public class HomeItemdapter extends BaseAdapter {
         }else {
             holder.img_icon.setImageResource(datas.get(i).url);
         }
-
+        holder.ll_bg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(listener!=null){
+                    listener.itemClick(i);
+                }
+            }
+        });
 
 //            if(TextUtil.isNotEmpty(list.get(i).category_name)){
 //                holder.txt_name.setText(list.get(i).category_name);
@@ -106,11 +113,20 @@ public class HomeItemdapter extends BaseAdapter {
         return view;
     }
 
+    public interface ItemClikListener{
+        void itemClick(int poistion);
+    }
+    public ItemClikListener listener;
+
+    public void setItemClick(ItemClikListener mListener){
+        listener=mListener;
+    }
 
     class ViewHolder {
         TextView txt_name;
         TextView txt_unread;
         ImageView img_icon;
+        LinearLayout ll_bg;
 
 
     }

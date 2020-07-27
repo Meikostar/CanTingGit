@@ -27,6 +27,7 @@ import com.zhongchuang.canting.activity.mall.ShopMallActivity;
 import com.zhongchuang.canting.activity.pay.ALiPayActivity;
 import com.zhongchuang.canting.activity.shop.AppStoreActivity;
 import com.zhongchuang.canting.adapter.HomeItemdapter;
+import com.zhongchuang.canting.adapter.HomeItemdapters;
 import com.zhongchuang.canting.app.CanTingAppLication;
 import com.zhongchuang.canting.base.BaseFragment;
 import com.zhongchuang.canting.been.AddressBase;
@@ -77,7 +78,7 @@ public class Fragment_more_app extends BaseFragment implements BaseContract.View
 
 
     private TimeCount timeCount;
-    private HomeItemdapter homedapter;
+    private HomeItemdapters homedapter;
 
     private int[] homeimg1 = {R.drawable.homes_4, R.drawable.homes_1, R.drawable.homes_2,
             R.drawable.homes_3, R.drawable.homes_5, R.drawable.homes_6, R.drawable.homes_7, R.drawable.homes_8};
@@ -88,7 +89,7 @@ public class Fragment_more_app extends BaseFragment implements BaseContract.View
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_more_app, container, false);
         unbinder = ButterKnife.bind(this, view);
-        homedapter = new HomeItemdapter(getActivity());
+        homedapter = new HomeItemdapters(getActivity());
         gridContent1.setAdapter(homedapter);
         showSelectType();
         if(CanTingAppLication.CompanyType.equals("2")){
@@ -96,11 +97,10 @@ public class Fragment_more_app extends BaseFragment implements BaseContract.View
             presenter.getHomeSpecie();
             presenter.getAppInfo();
         }else {
-            gridContent1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            homedapter.setItemClick(new HomeItemdapters.ItemClikListener() {
                 @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                    switch (position) {
+                public void itemClick(int poistion) {
+                    switch (poistion) {
                         case 1: //商城
 //                        Intent intentsss = new Intent(HomeActivitys.this, FaceCreatActivity.class);
                             Intent intentsss = new Intent(getActivity(), ShopCompsiteMallActivity.class);
@@ -169,9 +169,9 @@ public class Fragment_more_app extends BaseFragment implements BaseContract.View
                             break;
 
                     }
-
                 }
             });
+
         }
 
 
@@ -251,7 +251,7 @@ public class Fragment_more_app extends BaseFragment implements BaseContract.View
             homedapter.setData(datas);
             homedapter.notifyDataSetChanged();
         }else {
-            homedapter = new HomeItemdapter(getActivity());
+            homedapter = new HomeItemdapters(getActivity());
             homedapter.setData(datas);
             homedapter.notifyDataSetChanged();
         }
@@ -346,7 +346,7 @@ public class Fragment_more_app extends BaseFragment implements BaseContract.View
                     homedapter.setData(datas);
                     homedapter.notifyDataSetChanged();
                 }else {
-                    homedapter = new HomeItemdapter(getActivity());
+                    homedapter = new HomeItemdapters(getActivity());
                     homedapter.setData(datas);
                     homedapter.notifyDataSetChanged();
                 }
