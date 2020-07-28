@@ -39,6 +39,7 @@ import com.zhongchuang.canting.been.Home;
 import com.zhongchuang.canting.been.Oparam;
 import com.zhongchuang.canting.been.OrderData;
 import com.zhongchuang.canting.been.OrderParam;
+import com.zhongchuang.canting.been.ShareBean;
 import com.zhongchuang.canting.been.WEIXINREQ;
 import com.zhongchuang.canting.presenter.BaseContract;
 import com.zhongchuang.canting.presenter.BasesPresenter;
@@ -159,8 +160,14 @@ public class Fragment_more_app extends BaseFragment implements BaseContract.View
                             break;
                         case 6: //应用
 //                            ShareUtils.showMyShareApp(getActivity(), "", "");
-
-                            ShareUtils.showMyShare(getActivity(), "", "http://www.gwlaser.tech");
+                            ShareBean shareBean = new ShareBean();
+                            shareBean.img_ = "https://ifun.xjxlsy.cn/h5/images/logo.png";
+                            shareBean.content_ = "快来了体验数字时代app吧！";
+//                shareBean.content_ = data.direct_see_name + getString(R.string.zzgszbklgkb);
+                            shareBean.title_ = "数字时代";
+                            shareBean.url_ = com.zhongchuang.canting.db.Constant.APP_SHARE;
+                            CanTingAppLication.shareBean = shareBean;
+                            ShareUtils.showMyShares(getActivity(), getString(R.string.jiguang), "http://www.gwlaser.tech");
                             break;
                         case 7: //应用
                             Intent intent4 = new Intent(getActivity(), AppStoreActivity.class);
@@ -396,7 +403,14 @@ public class Fragment_more_app extends BaseFragment implements BaseContract.View
                                 startActivity(new Intent(getActivity(), LoginActivity.class));
                             }
                         }else if(content.contains("APP分享")){
-                            ShareUtils.showMyShare(getActivity(), "", "http://www.gwlaser.tech");
+                            ShareBean shareBean = new ShareBean();
+                            shareBean.img_ = "https://ifun.xjxlsy.cn/h5/images/logo.png";
+                            shareBean.content_ = "快来了体验数字时代app吧！";
+//                shareBean.content_ = data.direct_see_name + getString(R.string.zzgszbklgkb);
+                            shareBean.title_ = "数字时代";
+                            shareBean.url_ = com.zhongchuang.canting.db.Constant.APP_SHARE;
+                            CanTingAppLication.shareBean = shareBean;
+                            ShareUtils.showMyShares(getActivity(), getString(R.string.jiguang), "http://www.gwlaser.tech");
 //                            ShareUtils.showMyShareApp(getActivity(), "", "");
                         }else if(content.contains("应用")){
                             if(CanTingAppLication.CompanyType.equals("2")){

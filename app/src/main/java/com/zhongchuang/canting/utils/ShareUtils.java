@@ -57,6 +57,7 @@ public class ShareUtils {
     public static void showMyShare(Activity activity, String text, String url) {
         MobSDK.init(activity.getApplicationContext());
         SharePopupWindow share = new SharePopupWindow(activity);
+        share.setType(1);
         share.setPlatformActionListener(new PlatformActionListener() {
             //分享成功
             @Override

@@ -72,11 +72,19 @@ public class Constant extends EaseConstant {
     public static int[] homeimg = {R.drawable.logo1, R.drawable.logo2};
     public static String[] indepent = {"信联","对了"};
     public static String[] type = {"2", "3", "4"};
-    public static final String APP_LIVE_DOWN = "http://119.23.212.8:8088/zxlive/index.html";
-    public static final String APP_PRODUCT = "http://119.23.212.8:8088/zadetail/index.html#/app/";
+//    public static final String APP_LIVE_DOWN = "http://119.23.212.8:8088/zxlive/index.html";
+//    public static final String APP_PRODUCT = "http://119.23.212.8:8088/zadetail/index.html#/app/";
+//    public static final String APP_FILE_NAME = "http://video-zx.oss-cn-shenzhen.aliyuncs.com/";
+//    public static final String FILE_NAME = "video-zx";
+//    public static final String APP_SHARE = "http://119.23.212.8:8088/share/index.html#/app/";
+
+
+
+    public static final String APP_LIVE_DOWN = "https://ifun.xjxlsy.cn/h5/download.html";
+    public static final String APP_PRODUCT = "https://ifun.xjxlsy.cn/h5/download.html";
     public static final String APP_FILE_NAME = "http://video-zx.oss-cn-shenzhen.aliyuncs.com/";
     public static final String FILE_NAME = "video-zx";
-    public static final String APP_SHARE = "http://119.23.212.8:8088/share/index.html#/app/";
+    public static final String APP_SHARE = "https://ifun.xjxlsy.cn/h5/download.html";
 //
 
 

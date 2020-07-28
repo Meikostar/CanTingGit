@@ -211,7 +211,7 @@ public class ThirdShareManager {
 
                 }else {
 
-                    Bitmap bmp = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.ic_launcher);
+                    Bitmap bmp = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.logo);
 
                     Bitmap thumbBmp = Bitmap.createScaledBitmap(bmp, THUMB_SIZE, THUMB_SIZE, true);
 

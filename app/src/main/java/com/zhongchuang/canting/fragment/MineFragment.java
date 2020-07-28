@@ -35,6 +35,7 @@ import com.zhongchuang.canting.base.LazyFragment;
 import com.zhongchuang.canting.been.Host;
 import com.zhongchuang.canting.been.Ingegebean;
 import com.zhongchuang.canting.been.PROFILE_ITEM;
+import com.zhongchuang.canting.been.ShareBean;
 import com.zhongchuang.canting.been.SubscriptionBean;
 import com.zhongchuang.canting.presenter.BaseContract;
 import com.zhongchuang.canting.presenter.BasesPresenter;
@@ -147,7 +148,14 @@ public class MineFragment extends LazyFragment implements BaseContract.View, Ada
         shopBuyWindow.setSureListener(new SharePopWindow.ClickListener() {
             @Override
             public void clickListener(int types) {
-                ShareUtils.showMyShare(getActivity(), "", "http://www.gwlaser.tech");
+                ShareBean shareBean = new ShareBean();
+                shareBean.img_ = "https://ifun.xjxlsy.cn/h5/images/logo.png";
+                shareBean.content_ = "快来了体验数字时代app吧！";
+//                shareBean.content_ = data.direct_see_name + getString(R.string.zzgszbklgkb);
+                shareBean.title_ = "数字时代";
+                shareBean.url_ = com.zhongchuang.canting.db.Constant.APP_SHARE;
+                CanTingAppLication.shareBean = shareBean;
+                ShareUtils.showMyShares(getActivity(), getString(R.string.jiguang), "http://www.gwlaser.tech");
             }
         });
 
@@ -410,13 +418,13 @@ public class MineFragment extends LazyFragment implements BaseContract.View, Ada
         Intent intent = null;
         switch (position) {
             case 0://会员管理
-//                intent = new Intent(getActivity(), WebViewActivity.class);
-//
-//
-//                intent.putExtra(WebViewActivity.WEBTITLE, R.string.huiyuan);
-//                intent.putExtra(WebViewActivity.WEBURL, CanTingAppLication.url);
-//
-//                startActivity(intent);
+                intent = new Intent(getActivity(), WebViewActivity.class);
+
+
+                intent.putExtra(WebViewActivity.WEBTITLE, R.string.huiyuan);
+                intent.putExtra(WebViewActivity.WEBURL, CanTingAppLication.url);
+
+                startActivity(intent);
                 break;
             case 1://积分充值
                 startActivity(new Intent(getActivity(), CodeUploadActivity.class));
