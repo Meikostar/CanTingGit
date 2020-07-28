@@ -392,7 +392,7 @@ public class ShopMallDetailActivity extends BaseAllActivity implements View.OnCl
                 }
                 if (product.profit!=0) {
                     rlBgs.setVisibility(View.VISIBLE);
-                    tvProfit.setText("￥" + product.profit);
+                    tvProfit.setText("" + product.profit);
                     shareBean.content_= shareBean.content_+"   赠送积分:"+product.profit;
 
                 }else {
