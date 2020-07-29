@@ -104,17 +104,17 @@ public class Fragment_more_app extends BaseFragment implements BaseContract.View
                     switch (poistion) {
                         case 1: //商城
 //                        Intent intentsss = new Intent(HomeActivitys.this, FaceCreatActivity.class);
-                            Intent intentsss = new Intent(getActivity(), ShopCompsiteMallActivity.class);
-                            intentsss.putExtra("type", 1);
-                            startActivity(intentsss);
 
-                            break;
-                        case 2://乐聊
 
                             Intent intent = new Intent(getActivity(), ShopMallActivity.class);
                             intent.putExtra("type", 1);
                             startActivity(intent);
+                            break;
+                        case 2://乐聊
 
+                            Intent intentsss = new Intent(getActivity(), ShopCompsiteMallActivity.class);
+                            intentsss.putExtra("type", 1);
+                            startActivity(intentsss);
                             break;
                         case 3://乐聊
                             Intent intentss = new Intent(getActivity(), ShopMallActivity.class);

@@ -188,6 +188,7 @@ public class BaseContract {
 
 
         void shoppingGive(WpParam proList);
+        void getPoints(WpParam proList);
         void shoppingCut(WpParam proList);
 
 

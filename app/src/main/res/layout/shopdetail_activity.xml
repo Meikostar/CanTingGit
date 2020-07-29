@@ -68,6 +68,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <RelativeLayout
+                        android:id="@+id/rl_bgs"
                         android:layout_marginTop="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
@@ -78,7 +79,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:paddingLeft="15dp"
-                            android:text="@string/scj"
+                            android:text="送贡献值:"
                             android:textColor="@color/color9"
                             android:textSize="13sp" />
 
@@ -98,7 +99,7 @@
                             tools:text="￥ rrr.0" />
                         <View
                             android:layout_marginLeft="15dp"
-
+                            android:visibility="gone"
                             android:layout_centerVertical="true"
                             android:layout_toRightOf="@+id/tv_mark"
                             android:layout_marginTop="5dp"
@@ -112,7 +113,7 @@
                     <RelativeLayout
                         android:visibility="gone"
                         android:layout_marginLeft="5dp"
-                        android:id="@+id/rl_bgs"
+
                         android:layout_marginTop="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">

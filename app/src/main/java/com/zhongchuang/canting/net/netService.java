@@ -808,11 +808,16 @@ public interface netService {
 
     @Headers({"Content-Type: application/json", "Accept: application/json"})
     @POST("http://api.huifengshengwu.cn/api/user/shoppingGive")
-    Call<OrderData> shoppingGive(@Body WpParam body);
+    Call<BaseResponse> shoppingGive(@Body WpParam body);
+
+    @Headers({"Content-Type: application/json", "Accept: application/json"})
+    @POST("http://api.huifengshengwu.cn/api/user/getPoints")
+    Call<BaseResponse> getPoints(@Body WpParam body);
+
 
     @Headers({"Content-Type: application/json", "Accept: application/json"})
     @POST("http://api.huifengshengwu.cn/api/user/shoppingCut")
-    Call<OrderData> shoppingCut(@Body WpParam body);
+    Call<BaseResponse> shoppingCut(@Body WpParam body);
 
     @Headers({"Content-Type: application/json", "Accept: application/json"})
     @POST("wap/order/submitOrder")

@@ -385,20 +385,22 @@ public class ShopMallDetailActivity extends BaseAllActivity implements View.OnCl
                     presenter.getProParameter(product.product_sku_id,null);
                 }
 
-                if (TextUtil.isNotEmpty(product.market_price)) {
-                    shareBean.content_= shareBean.content_+"   市场价：￥"+product.market_price;
-                    tvPriceMark.setText("￥" + product.market_price);
 
-                }
                 if (product.profit!=0) {
-                    rlBgs.setVisibility(View.VISIBLE);
+
                     tvProfit.setText("" + product.profit);
                     shareBean.content_= shareBean.content_+"   赠送积分:"+product.profit;
 
                 }else {
-                    rlBgs.setVisibility(View.GONE);
+
                 }
                 if (product.pro_site.equals("1")) {
+                    rlBgs.setVisibility(View.VISIBLE);
+                    if (TextUtil.isNotEmpty(product.market_price)) {
+                        shareBean.content_= shareBean.content_+"   送贡献值：￥"+product.market_price;
+                        tvPriceMark.setText("￥" + product.market_price);
+
+                    }
                     if (TextUtil.isNotEmpty(product.pro_price)) {
 
                         if (Integer.valueOf(product.integral_price) > 0) {
@@ -411,16 +413,25 @@ public class ShopMallDetailActivity extends BaseAllActivity implements View.OnCl
 //                        tvPrice.setText("￥" + product.pro_price);
                     }
                 } else if (product.pro_site.equals("3")) {
+                    rlBgs.setVisibility(View.GONE);
                     if (TextUtil.isNotEmpty(product.pro_price)) {
+                        if (TextUtil.isNotEmpty(product.integral_price)) {
+//                            shareBean.content_= shareBean.content_+"   送贡献值：￥"+product.market_price;
+                            tvPrice.setText("￥" + product.pro_price+" +"+"兑换值:"+product.integral_price);
+                            shareBean.content_= shareBean.content_+"   商城价：￥"+product.pro_price+"   送贡献值：￥"+product.market_price;
+                        }else {
+                            tvPrice.setText("￥" + product.pro_price);
+                            shareBean.content_= shareBean.content_+"   商城价：￥"+product.pro_price;
+                        }
                         shareBean.content_= shareBean.content_+"   商城价：￥"+product.pro_price;
-                        tvPrice.setText("￥" + product.pro_price);
+
 
                     }
                 } else {
-
+                    rlBgs.setVisibility(View.GONE);
                     if (TextUtil.isNotEmpty(product.integral_price)) {
                         shareBean.content_ = product.pro_name+"  "+product.integral_price+"积分";
-                        tvPrice.setText(getString(R.string.jf) + product.integral_price);
+                        tvPrice.setText("兑换值:" + product.integral_price);
                     }
                 }
                 if (TextUtil.isNotEmpty(product.pro_name)) {

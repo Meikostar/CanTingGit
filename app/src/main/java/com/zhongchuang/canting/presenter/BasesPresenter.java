@@ -1576,11 +1576,29 @@ public class BasesPresenter implements BaseContract.Presenter {
     public void shoppingGive(WpParam proList) {
 
 
-        api.shoppingGive(proList).enqueue(new BaseCallBack<OrderData>() {
+        api.shoppingGive(proList).enqueue(new BaseCallBack<BaseResponse>() {
 
             @Override
-            public void onSuccess(OrderData userLoginBean) {
-                mView.toEntity(userLoginBean.data, 6);
+            public void onSuccess(BaseResponse userLoginBean) {
+                mView.toEntity(userLoginBean, 123);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                mView.showTomast(t);
+            }
+        });
+    }
+    @Override
+    public void getPoints(WpParam proList) {
+
+
+        api.getPoints(proList).enqueue(new BaseCallBack<BaseResponse>() {
+
+            @Override
+            public void onSuccess(BaseResponse userLoginBean) {
+                mView.toEntity(userLoginBean, 123);
             }
 
             @Override
@@ -1594,11 +1612,11 @@ public class BasesPresenter implements BaseContract.Presenter {
     public void shoppingCut(WpParam proList) {
 
 
-        api.shoppingCut(proList).enqueue(new BaseCallBack<OrderData>() {
+        api.shoppingCut(proList).enqueue(new BaseCallBack<BaseResponse>() {
 
             @Override
-            public void onSuccess(OrderData userLoginBean) {
-                mView.toEntity(userLoginBean.data, 6);
+            public void onSuccess(BaseResponse userLoginBean) {
+                mView.toEntity(userLoginBean, 321);
             }
 
             @Override

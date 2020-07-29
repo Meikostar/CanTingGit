@@ -24,8 +24,11 @@ import com.zhongchuang.canting.been.OrderParam;
 import com.zhongchuang.canting.been.ProductBuy;
 import com.zhongchuang.canting.been.SubscriptionBean;
 import com.zhongchuang.canting.been.WEIXINREQ;
+import com.zhongchuang.canting.been.pay.WpParam;
 import com.zhongchuang.canting.presenter.BaseContract;
 import com.zhongchuang.canting.presenter.BasesPresenter;
+import com.zhongchuang.canting.utils.ShareUtils;
+import com.zhongchuang.canting.utils.SpUtil;
 import com.zhongchuang.canting.utils.TextUtil;
 import com.zhongchuang.canting.widget.NavigationBar;
 import com.zhongchuang.canting.widget.RxBus;
@@ -68,8 +71,17 @@ public class EditorOrderActivity extends BaseActivity1 implements BaseContract.V
     private int type;
     private String companyType;
     private String cont;
-
-
+    private float wpSum;
+    private String orderNO;
+    private String productName;
+    private String points;
+    private String orderAmount;
+    private double wpSum1;
+    private String orderNO1;
+    private String productName1;
+    private String points1;
+    private String orderAmount1;
+    private int prosite;
     private static PayPalConfiguration config = new PayPalConfiguration()
 
             // Start with mock environment.  When ready, switch to sandbox (ENVIRONMENT_SANDBOX)
@@ -244,7 +256,19 @@ public class EditorOrderActivity extends BaseActivity1 implements BaseContract.V
                             oparam.phoneMessage = datas.get(0).phoneMassege;
                             a++;
                         }
-
+                        if(datas.get(0).proSite.equals("3")){
+                            orderAmount=datas.get(0).totalPrice;
+                            productName=datas.get(0).pro_name;
+                            wpSum=Float.valueOf(datas.get(0).pro_name);
+                            orderNO=param.productList.get(0).productSkuId;
+                            prosite=3;
+                        }else  if(datas.get(0).proSite.equals("2")){
+                            prosite=2;
+                            orderAmount1=datas.get(0).totalPrice;
+                            productName1=datas.get(0).pro_name;
+                            wpSum1=Float.valueOf(datas.get(0).integral_price);
+                            orderNO1=param.productList.get(0).productSkuId;
+                        }
                     }
                     if(state==1){
                         param.payType="2";
@@ -363,6 +387,12 @@ public class EditorOrderActivity extends BaseActivity1 implements BaseContract.V
         }else if (type == 18) {
             showToasts(getString(R.string.zfcg));
             finish();
+        }else if (type == 123) {
+            showToasts(getString(R.string.zfcg));
+            finish();
+        }else if (type == 321) {
+            showToasts(getString(R.string.zfcg));
+            finish();
         }
     }
 
@@ -374,8 +404,25 @@ public class EditorOrderActivity extends BaseActivity1 implements BaseContract.V
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode==RESULT_OK){
             if (requestCode == RQ_WEIXIN_PAY) {
-              showToasts(getString(R.string.zfcg));
-                finish();
+
+                if(prosite==3){
+                    WpParam wpParam = new WpParam();
+                    wpParam.orderAmount=orderAmount;
+                    wpParam.orderNO=orderNO;
+                    wpParam.points=wpSum+"";
+                    wpParam.productName=productName;
+                    wpParam.phone= SpUtil.getMobileNumber(this);
+                    presenter.shoppingGive(wpParam);
+
+                }else    if(prosite==2){
+                    WpParam wpParam = new WpParam();
+                    wpParam.orderAmount=orderAmount1;
+                    wpParam.orderNO=orderNO1;
+                    wpParam.points=wpSum1+"";
+                    wpParam.productName=productName;
+                    wpParam.phone= SpUtil.getMobileNumber(this);
+                    presenter.shoppingCut(wpParam);
+                }
 //           if (requestCode == RQ_WEIXIN_PAY) {
 //                RxBus.getInstance().send(SubscriptionBean.createSendBean(SubscriptionBean.CHAEGE_SUCCESS,""));
 //            }
@@ -385,11 +432,44 @@ public class EditorOrderActivity extends BaseActivity1 implements BaseContract.V
                 tvAddress.setText(base.shipping_address + base.detailed_address);
                 tvName.setText(base.shipping_name + "     " + base.link_number);
             }else if(requestCode==10){
-                showToasts(getString(R.string.zfcg));
-                finish();
+                if(prosite==3){
+                    WpParam wpParam = new WpParam();
+                    wpParam.orderAmount=orderAmount;
+                    wpParam.orderNO=orderNO;
+                    wpParam.points=wpSum+"";
+                    wpParam.productName=productName;
+                    wpParam.phone= SpUtil.getMobileNumber(this);
+                    presenter.shoppingGive(wpParam);
+
+                }else    if(prosite==2){
+                    WpParam wpParam = new WpParam();
+                    wpParam.orderAmount=orderAmount1;
+                    wpParam.orderNO=orderNO1;
+                    wpParam.points=wpSum1+"";
+                    wpParam.productName=productName;
+                    wpParam.phone= SpUtil.getMobileNumber(this);
+                    presenter.shoppingCut(wpParam);
+                }
             }else if(requestCode==RQ_PAYPAL_PAY){
                 presenter.success("",paypalId);
+                if(prosite==3){
+                    WpParam wpParam = new WpParam();
+                    wpParam.orderAmount=orderAmount;
+                    wpParam.orderNO=orderNO;
+                    wpParam.points=wpSum+"";
+                    wpParam.productName=productName;
+                    wpParam.phone= SpUtil.getMobileNumber(this);
+                    presenter.shoppingGive(wpParam);
 
+                }else    if(prosite==2){
+                    WpParam wpParam = new WpParam();
+                    wpParam.orderAmount=orderAmount1;
+                    wpParam.orderNO=orderNO1;
+                    wpParam.points=wpSum1+"";
+                    wpParam.productName=productName;
+                    wpParam.phone= SpUtil.getMobileNumber(this);
+                    presenter.shoppingCut(wpParam);
+                }
             }
         }
 
