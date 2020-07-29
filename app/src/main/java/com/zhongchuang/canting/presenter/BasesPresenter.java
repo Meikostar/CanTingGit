@@ -46,6 +46,7 @@ import com.zhongchuang.canting.been.WEIXINREQ;
 import com.zhongchuang.canting.been.ZhiBo_GuanZhongBean;
 import com.zhongchuang.canting.been.aliLive;
 import com.zhongchuang.canting.been.apply;
+import com.zhongchuang.canting.been.pay.WpParam;
 import com.zhongchuang.canting.been.pay.alipay;
 import com.zhongchuang.canting.been.videobean;
 import com.zhongchuang.canting.fragment.mall.LiveMineFragments;
@@ -1558,6 +1559,42 @@ public class BasesPresenter implements BaseContract.Presenter {
 
 
         api.accountMoney(proList).enqueue(new BaseCallBack<OrderData>() {
+
+            @Override
+            public void onSuccess(OrderData userLoginBean) {
+                mView.toEntity(userLoginBean.data, 6);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                mView.showTomast(t);
+            }
+        });
+    }
+    @Override
+    public void shoppingGive(WpParam proList) {
+
+
+        api.shoppingGive(proList).enqueue(new BaseCallBack<OrderData>() {
+
+            @Override
+            public void onSuccess(OrderData userLoginBean) {
+                mView.toEntity(userLoginBean.data, 6);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                mView.showTomast(t);
+            }
+        });
+    }
+    @Override
+    public void shoppingCut(WpParam proList) {
+
+
+        api.shoppingCut(proList).enqueue(new BaseCallBack<OrderData>() {
 
             @Override
             public void onSuccess(OrderData userLoginBean) {

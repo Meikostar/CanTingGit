@@ -668,9 +668,8 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
            setData(cots);
            if (presenter != null) {
 
-
+               presenter.getProductList(TYPE_PULL_REFRESH, 1 + "", 12 + "", "", "3", "0", "1");
                if (!TextUtils.isEmpty(CanTingAppLication.userId)) {
-                   presenter.getProductList(TYPE_PULL_REFRESH, 1 + "", 12 + "", "", "3", "0", "1");
                    presenter.getChatGroupList();
                    presenter.hostInfo();
                    presenter.getUserIntegral();

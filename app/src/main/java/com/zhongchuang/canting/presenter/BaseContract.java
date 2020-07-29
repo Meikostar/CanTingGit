@@ -5,6 +5,7 @@ import com.zhongchuang.canting.been.CancelParam;
 import com.zhongchuang.canting.been.OrderParam;
 import com.zhongchuang.canting.been.Params;
 import com.zhongchuang.canting.been.UserInfoBean;
+import com.zhongchuang.canting.been.pay.WpParam;
 
 import java.util.List;
 
@@ -184,6 +185,10 @@ public class BaseContract {
          * @param
          */
         void accountMoney(OrderParam proList);
+
+
+        void shoppingGive(WpParam proList);
+        void shoppingCut(WpParam proList);
 
 
         void submitOrder(OrderParam proList);

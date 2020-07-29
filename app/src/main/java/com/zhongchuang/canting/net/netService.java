@@ -77,6 +77,7 @@ import com.zhongchuang.canting.been.ZhuBo_Live_Start;
 import com.zhongchuang.canting.been.ZhuBo_Live_Stop;
 import com.zhongchuang.canting.been.aliLive;
 import com.zhongchuang.canting.been.apply;
+import com.zhongchuang.canting.been.pay.WpParam;
 import com.zhongchuang.canting.been.pay.alipay;
 import com.zhongchuang.canting.been.videobean;
 import com.zhongchuang.canting.easeui.bean.GROUP;
@@ -805,6 +806,13 @@ public interface netService {
     @POST("wap/order/accountMoney")
     Call<OrderData> accountMoney(@Body OrderParam body);
 
+    @Headers({"Content-Type: application/json", "Accept: application/json"})
+    @POST("http://api.huifengshengwu.cn/api/user/shoppingGive")
+    Call<OrderData> shoppingGive(@Body WpParam body);
+
+    @Headers({"Content-Type: application/json", "Accept: application/json"})
+    @POST("http://api.huifengshengwu.cn/api/user/shoppingCut")
+    Call<OrderData> shoppingCut(@Body WpParam body);
 
     @Headers({"Content-Type: application/json", "Accept: application/json"})
     @POST("wap/order/submitOrder")
