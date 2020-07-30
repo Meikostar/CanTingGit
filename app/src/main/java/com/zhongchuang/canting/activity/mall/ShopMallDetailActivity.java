@@ -248,10 +248,10 @@ public class ShopMallDetailActivity extends BaseAllActivity implements View.OnCl
         } else {
             param.integralPrice = product.integral_price;
         }
-        if (CanTingAppLication.totalintegral < Double.valueOf(product.integral_price)) {
-            showToasts(getString(R.string.ndjfbzwfgm));
-            return;
-        }
+//        if (CanTingAppLication.totalintegral < Double.valueOf(product.integral_price)) {
+//            showToasts(getString(R.string.ndjfbzwfgm));
+//            return;
+//        }
         List<Oparam> datas = new ArrayList<>();
         datas.add(param);
         params.productList = datas;

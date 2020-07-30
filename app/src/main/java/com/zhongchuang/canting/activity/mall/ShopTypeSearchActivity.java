@@ -136,6 +136,7 @@ public class ShopTypeSearchActivity extends BaseActivity1 implements BaseContrac
         if (type == 2) {
             cout = 0;
             if (catage.firstList != null && catage.firstList.size() != 0) {
+                data.clear();
                 Type tpes = new Type();
                 tpes.cont = "全部";
                 data.add(tpes);

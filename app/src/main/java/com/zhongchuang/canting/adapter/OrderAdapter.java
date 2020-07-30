@@ -112,11 +112,13 @@ public class OrderAdapter extends BaseAdapter {
 
         if(TextUtil.isNotEmpty(list.get(position).merName)){
             holder.tvStoreName.setText(list.get(position).merName);
-        } if(TextUtil.isNotEmpty(list.get(position).totalPrice)){
-            holder.tvCont2.setText(context.getString(R.string.hjs)+list.get(position).totalPrice+(type==1?("￥"+"+"+list.get(position).totalIntegralPrice+context.getString(R.string.jf)):context.getString(R.string.jf)));
+        }
+
+        if(TextUtil.isNotEmpty(list.get(position).totalPrice)){
+            holder.tvCont2.setText(context.getString(R.string.hjs)+list.get(position).totalPrice+(type==1?("￥"+"+"+list.get(position).totalIntegralPrice+"兑换值"):"兑换值"));
         } if(TextUtil.isNotEmpty(list.get(position).totalIntegralPrice)){
             if(type!=1){
-                holder.tvCont2.setText(context.getString(R.string.hjs)+list.get(position).totalIntegralPrice+(type==1?"￥":context.getString(R.string.jf)));
+                holder.tvCont2.setText(context.getString(R.string.hjs)+list.get(position).totalIntegralPrice+(type==1?"￥":"兑换值"));
             }
 
         } if(TextUtil.isNotEmpty(list.get(position).totalNumber)){
