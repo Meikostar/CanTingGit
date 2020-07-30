@@ -108,7 +108,7 @@ public class MineFragment extends LazyFragment implements BaseContract.View, Ada
     StickyScrollView scrollView;
     @BindView(R.id.ll_profit)
     LinearLayout llProfit;
-
+    private double totoDhz;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -18,6 +18,7 @@ import com.zhongchuang.canting.app.CanTingAppLication;
 import com.zhongchuang.canting.base.BaseActivity1;
 import com.zhongchuang.canting.been.AddressBase;
 import com.zhongchuang.canting.been.BaseBe;
+import com.zhongchuang.canting.been.BaseResponse;
 import com.zhongchuang.canting.been.Oparam;
 import com.zhongchuang.canting.been.OrderData;
 import com.zhongchuang.canting.been.OrderParam;
@@ -71,17 +72,13 @@ public class EditorOrderActivity extends BaseActivity1 implements BaseContract.V
     private int type;
     private String companyType;
     private String cont;
-    private float wpSum;
+    private double wpSum;
     private String orderNO;
     private String productName;
     private String points;
     private String orderAmount;
-    private double wpSum1;
-    private String orderNO1;
-    private String productName1;
-    private String points1;
-    private String orderAmount1;
     private int prosite;
+    private double sumDhz;
     private static PayPalConfiguration config = new PayPalConfiguration()
 
             // Start with mock environment.  When ready, switch to sandbox (ENVIRONMENT_SANDBOX)
@@ -108,6 +105,7 @@ public class EditorOrderActivity extends BaseActivity1 implements BaseContract.V
         startService(intent);
         listview.setAdapter(adapter);
         presenter.getUserAddress("0");
+        presenter.getPoints(SpUtil.getMobileNumber(this));
         showSelectType();
         adapter.setType(type);
         if(TextUtil.isNotEmpty(companyType)){
@@ -217,7 +215,10 @@ public class EditorOrderActivity extends BaseActivity1 implements BaseContract.V
             public void clickListener(int types) {
 
 
-
+                 if(sumDhz<totalInter){
+                     showTomast("您的兑换值不足！");
+                     return;
+                 }
 
                 if(types==1){
                     param.payType="2";
@@ -257,17 +258,17 @@ public class EditorOrderActivity extends BaseActivity1 implements BaseContract.V
                             a++;
                         }
                         if(datas.get(0).proSite.equals("3")){
-                            orderAmount=datas.get(0).totalPrice;
-                            productName=datas.get(0).pro_name;
-                            wpSum=Float.valueOf(datas.get(0).pro_name);
+                            orderAmount=totalPrice+"";
+                            productName=datas.get(0).protList.get(0).pro_name;
+                            wpSum=totalInter;
                             orderNO=param.productList.get(0).productSkuId;
                             prosite=3;
                         }else  if(datas.get(0).proSite.equals("2")){
                             prosite=2;
-                            orderAmount1=datas.get(0).totalPrice;
-                            productName1=datas.get(0).pro_name;
-                            wpSum1=Float.valueOf(datas.get(0).integral_price);
-                            orderNO1=param.productList.get(0).productSkuId;
+                            orderAmount=totalPrice+"";
+                            productName=datas.get(0).protList.get(0).pro_name;
+                            wpSum=totalInter;
+                            orderNO=param.productList.get(0).productSkuId;
                         }
                     }
                     if(state==1){
@@ -347,6 +348,8 @@ public class EditorOrderActivity extends BaseActivity1 implements BaseContract.V
             }
             adapter.setData(datas);
             for (OrderData data : datas) {
+                totalPrice=0;
+                totalInter=0;
                 if (data.proSite.equals("1")||data.proSite.equals("3")) {
                     totalPrice = totalPrice + Double.valueOf(data.totalPrice);
 
@@ -356,7 +359,7 @@ public class EditorOrderActivity extends BaseActivity1 implements BaseContract.V
                     totalPrice = totalPrice + Double.valueOf(data.totalIntegralPrice);
                     totalInter = totalInter + Double.valueOf(data.totalIntegralPrice);
 
-                    dw = getString(R.string.jf);
+                    dw = "兑换值";
                 }
             }
             tvAddCar.setText(totalPrice + "  " + dw);
@@ -390,6 +393,11 @@ public class EditorOrderActivity extends BaseActivity1 implements BaseContract.V
         }else if (type == 123) {
             showToasts(getString(R.string.zfcg));
             finish();
+        }else if (type == 222) {
+            BaseResponse base = (BaseResponse) entity;
+            if(TextUtil.isNotEmpty(base.message)){
+                sumDhz=Double.valueOf(base.message);
+            }
         }else if (type == 321) {
             showToasts(getString(R.string.zfcg));
             finish();
@@ -412,16 +420,26 @@ public class EditorOrderActivity extends BaseActivity1 implements BaseContract.V
                     wpParam.points=wpSum+"";
                     wpParam.productName=productName;
                     wpParam.phone= SpUtil.getMobileNumber(this);
-                    presenter.shoppingGive(wpParam);
+
+                    presenter.shoppingCut(wpParam);
 
                 }else    if(prosite==2){
                     WpParam wpParam = new WpParam();
-                    wpParam.orderAmount=orderAmount1;
-                    wpParam.orderNO=orderNO1;
-                    wpParam.points=wpSum1+"";
+                    wpParam.orderAmount=orderAmount;
+                    wpParam.orderNO=orderNO;
+                    wpParam.points=wpSum+"";
                     wpParam.productName=productName;
+                    wpParam.orderAmount=orderAmount;
                     wpParam.phone= SpUtil.getMobileNumber(this);
                     presenter.shoppingCut(wpParam);
+                }else {
+                    WpParam wpParam = new WpParam();
+                    wpParam.orderAmount=orderAmount;
+                    wpParam.orderNO=orderNO;
+                    wpParam.points=wpSum+"";
+                    wpParam.productName=productName;
+                    wpParam.phone= SpUtil.getMobileNumber(this);
+                    presenter.shoppingGive(wpParam);
                 }
 //           if (requestCode == RQ_WEIXIN_PAY) {
 //                RxBus.getInstance().send(SubscriptionBean.createSendBean(SubscriptionBean.CHAEGE_SUCCESS,""));
@@ -439,16 +457,26 @@ public class EditorOrderActivity extends BaseActivity1 implements BaseContract.V
                     wpParam.points=wpSum+"";
                     wpParam.productName=productName;
                     wpParam.phone= SpUtil.getMobileNumber(this);
-                    presenter.shoppingGive(wpParam);
+
+                    presenter.shoppingCut(wpParam);
 
                 }else    if(prosite==2){
                     WpParam wpParam = new WpParam();
-                    wpParam.orderAmount=orderAmount1;
-                    wpParam.orderNO=orderNO1;
-                    wpParam.points=wpSum1+"";
+                    wpParam.orderAmount=orderAmount;
+                    wpParam.orderNO=orderNO;
+                    wpParam.points=wpSum+"";
                     wpParam.productName=productName;
                     wpParam.phone= SpUtil.getMobileNumber(this);
+
                     presenter.shoppingCut(wpParam);
+                }else {
+                    WpParam wpParam = new WpParam();
+                    wpParam.orderAmount=orderAmount;
+                    wpParam.orderNO=orderNO;
+                    wpParam.points=wpSum+"";
+                    wpParam.productName=productName;
+                    wpParam.phone= SpUtil.getMobileNumber(this);
+                    presenter.shoppingGive(wpParam);
                 }
             }else if(requestCode==RQ_PAYPAL_PAY){
                 presenter.success("",paypalId);
@@ -459,16 +487,25 @@ public class EditorOrderActivity extends BaseActivity1 implements BaseContract.V
                     wpParam.points=wpSum+"";
                     wpParam.productName=productName;
                     wpParam.phone= SpUtil.getMobileNumber(this);
-                    presenter.shoppingGive(wpParam);
+
+                    presenter.shoppingCut(wpParam);
 
                 }else    if(prosite==2){
                     WpParam wpParam = new WpParam();
-                    wpParam.orderAmount=orderAmount1;
-                    wpParam.orderNO=orderNO1;
-                    wpParam.points=wpSum1+"";
+                    wpParam.orderAmount=orderAmount;
+                    wpParam.orderNO=orderNO;
+                    wpParam.points=wpSum+"";
                     wpParam.productName=productName;
                     wpParam.phone= SpUtil.getMobileNumber(this);
                     presenter.shoppingCut(wpParam);
+                }else {
+                    WpParam wpParam = new WpParam();
+                    wpParam.orderAmount=orderAmount;
+                    wpParam.orderNO=orderNO;
+                    wpParam.points=wpSum+"";
+                    wpParam.productName=productName;
+                    wpParam.phone= SpUtil.getMobileNumber(this);
+                    presenter.shoppingGive(wpParam);
                 }
             }
         }

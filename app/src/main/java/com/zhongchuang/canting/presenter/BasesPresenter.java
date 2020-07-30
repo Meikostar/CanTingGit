@@ -1586,6 +1586,7 @@ public class BasesPresenter implements BaseContract.Presenter {
             @Override
             public void onOtherErr(int code, String t) {
                 super.onOtherErr(code, t);
+                mView.toEntity(null, 123);
                 mView.showTomast(t);
             }
         });
