@@ -34,6 +34,7 @@ public class Product extends BaseResponse{
     public String picture_url;
     public String picture_sku_url;
     public String integral_price;
+    public String market_price;
     public String express_content;
     public String product_sku_id;
     public String id;

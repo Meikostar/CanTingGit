@@ -586,7 +586,7 @@
 	<string name="hjf">换积分</string>
 	<string name="mx">明细</string>
 	<string name="hqxl">换取数量：</string>
-	<string name="szjzhqjf">数字价值换积分</string>
+	<string name="szjzhqjf">兑换值换积分</string>
 	<string name="tzhjf">通正换积分</string>
 	<string name="tj">提交</string>
 	<string name="jfmx">积分明细</string>
@@ -966,7 +966,7 @@
 	<string name="zwzbxx">暂无直播信息</string>
 	<string name="ltmkjfmx">聊天模块积分明细</string>
 	<string name="zbmkjfmx">直播模块积分明细</string>
-	<string name="szjzmx">数字价值明细</string>
+	<string name="szjzmx">兑换值明细</string>
 	<string name="jfczmx">积分充值明细</string>
 	<string name="yyth">语音通话</string>
 	<string name="y">与</string>
@@ -1071,7 +1071,7 @@
 	<string name="qesc">确定删除</string>
 	<string name="dllq">的乐聊圈</string>
 	<string name="czjfkyygw">充值积分可用于购物等消费。</string>
-	<string name="szjz">数字价值</string>
+	<string name="szjz">兑换值</string>
 	<string name="szjzs">数字\n价值</string>
 	<string name="hqjfkyygw">换取积分可用于购物等消费。</string>
 	<string name="zllsytqdll">注：乐聊收益提取到乐聊可用积分可用于消费。</string>

@@ -1591,14 +1591,13 @@ public class BasesPresenter implements BaseContract.Presenter {
         });
     }
     @Override
-    public void getPoints(WpParam proList) {
+    public void getPoints(String phone) {
 
-
-        api.getPoints(proList).enqueue(new BaseCallBack<BaseResponse>() {
+        api.getPoints(phone).enqueue(new BaseCallBack<BaseResponse>() {
 
             @Override
             public void onSuccess(BaseResponse userLoginBean) {
-                mView.toEntity(userLoginBean, 123);
+                mView.toEntity(userLoginBean, 222);
             }
 
             @Override
@@ -2703,6 +2702,30 @@ public class BasesPresenter implements BaseContract.Presenter {
             }
         });
     }
+    @Override
+    public void updateJewelIntegral(String jewelIntegral) {
+
+
+        Map<String, String> params = new TreeMap<>();
+
+        params.put("userInfoId", TextUtil.isEmpty(SpUtil.getUserInfoId(CanTingAppLication.getInstance())) ? "" : SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
+        params.put("jewelIntegral",jewelIntegral);
+
+        api.updateJewelIntegral(params).enqueue(new BaseCallBack<Ingegebean>() {
+
+            @Override
+            public void onSuccess(Ingegebean userLoginBean) {
+                mView.toEntity(userLoginBean.data, 119);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                mView.showTomast(t);
+            }
+        });
+    }
+
 
     @Override
     public void anchorsList() {

@@ -23,6 +23,8 @@ public abstract class BaseCallBack<T extends BaseResponse> implements Callback<T
             switch (t.getStatus()) {
                 case 301:
                     onSuccess(t);
+                case 10000:
+                    onSuccess(t);
                     break;
                 case 809:
                     RxBus.getInstance().send(SubscriptionBean.createSendBean(SubscriptionBean.LOGIN_FINISH, ""));

@@ -133,15 +133,20 @@ public class OrderMangerAdapter extends BaseAdapter {
                 context.startActivity(new Intent(context,OrderDetailActivity.class));
             }
         });
+
+        if(TextUtil.isNotEmpty(list.get(position).proSite)){
+            if(list.get(position).proSite.equals("1")){
+                holder.tvCont2.setText(context.getString(R.string.hjs)+"￥"+list.get(position).totalPrice);
+            }else if(list.get(position).proSite.equals("3")){
+                holder.tvCont2.setText(context.getString(R.string.hjs)+"￥"+list.get(position).totalPrice+"+ 兑换值"+list.get(position).totalIntegralPrice);
+            }else {
+                holder.tvCont2.setText(context.getString(R.string.hjs)+"兑换值"+list.get(position).totalIntegralPrice);
+            }
+        }
         if(TextUtil.isNotEmpty(list.get(position).merName)){
             holder.tvStoreName.setText(list.get(position).merName);
-        } if(TextUtil.isNotEmpty(list.get(position).totalPrice)){
-            holder.tvCont2.setText(context.getString(R.string.hjs)+list.get(position).totalPrice+(type==1?"￥":context.getString(R.string.jf)));
-        } if(TextUtil.isNotEmpty(list.get(position).totalIntegralPrice)){
-            if(type!=1){
-                holder.tvCont2.setText(context.getString(R.string.hjs)+list.get(position).totalIntegralPrice+(type==1?"￥":context.getString(R.string.jf)));
-            }
-        } if(TextUtil.isNotEmpty(list.get(position).totalNumber)){
+        }
+        if(TextUtil.isNotEmpty(list.get(position).totalNumber)){
             holder.tvCont1.setText(context.getString(R.string.gong)+list.get(position).totalNumber+context.getString(R.string.jsp));
         }
         if(TextUtil.isNotEmpty(list.get(position).orderType)){

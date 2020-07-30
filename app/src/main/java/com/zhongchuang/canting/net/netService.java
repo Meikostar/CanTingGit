@@ -366,9 +366,6 @@ public interface netService {
     Call<GameDownBean> getGameDown(@FieldMap Map<String, String> map);
 
 
-    @Streaming
-    @GET
-    Call<ResponseBody> downGame(@Url String url);
 
     @FormUrlEncoded
     @POST(CHANAGE_PERSONINFO_URL)
@@ -810,9 +807,10 @@ public interface netService {
     @POST("http://api.huifengshengwu.cn/api/user/shoppingGive")
     Call<BaseResponse> shoppingGive(@Body WpParam body);
 
-    @Headers({"Content-Type: application/json", "Accept: application/json"})
-    @POST("http://api.huifengshengwu.cn/api/user/getPoints")
-    Call<BaseResponse> getPoints(@Body WpParam body);
+
+
+    @GET("http://api.huifengshengwu.cn/api/user/getPoints")
+    Call<BaseResponse> getPoints(@Query("phone") String phone);
 
 
     @Headers({"Content-Type: application/json", "Accept: application/json"})
@@ -1013,6 +1011,10 @@ public interface netService {
     @FormUrlEncoded
     @POST("wap/userIntegral/getUserIntegral")
     Call<Ingegebean> getUserIntegral(@FieldMap Map<String, String> opt);
+
+    @FormUrlEncoded
+    @POST("wap/userIntegral/updateJewelIntegral")
+    Call<Ingegebean> updateJewelIntegral(@FieldMap Map<String, String> opt);
 
     @FormUrlEncoded
     @POST("wap/userIntegral/recordIntegralDetails")

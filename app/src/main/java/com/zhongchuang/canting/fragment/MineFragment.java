@@ -32,11 +32,13 @@ import com.zhongchuang.canting.activity.mine.WpChargeActivity;
 import com.zhongchuang.canting.adapter.ProfileItemAdapter;
 import com.zhongchuang.canting.app.CanTingAppLication;
 import com.zhongchuang.canting.base.LazyFragment;
+import com.zhongchuang.canting.been.BaseResponse;
 import com.zhongchuang.canting.been.Host;
 import com.zhongchuang.canting.been.Ingegebean;
 import com.zhongchuang.canting.been.PROFILE_ITEM;
 import com.zhongchuang.canting.been.ShareBean;
 import com.zhongchuang.canting.been.SubscriptionBean;
+import com.zhongchuang.canting.been.pay.WpParam;
 import com.zhongchuang.canting.presenter.BaseContract;
 import com.zhongchuang.canting.presenter.BasesPresenter;
 import com.zhongchuang.canting.utils.LogUtil;
@@ -123,6 +125,8 @@ public class MineFragment extends LazyFragment implements BaseContract.View, Ada
         initView();
         presenter = new BasesPresenter(this);
         presenter.getUserIntegral();
+
+        presenter.getPoints(SpUtil.getMobileNumber(getActivity()));
         setLoginMessage();
         showSelectType();
         setAdapter();
@@ -365,7 +369,7 @@ public class MineFragment extends LazyFragment implements BaseContract.View, Ada
                 tvJf.setText(bean.chat_integral);
             }
             if (TextUtil.isNotEmpty(bean.jewel_integral)) {
-                tvKf.setText(bean.jewel_integral);
+//                tvKf.setText(bean.jewel_integral);
             }
             if (TextUtil.isNotEmpty(bean.direct_integral)) {
                 tvYe.setText(bean.direct_integral);
@@ -393,6 +397,16 @@ public class MineFragment extends LazyFragment implements BaseContract.View, Ada
                     startActivity(intent);
                 }
             });
+        }else if(type==222){
+            BaseResponse     base = (BaseResponse) entity;
+            if(TextUtil.isNotEmpty(base.message)){
+                tvKf.setText(base.message);
+                long inter = Math.round(Double.valueOf(base.message));
+                presenter.updateJewelIntegral(inter+"");
+            }
+
+        }else if(type==119){
+
         } else {
             data = (Host) entity;
             if (TextUtil.isNotEmpty(data.integralTotal)) {

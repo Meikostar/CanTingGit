@@ -188,10 +188,10 @@ public class BaseContract {
 
 
         void shoppingGive(WpParam proList);
-        void getPoints(WpParam proList);
+        void getPoints(String proList);
         void shoppingCut(WpParam proList);
 
-
+        void updateJewelIntegral(String jewelIntegral);
         void submitOrder(OrderParam proList);
 
 

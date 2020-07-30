@@ -1,5 +1,6 @@
 package com.zhongchuang.canting.adapter.recycle;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -89,7 +90,7 @@ public class ItemRecycleAdapter extends BaseRecycleViewAdapter {
     private List<Integer> list = new ArrayList<>();
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, @SuppressLint("RecyclerView") final int position) {
 
         ItemViewHolder holders = (ItemViewHolder) holder;
 
@@ -105,7 +106,7 @@ public class ItemRecycleAdapter extends BaseRecycleViewAdapter {
                 if (data1.pro_site.equals("1")||data.pro_site.equals("3")) {
                     if (TextUtil.isNotEmpty(data.pro_price)) {
                         if(Integer.valueOf(data.integral_price)>0){
-                            holders.tvType.setText("￥" + data.pro_price+"+"+data.integral_price+context.getString(R.string.jft));
+                            holders.tvType.setText("￥" + data.pro_price+"+"+data.integral_price+"兑换值");
                         }else {
                             holders.tvType.setText("￥ " + data.pro_price);
                         }
@@ -128,7 +129,7 @@ public class ItemRecycleAdapter extends BaseRecycleViewAdapter {
                 if (data1.pro_site.equals("1")||data.pro_site.equals("3")) {
                     if (TextUtil.isNotEmpty(data1.pro_price)) {
                         if(Integer.valueOf(data.integral_price)>0){
-                            holders.tvType1.setText("￥" + data1.pro_price+"+ "+data1.integral_price+context.getString(R.string.jft));
+                            holders.tvType1.setText("￥" + data1.pro_price+"+ "+data1.integral_price+"兑换值");
                         }else {
                             holders.tvType1.setText("￥" + data1.pro_price);
                         }
@@ -136,12 +137,16 @@ public class ItemRecycleAdapter extends BaseRecycleViewAdapter {
                     }
                 } else if (data1.pro_site.equals("3")){
                     if (TextUtil.isNotEmpty(data1.pro_price)) {
+                        if(TextUtil.isNotEmpty(data1.market_price)&&Double.valueOf(data1.market_price)>0){
+                            holders.tvType1.setText("￥ " + data1.pro_price +"送贡献值"+data1.market_price);
+                        }else {
+                            holders.tvType1.setText("￥ " + data1.pro_price );
+                        }
 
-                        holders.tvType1.setText("￥ " + data1.pro_price);
                     }
                 }else {
                     if (TextUtil.isNotEmpty(data1.integral_price)) {
-                        holders.tvType1.setText(context.getString(R.string.jft) + data1.integral_price);
+                        holders.tvType1.setText("兑换值" + data1.integral_price);
                     }
                 }
 

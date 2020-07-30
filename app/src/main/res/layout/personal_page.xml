@@ -297,7 +297,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/szjzs"
+                        android:text="兑换值"
                         android:textColor="@color/black"
                         android:textSize="15sp" />
 
@@ -326,7 +326,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:text="@string/kyjf"
+                            android:text="可用数"
                             android:textColor="@color/color9"
                             android:textSize="12sp" />
 

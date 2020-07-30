@@ -99,28 +99,41 @@ public class OrderChildAdapter extends BaseAdapter {
             }
 
         }
-        if(type==1){
-            holder.tvMoney.setText("￥"+foodlist.get(i).pro_price+(TextUtil.isNotEmpty(foodlist.get(i).integral_price)?("+"+foodlist.get(i).integral_price+context.getString(R.string.jf)):""));
-        }else {
-            if(TextUtil.isNotEmpty(foodlist.get(i).proSite)){
-                if(foodlist.get(i).proSite.equals("1")){
+//        if(type==1){
+//            holder.tvMoney.setText("￥"+foodlist.get(i).pro_price+(TextUtil.isNotEmpty(foodlist.get(i).integral_price)?("+"+foodlist.get(i).integral_price+context.getString(R.string.jf)):""));
+//        }else {
+            if(TextUtil.isNotEmpty(foodlist.get(i).pro_site)){
+                if(foodlist.get(i).pro_site.equals("1")){
                     if(TextUtil.isNotEmpty(foodlist.get(i).integral_price)){
                         if(Double.valueOf(foodlist.get(i).integral_price)>0){
                             holder.tvMoney.setText("￥"+foodlist.get(i).pro_price+("+"+foodlist.get(i).integral_price+context.getString(R.string.jf)));
                         }else {
                             holder.tvMoney.setText("￥"+foodlist.get(i).pro_price);
                         }
+                    }else {
+                        holder.tvMoney.setText("￥"+foodlist.get(i).pro_price);
+                    }
+
+                }else  if(foodlist.get(i).pro_site.equals("3")){
+                    if(TextUtil.isNotEmpty(foodlist.get(i).integral_price)){
+                        if(Double.valueOf(foodlist.get(i).integral_price)>0){
+                            holder.tvMoney.setText("￥"+foodlist.get(i).pro_price+("+"+"兑换值"+foodlist.get(i).integral_price));
+                        }else {
+                            holder.tvMoney.setText("￥"+foodlist.get(i).pro_price);
+                        }
+                    }else {
+                        holder.tvMoney.setText("￥"+foodlist.get(i).pro_price);
                     }
 
                 }  else {
-                    holder.tvMoney.setText(context.getString(R.string.jf)+foodlist.get(i).integral_price);
+                    holder.tvMoney.setText("兑换值"+foodlist.get(i).integral_price);
                 }
-            }
-            if(TextUtil.isNotEmpty(foodlist.get(i).integral_price)){
-                holder.tvMoney.setText(context.getString(R.string.jf)+foodlist.get(i).integral_price);
-            }else {
-                holder.tvMoney.setText(context.getString(R.string.jf)+foodlist.get(i).market_price);
-            }
+//            }
+//            if(TextUtil.isNotEmpty(foodlist.get(i).integral_price)){
+//                holder.tvMoney.setText(context.getString(R.string.jf)+foodlist.get(i).integral_price);
+//            }else {
+//                holder.tvMoney.setText(context.getString(R.string.jf)+foodlist.get(i).market_price);
+//            }
 
         }
       holder.rlbg.setOnLongClickListener(new View.OnLongClickListener() {
