@@ -138,7 +138,7 @@ public class ItemRecycleAdapter extends BaseRecycleViewAdapter {
                 } else if (data1.pro_site.equals("1")){
                     if (TextUtil.isNotEmpty(data1.pro_price)) {
                         if(TextUtil.isNotEmpty(data1.market_price)&&Double.valueOf(data1.market_price)>0){
-                            holders.tvType1.setText("￥ " + data1.pro_price +"送贡献值"+data1.market_price);
+                            holders.tvType1.setText("￥ " + data1.pro_price +" +送贡献值"+data1.market_price);
                         }else {
                             holders.tvType1.setText("￥ " + data1.pro_price );
                         }
@@ -184,7 +184,7 @@ public class ItemRecycleAdapter extends BaseRecycleViewAdapter {
                 } else if (data.pro_site.equals("1")){
                     if (TextUtil.isNotEmpty(data.pro_price)) {
 
-                        holders.tvType.setText("￥ " + data.pro_price);
+                        holders.tvType.setText("￥ " + data.pro_price +" +送贡献值"+data.market_price);
                     }
                 }else {
                     if (TextUtil.isNotEmpty(data.integral_price)) {
@@ -220,7 +220,7 @@ public class ItemRecycleAdapter extends BaseRecycleViewAdapter {
                     } else if (data1.pro_site.equals("1")){
                         if (TextUtil.isNotEmpty(data1.pro_price)) {
                             if(TextUtil.isNotEmpty(data1.market_price)&&Double.valueOf(data1.market_price)>0){
-                                holders.tvType1.setText("￥ " + data1.pro_price +"送贡献值"+data1.market_price);
+                                holders.tvType1.setText("￥ " + data1.pro_price +"+ 送贡献值"+data1.market_price);
                             }else {
                                 holders.tvType1.setText("￥ " + data1.pro_price );
                             }
