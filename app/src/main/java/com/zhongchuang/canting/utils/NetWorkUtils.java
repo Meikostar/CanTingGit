@@ -29,7 +29,34 @@ public class NetWorkUtils {
     }
 
 
-
+    /**
+     * 检测网络是否可用
+     *
+     * @param context 上下文
+     * @return true:可用； false:不可用
+     */
+    public static boolean isNetworkAccessiable(Context context){
+        try{
+            if(context != null){
+                ConnectivityManager CM = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                if(CM != null){
+                    NetworkInfo info = CM.getActiveNetworkInfo();
+                    if(info != null){
+                        return info.isConnected();
+                    }else{
+                        return false;
+                    }
+                }else{
+                    return false;
+                }
+            }else{
+                return false;
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
     /**
      * 判断是否有网络连接
      * @param context

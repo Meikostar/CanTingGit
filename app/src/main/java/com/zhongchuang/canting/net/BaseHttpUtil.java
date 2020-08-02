@@ -67,8 +67,9 @@ public class BaseHttpUtil {
 
 
             OkHttpClient.Builder builder = new OkHttpClient().newBuilder();
-            builder.readTimeout(20, TimeUnit.SECONDS)
-                    .connectTimeout(20, TimeUnit.SECONDS)
+            builder.readTimeout(6000, TimeUnit.SECONDS)
+                    .connectTimeout(60000, TimeUnit.SECONDS)
+                    .writeTimeout(60000, TimeUnit.SECONDS)
                     .addInterceptor(new TokenInterceptor())
 //                    .cache(cache)
                     .sslSocketFactory(socketFactory)

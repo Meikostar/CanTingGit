@@ -237,6 +237,7 @@ public class UpdateVideoFragment extends Fragment implements   OtherContract.Vie
         if(firstData==null||firstData.size()==0){
             return;
         }
+        title.clear();
         for(LiveItemBean bean:firstData){
             title.add(bean.category_name);
         }

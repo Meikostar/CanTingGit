@@ -1832,6 +1832,7 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
 
             Request request = new Request.Builder().get().url(url).build();
             try {
+
                 Response response = client.newCall(request).execute();
                 if (response.isSuccessful()) {
 

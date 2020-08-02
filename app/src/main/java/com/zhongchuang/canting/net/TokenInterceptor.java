@@ -26,7 +26,6 @@ public class TokenInterceptor implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
         String token = SpUtil.getToken(CanTingAppLication.getInstance());
 
-
         Request request = chain.request().newBuilder()
                 .addHeader("token", token)
                 .addHeader("languge",getLangue(CanTingAppLication.LangueType))

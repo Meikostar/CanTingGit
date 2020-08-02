@@ -174,8 +174,6 @@ public class ShopMallDetailActivity extends BaseAllActivity implements View.OnCl
             @Override
             public void onClick(View v) {
                 ShareUtils.showMyShareProduct(ShopMallDetailActivity.this, "", "");
-
-
             }
         });
     }

@@ -238,7 +238,9 @@ public class VideoLiveFragment extends Fragment implements   OtherContract.View 
     @Override
     public <T> void toEntity(T entity, int type) {
         firstData= (List<LiveItemBean>) entity;
+        title.clear();
         title.add("热门");
+
         for(LiveItemBean bean:firstData){
             title.add(bean.category_name);
         }

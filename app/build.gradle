@@ -25,8 +25,8 @@ android {
         applicationId "com.zhongchuang.canting"
         minSdkVersion MIN_SDK_VERSION as int
         targetSdkVersion TARGET_SDK_VERSION as int
-        versionCode 293
-        versionName "2.9.3"
+        versionCode 295
+        versionName "2.9.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         ndk {
@@ -136,10 +136,12 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.8.1'
     compile 'com.android.support:design:26.0.0-alpha1'
     compile 'com.android.support:recyclerview-v7:26.0.0-alpha1'
-    compile 'com.squareup.retrofit2:retrofit:2.1.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.9.0'
-    compile 'com.squareup.okhttp3:okhttp:3.9.0'
+    compile 'com.squareup.retrofit2:retrofit:2.2.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.2.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.2.0'
+    compile 'com.squareup.okhttp3:okhttp:3.7.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.7.0'
+    compile 'com.squareup.okhttp3:okhttp-urlconnection:3.7.0'
     compile 'com.youth.banner:banner:1.4.10'
     compile 'com.github.bumptech.glide:glide:3.6.1'
     compile 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
