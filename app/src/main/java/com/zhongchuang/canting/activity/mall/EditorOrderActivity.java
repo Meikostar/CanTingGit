@@ -166,10 +166,7 @@ public class EditorOrderActivity extends BaseActivity1 implements BaseContract.V
                     showToasts(getString(R.string.qtjshdz));
                     return;
                 }
-                if(CanTingAppLication.totalintegral<totalInter){
-                    showToasts(getString(R.string.ndjfbzwfgm));
-                    return;
-                }
+
                 actual_amount=totalPrice+"";
                 if(TextUtil.isEmpty(param.proSite)){
                     if(type==0){
@@ -214,11 +211,6 @@ public class EditorOrderActivity extends BaseActivity1 implements BaseContract.V
             @Override
             public void clickListener(int types) {
 
-
-                 if(sumDhz<totalInter){
-                     showTomast("您的兑换值不足！");
-                     return;
-                 }
 
                 if(types==1){
                     param.payType="2";
@@ -265,6 +257,12 @@ public class EditorOrderActivity extends BaseActivity1 implements BaseContract.V
                             prosite=3;
                         }else  if(datas.get(0).proSite.equals("2")){
                             prosite=2;
+                            orderAmount=totalPrice+"";
+                            productName=datas.get(0).protList.get(0).pro_name;
+                            wpSum=totalInter;
+                            orderNO=param.productList.get(0).productSkuId;
+                        }else  if(datas.get(0).proSite.equals("1")){
+                            prosite=1;
                             orderAmount=totalPrice+"";
                             productName=datas.get(0).protList.get(0).pro_name;
                             wpSum=totalInter;
@@ -350,7 +348,12 @@ public class EditorOrderActivity extends BaseActivity1 implements BaseContract.V
             for (OrderData data : datas) {
                 totalPrice=0;
                 totalInter=0;
-                if (data.proSite.equals("1")||data.proSite.equals("3")) {
+                if (data.proSite.equals("1")) {
+                    totalPrice = totalPrice + Double.valueOf(data.totalPrice);
+
+                    totalInter = totalInter + Double.valueOf(data.protList.get(0).market_price);
+                    dw = "￥";
+                } if (data.proSite.equals("3")) {
                     totalPrice = totalPrice + Double.valueOf(data.totalPrice);
 
                     totalInter = totalInter + Double.valueOf(data.totalIntegralPrice);
