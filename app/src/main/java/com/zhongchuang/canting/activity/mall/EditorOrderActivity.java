@@ -373,8 +373,16 @@ public class EditorOrderActivity extends BaseActivity1 implements BaseContract.V
                 intent.putExtra("weixinreq", weixinreq);
                 startActivityForResult(intent, RQ_WEIXIN_PAY);
             }else {
-                showToasts(getString(R.string.gmcg));
-                finish();
+                WpParam wpParam = new WpParam();
+                wpParam.orderAmount=orderAmount;
+                wpParam.orderNO=orderNO;
+                wpParam.points=wpSum+"";
+                wpParam.productName=productName;
+                wpParam.phone= SpUtil.getMobileNumber(this);
+
+                presenter.shoppingCut(wpParam);
+
+
             }
 
         }else if (type == 9) {
