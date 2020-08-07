@@ -361,7 +361,6 @@ public class EditorOrderActivity extends BaseActivity1 implements BaseContract.V
                 } else {
                     totalPrice = totalPrice + Double.valueOf(data.totalIntegralPrice);
                     totalInter = totalInter + Double.valueOf(data.totalIntegralPrice);
-
                     dw = "兑换值";
                 }
             }
@@ -373,6 +372,12 @@ public class EditorOrderActivity extends BaseActivity1 implements BaseContract.V
                 intent.putExtra("weixinreq", weixinreq);
                 startActivityForResult(intent, RQ_WEIXIN_PAY);
             }else {
+                List<OrderData> datas = adapter.getDatas();
+                prosite=2;
+                orderAmount="0";
+                productName=datas.get(0).protList.get(0).pro_name;
+                wpSum=totalInter;
+                orderNO=param.productList.get(0).productSkuId;
                 WpParam wpParam = new WpParam();
                 wpParam.orderAmount=orderAmount;
                 wpParam.orderNO=orderNO;
