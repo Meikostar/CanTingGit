@@ -9,7 +9,7 @@ import java.util.List;
 public class RedInfo extends BaseResponse{
 //        "id": 13,
 //                "userInfoId": "urio1054316485159157760",  //发红包的用户id
-//                "redEnvelopeCount": 100,                  //红包总积分数
+//                "redEnvelopeCount": 100,                  //红包总兑换值数
 //                "redEnvelopeNumber": 12,                  //红包个数
 //                "redEnvelopeSmaill": "11,6,2,5,19,14,1,9,17,4,11,1",
 //                "redEnvelopeType": 1,                     //1群里的红包  2个人红包

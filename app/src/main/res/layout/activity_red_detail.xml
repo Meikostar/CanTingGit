@@ -115,7 +115,7 @@
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:gravity="center"
-                   android:text="  积分"
+                   android:text="  兑换值"
                    android:textSize="15sp"
                    android:textColor="@color/color6"
                    android:textStyle="normal"

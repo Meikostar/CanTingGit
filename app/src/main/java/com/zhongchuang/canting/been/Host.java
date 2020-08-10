@@ -7,7 +7,7 @@ import java.util.List;
  */
 
 public class Host extends BaseResponse{
-//        "userIntegral": 5236,  //账号积分
+//        "userIntegral": 5236,  //账号兑换值
 //                "direct_see_name": "002",  //直播间名
 //                "room_image": "http://120.78.196.53:8080/images/2.png",
 //                "room_number": "28",

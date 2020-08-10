@@ -11,7 +11,7 @@ public class Product extends BaseResponse{
 //            "pro_price": 220,                   //商城价
 //                    "shop_id": 103,                     //店铺id
 //                    "picture_url": "https://123456.jpg",
-//                    "integral_price": 220,              //积分价
+//                    "integral_price": 220,              //兑换值价
 //                    "product_sku_id": 45863,            //商品sku编码
 //                    "id": 6,
 //                    "pro_site": 1,                      //产品位置

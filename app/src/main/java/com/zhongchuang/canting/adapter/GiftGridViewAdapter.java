@@ -74,7 +74,7 @@ public class GiftGridViewAdapter extends BaseAdapter {
         }
         Glide.with(context).load(StringUtil.changeUrl(catogary.gift_image)).asBitmap().placeholder(R.drawable.moren).into(viewHolder.grid_fragment_home_item_img);
 //        viewHolder.grid_fragment_home_item_img.setImageResource(catogary.getImage_source());
-        viewHolder.grid_fragment_home_item_txt.setText(catogary.gift_intege+"积分");
+        viewHolder.grid_fragment_home_item_txt.setText(catogary.gift_intege+"兑换值");
 
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override

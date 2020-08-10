@@ -22,7 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * 直播和乐聊 积分提取
+ * 直播和乐聊 兑换值提取
  */
 public class SumbitJfActivity extends BaseActivity1 implements BaseContract.View {
 

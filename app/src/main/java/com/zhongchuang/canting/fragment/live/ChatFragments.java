@@ -610,7 +610,7 @@ public class ChatFragments extends Fragment implements View.OnClickListener, Vie
             cancel = views.findViewById(R.id.txt_cancel);
             title = views.findViewById(R.id.tv_title);
             reson = views.findViewById(R.id.edit_reson);
-            title.setText("打赏给主播的积分必须是充值积分！你的充值积分已用完，快去充值吧!");
+            title.setText("打赏给主播的兑换值必须是充值兑换值！你的充值兑换值已用完，快去充值吧!");
             sure.setText(R.string.mscz);
 
             dialogs = BaseDailogManager.getInstance().getBuilder(getActivity()).setMessageView(views).create();

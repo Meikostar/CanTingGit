@@ -99,7 +99,7 @@ public class ShopCarAdapter extends BaseAdapter {
         }else  if (shopList.get(position).pro_site.equals("3")) {
             holder.p_price.setText("￥ "+shopList.get(position).pro_price);
         }else  {
-            holder.p_price.setText("积分 "+shopList.get(position).integral_price);
+            holder.p_price.setText("兑换值 "+shopList.get(position).integral_price);
         }
          if (TextUtil.isNotEmpty(shopList.get(position).proSku)) {
             holder.p_desc.setText(shopList.get(position).proSku);

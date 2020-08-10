@@ -253,7 +253,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragment.E
                     break;
                 case ITEM_RED_PACKET:
                     if (data != null) {
-//                //积分红包
+//                //兑换值红包
                         RedPacketInfo redPacketInfo = (RedPacketInfo) data.getSerializableExtra("data");
                         redPacketInfo.send_name = SpUtil.getName(getActivity());
                         redPacketInfo.isgrab = 0;

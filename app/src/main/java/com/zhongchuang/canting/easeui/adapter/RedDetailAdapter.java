@@ -89,7 +89,7 @@ public class RedDetailAdapter extends BaseAdapter {
          if (TextUtil.isNotEmpty(shopList.get(position).nickname)) {
             holder.tv_name.setText(shopList.get(position).nickname);
         }
-        holder.tv_amount.setText(shopList.get(position).grab_envelope_count+"积分");
+        holder.tv_amount.setText(shopList.get(position).grab_envelope_count+"兑换值");
         holder.tv_time.setText(TimeUtil.formatRedTime(shopList.get(position).create_time));
 
 

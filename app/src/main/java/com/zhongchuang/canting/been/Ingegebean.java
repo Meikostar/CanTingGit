@@ -6,12 +6,12 @@ package com.zhongchuang.canting.been;
 
 public class Ingegebean extends BaseResponse {
 
-//    "money_buy_integral": 0,    //充值积分
-//            "direct_integral": 0,       //直播可用积分
-//            "chat_integral": 0,         //乐聊可用积分
-//            "direct_gift_integral": 0,  //直播礼物积分
-//            "jewel_integral": 0,       //钻石宝石兑换积分
-//            "chat_presenter_integral": 4,  //语音视频赠送积分
+//    "money_buy_integral": 0,    //充值兑换值
+//            "direct_integral": 0,       //直播可用兑换值
+//            "chat_integral": 0,         //乐聊可用兑换值
+//            "direct_gift_integral": 0,  //直播礼物兑换值
+//            "jewel_integral": 0,       //钻石宝石兑换兑换值
+//            "chat_presenter_integral": 4,  //语音视频赠送兑换值
 //            "user_integral": 180
     public Ingegebean data;
     public String money_buy_integral;

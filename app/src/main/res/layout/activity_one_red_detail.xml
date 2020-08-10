@@ -108,7 +108,7 @@
             android:gravity="center_vertical"
             android:background="#fff"
             android:textSize="12sp"
-            android:text="红包金额1积分，等待对方领取"
+            android:text="红包金额1兑换值，等待对方领取"
             android:textColor="#999"
             android:textStyle="normal"
             android:typeface="serif"/>
@@ -146,7 +146,7 @@
             android:gravity="center_vertical"
             android:background="#fff"
             android:textSize="12sp"
-            android:text="红包金额1积分，等待对方领取"
+            android:text="红包金额1兑换值，等待对方领取"
             android:textColor="#999"
             android:textStyle="normal"
             android:typeface="serif"/>

@@ -387,7 +387,7 @@ public class ShopMallDetailActivity extends BaseAllActivity implements View.OnCl
                 if (product.profit!=0) {
 
                     tvProfit.setText("" + product.profit);
-                    shareBean.content_= shareBean.content_+"   赠送积分:"+product.profit;
+                    shareBean.content_= shareBean.content_+"   赠送兑换值:"+product.profit;
 
                 }else {
 
@@ -403,7 +403,7 @@ public class ShopMallDetailActivity extends BaseAllActivity implements View.OnCl
 
                         if (Integer.valueOf(product.integral_price) > 0) {
                             shareBean.content_= shareBean.content_+"   商城价：￥"+product.pro_price;
-                            tvPrice.setText("￥" + product.pro_price + "+" + product.integral_price + "积分");
+                            tvPrice.setText("￥" + product.pro_price + "+" + product.integral_price + "兑换值");
                         } else {
                             shareBean.content_= shareBean.content_+"   商城价：￥"+product.pro_price;
                             tvPrice.setText("￥" + product.pro_price);
@@ -428,7 +428,7 @@ public class ShopMallDetailActivity extends BaseAllActivity implements View.OnCl
                 } else {
                     rlBgs.setVisibility(View.GONE);
                     if (TextUtil.isNotEmpty(product.integral_price)) {
-                        shareBean.content_ = product.pro_name+"  "+product.integral_price+"积分";
+                        shareBean.content_ = product.pro_name+"  "+product.integral_price+"兑换值";
                         tvPrice.setText("兑换值:" + product.integral_price);
                     }
                 }

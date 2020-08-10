@@ -124,7 +124,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:paddingLeft="15dp"
-                            android:text="送积分:"
+                            android:text="送兑换值:"
                             android:textColor="@color/color9"
                             android:textSize="13sp" />
 

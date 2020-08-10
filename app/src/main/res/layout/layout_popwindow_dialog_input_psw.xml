@@ -81,7 +81,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:paddingLeft="8dp"
-                    android:text="积分"
+                    android:text="兑换值"
                     android:textColor="#323232"
                     android:textSize="14sp"/>
             </LinearLayout>
@@ -114,7 +114,7 @@
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:paddingLeft="8dp"
-                android:text="乐聊积分支付"
+                android:text="乐聊兑换值支付"
                 android:textColor="#323232"
                 android:textSize="14sp"/>
 

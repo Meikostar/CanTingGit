@@ -85,14 +85,14 @@ public class HomeProductdapter extends BaseAdapter {
         if (data.pro_site.equals("1")||data.pro_site.equals("3")) {
             if (TextUtil.isNotEmpty(data.pro_price)) {
                 if(Integer.valueOf(data.integral_price)>0){
-                    holder.tv_money.setText( data.pro_price+"+"+data.integral_price+"积分");
+                    holder.tv_money.setText( data.pro_price+"+"+data.integral_price+"兑换值");
                 }else {
                     holder.tv_money.setText( data.pro_price);
                 }
             }
         } else {
             if (TextUtil.isNotEmpty(data.integral_price)) {
-                holder.tv_money.setText("积分 " + data.integral_price);
+                holder.tv_money.setText("兑换值 " + data.integral_price);
             }
         }
 

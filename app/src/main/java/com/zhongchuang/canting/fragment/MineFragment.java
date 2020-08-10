@@ -440,7 +440,7 @@ public class MineFragment extends LazyFragment implements BaseContract.View, Ada
 
                 startActivity(intent);
                 break;
-            case 1://积分充值
+            case 1://兑换值充值
                 startActivity(new Intent(getActivity(), CodeUploadActivity.class));
                 break;
             case 2://我的钱包

@@ -106,7 +106,7 @@ public class RedItemRecycleAdapter extends BaseRecycleViewAdapter {
                     holders.tvName.setText(red.remarkName);
                 }
 
-                holders.tvAmount.setText(red.grab_envelope_count+"积分");
+                holders.tvAmount.setText(red.grab_envelope_count+"兑换值");
             }else {
                 if(red.red_envelope_type==1){
                     holders.tvName.setText("群红包");
@@ -114,7 +114,7 @@ public class RedItemRecycleAdapter extends BaseRecycleViewAdapter {
                     holders.tvName.setText("普通红包");
                 }
 
-                holders.tvAmount.setText(red.red_envelope_count+"积分");
+                holders.tvAmount.setText(red.red_envelope_count+"兑换值");
             }
             if(state==0){
                 holders.tvTime.setText(TimeUtil.formatRedTime(red.create_time));

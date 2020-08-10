@@ -220,7 +220,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
-                        android:text="我的积分"
+                        android:text="我的兑换值"
                         android:textColor="@color/slow_black"
                         android:textSize="15sp" />
                 </LinearLayout>

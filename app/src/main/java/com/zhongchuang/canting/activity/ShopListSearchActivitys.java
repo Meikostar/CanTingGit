@@ -42,7 +42,7 @@ public class ShopListSearchActivitys extends BaseActivity1 {
     private String content;
     private FragmentViewPagerAdapter mainViewPagerAdapter;
     private List<Fragment> mFragments;
-    private int status=1;//1商城2积分商城
+    private int status=1;//1商城2兑换值商城
 
     @Override
     public void initViews() {

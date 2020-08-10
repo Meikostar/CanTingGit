@@ -645,7 +645,7 @@ public interface netService {
     Call<BaseResponse> checkIsExist(@FieldMap Map<String, String> map);
 
     /**
-     * ------------------------------------------j积分----------------------------------------
+     * ------------------------------------------j兑换值----------------------------------------
      */
     @FormUrlEncoded
     @POST("wap/integral/getIntegralGoods")

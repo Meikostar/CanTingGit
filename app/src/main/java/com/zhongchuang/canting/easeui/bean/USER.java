@@ -96,7 +96,7 @@ public class USER implements Serializable {
     public String account;
     public String avatar;
     public String password;
-    public double integral;//积分
+    public double integral;//兑换值
     public String city;
     public String address;
     public int os;

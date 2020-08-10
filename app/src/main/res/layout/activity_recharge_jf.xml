@@ -110,7 +110,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
                 android:layout_marginTop="18dp"
-                android:text="账户积分余额： 0"
+                android:text="账户兑换值余额： 0"
                 android:textColor="#333"
                 android:textSize="16sp" />
         </LinearLayout>

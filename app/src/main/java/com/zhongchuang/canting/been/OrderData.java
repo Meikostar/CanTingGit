@@ -13,7 +13,7 @@ public class OrderData extends BaseResponse{
 //               "protList": [
 //    {
 //        "pro_price": 12,       //商城价
-//            "integral_price": 10,   //积分价
+//            "integral_price": 10,   //兑换值价
 //            "picture_url": "http://192",
 //            "market_price": 30,     //市场价
 //            "p_color": "黑",

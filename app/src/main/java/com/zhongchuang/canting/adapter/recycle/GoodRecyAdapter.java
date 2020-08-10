@@ -93,14 +93,14 @@ public class GoodRecyAdapter extends RecyclerView.Adapter<GoodRecyAdapter.ViewHo
             if (data.pro_site.equals("1")||data.pro_site.equals("3")) {
                 if (TextUtil.isNotEmpty(data.pro_price)) {
                     if(Integer.valueOf(data.integral_price)>0){
-                        holders.tvMoney.setText("￥" + data.pro_price+"+"+data.integral_price+"积分");
+                        holders.tvMoney.setText("￥" + data.pro_price+"+"+data.integral_price+"兑换值");
                     }else {
                         holders.tvMoney.setText("￥ " + data.pro_price);
                     }
                 }
             } else {
                 if (TextUtil.isNotEmpty(data.integral_price)) {
-                    holders.tvMoney.setText("积分 " + data.integral_price);
+                    holders.tvMoney.setText("兑换值 " + data.integral_price);
                 }
             }
 //            if (TextUtil.isNotEmpty(data.pro_price)) {
@@ -112,14 +112,14 @@ public class GoodRecyAdapter extends RecyclerView.Adapter<GoodRecyAdapter.ViewHo
             if (data1.pro_site.equals("1")||data.pro_site.equals("3")) {
                 if (TextUtil.isNotEmpty(data1.pro_price)) {
                     if(Integer.valueOf(data1.integral_price)>0){
-                        holders.tvMoney1.setText("￥" + data1.pro_price+"+"+data1.integral_price+"积分");
+                        holders.tvMoney1.setText("￥" + data1.pro_price+"+"+data1.integral_price+"兑换值");
                     }else {
                         holders.tvMoney1.setText("￥ " + data1.pro_price);
                     }
                 }
             } else {
                 if (TextUtil.isNotEmpty(data1.integral_price)) {
-                    holders.tvMoney1.setText("积分 " + data1.integral_price);
+                    holders.tvMoney1.setText("兑换值 " + data1.integral_price);
                 }
             }
 //            if (TextUtil.isNotEmpty(data1.pro_price)) {
@@ -162,14 +162,14 @@ public class GoodRecyAdapter extends RecyclerView.Adapter<GoodRecyAdapter.ViewHo
             if (data.pro_site.equals("1")||data.pro_site.equals("3")) {
                 if (TextUtil.isNotEmpty(data.pro_price)) {
                     if(Integer.valueOf(data.integral_price)>0){
-                        holders.tvMoney.setText("￥" + data.pro_price+"+"+data.integral_price+"积分");
+                        holders.tvMoney.setText("￥" + data.pro_price+"+"+data.integral_price+"兑换值");
                     }else {
                         holders.tvMoney.setText("￥ " + data.pro_price);
                     }
                 }
             } else {
                 if (TextUtil.isNotEmpty(data.integral_price)) {
-                    holders.tvMoney.setText("积分 " + data.integral_price);
+                    holders.tvMoney.setText("兑换值 " + data.integral_price);
                 }
             }
             if (TextUtil.isNotEmpty(data.mer_name)) {
@@ -197,14 +197,14 @@ public class GoodRecyAdapter extends RecyclerView.Adapter<GoodRecyAdapter.ViewHo
                 if (data1.pro_site.equals("1")||data.pro_site.equals("3")) {
                     if (TextUtil.isNotEmpty(data1.pro_price)) {
                         if(Integer.valueOf(data1.integral_price)>0){
-                            holders.tvMoney1.setText("￥" + data1.pro_price+"+"+data1.integral_price+"积分");
+                            holders.tvMoney1.setText("￥" + data1.pro_price+"+"+data1.integral_price+"兑换值");
                         }else {
                             holders.tvMoney1.setText("￥ " + data1.pro_price);
                         }
                     }
                 } else {
                     if (TextUtil.isNotEmpty(data1.integral_price)) {
-                        holders.tvMoney1.setText("积分 " + data1.integral_price);
+                        holders.tvMoney1.setText("兑换值 " + data1.integral_price);
                     }
                 }
                 if (TextUtil.isNotEmpty(data1.mer_name)) {

@@ -210,7 +210,7 @@ public class SendRedActivity extends BaseAllActivity implements OtherContract.Vi
             @Override
             public void afterTextChanged(Editable s) {
                 if (TextUtil.isNotEmpty(s.toString())) {
-                    tvAmountForShow.setText(s.toString() + "积分");
+                    tvAmountForShow.setText(s.toString() + "兑换值");
                 } else {
                     tvAmountForShow.setText("");
                 }

@@ -87,7 +87,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:text="账户积分"
+            android:text="账户兑换值"
             android:textColor="@color/slow_black"
             android:textSize="15sp" />
 
@@ -100,7 +100,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="100积分"
+            android:text="100兑换值"
             android:textColor="#FF8400"
             android:textSize="14sp" />
 

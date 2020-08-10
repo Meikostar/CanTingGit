@@ -150,7 +150,7 @@ public class RechargeDbActivity extends BaseActivity1 {
             tvBalance.setText("(" + bal + ")");
             cbWx.setClickable(true);
             cbWx.setChecked(false);
-            txtUnit.setText("积分：");
+            txtUnit.setText("兑换值：");
         }
     }
 

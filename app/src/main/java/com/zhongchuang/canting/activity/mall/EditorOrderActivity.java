@@ -32,9 +32,7 @@ import com.zhongchuang.canting.utils.ShareUtils;
 import com.zhongchuang.canting.utils.SpUtil;
 import com.zhongchuang.canting.utils.TextUtil;
 import com.zhongchuang.canting.widget.NavigationBar;
-import com.zhongchuang.canting.widget.RxBus;
-import com.zhongchuang.canting.widget.ShopBuyWindow;
-import com.zhongchuang.canting.widget.ShopTypeWindow;
+import com.zhongchuang.canting.widget.PayPopWindow;
 import com.zhongchuang.canting.widget.payWindow;
 import com.zhongchuang.canting.wxapi.WXPayEntryActivity;
 
@@ -177,7 +175,8 @@ public class EditorOrderActivity extends BaseActivity1 implements BaseContract.V
                 }
                 if(param.proSite.equals("1")){
                     shopBuyWindow.setData("￥ "+totalPrice+"");
-                    shopBuyWindow.showPopView(navigationBar);
+//                    shopBuyWindow.showPopView(navigationBar);
+                    payPopWindow.showPopView(navigationBar);
                 }else {
                     param.addressId = adressId;
                     List<OrderData> datas = adapter.getDatas();
@@ -309,9 +308,20 @@ public class EditorOrderActivity extends BaseActivity1 implements BaseContract.V
 
     @Override
     public void initData() {
+        showPayType();
+    }
+    private PayPopWindow payPopWindow;
+
+    private void showPayType() {
+        payPopWindow = new PayPopWindow(this);
+        payPopWindow.setSureListener(new PayPopWindow.ClickListener() {
+            @Override
+            public void clickListener(int types) {
+                finish();
+            }
+        });
 
     }
-
     private String adressId;
     private String paypalId;
 
@@ -368,9 +378,10 @@ public class EditorOrderActivity extends BaseActivity1 implements BaseContract.V
         } else if (type == 8) {
             WEIXINREQ weixinreq = (WEIXINREQ) entity;
             if(weixinreq!=null){
-                Intent intent = new Intent(EditorOrderActivity.this, WXPayEntryActivity.class);
-                intent.putExtra("weixinreq", weixinreq);
-                startActivityForResult(intent, RQ_WEIXIN_PAY);
+                payPopWindow.showPopView(navigationBar);
+//                Intent intent = new Intent(EditorOrderActivity.this, WXPayEntryActivity.class);
+//                intent.putExtra("weixinreq", weixinreq);
+//                startActivityForResult(intent, RQ_WEIXIN_PAY);
             }else {
                 List<OrderData> datas = adapter.getDatas();
                 prosite=2;
@@ -393,10 +404,10 @@ public class EditorOrderActivity extends BaseActivity1 implements BaseContract.V
         }else if (type == 9) {
             String alisign = (String) entity;
             if(alisign!=null){
-                Intent intent = new Intent(this, ALiPayActivity.class);
-                intent.putExtra("signedstr",alisign);
-                startActivityForResult(intent, RQ_ALIPAY_PAY);
-
+//                Intent intent = new Intent(this, ALiPayActivity.class);
+//                intent.putExtra("signedstr",alisign);
+//                startActivityForResult(intent, RQ_ALIPAY_PAY);
+                payPopWindow.showPopView(navigationBar);
             }
 
         }else if (type == 16) {

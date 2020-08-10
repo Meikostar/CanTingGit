@@ -13,7 +13,7 @@ public class Hand extends BaseResponse{
 //          "direct_see_name": "002",  //房间名称
 //          "favorite_type": 2,  //1已关注  0黑名单 2未关注
 //   "create_time": 1534229617000, //送礼时间
-//           "integral": 5,  //礼物积分
+//           "integral": 5,  //礼物兑换值
 //           "gift_name": "",  //礼物名称
 //           "user_nick_name": "",  //送礼用户昵称
 //           "user_info_id": "urio1020226423073275904" //送礼用户id

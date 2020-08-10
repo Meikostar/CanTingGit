@@ -11,7 +11,7 @@ public class INTEGRALIST extends  BaseResponse{
 ////        "isPutaway": "1",
 //        "integralLogId": 1118,
 //                "userInfoId": "urio947064874574282752",
-//                "integralBh": 500,  //变化积分数
+//                "integralBh": 500,  //变化兑换值数
 //                "integralType": "2",  // 1表示增，2表示减
 //                "dexplain": null,
 //                "changeType": "转让",  //变化类型
@@ -24,13 +24,13 @@ public class INTEGRALIST extends  BaseResponse{
 //           "integral_state": "+3",   //提取数量
 //                   "create_time": 1541745934000,
 //                   "before_integral": 180,
-//                   "integral_type": 1,  //1聊天语音视频赠送积分  3直播收到礼物积分
+//                   "integral_type": 1,  //1聊天语音视频赠送兑换值  3直播收到礼物兑换值
 //                   "id": 654,
 //                   "later_integral": 183,
-//                   "integral_instruction": "视频聊天赠送积分",   //提取说明
+//                   "integral_instruction": "视频聊天赠送兑换值",   //提取说明
 //                   "user_info_id": "urio1052399283422101504",
-//                   "type": 1,         //积分消费收益类型  1消费  2收益
-//                   "integral_site": 1  //1聊天模块的积分  2直播模块积分
+//                   "type": 1,         //兑换值消费收益类型  1消费  2收益
+//                   "integral_site": 1  //1聊天模块的兑换值  2直播模块兑换值
 
     public String integral_state = "";
     public String integral_type = "";

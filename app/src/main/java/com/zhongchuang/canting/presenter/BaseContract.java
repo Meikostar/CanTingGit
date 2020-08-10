@@ -203,7 +203,7 @@ public class BaseContract {
         void getShopById(String mId);
 
         /**
-         * 获取用户的订单列表各个状态的数量和用户账户积分代币余额-接口
+         * 获取用户的订单列表各个状态的数量和用户账户兑换值代币余额-接口
          *
          * @param
          */

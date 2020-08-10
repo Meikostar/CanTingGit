@@ -83,7 +83,7 @@ public class ChangeRecordAdapter extends BaseAdapter {
         }
         INTEGRALIST integralist = foodlist.get(i);
         if(TextUtil.isNotEmpty(integralist.change_name)){
-            holder.tv_in1.setText(integralist.change_name+"换积分");
+            holder.tv_in1.setText(integralist.change_name+"换兑换值");
         }
 
 

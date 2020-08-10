@@ -7,7 +7,7 @@ package com.zhongchuang.canting.been;
 public class ProductDel extends BaseResponse{
 
 //     "sku_enable": true,
-//             "integral_price": 1000,                          //积分价
+//             "integral_price": 1000,                          //兑换值价
 //             "picture_url": "https://123456.jpg",            //商品缩略图
 //             "p_stock": 130,                                 //库存
 //             "picture_description_url": "https://123456.jpg,https://123456.jpg，https://123456.jpg，https://123456.jpg",        //商品详情说明图
