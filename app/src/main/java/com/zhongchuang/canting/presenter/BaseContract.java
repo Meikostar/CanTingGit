@@ -51,6 +51,7 @@ public class BaseContract {
          * @param type
          */
         void getHomeBanner(String type);
+        void getHomeBannerss(String type);
         /**
          * 获取轮播图片
          *

@@ -160,6 +160,26 @@ public class BasesPresenter implements BaseContract.Presenter {
         });
     }
     @Override
+    public void getHomeBannerss(String type) {
+        Map<String, String> params = new TreeMap<>();
+        params.put("imageSite", type);
+        params.put("bannerSite", 0 + "");
+        params.put("companyType", CanTingAppLication.CompanyType);
+        api.getBanner(params).enqueue(new BaseCallBack<Home>() {
+
+            @Override
+            public void onSuccess(Home userLoginBean) {
+                mView.toEntity(userLoginBean.data, 66);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                mView.showTomast(t);
+            }
+        });
+    }
+    @Override
     public void getHomeSpecie() {
         Map<String, String> params = new TreeMap<>();
         params.put("imageSite", "1");

@@ -34,7 +34,7 @@ public abstract class BaseCallBack<T extends BaseResponse> implements Callback<T
                     onOtherErr(808, "您还未登录，快去登录！");
                     break;
                 default:
-                    onOtherErr(t.getStatus(), t.getMessage());
+                    onSuccess(t);
                     break;
             }
         }

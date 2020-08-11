@@ -77,7 +77,11 @@ public class SelectCityActivity extends BaseAllActivity implements  BaseContract
         ButterKnife.bind(this);
         indexableLayout.setLayoutManager(new LinearLayoutManager(this));
         presenter = new BasesPresenter(this);
-
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            fromStr = bundle.getString("from");
+        }
+        initAdapter();
     }
 
     @Override
@@ -125,11 +129,7 @@ public class SelectCityActivity extends BaseAllActivity implements  BaseContract
 
     @Override
     public void initData() {
-        Bundle bundle = getIntent().getExtras();
-        if (bundle != null) {
-            fromStr = bundle.getString("from");
-        }
-        initAdapter();
+
         getHotCityList();
         getAllCityList();
     }
@@ -376,6 +376,7 @@ public class SelectCityActivity extends BaseAllActivity implements  BaseContract
             if (aList != null) {
                 allCityList.addAll(aList);
                 mAdapter.setDatas(initDatas());
+
             }
         } else {
             SmgBaseBean2 bean2 = (SmgBaseBean2) entity;

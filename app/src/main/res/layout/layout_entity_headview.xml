@@ -7,12 +7,19 @@
     <RelativeLayout
         android:id="@+id/rl_vp_container"
         android:layout_width="match_parent"
-        android:layout_height="222dp">
-
-        <ImageView
-            android:id="@+id/banner"
+        android:layout_height="208dp">
+        <com.zhongchuang.canting.widget.banner.BannerView
+            android:id="@+id/bannerView"
             android:layout_width="match_parent"
-            android:layout_height="222dp"/>
+            android:layout_height="208dp"
+            app:bannerAnimDuration="1500"
+            app:bannerAnimScroll="true"
+            app:bannerAutoScroll="true"
+            app:bannerPageAlpha="1.0"
+            app:bannerPageMargin="8dp"
+            app:bannerPagePercent="1"
+            app:bannerPageScale="1"
+            app:bannerScrollDuration="4000" />
     </RelativeLayout>
 
     <LinearLayout

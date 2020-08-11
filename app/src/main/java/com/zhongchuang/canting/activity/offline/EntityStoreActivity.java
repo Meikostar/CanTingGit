@@ -32,6 +32,7 @@ import com.malinskiy.superrecyclerview.OnMoreListener;
 import com.malinskiy.superrecyclerview.SuperRecyclerView;
 import com.youth.banner.loader.ImageLoader;
 import com.zhongchuang.canting.R;
+import com.zhongchuang.canting.adapter.BannerAdapters;
 import com.zhongchuang.canting.adapter.ClassifyOneAdapters;
 import com.zhongchuang.canting.adapter.FirstClassAdapter;
 import com.zhongchuang.canting.adapter.GoodsAttrAdapters;
@@ -42,11 +43,13 @@ import com.zhongchuang.canting.app.CanTingAppLication;
 import com.zhongchuang.canting.base.BaseAllActivity;
 import com.zhongchuang.canting.base.BroadcastManager;
 import com.zhongchuang.canting.been.AreaDto;
+import com.zhongchuang.canting.been.Banner;
 import com.zhongchuang.canting.been.BannerItemDto;
 import com.zhongchuang.canting.been.BaseDto;
 import com.zhongchuang.canting.been.ConfigDto;
 import com.zhongchuang.canting.been.FirstClassItem;
 import com.zhongchuang.canting.been.GoodsAttrDto;
+import com.zhongchuang.canting.been.Home;
 import com.zhongchuang.canting.been.Param;
 import com.zhongchuang.canting.been.Params;
 import com.zhongchuang.canting.been.RecommendListDto;
@@ -67,6 +70,7 @@ import com.zhongchuang.canting.utils.TextUtil;
 import com.zhongchuang.canting.utils.UIUtil;
 import com.zhongchuang.canting.widget.ClearEditText;
 import com.zhongchuang.canting.widget.HorizontalDividerItemDecoration;
+import com.zhongchuang.canting.widget.banner.BannerView;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -125,7 +129,9 @@ public class EntityStoreActivity extends BaseAllActivity implements View.OnClick
         ButterKnife.bind(this);
         initLevelsAllPopup();
         initeSxPopup();
+        initAdapter();
         presenter = new BasesPresenter(this);
+        presenter.getHomeBannerss("1");
     }
 
     @Override
@@ -246,7 +252,7 @@ public class EntityStoreActivity extends BaseAllActivity implements View.OnClick
 
     @Override
     public void initData() {
-        initAdapter();
+
         getTopBanner();
         getConfigs();
         getTagsList();
@@ -674,12 +680,7 @@ public class EntityStoreActivity extends BaseAllActivity implements View.OnClick
 
         super.onStop();
     }
-    private void startBanner(List<BannerItemDto> data) {
 
-        banner.setBackgroundColor(getResources().getColor(R.color.transparent));
-
-
-    }
 
     @Override
     public void onClick(View view) {
@@ -823,17 +824,21 @@ public class EntityStoreActivity extends BaseAllActivity implements View.OnClick
                 city_id=city_ids;
                 sitId=city_ids;
             }else {
-                getArea(sitId);
                 city_id=result.getData().id;
                 sitId = result.getData().getId();
+                getArea(sitId);
             }
 
             getShopList(TYPE_PULL_REFRESH);
 
+        }else if(type == 66){
+            Home home = (Home) entity;
+            banners = home.banner;
+            bannerAdapter.setData(banners);
         }
 
     }
-
+    private  List<Banner> banners;
     @Override
     public void toNextStep(int type) {
 
@@ -985,7 +990,7 @@ public class EntityStoreActivity extends BaseAllActivity implements View.OnClick
     private ClearEditText find;
     private  LinearLayout   store_ll_location;
     private  TextView       tv_location;
-    private  ImageView        banner;
+    private BannerView banner;
     private  RelativeLayout layout_all;
     private  RelativeLayout layout_all1;
     private  RelativeLayout layout_all2;
@@ -1006,7 +1011,7 @@ public class EntityStoreActivity extends BaseAllActivity implements View.OnClick
 
     private void initHeaderView() {
         View mHeaderView = View.inflate(this, R.layout.layout_entity_headview, null);
-        banner = mHeaderView.findViewById(R.id.banner);
+        banner = mHeaderView.findViewById(R.id.bannerView);
         store_layout_back = mHeaderView.findViewById(R.id.store_layout_back);
         find = mHeaderView.findViewById(R.id.find);
         store_ll_location = mHeaderView.findViewById(R.id.store_ll_location);
@@ -1019,8 +1024,10 @@ public class EntityStoreActivity extends BaseAllActivity implements View.OnClick
         tv_near = mHeaderView.findViewById(R.id.tv_near);
         iv_near = mHeaderView.findViewById(R.id.iv_near);
         mEntityStoreAdapter.addHeaderView(mHeaderView);
+        bannerAdapter = new BannerAdapters(this);
+        banner.setAdapter(bannerAdapter);
     }
-
+    private BannerAdapters bannerAdapter;
     private LinearLayoutManager layoutManager;
     private final int                            TYPE_PULL_REFRESH = 888;
     private final int                            TYPE_PULL_MORE    = 889;
