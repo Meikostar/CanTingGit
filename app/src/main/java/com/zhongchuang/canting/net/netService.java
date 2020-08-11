@@ -1,7 +1,9 @@
 package com.zhongchuang.canting.net;
 
 import com.zhongchuang.canting.been.AddressBase;
+import com.zhongchuang.canting.been.AllCityDto;
 import com.zhongchuang.canting.been.AppInfo;
+import com.zhongchuang.canting.been.AreaDto;
 import com.zhongchuang.canting.been.BEAN;
 import com.zhongchuang.canting.been.Banner;
 import com.zhongchuang.canting.been.BaseBe;
@@ -15,6 +17,7 @@ import com.zhongchuang.canting.been.Cares;
 import com.zhongchuang.canting.been.Catage;
 import com.zhongchuang.canting.been.CodeCheckBean;
 import com.zhongchuang.canting.been.Codes;
+import com.zhongchuang.canting.been.ConfigDto;
 import com.zhongchuang.canting.been.Favor;
 import com.zhongchuang.canting.been.FoodOrderBean;
 import com.zhongchuang.canting.been.FoodShopBean;
@@ -33,6 +36,7 @@ import com.zhongchuang.canting.been.Hand;
 import com.zhongchuang.canting.been.Hands;
 import com.zhongchuang.canting.been.Home;
 import com.zhongchuang.canting.been.Host;
+import com.zhongchuang.canting.been.HotCityDto;
 import com.zhongchuang.canting.been.INTEGRAL;
 import com.zhongchuang.canting.been.INTEGRALIST;
 import com.zhongchuang.canting.been.Ingegebean;
@@ -50,6 +54,7 @@ import com.zhongchuang.canting.been.ProductBuy;
 import com.zhongchuang.canting.been.ProductDel;
 import com.zhongchuang.canting.been.Profit;
 import com.zhongchuang.canting.been.QfriendBean;
+import com.zhongchuang.canting.been.RecommendListDto;
 import com.zhongchuang.canting.been.RedInfo;
 import com.zhongchuang.canting.been.SIGN;
 import com.zhongchuang.canting.been.ShopBean;
@@ -58,6 +63,14 @@ import com.zhongchuang.canting.been.ShopChildBean;
 import com.zhongchuang.canting.been.ShopFirstBean;
 import com.zhongchuang.canting.been.ShopHeaderBean;
 import com.zhongchuang.canting.been.ShopTypeBean;
+import com.zhongchuang.canting.been.SmgBaseBean1;
+import com.zhongchuang.canting.been.SmgBaseBean2;
+import com.zhongchuang.canting.been.SmgBaseBean3;
+import com.zhongchuang.canting.been.SmgBaseBean4;
+import com.zhongchuang.canting.been.SmgBaseBean5;
+import com.zhongchuang.canting.been.SmgBaseBean6;
+import com.zhongchuang.canting.been.SmgBaseBean7;
+import com.zhongchuang.canting.been.SmgParam;
 import com.zhongchuang.canting.been.Smgapply;
 import com.zhongchuang.canting.been.SureOrder;
 import com.zhongchuang.canting.been.TOKEN;
@@ -83,10 +96,12 @@ import com.zhongchuang.canting.been.videobean;
 import com.zhongchuang.canting.easeui.bean.GROUP;
 
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import internal.org.apache.http.entity.mime.content.ContentBody;
+import io.reactivex.Single;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -97,6 +112,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 import retrofit2.http.Streaming;
 import retrofit2.http.Url;
 
@@ -812,6 +828,45 @@ public interface netService {
     @GET("http://api.huifengshengwu.cn/api/user/getPoints")
     Call<BaseResponse> getPoints(@Query("phone") String phone);
 
+    /**
+     * 获取地区列表所有值
+     */
+    @GET("https://bbsc.2aa6.com/api/package/areas/all")
+    Call<SmgBaseBean1> getAllCityList();
+
+    /**
+     * 获取热门城市
+     */
+    @GET("https://bbsc.2aa6.com/api/package/areas/hot")
+    Call<SmgBaseBean2> getHotCityList();
+    /**
+     * 实体店铺-最下面列表
+     */
+    @GET("https://bbsc.2aa6.com/api/sellers")
+    Call<SmgBaseBean3> getShopList(@QueryMap HashMap<String, String> map);
+
+    @GET("https://bbsc.2aa6.com/api/indust")
+    Call<SmgBaseBean4> getInducts(@QueryMap Map<String, String> map);
+    /**
+     * wohahaha
+     */
+    @GET("https://bbsc.2aa6.com/api/configs")
+    Call<ConfigDto> getConfigs();
+
+    @GET("https://bbsc.2aa6.com/api/tags")
+    Call<SmgBaseBean5> getAllTags(@QueryMap Map<String, String> map);
+
+    /**
+     * 自动定位
+     */
+    @GET("https://bbsc.2aa6.com/api/package/areas/location")
+    Call<SmgBaseBean7> getLocation(@QueryMap HashMap<String, String> map);
+
+    /**
+     * 地区列表
+     */
+    @GET("https://bbsc.2aa6.com/api/package/areas")
+    Call<SmgBaseBean6> getArea(@QueryMap Map<String, String> map);
 
     @Headers({"Content-Type: application/json", "Accept: application/json"})
     @POST("http://api.huifengshengwu.cn/api/user/shoppingCut")

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/bj_12dp"
+        android:background="@color/my_color_EBEBEB"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/tv_item_select_commodity_key"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:text="key"
+        android:textColor="#959595"
+        android:textSize="13sp" />
+
+    <com.donkingliang.labels.LabelsView
+        android:id="@+id/tv_item_select_commodity_datas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="10dp"
+        app:labelBackground="@drawable/label_entity_bg"
+        app:labelTextColor="@drawable/label_text_entity_color"
+        app:labelTextPaddingBottom="7dp"
+        app:labelTextPaddingLeft="25dp"
+        app:labelTextPaddingRight="25dp"
+        app:labelTextPaddingTop="7dp"
+        app:labelTextSize="13sp"
+        app:lineMargin="10dp"
+        app:maxSelect="30"
+        app:wordMargin="10dp" />
+</LinearLayout>

@@ -1,5 +1,6 @@
 package com.zhongchuang.canting.allive.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
@@ -18,13 +19,26 @@ public class ScreenUtils {
      * @param mContext 上下文
      * @return 宽度值，px
      */
+    private static int screenW;
+    private static int screenH;
     public static int getWidth(Context mContext) {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         ((WindowManager) mContext.getApplicationContext().getSystemService(Context.WINDOW_SERVICE))
             .getDefaultDisplay().getMetrics(displayMetrics);
         return displayMetrics.widthPixels;
     }
-
+    public static int getScreenW(Activity mActivity){
+        if (screenW == 0){
+            initScreen(mActivity);
+        }
+        return screenW;
+    }
+    private static void initScreen(Activity mActivity){
+        DisplayMetrics metric = new DisplayMetrics();
+        mActivity.getWindowManager().getDefaultDisplay().getMetrics(metric);
+        screenW = metric.widthPixels;
+        screenH = metric.heightPixels;
+    }
     /**
      * 获取高度
      *

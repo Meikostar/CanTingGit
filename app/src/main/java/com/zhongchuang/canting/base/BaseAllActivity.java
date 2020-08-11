@@ -1,5 +1,6 @@
 package com.zhongchuang.canting.base;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -21,8 +22,8 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 
+import com.jakewharton.rxbinding2.view.RxView;
 import com.zhongchuang.canting.R;
-import com.zhongchuang.canting.activity.HomeActivity;
 import com.zhongchuang.canting.activity.HomeActivitys;
 import com.zhongchuang.canting.app.CanTingAppLication;
 import com.zhongchuang.canting.permission.PermissionGen;
@@ -32,8 +33,13 @@ import com.zhongchuang.canting.widget.NavigationBar;
 import com.zhongchuang.canting.widget.RxBus;
 
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
+
+import io.reactivex.Observable;
+import io.reactivex.functions.Action;
 import rx.Subscription;
+
 
 /**
  * @Title:基础Activity类
@@ -92,8 +98,54 @@ public abstract class BaseAllActivity extends AppCompatActivity implements Handl
 
         }
 
+    }
 
+    /**
+     * 跳转activity
+     *
+     * @param clz
+     */
+    protected void gotoActivity(Class<?> clz) {
+        gotoActivity(clz, false, null);
+    }
 
+    public void gotoActivity(Class<?> clz, boolean isCloseCurrentActivity) {
+        gotoActivity(clz, isCloseCurrentActivity, null);
+    }
+
+    public void gotoActivity(Class<?> clz, boolean isCloseCurrentActivity, Bundle bundle) {
+        Intent intent = new Intent(this, clz);
+        if (bundle != null) {
+            intent.putExtras(bundle);
+        }
+        startActivity(intent);
+        if (isCloseCurrentActivity)
+            finish();
+    }
+
+    public void gotoActivity(Class<?> clz, boolean isCloseCurrentActivity, Bundle bundle, int requestCode) {
+        Intent intent = new Intent(this, clz);
+        if (bundle != null) {
+            intent.putExtras(bundle);
+        }
+        startActivityForResult(intent, requestCode);
+        if (isCloseCurrentActivity)
+            finish();
+    }
+    /**
+     * 基本点击事件跳转默认节流1000毫秒
+     *
+     * @param view   绑定的view
+     * @param action 跳转的Acticvity
+     */
+    protected void bindClickEvent(View view, final Action action) {
+        bindClickEvent(view, action, 1000);
+    }
+
+    @SuppressLint("CheckResult")
+    protected void bindClickEvent(View view, final Action action, long frequency) {
+        Observable<Object> observable = RxView.clicks(view);
+        observable.throttleFirst(frequency, TimeUnit.MILLISECONDS).subscribe(trigger -> action.run());
     }
     /**
      * 刷新语言

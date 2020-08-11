@@ -34,6 +34,7 @@ public class SpUtil {
     public static String getAddress(Context context){
         return getString(context,"adress","");
     }
+
     public static String getUrl(Context context){
         return getString(context,"idCardFrontImg","");
     }

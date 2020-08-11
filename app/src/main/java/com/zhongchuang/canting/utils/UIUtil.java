@@ -2,6 +2,7 @@ package com.zhongchuang.canting.utils;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.PixelFormat;
@@ -16,6 +17,8 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
+import com.zhongchuang.canting.app.CanTingAppLication;
+
 
 /**
  *    UI大小转换类
@@ -27,8 +30,25 @@ public class UIUtil {
         return (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
                 dp, context.getResources().getDisplayMetrics()) + 0.5F);
     }
-
-
+    public static Context getContext() {
+        return CanTingAppLication.getInstance();
+    }
+    /**
+     * 获取资源对象
+     */
+    public static Resources getResources() {
+        return getContext().getResources();
+    }
+    /**
+     * dp -> px
+     *
+     * @param dp
+     * @return
+     */
+    public static int dp2px(float dp) {
+        float density = getResources().getDisplayMetrics().density;
+        return (int) (dp * density + 0.5f);
+    }
     public static View infalte(Context context, @LayoutRes int layoutId, ViewGroup parent) {
         return LayoutInflater.from(context).inflate(layoutId, parent, false);
 

@@ -16,7 +16,7 @@ import com.aliyun.common.httpfinal.QupaiHttpFinal;
 import com.google.gson.Gson;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMOptions;
-import com.zhongchuang.canting.BuildConfig;
+
 import com.zhongchuang.canting.allive.downloader.DownloaderManager;
 import com.zhongchuang.canting.been.Contury;
 import com.zhongchuang.canting.been.INTEGRAL;
@@ -71,6 +71,9 @@ public class CanTingAppLication extends Application {
     public static String mobileNumber;
     public static String invitation_code;
     public static String video_path;
+    public static String city_id;
+    public static String city_ids;
+    public static String city_name;
     public static INTEGRAL integral;
     public Handler mHandler = new Handler();
     public static Map<String ,String > list=new Hashtable<>();

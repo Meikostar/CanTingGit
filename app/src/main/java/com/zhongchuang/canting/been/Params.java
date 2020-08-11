@@ -15,7 +15,12 @@ public class Params implements Serializable{
     public String transactionId;
     public String id;
 
-
+    public List<String> shop_category;
+    public List<String> shop_platform;
+    public Params       children;
+    public String title;
+    public String parent_id;
+    public List<Params> data;
 
 
 

@@ -7,7 +7,9 @@ import com.zhongchuang.canting.been.Params;
 import com.zhongchuang.canting.been.UserInfoBean;
 import com.zhongchuang.canting.been.pay.WpParam;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class BaseContract {
     public interface View extends BaseView {
@@ -37,6 +39,7 @@ public class BaseContract {
         void redGrab(String redEnvelopeId	,String sendType);
         void getChatRoomInfo(final String userId);
         void getAppInfo();
+        void getShopList(HashMap<String, String> map);
         /**
          * 查看领取详情接口
          * @param redEnvelopeId
@@ -54,7 +57,11 @@ public class BaseContract {
          * @param type
          */
         void getHomeBanners(String type);
-
+        void getConfigs();
+        void getInducts(Map<String, String> map);
+        void getAllTags(HashMap<String, String> map);
+        void getArea(HashMap<String, String> map);
+        void getLocation(HashMap<String, String> map);
         /**
          * 获取商品列表
          *
@@ -189,6 +196,8 @@ public class BaseContract {
 
         void shoppingGive(WpParam proList);
         void getPoints(String proList);
+        void getHotCityList();
+        void getAllCityList();
         void shoppingCut(WpParam proList);
 
         void updateJewelIntegral(String jewelIntegral);

@@ -12,6 +12,7 @@ import com.zhongchuang.canting.been.Care;
 import com.zhongchuang.canting.been.Cares;
 import com.zhongchuang.canting.been.Catage;
 import com.zhongchuang.canting.been.Codes;
+import com.zhongchuang.canting.been.ConfigDto;
 import com.zhongchuang.canting.been.Favor;
 import com.zhongchuang.canting.been.FriendInfo;
 import com.zhongchuang.canting.been.FriendListBean;
@@ -35,8 +36,17 @@ import com.zhongchuang.canting.been.ProductBuy;
 import com.zhongchuang.canting.been.ProductDel;
 import com.zhongchuang.canting.been.Profit;
 import com.zhongchuang.canting.been.QfriendBean;
+import com.zhongchuang.canting.been.RecommendListDto;
 import com.zhongchuang.canting.been.RedInfo;
 import com.zhongchuang.canting.been.ShopBean;
+import com.zhongchuang.canting.been.SmgBaseBean1;
+import com.zhongchuang.canting.been.SmgBaseBean2;
+import com.zhongchuang.canting.been.SmgBaseBean3;
+import com.zhongchuang.canting.been.SmgBaseBean4;
+import com.zhongchuang.canting.been.SmgBaseBean5;
+import com.zhongchuang.canting.been.SmgBaseBean6;
+import com.zhongchuang.canting.been.SmgBaseBean7;
+import com.zhongchuang.canting.been.SmgParam;
 import com.zhongchuang.canting.been.Smgapply;
 import com.zhongchuang.canting.been.UserInfoBean;
 import com.zhongchuang.canting.been.Version;
@@ -1591,6 +1601,7 @@ public class BasesPresenter implements BaseContract.Presenter {
             }
         });
     }
+
     @Override
     public void getPoints(String phone) {
 
@@ -1608,6 +1619,147 @@ public class BasesPresenter implements BaseContract.Presenter {
             }
         });
     }
+    @Override
+    public void getAllCityList() {
+
+        api.getAllCityList().enqueue(new BaseCallBack<SmgBaseBean1>() {
+
+            @Override
+            public void onSuccess(SmgBaseBean1 userLoginBean) {
+                mView.toEntity(userLoginBean, 1);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                mView.showTomast(t);
+            }
+        });
+    }
+    @Override
+    public void getHotCityList() {
+
+        api.getHotCityList().enqueue(new BaseCallBack<SmgBaseBean2>() {
+
+            @Override
+            public void onSuccess(SmgBaseBean2 userLoginBean) {
+                mView.toEntity(userLoginBean, 2);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                mView.showTomast(t);
+            }
+        });
+    }
+    @Override
+    public void getConfigs() {
+
+        api.getConfigs().enqueue(new BaseCallBack<ConfigDto>() {
+
+            @Override
+            public void onSuccess(ConfigDto userLoginBean) {
+                mView.toEntity(userLoginBean, 6);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                mView.showTomast(t);
+            }
+        });
+    }
+
+    @Override
+    public void getShopList(HashMap<String, String> map) {
+
+        api.getShopList(map).enqueue(new BaseCallBack<SmgBaseBean3>() {
+
+            @Override
+            public void onSuccess(SmgBaseBean3 userLoginBean) {
+                mView.toEntity(userLoginBean, 2);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                mView.showTomast(t);
+            }
+        });
+    }
+    @Override
+    public void getInducts(Map<String, String> map) {
+
+        api.getInducts(map).enqueue(new BaseCallBack<SmgBaseBean4>() {
+
+            @Override
+            public void onSuccess(SmgBaseBean4 userLoginBean) {
+                mView.toEntity(userLoginBean, 9);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                mView.showTomast(t);
+            }
+        });
+    }
+
+    @Override
+    public void getAllTags(HashMap<String, String> map) {
+
+        api.getAllTags(map).enqueue(new BaseCallBack<SmgBaseBean5>() {
+
+            @Override
+            public void onSuccess(SmgBaseBean5 userLoginBean) {
+                mView.toEntity(userLoginBean, 8);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                mView.showTomast(t);
+            }
+        });
+    }
+    @Override
+    public void getLocation(HashMap<String, String> map) {
+
+        api.getLocation(map).enqueue(new BaseCallBack<SmgBaseBean7>() {
+
+            @Override
+            public void onSuccess(SmgBaseBean7 userLoginBean) {
+                mView.toEntity(userLoginBean, 18);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                mView.showTomast(t);
+            }
+        });
+    }
+
+    @Override
+    public void getArea(HashMap<String, String> map) {
+
+        api.getArea(map).enqueue(new BaseCallBack<SmgBaseBean6>() {
+
+            @Override
+            public void onSuccess(SmgBaseBean6 userLoginBean) {
+                mView.toEntity(userLoginBean, 12);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                mView.showTomast(t);
+            }
+        });
+    }
+
+
     @Override
     public void shoppingCut(WpParam proList) {
 

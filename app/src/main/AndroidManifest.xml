@@ -126,6 +126,12 @@
             android:name=".activity.chat.AddGroupActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
+
+        <activity
+            android:name=".activity.offline.SelectCityActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+
         <activity
             android:name=".activity.chat.SeachFriendActivity"
             android:screenOrientation="portrait"
@@ -304,6 +310,11 @@
             android:name=".activity.mall.ShopMallActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.offline.EntityStoreActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+
         <activity
             android:name=".activity.mine.WpChargeActivity"
             android:screenOrientation="portrait"

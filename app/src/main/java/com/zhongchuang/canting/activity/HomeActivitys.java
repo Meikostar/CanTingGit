@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -96,6 +97,7 @@ import com.zhongchuang.canting.been.Ingegebean;
 import com.zhongchuang.canting.been.Product;
 import com.zhongchuang.canting.been.ProvinceModel;
 import com.zhongchuang.canting.been.ShareBean;
+import com.zhongchuang.canting.been.SmgBaseBean7;
 import com.zhongchuang.canting.been.SubscriptionBean;
 import com.zhongchuang.canting.been.Version;
 import com.zhongchuang.canting.been.VideoData;
@@ -119,6 +121,7 @@ import com.zhongchuang.canting.presenter.BasesPresenter;
 import com.zhongchuang.canting.presenter.LiveStreamPresenter;
 import com.zhongchuang.canting.utils.BadgeUtil;
 import com.zhongchuang.canting.utils.HxMessageUtils;
+import com.zhongchuang.canting.utils.LocationUtils;
 import com.zhongchuang.canting.utils.ShareUtils;
 import com.zhongchuang.canting.utils.SpUtil;
 import com.zhongchuang.canting.utils.StringUtil;
@@ -220,7 +223,7 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
         presenter = new BasesPresenter(this);
-
+        Location location = LocationUtils.getInstance(this).showLocation();
         PermissionGen.with(HomeActivitys.this)
                 .addRequestCode(PermissionConst.REQUECT_CODE_CAMERA)
                 .permissions(Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -1620,6 +1623,24 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
 
         }else if (type == 111) {
 
+        }else if(type == 18){
+            SmgBaseBean7 result = (SmgBaseBean7) entity;
+            if (result != null) {
+                CanTingAppLication.city_ids = result.getData().id;
+                String city_name = SpUtil.getString(this,"city_name","");
+                if(TextUtil.isNotEmpty(city_name)){
+
+                }else {
+                    SpUtil.putString(this,"city_id",result.getData().id);
+                    SpUtil.putString(this,"city_name",result.getData().getName());
+                    if (result.getData() != null) {
+                        String cityName = result.getData().getName();
+
+                    }
+                }
+
+            }
+            LocationUtils.getInstance(this).removeLocationUpdatesListener();
         } else    if (type == 19) {
             Ingegebean    bean = (Ingegebean) entity;
             if(bean==null){

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+    <com.malinskiy.superrecyclerview.SuperRecyclerView
+        android:layout_below="@+id/ll_bg"
+        android:background="@color/content_bg"
+        android:id="@+id/super_recycle_view"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        app:mainLayoutId="@layout/layout_recyclerview_verticalscroll"
+        app:layout_moreProgress="@layout/view_more_progress"
+        app:recyclerClipToPadding="true"
+        app:scrollbarStyle="outsideOverlay" />
+    <View
+
+        android:id="@+id/store_div_line_three"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="@dimen/bj_10dp"
+        android:layout_marginRight="@dimen/bj_10dp"/>
+
+
+</RelativeLayout>

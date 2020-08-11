@@ -21,9 +21,12 @@
     <color name="alivc_white">#e7e7e7</color>
     <color name="alivc_blue">#379DF2</color>
     <color name="alivc_green">#57AB44</color>
+    <color name="my_color_212121">#212121</color>
+    <color name="my_color_blue">#01A5F1</color>
+    <color name="my_color_zs">#01A5F1</color>
     <color name="alivc_orange">#EE7C33</color>
     <color name="alivc_red">#2d3342</color>
-
+    <color name="my_color_EBEBEB">#EBEBEB</color>
     <color name="alivc_info_text_duration">#9f9e9e</color>
     <color name="alivc_dialog_error_bg">#b2000000</color>
     <color name="alivc_dialog_gesture_bg">#66ffffff</color>
@@ -107,12 +110,12 @@
 
     <color name="action_bar_bg">#232A42</color>
     <color name="white">#FFFFFF</color>
-
+    <color name="my_color_f1f1f1">#f1f1f1</color>
     <color name="compose_edit_text">#bcbec5</color>
-
+    <color name="my_color_d60029">#D60029</color>
     <color name="defalut_primary_color">#ff5454</color>
     <color name="defalut_primary_color_alpha30">#4dff5454</color>
-
+    <color name="my_color_line">#e0e0e0</color>
     <color name="tab_bg_color">#1B2133</color>
     <color name="tab_bg_color_50pct">#7f1B2133</color>
     <color name="tab_indicator_color">#EF4B81</color>
@@ -424,6 +427,7 @@
     <color name="color2">#222</color>
     <color name="color57">#576b9c</color>
     <color name="background">#f0f0f0</color>
+    <color name="my_color_black">#000000</color>
     <color name="bg_tools_panel">#2F2F2F</color>
     <color name="divider">#E5E5E5</color>
     <color name="color_primary_e3">#e3e3e3</color>

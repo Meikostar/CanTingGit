@@ -25,7 +25,7 @@ import java.io.File;
  */
 public class Constants {
     public static final String BD_EXIT_APP = "bd_sxb_exit";
-
+    public final static int PAGE_SIZE = 16;
     public static final String USER_INFO = "user_info";
 
     public static final String USER_ID = "user_id";
@@ -46,6 +46,9 @@ public class Constants {
     public static final String LOG_LEVEL = "log_level";
     public static final String BEAUTY_TYPE = "beauty_type";
     public static final String VIDEO_QULITY = "video_qulity";
+
+    public static final String CHOICE_CITY = "choice_city";
+    public static final String CHOICE_CITYS = "choice_citys";
 
     public static final int LOCATION_PERMISSION_REQ_CODE = 1;
     public static final int TEXT_TYPE = 0;
