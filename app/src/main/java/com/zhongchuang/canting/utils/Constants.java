@@ -50,6 +50,13 @@ public class Constants {
     public static final String CHOICE_CITY = "choice_city";
     public static final String CHOICE_CITYS = "choice_citys";
 
+    public static final int INTENT_REQUESTCODE_VERIFIED_IMG0 = 40;
+    public static final int INTENT_REQUESTCODE_VERIFIED_IMG1 = 50;
+    public static final int INTENT_REQUESTCODE_VERIFIED_IMG2 = 60;
+    public static final int INTENT_REQUESTCODE_VERIFIED_IMG3 = 70;
+    public static final int INTENT_REQUESTCODE_VERIFIED_IMG4 = 80;
+    public static final int INTENT_REQUESTCODE_VERIFIED_IMG5 = 90;
+    public static final int INTENT_REQUESTCODE_VERIFIED_IMG6 = 100;
     public static final int LOCATION_PERMISSION_REQ_CODE = 1;
     public static final int TEXT_TYPE = 0;
     public static final int SDK_APPID = 1400027849;

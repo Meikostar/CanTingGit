@@ -21,6 +21,7 @@
     <color name="white_trans90">#e6ffffff</color>
     <!-- 白色:90 -->
     <color name="white">#FFFFFF</color>
+    <color name="my_color_333333">#333333</color>
     <!-- 白色 -->
     <color name="black_trans10">#1a000000</color>
     <!-- 黑色: 10 -->

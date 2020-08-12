@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/bj_24dp">
+
+    <include layout="@layout/layout_title_view" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="#f8f8f8"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:background="@drawable/shape_white_5"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:id="@+id/rl_xx"
+            android:layout_width="match_parent"
+            android:layout_height="96dp"
+            android:paddingLeft="@dimen/bj_15dp"
+            android:paddingTop="@dimen/bj_10dp"
+            android:paddingRight="@dimen/bj_15dp"
+            android:paddingBottom="@dimen/bj_10dp">
+            <TextView
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="线下店铺入驻"
+                android:textColor="#ff333333"
+                android:textSize="18sp"
+                />
+
+            <LinearLayout
+                android:layout_marginTop="52dp"
+                android:layout_marginLeft="4dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="点击进入" />
+
+                <ImageView
+                    android:layout_marginLeft="8dp"
+                    android:layout_width="11dp"
+                    android:layout_height="10dp"
+                    android:src="@drawable/arrow_double" />
+            </LinearLayout>
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:background="@drawable/shape_white_5"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:id="@+id/rl_gr"
+            android:layout_width="match_parent"
+            android:layout_height="96dp"
+            android:paddingLeft="@dimen/bj_15dp"
+            android:paddingTop="@dimen/bj_10dp"
+            android:paddingRight="@dimen/bj_15dp"
+            android:paddingBottom="@dimen/bj_10dp">
+            <TextView
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="个人申请"
+                android:textColor="#ff333333"
+                android:textSize="18sp"
+                />
+
+            <LinearLayout
+                android:layout_marginTop="52dp"
+                android:layout_marginLeft="4dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="点击进入" />
+
+                <ImageView
+                    android:layout_marginLeft="8dp"
+                    android:layout_width="11dp"
+                    android:layout_height="10dp"
+                    android:src="@drawable/arrow_double" />
+            </LinearLayout>
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:background="@drawable/shape_white_5"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:id="@+id/rl_qy"
+            android:layout_width="match_parent"
+            android:layout_height="96dp"
+            android:paddingLeft="@dimen/bj_15dp"
+            android:paddingTop="@dimen/bj_10dp"
+            android:paddingRight="@dimen/bj_15dp"
+            android:paddingBottom="@dimen/bj_10dp">
+            <TextView
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="企业申请"
+                android:textColor="#ff333333"
+                android:textSize="18sp"
+                />
+
+            <LinearLayout
+                android:layout_marginTop="52dp"
+                android:layout_marginLeft="4dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="点击进入" />
+
+                <ImageView
+                    android:layout_marginLeft="8dp"
+                    android:layout_width="11dp"
+                    android:layout_height="10dp"
+                    android:src="@drawable/arrow_double" />
+            </LinearLayout>
+
+        </RelativeLayout>
+    </LinearLayout>
+
+
+
+</LinearLayout>

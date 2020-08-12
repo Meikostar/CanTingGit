@@ -420,11 +420,11 @@
     <color name="colorSendName7">#FF437D</color>
     <color name="color9">#999999</color>
     <color name="color10">#CED1D9</color>
-    <color name="color8">#888</color>
-    <color name="color6">#666</color>
-    <color name="color5">#555</color>
-    <color name="color3">#333</color>
-    <color name="color2">#222</color>
+    <color name="color8">#888888</color>
+    <color name="color6">#666666</color>
+    <color name="color5">#555555</color>
+    <color name="color3">#333333</color>
+    <color name="color2">#222222</color>
     <color name="color57">#576b9c</color>
     <color name="background">#f0f0f0</color>
     <color name="my_color_black">#000000</color>
