@@ -1292,7 +1292,6 @@ public class EditorPersonDetailActivity extends BaseActivity1 implements BaseCon
 
     }
 
-
     public void getPhotos() {
         Picker.from(this)
                 .count(count - img_path.size())

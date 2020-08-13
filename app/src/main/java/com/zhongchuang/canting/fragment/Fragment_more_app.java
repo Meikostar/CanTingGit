@@ -25,6 +25,7 @@ import com.zhongchuang.canting.activity.mall.EditorOrderActivity;
 import com.zhongchuang.canting.activity.mall.ShopCompsiteMallActivity;
 import com.zhongchuang.canting.activity.mall.ShopMallActivity;
 import com.zhongchuang.canting.activity.offline.EntityStoreActivity;
+import com.zhongchuang.canting.activity.offline.StoreDetailActivity;
 import com.zhongchuang.canting.activity.pay.ALiPayActivity;
 import com.zhongchuang.canting.activity.shop.AppStoreActivity;
 import com.zhongchuang.canting.adapter.HomeItemdapter;
@@ -107,9 +108,12 @@ public class Fragment_more_app extends BaseFragment implements BaseContract.View
 //                        Intent intentsss = new Intent(HomeActivitys.this, FaceCreatActivity.class);
 
 
-                            Intent intent = new Intent(getActivity(), ShopMallActivity.class);
-                            intent.putExtra("type", 1);
+//                            Intent intent = new Intent(getActivity(), ShopMallActivity.class);
+//                            intent.putExtra("type", 1);
+//                            startActivity(intent);
+                            Intent intent = new Intent(getActivity(), StoreDetailActivity.class);
                             startActivity(intent);
+
                             break;
                         case 2://乐聊
                             Intent etintent = new Intent(getActivity(), EntityStoreActivity.class);

@@ -23,16 +23,21 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.activity.mine.EditorPersonDetailActivity;
 import com.zhongchuang.canting.activity.mine.clip.ClipActivity;
 import com.zhongchuang.canting.base.BaseActivity1;
+import com.zhongchuang.canting.base.BaseAllActivity;
 import com.zhongchuang.canting.been.AreaDto;
+import com.zhongchuang.canting.been.Banner;
+import com.zhongchuang.canting.been.Home;
 import com.zhongchuang.canting.been.OfflineBean;
 import com.zhongchuang.canting.been.TOKEN;
 import com.zhongchuang.canting.been.UploadFileBean;
 import com.zhongchuang.canting.been.UserInfo;
+import com.zhongchuang.canting.easeui.ui.EaseBaiduMapActivity;
 import com.zhongchuang.canting.net.HXRequestService;
 import com.zhongchuang.canting.net.netService;
 import com.zhongchuang.canting.permission.PermissionConst;
@@ -45,8 +50,10 @@ import com.zhongchuang.canting.utils.Constants;
 import com.zhongchuang.canting.utils.PhotoUtils;
 import com.zhongchuang.canting.utils.QiniuUtils;
 import com.zhongchuang.canting.utils.SpUtil;
+import com.zhongchuang.canting.utils.StringUtil;
 import com.zhongchuang.canting.utils.TextUtil;
 import com.zhongchuang.canting.utils.ToastUtil;
+import com.zhongchuang.canting.utils.location.LocationUtil;
 import com.zhongchuang.canting.widget.ImageUploadView;
 import com.zhongchuang.canting.widget.PhotoPopupWindow;
 import com.zhongchuang.canting.widget.TimeSelectorDialog;
@@ -70,7 +77,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class EnterpireOfflineRequireActivity extends BaseActivity1  implements BaseContract.View {
+public class EnterpireOfflineRequireActivity extends BaseActivity1 implements BaseContract.View {
 
     @BindView(R.id.iv_title_back)
     ImageView      ivTitleBack;
@@ -109,13 +116,16 @@ public class EnterpireOfflineRequireActivity extends BaseActivity1  implements B
     TextView       tvType;
     @BindView(R.id.tv_time)
     TextView       tv_time;
-
+    @BindView(R.id.tv_location)
+    TextView       tv_location;
     @BindView(R.id.line)
     View           line;
     @BindView(R.id.ll_choose)
     LinearLayout   ll_choose;
     @BindView(R.id.ll_time)
     LinearLayout   ll_time;
+    @BindView(R.id.ll_location)
+    LinearLayout   ll_location;
 
     @BindView(R.id.iv_add_photo)
     ImageView ivAddPhoto;
@@ -131,9 +141,12 @@ public class EnterpireOfflineRequireActivity extends BaseActivity1  implements B
     public void initViews() {
         setContentView(R.layout.activity_enterprise_offline);
         ButterKnife.bind(this);
-        tvTitleText.setText("企业申请");
+        tvTitleText.setText("线下店铺申请入驻");
         presenter = new BasesPresenter(this);
+        presenter.getHomeBanner("1");
+        getUpToken();
         bean = new OfflineBean();
+        dto =new ArrayList<>();
     }
     private OfflineBean bean;
     private String token;
@@ -157,10 +170,9 @@ public class EnterpireOfflineRequireActivity extends BaseActivity1  implements B
 
         }
     });
-    private Gson mGson;
+
     private String url;
     private int i = 1;
-    private int states = 0;
     public void getUpImgSuccdess(String info) {
         if (img_path.size() > i) {
             if (i == 1) {
@@ -204,21 +216,32 @@ public class EnterpireOfflineRequireActivity extends BaseActivity1  implements B
                       switch (code){
                           case Constants.INTENT_REQUESTCODE_VERIFIED_IMG0 :
                               bean.head_image = QiniuUtils.baseurl+urls;
+                              Glide.with(EnterpireOfflineRequireActivity.this).load(StringUtil.changeUrl( bean.head_image)).asBitmap().placeholder(R.drawable.moren).into(ivlogo);
                               break;
                           case Constants.INTENT_REQUESTCODE_VERIFIED_IMG1 :
-                              bean.business_license = QiniuUtils.baseurl+urls;
+                              bean.business_url = QiniuUtils.baseurl+urls;
+                              Glide.with(EnterpireOfflineRequireActivity.this).load(StringUtil.changeUrl( bean.business_url)).asBitmap().placeholder(R.drawable.moren3).into(ivImg11);
+
                               break;
                           case Constants.INTENT_REQUESTCODE_VERIFIED_IMG2 :
                               bean.front_id_card = QiniuUtils.baseurl+urls;
+                              Glide.with(EnterpireOfflineRequireActivity.this).load(StringUtil.changeUrl( bean.front_id_card)).asBitmap().placeholder(R.drawable.moren3).into(ivImg22);
+
                               break;
                           case Constants.INTENT_REQUESTCODE_VERIFIED_IMG3 :
-                              bean.reverse_id_card = QiniuUtils.baseurl+urls;
+                              bean.negative_id_card = QiniuUtils.baseurl+urls;
+                              Glide.with(EnterpireOfflineRequireActivity.this).load(StringUtil.changeUrl( bean.negative_id_card)).asBitmap().placeholder(R.drawable.moren3).into(ivImg33);
+
                               break;
                           case Constants.INTENT_REQUESTCODE_VERIFIED_IMG4 :
                               bean.license_img = QiniuUtils.baseurl+urls;
+                              Glide.with(EnterpireOfflineRequireActivity.this).load(StringUtil.changeUrl( bean.license_img)).asBitmap().placeholder(R.drawable.moren3).into(ivImg44);
+
                               break;
                           case Constants.INTENT_REQUESTCODE_VERIFIED_IMG5 :
                               bean.brand_img = QiniuUtils.baseurl+urls;
+                              Glide.with(EnterpireOfflineRequireActivity.this).load(StringUtil.changeUrl( bean.brand_img)).asBitmap().placeholder(R.drawable.moren3).into(ivImg55);
+
                               break;
                       }
 
@@ -314,6 +337,17 @@ public class EnterpireOfflineRequireActivity extends BaseActivity1  implements B
                 showDailog(1);
             }
         });
+        ll_location.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EnterpireOfflineRequireActivity.this, EaseBaiduMapActivity.class);
+                intent.putExtra("latitude", LocationUtil.latitude);
+                intent.putExtra("longitude", LocationUtil.latitude);
+                intent.putExtra("address", LocationUtil.city);
+                intent.putExtra("state",1);
+                startActivityForResult(intent,999);
+            }
+        });
 
         ivAddPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -359,11 +393,7 @@ public class EnterpireOfflineRequireActivity extends BaseActivity1  implements B
             }
         });
         mWindowAddPhoto = new PhotoPopupWindow(this).bindView(view);
-        if (count == 3 || count == 1) {
-            mWindowAddPhoto.showAtLocation(ivAddPhoto, Gravity.BOTTOM, 0, 0);
-        } else {
-            mWindowAddPhoto.showAtLocation(this.findViewById(R.id.ll_bottom_button), Gravity.BOTTOM, 0, 0);
-        }
+        mWindowAddPhoto.showAtLocation(ivAddPhoto, Gravity.BOTTOM, 0, 0);
 
 
     }
@@ -552,18 +582,13 @@ public class EnterpireOfflineRequireActivity extends BaseActivity1  implements B
     private int upload_position;
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        int output_X = 180, output_Y = 180;
+        int output_X = 360, output_Y = 360;
+        int output_X1 = 320, output_Y1 = 180;
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 //上传照片
                 case 66:
                     urs.clear();
-//                    List<String> imgs = data.getStringArrayListExtra(ImageSelectActivity.EXTRA_RESULT_SELECTION);
-//                    urs.addAll(imgs);
-//                    Intent intent = new Intent(EnterpireOfflineRequireActivity.this, ClipActivity.class);
-//                    intent.putExtra("data", urs);
-//                    startActivityForResult(intent, CLIP_PHOTO);
-//                    upload_position = 0;
                     List<String> imgs = data.getStringArrayListExtra(ImageSelectActivity.EXTRA_RESULT_SELECTION);
                     piuvRemarkImage.setVisibility(View.VISIBLE);
                     for (String imgPath : imgs) {
@@ -612,7 +637,13 @@ public class EnterpireOfflineRequireActivity extends BaseActivity1  implements B
                     break;
                 case CODE_CAMERA_REQUEST://拍照完成回调
                     cropImageUri = Uri.fromFile(fileCropUri);
-                    PhotoUtils.cropImageUri(this, imageUri, cropImageUri, 1, 1, output_X, output_Y, CODE_RESULT_REQUEST);
+                    if (code == Constants.INTENT_REQUESTCODE_VERIFIED_IMG0) {
+                        PhotoUtils.cropImageUri(this, imageUri, cropImageUri, 1, 1, output_X, output_Y, CODE_RESULT_REQUEST);
+
+                    }else {
+                        PhotoUtils.cropImageUri(this, imageUri, cropImageUri, 16, 9, output_X1, output_Y1, CODE_RESULT_REQUEST);
+
+                    }
                     break;
                 case CODE_GALLERY_REQUEST://访问相册完成回调
                     if (hasSdcard()) {
@@ -620,7 +651,13 @@ public class EnterpireOfflineRequireActivity extends BaseActivity1  implements B
                         Uri newUri = Uri.parse(PhotoUtils.getPath(this, data.getData()));
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
                             newUri = FileProvider.getUriForFile(this, "com.zhongchuang.canting.provider", new File(newUri.getPath()));
-                        PhotoUtils.cropImageUri(this, newUri, cropImageUri, 1, 1, output_X, output_Y, CODE_RESULT_REQUEST);
+                        if (code == Constants.INTENT_REQUESTCODE_VERIFIED_IMG0) {
+                            PhotoUtils.cropImageUri(this, newUri, cropImageUri, 1, 1, output_X, output_Y, CODE_RESULT_REQUEST);
+
+                        }else {
+                            PhotoUtils.cropImageUri(this, newUri, cropImageUri, 16, 9, output_X1, output_Y1, CODE_RESULT_REQUEST);
+
+                        }
                     } else {
                         Toast.makeText(EnterpireOfflineRequireActivity.this, getString(R.string.sbmysdk), Toast.LENGTH_SHORT).show();
                     }
@@ -632,19 +669,24 @@ public class EnterpireOfflineRequireActivity extends BaseActivity1  implements B
                     status=1;
                     handler.sendEmptyMessage(2);
 //                    Glide.with(this).load(path).asBitmap().transform(new CircleTransform(this)).placeholder(R.drawable.editor_ava).into(img);
+                case 999:
+                    bean.latitude =data.getDoubleExtra("latitude",0.0)+"";
+                    bean.longitude =data.getDoubleExtra("longitude",0.0)+"";
+                    bean.merAddress = data.getStringExtra("address");
+                    tv_location.setText(bean.merAddress);
                 default:
             }
         }
     }
     private void notifyImageDataChange() {
-//        if (img_path == null || img_path.size() == 0) {
-//            ivAddPhoto.setVisibility(View.VISIBLE);
-//            piuvRemarkImage.setVisibility(View.GONE);
-//        } else {
-//            piuvRemarkImage.setVisibility(View.VISIBLE);
-//            ivAddPhoto.setVisibility(View.GONE);
-//        }
-//        piuvRemarkImage.setData(img_path);
+        if (img_path == null || img_path.size() == 0) {
+            ivAddPhoto.setVisibility(View.VISIBLE);
+            piuvRemarkImage.setVisibility(View.GONE);
+        } else {
+            piuvRemarkImage.setVisibility(View.VISIBLE);
+            ivAddPhoto.setVisibility(View.GONE);
+        }
+        piuvRemarkImage.setData(img_path);
     }
     private void getUpToken() {
         Retrofit retrofit = new Retrofit.Builder()
@@ -684,7 +726,7 @@ public class EnterpireOfflineRequireActivity extends BaseActivity1  implements B
     private static final int CODE_CAMERA_REQUEST = 0xa1;
     private static final int CODE_RESULT_REQUEST = 0xa2;
     private File fileUri = new File(Environment.getExternalStorageDirectory().getPath() + "/photo.jpg");
-    private File fileCropUri = new File(Environment.getExternalStorageDirectory().getPath() + "/"+System.currentTimeMillis()+"crop_photo.jpg");
+    private File fileCropUri = new File(Environment.getExternalStorageDirectory().getPath() + "/crop_photo.jpg");
     private Uri imageUri;
     private Uri cropImageUri;
     private int type = 1;
@@ -715,47 +757,60 @@ public class EnterpireOfflineRequireActivity extends BaseActivity1  implements B
             ToastUtil.showToast("请输入店铺名称");
             return;
         }
+        bean.merName =etContent1.getText().toString().trim();
         if (TextUtils.isEmpty(etContent2.getText().toString().trim())) {
             ToastUtil.showToast("请输入联系人姓名");
             return;
         }
+        bean.linkMan =etContent2.getText().toString().trim();
         if (TextUtils.isEmpty(etContent3.getText().toString().trim())) {
             ToastUtil.showToast("请输入联系人电话");
             return;
         }
+        bean.linkPhone =etContent1.getText().toString().trim();
+        bean.merPhone =etContent1.getText().toString().trim();
+        bean.creat_phone =SpUtil.getMobileNumber(this);
         if (TextUtils.isEmpty(tvType.getText().toString().trim())) {
             ToastUtil.showToast("请输入选择行业分类");
             return;
         }
+        bean.category_id =ids;
         if (TextUtils.isEmpty(img1)) {
             ToastUtil.showToast("请添加企业营业执照");
             return;
         }
+        bean.business_url =img1;
         if (TextUtils.isEmpty(img2)) {
             ToastUtil.showToast("请添加法人身份证正面");
             return;
         }
+        bean.front_id_card =img2;
         if (TextUtils.isEmpty(img3)) {
             ToastUtil.showToast("请添加法人身份证反面");
             return;
         }
-
+        bean.negative_id_card =img3;
         if (TextUtils.isEmpty(img4)) {
             ToastUtil.showToast("添加行业经营许可证");
             return;
         }
+        bean.license_img =img4;
         if (TextUtils.isEmpty(img5)) {
             ToastUtil.showToast("添加品牌授权资质");
             return;
         }
+        bean.brand_img =img5;
         if (TextUtils.isEmpty(img6)) {
             ToastUtil.showToast("请上传logo");
             return;
         }
-
+        bean.shop_logo =img6;
         if (!cbRegisterCheckBox.isChecked()) {
             ToastUtil.showToast("请同意相关条款");
             return;
+        }
+        if(TextUtil.isNotEmpty(bean.shop_urls)){
+            bean.shop_urls=url;
         }
 
         content = "";
@@ -825,9 +880,23 @@ public class EnterpireOfflineRequireActivity extends BaseActivity1  implements B
     }
 
 
+    List<Banner> category;
     @Override
     public <T> void toEntity(T entity, int type) {
+        if (type == 6) {
+            Home home = (Home) entity;
+            category = home.category;
+            dto.clear();
+            if(category!=null && category.size()>0){
+                for(Banner banner :category ){
+                    AreaDto areaDto = new AreaDto();
+                    areaDto.id = banner.id;
+                    areaDto.title = banner.category_name;
+                    dto.add(areaDto);
+                }
+            }
 
+        }
     }
 
     @Override

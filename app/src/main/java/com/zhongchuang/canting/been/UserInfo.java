@@ -22,6 +22,7 @@ public class UserInfo extends  BaseResponse{
     public String ringLetterPwd = "";
     public String headImage = "";
     public String birthday = "";
+    public int super_state ;
     public String accountId = "";
     public String personalitySign = "";
     public String birthdayDay = "";

@@ -29,7 +29,8 @@ public class StoreDetailActivity extends BaseActivity1 {
     RelativeLayout rlGr;
     @BindView(R.id.rl_qy)
     RelativeLayout rlQy;
-
+    @BindView(R.id.rl_xx)
+    RelativeLayout rl_xx;
 
 
 
@@ -49,6 +50,14 @@ public class StoreDetailActivity extends BaseActivity1 {
                 finish();
             }
         });
+        rl_xx.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gotoActivity(EnterpireOfflineRequireActivity.class);
+                finish();
+            }
+        });
+
         rlQy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

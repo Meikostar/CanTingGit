@@ -137,6 +137,15 @@ public class SpUtil {
 
         return  groupId==1 ;
     }
+    public static boolean isSuper( ) {
+        //(存储节点文件名称,读写方式)
+        if (sp == null) {
+            sp = CanTingAppLication.getInstance().getSharedPreferences(xml_name, Context.MODE_PRIVATE);
+        }
+        int groupId = sp.getInt("super_state", 0);
+
+        return  groupId==6 ;
+    }
     public static int getInt(Context ctx, String key, int value) {
         //(存储节点文件名称,读写方式)
         if (sp == null) {

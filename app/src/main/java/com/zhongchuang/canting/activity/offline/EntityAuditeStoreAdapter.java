@@ -2,7 +2,6 @@ package com.zhongchuang.canting.activity.offline;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,9 +11,11 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.zhongchuang.canting.R;
+import com.zhongchuang.canting.been.Hand;
 import com.zhongchuang.canting.been.RecommendListDto;
 import com.zhongchuang.canting.utils.QiniuUtils;
 import com.zhongchuang.canting.utils.TextUtil;
+
 import java.text.DecimalFormat;
 import java.util.List;
 
@@ -23,11 +24,11 @@ import java.util.List;
  * 实体店铺适配器
  * Created by rzb on 2019/5/20
  */
-public class EntityStoreAdapter extends BaseQuickAdapter<RecommendListDto, BaseViewHolder> {
+public class EntityAuditeStoreAdapter extends BaseQuickAdapter<RecommendListDto, BaseViewHolder> {
     private Context mContext;
 
-    public EntityStoreAdapter(List<RecommendListDto> data, Context mContext) {
-        super(R.layout.item_entity_store_list, data);
+    public EntityAuditeStoreAdapter(List<RecommendListDto> data, Context mContext) {
+        super(R.layout.item_audit_entity_store_list, data);
         this.mContext = mContext;
     }
 
@@ -108,12 +109,10 @@ public class EntityStoreAdapter extends BaseQuickAdapter<RecommendListDto, BaseV
             Glide.with(mContext).load(QiniuUtils.baseurl + item.getLogo()).asBitmap().placeholder(R.drawable.moren).into((ImageView) helper.getView(R.id.iv_entity_store));
 
 
-            helper.getView(R.id.tv_go).setOnClickListener(new View.OnClickListener() {
+            helper.getView(R.id.layout_entity_store_item).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Uri uri = Uri.parse("geo:" + 23.111074 + "," + 114.414759 + "");
-                    Intent it = new Intent(Intent.ACTION_VIEW, uri);
-                    mContext.startActivity(it);
+
                 }
             });
         }
@@ -126,4 +125,5 @@ public class EntityStoreAdapter extends BaseQuickAdapter<RecommendListDto, BaseV
         }
         mContext.startActivity(intent);
     }
+
 }

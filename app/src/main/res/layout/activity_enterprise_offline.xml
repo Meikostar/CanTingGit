@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    android:orientation="vertical"
-    android:paddingTop="@dimen/bj_25dp">
+    android:orientation="vertical">
 
     <include layout="@layout/layout_title_view" />
     <View
@@ -18,7 +17,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -270,6 +268,49 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:hint="选择经营时间"
+                    android:textColorHint="#ffd4d6d9"
+                    android:textSize="15sp"
+                    />>
+
+                <ImageView
+                    android:layout_marginRight="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/arr_right" />
+            </LinearLayout>
+            <View
+                android:layout_marginLeft="14dp"
+                android:layout_marginRight="14dp"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#e8e8e8" />
+            <LinearLayout
+                android:id="@+id/ll_location"
+                android:layout_marginLeft="@dimen/bj_13dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="53dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="商家位置"
+                    android:textColor="#6C6E74"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:textColor="@color/my_color_333333"
+                    android:id="@+id/tv_location"
+                    android:paddingLeft="35dp"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="选择商家位置"
                     android:textColorHint="#ffd4d6d9"
                     android:textSize="15sp"
                     />>

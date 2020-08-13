@@ -3,6 +3,7 @@ package com.zhongchuang.canting.activity.offline;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -26,6 +27,7 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.malinskiy.superrecyclerview.OnMoreListener;
@@ -65,12 +67,15 @@ import com.zhongchuang.canting.presenter.BaseContract;
 import com.zhongchuang.canting.presenter.BasesPresenter;
 import com.zhongchuang.canting.utils.Constants;
 import com.zhongchuang.canting.utils.LocationUtils;
+import com.zhongchuang.canting.utils.MapUtil;
 import com.zhongchuang.canting.utils.SpUtil;
 import com.zhongchuang.canting.utils.TextUtil;
 import com.zhongchuang.canting.utils.UIUtil;
 import com.zhongchuang.canting.widget.ClearEditText;
 import com.zhongchuang.canting.widget.HorizontalDividerItemDecoration;
 import com.zhongchuang.canting.widget.banner.BannerView;
+
+import org.apache.tools.ant.types.Commandline;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -1259,4 +1264,6 @@ public class EntityStoreActivity extends BaseAllActivity implements View.OnClick
             }
         }
     }
+
+
 }
