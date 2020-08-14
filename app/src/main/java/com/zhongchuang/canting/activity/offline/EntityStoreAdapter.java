@@ -13,8 +13,11 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.been.RecommendListDto;
+import com.zhongchuang.canting.utils.LocationUtils;
 import com.zhongchuang.canting.utils.QiniuUtils;
 import com.zhongchuang.canting.utils.TextUtil;
+import com.zhongchuang.canting.utils.location.LocationUtil;
+
 import java.text.DecimalFormat;
 import java.util.List;
 
@@ -47,7 +50,7 @@ public class EntityStoreAdapter extends BaseQuickAdapter<RecommendListDto, BaseV
             }
 
 
-            double disDouble = Double.valueOf(item.getDistance());
+            double disDouble = LocationUtils.getDistance(LocationUtil.longitude+"",LocationUtil.latitude+"",item.longitude+"",item.latitude+"");
             long total=(long)disDouble;
             String strDis = "";
             if(total>1000){

@@ -45,6 +45,9 @@ public class OfflineBean extends BaseResponse {
     public String brand_img;
     public String license_img;
     public String shop_urls;
+    public int id;
+    public String audit_status;
+    public String account_source;
     public String category_id;
     public String longitude;
     public String latitude;

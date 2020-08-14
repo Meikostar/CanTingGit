@@ -93,39 +93,39 @@ import butterknife.ButterKnife;
  */
 public class EntityStoreActivity extends BaseAllActivity implements View.OnClickListener, BaseContract.View {
 
-    private EntityStoreAdapter     mEntityStoreAdapter;
-    private List<RecommendListDto> storeLists      = new ArrayList<RecommendListDto>();
+    private EntityStoreAdapter mEntityStoreAdapter;
+    private List<RecommendListDto> storeLists = new ArrayList<RecommendListDto>();
     //使用PopupWindow只显示一级分类
-    private PopupWindow            levelsAllPopupWindow;
-    private PopupWindow            levelsFjPopupWindow;
-    private PopupWindow            levelsSxPopupWindow;
+    private PopupWindow levelsAllPopupWindow;
+    private PopupWindow levelsFjPopupWindow;
+    private PopupWindow levelsSxPopupWindow;
     //只显示一个ListView
     private RecyclerView recyclerView;
-    private TextView               tv_one;
-    private TextView               tv_two;
+    private TextView tv_one;
+    private TextView tv_two;
     @BindView(R.id.super_recycle_view)
     SuperRecyclerView mSuperRecyclerView;
     //分类数据
-    private List<FirstClassItem>   singleFirstList = new ArrayList<FirstClassItem>();
+    private List<FirstClassItem> singleFirstList = new ArrayList<FirstClassItem>();
     ;
     //使用PopupWindow显示一级分类和二级分类
     private PopupWindow levelsPopupWindow;
     //左侧和右侧两个ListView
-    private ListView    leftLV, rightLV;
+    private ListView leftLV, rightLV;
     //左侧一级分类的数据
-    private List<FirstClassItem>  firstList  = new ArrayList<FirstClassItem>();
+    private List<FirstClassItem> firstList = new ArrayList<FirstClassItem>();
     //右侧二级分类的数据
     private List<SecondClassItem> secondList = new ArrayList<SecondClassItem>();
     private List<SecondClassItem> secondLists = new ArrayList<SecondClassItem>();
 
     private BasesPresenter presenter;
 
-    private             List<BannerItemDto>  adsList    = new ArrayList<BannerItemDto>();
-    public static final int                  GETCITY    = 1001;
-    private             String               sitId      = null;
-    private             String               categoryId = null;
-    private             String               areaId     = null;
-    private             String               distance   = null;
+    private List<BannerItemDto> adsList = new ArrayList<BannerItemDto>();
+    public static final int GETCITY = 1001;
+    private String sitId = null;
+    private String categoryId = null;
+    private String areaId = null;
+    private String distance = null;
 
 
     @Override
@@ -154,7 +154,7 @@ public class EntityStoreActivity extends BaseAllActivity implements View.OnClick
                     tvLocation.setText(cName);
 
                     tvLocations.setText(cName);
-                    if(tvLocats!=null){
+                    if (tvLocats != null) {
                         tvLocats.setText(cName);
                     }
 
@@ -178,7 +178,7 @@ public class EntityStoreActivity extends BaseAllActivity implements View.OnClick
             if (levelsAllPopupWindow.isShowing()) {
                 levelsAllPopupWindow.dismiss();
             }
-            levelsAllPopupWindow.showAtLocation(findViewById(R.id.store_div_line_three),Gravity.TOP,0,0);
+            levelsAllPopupWindow.showAtLocation(findViewById(R.id.store_div_line_three), Gravity.TOP, 0, 0);
 //            levelsAllPopupWindow.showAsDropDown();
             levelsAllPopupWindow.setAnimationStyle(R.style.bottomAnimStyle);
         });
@@ -190,7 +190,7 @@ public class EntityStoreActivity extends BaseAllActivity implements View.OnClick
                 levelsSxPopupWindow.dismiss();
 
             }
-            levelsSxPopupWindow.showAtLocation(findViewById(R.id.store_div_line_three),Gravity.TOP,0,0);
+            levelsSxPopupWindow.showAtLocation(findViewById(R.id.store_div_line_three), Gravity.TOP, 0, 0);
 
             levelsSxPopupWindow.setAnimationStyle(R.style.bottomAnimStyle);
         });
@@ -203,7 +203,7 @@ public class EntityStoreActivity extends BaseAllActivity implements View.OnClick
 
             }
             tvLocats.setText(tv_location.getText().toString());
-            levelsPopupWindow.showAtLocation(findViewById(R.id.store_div_line_three),Gravity.TOP,0,0);
+            levelsPopupWindow.showAtLocation(findViewById(R.id.store_div_line_three), Gravity.TOP, 0, 0);
 
 //            levelsPopupWindow.showAsDropDown(findViewById(R.id.store_div_line_three));
             levelsPopupWindow.setAnimationStyle(R.style.bottomAnimStyle);
@@ -216,11 +216,11 @@ public class EntityStoreActivity extends BaseAllActivity implements View.OnClick
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(TextUtil.isEmpty(s.toString())){
+                if (TextUtil.isEmpty(s.toString())) {
                     shop_name = "";
 
-                }else {
-                    shop_name=s.toString();
+                } else {
+                    shop_name = s.toString();
                 }
                 getShopList(TYPE_PULL_REFRESH);
             }
@@ -290,15 +290,15 @@ public class EntityStoreActivity extends BaseAllActivity implements View.OnClick
     @Override
     public void onBackPressed() {
 
-        if (levelsSxPopupWindow!=null&&levelsSxPopupWindow.isShowing()) {
+        if (levelsSxPopupWindow != null && levelsSxPopupWindow.isShowing()) {
             levelsSxPopupWindow.dismiss();
-        }else {
-            if (levelsAllPopupWindow!=null&&levelsAllPopupWindow.isShowing()) {
+        } else {
+            if (levelsAllPopupWindow != null && levelsAllPopupWindow.isShowing()) {
                 levelsAllPopupWindow.dismiss();
-            }else {
-                if (levelsPopupWindow!=null&&levelsPopupWindow.isShowing()) {
+            } else {
+                if (levelsPopupWindow != null && levelsPopupWindow.isShowing()) {
                     levelsPopupWindow.dismiss();
-                }else {
+                } else {
                     finish();
                 }
             }
@@ -309,7 +309,7 @@ public class EntityStoreActivity extends BaseAllActivity implements View.OnClick
 
     private GoodsAttrAdapters goodsAttrAdapter;
     private GoodsAttrAdapterss goodsAttrAdapters;
-    List<GoodsAttrDto> gadList  = new ArrayList<>();
+    List<GoodsAttrDto> gadList = new ArrayList<>();
     List<GoodsAttrDto> gadLists = new ArrayList<>();
 
     private void initeSxPopup() {
@@ -351,7 +351,7 @@ public class EntityStoreActivity extends BaseAllActivity implements View.OnClick
                     levelsAllPopupWindow.dismiss();
 
                 }
-                levelsAllPopupWindow.showAtLocation(findViewById(R.id.store_div_line_three),Gravity.TOP,0,0);
+                levelsAllPopupWindow.showAtLocation(findViewById(R.id.store_div_line_three), Gravity.TOP, 0, 0);
             }
         });
         layout_near2.setOnClickListener(new View.OnClickListener() {
@@ -366,7 +366,7 @@ public class EntityStoreActivity extends BaseAllActivity implements View.OnClick
 
                 }
                 tvLocats.setText(tv_location.getText().toString());
-                levelsPopupWindow.showAtLocation(findViewById(R.id.store_div_line_three),Gravity.TOP,0,0);
+                levelsPopupWindow.showAtLocation(findViewById(R.id.store_div_line_three), Gravity.TOP, 0, 0);
             }
         });
         tvLocations.setOnClickListener(new View.OnClickListener() {
@@ -403,10 +403,10 @@ public class EntityStoreActivity extends BaseAllActivity implements View.OnClick
                 }
 
                 goodsAttrAdapter.notifyDataSetChanged();
-                onsaleId="";
-                serviceId="";
-                per_consumption="";
-                distance="";
+                onsaleId = "";
+                serviceId = "";
+                per_consumption = "";
+                distance = "";
 
 
             }
@@ -415,41 +415,43 @@ public class EntityStoreActivity extends BaseAllActivity implements View.OnClick
             @Override
             public void onClick(View v) {
                 List<GoodsAttrDto> data = goodsAttrAdapter.getData();
-                int a=0;
-                onsaleId="";
-                serviceId="";
-                per_consumption="";
-                distance="";
+                int a = 0;
+                onsaleId = "";
+                serviceId = "";
+                per_consumption = "";
+                distance = "";
                 for (GoodsAttrDto dto : data) {
                     for (BaseDto baseDto : dto.data) {
-                        if(baseDto.isChoose){
-                            if(dto.getKey().equals("优惠和权益")){
-                                if(TextUtil.isNotEmpty(onsaleId)){
-                                    onsaleId=onsaleId+","+baseDto.id;
-                                }else {
-                                    onsaleId=baseDto.id;
+                        if (baseDto.isChoose) {
+                            if (dto.getKey().equals("优惠和权益")) {
+                                if (TextUtil.isNotEmpty(onsaleId)) {
+                                    onsaleId = onsaleId + "," + baseDto.id;
+                                } else {
+                                    onsaleId = baseDto.id;
                                 }
 
                             }
-                            if(dto.getKey().equals("服务")){
-                                if(TextUtil.isNotEmpty(serviceId)){
-                                    serviceId=serviceId+","+baseDto.id;
-                                }else {
-                                    serviceId=baseDto.id;
+                            if (dto.getKey().equals("服务")) {
+                                if (TextUtil.isNotEmpty(serviceId)) {
+                                    serviceId = serviceId + "," + baseDto.id;
+                                } else {
+                                    serviceId = baseDto.id;
                                 }
 
-                            } if(dto.getKey().equals("价格")){
+                            }
+                            if (dto.getKey().equals("价格")) {
 
-                                if(TextUtil.isNotEmpty(per_consumption)){
-                                    per_consumption=per_consumption+","+baseDto.id;
-                                }else {
-                                    per_consumption=baseDto.id;
+                                if (TextUtil.isNotEmpty(per_consumption)) {
+                                    per_consumption = per_consumption + "," + baseDto.id;
+                                } else {
+                                    per_consumption = baseDto.id;
                                 }
-                            }   if(dto.getKey().equals("距离")){
-                                if(TextUtil.isNotEmpty(distance)){
-                                    distance=distance+","+baseDto.id;
-                                }else {
-                                    distance=baseDto.id;
+                            }
+                            if (dto.getKey().equals("距离")) {
+                                if (TextUtil.isNotEmpty(distance)) {
+                                    distance = distance + "," + baseDto.id;
+                                } else {
+                                    distance = baseDto.id;
                                 }
 
                             }
@@ -484,15 +486,15 @@ public class EntityStoreActivity extends BaseAllActivity implements View.OnClick
         recyclerView.setAdapter(goodsAttrAdapter);
     }
 
-    private RecyclerView        rvOne;
-    private RecyclerView        rvTwo;
-    private ImageView           iv_back;
-    private ImageView           iv_backs;
-    private ImageView           iv_backss;
-    private TextView            tvLocation;
-    private TextView            tvLocations;
+    private RecyclerView rvOne;
+    private RecyclerView rvTwo;
+    private ImageView iv_back;
+    private ImageView iv_backs;
+    private ImageView iv_backss;
+    private TextView tvLocation;
+    private TextView tvLocations;
     private ClassifyOneAdapters mClassifyOneAdapter;
-    private String              location;
+    private String location;
 
     private void initLevelsAllPopup() {
         int height = getResources().getDisplayMetrics().heightPixels;// 屏幕的高
@@ -531,7 +533,7 @@ public class EntityStoreActivity extends BaseAllActivity implements View.OnClick
                     levelsSxPopupWindow.dismiss();
 
                 }
-                levelsSxPopupWindow.showAtLocation(findViewById(R.id.store_div_line_three),Gravity.TOP,0,0);
+                levelsSxPopupWindow.showAtLocation(findViewById(R.id.store_div_line_three), Gravity.TOP, 0, 0);
             }
         });
         layout_near1.setOnClickListener(new View.OnClickListener() {
@@ -546,7 +548,7 @@ public class EntityStoreActivity extends BaseAllActivity implements View.OnClick
 
                 }
                 tvLocats.setText(tv_location.getText().toString());
-                levelsPopupWindow.showAtLocation(findViewById(R.id.store_div_line_three),Gravity.TOP,0,0);
+                levelsPopupWindow.showAtLocation(findViewById(R.id.store_div_line_three), Gravity.TOP, 0, 0);
             }
         });
 
@@ -570,16 +572,19 @@ public class EntityStoreActivity extends BaseAllActivity implements View.OnClick
         rvOne.addOnItemTouchListener(new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                int prePos = mClassifyOneAdapter.selctedPos;  //之前的位置
-                mClassifyOneAdapter.selctedPos = position; //之后选择的位置
-                StoreCategoryDto item = (StoreCategoryDto) adapter.getItem(position);
-                if (position != prePos) {//更新item的状态
-                    mClassifyOneAdapter.notifyItemChanged(prePos);
-                    mClassifyOneAdapter.notifyItemChanged(position);
-
-                    goodsAttrAdapters.setNewData(maps.get(item.getId() + ""));
-                }
-
+//                int prePos = mClassifyOneAdapter.selctedPos;  //之前的位置
+//                mClassifyOneAdapter.selctedPos = position; //之后选择的位置
+//                StoreCategoryDto item = (StoreCategoryDto) adapter.getItem(position);
+//                if (position != prePos) {//更新item的状态
+//                    mClassifyOneAdapter.notifyItemChanged(prePos);
+//                    mClassifyOneAdapter.notifyItemChanged(position);
+//
+//                    goodsAttrAdapters.setNewData(maps.get(item.getId() + ""));
+//                }
+                StoreCategoryDto bean = (StoreCategoryDto) adapter.getItem(position);
+                id=bean.getId()+"";
+             getShopList(TYPE_PULL_REFRESH);
+                levelsAllPopupWindow.dismiss();
 
             }
         });
@@ -607,12 +612,12 @@ public class EntityStoreActivity extends BaseAllActivity implements View.OnClick
         goodsAttrAdapters = new GoodsAttrAdapterss(gadLists, this);
         goodsAttrAdapters.setGoodsSpecListener(new GoodsAttrAdapterss.GoodsSpecListener() {
             @Override
-            public void callbackGoodsSpec(String id, String key,boolean isselect) {
+            public void callbackGoodsSpec(String id, String key, boolean isselect) {
 
                 levelsAllPopupWindow.dismiss();
-                if(isselect){
+                if (isselect) {
                     industryId = id;
-                }else {
+                } else {
                     industryId = "";
                 }
                 getShopList(TYPE_PULL_REFRESH);
@@ -628,9 +633,8 @@ public class EntityStoreActivity extends BaseAllActivity implements View.OnClick
     private RecyclerView rvOnes;
     private RecyclerView rvTwos;
 
-    private TextView            tvLocationss;
+    private TextView tvLocationss;
     private ClassifyOneAdapters mClassifyOneAdaps;
-
 
 
     private Map<String, String> mMap = new HashMap<>();
@@ -664,9 +668,10 @@ public class EntityStoreActivity extends BaseAllActivity implements View.OnClick
     @Override
     public void onResume() {
         super.onResume();
-        if(TextUtil.isNotEmpty(CanTingAppLication.city_id)){
+        if (TextUtil.isNotEmpty(CanTingAppLication.city_id)) {
 //            ShareUtil.getInstance().save("city_id",CanTingAppLication.city_id);
-        }if(TextUtil.isNotEmpty(CanTingAppLication.city_name)){
+        }
+        if (TextUtil.isNotEmpty(CanTingAppLication.city_name)) {
 //            ShareUtil.getInstance().save("city_name",CanTingAppLication.city_name);
             tv_location.setText(CanTingAppLication.city_name);
         }
@@ -691,31 +696,38 @@ public class EntityStoreActivity extends BaseAllActivity implements View.OnClick
     public void onClick(View view) {
 
     }
+
     private int loadtype;
+
     @Override
     public <T> void toEntity(T entity, int type) {
-        if(type == 2){
+        if (type == 2) {
             SmgBaseBean3 baseBean3 = (SmgBaseBean3) entity;
-            onDataLoaded(loadtype, baseBean3.data.size() == Constants.PAGE_SIZE, baseBean3.data);
+            if(baseBean3!=null && baseBean3.data!=null && baseBean3.data.list!=null){
+                onDataLoaded(loadtype, baseBean3.data.list.size() == Constants.PAGE_SIZE, baseBean3.data.list);
+            }else {
+                onDataLoaded(loadtype, true, null);
+            }
 
-        } else if( type == 6){
+
+        } else if (type == 6) {
             ConfigDto result = (ConfigDto) entity;
             if (result.data != null) {
                 List<String> strLists = result.data.search_distance;
                 for (int i = 0; i < strLists.size(); i++) {
                     SecondClassItem secondClassItem = new SecondClassItem();
                     String jl;
-                    try{
+                    try {
                         long l = Long.parseLong(strLists.get(i));
-                        jl=(l/1000.0)+"km";
-                    }catch(Exception e){
-                        jl="1km";
+                        jl = (l / 1000.0) + "km";
+                    } catch (Exception e) {
+                        jl = "1km";
                     }
                     secondClassItem.setName(jl);
                     secondList.add(secondClassItem);
                 }
             }
-        }else if( type == 8){
+        } else if (type == 8) {
             SmgBaseBean5 result = (SmgBaseBean5) entity;
             gadList.clear();
             if (result != null) {
@@ -761,37 +773,37 @@ public class EntityStoreActivity extends BaseAllActivity implements View.OnClick
                 }
                 goodsAttrAdapter.setNewData(gadList);
             }
-        }else if( type == 9){
-            SmgBaseBean4 result = (SmgBaseBean4) entity;
-            if (result != null) {
-
-                firstId = result.getData().get(0).id;
-                for (Params par : result.getData()) {
-                    StoreCategoryDto dto = new StoreCategoryDto();
-                    dto.setId(Long.valueOf(par.id));
-                    dto.title = par.title;
-                    dtos.add(dto);
-                    List<GoodsAttrDto> gadList = new ArrayList<>();
-                    for (Params ms : par.children.data) {
-                        GoodsAttrDto goodsAttrDto = new GoodsAttrDto();
-                        goodsAttrDto.setKey(ms.title);
-                        List<BaseDto> basList = new ArrayList<>();
-                        for (Params mss : ms.children.data) {
-                            BaseDto baseDto = new BaseDto();
-                            baseDto.id = mss.id;
-                            baseDto.name = mss.title;
-                            basList.add(baseDto);
-                        }
-                        goodsAttrDto.data = basList;
-                        gadList.add(goodsAttrDto);
-                    }
-                    maps.put(par.id, gadList);
-                }
-                mClassifyOneAdapter.setNewData(dtos);
-                goodsAttrAdapters.setNewData(maps.get(firstId + ""));
-
-            }
-        } else if(type == 12){
+        } else if (type == 9) {
+//            SmgBaseBean4 result = (SmgBaseBean4) entity;
+//            if (result != null) {
+//
+//                firstId = result.getData().get(0).id;
+//                for (Params par : result.getData()) {
+//                    StoreCategoryDto dto = new StoreCategoryDto();
+//                    dto.setId(Long.valueOf(par.id));
+//                    dto.title = par.title;
+//                    dtos.add(dto);
+//                    List<GoodsAttrDto> gadList = new ArrayList<>();
+//                    for (Params ms : par.children.data) {
+//                        GoodsAttrDto goodsAttrDto = new GoodsAttrDto();
+//                        goodsAttrDto.setKey(ms.title);
+//                        List<BaseDto> basList = new ArrayList<>();
+//                        for (Params mss : ms.children.data) {
+//                            BaseDto baseDto = new BaseDto();
+//                            baseDto.id = mss.id;
+//                            baseDto.name = mss.title;
+//                            basList.add(baseDto);
+//                        }
+//                        goodsAttrDto.data = basList;
+//                        gadList.add(goodsAttrDto);
+//                    }
+//                    maps.put(par.id, gadList);
+//                }
+//                mClassifyOneAdapter.setNewData(dtos);
+//                goodsAttrAdapters.setNewData(maps.get(firstId + ""));
+//
+//            }
+        } else if (type == 12) {
             firstList.clear();
             SmgBaseBean6 result = (SmgBaseBean6) entity;
             if (result.data != null) {
@@ -809,41 +821,55 @@ public class EntityStoreActivity extends BaseAllActivity implements View.OnClick
                 }
             }
             initLevelsNearPopup();
-        }else if(type == 18){
-            String city_ids = SpUtil.getString(this,"city_id","");
-            String city_name = SpUtil.getString(this,"city_name","");
+        } else if (type == 18) {
+            String city_ids = SpUtil.getString(this, "city_id", "");
+            String city_name = SpUtil.getString(this, "city_name", "");
             SmgBaseBean7 result = (SmgBaseBean7) entity;
-            if(TextUtil.isNotEmpty(city_name)){
+            if (TextUtil.isNotEmpty(city_name)) {
                 tv_location.setText(city_name);
                 tvLocation.setText(city_name);
                 tvLocations.setText(city_name);
-                location=city_name;
-            }else {
+                location = city_name;
+            } else {
                 location = result.getData().getName();
                 tv_location.setText(location);
                 tvLocation.setText(location);
                 tvLocations.setText(location);
             }
-            if(TextUtil.isNotEmpty(city_ids)){
+            if (TextUtil.isNotEmpty(city_ids)) {
                 getArea(city_ids);
-                city_id=city_ids;
-                sitId=city_ids;
-            }else {
-                city_id=result.getData().id;
+                city_id = city_ids;
+                sitId = city_ids;
+            } else {
+                city_id = result.getData().id;
                 sitId = result.getData().getId();
                 getArea(sitId);
             }
 
             getShopList(TYPE_PULL_REFRESH);
 
-        }else if(type == 66){
+        } else if (type == 66) {
             Home home = (Home) entity;
             banners = home.banner;
             bannerAdapter.setData(banners);
+            if(home!=null &&home.category!=null){
+                firstId = home.category.get(0).id;
+                for (Banner par : home.category) {
+                    StoreCategoryDto dto = new StoreCategoryDto();
+                    dto.setId(Long.valueOf(par.id));
+                    dto.title = par.category_name;
+                    dtos.add(dto);
+
+                }
+                mClassifyOneAdapter.setNewData(dtos);
+            }
+
         }
 
     }
-    private  List<Banner> banners;
+
+    private List<Banner> banners;
+
     @Override
     public void toNextStep(int type) {
 
@@ -855,8 +881,6 @@ public class EntityStoreActivity extends BaseAllActivity implements View.OnClick
     }
 
 
-
-
     private void getConfigs() {
         presenter.getConfigs();
         //showLoadDialog();
@@ -864,9 +888,9 @@ public class EntityStoreActivity extends BaseAllActivity implements View.OnClick
     }
 
 
-    private List<StoreCategoryDto>          dtos = new ArrayList<>();
+    private List<StoreCategoryDto> dtos = new ArrayList<>();
     private Map<String, List<GoodsAttrDto>> maps = new HashMap<>();
-    private String                          firstId;
+    private String firstId;
 
     public void getInducts() {
         Map<String, String> map = new HashMap<String, String>();
@@ -905,6 +929,7 @@ public class EntityStoreActivity extends BaseAllActivity implements View.OnClick
     }
 
     private String industryId;
+    private String id;
     private String onsaleId;
     private String serviceId;
     private String distanceId;
@@ -916,37 +941,25 @@ public class EntityStoreActivity extends BaseAllActivity implements View.OnClick
         this.loadtype = loadtype;
         //showLoadDialog();
         HashMap<String, String> map = new HashMap<String, String>();
-        map.put("extra_include", "distance,industry,onsale,service,area");
-        if (TextUtil.isNotEmpty(industryId)) {
-            map.put("industry", industryId);
+        if(TextUtil.isNotEmpty(id)){
+            map.put("category_id", id);
         }
-        if (TextUtil.isNotEmpty(onsaleId)) {
-            map.put("onsale", onsaleId);
-        }
-        if (TextUtil.isNotEmpty(serviceId)) {
-            map.put("service", serviceId);
-        }
-        if (TextUtil.isNotEmpty(distance)) {
-            map.put("filter[scopeDistanceIn]", distance);
-        }
-        if (TextUtil.isNotEmpty(per_consumption)) {
-            map.put("per_consumption", per_consumption);
-        }
-        if (TextUtil.isNotEmpty(area_id)) {
-            map.put("filter[area_id]", area_id);
-        }
-        if (TextUtil.isNotEmpty(shop_name)) {
-            map.put("filter[shop_name]", shop_name);
-        }
-        if (TextUtil.isNotEmpty(city_id)) {
-            map.put("city_id", city_id);
+        map.put("account_source", "2");
+        map.put("audit_status", "1");
+        if(TextUtil.isNotEmpty(shop_name)){
+            map.put("merName", shop_name);
         }
         presenter.getShopList(map);
 
     }
-    private List<RecommendListDto> dats  = new ArrayList<>();
-    public void onDataLoaded(int loadType, final boolean haveNext, List<RecommendListDto> list) {
 
+    private List<RecommendListDto> dats = new ArrayList<>();
+
+    public void onDataLoaded(int loadType, final boolean haveNext, List<RecommendListDto> list) {
+        if(list ==null){
+            mEntityStoreAdapter.setNewData(dats);
+            return;
+        }
         if (loadType == TYPE_PULL_REFRESH) {
             currpage = 1;
             dats.clear();
@@ -991,28 +1004,29 @@ public class EntityStoreActivity extends BaseAllActivity implements View.OnClick
 
 
     }
-     private LinearLayout   store_layout_back;
-    private ClearEditText find;
-    private  LinearLayout   store_ll_location;
-    private  TextView       tv_location;
-    private BannerView banner;
-    private  RelativeLayout layout_all;
-    private  RelativeLayout layout_all1;
-    private  RelativeLayout layout_all2;
-    private  TextView       tv_all;
-    private  ImageView      iv_all;
-    private  RelativeLayout layout_near;
-    private  RelativeLayout layout_near1;
-    private  RelativeLayout layout_alls;
-    private  RelativeLayout layout_near2;
-    private  RelativeLayout layout_sx;
-    private  RelativeLayout layout_sxs;
-    private  RelativeLayout layout_sx1;
-    private  RelativeLayout layout_nears;
-    private  RelativeLayout layout_sx2;
 
-    private TextView        tv_near;
-   private ImageView       iv_near;
+    private LinearLayout store_layout_back;
+    private ClearEditText find;
+    private LinearLayout store_ll_location;
+    private TextView tv_location;
+    private BannerView banner;
+    private RelativeLayout layout_all;
+    private RelativeLayout layout_all1;
+    private RelativeLayout layout_all2;
+    private TextView tv_all;
+    private ImageView iv_all;
+    private RelativeLayout layout_near;
+    private RelativeLayout layout_near1;
+    private RelativeLayout layout_alls;
+    private RelativeLayout layout_near2;
+    private RelativeLayout layout_sx;
+    private RelativeLayout layout_sxs;
+    private RelativeLayout layout_sx1;
+    private RelativeLayout layout_nears;
+    private RelativeLayout layout_sx2;
+
+    private TextView tv_near;
+    private ImageView iv_near;
 
     private void initHeaderView() {
         View mHeaderView = View.inflate(this, R.layout.layout_entity_headview, null);
@@ -1032,12 +1046,14 @@ public class EntityStoreActivity extends BaseAllActivity implements View.OnClick
         bannerAdapter = new BannerAdapters(this);
         banner.setAdapter(bannerAdapter);
     }
+
     private BannerAdapters bannerAdapter;
     private LinearLayoutManager layoutManager;
-    private final int                            TYPE_PULL_REFRESH = 888;
-    private final int                            TYPE_PULL_MORE    = 889;
-    private       int                            currpage          = 1;//第几页
+    private final int TYPE_PULL_REFRESH = 888;
+    private final int TYPE_PULL_MORE = 889;
+    private int currpage = 1;//第几页
     private SwipeRefreshLayout.OnRefreshListener refreshListener;
+
     private void initAdapter() {
 
         mEntityStoreAdapter = new EntityStoreAdapter(storeLists, this);
@@ -1110,7 +1126,7 @@ public class EntityStoreActivity extends BaseAllActivity implements View.OnClick
             @Override
             public void onClick(View v) {
                 levelsPopupWindow.dismiss();
-                levelsSxPopupWindow.showAtLocation(findViewById(R.id.store_div_line_three),Gravity.TOP,0,0);
+                levelsSxPopupWindow.showAtLocation(findViewById(R.id.store_div_line_three), Gravity.TOP, 0, 0);
 
             }
         });
@@ -1125,7 +1141,7 @@ public class EntityStoreActivity extends BaseAllActivity implements View.OnClick
                     levelsAllPopupWindow.dismiss();
 
                 }
-                levelsAllPopupWindow.showAtLocation(findViewById(R.id.store_div_line_three),Gravity.TOP,0,0);
+                levelsAllPopupWindow.showAtLocation(findViewById(R.id.store_div_line_three), Gravity.TOP, 0, 0);
             }
         });
 
@@ -1186,8 +1202,8 @@ public class EntityStoreActivity extends BaseAllActivity implements View.OnClick
                     int firstId = firstList.get(position).getId();
                     String selectedName = firstList.get(position).getName();
 
-                    area_id=firstId+"";
-                    distance="";
+                    area_id = firstId + "";
+                    distance = "";
                     getShopList(TYPE_PULL_REFRESH);
 
 //                    handleResult(firstId, "", selectedName);
@@ -1218,9 +1234,9 @@ public class EntityStoreActivity extends BaseAllActivity implements View.OnClick
                 int firstId = firstList.get(firstPosition).getId();
                 int secondId = firstList.get(firstPosition).getSecondList().get(position).getId();
                 String selectedName = secondList.get(position).getName();
-                area_id="";
+                area_id = "";
                 tv_near.setText(selectedName);
-                distance=selectedName+"";
+                distance = selectedName + "";
                 getShopList(TYPE_PULL_REFRESH);
             }
         });
@@ -1239,7 +1255,9 @@ public class EntityStoreActivity extends BaseAllActivity implements View.OnClick
         //Toast.makeText(MainActivity.this, text, Toast.LENGTH_SHORT).show();
         //mainTab1TV.setText(selectedName);
     }
+
     private String city_id;
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -1252,9 +1270,9 @@ public class EntityStoreActivity extends BaseAllActivity implements View.OnClick
                     //    tv_location.setText(cityName.substring(0,cityName.length()-1));
                     //}
                     city_id = data.getExtras().getString("id");
-                    if(TextUtil.isNotEmpty(city_id)){
+                    if (TextUtil.isNotEmpty(city_id)) {
                         getArea(city_id);
-                    }else {
+                    } else {
                         getArea(CanTingAppLication.city_id);
 
                     }

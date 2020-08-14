@@ -48,22 +48,47 @@ public class EntityAuditeStoreAdapter extends BaseQuickAdapter<RecommendListDto,
             }
 
 
-            double disDouble = Double.valueOf(item.getDistance());
-            long total=(long)disDouble;
-            String strDis = "";
-            if(total>1000){
-                float km=total*1.0f/1000;
-                helper.setText(R.id.tv_jl, km + "km");
-
-            }else {
-                helper.setText(R.id.tv_jl, total + "m");
-            }
-            DecimalFormat format = new DecimalFormat("#0.00");
 
             TextView view = helper.getView(R.id.tv_label_one);
             TextView tv_pp = helper.getView(R.id.tv_pp);
             TextView view1 = helper.getView(R.id.tv_label_two);
             TextView view2 = helper.getView(R.id.tv_label_three);
+            TextView tv_state1 = helper.getView(R.id.tv_state1);
+            TextView tv_state2 = helper.getView(R.id.tv_state2);
+            TextView tv_state = helper.getView(R.id.tv_state);
+            tv_state1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(listener!=null){
+                        listener.buttomClick(2,item.id);
+                    }
+                }
+            });
+            tv_state2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(listener!=null){
+                        listener.buttomClick(1,item.id);
+                    }
+                }
+            });
+            if(item.audit_status == 0){
+                tv_state.setText("待审核");
+                tv_state1.setVisibility(View.VISIBLE);
+                tv_state2.setVisibility(View.VISIBLE);
+            }else  if(item.audit_status ==1){
+                tv_state.setText("审核通过");
+                tv_state1.setVisibility(View.VISIBLE);
+                tv_state2.setVisibility(View.GONE);
+            }else  if(item.audit_status == 2){
+                tv_state1.setVisibility(View.GONE);
+                tv_state2.setVisibility(View.VISIBLE);
+            }
+            if(TextUtil.isNotEmpty(item.brand_img)){
+                tv_pp.setVisibility(View.VISIBLE);
+            }else {
+                tv_pp.setVisibility(View.GONE);
+            }
             if(item.service_arr != null) {
                 if(item.service_arr.size()==1){
                     view.setVisibility(View.VISIBLE);
@@ -106,7 +131,7 @@ public class EntityAuditeStoreAdapter extends BaseQuickAdapter<RecommendListDto,
             }else {
                 tv_pp.setVisibility(View.GONE);
             }
-            Glide.with(mContext).load(QiniuUtils.baseurl + item.getLogo()).asBitmap().placeholder(R.drawable.moren).into((ImageView) helper.getView(R.id.iv_entity_store));
+            Glide.with(mContext).load(item.getLogo()).asBitmap().placeholder(R.drawable.moren).into((ImageView) helper.getView(R.id.iv_entity_store));
 
 
             helper.getView(R.id.layout_entity_store_item).setOnClickListener(new View.OnClickListener() {
@@ -116,6 +141,15 @@ public class EntityAuditeStoreAdapter extends BaseQuickAdapter<RecommendListDto,
                 }
             });
         }
+    }
+
+    public  interface ButtonClickListener {
+        void buttomClick(int type,int id);
+    }
+    private ButtonClickListener listener;
+
+    public void setButtonClickListener(ButtonClickListener mListener){
+        this.listener = mListener ;
     }
 
     public void gotoActivity(Class<?> clz, Bundle bundle) {

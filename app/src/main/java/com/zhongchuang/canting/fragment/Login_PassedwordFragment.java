@@ -244,7 +244,6 @@ public class Login_PassedwordFragment extends Fragment implements BaseViewCallBa
                 SpUtil.putString(getActivity(), "ringLetterPwd", db.getRingLetterPwd());//环信登录密码
                 SpUtil.putString(getActivity(), "name", db.getNickname());//环信登录密码
                 SpUtil.putString(getActivity(), "ava", db.getHeadImage());//环信登录密码
-                SpUtil.putInt(getActivity(), "super_state", db.super_state);//环信登录密码
 
                 EMClient.getInstance().groupManager().loadAllGroups();
                 EMClient.getInstance().chatManager().loadAllConversations();

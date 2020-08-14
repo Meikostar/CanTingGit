@@ -152,7 +152,7 @@
             android:layout_marginRight="15dp"
             android:id="@+id/layout_sx"
             android:layout_weight="1"
-
+            android:visibility="gone"
             android:layout_width="0dp"
             android:layout_height="match_parent">
             <TextView
@@ -188,7 +188,7 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_one"
-            android:layout_width="@dimen/bj_105dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#F4F4F4" />
 
@@ -201,6 +201,7 @@
 
 
             <android.support.v7.widget.RecyclerView
+                android:visibility="gone"
                 android:layout_marginTop="12dp"
                 android:background="@color/white"
                 android:id="@+id/rv_two"

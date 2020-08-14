@@ -47,6 +47,7 @@ import com.zhongchuang.canting.permission.PermissionSuccess;
 import com.zhongchuang.canting.presenter.BaseContract;
 import com.zhongchuang.canting.presenter.BasesPresenter;
 import com.zhongchuang.canting.utils.Constants;
+import com.zhongchuang.canting.utils.DateUtils;
 import com.zhongchuang.canting.utils.PhotoUtils;
 import com.zhongchuang.canting.utils.QiniuUtils;
 import com.zhongchuang.canting.utils.SpUtil;
@@ -57,10 +58,12 @@ import com.zhongchuang.canting.utils.location.LocationUtil;
 import com.zhongchuang.canting.widget.ImageUploadView;
 import com.zhongchuang.canting.widget.PhotoPopupWindow;
 import com.zhongchuang.canting.widget.TimeSelectorDialog;
+import com.zhongchuang.canting.widget.picker.TimePickerView;
 import com.zhongchuang.canting.widget.popupwindow.ShopTypeWindows;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -157,6 +160,8 @@ public class EnterpireOfflineRequireActivity extends BaseActivity1 implements Ba
                 if(img_path.size()!=0){
                     upFlile(img_path.get(0).getForderPath());
                 }
+            }else if(msg.what==100){
+                ll_time.performClick();
             }else {
                 if (TextUtil.isNotEmpty(path)&&TextUtil.isNotEmpty(token)) {
                     upFlile(path);
@@ -215,8 +220,9 @@ public class EnterpireOfflineRequireActivity extends BaseActivity1 implements Ba
                         status=0;
                       switch (code){
                           case Constants.INTENT_REQUESTCODE_VERIFIED_IMG0 :
-                              bean.head_image = QiniuUtils.baseurl+urls;
-                              Glide.with(EnterpireOfflineRequireActivity.this).load(StringUtil.changeUrl( bean.head_image)).asBitmap().placeholder(R.drawable.moren).into(ivlogo);
+
+                              bean.shop_logo = QiniuUtils.baseurl+urls;
+                              Glide.with(EnterpireOfflineRequireActivity.this).load(StringUtil.changeUrl( bean.shop_logo)).asBitmap().placeholder(R.drawable.moren).into(ivlogo);
                               break;
                           case Constants.INTENT_REQUESTCODE_VERIFIED_IMG1 :
                               bean.business_url = QiniuUtils.baseurl+urls;
@@ -283,6 +289,80 @@ public class EnterpireOfflineRequireActivity extends BaseActivity1 implements Ba
                 });
         selectorDialog.show(ivAddPhoto);
     }
+    private TimePickerView timePickerView;
+
+    private void showTimeSelector() {
+
+        if (timePickerView == null) {
+            Calendar calendar = Calendar.getInstance();
+
+            calendar.set(Integer.valueOf(DateUtils.formatToYear(System.currentTimeMillis())), Integer.valueOf(DateUtils.formatToMonth(System.currentTimeMillis())) == 0 ? 12 : Integer.valueOf(DateUtils.formatToMonth(System.currentTimeMillis())) - 1, Integer.valueOf(DateUtils.formatToDay(System.currentTimeMillis())), 0, 0);
+            timePickerView = new TimePickerView.Builder(EnterpireOfflineRequireActivity.this, new TimePickerView.OnTimeSelectListener() {
+                @Override
+                public void onTimeSelect(Date date, View v) {
+                    timePickerView.dismiss();
+                    setBridthDayTv(date);
+                }
+            })
+                    .setType(new boolean[]{false, false, false, true, true, false})// 默认全部显示
+                    .setCancelText("清空")//取消按钮文字
+                    .setSubmitText("确定")//确认按钮文字
+                    .setContentSize(20)//滚轮文字大小
+                    .setTitleSize(18)//标题文字大小
+                    .setTitleText("选择日期")//标题文字
+                    .setOutSideCancelable(true)//点击屏幕，点在控件外部范围时，是否取消显示
+                    .setTitleColor(getResources().getColor(R.color.my_color_333333))//标题文字颜色
+                    .setSubmitColor(getResources().getColor(R.color.my_color_333333))//确定按钮文字颜色
+                    .setCancelColor(getResources().getColor(R.color.my_color_333333))//取消按钮文字颜色
+                    //                .setTitleBgColor(0xFF666666)//标题背景颜色 Night mode
+                    //                .setBgColor(0xFF333333)//滚轮背景颜色 Night mode
+                    .setRange(1950, 2100)
+                    .setDate(calendar)
+                    .setLabel(getString(R.string.yea), getString(R.string.yeu), getString(R.string.riis), "时", "", "")
+                    .setLineSpacingMultiplier(2f)
+                    .isCenterLabel(false) //是否只显示中间选中项的label文字，false则每项item全部都带有label。
+                    .isDialog(false)
+                    .build();
+        }
+        timePickerView.setState(typess);
+        timePickerView.show();
+    }
+
+    private int yearStr;
+    private int monthStr;
+    private int dayStr;
+    private int typess = 1;
+    private void setBridthDayTv(Date date) {
+        if (date != null) {
+            String str = DateUtils.formatDate(date, "HH:mm");
+
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            //            LogUtil.d(calendar.get(Calendar.YEAR) + "-" + calendar.get(Calendar.MONTH) + "-" + calendar.get(Calendar.DAY_OF_MONTH) + getString(R.string.nxzdrq) + str);
+            if(typess==0){
+                timePickerView.dismiss();
+
+                star =str;
+                handler.sendEmptyMessageDelayed(100,1000);
+
+
+            }else {
+               end =str;
+               tv_time.setText(star+"—"+end);
+            }
+
+
+            yearStr = calendar.get(Calendar.YEAR);
+            monthStr = calendar.get(Calendar.MONTH) + 1;
+            dayStr = calendar.get(Calendar.DAY_OF_MONTH);
+        } else {
+            tv_time.setText("");
+            yearStr = 0;
+            monthStr = 0;
+            dayStr = 0;
+        }
+    }
     @Override
     public void bindEvents() {
         piuvRemarkImage.setOnActionListener(new ImageUploadView.OnActionListener() {
@@ -334,7 +414,13 @@ public class EnterpireOfflineRequireActivity extends BaseActivity1 implements Ba
         ll_time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDailog(1);
+                if(typess != 0){
+                    typess = 0;
+                }else {
+                    typess = 1;
+                }
+
+                showTimeSelector();
             }
         });
         ll_location.setOnClickListener(new View.OnClickListener() {
@@ -730,25 +816,10 @@ public class EnterpireOfflineRequireActivity extends BaseActivity1 implements Ba
     private Uri imageUri;
     private Uri cropImageUri;
     private int type = 1;
-    private String img1;
-    private String img2;
-    private String img3;
-    private String img4;
-    private String img5;
-    private String img6;
 
-    private void uploadImg(String imgPath, final int poition) {
 
-    }
 
-    private List<String> imgs = new ArrayList<>();
-    private List<String> imgs1 = new ArrayList<>();
-    private List<String> imgs2 = new ArrayList<>();
-    private List<String> imgs3 = new ArrayList<>();
-    private String       content;
-    private String       contents;
-    private String       content1;
-    private String       content2;
+
 
     public void upSellers() {
 
@@ -763,48 +834,49 @@ public class EnterpireOfflineRequireActivity extends BaseActivity1 implements Ba
             return;
         }
         bean.linkMan =etContent2.getText().toString().trim();
+        bean.realName =etContent2.getText().toString().trim();
         if (TextUtils.isEmpty(etContent3.getText().toString().trim())) {
             ToastUtil.showToast("请输入联系人电话");
             return;
         }
-        bean.linkPhone =etContent1.getText().toString().trim();
-        bean.merPhone =etContent1.getText().toString().trim();
+        bean.linkPhone =etContent3.getText().toString().trim();
+        bean.merPhone =etContent3.getText().toString().trim();
         bean.creat_phone =SpUtil.getMobileNumber(this);
         if (TextUtils.isEmpty(tvType.getText().toString().trim())) {
             ToastUtil.showToast("请输入选择行业分类");
             return;
         }
         bean.category_id =ids;
-        if (TextUtils.isEmpty(img1)) {
+        if (TextUtils.isEmpty(bean.business_url)) {
             ToastUtil.showToast("请添加企业营业执照");
             return;
         }
-        bean.business_url =img1;
-        if (TextUtils.isEmpty(img2)) {
+
+        if (TextUtils.isEmpty(bean.front_id_card)) {
             ToastUtil.showToast("请添加法人身份证正面");
             return;
         }
-        bean.front_id_card =img2;
-        if (TextUtils.isEmpty(img3)) {
+
+        if (TextUtils.isEmpty(bean.negative_id_card)) {
             ToastUtil.showToast("请添加法人身份证反面");
             return;
         }
-        bean.negative_id_card =img3;
-        if (TextUtils.isEmpty(img4)) {
+
+        if (TextUtils.isEmpty(bean.license_img)) {
             ToastUtil.showToast("添加行业经营许可证");
             return;
         }
-        bean.license_img =img4;
-        if (TextUtils.isEmpty(img5)) {
+
+        if (TextUtils.isEmpty(bean.brand_img)) {
             ToastUtil.showToast("添加品牌授权资质");
             return;
         }
-        bean.brand_img =img5;
-        if (TextUtils.isEmpty(img6)) {
+
+        if (TextUtils.isEmpty(bean.shop_logo)) {
             ToastUtil.showToast("请上传logo");
             return;
         }
-        bean.shop_logo =img6;
+
         if (!cbRegisterCheckBox.isChecked()) {
             ToastUtil.showToast("请同意相关条款");
             return;
@@ -812,71 +884,8 @@ public class EnterpireOfflineRequireActivity extends BaseActivity1 implements Ba
         if(TextUtil.isNotEmpty(bean.shop_urls)){
             bean.shop_urls=url;
         }
-
-        content = "";
-        imgs1.clear();
-        imgs.clear();
-        imgs2.clear();
-        imgs3.clear();
-        imgs1.add(img5);
-        imgs2.add(img1);
-        imgs3.add(img4);
-        imgs.add(img2);
-        imgs.add(img3);
-        Gson g = new Gson();
-        content = g.toJson(imgs);
-        contents = g.toJson(imgs1);
-        content1 = g.toJson(imgs2);
-        content2 = g.toJson(imgs3);
-        HashMap<String, String> map = new HashMap<>();
-        map.put("type", "enterprise");
-        map.put("shop_name", etContent1.getText().toString().trim());
-        map.put("name", etContent2.getText().toString().trim());
-        map.put("phone", etContent3.getText().toString().trim());
-        map.put("industry", ids);
-        map.put("logo", img6);
-        map.put("id_cards[0]", img1);
-        map.put("id_cards[1]", img2);
-//        map.put("id_cards", content);
-        map.put("credentials", contents);
-        map.put("ext[business_license]", content1);
-        map.put("ext[license]", content2);
-//        StoreInfo info=new StoreInfo();
-//        info.type="enterprise";
-//        info.shop_name=etContent1.getText().toString().trim();
-//        info.name=etContent2.getText().toString().trim();
-//        info.phone=etContent3.getText().toString().trim();
-//        info.industry=ids;
-//        info.logo=img6;
-//        info.id_cards=imgs;
-//        info.credentials=imgs1;
-//        StoreInfo storeInfo = new StoreInfo();
-//        storeInfo.license=img1;
-//        storeInfo.business_license=img4;
-//
-//        info.ext=storeInfo;
-//        info.ext.business_license=img4;
-//        info.credentials=imgs1;
-//        DataManager.getInstance().upSellers(new DefaultSingleObserver<HttpResult<Object>>() {
-//            @Override
-//            public void onSuccess(HttpResult<Object> result) {
-//                dissLoadDialog();
-//                ToastUtil.showToast("提交成功，请等待审核");
-//                finish();
-//            }
-//
-//            @Override
-//            public void onError(Throwable throwable) {
-//                dissLoadDialog();
-//                if (ApiException.getInstance().isSuccess()) {
-//                    ToastUtil.showToast("提交成功，请等待审核");
-//                    finish();
-//                } else {
-//                    ToastUtil.showToast(ApiException.getHttpExceptionMessage(throwable));
-//                }
-//
-//            }
-//        }, info);
+        bean.merIdcard ="szsd"+System.currentTimeMillis();
+        presenter.saveOfflineShop(bean);
     }
 
 
@@ -896,6 +905,10 @@ public class EnterpireOfflineRequireActivity extends BaseActivity1 implements Ba
                 }
             }
 
+        } else if ( type ==123){
+            showToasts("已提交申请！");
+            SpUtil.putInt( EnterpireOfflineRequireActivity.this,"offline_applay",1);
+            finish();
         }
     }
 
@@ -906,6 +919,6 @@ public class EnterpireOfflineRequireActivity extends BaseActivity1 implements Ba
 
     @Override
     public void showTomast(String msg) {
-
+        showToasts("店铺已存在！");
     }
 }

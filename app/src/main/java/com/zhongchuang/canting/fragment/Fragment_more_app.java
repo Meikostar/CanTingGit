@@ -84,7 +84,7 @@ public class Fragment_more_app extends BaseFragment implements BaseContract.View
     private HomeItemdapters homedapter;
 
     private int[] homeimg1 = {R.drawable.homes_4, R.drawable.homes_1, R.drawable.homes_2,
-            R.drawable.homes_3, R.drawable.homes_5, R.drawable.homes_6, R.drawable.homes_7, R.drawable.homes_8};
+            R.drawable.homes_3, R.drawable.homes_5, R.drawable.homes_10, R.drawable.homes_6, R.drawable.homes_7, R.drawable.homes_8, R.drawable.homes_9};
     private GAME messageGroup=HomeActivitys.messageGroup;
 
 
@@ -246,8 +246,8 @@ public class Fragment_more_app extends BaseFragment implements BaseContract.View
     private int cont;
     private List<HOMES> datas = new ArrayList<>();
     public void setData(int cout) {
-        String[] indepent1 = { getString(R.string.zb),getString(R.string.fhsc), getString(R.string.cjzg), getString(R.string.szds),
-                getString(R.string.ll), getString(R.string.grzx), getString(R.string.appfx), getString(R.string.yy), getString(R.string.appfx)};
+        String[] indepent1 = { getString(R.string.zb),getString(R.string.fhsc), getString(R.string.cjzg),"线下商城",
+                getString(R.string.ll), getString(R.string.grzx), getString(R.string.appfx), getString(R.string.yy), getString(R.string.appfx),"VIP商城"};
         datas.clear();
         cont = 0;
         for (int url : homeimg1) {

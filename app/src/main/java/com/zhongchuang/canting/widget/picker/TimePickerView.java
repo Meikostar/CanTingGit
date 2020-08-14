@@ -13,6 +13,9 @@ import android.widget.TextView;
 
 
 import com.zhongchuang.canting.R;
+import com.zhongchuang.canting.utils.DateUtils;
+import com.zhongchuang.canting.utils.TimeUtil;
+import com.zhongchuang.canting.utils.ToastUtil;
 
 import java.text.ParseException;
 import java.util.Calendar;
@@ -529,13 +532,42 @@ public class TimePickerView extends BasePickerView implements View.OnClickListen
         String tag = (String) v.getTag();
         if (tag.equals(TAG_SUBMIT)) {
             returnData();
+        }else {
+            if (timeSelectListener != null) {
+            timeSelectListener.onTimeSelect(null, clickView);}
         }
         dismiss();
     }
-
+    private Date satr;
+    private Date ends;
+    private int state;
+    public void setState(int state){
+        this.state=state;
+    }
     public void returnData() {
         if (timeSelectListener != null) {
             try {
+                if(satr!=null&&state==1){
+                    long star = TimeUtil.getStringToDates(DateUtils.formatDate(satr, "yyyy-MM-dd HH"));
+                    long end = TimeUtil.getStringToDates(DateUtils.formatDate(WheelTime.dateFormat.parse(wheelTime.getTime()), "yyyy-MM-dd HH"));
+                    if(star>end){
+                        ToastUtil.showToast("结束日期要大于开始日期");
+                        return;
+                    }
+                    ends = WheelTime.dateFormat.parse(wheelTime.getTime());
+                }else if(ends!=null&&state==0) {
+                    long end = TimeUtil.getStringToDates(DateUtils.formatDate(ends, "yyyy-MM-dd HH"));
+                    long star = TimeUtil.getStringToDates(DateUtils.formatDate(WheelTime.dateFormat.parse(wheelTime.getTime()), "yyyy-MM-dd HH"));
+                    if(star>end){
+                        ToastUtil.showToast("结束日期要大于开始日期");
+                        return;
+                    }
+                    satr = WheelTime.dateFormat.parse(wheelTime.getTime());
+                }else if(state==0) {
+                    satr = WheelTime.dateFormat.parse(wheelTime.getTime());
+                }else if(state==1) {
+                    ends = WheelTime.dateFormat.parse(wheelTime.getTime());
+                }
                 Date date = WheelTime.dateFormat.parse(wheelTime.getTime());
                 timeSelectListener.onTimeSelect(date, clickView);
             } catch (ParseException e) {

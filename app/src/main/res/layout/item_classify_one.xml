@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/tv_name"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/content_bg"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/bj_58dp"
-    android:gravity="center"
-    android:textSize="13sp">
+    android:layout_height="wrap_content">
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/tv_name"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bj_58dp"
+        android:gravity="center"
+        android:textSize="13sp">
 
-</TextView>
+    </TextView>
+  <View
+      android:layout_width="match_parent"
+      android:layout_height="0.3dp"
+      android:background="@color/linecolor"/>
+
+</LinearLayout>

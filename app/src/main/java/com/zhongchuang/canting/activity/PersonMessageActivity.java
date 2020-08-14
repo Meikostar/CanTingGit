@@ -198,7 +198,10 @@ public class PersonMessageActivity extends BaseLoginActivity implements GetUserI
             }
         });
     }
-
+    private int state;
+    public void setState(int state){
+        this.state=state;
+    }
 
     private void showTimeSelector() {
 

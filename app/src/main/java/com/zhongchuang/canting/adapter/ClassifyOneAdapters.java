@@ -37,7 +37,7 @@ public class ClassifyOneAdapters extends BaseQuickAdapter<StoreCategoryDto, Base
             helper.setBackgroundColor(R.id.tv_name,Color.parseColor("#ffffff"));
         }else{
             helper.setTextColor(R.id.tv_name,Color.parseColor("#212121"));
-            helper.setBackgroundColor(R.id.tv_name,Color.parseColor("#f1f1f1"));
+            helper.setBackgroundColor(R.id.tv_name,Color.parseColor("#ffffff"));
         }
         helper.setText(R.id.tv_name,item.getCategoryName());
     }

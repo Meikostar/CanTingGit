@@ -1652,6 +1652,8 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
             }else {
                 CanTingAppLication.isPay=false;
             }
+            SpUtil.putInt(HomeActivitys.this, "super_state", bean.super_state);//环信登录密码
+
             if (TextUtil.isNotEmpty(bean.money_buy_integral)) {
                 CanTingAppLication.totalintegral =  CanTingAppLication.totalintegral +Double.valueOf(bean.money_buy_integral);
                 CanTingAppLication.Chargeintegral =  Double.valueOf(bean.money_buy_integral);

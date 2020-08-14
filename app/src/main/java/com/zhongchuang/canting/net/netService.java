@@ -842,8 +842,9 @@ public interface netService {
     /**
      * 实体店铺-最下面列表
      */
-    @GET("https://bbsc.2aa6.com/api/sellers")
+    @GET("https://ifun.xjxlsy.cn/admin/htgl/merchant/findMerbantApp")
     Call<SmgBaseBean3> getShopList(@QueryMap HashMap<String, String> map);
+
 
     @GET("https://bbsc.2aa6.com/api/indust")
     Call<SmgBaseBean4> getInducts(@QueryMap Map<String, String> map);
@@ -1087,6 +1088,13 @@ public interface netService {
     @FormUrlEncoded
     @POST("wap/information/saveInformation")
     Call<BaseResponse> saveInformation(@FieldMap Map<String, String> opt);
+    @FormUrlEncoded
+    @POST("https://ifun.xjxlsy.cn/admin/sjzx/merchant/toUpdate")
+    Call<BaseResponse> updateOfflineShop(@FieldMap Map<String, String> opt);
+
+    @FormUrlEncoded
+    @POST("https://ifun.xjxlsy.cn/admin/htgl/merchant/appMerchant")
+    Call<BaseResponse> saveOfflineShop(@FieldMap Map<String, String> opt);
 
     @FormUrlEncoded
     @POST("web/friendCircles/getFriendCirclesDetail")

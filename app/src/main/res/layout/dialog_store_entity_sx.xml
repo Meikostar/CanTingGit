@@ -149,6 +149,7 @@
             android:layout_marginBottom="@dimen/bj_10dp"
             android:background="#F5F5F5"/>
         <RelativeLayout
+            android:visibility="gone"
             android:layout_marginRight="15dp"
             android:id="@+id/layout_sx"
             android:layout_weight="1"

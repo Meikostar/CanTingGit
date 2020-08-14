@@ -26,6 +26,7 @@ import com.zhongchuang.canting.been.Host;
 import com.zhongchuang.canting.been.INTEGRALIST;
 import com.zhongchuang.canting.been.Ingegebean;
 import com.zhongchuang.canting.been.LiveTypeBean;
+import com.zhongchuang.canting.been.OfflineBean;
 import com.zhongchuang.canting.been.OrderData;
 import com.zhongchuang.canting.been.OrderParam;
 import com.zhongchuang.canting.been.OrderType;
@@ -743,6 +744,213 @@ public class BasesPresenter implements BaseContract.Presenter {
 
         params.put("userInfoId", TextUtil.isEmpty(SpUtil.getUserInfoId(CanTingAppLication.getInstance())) ? "" : SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
         api.saveInformation(params).enqueue(new BaseCallBack<BaseResponse>() {
+            @Override
+            public void onSuccess(BaseResponse userLoginBean) {
+                mView.toEntity(userLoginBean, 123);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                mView.showTomast(t);
+            }
+        });
+    }
+    @Override
+    public void saveOfflineShop(OfflineBean bean) {
+        Map<String, String> params = new TreeMap<>();
+        http://192.168.3.39:8080/cck/htgl/merchant/appMerchant?
+
+
+        if (TextUtil.isNotEmpty(bean.creat_phone)) {
+            params.put("creat_phone", bean.creat_phone);
+
+        }
+
+            params.put("company_type", "1");
+
+
+        if (TextUtil.isNotEmpty(bean.merName)) {
+            params.put("merName", bean.merName);
+
+        }
+        if (TextUtil.isNotEmpty(bean.merIdcard)) {
+            params.put("merIdcard", bean.merIdcard);
+
+        }
+        if (TextUtil.isNotEmpty(bean.business_url)) {
+            params.put("business_url", bean.business_url);
+
+        }
+        if (TextUtil.isNotEmpty(bean.license_img)) {
+            params.put("license_img", bean.license_img);
+
+        }
+        if (TextUtil.isNotEmpty(bean.brand_img)) {
+            params.put("brand_img", bean.brand_img);
+
+        }
+        if (TextUtil.isNotEmpty(bean.category_id)) {
+            params.put("category_id", bean.category_id);
+
+        }
+        if (TextUtil.isNotEmpty(bean.front_id_card)) {
+            params.put("front_id_card", bean.front_id_card);
+
+        }
+        if (TextUtil.isNotEmpty(bean.latitude)) {
+            params.put("latitude", bean.latitude);
+
+        }
+        if (TextUtil.isNotEmpty(bean.longitude)) {
+            params.put("longitude", bean.longitude);
+
+        }
+        if (TextUtil.isNotEmpty(bean.shop_logo)) {
+            params.put("shop_logo", bean.shop_logo);
+
+        }
+        if (bean.negative_id_card != null) {
+            params.put("negative_id_card", bean.negative_id_card);
+
+        }
+        if (TextUtil.isNotEmpty(bean.business_time)) {
+            params.put("business_time", bean.business_time);
+
+        }
+        params.put("merType", "false");
+        params.put("account_source", "2");
+        if (TextUtil.isNotEmpty(bean.realName)) {
+            params.put("realName", bean.realName);
+
+        }
+        if (TextUtil.isNotEmpty(bean.linkMan)) {
+            params.put("linkMan", bean.linkMan);
+
+        }
+        if (TextUtil.isNotEmpty(bean.linkPhone)) {
+            params.put("linkPhone", bean.linkPhone);
+
+        }
+        if (TextUtil.isNotEmpty(bean.merPhone)) {
+            params.put("merPhone", bean.merPhone);
+
+        }
+        params.put("merPhone", bean.merPhone);
+
+        if (TextUtil.isNotEmpty(bean.shop_urls)) {
+            params.put("shop_urls", bean.shop_urls);
+
+        }
+
+        params.put("userInfoId", TextUtil.isEmpty(SpUtil.getUserInfoId(CanTingAppLication.getInstance())) ? "" : SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
+        api.saveOfflineShop(params).enqueue(new BaseCallBack<BaseResponse>() {
+            @Override
+            public void onSuccess(BaseResponse userLoginBean) {
+                mView.toEntity(userLoginBean, 123);
+            }
+
+            @Override
+            public void onOtherErr(int code, String t) {
+                super.onOtherErr(code, t);
+                mView.showTomast(t);
+            }
+        });
+    }
+    @Override
+    public void updateOfflineShop(OfflineBean bean) {
+
+        Map<String, String> params = new TreeMap<>();
+
+        if (TextUtil.isNotEmpty(bean.creat_phone)) {
+            params.put("creat_phone", bean.creat_phone);
+
+        }
+        params.put("company_type", "1");
+        if (TextUtil.isNotEmpty(bean.merName)) {
+            params.put("merName", bean.merName);
+
+        }
+        if (TextUtil.isNotEmpty(bean.merIdcard)) {
+            params.put("merIdcard", bean.merIdcard);
+
+        }
+        if (TextUtil.isNotEmpty(bean.business_url)) {
+            params.put("business_url", bean.business_url);
+
+        }
+        if (TextUtil.isNotEmpty(bean.license_img)) {
+            params.put("license_img", bean.license_img);
+
+        }
+        if (TextUtil.isNotEmpty(bean.brand_img)) {
+            params.put("brand_img", bean.brand_img);
+
+        }
+        if (TextUtil.isNotEmpty(bean.category_id)) {
+            params.put("category_id", bean.category_id);
+
+        }
+        if (TextUtil.isNotEmpty(bean.front_id_card)) {
+            params.put("front_id_card", bean.front_id_card);
+
+        }
+        if (TextUtil.isNotEmpty(bean.latitude)) {
+            params.put("latitude", bean.latitude);
+
+        }
+        if (TextUtil.isNotEmpty(bean.longitude)) {
+            params.put("longitude", bean.longitude);
+
+        }
+        if (TextUtil.isNotEmpty(bean.shop_logo)) {
+            params.put("shop_logo", bean.shop_logo);
+
+        }
+        if (bean.negative_id_card != null) {
+            params.put("negative_id_card", bean.negative_id_card);
+
+        }
+        if (TextUtil.isNotEmpty(bean.business_time)) {
+            params.put("business_time", bean.business_time);
+
+        }
+
+        if (TextUtil.isNotEmpty(bean.audit_status)) {
+            params.put("audit_status", bean.audit_status);
+
+        }
+        if (TextUtil.isNotEmpty(bean.account_source)) {
+            params.put("account_source", bean.account_source);
+
+        }
+       
+        if (TextUtil.isNotEmpty(bean.realName)) {
+            params.put("realName", bean.realName);
+
+        }
+        if (TextUtil.isNotEmpty(bean.linkMan)) {
+            params.put("linkMan", bean.linkMan);
+
+        }
+        if (TextUtil.isNotEmpty(bean.linkPhone)) {
+            params.put("linkPhone", bean.linkPhone);
+
+        }
+        if (TextUtil.isNotEmpty(bean.merPhone)) {
+            params.put("merPhone", bean.merPhone);
+
+        }
+        if (TextUtil.isNotEmpty(bean.shop_urls)) {
+            params.put("shop_urls", bean.shop_urls);
+
+        }   if (bean.id!=0) {
+            params.put("id", bean.id+"");
+
+        }
+
+        params.put("userInfoId", TextUtil.isEmpty(SpUtil.getUserInfoId(CanTingAppLication.getInstance())) ? "" : SpUtil.getUserInfoId(CanTingAppLication.getInstance()));
+        api.updateOfflineShop(params).enqueue(new BaseCallBack<BaseResponse>() {
             @Override
             public void onSuccess(BaseResponse userLoginBean) {
                 mView.toEntity(userLoginBean, 123);

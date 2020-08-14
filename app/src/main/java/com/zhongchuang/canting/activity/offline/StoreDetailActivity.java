@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.zhongchuang.canting.R;
 import com.zhongchuang.canting.base.BaseActivity1;
+import com.zhongchuang.canting.utils.SpUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -53,6 +54,11 @@ public class StoreDetailActivity extends BaseActivity1 {
         rl_xx.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+               int state = SpUtil.getInt(StoreDetailActivity.this,"offline_applay",0);
+               if(state == 1){
+                   showToasts("审核中！");
+                   return;
+               }
                 gotoActivity(EnterpireOfflineRequireActivity.class);
                 finish();
             }

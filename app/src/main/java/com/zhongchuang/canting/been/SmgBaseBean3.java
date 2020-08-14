@@ -7,8 +7,8 @@ import java.util.List;
  */
 
 public class SmgBaseBean3 extends BaseResponse {
-    public List<RecommendListDto> data;
+    public List<RecommendListDto> list;
 
-
+    public SmgBaseBean3 data;
 
 }

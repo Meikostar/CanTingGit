@@ -23,13 +23,16 @@ import com.zhongchuang.canting.adapter.OrderMangerAdapter;
 import com.zhongchuang.canting.adapter.recycle.GiftReCycleAdapter;
 import com.zhongchuang.canting.base.BaseFragment;
 import com.zhongchuang.canting.been.Hand;
+import com.zhongchuang.canting.been.OfflineBean;
 import com.zhongchuang.canting.been.Oparam;
 import com.zhongchuang.canting.been.OrderData;
 import com.zhongchuang.canting.been.OrderParam;
 import com.zhongchuang.canting.been.Params;
 import com.zhongchuang.canting.been.RecommendListDto;
+import com.zhongchuang.canting.been.SmgBaseBean3;
 import com.zhongchuang.canting.presenter.BaseContract;
 import com.zhongchuang.canting.presenter.BasesPresenter;
+import com.zhongchuang.canting.utils.Constants;
 import com.zhongchuang.canting.utils.SpUtil;
 import com.zhongchuang.canting.utils.TextUtil;
 import com.zhongchuang.canting.widget.BaseDailogManager;
@@ -38,6 +41,7 @@ import com.zhongchuang.canting.widget.MarkaBaseDialog;
 import com.zhongchuang.canting.widget.loadingView.LoadingPager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -51,8 +55,6 @@ import butterknife.Unbinder;
 public class AuditOfflinefagment extends BaseFragment implements BaseContract.View {
 
 
-    @BindView(R.id.listview_all_city)
-    ListView listView;
     @BindView(R.id.super_recycle_view)
     SuperRecyclerView mSuperRecyclerView;
 
@@ -70,14 +72,10 @@ public class AuditOfflinefagment extends BaseFragment implements BaseContract.Vi
     public AuditOfflinefagment() {
     }
 
-    private int type = 1;
+    private int type = 0;
 
     public void setType(int type) {
-        if(type==4){
-            this.type = 7;
-        }else {
-            this.type = type;
-        }
+        this.type = type;
 
     }
 
@@ -103,7 +101,7 @@ public class AuditOfflinefagment extends BaseFragment implements BaseContract.Vi
             public void onRefresh() {
                 //  mSuperRecyclerView.showMoreProgress();
                 currpage=1;
-                presenter.getGiftDetailedList(currpage + "", TYPE_PULL_REFRESH);
+                getShopList(TYPE_PULL_REFRESH);
 
             }
         };
@@ -132,12 +130,18 @@ public class AuditOfflinefagment extends BaseFragment implements BaseContract.Vi
     private OrderParam order = new OrderParam();
     private void initView() {
 
+        adapter.setButtonClickListener(new EntityAuditeStoreAdapter.ButtonClickListener() {
+            @Override
+            public void buttomClick(int type, int id) {
+                showPopwindows(id,type);
 
+            }
+        });
 
     }
 
 
-    public void showPopwindows(final String id) {
+    public void showPopwindows(final int id,int type) {
         TextView sure = null;
         TextView cancel = null;
         TextView title = null;
@@ -161,7 +165,19 @@ public class AuditOfflinefagment extends BaseFragment implements BaseContract.Vi
             @Override
             public void onClick(View v) {
                 showPress(getString(R.string.qrz));
-                presenter.receiptGoods("7", id);
+                if(type == 1){//同意
+                    OfflineBean offlineBean = new OfflineBean();
+                    offlineBean.id = id;
+                    offlineBean.audit_status = 1+"";
+
+                    presenter.updateOfflineShop(offlineBean);
+                }else {//拒绝
+                    OfflineBean offlineBean = new OfflineBean();
+                    offlineBean.id = id;
+                    offlineBean.audit_status = 2+"";
+
+                    presenter.updateOfflineShop(offlineBean);
+                }
                 dialog.dismiss();
             }
         });
@@ -189,7 +205,7 @@ public class AuditOfflinefagment extends BaseFragment implements BaseContract.Vi
             }
 
 //            showPress("加载中...");
-            presenter.favoriteList(1 + "", 100 + "", type + "");
+          getShopList(TYPE_PULL_REFRESH);
             //相当于Fragment的onResume
 
         }
@@ -203,23 +219,32 @@ public class AuditOfflinefagment extends BaseFragment implements BaseContract.Vi
     private List<RecommendListDto> datas = new ArrayList<>();
     private int cout = 12;
 
-    public void onDataLoaded(int loadType, final boolean haveNext, List<RecommendListDto> list) {
+    private List<RecommendListDto> dats = new ArrayList<>();
 
+    public void onDataLoaded(int loadType, final boolean haveNext, List<RecommendListDto> list) {
+        if(list ==null){
+            adapter.setNewData(dats);
+            return;
+        }
         if (loadType == TYPE_PULL_REFRESH) {
             currpage = 1;
-            datas.clear();
+            dats.clear();
             for (RecommendListDto info : list) {
-                datas.add(info);
+                dats.add(info);
             }
         } else {
             for (RecommendListDto info : list) {
-                datas.add(info);
+                dats.add(info);
             }
         }
 
-        adapter.setNewData(datas);
+        adapter.setNewData(dats);
 
-        mSuperRecyclerView.hideMoreProgress();
+        adapter.notifyDataSetChanged();
+        if (mSuperRecyclerView != null) {
+            mSuperRecyclerView.hideMoreProgress();
+        }
+
 
         if (haveNext) {
             mSuperRecyclerView.setupMoreListener(new OnMoreListener() {
@@ -227,27 +252,56 @@ public class AuditOfflinefagment extends BaseFragment implements BaseContract.Vi
                 public void onMoreAsked(int overallItemsCount, int itemsBeforeMore, int maxLastVisiblePosition) {
                     currpage++;
                     mSuperRecyclerView.showMoreProgress();
-                    presenter.getGiftDetailedList(currpage + "", TYPE_PULL_MORE);
+
+                    if (haveNext)
+                        getShopList(TYPE_PULL_MORE);
+                    mSuperRecyclerView.hideMoreProgress();
 
                 }
             }, 1);
         } else {
-            mSuperRecyclerView.removeMoreListener();
-            mSuperRecyclerView.hideMoreProgress();
+            if (mSuperRecyclerView != null) {
+                mSuperRecyclerView.removeMoreListener();
+                mSuperRecyclerView.hideMoreProgress();
+            }
+
 
         }
 
 
     }
 
+    private int loadtype;
+    private void getShopList(int loadtype) {
+        this.loadtype = loadtype;
+        //showLoadDialog();
+        HashMap<String, String> map = new HashMap<String, String>();
+
+        map.put("account_source", "2");
+        if(type!=0){
+            map.put("audit_status", type+"");
+        }
+
+
+        presenter.getShopList(map);
+
+    }
     @Override
     public <T> void toEntity(T entity, int types) {
+         hidePress();
+        if (types == 2) {
+            SmgBaseBean3 baseBean3 = (SmgBaseBean3) entity;
+            if(baseBean3!=null && baseBean3.data!=null && baseBean3.data.list!=null){
+                onDataLoaded(loadtype, baseBean3.data.list.size() == Constants.PAGE_SIZE, baseBean3.data.list);
+            }else {
+                onDataLoaded(loadtype, true, null);
+            }
 
-        if (types == 5) {
 
-        }else if (types == 3) {
-
+        } else if (types == 123) {
+            getShopList(TYPE_PULL_REFRESH);
         } else {
+
         }
 
 

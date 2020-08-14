@@ -157,7 +157,7 @@
             android:layout_marginRight="15dp"
             android:id="@+id/layout_sx"
             android:layout_weight="1"
-
+            android:visibility="gone"
             android:layout_width="0dp"
             android:layout_height="match_parent">
             <TextView
@@ -200,6 +200,7 @@
             android:dividerHeight="@dimen/bj_1dp"
             android:scrollingCache="false"/>
         <ListView
+            android:visibility="gone"
             android:id="@+id/pop_listview_right"
             android:layout_width="@dimen/bj_0dp"
             android:layout_height="wrap_content"

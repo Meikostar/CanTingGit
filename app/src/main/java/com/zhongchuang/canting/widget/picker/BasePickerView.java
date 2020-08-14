@@ -171,6 +171,8 @@ public class BasePickerView {
         if (isDialog()) {
             return false;
         } else {
+
+
             return rootView.getParent() != null || isShowing;
         }
 

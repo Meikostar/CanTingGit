@@ -82,7 +82,18 @@ public class DateUtils {
         Calendar cal = Calendar.getInstance();
        return cal.get(Calendar.DAY_OF_MONTH)+1;
     }
-
+    public static String formatToYear(long time){
+        SimpleDateFormat format = new SimpleDateFormat("yyyy");
+        return format.format(new Date(time));
+    }
+    public static String formatToMonth(long time){
+        SimpleDateFormat format = new SimpleDateFormat("MM");
+        return format.format(new Date(time));
+    }
+    public static String formatToDay(long time){
+        SimpleDateFormat format = new SimpleDateFormat("dd");
+        return format.format(new Date(time));
+    }
     /**
      *  根据传入日期得到天
      * @param str

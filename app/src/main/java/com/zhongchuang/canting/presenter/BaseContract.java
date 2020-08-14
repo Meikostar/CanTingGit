@@ -2,6 +2,7 @@ package com.zhongchuang.canting.presenter;
 
 
 import com.zhongchuang.canting.been.CancelParam;
+import com.zhongchuang.canting.been.OfflineBean;
 import com.zhongchuang.canting.been.OrderParam;
 import com.zhongchuang.canting.been.Params;
 import com.zhongchuang.canting.been.UserInfoBean;
@@ -45,6 +46,7 @@ public class BaseContract {
          * @param redEnvelopeId
          */
         void getLuckInfo(String redEnvelopeId);
+        void updateOfflineShop(OfflineBean bean);
         /**
          * 获取轮播图片
          *
@@ -52,6 +54,8 @@ public class BaseContract {
          */
         void getHomeBanner(String type);
         void getHomeBannerss(String type);
+
+        void saveOfflineShop(OfflineBean bean);
         /**
          * 获取轮播图片
          *
