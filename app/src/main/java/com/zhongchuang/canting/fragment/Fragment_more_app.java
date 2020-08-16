@@ -21,9 +21,11 @@ import com.zhongchuang.canting.activity.HomeActivitys;
 import com.zhongchuang.canting.activity.LoginActivity;
 import com.zhongchuang.canting.activity.MainActivity;
 import com.zhongchuang.canting.activity.chat.ChatSplashActivity;
+import com.zhongchuang.canting.activity.chat.FaceCreatActivity;
 import com.zhongchuang.canting.activity.mall.EditorOrderActivity;
 import com.zhongchuang.canting.activity.mall.ShopCompsiteMallActivity;
 import com.zhongchuang.canting.activity.mall.ShopMallActivity;
+import com.zhongchuang.canting.activity.mall.ShopVIPMallActivity;
 import com.zhongchuang.canting.activity.offline.EntityStoreActivity;
 import com.zhongchuang.canting.activity.offline.StoreDetailActivity;
 import com.zhongchuang.canting.activity.pay.ALiPayActivity;
@@ -82,9 +84,9 @@ public class Fragment_more_app extends BaseFragment implements BaseContract.View
 
     private TimeCount timeCount;
     private HomeItemdapters homedapter;
-
     private int[] homeimg1 = {R.drawable.homes_4, R.drawable.homes_1, R.drawable.homes_2,
-            R.drawable.homes_3, R.drawable.homes_5, R.drawable.homes_10, R.drawable.homes_6, R.drawable.homes_7, R.drawable.homes_8, R.drawable.homes_9};
+            R.drawable.homes_3,R.drawable.homes_10, R.drawable.homes_5, R.drawable.homes_6, R.drawable.homes_7, R.drawable.homes_8, R.drawable.homes_9};
+
     private GAME messageGroup=HomeActivitys.messageGroup;
 
 
@@ -108,19 +110,17 @@ public class Fragment_more_app extends BaseFragment implements BaseContract.View
 //                        Intent intentsss = new Intent(HomeActivitys.this, FaceCreatActivity.class);
 
 
-//                            Intent intent = new Intent(getActivity(), ShopMallActivity.class);
-//                            intent.putExtra("type", 1);
-//                            startActivity(intent);
-                            Intent intent = new Intent(getActivity(), StoreDetailActivity.class);
+                            Intent intent = new Intent(getActivity(), ShopMallActivity.class);
+                            intent.putExtra("type", 1);
                             startActivity(intent);
+
 
                             break;
                         case 2://乐聊
-                            Intent etintent = new Intent(getActivity(), EntityStoreActivity.class);
-                            startActivity(etintent);
-//                            Intent intentsss = new Intent(getActivity(), ShopCompsiteMallActivity.class);
-//                            intentsss.putExtra("type", 1);
-//                            startActivity(intentsss);
+
+                            Intent intentsss = new Intent(getActivity(), ShopCompsiteMallActivity.class);
+                            intentsss.putExtra("type", 1);
+                            startActivity(intentsss);
                             break;
                         case 3://乐聊
                             Intent intentss = new Intent(getActivity(), ShopMallActivity.class);
@@ -143,6 +143,10 @@ public class Fragment_more_app extends BaseFragment implements BaseContract.View
                             break;
                         case 4://我的
 
+                            Intent etintent = new Intent(getActivity(), EntityStoreActivity.class);
+                            startActivity(etintent);
+                            break;
+                        case 5://同城
                             if (HomeActivitys.isLogin) {
                                 Intent intents = new Intent(getActivity(), ChatSplashActivity.class);
                                 if (HomeActivitys.messageGroup == null) {
@@ -153,9 +157,10 @@ public class Fragment_more_app extends BaseFragment implements BaseContract.View
                             } else {
                                 startActivity(new Intent(getActivity(), LoginActivity.class));
                             }
-                            break;
-                        case 5://同城
 
+                            break;
+                        case 6: //应用
+//                            ShareUtils.showMyShareApp(getActivity(), "", "");
                             if (HomeActivitys.isLogin) {
                                 Intent intent3 = new Intent(getActivity(), MainActivity.class);
                                 intent3.putExtra("type", 3);
@@ -163,9 +168,9 @@ public class Fragment_more_app extends BaseFragment implements BaseContract.View
                             } else {
                                 startActivity(new Intent(getActivity(), LoginActivity.class));
                             }
+
                             break;
-                        case 6: //应用
-//                            ShareUtils.showMyShareApp(getActivity(), "", "");
+                        case 7: //应用
                             ShareBean shareBean = new ShareBean();
                             shareBean.img_ = "https://ifun.xjxlsy.cn/h5/images/logo.png";
                             shareBean.content_ = "快来了体验数字时代app吧！";
@@ -174,19 +179,22 @@ public class Fragment_more_app extends BaseFragment implements BaseContract.View
                             shareBean.url_ = com.zhongchuang.canting.db.Constant.APP_SHARE;
                             CanTingAppLication.shareBean = shareBean;
                             ShareUtils.showMyShares(getActivity(), getString(R.string.jiguang), "http://www.gwlaser.tech");
+
                             break;
-                        case 7: //应用
+                        case 8:
                             Intent intent4 = new Intent(getActivity(), AppStoreActivity.class);
                             intent4.putExtra("type", 1);
                             startActivity(intent4);
                             break;
-
+                        case 9:
+                            Intent intentvip = new Intent(getActivity(), ShopVIPMallActivity.class);
+                            startActivity(intentvip);
+                            break;
                     }
                 }
             });
 
         }
-
 
         initView();
 
@@ -246,8 +254,10 @@ public class Fragment_more_app extends BaseFragment implements BaseContract.View
     private int cont;
     private List<HOMES> datas = new ArrayList<>();
     public void setData(int cout) {
-        String[] indepent1 = { getString(R.string.zb),getString(R.string.fhsc), getString(R.string.cjzg),"线下商城",
-                getString(R.string.ll), getString(R.string.grzx), getString(R.string.appfx), getString(R.string.yy), getString(R.string.appfx),"VIP商城"};
+        String[] indepent1 = { getString(R.string.zb),getString(R.string.fhsc), getString(R.string.cjzg), getString(R.string.szds),"线下商家",
+                getString(R.string.ll), getString(R.string.grzx), getString(R.string.appfx), getString(R.string.yy),"VIP商城"};
+//        String[] indepent1 = { getString(R.string.zb),getString(R.string.fhsc), getString(R.string.cjzg), getString(R.string.cjzg),"线下商家",
+//                getString(R.string.ll), getString(R.string.grzx), getString(R.string.appfx), getString(R.string.yy), getString(R.string.appfx),"VIP商城"};
         datas.clear();
         cont = 0;
         for (int url : homeimg1) {

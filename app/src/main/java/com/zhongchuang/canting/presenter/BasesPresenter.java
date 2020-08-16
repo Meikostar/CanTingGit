@@ -778,6 +778,10 @@ public class BasesPresenter implements BaseContract.Presenter {
             params.put("merIdcard", bean.merIdcard);
 
         }
+        if (TextUtil.isNotEmpty(bean.merAddress)) {
+            params.put("merAddress", bean.merAddress);
+        }
+
         if (TextUtil.isNotEmpty(bean.business_url)) {
             params.put("business_url", bean.business_url);
 

@@ -20,6 +20,7 @@ import com.zhongchuang.canting.activity.chat.ChatSplashActivity;
 import com.zhongchuang.canting.activity.mall.ShopCompsiteMallActivity;
 import com.zhongchuang.canting.activity.mall.ShopMallActivity;
 import com.zhongchuang.canting.activity.offline.AuditOfflineActivity;
+import com.zhongchuang.canting.activity.offline.StoreDetailActivity;
 import com.zhongchuang.canting.activity.shop.AppStoreActivity;
 import com.zhongchuang.canting.adapter.HomeItemdapter;
 import com.zhongchuang.canting.app.CanTingAppLication;
@@ -73,17 +74,28 @@ public class Fragment_more_app1 extends BaseFragment {
 
                 switch (position) {
                     case 0: //商城
+                        if (HomeActivitys.isLogin) {
+                            Intent intentd = new Intent(getActivity(), StoreDetailActivity.class);
+                            startActivity(intentd);
+                        } else {
+                            startActivity(new Intent(getActivity(), LoginActivity.class));
+                        }
 
-                        Intent intentSupe = new Intent(getActivity(), AuditOfflineActivity.class);
-                        startActivity(intentSupe);
                         break;
-                    case 10: //商城
-                        CanTingAppLication.CompanyType=Constant.type[0];
+                    case 1: //商城
+//                        CanTingAppLication.CompanyType=Constant.type[0];
+//
+//                        Intent intentsss = new Intent(getActivity(), OtherAppActivity.class);
+////                        intentsss.putExtra("data", indepent1[0]);
+//                        intentsss.putExtra("type", 0);
+//                        startActivity(intentsss);
+                        if (HomeActivitys.isLogin) {
+                            Intent intentSupe = new Intent(getActivity(), AuditOfflineActivity.class);
+                            startActivity(intentSupe);
+                        } else {
+                            startActivity(new Intent(getActivity(), LoginActivity.class));
+                        }
 
-                        Intent intentsss = new Intent(getActivity(), OtherAppActivity.class);
-//                        intentsss.putExtra("data", indepent1[0]);
-                        intentsss.putExtra("type", 0);
-                        startActivity(intentsss);
 
                         break;
                     case 11://乐聊
@@ -106,10 +118,9 @@ public class Fragment_more_app1 extends BaseFragment {
 
             }
         });
-        if(!SpUtil.isSuper()){
-            setData();
-            gridContent1.setAdapter(homedapter);
-        }
+        setData();
+        gridContent1.setAdapter(homedapter);
+
 
         return view;
     }
@@ -117,19 +128,33 @@ public class Fragment_more_app1 extends BaseFragment {
     private int type;
     private int cont;
     private List<HOMES> datas = new ArrayList<>();
-    public  int[] imgs = {R.drawable.homes_super};
-    public String[] names = {"店铺审核"};
+    public  int[] imgsup = {R.drawable.homes_11};
+    public  int[] imgs = {R.drawable.homes_11,R.drawable.homes_super};
+    public String[] names = {"申请入驻","店铺审核"};
+    public String[] namesup = {"申请入驻"};
 
     public void setData() {
 
         datas.clear();
         cont = 0;
-        for (int url : imgs) {
-            HOMES homes = new HOMES();
-            homes.name = names[cont];
-            homes.url = url;
-            datas.add(homes);
+        if(SpUtil.isSuper()){
+            for (int url : imgs) {
+                HOMES homes = new HOMES();
+                homes.name = names[cont];
+                homes.url = url;
+                datas.add(homes);
+                cont++;
+            }
+        }else {
+            for (int url : imgsup) {
+                HOMES homes = new HOMES();
+                homes.name = namesup[cont];
+                homes.url = url;
+                datas.add(homes);
+                cont++;
+            }
         }
+
 
         if(homedapter!=null){
             homedapter.setData(datas);

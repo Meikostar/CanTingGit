@@ -73,7 +73,7 @@ public class HomeItemdapters extends BaseAdapter {
             holder = (ViewHolder) view.getTag();
         }
 
-        if(i==4){
+        if(i==5){
             if(datas.get(i).cout!=0){
                 holder.txt_unread.setVisibility(View.VISIBLE);
                 if(datas.get(i).cout>99){

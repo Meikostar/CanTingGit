@@ -48,6 +48,7 @@ import com.zhongchuang.canting.presenter.BaseContract;
 import com.zhongchuang.canting.presenter.BasesPresenter;
 import com.zhongchuang.canting.utils.Constants;
 import com.zhongchuang.canting.utils.DateUtils;
+import com.zhongchuang.canting.utils.LocationUtils;
 import com.zhongchuang.canting.utils.PhotoUtils;
 import com.zhongchuang.canting.utils.QiniuUtils;
 import com.zhongchuang.canting.utils.SpUtil;
@@ -99,6 +100,8 @@ public class EnterpireOfflineRequireActivity extends BaseActivity1 implements Ba
     EditText       etContent2;
     @BindView(R.id.et_content3)
     EditText       etContent3;
+    @BindView(R.id.et_content4)
+    EditText       etContent4;
     @BindView(R.id.iv_img11)
     ImageView      ivImg11;
     @BindView(R.id.iv_img22)
@@ -146,7 +149,7 @@ public class EnterpireOfflineRequireActivity extends BaseActivity1 implements Ba
         ButterKnife.bind(this);
         tvTitleText.setText("线下店铺申请入驻");
         presenter = new BasesPresenter(this);
-        presenter.getHomeBanner("1");
+        presenter.getHomeBanner("2");
         getUpToken();
         bean = new OfflineBean();
         dto =new ArrayList<>();
@@ -427,8 +430,8 @@ public class EnterpireOfflineRequireActivity extends BaseActivity1 implements Ba
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(EnterpireOfflineRequireActivity.this, EaseBaiduMapActivity.class);
-                intent.putExtra("latitude", LocationUtil.latitude);
-                intent.putExtra("longitude", LocationUtil.latitude);
+                intent.putExtra("latitude",0.0d);
+                intent.putExtra("longitude", LocationUtil.longitude);
                 intent.putExtra("address", LocationUtil.city);
                 intent.putExtra("state",1);
                 startActivityForResult(intent,999);
@@ -756,10 +759,13 @@ public class EnterpireOfflineRequireActivity extends BaseActivity1 implements Ba
                     handler.sendEmptyMessage(2);
 //                    Glide.with(this).load(path).asBitmap().transform(new CircleTransform(this)).placeholder(R.drawable.editor_ava).into(img);
                 case 999:
-                    bean.latitude =data.getDoubleExtra("latitude",0.0)+"";
-                    bean.longitude =data.getDoubleExtra("longitude",0.0)+"";
-                    bean.merAddress = data.getStringExtra("address");
-                    tv_location.setText(bean.merAddress);
+                    bean.latitude =LocationUtil.latitude+"";
+                    bean.longitude =LocationUtil.longitude+"";
+                    if(TextUtil.isNotEmpty(data.getStringExtra("address"))){
+                        bean.merAddress = data.getStringExtra("address");
+                        tv_location.setText(bean.merAddress);
+                    }
+
                 default:
             }
         }
@@ -839,6 +845,22 @@ public class EnterpireOfflineRequireActivity extends BaseActivity1 implements Ba
             ToastUtil.showToast("请输入联系人电话");
             return;
         }
+        if (TextUtils.isEmpty(tv_time.getText().toString().trim())) {
+            ToastUtil.showToast("请输入营业时间");
+            return;
+        }
+        bean.business_time =tv_time.getText().toString().trim();
+        if (TextUtils.isEmpty(etContent4.getText().toString().trim())) {
+            ToastUtil.showToast("请输入身份证号");
+            return;
+        }
+        if (TextUtils.isEmpty(tv_location.getText().toString().trim())) {
+            ToastUtil.showToast("请选择商家位置");
+            return;
+        }
+
+        bean.merAddress =tv_location.getText().toString().trim();
+        bean.merIdcard =etContent4.getText().toString().trim();
         bean.linkPhone =etContent3.getText().toString().trim();
         bean.merPhone =etContent3.getText().toString().trim();
         bean.creat_phone =SpUtil.getMobileNumber(this);
@@ -862,15 +884,7 @@ public class EnterpireOfflineRequireActivity extends BaseActivity1 implements Ba
             return;
         }
 
-        if (TextUtils.isEmpty(bean.license_img)) {
-            ToastUtil.showToast("添加行业经营许可证");
-            return;
-        }
 
-        if (TextUtils.isEmpty(bean.brand_img)) {
-            ToastUtil.showToast("添加品牌授权资质");
-            return;
-        }
 
         if (TextUtils.isEmpty(bean.shop_logo)) {
             ToastUtil.showToast("请上传logo");
@@ -884,7 +898,7 @@ public class EnterpireOfflineRequireActivity extends BaseActivity1 implements Ba
         if(TextUtil.isNotEmpty(bean.shop_urls)){
             bean.shop_urls=url;
         }
-        bean.merIdcard ="szsd"+System.currentTimeMillis();
+
         presenter.saveOfflineShop(bean);
     }
 

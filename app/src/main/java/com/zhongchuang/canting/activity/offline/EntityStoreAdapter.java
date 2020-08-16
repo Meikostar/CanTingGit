@@ -38,13 +38,8 @@ public class EntityStoreAdapter extends BaseQuickAdapter<RecommendListDto, BaseV
     protected void convert(BaseViewHolder helper, RecommendListDto item) {
         if (item != null) {
             helper.setText(R.id.tv_entity_store_name, item.getShop_name());
-            if(item.getArea()!=null){
-                String dec="";
-                for(String dc:item.getArea()){
-                    dec=dec+dc;
-                }
-
-                helper.setText(R.id.tv_entity_store_distance, dec+(TextUtil.isNotEmpty(item.getAddress())?item.getAddress():""));
+            if(TextUtil.isNotEmpty(item.getAddress())){
+                helper.setText(R.id.tv_entity_store_distance, (TextUtil.isNotEmpty(item.getAddress())?item.getAddress():""));
             }else {
                 helper.setText(R.id.tv_entity_store_distance, "");
             }
@@ -66,6 +61,7 @@ public class EntityStoreAdapter extends BaseQuickAdapter<RecommendListDto, BaseV
             TextView tv_pp = helper.getView(R.id.tv_pp);
             TextView view1 = helper.getView(R.id.tv_label_two);
             TextView view2 = helper.getView(R.id.tv_label_three);
+
             if(item.service_arr != null) {
                 if(item.service_arr.size()==1){
                     view.setVisibility(View.VISIBLE);
@@ -95,20 +91,13 @@ public class EntityStoreAdapter extends BaseQuickAdapter<RecommendListDto, BaseV
                 view1.setVisibility(View.INVISIBLE);
                 view2.setVisibility(View.INVISIBLE);
             }
-            if(item.getExt()!=null){
-                if(TextUtil.isNotEmpty(item.getExt().is_brand)){
-                    if(item.getExt().is_brand.equals("1")){
-                        tv_pp.setVisibility(View.VISIBLE);
-                    }else {
-                        tv_pp.setVisibility(View.GONE);
-                    }
-                }else {
-                    tv_pp.setVisibility(View.GONE);
-                }
+
+            if(TextUtil.isNotEmpty(item.brand_img)){
+                tv_pp.setVisibility(View.VISIBLE);
             }else {
-                tv_pp.setVisibility(View.GONE);
+//                tv_pp.setVisibility(View.GONE);
             }
-            Glide.with(mContext).load(QiniuUtils.baseurl + item.getLogo()).asBitmap().placeholder(R.drawable.moren).into((ImageView) helper.getView(R.id.iv_entity_store));
+            Glide.with(mContext).load(item.getLogo()).asBitmap().placeholder(R.drawable.moren).into((ImageView) helper.getView(R.id.iv_entity_store));
 
 
             helper.getView(R.id.tv_go).setOnClickListener(new View.OnClickListener() {

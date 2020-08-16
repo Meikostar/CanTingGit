@@ -15,6 +15,7 @@ public class RecommendListDto implements Serializable {
     public String       mer_phone;
     public String       link_man;
     public String       front_id_card;
+    public int       account_source;
     public String       mer_password;
     public String       real_name;
     public String       industry;

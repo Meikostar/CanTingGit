@@ -63,7 +63,7 @@
             android:gravity="center"
             android:layout_height="wrap_content"
             android:textColor="#666"
-            android:textSize="14.5sp"
+            android:textSize="13.5sp"
             tools:text="消息" />
     </LinearLayout>
 </LinearLayout>

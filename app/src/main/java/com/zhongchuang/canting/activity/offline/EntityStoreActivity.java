@@ -71,6 +71,7 @@ import com.zhongchuang.canting.utils.MapUtil;
 import com.zhongchuang.canting.utils.SpUtil;
 import com.zhongchuang.canting.utils.TextUtil;
 import com.zhongchuang.canting.utils.UIUtil;
+import com.zhongchuang.canting.utils.location.LocationUtil;
 import com.zhongchuang.canting.widget.ClearEditText;
 import com.zhongchuang.canting.widget.HorizontalDividerItemDecoration;
 import com.zhongchuang.canting.widget.banner.BannerView;
@@ -136,7 +137,7 @@ public class EntityStoreActivity extends BaseAllActivity implements View.OnClick
         initeSxPopup();
         initAdapter();
         presenter = new BasesPresenter(this);
-        presenter.getHomeBannerss("1");
+        presenter.getHomeBannerss("6");
     }
 
     @Override
@@ -169,9 +170,9 @@ public class EntityStoreActivity extends BaseAllActivity implements View.OnClick
         //        });
 
         bindClickEvent(store_ll_location, () -> {
-            Bundle bundle = new Bundle();
-            bundle.putString("from", "entityStores");
-            gotoActivity(SelectCityActivity.class, false, bundle, GETCITY);
+//            Bundle bundle = new Bundle();
+//            bundle.putString("from", "entityStores");
+//            gotoActivity(SelectCityActivity.class, false, bundle, GETCITY);
         });
 
         bindClickEvent(layout_all, () -> {
@@ -257,10 +258,10 @@ public class EntityStoreActivity extends BaseAllActivity implements View.OnClick
 
     @Override
     public void initData() {
-
+        getShopList(TYPE_PULL_REFRESH);
         getTopBanner();
         getConfigs();
-        getTagsList();
+//        getTagsList();
         getInducts();
         getLocation();
 
@@ -373,9 +374,9 @@ public class EntityStoreActivity extends BaseAllActivity implements View.OnClick
             @Override
             public void onClick(View v) {
                 levelsSxPopupWindow.dismiss();
-                Bundle bundle = new Bundle();
-                bundle.putString("from", "entityStores");
-                gotoActivity(SelectCityActivity.class, false, bundle, GETCITY);
+//                Bundle bundle = new Bundle();
+//                bundle.putString("from", "entityStores");
+//                gotoActivity(SelectCityActivity.class, false, bundle, GETCITY);
             }
         });
         tvLocations.setText(location);
@@ -556,9 +557,9 @@ public class EntityStoreActivity extends BaseAllActivity implements View.OnClick
             @Override
             public void onClick(View v) {
                 levelsAllPopupWindow.dismiss();
-                Bundle bundle = new Bundle();
-                bundle.putString("from", "entityStores");
-                gotoActivity(SelectCityActivity.class, false, bundle, GETCITY);
+//                Bundle bundle = new Bundle();
+//                bundle.putString("from", "entityStores");
+//                gotoActivity(SelectCityActivity.class, false, bundle, GETCITY);
             }
         });
         mClassifyOneAdapter = new ClassifyOneAdapters();
@@ -912,8 +913,8 @@ public class EntityStoreActivity extends BaseAllActivity implements View.OnClick
 
     private void getLocation() {
         HashMap<String, String> map = new HashMap<>();
-        map.put("lat", LocationUtils.Lat + "");
-        map.put("lng", LocationUtils.longt + "");
+        map.put("lat", LocationUtil.latitude + "");
+        map.put("lng", LocationUtil.longitude+ "");
         presenter.getLocation(map);
 
     }
@@ -1111,9 +1112,9 @@ public class EntityStoreActivity extends BaseAllActivity implements View.OnClick
             @Override
             public void onClick(View v) {
                 levelsPopupWindow.dismiss();
-                Bundle bundle = new Bundle();
-                bundle.putString("from", "entityStores");
-                gotoActivity(SelectCityActivity.class, false, bundle, GETCITY);
+//                Bundle bundle = new Bundle();
+//                bundle.putString("from", "entityStores");
+//                gotoActivity(SelectCityActivity.class, false, bundle, GETCITY);
             }
         });
         layout_nears.setOnClickListener(new View.OnClickListener() {

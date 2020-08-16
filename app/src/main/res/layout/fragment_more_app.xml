@@ -30,7 +30,7 @@
                             android:layout_height="190dp"
                             android:background="@color/white"
                             android:listSelector="@color/transparent"
-                            android:numColumns="4"
+                            android:numColumns="5"
                             android:paddingLeft="5dp"
                             android:paddingRight="5dp" />
 

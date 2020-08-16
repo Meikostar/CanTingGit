@@ -36,13 +36,9 @@ public class EntityAuditeStoreAdapter extends BaseQuickAdapter<RecommendListDto,
     protected void convert(BaseViewHolder helper, RecommendListDto item) {
         if (item != null) {
             helper.setText(R.id.tv_entity_store_name, item.getShop_name());
-            if(item.getArea()!=null){
-                String dec="";
-                for(String dc:item.getArea()){
-                    dec=dec+dc;
-                }
+            if(TextUtil.isNotEmpty(item.getAddress())){
 
-                helper.setText(R.id.tv_entity_store_distance, dec+(TextUtil.isNotEmpty(item.getAddress())?item.getAddress():""));
+                helper.setText(R.id.tv_entity_store_distance, (TextUtil.isNotEmpty(item.getAddress())?item.getAddress():""));
             }else {
                 helper.setText(R.id.tv_entity_store_distance, "");
             }
@@ -129,7 +125,7 @@ public class EntityAuditeStoreAdapter extends BaseQuickAdapter<RecommendListDto,
                     tv_pp.setVisibility(View.GONE);
                 }
             }else {
-                tv_pp.setVisibility(View.GONE);
+//                tv_pp.setVisibility(View.GONE);
             }
             Glide.with(mContext).load(item.getLogo()).asBitmap().placeholder(R.drawable.moren).into((ImageView) helper.getView(R.id.iv_entity_store));
 

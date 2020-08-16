@@ -223,7 +223,6 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
         presenter = new BasesPresenter(this);
-        Location location = LocationUtils.getInstance(this).showLocation();
         PermissionGen.with(HomeActivitys.this)
                 .addRequestCode(PermissionConst.REQUECT_CODE_CAMERA)
                 .permissions(Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -1640,7 +1639,7 @@ public class HomeActivitys extends BaseTitle_Activity implements BaseContract.Vi
                 }
 
             }
-            LocationUtils.getInstance(this).removeLocationUpdatesListener();
+
         } else    if (type == 19) {
             Ingegebean    bean = (Ingegebean) entity;
             if(bean==null){

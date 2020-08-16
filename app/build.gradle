@@ -25,8 +25,8 @@ android {
         applicationId "com.zhongchuang.canting"
         minSdkVersion MIN_SDK_VERSION as int
         targetSdkVersion TARGET_SDK_VERSION as int
-        versionCode 298
-        versionName "2.9.8"
+        versionCode 300
+        versionName "3.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         ndk {

@@ -820,12 +820,12 @@ public interface netService {
     Call<OrderData> accountMoney(@Body OrderParam body);
 
     @Headers({"Content-Type: application/json", "Accept: application/json"})
-    @POST("http://api.huifengshengwu.cn/api/user/shoppingGive")
+    @POST("http://129.204.135.156:8088/api/user/shoppingGive")
     Call<BaseResponse> shoppingGive(@Body WpParam body);
 
 
 
-    @GET("http://api.huifengshengwu.cn/api/user/getPoints")
+    @GET("http://129.204.135.156:8088/api/user/getPoints")
     Call<BaseResponse> getPoints(@Query("phone") String phone);
 
     /**
@@ -870,7 +870,7 @@ public interface netService {
     Call<SmgBaseBean6> getArea(@QueryMap Map<String, String> map);
 
     @Headers({"Content-Type: application/json", "Accept: application/json"})
-    @POST("http://api.huifengshengwu.cn/api/user/shoppingCut")
+    @POST("http://129.204.135.156:8088/api/user/shoppingCut")
     Call<BaseResponse> shoppingCut(@Body WpParam body);
 
     @Headers({"Content-Type: application/json", "Accept: application/json"})

@@ -95,11 +95,7 @@ public class EaseBaiduMapActivity extends EaseBaseActivity {
 
 		Intent intent = getIntent();
 		double latitude = intent.getDoubleExtra("latitude", 0);
-		int state = intent.getIntExtra("latitude", 0);
-		if(state == 1){
-			sendButton.setText("确定");
-			sendButton.setVisibility(View.VISIBLE);
-		}
+
 		LocationMode mCurrentMode = LocationMode.NORMAL;
 		mBaiduMap = mMapView.getMap();
 		MapStatusUpdate msu = MapStatusUpdateFactory.zoomTo(15.0f);

@@ -88,6 +88,7 @@
                 android:layout_height="0.5dp"
                 android:background="#e8e8e8" />
             <LinearLayout
+                android:focusableInTouchMode="true"
                 android:layout_marginLeft="@dimen/bj_13dp"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
@@ -126,6 +127,7 @@
                 android:layout_height="0.5dp"
                 android:background="#e8e8e8" />
             <LinearLayout
+                android:focusableInTouchMode="true"
                 android:layout_marginLeft="@dimen/bj_13dp"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
@@ -164,6 +166,7 @@
                 android:layout_height="0.5dp"
                 android:background="#e8e8e8" />
             <LinearLayout
+                android:focusableInTouchMode="true"
                 android:layout_marginLeft="@dimen/bj_13dp"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
@@ -191,6 +194,44 @@
                     android:textColorHint="#ffd4d6d9"
                     android:background="@null"
                     android:hint="联系人电话" />
+
+
+            </LinearLayout>
+            <View
+                android:layout_marginLeft="14dp"
+                android:layout_marginRight="14dp"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#e8e8e8" />
+            <LinearLayout
+                android:focusableInTouchMode="true"
+                android:layout_marginLeft="@dimen/bj_13dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="53dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="商家身份号"
+                    android:textColor="#6C6E74"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:textColor="@color/my_color_333333"
+                    android:paddingRight="30dp"
+                    android:paddingLeft="25dp"
+                    android:id="@+id/et_content4"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_centerVertical="true"
+                    android:textSize="15sp"
+                    android:textColorHint="#ffd4d6d9"
+                    android:background="@null"
+                    android:hint="身份证号" />
 
 
             </LinearLayout>
@@ -364,14 +405,15 @@
                         android:layout_marginBottom="15dp"
                         android:layout_marginTop="15dp"
                         android:src="@drawable/addmoretp" />
+                    <com.zhongchuang.canting.widget.ImageUploadView
+                        android:id="@+id/piuv_remark_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="5.7dp"
+                        android:visibility="gone" />
                 </LinearLayout>
 
-                <com.zhongchuang.canting.widget.ImageUploadView
-                    android:id="@+id/piuv_remark_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="5.7dp"
-                    android:visibility="gone" />
+
             </FrameLayout>
             <LinearLayout
                 android:layout_width="match_parent"
